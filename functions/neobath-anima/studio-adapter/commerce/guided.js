@@ -1,3 +1,4 @@
+import {cabinetSettingsForRole} from '../cabinet-role.js';
 import {openingBathroomProject} from '../../../../shared/lrf-3d/opening-project.js';
 import {basinColors,basinLayouts,resolveBasinLayout,topSelection} from '../basins.js';
 import {topAvailable,cabinetFormat} from '../configuration.js';
@@ -5,9 +6,9 @@ import {CATALOG as C} from './catalog.js';
 
 export const DRAFT_KEY='neobath-anima-studio-guided-v1';
 export const TRANSFER_KEY='neobath-anima-studio-guided-transfer-v1';
-export const initialDraft=()=>({version:1,step:0,format:'two',facadeMode:'overlay',width:80,finish:'rovere-alba',top:'bare',basinColor:'standard',topDrawer:'siphon',grass:false,ncsCode:'',column:false,columnModel:'pura-column',columnFinish:'rovere-alba',mirror:null,mirrorSize:0,mirrorFinish:'standard'});
+export const initialDraft=()=>({version:1,step:0,format:'pura-base-two',facadeMode:'overlay',width:80,finish:'rovere-alba',top:'bare',basinColor:'standard',topDrawer:'full',grass:false,ncsCode:'',column:false,columnModel:'pura-column',columnFinish:'rovere-alba',mirror:null,mirrorSize:0,mirrorFinish:'standard'});
 export function normalizeDraft(input) {
-  const d={...initialDraft(),...input},m=C.models.find(m=>m.id===d.format);
+  let d={...initialDraft(),...input};d=cabinetSettingsForRole(d);const m=C.models.find(m=>m.id===d.format);
   if(d.version!==1||!m||!C.finishes.some(f=>f.id===d.finish)||!Number.isInteger(d.width)||!m.allowedWidths.includes(d.width))throw Error('Choisissez une largeur disponible pour ce meuble Anima.');
   d.facadeMode='overlay';
   if(d.topSpan!==undefined&&d.topSpan!==d.width||d.topOffset!==undefined&&d.topOffset!==0)throw Error('Configurez le plan continu dans l’atelier, sur des meubles juxtaposés.');

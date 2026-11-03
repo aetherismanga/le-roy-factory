@@ -2,6 +2,7 @@ import {CATALOG as C,PRODUCTS,modelProduct,publicPrice,sourceNote,productImage} 
 import {topSelection} from '../anima-data.js';
 import {continuousTopContext,continuousTopCompatible} from '../projects.js';
 import {normalizeTopSurface} from '../premium-materials.js';
+import {resolveBasinAccessories} from '../basin-accessories.js';
 
 export const money = cents => Number.isInteger(cents) ? new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(cents/100) : 'Prix sur demande';
 export const finish = id => C.finishes.find(f=>f.id===id);
@@ -17,6 +18,7 @@ export function lineItems(item,project=null) {
       publicTTC:Number.isInteger(price)?Math.round(price*(1+extra)):null,note:sourceNote(product),image:productImage(product)});
   };
   if(item.type==='cabinet') {
+    try{resolveBasinAccessories(PRODUCTS.get(s.top),s);}catch(error){rows.push({itemId:item.id,name:'Option de fond de vasque incompatible',ref:'À confirmer',detail:error.message,publicTTC:null,note:'Choisissez une tablette et une vasque compatibles avant de chiffrer le projet.'});return rows;}
     const m=C.models.find(m=>m.id===s.format),p=modelProduct(s.format,s.width);
     if(!m||!p||!f){rows.push({itemId:item.id,name:'Meuble NEOBATH ANIMA',ref:'À confirmer',detail:'Configuration à vérifier',publicTTC:null,note:'Choisissez une référence Anima valide.'});return rows;}
     const grass=s.grass===true&&p.drawers?(p.height===26?.15:.20):0;
@@ -37,9 +39,10 @@ export function lineItems(item,project=null) {
       if(basin) {
         const key=variantKey(basin,s.basinPriceKey||s.basinColor),color=basin.prices?.find(p=>p.key===key)?.label||'';
         row(basin,'Vasque '+basin.label,[basin.width&&basin.depth?`${basin.width} × ${basin.depth} cm`:'',color,basin.basinCount===2?'Deux cuves (tarif de la paire)':'',/ncs/i.test(key||'')?'NCS '+(s.ncsCode||'à préciser avant commande'):''].filter(Boolean).join(' · '),key);
+        for(const accessory of selection.basinAccessoryProducts||[])row(accessory,accessory.label,accessory.ref+' · option de la vasque '+basin.ref);
       }
     }
-    for(const [id,key] of [[s.lightId,s.lightPriceKey],[s.accessoryId,s.accessoryPriceKey]]){const p=PRODUCTS.get(id);if(p)row(p,p.label,p.prices?.find(v=>v.key===key)?.label||'',key);}
+    for(const [id,key] of [[s.lightId,s.lightPriceKey],[s.accessoryId,s.accessoryPriceKey]]){const p=PRODUCTS.get(id);if(p&&!rows.some(row=>row.productId===p.id))row(p,p.label,p.prices?.find(v=>v.key===key)?.label||'',key);}
   } else if(item.type==='column') {
     const c=C.columns.find(c=>c.id===s.columnModel)||C.columns.find(c=>c.facade===String(s.facade||'PURA').toUpperCase())||C.columns[0];
     const p=PRODUCTS.get(c?.productId);

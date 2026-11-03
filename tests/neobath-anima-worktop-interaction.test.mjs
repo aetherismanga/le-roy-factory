@@ -2,14 +2,16 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {parse} from 'acorn';
+import {normalizeCabinetRoles} from '../functions/neobath-anima/studio-adapter/cabinet-role.js';
+import {cabinetFormat,cabinetProduct} from '../functions/neobath-anima/studio-adapter/configuration.js';
 import {validateProject,ProjectJournal} from '../functions/neobath-anima/studio-adapter/projects.js';
 import {quoteProject} from '../functions/neobath-anima/studio-adapter/commerce/pricing.js';
 import {transferPlan,findWorktopSnap,setupWorktopDragging,isCustomWorktop,isWorktopHit} from '../functions/neobath-anima/studio-adapter/worktop-interaction.js';
 import {transformCommonStudioSource} from '../functions/neobath-anima/studio-adapter/studio-source-transform.mjs';
 import {transformWorktopInteraction} from '../functions/neobath-anima/studio-adapter/worktop-transform.mjs';
 
-const cabinet=(id,u,width=80,format='two')=>({id,type:'cabinet',settings:{format,width,top:'bare',finish:'rovere-alba',drawers:[0,0],grass:false,tap:'existing-'+id},placement:{wall:0,u,height:30}});
-function project(){const source=cabinet('source',100),target=cabinet('target',300);Object.assign(source.settings,{top:'tfx1-linear-top',topSpan:80,topOffset:0,topLength:120,topShift:0,topDepth:55,basinOffsetX:0,basinOffsetZ:0,topSurfaceId:'fenix-blu-shaba',topPriceKey:'fenix'});return validateProject({version:2,room:{points:[[0,0],[450,0],[450,450],[0,450]]},items:[source,target]});}
+const cabinet=(id,u,width=80,format='pura-base-two')=>({id,type:'cabinet',settings:{format,width,top:'bare',finish:'rovere-alba',drawers:[0,0],grass:false,tap:'existing-'+id},placement:{wall:0,u,height:30}});
+function project(){const source=cabinet('source',100),target=cabinet('target',300);Object.assign(source.settings,{top:'tfx1-linear-top',topSpan:80,topOffset:0,topLength:120,topShift:0,topDepth:55,basinOffsetX:0,basinOffsetZ:0,topSurfaceId:'fenix-blu-shaba',topPriceKey:'fenix'});return validateProject(normalizeCabinetRoles({version:2,room:{points:[[0,0],[450,0],[450,450],[0,450]]},items:[source,target]}));}
 const frame=(id,x,y=.82,z=0,rotation=0)=>({id,center:{x,y,z},tangent:{x:Math.cos(rotation),z:-Math.sin(rotation)},rotation});
 
 test('worktop transfers without changing stock cabinet identity or duplicating its tariff',()=>{
@@ -19,17 +21,17 @@ test('worktop transfers without changing stock cabinet identity or duplicating i
  for(const key of ['format','width','finish','drawers','grass','tap'])assert.deepEqual(target.settings[key],before.items[1].settings[key]);
  for(const key of ['top','topLength','topDepth','topSurfaceId','topPriceKey','basinOffsetX','basinOffsetZ'])assert.equal(target.settings[key],before.items[0].settings[key]);
  assert.equal(target.settings.topShift,12);assert.deepEqual(target.placement,before.items[1].placement);
- assert.equal(quoteProject(moved.project).publicTTC,quote.publicTTC);
+ assert.equal(quoteProject(moved.project).publicTTC,quote.publicTTC);assert.equal(quoteProject(moved.project).subtotal,quote.subtotal);assert.ok(moved.project.items.every(item=>cabinetFormat(item.settings.format).subtype==='base'));assert.equal(cabinetProduct(target.settings.format,target.settings.width).ref,'APUR-BA8052');
  assert.equal(quoteProject(moved.project).rows.filter(row=>row.ref==='TFX1').length,1);
  const journal=new ProjectJournal();journal.seed(draft);journal.record(moved.project);assert.deepEqual(journal.undo(),draft);assert.deepEqual(journal.redo(),moved.project);
 });
 
 test('a custom deck carries its exact basin, arbitrary offsets, depth and colour prices to its new owner',()=>{
- const draft=project();Object.assign(draft.items[0].settings,{top:'tpgea12-b938-1-basin',topPlanId:'tpgea12-linear-top',basinOffsetX:5,basinOffsetZ:-2,basinColor:'white-matte',basinPriceKey:'white-matte',topPriceKey:'white-matte',topSurfaceId:'geacril-white-matte'});
- validateProject(draft);const before=quoteProject(draft),moved=transferPlan(draft,'source','target');
+ let draft=project();Object.assign(draft.items[0].settings,{top:'tpgea12-b938-1-basin',topPlanId:'tpgea12-linear-top',basinOffsetX:5,basinOffsetZ:-2,basinColor:'white-matte',basinPriceKey:'white-matte',topPriceKey:'white-matte',topSurfaceId:'geacril-white-matte'});
+ draft=normalizeCabinetRoles(draft);validateProject(draft);const before=quoteProject(draft),moved=transferPlan(draft,'source','target');
  const target=moved.project.items[1].settings;
  for(const key of ['top','topPlanId','topLength','topDepth','basinOffsetX','basinOffsetZ','basinColor','basinPriceKey','topPriceKey','topSurfaceId'])assert.equal(target[key],draft.items[0].settings[key],key);
- assert.equal(quoteProject(moved.project).publicTTC,before.publicTTC);
+ assert.equal(quoteProject(moved.project).publicTTC,before.publicTTC);assert.equal(quoteProject(moved.project).subtotal,before.subtotal);assert.equal(cabinetFormat(moved.project.items[0].settings.format).subtype,'base');assert.equal(cabinetFormat(target.format).subtype,'vanity');assert.equal(cabinetProduct(target.format,target.width).ref,'APUR-PL8052');
  assert.equal(quoteProject(moved.project).rows.filter(row=>row.ref==='B938').length,1);
  assert.equal(quoteProject(moved.project).rows.filter(row=>row.ref==='TPGEA12').length,1);
 });

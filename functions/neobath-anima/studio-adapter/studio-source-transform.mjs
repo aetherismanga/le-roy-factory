@@ -5,6 +5,8 @@ import {transformPremiumRendering} from './premium-render-transform.mjs';
 import {transformAnimaCabinetUI} from './cabinet-ui-transform.mjs';
 import {transformAnimaMirrorUI} from './mirror-ui-transform.mjs';
 import {transformWorktopInteraction} from './worktop-transform.mjs';
+import {transformCabinetRoles} from './cabinet-role-transform.mjs';
+import {transformAnimaBasinDragAtelier,transformAnimaBasinDragShared} from './basin-drag-transform.mjs';
 const STUDIO_ORIGIN='https://studio-one-beta-test-v2.vercel.app/';
 const PRIVATE_URL='https://leroyfactory.fr/neobath-anima-configurateur.html';
 const navigationPrelude=`
@@ -65,6 +67,8 @@ export function transformCommonStudioSource(input,relativePath){
   source=transformAnimaCabinetUI(source);
   source=transformAnimaMirrorUI(source);
   source=transformWorktopInteraction(source);
+  source=transformCabinetRoles(source);
+  source=transformAnimaBasinDragAtelier(source);
   source=source.replace('choices=cabinetCombinations(total);','choices=cabinetCombinations(total,composition?.selected?.settings.format);')
    .replace('widths.some(w=>!validWidth(w))','widths.some(w=>!validWidth(w,selected.settings.format))')
    .replace("format:form.id,width,topSpan:width,topOffset:0,top:topAvailable(selected.settings.top,width,form.id)?selected.settings.top:'bare',","format:form.id,width,topSpan:width,topOffset:0,top:'bare',topPlanId:'',topLength:width,topShift:0,topDepth:undefined,basinOffsetX:0,basinOffsetZ:0,topSurfaceId:'',topSurfaceNcs:'',topPriceKey:'',basinPriceKey:'',")
@@ -139,7 +143,8 @@ function transformAtelierSource(source){
 export function transformSharedStudioSource(input,path){
  let source=input;
  if(path==='shared/lrf-3d/i18n/index.js')source=routePrelude+source.replace(/\blocation\.(href|search|hash|pathname|origin)\b/g,'__animaLocation().$1').replace(/\bhistory(?=\.|\[)/g,'__animaHistory');
- if(path==='shared/lrf-3d/drawer-options.js')source="import {TOP_OPTIONS as __animaDrawerTops} from '@anima-adapter/anima-data.js';\n"+source.replace("export const fullTopDrawerAvailable=top=>['plain','neris','torne'].includes(top);","export const fullTopDrawerAvailable=top=>top==='plain'||__animaDrawerTops.some(option=>option.id===top&&['cover','countertop'].includes(option.category));");
+ if(path==='shared/lrf-3d/drawer-options.js')source="import {TOP_OPTIONS as __animaDrawerTops} from '@anima-adapter/anima-data.js';\n"+source.replace("export const fullTopDrawerAvailable=top=>['plain','neris','torne'].includes(top);","export const fullTopDrawerAvailable=top=>top==='bare'||top==='plain'||__animaDrawerTops.some(option=>option.id===top&&['cover','countertop'].includes(option.category));");
+ if(path==='shared/lrf-3d/product-placement-drag.js')source=transformAnimaBasinDragShared(source);
  if(path==='shared/lrf-3d/public-compositions.js')return 'export const PUBLIC_COMPOSITIONS=Object.freeze([]);export const publicComposition=()=>null;export const publicCompositionProject=()=>null;\n';
  if(path==='shared/lrf-3d/cabinet-options-ui.js'){
   source=source.replace("export const topOptionPhoto=id=>['sella','tampa','neris','torne'].includes(id)?media+'basin-'+id+'.webp':null;","export const topOptionPhoto=id=>{const v=globalThis.NEOBATH_ANIMA_VISUALS?.products?.[id];return typeof v==='string'?v:v?.image||v?.photo||null;};")
@@ -176,7 +181,7 @@ export function studioBody(source,formats=[]){
   .replace('id="basin-description">Vasque encastrée · miroir rond Ø 60','id="basin-description">Caisson seul · sans plan de travail ni vasque')
   .replace('id="add-menu-mirror" type="button">Miroir rond · Ø 60 cm','id="add-menu-mirror" type="button">Miroirs Neobath Anima')
   .replace('<strong>Miroir</strong><small>Ø 60 cm</small>','<strong>Miroir</strong><small>Formats catalogue</small>')
-  .replace('<strong>Meuble</strong><small>4 formats</small>','<strong>Meuble</strong><small>16 formats Anima</small>')
+  .replace('<strong>Meuble</strong><small>4 formats</small>','<strong>Meuble</strong><small>5 modèles · rôle automatique</small>')
   .replace(/Les six familles de miroirs NEOBATH[^<]+/,'Les miroirs NEOBATH ANIMA sont proposés selon les modèles et les dimensions du catalogue. Les dispositifs électroniques d’antibuée ou de capteur ne sont pas simulés.')
   .replace('cette expérience n’écrit ni sur le site de production, ni dans Firebase, ni dans le CRM.','les projets Anima sont enregistrés dans votre espace privé.')
   .replace(/<p>Les bois utilisent les échantillons d’origine[\s\S]*?<\/p>/,'<p>Les finitions utilisent les visuels HD NEOBATH ANIMA et leur sens de fil adapté aux façades et côtés. Les couleurs doivent être validées sur les échantillons du fabricant. Les miroirs reflètent la scène ; le rendu interactif conserve les éclairages et ombres de Studio One.</p>');

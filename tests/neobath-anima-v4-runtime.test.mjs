@@ -15,6 +15,7 @@ import {quoteProject} from '../functions/neobath-anima/studio-adapter/commerce/p
 import {planSettings} from '../functions/neobath-anima/studio-adapter/premium-controls.js';
 import {renderAnimaCabinetGallery,renderAnimaCabinetControls,matchingCabinetFacade} from '../functions/neobath-anima/studio-adapter/cabinet-controls.js';
 import {animaMirrorFamilies,animaMirrorSelection,renderAnimaMirrorChooser} from '../functions/neobath-anima/studio-adapter/mirror-controls.js';
+import {normalizeCabinetRoles} from '../functions/neobath-anima/studio-adapter/cabinet-role.js';
 import {transferPlan,findWorktopSnap,setupWorktopDragging} from '../functions/neobath-anima/studio-adapter/worktop-interaction.js';
 import {transformOriginalModel} from '../functions/neobath-anima/studio-adapter/model-transform.mjs';
 import {transformCommonStudioSource} from '../functions/neobath-anima/studio-adapter/studio-source-transform.mjs';
@@ -40,7 +41,7 @@ const close=(actual,expected,message)=>assert.ok(Math.abs(actual-expected)<1e-6,
 function dispose(root){const geometries=new Set(),materials=new Set();root.traverse(o=>{if(o.isMesh){geometries.add(o.geometry);for(const m of Array.isArray(o.material)?o.material:[o.material])materials.add(m);}});for(const geometry of geometries)geometry.dispose();for(const material of materials)material.dispose();root.removeFromParent();}
 function cabinet(id,u=100,settings={}){return {id,type:'cabinet',settings:{format:'two',facadeMode:'overlay',width:80,finish:'rovere-alba',top:'bare',topDrawer:'siphon',drawers:[0,0],...settings},placement:{wall:0,u,height:30}};}
 function project(items=[cabinet('source'),cabinet('target',220)]){return {version:2,manufacturer:'neobath-anima',room:{points:[[0,0],[500,0],[500,400],[0,400]]},items};}
-function planned({basin=false,depth=false}={}){const value=project(),host=value.items[0];host.settings=planSettings(value,host,'tfx1-linear-top',{span:80,offset:0,ids:[host.id]},basin?'vasca-a50':null);assert.ok(host.settings);Object.assign(host.settings,{topLength:100,topShift:2,topSurfaceId:'fenix-blu-shaba',...(depth?{topDepth:60,basinOffsetX:3,basinOffsetZ:-5}:{})});validateProject(value);return value;}
+function planned({basin=false,depth=false}={}){const value=project(),host=value.items[0];host.settings=planSettings(value,host,'tfx1-linear-top',{span:80,offset:0,ids:[host.id]},basin?'vasca-a50':null);assert.ok(host.settings);Object.assign(host.settings,{topLength:100,topShift:2,topSurfaceId:'fenix-blu-shaba',...(depth?{topDepth:60,basinOffsetX:3,basinOffsetZ:-5}:{})});Object.assign(value,normalizeCabinetRoles(value));validateProject(value);return value;}
 class Element {
  constructor(document,tag){this.ownerDocument=document;this.tagName=tag.toUpperCase();this.children=[];this.dataset={};this.attributes={};this.style={};this.textContent='';this.hidden=false;this.listeners=new Map();}
  append(...children){this.children.push(...children);for(const child of children)if(child&&typeof child==='object')child.parentNode=this;}
@@ -61,7 +62,7 @@ class Canvas {
 
 test('initial cabinet chooser shows photographed Pura shapes; Ribelle preserves the exact opening and stock widths',()=>{
  const document=documentFixture(),selected=[],gallery=renderAnimaCabinetGallery(document.body,{onChoose:id=>selected.push(id)}),cards=all(gallery).filter(node=>node.dataset?.animaCabinetModel);
- assert.equal(cards.length,CABINET_FORMATS.filter(form=>form.facade==='PURA').length);assert.ok(cards.length<16);
+ assert.equal(cards.length,5);assert.equal(cards.length,CABINET_FORMATS.filter(form=>form.facade==='PURA'&&form.subtype!=='vanity').length);
  for(const card of cards){const form=cabinetFormat(card.dataset.animaCabinetModel);assert.equal(form.facade,'PURA');assert.ok(all(card).some(node=>node.tagName==='IMG'&&node.src));card.onclick();assert.equal(selected.at(-1),form.id);
   const ribelle=matchingCabinetFacade(form,'RIBELLE');assert.ok(ribelle);for(const field of ['subtype','height','depth','trueDrawers','doors','opening'])assert.equal(ribelle[field],form[field],field);assert.deepEqual(ribelle.allowedWidths,form.allowedWidths);
  }

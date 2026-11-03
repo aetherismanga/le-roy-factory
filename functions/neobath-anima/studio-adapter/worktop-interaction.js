@@ -1,10 +1,11 @@
+import {normalizeCabinetRoles} from './cabinet-role.js';
 import {CABINET_FORMATS} from './configuration.js';
 import {topSelection} from './anima-data.js';
 import {continuousPlanGroups,continuousTopContext,validateProject} from './projects.js';
 
 // Only the deck assembly changes owner. Stock furniture, hardware, taps and
 // placements keep their own identities. Explicit source tariffs travel with it.
-export const WORKTOP_SETTINGS=Object.freeze(['top','topPlanId','topSpan','topOffset','topLength','topShift','topDepth','basinOffsetX','basinOffsetZ','topSurfaceId','topSurfaceNcs','topPriceKey','basinPriceKey','basinColor','basinLayout']);
+export const WORKTOP_SETTINGS=Object.freeze(['top','topPlanId','topSpan','topOffset','topLength','topShift','topDepth','basinOffsetX','basinOffsetZ','topSurfaceId','topSurfaceNcs','topPriceKey','basinPriceKey','basinColor','basinLayout','basinBottom','basinSupport']);
 const clone=value=>structuredClone(value);
 const formOf=item=>CABINET_FORMATS.find(form=>form.id===item?.settings?.format);
 const cabinet=(project,id)=>project?.items?.find(item=>item.id===id&&item.type==='cabinet');
@@ -36,8 +37,8 @@ export function transferPlan(project,sourceId,targetId,{supportIds,topShift=0}={
  if(!context||context.ids.some(id=>occupied.has(id)||locked(next,cabinet(next,id))))throw Error('Le plan doit reposer sur des meubles libres, juxtaposés et à la même hauteur.');
  if(!Number.isFinite(topShift))throw Error('Décalage de plan invalide.');
  to.settings={...to.settings,...payload,topSpan:context.span,topOffset:context.offset,topShift:round(topShift)};
- validateProject(next);
- return {project:next,sourceId,targetId,context,topShift:round(topShift)};
+ const normalized=normalizeCabinetRoles(next);validateProject(normalized);
+ return {project:normalized,sourceId,targetId,context,topShift:round(topShift)};
 }
 
 /** Frames are real cabinet surface centres in metres, supplied by the scene. */

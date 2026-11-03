@@ -1,6 +1,7 @@
 import CATALOGUE from '../catalogue.json' with {type:'json'};
 import {animaWellProfile,animaWellLayout} from './top-profiles.js';
 import {MATERIAL_FAMILIES} from './materials-data.js';
+import {resolveBasinAccessories} from './basin-accessories.js';
 
 export {CATALOGUE};
 export const PRODUCTS=CATALOGUE.products;
@@ -27,7 +28,7 @@ export function topSelection(mode,width=80,format='two',layout='center',topSpan=
   const span=Number.isFinite(topSpan)&&topSpan>=width?topSpan:width;
   const length=topLength??span;
   if(!Number.isFinite(length)||length<span)return null;
-  if(mode==='bare'||!mode)return {mode:'bare',top:null,basin:null,product:null,topWidth:0,billingLength:0,integrated:false,positions:[]};
+  if(mode==='bare'||!mode){try{resolveBasinAccessories(null,options);}catch{return null;}return {mode:'bare',top:null,basin:null,product:null,topWidth:0,billingLength:0,integrated:false,positions:[],basinBottom:'none',basinSupport:false,basinAccessoryProducts:[]};}
   let product=PRODUCT_BY_ID.get(mode),top=null,basin=null;
   if(mode==='plain')product=TOP_PRODUCTS.find(p=>p.subtype==='cover'&&p.compatibleWidths?.includes(width))||PRODUCT_BY_ID.get('tpgea12-linear-top');
   if(!product)return null;
@@ -41,7 +42,9 @@ export function topSelection(mode,width=80,format='two',layout='center',topSpan=
     top=topPlanId?choices.find(p=>p.id===topPlanId&&productFitsWidth(p,length)):choices.find(p=>productFitsWidth(p,length))||(!choices.length?PRODUCT_BY_ID.get('tpgea12-linear-top'):null);
   }
   if(!top||!productFitsWidth(top,top.configurableWidth?length:span)||!top.configurableWidth&&length!==span||basin&&!productFitsWidth(basin,length))return null;
-  const notVanity=String(format).includes('-base-')||String(format).endsWith('-wall');
+  // Floor cabinets acquire their real vanity counterpart when a basin is
+  // placed. The project validator checks the actual supporting stock units.
+  const notVanity=String(format).endsWith('-wall');
   if(notVanity&&(top.requiresVanity||basin?.requiresVanity||top.subtype==='integrated'||basin?.subtype==='integrated'))return null;
   if(basin&&basin.width&&basin.width>length-.2)return null;
   const finishedWidth=top.width||length,integrated=top.subtype==='integrated'||basin?.subtype==='integrated';
@@ -67,6 +70,7 @@ export function topSelection(mode,width=80,format='two',layout='center',topSpan=
   const selection={mode,top,basin,product,basinOffsetX:offsetX,basinOffsetZ:offsetZ,topWidth:finishedWidth,billingLength:top.billingLength||length,integrated,topSpan:span,topLength:length,previewDepth,referenceDepth,customDepth:Math.abs(previewDepth-referenceDepth)>.001,previewDepthNote:top.depth?null:reference?.referenceDepthNote||'Profondeur d’implantation à confirmer avant fabrication.',
     positions:centres,positionsZ,reference:product.ref||null,format,layout:count===2?'double':position==='left'?'left':position==='right'?'right':'center'};
   if(integrated){selection.wellProfiles=animaWellLayout(selection);if(!selection.wellProfiles)return null;}
+  try{const accessories=resolveBasinAccessories(basin||product,options);Object.assign(selection,{basinBottom:accessories.basinBottom,basinSupport:accessories.basinSupport,basinAccessoryProducts:accessories.products,basinBottomProduct:accessories.bottomProduct,basinSupportProduct:accessories.supportProduct});}catch{return null;}
   return selection;
 }
 export const TOP_OPTIONS=Object.freeze([

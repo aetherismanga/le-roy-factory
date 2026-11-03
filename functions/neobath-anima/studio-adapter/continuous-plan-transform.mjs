@@ -17,16 +17,17 @@ function __animaSyncContinuousTops(){
  }
  for(const item of composition.items){
   if(item.type!=='cabinet'||cabinetFormat(item.settings.format).subtype!=='vanity'||!item.asset.setBasinCenters)continue;
-  let centres=null;
+  const positions=[];
   for(const host of composition.items){
-   if(host.type!=='cabinet'||!(host.settings.topSpan>host.settings.width)||host.settings.top==='bare'||host.placement.wall!==item.placement.wall)continue;
-   const spec=__animaTopSelection(host.settings.top,host.settings.width,host.settings.format,host.settings.basinLayout,host.settings.topSpan);
+   if(host.type!=='cabinet'||host.settings.top==='bare'||host.placement.wall!==item.placement.wall||host.id!==item.id&&!(host.settings.topSpan>host.settings.width))continue;
+   const spec=__animaTopSelection(host.settings.top,host.settings.width,host.settings.format,host.settings.basinLayout,host.settings.topSpan,host.settings.topPlanId,host.settings.topLength,host.settings);
    if(!spec?.positions.length)continue;
-   const values=spec.positions.map(value=>value+(host.settings.topOffset||0)/100+(host.placement.u-item.placement.u)/100).filter(value=>Math.abs(value)<item.settings.width/200-.09);
-   if(values.length)centres=values;
+   const form=cabinetFormat(host.settings.format),baseZ=form.depth/2-.23+(spec.previewDepth-(spec.referenceDepth??spec.previewDepth))/200;
+   const actual=host.asset.getBasinPositions?.()||spec.positions.map((value,i)=>({x:value+((host.settings.topOffset||0)+(host.settings.topShift||0))/100,z:(spec.positionsZ?.[i]??.020)+baseZ}));
+   for(const point of actual){const x=point.x+(host.placement.u-item.placement.u)/100,z=point.z+((host.placement.offset||0)-(item.placement.offset||0))/100;if(Math.abs(x)<item.settings.width/200-.09&&!positions.some(position=>Math.abs(position.x-x)<.000001&&Math.abs(position.z-z)<.000001))positions.push({x,z});}
   }
-  if(!centres&&item.settings.top==='bare')centres=[0];if(!centres)continue;
-  const key=centres.join('|');if(item.asset.__animaPlumbingKey===key)continue;item.asset.__animaPlumbingKey=key;item.asset.setBasinCenters(centres);
+  positions.sort((a,b)=>a.x-b.x);const key=positions.map(point=>point.x+','+point.z).join('|');if(item.asset.__animaPlumbingKey===key)continue;item.asset.__animaPlumbingKey=key;item.asset.setBasinCenters(positions.map(point=>point.x),positions.map(point=>point.z));item.asset.setTopDrawer(positions.length?'siphon':'full');
+
  }
 }
 `;

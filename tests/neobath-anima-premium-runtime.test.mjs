@@ -15,6 +15,7 @@ import {CABINET_FORMATS,cabinetFormat,topAvailable,validWidth,animaCabinetDimens
 import {continuousPlanOption} from '../functions/neobath-anima/studio-adapter/continuous-plan-ui.js';
 import {validateProject,encodeProject,decodeProject,continuousTopContext,continuousTopCompatible} from '../functions/neobath-anima/studio-adapter/projects.js';
 import {surfaceOptions,normalizeTopSurface} from '../functions/neobath-anima/studio-adapter/premium-materials.js';
+import {normalizeCabinetRoles,cabinetSettingsForRole} from '../functions/neobath-anima/studio-adapter/cabinet-role.js';
 import {planSettings} from '../functions/neobath-anima/studio-adapter/premium-controls.js';
 
 // This is a CPU integration check of genuine materials and model nodes. The
@@ -48,12 +49,13 @@ const snapshot=item=>JSON.parse(JSON.stringify({version:2,manufacturer:'neobath-
 function dispose(root){const geometries=new Set(),materials=new Set();root.traverse(o=>{if(o.isMesh){geometries.add(o.geometry);for(const m of Array.isArray(o.material)?o.material:[o.material])materials.add(m);}});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());root.removeFromParent();}
 
 function atelier(width=120){
-  const state={format:'two',facadeMode:'overlay',width,finish:'rovere-alba',top:'bare',basinColor:'standard',topDrawer:'siphon',topSpan:width,topOffset:0,drawers:[0,0]};
-  const asset=M.makeModel({width:width/100,format:'two',basinTop:'bare',includeMirror:false});
-  const item={id:'premium-cabinet',type:'cabinet',settings:{...state},asset,root:new T.Group(),decor:[],dimensions:animaCabinetDimensions(state),placement:{wall:0,u:150,height:30}};item.root.add(asset.root);
-  const composition={selected:item,selectedId:item.id,items:[item],resize:(_item,dimensions)=>{item.dimensions=dimensions;return null;}};
+  const state={ready:true,format:'pura-base-two',facadeMode:'overlay',width,finish:'rovere-alba',top:'bare',basinColor:'standard',topDrawer:'full',topSpan:width,topOffset:0,drawers:[0,0]};
+  const asset=M.makeModel({width:width/100,format:'pura-base-two',basinTop:'bare',includeMirror:false});
+  const item={id:'premium-cabinet',type:'cabinet',settings:{...state},asset,root:new T.Group(),decor:[],motion:{drawers:[0,0]},dimensions:animaCabinetDimensions(state),placement:{wall:0,u:150,height:30}};item.root.add(asset.root);
+  const composition={selected:item,selectedId:item.id,items:[item],validate:()=>'',sync:noop,resize:(_item,dimensions)=>{item.dimensions=dimensions;return null;}};
   let rebuilds=0;
   const context={...basins,T,state,CABINET_KEYS,TOP_OPTIONS,CABINET_FORMATS,FINISHES:M.FINISHES,composition,model:asset,grain:null,roomScene:{},
+    __animaRolePlanSettings:planSettings,__animaNormalizeRoles:normalizeCabinetRoles,__animaCabinetRole:cabinetSettingsForRole,projectWorkspace:{locked:false},isItemPositionLocked:()=>false,disposeObject:dispose,makeSceneAsset:(_type,s)=>M.makeModel({...s,width:s.width/100,basinTop:s.top,includeMirror:false}),
     __animaTopSelection:topSelection,__animaIntegrated:isIntegratedTop,__animaVessel:isVesselTop,__animaPlanOption:continuousPlanOption,
     __animaPremiumContext:continuousTopContext,__animaPremiumCompatible:continuousTopCompatible,validateProject,collectProject:()=>snapshot(item),
     topAvailable,validWidth,cabinetFormat,selectedCabinet:()=>true,itemDimensions:(_type,s)=>animaCabinetDimensions(s),
@@ -61,7 +63,7 @@ function atelier(width=120){
     refreshWidthUI:noop,refreshBasinUI:noop,refreshInspector:noop,renderComposition:noop,placementStatus:noop,invalidate:noop,
     makeModel:settings=>{if(++rebuilds>10)throw Error('Repeated atelier rebuild: '+JSON.stringify(settings));return M.makeModel(settings);},currentDrawers:[0,0],counterDecor:[],selectFinish:noop,setView:noop,releaseModel:old=>dispose(old.root),
     requestFinishAssets:async()=>null,finishTextures:{},scheduleProjectCheckpoint:noop};
-  const names=['selectTop','selectBasinColor','saveCabinetState','setWidth','paintAsset','applyFurnitureMaterial',...[...functions.keys()].filter(name=>/^__anima/.test(name)&&!/SyncContinuous/.test(name))];
+  const names=['selectTop','selectBasinColor','saveCabinetState','setWidth','paintAsset','applyFurnitureMaterial',...[...functions.keys()].filter(name=>/^__anima/.test(name))];
   vm.createContext(context);vm.runInContext([...new Set(names)].filter(n=>functions.has(n)).map(n=>functions.get(n)).join('\n'),context);
   return {context,item,state};
 }

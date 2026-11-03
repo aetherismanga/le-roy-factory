@@ -1,5 +1,5 @@
-import {createAnimaSession, isAnimaAgent} from './neobath-anima-session.mjs?v=20261103-anima4b';
-import {animaFrameDocument, animaRoute} from './neobath-anima-document.mjs?v=20261103-anima4b';
+import {createAnimaSession, isAnimaAgent} from './neobath-anima-session.mjs?v=20261103-anima5';
+import {animaFrameDocument, animaRoute} from './neobath-anima-document.mjs?v=20261103-anima5';
 
 const API = 'https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication';
 const shell = document.getElementById('anima-private-shell');

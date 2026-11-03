@@ -7,6 +7,7 @@ import {initialDraft,normalizeDraft,draftProject} from '../functions/neobath-ani
 import {quoteProject} from '../functions/neobath-anima/studio-adapter/commerce/pricing.js';
 import {validateProject,encodeProject,decodeProject,continuousPlanGroups,continuousTopCompatible} from '../functions/neobath-anima/studio-adapter/projects.js';
 import {transformHomeSource} from '../functions/neobath-anima/studio-adapter/home-transform.mjs';
+import {normalizeCabinetRoles} from '../functions/neobath-anima/studio-adapter/cabinet-role.js';
 
 test('the original Studio One catalogue contract covers all 42 Anima modules and only its six finishes',()=>{
   assert.equal(C.models.length,16);
@@ -37,10 +38,13 @@ test('the quote does not count room openings as unpriced articles but still iden
   assert.equal(withTap.publicTTC,92160);assert.deepEqual(withTap.missing,[]);
   assert.deepEqual(withTap.excluded,[{id:'extra-tap',type:'tap',reference:'illustrative-tap'}]);
 });
-test('Ribelle H26 and its GRASS upgrade use the source stock reference and surcharge, never a Randal format',()=>{
+test('Ribelle H26 starts as the real base SKU and switches to its source vanity SKU only with a basin',()=>{
   const p=draftProject({...initialDraft(),format:'ribelle-one',width:80,grass:true});
   const q=quoteProject(p);
-  assert.equal(q.rows[0].ref,'ARIB-PL8026');assert.equal(q.publicTTC,56442);
+  assert.equal(q.rows[0].ref,'ARIB-BA8026');assert.equal(q.publicTTC,52854); // BA:383 HT + GRASS15%, TVA20%.
+  const withBasin=draftProject({...initialDraft(),format:'ribelle-one',width:80,grass:true,top:'tk80-integrated-top'}),basinQuote=quoteProject(withBasin);
+  assert.equal(withBasin.items[0].settings.format,'ribelle-one');assert.equal(withBasin.items[0].settings.topDrawer,'siphon');
+  assert.deepEqual(basinQuote.rows.map(row=>row.ref),['ARIB-PL8026','TK80']);assert.equal(basinQuote.rows[0].publicTTC,56442);assert.equal(basinQuote.publicTTC,80442); // PL:409 HT, same15% + TK80:200HT.
   assert.equal(p.items[0].placement.height,56);
   assert.throws(()=>normalizeDraft({...initialDraft(),format:'three'}));
   assert.throws(()=>normalizeDraft({...initialDraft(),width:70}));
@@ -53,15 +57,30 @@ test('per-centimetre tops and integrated bowl supplements stay separate tariff l
   assert.equal(q.rows[1].publicTTC,55560);
   assert.equal(q.rows[2].publicTTC,67200);
 });
+test('the actual quote follows automatic base-to-vanity conversion and returns to the base price after basin removal',()=>{
+  const project=draftProject(initialDraft()),host=project.items[0];
+  assert.equal(host.settings.format,'pura-base-two');assert.equal(quoteProject(validateProject(project)).publicTTC,64800);
+  host.settings={...host.settings,top:'tk80-integrated-top',basinColor:'white-gloss'};
+  const fitted=normalizeCabinetRoles(project),withBasin=quoteProject(validateProject(fitted));
+  assert.equal(fitted.items[0].id,host.id);assert.deepEqual(fitted.items[0].placement,host.placement);
+  assert.equal(fitted.items[0].settings.format,'two');assert.equal(fitted.items[0].settings.topDrawer,'siphon');
+  assert.deepEqual(withBasin.rows.map(row=>row.ref),['APUR-PL8052','TK80']);assert.equal(withBasin.publicTTC,92160);
+  fitted.items[0].settings.top='bare';fitted.items[0].settings.basinColor='standard';
+  const removed=normalizeCabinetRoles(fitted),withoutBasin=quoteProject(validateProject(removed));
+  assert.equal(removed.items[0].settings.format,'pura-base-two');assert.equal(removed.items[0].settings.topDrawer,'full');
+  assert.deepEqual(withoutBasin.rows.map(row=>row.ref),['APUR-BA8052']);assert.equal(withoutBasin.publicTTC,64800);
+});
 test('unpierced covers and linear plans use their own valid finish keys before project validation',()=>{
   const cover=normalizeDraft({...initialDraft(),top:'tpc80-cover'});
   assert.equal(cover.basinColor,'furniture-finish');
-  assert.equal(quoteProject(validateProject(draftProject(cover))).publicTTC,79200);
+  const coverQuote=quoteProject(validateProject(draftProject(cover)));
+  assert.deepEqual(coverQuote.rows.map(row=>row.ref),['APUR-BA8052','TPC80']);assert.equal(coverQuote.rows[0].publicTTC,64800);assert.equal(coverQuote.publicTTC,75840); // BA540HT, cover92HT.
   const linear=normalizeDraft({...initialDraft(),top:'tpgea12-linear-top'});
   assert.equal(linear.basinColor,'white-matte');
-  assert.equal(quoteProject(validateProject(draftProject(linear))).publicTTC,112608);
+  const linearQuote=quoteProject(validateProject(draftProject(linear)));
+  assert.deepEqual(linearQuote.rows.map(row=>row.ref),['APUR-BA8052','TPGEA12']);assert.equal(linearQuote.rows[1].publicTTC,44448);assert.equal(linearQuote.publicTTC,109248);
   const ncs=normalizeDraft({...linear,basinColor:'ncs-matte',ncsCode:'S 2010-G10Y'});
-  assert.equal(quoteProject(validateProject(draftProject(ncs))).publicTTC,123456);
+  assert.equal(quoteProject(validateProject(draftProject(ncs))).publicTTC,120096);
 });
 test('projects keep the original Studio One room structure and reject unknown furniture and basin colours',()=>{
   const p=draftProject({...initialDraft(),top:'tk80-integrated-top',column:true,columnModel:'ribelle-column'});
@@ -76,7 +95,7 @@ function continuous140Project() {
   const base=structuredClone(host);base.id='adjacent-base-40';base.settings={...base.settings,format:'pura-base-door',width:40,top:'bare',drawers:[0]};base.placement.u=host.placement.u+70;
   project.items.push(base);
   host.settings={...host.settings,top:'to140sx-integrated-top',topSpan:140,topOffset:20,basinColor:'white-matte'};
-  return project;
+  return normalizeCabinetRoles(project);
 }
 test('a 140cm source plan spans one actual 100cm vanity and its adjacent 40cm base with one charge',()=>{
   const project=continuous140Project(),host=project.items[0],groups=continuousPlanGroups(project,host.id);
@@ -109,12 +128,13 @@ test('continuous plan candidates include supported 140cm subgroups inside a wide
 test('a 160cm double-bowl plan needs two genuine vanities and the pair is billed once',()=>{
   const project=continuous140Project(),host=project.items[0],companion=project.items.find(item=>item.id==='adjacent-base-40');
   host.settings={...host.settings,width:80,top:'tpgea12-b855-2-basin',topSpan:160,topOffset:40};
-  companion.settings={...companion.settings,format:'two',width:80,drawers:[0,0]};companion.placement.u=host.placement.u+80;
-  const q=quoteProject(validateProject(project));
+  companion.settings={...companion.settings,format:'pura-base-two',width:80,drawers:[0,0]};companion.placement.u=host.placement.u+80;
+  const normalized=normalizeCabinetRoles(project),q=quoteProject(validateProject(normalized));
+  assert.equal(q.rows.filter(row=>row.ref==='APUR-PL8052').length,2,'both real supports become vanities under their own bowl');
   assert.equal(q.rows.filter(row=>row.ref==='B855').length,1);assert.equal(q.rows.find(row=>row.ref==='B855').publicTTC,206520);
   assert.equal(q.rows.find(row=>row.ref==='TPGEA12').publicTTC,88896);assert.equal(q.publicTTC,431736);
-  companion.settings.format='pura-base-two';
-  assert.throws(()=>validateProject(project),/sous-vasque/);assert.equal(quoteProject(project).publicTTC,null);
+  normalized.items.find(item=>item.id===companion.id).settings.format='pura-base-two';
+  assert.throws(()=>validateProject(normalized),/sous-vasque/);assert.equal(quoteProject(normalized).publicTTC,null);
 });
 test('the Anima build adapts the original five-step Studio One source and retains its workspace and quote controls',()=>{
   const source=readFileSync(new URL('../studio-one/src/commerce/home.js',import.meta.url),'utf8');

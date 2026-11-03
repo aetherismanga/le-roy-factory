@@ -23,9 +23,9 @@ function documentFixture(){const document={createElement:tag=>new Element(docume
 const find=(root,key,value)=>all(root).find(element=>element.dataset[key]===value);
 function customProject(){const project=draftProject({...initialDraft(),width:100}),host=project.items.find(item=>item.type==='cabinet'),choice=premiumPlanChoices(project,host).find(choice=>choice.product.id==='tfx1-linear-top');host.settings=choice.contexts.find(context=>context.span===100).settings;return {project,host};}
 
-test('the initial visual catalogue presents exactly eight Pura stock models with the correct opening photos',()=>{
+test('the initial visual catalogue presents exactly five Pura stock shapes without duplicate under-basin models with the correct opening photos',()=>{
  const document=documentFixture(),picked=[],bound=[],root=renderAnimaCabinetGallery(document.body,{onChoose:id=>picked.push(id),onCard:(button,form)=>bound.push(form.id)}),cards=all(root).filter(element=>element.dataset.animaCabinetModel);
- assert.equal(cards.length,8);assert.deepEqual([...bound].sort(),puraCabinetModels().map(form=>form.id).sort());assert.ok(cards.every(card=>cabinetFormat(card.dataset.animaCabinetModel).facade==='PURA'));
+ assert.equal(cards.length,5);assert.ok(cards.every(card=>cabinetFormat(card.dataset.animaCabinetModel).subtype!=='vanity'));assert.deepEqual([...bound].sort(),puraCabinetModels().map(form=>form.id).sort());assert.ok(cards.every(card=>cabinetFormat(card.dataset.animaCabinetModel).facade==='PURA'));
  assert.ok(!all(root).some(element=>element.tagName==='SELECT'));
  for(const card of cards){const form=cabinetFormat(card.dataset.animaCabinetModel),visual=cabinetModelPhoto(form,80),image=card.children.find(element=>element.tagName==='IMG');assert.equal(image.src,visual.src);assert.ok(image.alt.includes(visual.product.ref));assert.equal(visual.product.drawers,form.trueDrawers);assert.equal(visual.product.doors,form.doors);card.onclick();assert.equal(picked.at(-1),form.id);}
 });
@@ -85,4 +85,38 @@ test('adding a new basin to an existing deep plan keeps the bowl above the actua
  const choices=premiumBasinChoices(project,host),choice=choices.find(choice=>choice.product.id==='vasca-a50');assert.ok(choice,'a supported deep plan must still offer its compatible A50 basin');assert.equal(choice.settings.topDepth,80);assert.equal(choice.settings.basinOffsetZ,expectedOffset);
  validateProject({...project,items:project.items.map(item=>item.id===host.id?{...item,settings:choice.settings}:item)});
  const document=documentFixture(),patches=[],root=renderPremiumPlanControls(document.body,{project,host,onPatch:settings=>{patches.push(settings);return true;}});find(root,'premiumBasin','vasca-a50').onclick();assert.equal(patches[0].basinOffsetZ,expectedOffset);assert.equal(patches[0].topDepth,80);
+});
+
+test('a configured vanity highlights its single canonical base shape and changing shape keeps Ribelle',()=>{
+ const document=documentFixture(),picked=[],settings={format:'ribelle-two',width:80},root=renderAnimaCabinetControls(document.body,{settings,onModel:id=>picked.push(id)}),gallery=all(root).find(element=>element.dataset.animaCabinetGallery==='true'),cards=all(gallery).filter(element=>element.dataset.animaCabinetModel);
+ assert.equal(cards.length,5);assert.equal(cards.filter(card=>card.attributes['aria-pressed']==='true').length,1);assert.equal(cards.find(card=>card.attributes['aria-pressed']==='true').dataset.animaCabinetModel,'pura-base-two');
+ const one=cards.find(card=>card.dataset.animaCabinetModel==='pura-base-one');assert.ok(one);one.onclick();assert.deepEqual(picked,['ribelle-base-one']);
+ assert.ok(all(root).some(element=>element.textContent==='Sous-vasque · passage de siphon adapté à votre vasque'));
+});
+
+test('every illustrated basin card exposes its actual source choice to left-button drag binding',()=>{
+ const {project,host}=customProject(),document=documentFixture(),bound=[],patches=[],root=renderPremiumPlanControls(document.body,{project,host,onPatch:settings=>{patches.push(settings);return true;},onBasinCard:(button,choice)=>bound.push({button,choice})}),cards=all(root).filter(element=>element.dataset.premiumBasin);
+ assert.ok(cards.length>8);assert.equal(bound.length,cards.length);assert.deepEqual(bound.map(binding=>binding.button),cards);
+ for(const {button,choice} of bound){assert.equal(button.dataset.premiumBasin,choice.product.id);assert.equal(choice.settings.top,choice.product.id);assert.ok(button.children.some(element=>element.tagName==='IMG'));}
+ const first=bound[0];first.button.onclick();assert.equal(patches.at(-1).top,first.choice.product.id);
+});
+
+test('base cabinet choices become real under-basin references only when a basin is installed, then restore full storage',()=>{
+ for(const format of ['pura-base-two','pura-base-one','pura-base-doors']){
+  const project=draftProject(initialDraft()),host=project.items.find(item=>item.type==='cabinet');host.settings={...host.settings,format,width:80,top:'bare'};
+  const plan=premiumPlanChoices(project,host).find(choice=>choice.product.id==='tfx1-linear-top');assert.ok(plan);host.settings=plan.contexts[0].settings;assert.equal(cabinetFormat(host.settings.format).subtype,'base');assert.equal(host.settings.topDrawer,'full');
+  const basin=premiumBasinChoices(project,host).find(choice=>choice.product.id==='vasca-a50');assert.ok(basin,format);host.settings=basin.settings;assert.equal(cabinetFormat(host.settings.format).subtype,'vanity');assert.equal(host.settings.topDrawer,'siphon');validateProject(project);
+  const document=documentFixture(),patches=[],root=renderPremiumPlanControls(document.body,{project,host,onPatch:settings=>{patches.push(settings);host.settings=settings;validateProject(project);return true;}}),kind=find(root,'premiumControl','basin-kind');kind.value='none';kind.onchange();assert.equal(cabinetFormat(patches.at(-1).format).subtype,'base');assert.equal(patches.at(-1).topDrawer,'full');assert.equal(patches.at(-1).width,80);
+ }
+});
+
+test('smoked Eclisse offers independent source tablet and support options and clears them on opaque finish',()=>{
+ for(const id of ['eclisse116-countertop-basin','eclisse115-countertop-basin','eclisse114-countertop-basin','eclisse116-s-semi-recessed-basin','eclisse115-s-semi-recessed-basin','eclisse114-s-semi-recessed-basin']){
+  const {project,host}=customProject(),choice=premiumBasinChoices(project,host).find(choice=>choice.product.id===id);assert.ok(choice,id);host.settings={...choice.settings,basinColor:'fume-matte',basinPriceKey:'fume-matte'};
+  const document=documentFixture();let root;const render=()=>{document.body.replaceChildren();root=renderPremiumPlanControls(document.body,{project,host,onPatch:settings=>{host.settings=settings;validateProject(project);render();return true;}});};render();
+  const suffix=PRODUCT_BY_ID.get(id).ref.match(/(114|115|116)/)[1],bottom=find(root,'premiumControl','basin-bottom'),support=find(root,'premiumControl','basin-support');assert.ok(bottom,id);assert.ok(support,id);assert.match(bottom.children[1].textContent,new RegExp('TVL'+suffix));assert.match(bottom.children[1].textContent,/225,60/);assert.match(support.children[1].textContent,new RegExp('SUP'+suffix));assert.match(support.children[1].textContent,/126,00/);
+  bottom.value='tvl';bottom.onchange();assert.equal(host.settings.basinBottom,'tvl');assert.equal(host.settings.basinSupport,false);
+  const nextSupport=find(root,'premiumControl','basin-support');nextSupport.value='with';nextSupport.onchange();assert.equal(host.settings.basinBottom,'tvl');assert.equal(host.settings.basinSupport,true);
+  const colour=find(root,'premiumControl','basin-color');colour.value='white-matte';colour.onchange();assert.equal(host.settings.basinBottom,'none');assert.equal(host.settings.basinSupport,false);assert.equal(find(root,'premiumControl','basin-bottom'),undefined);
+ }
 });

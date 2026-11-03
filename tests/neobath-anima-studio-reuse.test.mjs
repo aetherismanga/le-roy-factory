@@ -26,8 +26,8 @@ test('every compatible source plan and basin survives the original guided projec
       const project=validateProject(draftProject(draft));
       assert.deepEqual(decodeProject(encodeProject(project)),project);
       const q=quoteProject(project);assert.ok(q.rows.length>=1);
-      assert.equal(q.rows[0].ref,CATALOGUE.products.find(p=>p.id===CABINET_FORMATS[0].productsByWidth[width].id)?.ref);
-      const selected=topSelection(option.id,width,'two');
+      const selected=topSelection(option.id,width,'two'),role=selected?.positions?.length?'vanity':'base',stock=CATALOGUE.products.find(p=>p.category==='module'&&p.facade==='PURA'&&p.subtype===role&&p.width===width&&p.height===52&&p.drawers===2);
+      assert.ok(stock,'the actual bowl determines an existing source cabinet role');assert.equal(q.rows[0].ref,stock.ref);assert.equal(project.items.find(item=>item.type==='cabinet').settings.topDrawer,role==='vanity'?'siphon':'full');
       if(selected?.product?.prices?.length)assert.ok(selected.product.prices.some(p=>p.key===draft.basinColor));
       count++;
     }catch(error){errors.push({id:option.id,message:error.message});}
@@ -38,7 +38,8 @@ test('every compatible source plan and basin survives the original guided projec
 test('every stock furniture width retains exact Anima identifiers and dimensions in a Studio One project',()=>{
   let count=0;
   for(const format of CABINET_FORMATS)for(const width of format.allowedWidths){
-    const project=validateProject(draftProject({...initialDraft(),format:format.id,width}));
+    const top=format.subtype==='vanity'?TOP_OPTIONS.find(option=>option.product?.subtype==='integrated'&&topAvailable(option.id,width,format.id))?.id:'bare';assert.ok(top,'a genuine under-basin SKU is tested with a compatible actual basin');
+    const project=validateProject(draftProject({...initialDraft(),format:format.id,width,top}));
     const cabinet=project.items.find(i=>i.type==='cabinet'),source=format.productsByWidth[width];
     assert.equal(cabinet.settings.format,format.id);assert.equal(cabinet.settings.width,width);
     assert.equal(cabinet.placement.height,Math.round(format.base*100));

@@ -3,6 +3,7 @@ import {CATALOGUE} from './anima-data.js';
 import {topSelection} from './anima-data.js';
 import {SURFACE_BY_ID,normalizeTopSurface,surfaceFamilyForSelection} from './premium-materials.js';
 import {animaWellProfile} from './top-profiles.js';
+import {resolveBasinAccessories} from './basin-accessories.js';
 
 const clone=value=>JSON.parse(JSON.stringify(value));
 const source=()=>globalThis.NEOBATH_ANIMA_CATALOGUE||CATALOGUE;
@@ -60,7 +61,7 @@ export function continuousTopCompatible(project,hostId,mode,span,offset=0) {
   if(!selection.positions?.length)return true;
   // A single fixed factory reference is validated by its catalogue fit. Its
   // reconstructed preview bowl is not a published manufacturing cutout.
-  if(!selection.top.configurableWidth&&context.ids.length===1&&context.span===settings.width&&shift===0)return true;
+  if(!selection.top.configurableWidth&&context.ids.length===1&&context.span===settings.width&&shift===0)return CABINET_FORMATS.find(form=>form.id===settings.format)?.subtype==='vanity';
   const supports=context.ids.flatMap(id=>{
     const item=project.items.find(item=>item.id===id),form=CABINET_FORMATS.find(form=>form.id===item?.settings?.format);
     return form?.subtype==='vanity'?[item]:[];
@@ -105,6 +106,7 @@ export function validateProject(data) {
       if(!topAvailable(s.top||'bare',s.width,s.format,context.span))throw Error('Le plan / la vasque ne correspond pas à ce meuble Anima.');
       const selected=topSelection(s.top||'bare',s.width,s.format,s.basinLayout,context.span,s.topPlanId,s.topLength,s),product=selected?.product;
       if(!selected)throw Error('Le plan choisi ne correspond pas à cette vasque Anima.');
+      resolveBasinAccessories(selected,s);
       for(const field of ['topDepth','basinOffsetX','basinOffsetZ'])if(s[field]!==undefined&&(typeof s[field]!=='number'||!Number.isFinite(s[field])))throw Error('Dimension ou position de vasque invalide.');
       for(const field of ['basinColor','topPriceKey','basinPriceKey','topSurfaceId'])if(s[field]!==undefined&&typeof s[field]!=='string')throw Error('Identifiant de finition Anima invalide.');
       if(s.topPlanId!==undefined&&(typeof s.topPlanId!=='string'||s.topPlanId&&!products.has(s.topPlanId)))throw Error('Référence de plan Anima inconnue.');

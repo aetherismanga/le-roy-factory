@@ -2,10 +2,11 @@ import {CABINET_FORMATS,cabinetFormat,cabinetProduct,cabinetHeightLabel} from '.
 import VISUALS from '../../../assets/data/neobath-anima-visuals.json' with {type:'json'};
 
 const visuals=()=>globalThis.NEOBATH_ANIMA_VISUALS||VISUALS;
-const label=form=>form.name.replace(/^(Pura|Ribelle) · /,'');
-const categoryName={vanity:'Sous-vasques',base:'Meubles bas',wall:'Meubles hauts'};
+const label=form=>form.name.replace(/^(Pura|Ribelle) · /,'').replace(/^(Sous-vasque|Meuble bas|Meuble haut) · /,'');
+const categoryName={base:'Caissons',wall:'Meubles hauts'};
 const matchShape=(a,b)=>a.subtype===b.subtype&&a.height===b.height&&a.depth===b.depth&&a.trueDrawers===b.trueDrawers&&a.doors===b.doors;
-export const puraCabinetModels=()=>CABINET_FORMATS.filter(form=>form.facade==='PURA');
+export const puraCabinetModels=()=>CABINET_FORMATS.filter(form=>form.facade==='PURA'&&form.subtype!=='vanity');
+export function cabinetChoiceModel(format){const form=typeof format==='string'?cabinetFormat(format):format;return puraCabinetModels().find(candidate=>candidate.height===form.height&&candidate.depth===form.depth&&candidate.trueDrawers===form.trueDrawers&&candidate.doors===form.doors&&candidate.subtype===(form.subtype==='wall'?'wall':'base'))||null;}
 export function matchingCabinetFacade(format,facade='PURA'){
  const form=typeof format==='string'?cabinetFormat(format):format;
  return CABINET_FORMATS.find(candidate=>candidate.facade===facade&&matchShape(candidate,form))||null;
@@ -54,9 +55,9 @@ function modelCard(parent,form,{width=80,selected=false,onChoose,onCard,facade=f
 }
 export function renderAnimaCabinetGallery(parent,{width=80,selectedFormat,onChoose,onCard}={}){
  const document=parent.ownerDocument;styles(document);const root=el(document,'div',undefined,'anima-cabinet-gallery');root.dataset.animaCabinetGallery='true';
- root.append(el(document,'p','Choisissez votre modèle Pura. La façade Ribelle est proposée après le choix du meuble.'));
- const selected=selectedFormat?matchingCabinetFacade(selectedFormat,'PURA')?.id:'';
- for(const subtype of ['vanity','base','wall']){
+ root.append(el(document,'p','Choisissez votre caisson. Il s’adapte automatiquement lorsque vous ajoutez une vasque.'));
+ const selected=selectedFormat?cabinetChoiceModel(selectedFormat)?.id:'';
+ for(const subtype of ['base','wall']){
   root.append(el(document,'h4',categoryName[subtype]));const cards=el(document,'div',undefined,'anima-cabinet-models');
   for(const form of puraCabinetModels().filter(form=>form.subtype===subtype))modelCard(cards,form,{width,selected:form.id===selected,onChoose,onCard});root.append(cards);
  }
@@ -66,8 +67,8 @@ export function renderAnimaCabinetControls(parent,{settings,onModel,onWidth,onCo
  const document=parent.ownerDocument;styles(document);const root=el(document,'div',undefined,'anima-cabinet-controls');root.dataset.animaCabinetControls='true';parent.append(root);
  const form=cabinetFormat(settings.format),current=cabinetModelPhoto(form,settings.width),hero=el(document,'div',undefined,'anima-cabinet-current');
  if(current.src){const image=el(document,'img');image.src=current.src;image.alt='NEOBATH ANIMA · '+form.name+' · '+current.product.ref;image.width=242;image.height=167;image.decoding='async';hero.append(image);}
- hero.append(el(document,'h4',label(form)),el(document,'small',current.product.ref+' · '+cabinetHeightLabel(form)));root.append(hero);
- const change=el(document,'details');change.append(el(document,'summary','Changer de modèle'));renderAnimaCabinetGallery(change,{width:settings.width,selectedFormat:form.id,onChoose:id=>onModel?.(id)});root.append(change);
+ hero.append(el(document,'h4',label(form)),el(document,'small',(current.product.ref||'Référence fabricant à confirmer')+' · '+cabinetHeightLabel(form)),el(document,'small',form.subtype==='vanity'?'Sous-vasque · passage de siphon adapté à votre vasque':form.subtype==='base'?'Meuble bas · rangement complet sans passage de siphon':'Meuble haut'));root.append(hero);
+ const change=el(document,'details');change.append(el(document,'summary','Changer de modèle'));renderAnimaCabinetGallery(change,{width:settings.width,selectedFormat:form.id,onChoose:id=>{const candidate=matchingCabinetFacade(id,form.facade);onModel?.(candidate?.id||id);}});root.append(change);
  root.append(el(document,'h4','Votre façade'));const facades=el(document,'div',undefined,'anima-cabinet-facades');
  for(const facade of ['PURA','RIBELLE']){const candidate=matchingCabinetFacade(form,facade);if(candidate)modelCard(facades,candidate,{width:settings.width,selected:candidate.id===form.id,onChoose:id=>onModel?.(id),facade:true});}root.append(facades);
  root.append(el(document,'h4','Largeur du caisson'));const widths=el(document,'div',undefined,'anima-cabinet-widths');

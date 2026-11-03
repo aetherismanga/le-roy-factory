@@ -149,7 +149,7 @@
       "privateApplicationEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-interactions-4b",
+      "releaseId": "20261103-neobath-anima-studio-one-fluid-5",
       "page": "neobath-anima-configurateur.html",
       "access": "agents-only",
       "modules": 42,
@@ -158,9 +158,9 @@
       "products": 257,
       "compositions": 16,
       "projectSync": "shared-agent-private-api",
-      "appSha256": "64111d509b526570bfc8d9b5dc7d17aed84563a5b5a70298350e9e55b4f97911",
+      "appSha256": "c1ae6cb5557af65fc56b7051cfb8f870a9907f7e1d8c287398911fcf835c3582",
       "engine": "studio-one",
-      "homeSha256": "2114e3b0a8743f85117b310f2f904a90431633647dc855fbf1f86f91c8d7c8f3",
+      "homeSha256": "257d2ed5cb314daa35ab7af627b8c7bb8c80e8c5c7fe206db5798631e81fe358",
       "photographs": 155,
       "sourceEntries": [
         "studio-one/src/commerce/home.js",
@@ -182,9 +182,12 @@
       "customWorktopDepth": true,
       "customBasinPlacement": true,
       "magneticWorktopDrag": true,
-      "cabinetModelChoices": 8,
+      "cabinetModelChoices": 5,
       "mirrorModelChoices": 15,
-      "stockWidthsOnly": true
+      "stockWidthsOnly": true,
+      "automaticCabinetRole": true,
+      "draggableBasins": true,
+      "eclisseRemovableBottom": true
     },
     "clientAnalysis": {
       "releaseId": "20261103-reports2",
@@ -224,7 +227,7 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-interactions-4b",
+      "releaseId": "20261103-neobath-anima-studio-one-fluid-5",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true

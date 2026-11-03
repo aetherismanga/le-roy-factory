@@ -6,6 +6,7 @@ import {parse} from 'acorn';
 import {transformHomeSource} from '../functions/neobath-anima/studio-adapter/home-transform.mjs';
 import {transformCommonStudioSource} from '../functions/neobath-anima/studio-adapter/studio-source-transform.mjs';
 import {initialDraft,draftProject} from '../functions/neobath-anima/studio-adapter/commerce/guided.js';
+import {cabinetProduct,cabinetFormat} from '../functions/neobath-anima/studio-adapter/configuration.js';
 import {validateProject} from '../functions/neobath-anima/studio-adapter/projects.js';
 
 function handler(id){
@@ -27,7 +28,7 @@ test('Nouveau projet opens the real atelier directly with one valid Anima cabine
  assert.equal(values.get('saved'),'saved projects');assert.equal(values.has('active'),false);
  assert.equal(JSON.parse(values.get('flow')).view,'atelier');
  const project=validateProject(JSON.parse(values.get('transfer'))),cabinet=project.items.filter(item=>item.type==='cabinet');
- assert.equal(cabinet.length,1);assert.equal(cabinet[0].settings.format,'two');assert.equal(cabinet[0].settings.width,80);assert.equal(cabinet[0].settings.top,'bare');
+ assert.equal(cabinet.length,1);assert.equal(cabinet[0].settings.format,'pura-base-two');assert.equal(cabinet[0].settings.topDrawer,'full');assert.equal(cabinetProduct(cabinet[0].settings.format,80).ref,'APUR-BA8052');assert.equal(cabinetFormat(cabinet[0].settings.format).trueDrawers,2);assert.equal(cabinet[0].settings.width,80);assert.equal(cabinet[0].settings.top,'bare');
 });
 test('Resume and edit choices return existing compositions to the atelier without reopening the wizard',()=>{
  const {context}=fixture(),project=draftProject(initialDraft()),opened=[];
