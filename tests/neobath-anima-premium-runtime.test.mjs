@@ -17,6 +17,7 @@ import {validateProject,encodeProject,decodeProject,continuousTopContext,continu
 import {surfaceOptions,normalizeTopSurface} from '../functions/neobath-anima/studio-adapter/premium-materials.js';
 import {normalizeCabinetRoles,cabinetSettingsForRole} from '../functions/neobath-anima/studio-adapter/cabinet-role.js';
 import {planSettings} from '../functions/neobath-anima/studio-adapter/premium-controls.js';
+import {updateFurnitureAccessoryGeometry} from '../functions/neobath-anima/studio-adapter/furniture-accessory-geometry.js';
 
 // This is a CPU integration check of genuine materials and model nodes. The
 // image transport is stubbed; GPU rendering and photographic fidelity are not.
@@ -55,12 +56,12 @@ function atelier(width=120){
   const composition={selected:item,selectedId:item.id,items:[item],validate:()=>'',sync:noop,resize:(_item,dimensions)=>{item.dimensions=dimensions;return null;}};
   let rebuilds=0;
   const context={...basins,T,state,CABINET_KEYS,TOP_OPTIONS,CABINET_FORMATS,FINISHES:M.FINISHES,composition,model:asset,grain:null,roomScene:{},
-    __animaRolePlanSettings:planSettings,__animaNormalizeRoles:normalizeCabinetRoles,__animaCabinetRole:cabinetSettingsForRole,projectWorkspace:{locked:false},isItemPositionLocked:()=>false,disposeObject:dispose,makeSceneAsset:(_type,s)=>M.makeModel({...s,width:s.width/100,basinTop:s.top,includeMirror:false}),
+    __animaFurnitureAccessoryGeometry:updateFurnitureAccessoryGeometry,failureMessages:[],__animaRolePlanSettings:planSettings,__animaNormalizeRoles:normalizeCabinetRoles,__animaCabinetRole:cabinetSettingsForRole,projectWorkspace:{locked:false},isItemPositionLocked:()=>false,disposeObject:dispose,makeSceneAsset:(_type,s)=>M.makeModel({...s,width:s.width/100,basinTop:s.top,includeMirror:false}),
     __animaTopSelection:topSelection,__animaIntegrated:isIntegratedTop,__animaVessel:isVesselTop,__animaPlanOption:continuousPlanOption,
     __animaPremiumContext:continuousTopContext,__animaPremiumCompatible:continuousTopCompatible,validateProject,collectProject:()=>snapshot(item),
     topAvailable,validWidth,cabinetFormat,selectedCabinet:()=>true,itemDimensions:(_type,s)=>animaCabinetDimensions(s),
     $$:()=>[],$:()=>({textContent:'',replaceChildren:noop}),normalizeTopDrawer:v=>v,installCabinetTap:noop,decorateAsset:noop,
-    refreshWidthUI:noop,refreshBasinUI:noop,refreshInspector:noop,renderComposition:noop,placementStatus:noop,invalidate:noop,
+    refreshWidthUI:noop,refreshBasinUI:noop,refreshInspector:noop,renderComposition:noop,placementStatus:message=>context.failureMessages.push(message),invalidate:noop,
     makeModel:settings=>{if(++rebuilds>10)throw Error('Repeated atelier rebuild: '+JSON.stringify(settings));return M.makeModel(settings);},currentDrawers:[0,0],counterDecor:[],selectFinish:noop,setView:noop,releaseModel:old=>dispose(old.root),
     requestFinishAssets:async()=>null,finishTextures:{},scheduleProjectCheckpoint:noop};
   const names=['selectTop','selectBasinColor','saveCabinetState','setWidth','paintAsset','applyFurnitureMaterial',...[...functions.keys()].filter(name=>/^__anima/.test(name))];
@@ -77,7 +78,7 @@ test('real atelier selections update a distinct plan material and preserve stric
     const signatures=new Set();
     for(const id of ['tgrs1a-linear-top','thpl1-linear-top','tfx1-linear-top','tpgea12-linear-top','txt12-linear-top']){
       const chosen=planSettings({items:[item]},item,id,{span:120,offset:0,ids:[item.id]});assert.ok(chosen);
-      assert.equal(context.__animaPremiumApply(chosen),true);
+      assert.equal(context.__animaPremiumApply(chosen),true,context.failureMessages.join(' · '));
       const surfaces=surfaceOptions(item.settings);assert.ok(surfaces.length,id+' manufacturer choices');
       for(const surface of surfaces){
         const next={...item.settings,topSurfaceId:surface.id,topSurfaceNcs:surface.customNcs?'S 2010-G10Y':''};
@@ -110,7 +111,7 @@ test('live selection never leaves a detached or obsolete basin group visible and
   const attached=object=>{for(let node=object;node;node=node.parent)if(node===item.root)return true;return false;};
   try{
     for(const id of ['tk120-integrated-top','pic12146dx-integrated-top','pic12146sx-integrated-top','tpc120-cover','b578-countertop-basin','bare']){
-      const prior=item.asset.tops.root;assert.equal(context.selectTop(id),true,id);seen.push(prior);
+      const prior=item.asset.tops.root;assert.equal(context.selectTop(id),true,id+' · '+context.failureMessages.join(' · '));seen.push(prior);
       assert.ok(attached(item.asset.tops.root),id+' current top must be attached');
       for(const old of seen)if(old!==item.asset.tops.root)assert.equal(attached(old),false,id+' old top must leave the live scene');
       const selection=topSelection(id,120,'two');assert.equal(item.asset.spec.basinRef,selection?.reference||null);
@@ -125,7 +126,7 @@ test('real basin color handlers repaint the active bowl, preserve a separate pla
   for(const id of ['pic8146-integrated-top','fo01-countertop-basin',...BASIN_PRODUCTS.filter(p=>/^eclisse/i.test(p.id)).map(p=>p.id)]){
     const {context,item}=atelier(80);
     try{
-      assert.equal(context.selectTop(id),true,id);
+      assert.equal(context.selectTop(id),true,id+' · '+context.failureMessages.join(' · '));
       const colors=new Set(),variants=basins.basinColors(id,80,'two');
       for(const color of variants){
         assert.equal(context.selectBasinColor(color.id),true,id+' / '+color.id);

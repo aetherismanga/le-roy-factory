@@ -60,7 +60,7 @@ export function topSelection(mode,width=80,format='two',layout='center',topSpan=
   if(![previewDepth,offsetX,offsetZ].every(Number.isFinite))return null;
   // These are preview safety limits, never advertised as factory capacities.
   // A different depth needs a manufacturer quotation; stock tops stay fixed.
-  if(top.configurableWidth?(previewDepth<46||previewDepth>90):(Math.abs(previewDepth-referenceDepth)>.001||offsetX!==0||offsetZ!==0))return null;
+  if(top.configurableWidth?(previewDepth<(format==='worktop'&&options.standalone===true?20:46)||previewDepth>90):(Math.abs(previewDepth-referenceDepth)>.001||offsetX!==0||offsetZ!==0))return null;
   const hasBasin=!(mode==='plain'||top.subtype==='cover'||top.subtype==='linear'&&!basin);
   const baseZ=basin&&!integrated?Math.min(.020,referenceDepth/200-well.d/2-.007):.020;
   const centres=hasBasin?positions.map(x=>x+offsetX/100):[],positionsZ=centres.map(()=>baseZ+offsetZ/100);

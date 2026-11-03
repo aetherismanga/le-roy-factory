@@ -114,10 +114,15 @@ test('fixed and bare decks remain clickable but do not start a custom worktop dr
 
 test('the production transform installs first, excludes project checkpoints during preview and cancels on restore',()=>{
  const source=transformWorktopInteraction(transformCommonStudioSource(readFileSync('studio-one/src/app.js','utf8'),'app.js'));
- parse(source,{ecmaVersion:'latest',sourceType:'module'});
+ const ast=parse(source,{ecmaVersion:'latest',sourceType:'module'});
  const setup=source.indexOf('function setupPicking(){');assert.ok(source.indexOf('__animaMountWorktopDrag();',setup)<source.indexOf('mountPanelPointerGuard',setup));
  assert.match(source,/function scheduleProjectCheckpoint\(\)\{if\(__animaWorktopDrag\?\.getActive\(\)\?\.dragging\)return;/);
- assert.match(source,/function restoreProject\(input\)\{__animaWorktopDrag\?\.cancel\(\);/);
- assert.match(source,/Escape'\)\{__animaWorktopDrag\?\.cancel\(\)/);
+ const restore=ast.body.find(node=>node.type==='FunctionDeclaration'&&node.id.name==='restoreProject');assert.ok(restore);
+ const restoreSource=source.slice(restore.start,restore.end);
+ for(const controller of ['__animaWorktopDrag','__animaFurnitureAccessoryPicking'])assert.ok(restoreSource.includes(controller+'?.cancel();'),controller+' must cancel its active gesture before restoring the project');
+ const escapeBranches=[];
+ const visit=node=>{if(!node||typeof node!=='object')return;if(node.type==='IfStatement'&&node.test.type==='BinaryExpression'&&node.test.right?.value==='Escape')escapeBranches.push(source.slice(node.consequent.start,node.consequent.end));for(const child of Object.values(node))if(Array.isArray(child))child.forEach(visit);else if(child&&typeof child==='object')visit(child);};visit(ast);
+ const escape=escapeBranches.find(branch=>branch.includes('__animaWorktopDrag?.cancel();'));assert.ok(escape,'Escape cancels the active worktop gesture');
+ assert.ok(escape.includes('__animaFurnitureAccessoryPicking?.cancel();'),'the same Escape branch cancels the active accessory gesture');
  assert.match(source,/onTap:hit=>\{__animaSelectWorktopHost\(hit.itemId\);openInspector\('basin'\)/);
 });

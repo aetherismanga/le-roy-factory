@@ -61,7 +61,7 @@ test('all 137 source plans and basin references have finite closed geometry insi
       else{const hits=ray(asset.bowlMeshes,probeX,probeZ);assert.ok(hits.length,label+' vessel visible');}
     }
     for(const tap of meta.tapHoles){assert.equal(ray(asset.surfaceMeshes,tap.x,tap.z).length,0,label+' faucet hole at documented X/Z');
-      for(const well of meta.wells)assert.ok(Math.abs(tap.x-well.x)>well.width/2+tap.radius+.002||Math.abs(tap.z-well.z)>well.depth/2+tap.radius+.002,label+' faucet does not cut the basin shell');
+      for(const well of meta.wells){if(tap.mount==='basin'){assert.equal(ray(asset.bowlMeshes,tap.x,tap.z).length,0,label+' actual drilled basin ledge');assert.ok(Math.abs(tap.z-well.openingCenterZ)>well.openingDepth/2+tap.radius+.002,label+' ledge hole clears the inner cup');}else assert.ok(Math.abs(tap.x-well.x)>well.width/2+tap.radius+.002||Math.abs(tap.z-well.z)>well.depth/2+tap.radius+.002,label+' faucet does not cut the basin shell');}
     }
     // An untouched front corner stays opaque: bad contour winding must not erase the whole slab.
     const corner=ray(asset.surfaceMeshes,-meta.width/2+.012,meta.zOffset+meta.depth/2-.012);assert.ok(corner.length,label+' intact deck');assert.ok(Math.abs(corner[0].point.y-meta.topSurface)<.001,label+' deck top level');

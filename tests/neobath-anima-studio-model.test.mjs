@@ -30,7 +30,7 @@ test('all 42 Anima modules adapt the genuine Studio One assembly to exact catalo
 test('Ribelle changes the real front relief while Pura retains a smooth profile and Studio One drawer interiors',()=>{
   const a=M.makeModel({width:.8,format:'two',includeMirror:false}),b=M.makeModel({width:.8,format:'ribelle-two',includeMirror:false});
   const depthValues=mesh=>new Set(Array.from(mesh.geometry.attributes.position.array).filter((_,i)=>i%3===2).map(v=>v.toFixed(5))).size;
-  assert.equal(depthValues(a.frontMeshes[0]),3);assert.equal(a.frontMeshes[0].geometry.userData.animaFacade.section,'horizontal-recessed-grip');assert.ok(depthValues(b.frontMeshes[0])>4);
+  assert.ok(depthValues(a.frontMeshes[0])>=8,'Pura has a rounded recessed grip');assert.equal(a.frontMeshes[0].geometry.userData.animaFacade.section,'horizontal-recessed-grip');assert.ok(depthValues(b.frontMeshes[0])>depthValues(a.frontMeshes[0]),'Ribelle adds actual rib relief');
   assert.ok(a.drawers[0].getObjectByName('Interieur_tiroir'));assert.ok(a.cabinet.getObjectByName('Coulisse_fixe'));
   assert.ok(b.frontMeshes.every(o=>/Ribelle/.test(o.name)));
   dispose(a.root);dispose(b.root);

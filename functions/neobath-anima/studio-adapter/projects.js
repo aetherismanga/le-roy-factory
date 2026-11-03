@@ -1,3 +1,6 @@
+import {normalizeStandaloneSettings,standaloneDimensions} from './standalone-worktop-data.js';
+import {resolveFurnitureAccessories,furnitureAccessoryPlacementError} from './furniture-accessories.js';
+import {furnitureLayoutError} from './furniture-layout.js';
 import {CABINET_FORMATS,topAvailable} from './configuration.js';
 import {CATALOGUE} from './anima-data.js';
 import {topSelection} from './anima-data.js';
@@ -101,6 +104,7 @@ export function validateProject(data) {
     if(item.type==='cabinet'){
       const form=CABINET_FORMATS.find(f=>f.id===s.format);
       if(!form||!form.allowedWidths.includes(s.width)||!finishes.has(s.finish))throw Error('Format ou finition de meuble Anima inconnu.');
+      resolveFurnitureAccessories(s);const accessoryPlacementError=furnitureAccessoryPlacementError(s,p);if(accessoryPlacementError)throw Error(accessoryPlacementError);
       const context=continuousTopContext(data,item);
       if(!context)throw Error('Le plan continu doit reposer sur des meubles juxtaposés, sans autre plan, à la même hauteur.');
       if(!topAvailable(s.top||'bare',s.width,s.format,context.span))throw Error('Le plan / la vasque ne correspond pas à ce meuble Anima.');
@@ -126,6 +130,11 @@ export function validateProject(data) {
         if(surface.customNcs&&(!s.topSurfaceNcs||! /^(?:S\s*)?\d{4}-(?:[YRGB](?:\d{2}[YRGB])?|N)$/i.test(s.topSurfaceNcs)))throw Error('Renseignez un code NCS complet pour la couleur sur mesure.');
       }
       if(s.topSurfaceNcs!==undefined&&(typeof s.topSurfaceNcs!=='string'||s.topSurfaceNcs.length>40))throw Error('Code NCS du plan invalide.');
+    } else if(item.type==='worktop'){
+      const normalized=normalizeStandaloneSettings(s),dimensions=standaloneDimensions(normalized);
+      for(const key of ['format','topSpan','topLength','topOffset','topShift','mounting'])if(s[key]!==undefined&&s[key]!==normalized[key])throw Error('Paramètres de plan indépendant incohérents.');
+      if(p.height<dimensions.clearanceBelow*100-.1)throw Error('La vasque du plan indépendant traverse le sol.');
+      if(Number.isFinite(data.room.height)&&p.height+dimensions.height*100>data.room.height+.1)throw Error('Le plan indépendant dépasse la hauteur de la pièce.');
     } else if(item.type==='column'){
       if(!finishes.has(s.finish)||s.columnModel&&!['pura-column','ribelle-column'].includes(s.columnModel))throw Error('Colonne Anima inconnue.');
     } else if(item.type==='mirror'){
@@ -133,6 +142,7 @@ export function validateProject(data) {
       if(!mirror||mirror.category!=='mirror'||s.width!==mirror.width||s.height!==mirror.height)throw Error('Miroir Anima inconnu.');
     }
   }
+  const layoutError=furnitureLayoutError(data);if(layoutError)throw Error(layoutError);
   if(JSON.stringify(data).length>500000)throw Error('Projet trop volumineux.');
   return {...data,manufacturer:'neobath-anima'};
 }

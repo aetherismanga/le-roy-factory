@@ -10,6 +10,7 @@ import {createTopSurfaceController,applyPlanSurfaceUV} from './surface-materials
 import {surfaceFamilyForSelection} from './premium-materials.js';
 import {applyAnimaBasinAppearance} from './premium-rendering.mjs';
 import {animaBasinStyle} from './top-profiles.js';
+import {applyAnimaDrawerFinish} from './drawer-finish.js';
 export {FINISHES,roundedRect};
 export const SPEC={series:'NEOBATH ANIMA · Pura',width:.80,height:.52,depth:.46,bottom:.30,panel:.019,mirrorDiameter:.60,basin:'Lavabo Neobath Anima',cabinetRef:'APUR-PL8052',basinRef:null,mirrorRef:'SP6070'};
 function discardGeometry(root){root?.removeFromParent();const seen=new Set();root?.traverse(o=>{if(o.isMesh&&!seen.has(o.geometry)){seen.add(o.geometry);o.geometry.dispose();}});}
@@ -30,6 +31,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='ba
   const actualDepth=product.depth/100,depthScale=actualDepth/.46;
   if(depthScale!==1){asset.cabinet.scale.z=depthScale;asset.cabinet.position.z=actualDepth/2-.23;}
   const ribelle=form.facade==='RIBELLE';
+  applyAnimaDrawerFinish(asset);
   if(form.doors){
     for(const group of asset.drawers)discardGeometry(group);
     for(const mesh of [...asset.cabinet.children])if(/Coulisse|Rail_/.test(mesh.name))discardGeometry(mesh);
@@ -80,8 +82,8 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='ba
     const holes=currentTop?.root.userData.animaTop?.tapHoles||[];
     return holes.map(hole=>({...hole,x:hole.x+(topOffset+topShift)/100}));
   };
-  asset.setBasinCenters=(centres,depths=[])=>{if(!Array.isArray(centres)||!centres.every(Number.isFinite)||!depths.every(Number.isFinite))return false;supportedPlumbing=centres.map((x,i)=>({x,z:depths[i]??.020}));const result=form.trueDrawers?baseSetBasinCenters?.(centres,depths):true;drawerMode=form.trueDrawers&&form.subtype==='vanity'&&centres.length?'siphon':'full';return result;};
-  asset.setTopDrawer=value=>{drawerMode=!form.trueDrawers||form.subtype!=='vanity'||!supportedPlumbing.length?'full':'siphon';if(form.trueDrawers)baseSetTopDrawer(drawerMode);return drawerMode;};
+  asset.setBasinCenters=(centres,depths=[])=>{if(!Array.isArray(centres)||!centres.every(Number.isFinite)||!depths.every(Number.isFinite))return false;supportedPlumbing=centres.map((x,i)=>({x,z:depths[i]??.020}));const result=form.trueDrawers?baseSetBasinCenters?.(centres,depths):true;applyAnimaDrawerFinish(asset);drawerMode=form.trueDrawers&&form.subtype==='vanity'&&centres.length?'siphon':'full';return result;};
+  asset.setTopDrawer=value=>{drawerMode=!form.trueDrawers||form.subtype!=='vanity'||!supportedPlumbing.length?'full':'siphon';if(form.trueDrawers)baseSetTopDrawer(drawerMode);applyAnimaDrawerFinish(asset);return drawerMode;};
   asset.getTopDrawer=()=>drawerMode;
   asset.setTop=(mode,settings={})=>{
     const span=Number.isFinite(settings.topSpan)?settings.topSpan:topSpan||cm,offset=Number.isFinite(settings.topOffset)?settings.topOffset:topOffset;

@@ -2,6 +2,7 @@
 // The source workspace and default RANDAL behavior remain byte-for-byte intact.
 export function transformOriginalModel(source){
   const changes=[
+    ["const dh=form.id==='two'?","const dh=form.trueDrawers===2?"],
     ["facadeMode='overlay'}={})","facadeMode='overlay',animaPlumbing=null,animaPlumbingZ=null}={})"],
     ['plumbing=basinCenters(chosenLayout,W);','plumbing=Array.isArray(animaPlumbing)?animaPlumbing.slice():basinCenters(chosenLayout,W),plumbingZ=Array.isArray(animaPlumbingZ)?animaPlumbingZ.map(z=>z-.020):plumbing.map(()=>0);'],
     [' const insets={};'," function setBasinCenters(centres,depths=[]){if(!Array.isArray(centres)||!centres.every(Number.isFinite))return false;plumbing.splice(0,plumbing.length,...centres);plumbingZ.splice(0,plumbingZ.length,...centres.map((_,i)=>(depths[i]??.020)-.020));setTopDrawer(centres.length?'siphon':'full',true);return true;}\n const insets={};"],

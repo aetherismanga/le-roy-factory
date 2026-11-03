@@ -29,6 +29,9 @@ export function animaBasinStyle(top,basin){
   if(/^HIDE/.test(ref))return {family:'gres-hide',panels:true,drain:'full-length-matched',sourcePdfPage:73};
   if(/^SIMPLY|^TWS/.test(ref))return {family:/^TWS/.test(ref)?'gres-twospace':'gres-simply',panels:true,drain:'continuous-slot',slope:true,sourcePdfPage:73};
   if(/^BASIC/.test(ref))return {family:'gres-basic',panels:true,drain:'round-chrome',sourcePdfPage:73};
+  // A separately selected Eclisse retains its own waste fitting regardless
+  // of the material of the supporting slab (e.g. TPGEA Geacril).
+  if(/^ECLISSE/.test(ref))return {family:'eclisse',panels:false,drain:'round-chrome',sourcePdfPage:75};
   if(/^TXT/.test(top?.ref||''))return {family:'geacril-stone',panels:false,drain:'rectangular-matched',sourcePdfPage:72};
   if(/^TPGEA/.test(top?.ref||''))return {family:'geacril',panels:false,drain:'rectangular-matched',sourcePdfPage:71};
   if(/^PF149380/.test(ref))return {family:'ocritech-soft-rectangle',drain:'rectangular-matched',sourcePdfPage:75};

@@ -149,7 +149,7 @@
       "privateApplicationEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-fluid-5",
+      "releaseId": "20261103-neobath-anima-studio-one-details-6",
       "page": "neobath-anima-configurateur.html",
       "access": "agents-only",
       "modules": 42,
@@ -158,9 +158,9 @@
       "products": 257,
       "compositions": 16,
       "projectSync": "shared-agent-private-api",
-      "appSha256": "c1ae6cb5557af65fc56b7051cfb8f870a9907f7e1d8c287398911fcf835c3582",
+      "appSha256": "2578ee7f02f246f352c4d868d74850ac392d3172530139ab8d4db574b2c692e8",
       "engine": "studio-one",
-      "homeSha256": "257d2ed5cb314daa35ab7af627b8c7bb8c80e8c5c7fe206db5798631e81fe358",
+      "homeSha256": "bc5795674348d152f886c39d53a07066014746c9e49cc18c33b2949539c3b1a4",
       "photographs": 155,
       "sourceEntries": [
         "studio-one/src/commerce/home.js",
@@ -187,7 +187,18 @@
       "stockWidthsOnly": true,
       "automaticCabinetRole": true,
       "draggableBasins": true,
-      "eclisseRemovableBottom": true
+      "eclisseRemovableBottom": true,
+      "facadeChangesPreservePlacement": true,
+      "standaloneWorktops": true,
+      "sidebarLeftRight": true,
+      "sidebarFinishes": 3,
+      "bridgeHeightsCm": [
+        15,
+        35
+      ],
+      "strictTapCompatibility": true,
+      "curvedIntegratedGrips": true,
+      "textileDrawerInterior": true
     },
     "clientAnalysis": {
       "releaseId": "20261103-reports2",
@@ -237,7 +248,7 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-fluid-5",
+      "releaseId": "20261103-neobath-anima-studio-one-details-6",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true

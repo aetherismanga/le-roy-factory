@@ -2,6 +2,7 @@ import * as T from 'three';
 import {createTopSet as studioCreateTopSet,vesselGeometry as studioVesselGeometry} from '@studio-one-original/tops.js';
 import {TOP_OPTIONS,topSelection} from './anima-data.js';
 import {animaWellLayout,animaBasinStyle} from './top-profiles.js';
+import {animaVesselProfile,animaLedgeVesselGeometry,vesselContour} from './vessel-profiles.js';
 export {TOP_OPTIONS,topSelection};
 // Used only inside the untouched original Studio One factory, before its hidden
 // RANDAL demonstration tops are replaced by the selected Anima components.
@@ -15,28 +16,22 @@ function closedProfileNormals(geometry,N=128){
   for(let i=0;i<=N;i++)average(i,(rows-1)*(N+1)+i);
   return geometry;
 }
-function sourceShape(p){const ref=String(p?.ref||'').toUpperCase(),shape=p?.basinGeometry||p?.shape||'';
-  if(/FO01|B578|ECLISSE116/.test(ref))return 'round';
-  if(/FO03/.test(ref))return 'square';
-  if(/FO04|PF149380|ECLISSE114|B571|B860|B861|B862/.test(ref))return 'rectangle';
-  if(/FO02|CVR45|ECLISSE115/.test(ref))return 'oval';
-  return /round|circle|rond/.test(shape)?'round':/oval|ovale/.test(shape)?'oval':'rectangle';
-}
 export function vesselGeometry(product){
-  const shape=sourceShape(product),round=shape==='round'||shape==='oval';
+  const profile=animaVesselProfile(product),shape=profile.family,round=shape==='round'||shape==='oval';
+  if(profile.tap)return animaLedgeVesselGeometry(profile);
   const geometry=studioVesselGeometry(round?'torne':'neris'),a=geometry.attributes.position;
-  const w=(product.width||40)/100,d=(product.depth||40)/100,h=(product.height||14)/100;
+  const {width:w,depth:d,height:h,power}=profile;
   // Preserve Studio One's closed outer/inner shells, rim and waste opening,
   // changing only the manufacturer outer dimensions and family proportions.
   const baseW=round?.37:.46,baseD=round?.37:.33,baseH=round?.12:.14;
   for(let i=0;i<a.count;i++){const x=a.getX(i),z=a.getZ(i);a.setXYZ(i,x*w/baseW,a.getY(i)*h/baseH,z*d/baseD);}
-  const power=round?2:/B571|B860|B861|B862/i.test(product.ref||'')?12:shape==='square'?8:4.5,N=128;
+  const N=128;
   for(let j=0;j<a.count/(N+1);j++){
     let rx=0,rz=0;for(let i=0;i<=N;i++){rx=Math.max(rx,Math.abs(a.getX(j*(N+1)+i)));rz=Math.max(rz,Math.abs(a.getZ(j*(N+1)+i)));}
     const p=rx<.035||rz<.035?2:power;
     for(let i=0;i<=N;i++){const k=j*(N+1)+i,angle=i/N*Math.PI*2,[c,s]=profileTrig(angle);a.setX(k,rx*Math.sign(c)*Math.abs(c)**(2/p));a.setZ(k,rz*Math.sign(s)*Math.abs(s)**(2/p));}
   }
-  closedProfileNormals(geometry);geometry.computeBoundingBox();return geometry;
+  closedProfileNormals(geometry);geometry.computeBoundingBox();geometry.userData.animaVessel=profile;return geometry;
 }
 function superContour(w,d,power=4.2,n=128){return Array.from({length:n},(_,i)=>{const a=i/n*Math.PI*2,[c,s]=profileTrig(a);return [w/2*Math.sign(c)*Math.abs(c)**(2/power),d/2*Math.sign(s)*Math.abs(s)**(2/power)];});}
 function deckContour(w,d,r=.003){
@@ -79,6 +74,8 @@ function semiRecessedCutout(geometry,level){
   // Intersect the outside wall of the existing Studio One closed shell with
   // the mounting plane. The catalogue gives no mounting section: only the
   // vertical placement is a preview reconstruction, not a fabrication cutout.
+  const source=geometry.userData.animaVessel,sections=source?.outerSections;
+  if(sections){let a=sections[0],b=sections[1];for(let i=0;i<sections.length-1;i++)if(level>=sections[i].y){a=sections[i];b=sections[i+1];}const t=T.MathUtils.clamp((level-a.y)/(b.y-a.y),0,1);return vesselContour(T.MathUtils.lerp(a.width,b.width,t)+.0012,T.MathUtils.lerp(a.depth,b.depth,t)+.0012,source.power);}
   const p=geometry.attributes.position,N=128,points=[];
   for(let i=0;i<N;i++){
     let segment=0;
@@ -115,7 +112,7 @@ export function buildAnimaTop({selection,ceramic,wood,chrome,planMaterial=null,b
   if(!selection.integrated){
     const parent=basin?drilled:solid,holes=[];
     const vesselZ=selection.positionsZ?.[0]??.020,vesselX=selection.positions?.[0]??0,semiRecessed=basin?.subtype==='semi-recessed',vesselShape=basin?vesselGeometry(basin):null;
-    const fullHeight=vesselShape?.boundingBox.max.y||0,recessDepth=semiRecessed?Math.max(0,fullHeight-.025):0;
+    const vesselProfile=vesselShape?.userData.animaVessel,fullHeight=vesselShape?.boundingBox.max.y||0,recessDepth=semiRecessed?Math.max(0,fullHeight-.025):0;
     previewBasinRise=fullHeight-recessDepth;
     if(basin){
       if(semiRecessed){
@@ -124,12 +121,12 @@ export function buildAnimaTop({selection,ceramic,wood,chrome,planMaterial=null,b
       }else holes.push(circleContour(vesselX,vesselZ,.024));
       const radius=.017,clearance=.012,edge=.007,basinW=(basin.width||40)/100,basinD=(basin.depth||40)/100;
       const rearZ=vesselZ-basinD/2-clearance-radius;
-      let tap=rearZ-radius>=-D/2+edge?{x:vesselX,z:rearZ,radius,rotationY:0}:null;
+      let tap=vesselProfile?.tap?{...vesselProfile.tap,x:vesselX+vesselProfile.tap.x,z:vesselZ+vesselProfile.tap.z,rotationY:0,surfaceY:surfaceY+H+previewBasinRise,wellIndex:0}:rearZ-radius>=-D/2+edge?{x:vesselX,z:rearZ,radius,rotationY:0}:null;
       if(!tap){
         const side=vesselX>0?-1:1,sideX=vesselX+side*(basinW/2+clearance+radius);
         if(Math.abs(sideX)+radius<=W/2-edge)tap={x:sideX,z:vesselZ,radius,rotationY:side>0?-Math.PI/2:Math.PI/2};
       }
-      if(tap){holes.push(circleContour(tap.x,tap.z,radius));description.tapHoles.push({...tap,z:tap.z+Z});description.tapMount='deck';}
+      if(tap){if(!semiRecessed||tap.mount!=='basin')holes.push(circleContour(tap.x,tap.z,tap.radius));description.tapHoles.push({...tap,z:tap.z+Z});description.tapMount=tap.mount||'deck';}
       else description.tapMount='wall';
     }
     add(plateGeometry(W,D,H,holes),plateMaterial,'Plan_'+(top.ref||top.id),parent,0,surfaceY,Z,'deck');
@@ -139,15 +136,15 @@ export function buildAnimaTop({selection,ceramic,wood,chrome,planMaterial=null,b
       if(style.drain==='rectangular-matched')add(plateGeometry(.073,.050,.003),ceramicBowl,'Bonde_rectangulaire_assortie',group,0,.024,0,'drain-cover');
       else {add(new T.CylinderGeometry(.021,.021,.006,64),chrome,'Bonde',group,0,.020,0,'drain');add(new T.CylinderGeometry(.0315,.0315,.002,64),chrome,'Couvercle_bonde',group,0,.024,0,'drain');}vessels[selection.mode]={group,bowl};
       if(/^ECLISSE/.test(basin.ref||'')&&(selection.basinBottom==='tvl'||selection.basinSupport)){
-        const code=(basin.ref.match(/ECLISSE(\d+)/)||[])[1],power=sourceShape(basin)==='round'?2:sourceShape(basin)==='oval'?2.1:5,w=basin.width/100*(power===5?.76:.82),d=basin.depth/100*(power===5?.76:.82),level=.052;
+        const code=(basin.ref.match(/ECLISSE(\d+)/)||[])[1],power=vesselProfile.power,w=vesselProfile.openingWidth*.82,d=vesselProfile.openingDepth*.82,level=.052,insertZ=vesselProfile.openingOffsetZ*.78;
         const white=new T.MeshPhysicalMaterial({color:'#f6f5f1',roughness:.56,metalness:0,clearcoat:0}),black=new T.MeshStandardMaterial({color:'#202322',roughness:.7});ownedMaterials.push(white,black);
-        const feet=(material,name)=>{for(const x of[-w*.34,w*.34])for(const z of[-d*.30,d*.30])add(new T.CylinderGeometry(.005,.006,.019,16),material,name,group,x,level-.010,z,'basin-accessory');};
+        const feet=(material,name)=>{for(const x of[-w*.34,w*.34])for(const z of[-d*.30,d*.30])add(new T.CylinderGeometry(.005,.006,.019,16),material,name,group,x,level-.010,z+insertZ,'basin-accessory');};
         if(selection.basinSupport){
-          for(const z of[-d*.32,d*.32])add(new T.BoxGeometry(w*.75,.005,.010),black,'Support_ABS_noir_SUP'+code,group,0,level-.004,z,'basin-accessory');feet(black,'Pied_support_ABS');description.accessories.push({ref:'SUP'+code,kind:'black-abs-support',approximate:true,sourcePdfPage:75});
+          for(const z of[-d*.32,d*.32])add(new T.BoxGeometry(w*.75,.005,.010),black,'Support_ABS_noir_SUP'+code,group,0,level-.004,z+insertZ,'basin-accessory');feet(black,'Pied_support_ABS');description.accessories.push({ref:'SUP'+code,kind:'black-abs-support',approximate:true,sourcePdfPage:75});
         }
-        if(selection.basinBottom==='tvl'){add(insertGeometry(w,d,.004,power),white,'Tablette_amovible_TVL'+code,group,0,level,0,'basin-accessory');if(!selection.basinSupport)feet(white,'Pied_tablette_TVL');description.accessories.push({ref:'TVL'+code,kind:'removable-white-bottom',approximate:true,sourcePdfPage:75});}
+        if(selection.basinBottom==='tvl'){add(insertGeometry(w,d,.004,power),white,'Tablette_amovible_TVL'+code,group,0,level,insertZ,'basin-accessory');if(!selection.basinSupport)feet(white,'Pied_tablette_TVL');description.accessories.push({ref:'TVL'+code,kind:'removable-white-bottom',approximate:true,sourcePdfPage:75});}
       }
-      description.wells.push({x:vesselX,z:Z+vesselZ,width:basin.width/100,depth:basin.depth/100,height:basin.height==null?null:basin.height/100,rimRise:previewBasinRise,recessDepth,kind:semiRecessed?'semi-recessed':'countertop'});
+      description.wells.push({x:vesselX,z:Z+vesselZ,width:vesselProfile.width,depth:vesselProfile.depth,power:vesselProfile.power,openingWidth:vesselProfile.openingWidth,openingDepth:vesselProfile.openingDepth,openingCenterX:vesselX,openingCenterZ:Z+vesselZ+vesselProfile.openingOffsetZ,height:basin.height==null?null:basin.height/100,rimRise:previewBasinRise,recessDepth,kind:semiRecessed?'semi-recessed':'countertop',reconstruction:vesselProfile.reconstruction});
     }
   }else{
     const group=new T.Group();group.name='Lavabo_'+(basin?.ref||top.ref||top.id);group.userData.editTarget='basin';root.add(group);insets[selection.mode]=group;

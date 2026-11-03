@@ -7,6 +7,10 @@ import {transformAnimaMirrorUI} from './mirror-ui-transform.mjs';
 import {transformWorktopInteraction} from './worktop-transform.mjs';
 import {transformCabinetRoles} from './cabinet-role-transform.mjs';
 import {transformAnimaBasinDragAtelier,transformAnimaBasinDragShared} from './basin-drag-transform.mjs';
+import {transformStandaloneSource} from './standalone-transform.mjs';
+import {transformFurnitureAccessoryAtelier,transformFurnitureAccessoryPreview} from './accessories-transform.mjs';
+import {transformCatalogueExtras} from './catalogue-extras-transform.mjs';
+import {transformAnimaTapCompatibility,transformAnimaTapPreview} from './tap-compatibility-transform.mjs';
 const STUDIO_ORIGIN='https://studio-one-beta-test-v2.vercel.app/';
 const PRIVATE_URL='https://leroyfactory.fr/neobath-anima-configurateur.html';
 const navigationPrelude=`
@@ -85,6 +89,9 @@ export function transformCommonStudioSource(input,relativePath){
    .replace('asset.aquaTapExtra.position.x=centers[1];asset.aquaTapExtra.visible=true;','asset.aquaTapExtra.position.x=centers[1];asset.aquaTapExtra.position.z=tapPositions?.[1]?.z??asset.aquaTap.position.z;asset.aquaTapExtra.rotation.y=tapPositions?.[1]?.rotationY||0;asset.aquaTapExtra.visible=true;');
  }
  if(relativePath==='commerce/preview-model.js')source=transformPremiumPreview(source);
+ source=transformStandaloneSource(source,relativePath);
+ if(relativePath==='app.js'){source=transformFurnitureAccessoryAtelier(source);source=transformCatalogueExtras(source,relativePath);source=transformAnimaTapCompatibility(source);}
+ if(relativePath==='commerce/preview-model.js'){source=transformFurnitureAccessoryPreview(source);source=transformAnimaTapPreview(source);}
  return transformPremiumRendering(source,relativePath);
 }
 
@@ -144,7 +151,7 @@ export function transformSharedStudioSource(input,path){
  let source=input;
  if(path==='shared/lrf-3d/i18n/index.js')source=routePrelude+source.replace(/\blocation\.(href|search|hash|pathname|origin)\b/g,'__animaLocation().$1').replace(/\bhistory(?=\.|\[)/g,'__animaHistory');
  if(path==='shared/lrf-3d/drawer-options.js')source="import {TOP_OPTIONS as __animaDrawerTops} from '@anima-adapter/anima-data.js';\n"+source.replace("export const fullTopDrawerAvailable=top=>['plain','neris','torne'].includes(top);","export const fullTopDrawerAvailable=top=>top==='bare'||top==='plain'||__animaDrawerTops.some(option=>option.id===top&&['cover','countertop'].includes(option.category));");
- if(path==='shared/lrf-3d/product-placement-drag.js')source=transformAnimaBasinDragShared(source);
+ if(path==='shared/lrf-3d/product-placement-drag.js'){source=transformAnimaBasinDragShared(source);source=transformStandaloneSource(source,path);}
  if(path==='shared/lrf-3d/public-compositions.js')return 'export const PUBLIC_COMPOSITIONS=Object.freeze([]);export const publicComposition=()=>null;export const publicCompositionProject=()=>null;\n';
  if(path==='shared/lrf-3d/cabinet-options-ui.js'){
   source=source.replace("export const topOptionPhoto=id=>['sella','tampa','neris','torne'].includes(id)?media+'basin-'+id+'.webp':null;","export const topOptionPhoto=id=>{const v=globalThis.NEOBATH_ANIMA_VISUALS?.products?.[id];return typeof v==='string'?v:v?.image||v?.photo||null;};")

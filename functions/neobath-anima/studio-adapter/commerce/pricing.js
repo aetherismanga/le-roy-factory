@@ -1,3 +1,5 @@
+import {normalizeStandaloneSettings,standaloneSelection} from '../standalone-worktop-data.js';
+import {resolveFurnitureAccessories} from '../furniture-accessories.js';
 import {CATALOG as C,PRODUCTS,modelProduct,publicPrice,sourceNote,productImage} from './catalog.js';
 import {topSelection} from '../anima-data.js';
 import {continuousTopContext,continuousTopCompatible} from '../projects.js';
@@ -42,7 +44,17 @@ export function lineItems(item,project=null) {
         for(const accessory of selection.basinAccessoryProducts||[])row(accessory,accessory.label,accessory.ref+' · option de la vasque '+basin.ref);
       }
     }
+    try{const accessories=resolveFurnitureAccessories(s);for(const product of accessories.products)if(!rows.some(line=>line.productId===product.id)){
+      row(product,product.label,(product.ref||'Référence à confirmer')+' · '+(product.subtype==='frame'?product.width+' × H '+product.height+' × P '+product.depth+' cm · Noir mat':(accessories.towelSide==='left'?'Côté gauche':'Côté droit')+' · '+product.colorName));
+      if(product.pricePublicHT===null){rows.at(-1).publicTTC=null;rows.at(-1).note=product.priceNote||'Variante documentée au catalogue Anima : référence et tarif à confirmer.';}
+    }}catch(error){rows.push({itemId:item.id,name:'Accessoire de meuble incompatible',ref:'À confirmer',detail:error.message,publicTTC:null});}
     for(const [id,key] of [[s.lightId,s.lightPriceKey],[s.accessoryId,s.accessoryPriceKey]]){const p=PRODUCTS.get(id);if(p&&!rows.some(row=>row.productId===p.id))row(p,p.label,p.prices?.find(v=>v.key===key)?.label||'',key);}
+  } else if(item.type==='worktop') {
+    let normalized,selection;try{normalized=normalizeStandaloneSettings(s);selection=standaloneSelection(normalized);}catch(error){rows.push({itemId:item.id,name:'Plan indépendant Anima',ref:'À confirmer',detail:error.message,publicTTC:null});return rows;}
+    const {top,basin}=selection,material=normalizeTopSurface(normalized,selection),key=variantKey(top,s.topPriceKey||material?.priceKey||s.basinColor),color=material?.surface.name||top.prices?.find(entry=>entry.key===key)?.label||'';
+    row(top,top.subtype==='integrated'?'Plan-vasque indépendant '+top.label:'Plan de travail indépendant '+top.label,selection.topWidth+' × P '+selection.previewDepth+' × H '+top.height+' cm · '+color+' · fixation/support non inclus',key,selection.billingLength);
+    if(selection.customDepth){rows.at(-1).publicTTC=null;rows.at(-1).note='Profondeur sur mesure : faisabilité et tarif à confirmer par le fabricant.';}
+    if(basin){row(basin,'Vasque '+basin.label,basin.width+' × '+basin.depth+' cm',s.basinPriceKey||s.basinColor);for(const product of selection.basinAccessoryProducts||[])row(product,product.label,product.ref+' · option de la vasque '+basin.ref);}
   } else if(item.type==='column') {
     const c=C.columns.find(c=>c.id===s.columnModel)||C.columns.find(c=>c.facade===String(s.facade||'PURA').toUpperCase())||C.columns[0];
     const p=PRODUCTS.get(c?.productId);
@@ -57,5 +69,5 @@ export function lineItems(item,project=null) {
 export function quoteProject(project) {
   const items=Array.isArray(project?.items)?project.items:[],rows=items.flatMap(item=>lineItems(item,project)),subtotal=rows.reduce((n,r)=>n+(r.publicTTC??0),0),missing=rows.filter(r=>r.publicTTC===null);
   return {rows,subtotal,publicTTC:missing.length?null:subtotal,missing,indicative:rows.some(r=>r.note),
-    excluded:[...items.filter(i=>UNPRICED_EQUIPMENT_TYPES.has(i.type)).map(i=>({id:i.id,type:i.type,...(i.type==='tap'&&i.settings?.tap?{reference:i.settings.tap}:{})})),...items.filter(i=>i.type==='cabinet'&&i.settings?.tap).map(i=>({id:i.id+'-tap',type:'attached-tap',reference:i.settings.tap}))],vat:20};
+    excluded:[...items.filter(i=>UNPRICED_EQUIPMENT_TYPES.has(i.type)).map(i=>({id:i.id,type:i.type,...(i.type==='tap'&&i.settings?.tap?{reference:i.settings.tap}:{})})),...items.filter(i=>['cabinet','worktop'].includes(i.type)&&i.settings?.tap).map(i=>({id:i.id+'-tap',type:'attached-tap',reference:i.settings.tap}))],vat:20};
 }
