@@ -12,7 +12,16 @@ import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-juillet-2026-arc
   const CURRENT_MONTH_LABEL = 'Août 2026';
   const CURRENT_CUTOFF = '31/08/2026';
   const CURRENT_PERIOD = ELIOS_STATS_META?.period || `01/01/${CURRENT_YEAR} au ${CURRENT_CUTOFF}`;
-  const euro = value => Number(value || 0).toLocaleString('fr-FR', { style:'currency', currency:'EUR', minimumFractionDigits:0, maximumFractionDigits:2 });
+  const amount = value => {
+    if (value === null || value === undefined || String(value).trim() === '') return null;
+    const number = Number(value);
+    return Number.isFinite(number) ? number : null;
+  };
+  const euro = value => value === null ? 'Non disponible' : value.toLocaleString('fr-FR', { style:'currency', currency:'EUR', minimumFractionDigits:0, maximumFractionDigits:2 });
+  const sumKnown = values => {
+    const known = values.filter(value => value !== null);
+    return known.length ? Number(known.reduce((sum, value) => sum + value, 0).toFixed(2)) : null;
+  };
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 
   const LEGAL = new Set(['sa','sas','sasu','sarl','eurl','sci','sc','ets','etablissement','etablissements','societe','ste','cod','fatt','france']);
@@ -49,12 +58,12 @@ import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-juillet-2026-arc
     return 0;
   }
   function bestMatch(company, rows) {
-    let best = null, bestScore = 0;
-    for (const row of rows || []) {
-      const score = matchScore(company, row.name);
-      if (score > bestScore) { best = row; bestScore = score; }
-    }
-    return bestScore >= 78 ? best : null;
+    const candidates = (rows || []).map(row => ({ row, score:matchScore(company, row.name) }))
+      .filter(hit => hit.score >= 78).sort((a, b) => b.score - a.score);
+    if (!candidates.length) return null;
+    // A shared company name is not a reliable identifier when several accounts match.
+    if (candidates[1] && candidates[0].score - candidates[1].score <= 4) return null;
+    return candidates[0].row;
   }
 
   const FACTORIES = [
@@ -64,25 +73,31 @@ import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-juillet-2026-arc
 
   function rowByCode(rows, key, code) {
     if (!code) return null;
-    return (rows || []).find(r => String(r?.[key] || '') === String(code)) || null;
+    const matches = (rows || []).filter(row => String(row?.[key] || '') === String(code));
+    return matches.length === 1 ? matches[0] : null;
   }
   function revenueFor(company) {
     const factories = [];
-    for (const f of FACTORIES) {
-      const current = bestMatch(company, f.current);
+    for (const factory of FACTORIES) {
+      const current = bestMatch(company, factory.current);
       if (!current) continue;
-      const code = current[f.codeKey] || '';
-      const july = rowByCode(f.july, f.codeKey, code) || bestMatch(company, f.july);
-      const ytd = Number(current.ca2026 || 0);
-      const previousComparable = Number(current.ca2025 || 0);
-      const august = july ? Number((ytd - Number(july.ca2026 || 0)).toFixed(2)) : null;
-      factories.push({ factory:f.name, code, matchedName:current.name, ytd, previousComparable, august, julyCumulative:july ? Number(july.ca2026 || 0) : null });
+      const code = current[factory.codeKey] || '';
+      const july = rowByCode(factory.july, factory.codeKey, code) || bestMatch(company, factory.july);
+      const ytd = amount(current.ca2026);
+      const previousComparable = amount(current.ca2025);
+      const julyCumulative = amount(july?.ca2026);
+      const august = ytd !== null && julyCumulative !== null ? Number((ytd - julyCumulative).toFixed(2)) : null;
+      factories.push({ factory:factory.name, code, matchedName:current.name, ytd, previousComparable, august, julyCumulative });
     }
-    const ytd = factories.reduce((sum, x) => sum + x.ytd, 0);
-    const previousComparable = factories.reduce((sum, x) => sum + x.previousComparable, 0);
-    const monthlyRows = factories.filter(x => x.august !== null);
-    const august = monthlyRows.length ? monthlyRows.reduce((sum, x) => sum + x.august, 0) : null;
-    return { factories, ytd, previousComparable, august, augustComplete:monthlyRows.length === factories.length && factories.length > 0 };
+    return {
+      factories,
+      ytd:sumKnown(factories.map(row => row.ytd)),
+      previousComparable:sumKnown(factories.map(row => row.previousComparable)),
+      august:sumKnown(factories.map(row => row.august)),
+      ytdComplete:factories.length > 0 && factories.every(row => row.ytd !== null),
+      previousComplete:factories.length > 0 && factories.every(row => row.previousComparable !== null),
+      augustComplete:factories.length > 0 && factories.every(row => row.august !== null)
+    };
   }
 
   function installStyles() {
@@ -90,8 +105,8 @@ import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-juillet-2026-arc
     const style = document.createElement('style');
     style.id = 'lrf-client-ca-style';
     style.textContent = `
-      .lrf-analysis-table{min-width:1190px!important}
       .lrf-ca-cell{min-width:155px}.lrf-ca-cell>strong{display:block;font-size:.79rem;color:#1d5f43}.lrf-ca-cell>small{display:block;margin-top:2px;color:#88785c;font-size:.58rem}.lrf-ca-mini{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}.lrf-ca-mini span{padding:3px 5px;border-radius:999px;background:#eef8f2;border:1px solid #c8e3d1;color:#245e43;font-size:.56rem;font-weight:850}
+      [data-client-revenue]{min-width:0;overflow-wrap:anywhere}.lrf-ca-card{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #ece7dd;padding-top:12px;margin-top:2px}.lrf-ca-card>span{font-size:.72rem;color:#6f6a60;line-height:1.5}.lrf-ca-card strong{font-size:1rem;color:#215e44;text-align:right;white-space:normal}.lrf-ca-card small{display:block;font-size:.68rem;color:#766e60}.lrf-ca-negative,.lrf-ca-negative strong,.lrf-ca-factory .lrf-ca-negative{color:#9d3d21!important}.lrf-ca-warning{display:block;margin-top:5px;color:#9d3d21;font-size:.72rem;font-weight:700}.lrf-ca-drawer details{margin-top:10px}.lrf-ca-drawer summary{cursor:pointer;font-size:.82rem;font-weight:700;color:#615234;min-height:32px;padding:6px 0}.lrf-ca-drawer [data-ca-total]{font-size:1.35rem;font-weight:800;margin:8px 0;color:#215e44}.lrf-ca-drawer .lrf-ca-explain{font-size:.74rem;line-height:1.5}.lrf-ca-drawer .lrf-ca-cutoff{font-size:.72rem}.lrf-ca-drawer .lrf-ca-kpi span{font-size:.68rem}.lrf-ca-drawer .lrf-ca-kpi small{font-size:.67rem}.lrf-ca-drawer .lrf-ca-factory{font-size:.74rem}.lrf-ca-drawer .lrf-ca-factory strong{font-size:.76rem}.lrf-ca-drawer .lrf-ca-none{font-size:.78rem}.lrf-ca-drawer .lrf-ca-note{font-size:.7rem}.lrf-ca-match-note{margin:9px 0 0;color:#756a58;font-size:.72rem;line-height:1.5}
       .lrf-ca-none{color:#8b8170;font-size:.64rem}.lrf-ca-note{display:block;margin-top:3px;font-size:.56rem;color:#8c7d62}
       .lrf-ca-drawer{padding:12px;border:1px solid #d7e6d9;border-radius:13px;background:linear-gradient(145deg,#fff,#f3faf5)}.lrf-ca-drawer h3{display:flex;justify-content:space-between;align-items:center;gap:8px}.lrf-ca-cutoff{font-size:.58rem;color:#7f725d;font-weight:700}.lrf-ca-kpis{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0}.lrf-ca-kpi{padding:9px;border-radius:10px;border:1px solid #dce9df;background:#fff}.lrf-ca-kpi span{display:block;font-size:.56rem;text-transform:uppercase;color:#746b5b;font-weight:850}.lrf-ca-kpi strong{display:block;margin-top:3px;font-size:.84rem;color:#164f38}.lrf-ca-kpi small{display:block;margin-top:2px;color:#897d69;font-size:.54rem;line-height:1.3}.lrf-ca-kpi.unavailable strong{color:#8a7c65;font-size:.68rem}
       .lrf-ca-factories{display:grid;gap:5px;margin-top:8px}.lrf-ca-factory{display:grid;grid-template-columns:minmax(65px,.7fr) 1fr 1fr;gap:6px;align-items:center;padding:7px 8px;border:1px solid #e6ddcb;border-radius:9px;background:#fff;font-size:.62rem}.lrf-ca-factory strong{font-size:.65rem}.lrf-ca-factory b{text-align:right;color:#215e44}.lrf-ca-factory small{text-align:right;color:#846f4b}.lrf-ca-explain{margin:8px 0 0;color:#766c5b;font-size:.59rem;line-height:1.45}.lrf-ca-hot-product{margin-top:8px;padding:8px 9px;border-left:3px solid #e6a51b;border-radius:8px;background:#fff8e2;font-size:.62rem;color:#5e4a20}.lrf-ca-hot-product strong{display:block;margin-bottom:2px}.lrf-ca-data-note{font-weight:750;color:#6f6149!important}
@@ -101,9 +116,24 @@ import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-juillet-2026-arc
   }
 
   function cellHtml(info) {
-    if (!info.factories.length) return `<span class="lrf-ca-none">—</span><small class="lrf-ca-note">Pas de CA Elios / View retrouvé</small>`;
-    const chips = info.factories.map(x => `<span>${esc(x.factory)} ${euro(x.ytd)}</span>`).join('');
-    return `<div class="lrf-ca-cell"><strong>${euro(info.ytd)}</strong><small>Jan. → août 2026</small><div class="lrf-ca-mini">${chips}</div></div>`;
+    if (!info.factories.length || info.ytd === null) return '<span class="lrf-ca-none">CA non disponible</span><small class="lrf-ca-note">Elios / View · rapprochement non établi ou montant manquant</small>';
+    return `<div class="lrf-ca-cell${info.ytd < 0 ? ' lrf-ca-negative' : ''}"><strong>${euro(info.ytd)}</strong><small>Janv.–août 2026 · ${esc(info.factories.map(row => row.factory).join(' + '))}${info.ytdComplete ? '' : ' · partiel'}</small>${info.ytd < 0 ? '<span class="lrf-ca-warning">CA net négatif</span>' : ''}<small class="lrf-ca-note">Rapprochement par nom à vérifier</small></div>`;
+  }
+
+  function cardHtml(info) {
+    const coverage = info.factories.filter(row => row.ytd !== null).map(row => row.factory).join(' + ');
+    if (!coverage) return '<div class="lrf-ca-card"><span>CA disponible<small>Elios / View · janv.–août 2026</small></span><strong class="lrf-ca-none">Non disponible</strong></div>';
+    return `<div class="lrf-ca-card${info.ytd < 0 ? ' lrf-ca-negative' : ''}"><span>${info.ytd < 0 ? 'CA net négatif' : 'CA retrouvé'}<small>${esc(coverage)} · janv.–août 2026${info.ytdComplete ? '' : ' · partiel'}</small></span><strong>${euro(info.ytd)}</strong></div><small class="lrf-ca-note">Rapprochement par nom à vérifier dans le compte rendu.</small>`;
+  }
+
+  function enhanceClientCards() {
+    document.querySelectorAll('#lrf-client-cards article[data-client-id]').forEach(card => {
+      const company = card.dataset.clientCompany || '';
+      const slot = card.querySelector('[data-client-revenue]');
+      if (!company || !slot || slot.dataset.revenueCompany === company) return;
+      slot.dataset.revenueCompany = company;
+      slot.innerHTML = cardHtml(revenueFor(company));
+    });
   }
 
   function enhanceClientTable() {
@@ -144,13 +174,6 @@ import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-juillet-2026-arc
     }
   }
 
-  function favoriteProductFromDrawer() {
-    const metrics = [...document.querySelectorAll('#lrf-detail-metrics > div')];
-    const hit = metrics.find(div => div.querySelector('span')?.textContent?.trim().toLowerCase() === 'produit favori');
-    const value = hit?.querySelector('strong')?.textContent?.trim() || '';
-    return value && value !== '—' ? value : '';
-  }
-
   function ensureDrawerSection() {
     const body = document.querySelector('#lrf-client-drawer .lrf-drawer-body');
     if (!body) return null;
@@ -160,30 +183,33 @@ import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-juillet-2026-arc
       section.id = 'lrf-detail-ca';
       section.className = 'lrf-drawer-section lrf-ca-drawer';
       const signal = body.querySelector('.lrf-detail-signal');
-      if (signal?.nextSibling) body.insertBefore(section, signal.nextSibling); else body.appendChild(section);
+      const anchor = body.querySelector('#lrf-detail-ca-anchor');
+      if(anchor) anchor.appendChild(section); else if (signal?.nextSibling) body.insertBefore(section, signal.nextSibling); else body.appendChild(section);
     }
     return section;
   }
 
   function drawerHtml(company) {
     const info = revenueFor(company);
-    const product = favoriteProductFromDrawer();
-    if (!info.factories.length) {
-      return `<h3><span>💶 Chiffre d’affaires</span><small class="lrf-ca-cutoff">au ${CURRENT_CUTOFF}</small></h3><div class="lrf-ca-none">Aucun chiffre d’affaires Elios ou View n’a été retrouvé automatiquement pour ce client.</div>${product ? `<div class="lrf-ca-hot-product"><strong>🔥 Produit chaud — intérêt web</strong>${esc(product)}<small class="lrf-ca-note">Basé sur les consultations du site, pas sur les ventes produit.</small></div>` : ''}`;
+    const heading = '<h3>Chiffre d’affaires disponible</h3><small class="lrf-ca-cutoff">Janv.–août 2026 · sources Elios / View</small>';
+    if (!info.factories.length || info.ytd === null) {
+      return `${heading}<p class="lrf-ca-none">CA non disponible : aucun montant exploitable rapproché pour ce client. Cela ne signifie pas un chiffre d’affaires nul.</p><p class="lrf-ca-match-note">Les rapprochements sont automatiques par nom. En cas de plusieurs comptes possibles, aucun montant n’est attribué.</p>`;
     }
-    const monthText = info.august === null ? '—' : euro(info.august);
-    const monthNote = info.augustComplete ? 'Différence entre les arrêtés 31/07 et 31/08' : 'Partiel : une usine ne dispose pas de l’arrêté 31/07';
-    const factoryRows = info.factories.map(x => `<div class="lrf-ca-factory"><strong>🏭 ${esc(x.factory)}</strong><b>${euro(x.ytd)}<br><small>2026</small></b><small>${x.august === null ? 'Août : —' : `Août : ${euro(x.august)}`}</small></div>`).join('');
-    return `<h3><span>💶 Chiffre d’affaires</span><small class="lrf-ca-cutoff">${esc(CURRENT_PERIOD)}</small></h3>
-      <div class="lrf-ca-kpis">
-        <div class="lrf-ca-kpi"><span>Année civile ${CURRENT_YEAR}</span><strong>${euro(info.ytd)}</strong><small>Janvier → ${CURRENT_CUTOFF}</small></div>
-        <div class="lrf-ca-kpi"><span>${CURRENT_MONTH_LABEL}</span><strong>${monthText}</strong><small>${esc(monthNote)}</small></div>
-        <div class="lrf-ca-kpi"><span>N-1 comparable</span><strong>${euro(info.previousComparable)}</strong><small>Janvier → août 2025</small></div>
-        <div class="lrf-ca-kpi unavailable"><span>12 mois glissants</span><strong>Historique insuffisant</strong><small>Sept.–déc. 2025 mensuels absents : aucun chiffre n’est inventé.</small></div>
-      </div>
-      <div class="lrf-ca-factories">${factoryRows}</div>
-      <p class="lrf-ca-explain"><strong>Détail mensuel disponible :</strong> ${CURRENT_MONTH_LABEL} est calculé à partir de la différence entre les arrêtés cumulés du 31/07 et du 31/08. Les mois antérieurs seront ajoutés automatiquement dès que leurs arrêtés réels seront intégrés.</p>
-      ${product ? `<div class="lrf-ca-hot-product"><strong>🔥 Produit chaud — intérêt web</strong>${esc(product)}<small class="lrf-ca-note">Produit le plus consulté par ce client sur le site ; ce n’est pas un classement de ventes produit.</small></div>` : ''}`;
+    const factoryRows = info.factories.map(row => `<div class="lrf-ca-factory"><strong>${esc(row.factory)}</strong><b class="${row.ytd !== null && row.ytd < 0 ? 'lrf-ca-negative' : ''}">${euro(row.ytd)}</b><small>Août : ${euro(row.august)}</small></div>`).join('');
+    const identities = info.factories.map(row => `${row.factory} : ${row.matchedName}${row.code ? ` (${row.code})` : ''}`).join(' · ');
+    const coverage = info.factories.filter(row => row.ytd !== null).map(row => row.factory).join(' + ');
+    return `${heading}
+      <div data-ca-total class="${info.ytd < 0 ? 'lrf-ca-negative' : ''}">${euro(info.ytd)}</div>
+      ${info.ytd < 0 ? '<span class="lrf-ca-warning">CA net négatif sur la période. La cause doit être vérifiée dans les pièces commerciales.</span>' : ''}
+      <p class="lrf-ca-explain">Couverture retrouvée : <strong>${esc(coverage)}</strong>${info.ytdComplete ? '' : ' (montants partiels)'}. Cette période est indépendante du filtre d’activité du site. Les autres fabricants ne sont pas inclus.</p>
+      <details><summary>Détail par fabricant et comparaison</summary>
+        <div class="lrf-ca-factories">${factoryRows}</div>
+        <div class="lrf-ca-kpis">
+          <div class="lrf-ca-kpi${info.august !== null && info.august < 0 ? ' lrf-ca-negative' : ''}"><span>${CURRENT_MONTH_LABEL}</span><strong>${euro(info.august)}</strong><small>${info.augustComplete ? 'Différence entre les arrêtés du 31/07 et du 31/08' : 'Partiel ou non disponible : arrêté de juillet manquant'}</small></div>
+          <div class="lrf-ca-kpi${info.previousComparable !== null && info.previousComparable < 0 ? ' lrf-ca-negative' : ''}"><span>Janv.–août 2025</span><strong>${euro(info.previousComparable)}</strong><small>${info.previousComplete ? 'Même couverture des comptes rapprochés' : 'Comparaison partielle ou indisponible'}</small></div>
+        </div>
+        <p class="lrf-ca-match-note"><strong>Rapprochement automatique par nom à vérifier :</strong> ${esc(identities)}.</p>
+      </details>`;
   }
 
   function renderDrawerRevenue() {
@@ -193,32 +219,41 @@ import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-juillet-2026-arc
     const company = title?.textContent?.replace(/\s+/g, ' ').trim() || '';
     if (!company) return;
     const section = ensureDrawerSection();
-    if (section) section.innerHTML = drawerHtml(company);
+    if (section && section.dataset.revenueCompany !== company) {
+      section.dataset.revenueCompany = company;
+      section.innerHTML = drawerHtml(company);
+    }
   }
 
   function bind() {
     installStyles();
     enhanceClientTable();
+    enhanceClientCards();
     ensureDrawerSection();
 
-    const body = document.getElementById('lrf-clients-table-body');
-    if (body) new MutationObserver(() => queueMicrotask(enhanceClientTable)).observe(body, { childList:true, subtree:false });
-
-    const drawer = document.getElementById('lrf-client-drawer');
-    if (drawer) new MutationObserver(() => setTimeout(renderDrawerRevenue, 0)).observe(drawer, { attributes:true, attributeFilter:['class'] });
-    const title = document.getElementById('lrf-detail-title');
-    if (title) new MutationObserver(() => setTimeout(renderDrawerRevenue, 0)).observe(title, { childList:true, subtree:true, characterData:true });
-
-    document.addEventListener('click', event => {
-      if (event.target.closest('[data-detail-client]')) setTimeout(renderDrawerRevenue, 25);
-    }, true);
-
-    let tries = 0;
-    const retry = () => {
-      enhanceClientTable();
-      if (++tries < 20 && !document.querySelector('#lrf-clients-table-body tr')) setTimeout(retry, 250);
+    // Watch only direct card/row replacement, not our own enrichment inside each slot.
+    let scheduled = false;
+    const scheduleCards = () => {
+      if (scheduled) return;
+      scheduled = true;
+      queueMicrotask(() => { scheduled = false; enhanceClientCards(); });
     };
-    setTimeout(retry, 250);
+    const cards = document.getElementById('lrf-client-cards');
+    if (cards) new MutationObserver(scheduleCards).observe(cards, { childList:true });
+    const body = document.getElementById('lrf-clients-table-body');
+    if (body) new MutationObserver(() => queueMicrotask(enhanceClientTable)).observe(body, { childList:true });
+    document.addEventListener('lrf:clients-rendered', scheduleCards);
+
+    let drawerScheduled = false;
+    const scheduleDrawer = () => {
+      if (drawerScheduled) return;
+      drawerScheduled = true;
+      queueMicrotask(() => { drawerScheduled = false; renderDrawerRevenue(); });
+    };
+    const drawer = document.getElementById('lrf-client-drawer');
+    if (drawer) new MutationObserver(scheduleDrawer).observe(drawer, { attributes:true, attributeFilter:['class'] });
+    const title = document.getElementById('lrf-detail-title');
+    if (title) new MutationObserver(scheduleDrawer).observe(title, { childList:true, subtree:true, characterData:true });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind, { once:true }); else bind();

@@ -12,6 +12,26 @@ const TRACK_ACTIONS = new Set(['session_start','page_view','partner_view','produ
 const VIEW_ACTIONS = new Set(['page_view','partner_view','product_view','stock_view','tariff_view','cart_add','order_view']);
 const WEIGHTS = { page_view:1, partner_view:2, product_view:6, stock_view:16, tariff_view:10, cart_add:10, order_view:40 };
 const DAY = 86400000;
+// These are explicit completion markers from the order bridge, never a page,
+// button label or form submission. This remains website telemetry, not a ledger.
+const CONFIRMED_ORDER_SOURCES = new Set(['order-confirmed','order-sent','order-success','commande-envoyee','confirmed','sent','success','envoye','envoyee']);
+function isConfirmedOrderEvent(event) {
+  return event?.action === 'order_view' && CONFIRMED_ORDER_SOURCES.has(norm(event.source));
+}
+function dedupeConfirmedOrders(events) {
+  const seen = new Set();
+  return events.filter(event => {
+    if (event.action !== 'order_view') return true;
+    if (!isConfirmedOrderEvent(event)) return false;
+    // Older trackers did not transmit an orderId. Do not collapse independent
+    // orders just because their product/reference/date happens to match.
+    const orderId = clean(event.orderId,120);
+    const key = orderId ? [event.clientId,norm(event.partner),orderId].join('|') : `event:${event.id}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
 
 function cors(req, res, agent = false) {
   const origin = String(req.headers.origin || '');
@@ -52,7 +72,7 @@ async function writeTrackedActivity(client, activity = {}) {
     page:clean(activity.page||'',180)||'inconnu', title:clean(activity.title||'',180), device:clean(activity.device||'unknown',20),
     partner:clean(activity.partner||'',80), tariffId:clean(activity.tariffId||'',80), productRef:clean(activity.productRef||'',80),
     productName:clean(activity.productName||'',180), collection:clean(activity.collection||'',120), stock,
-    stockUnit:clean(activity.stockUnit||'',20), sessionId:clean(activity.sessionId||'',80), source:clean(activity.source||'site-public',50), createdAt:now
+    stockUnit:clean(activity.stockUnit||'',20), sessionId:clean(activity.sessionId||'',80), source:clean(activity.source||'site-public',50), orderId:clean(activity.orderId||'',120), createdAt:now
   };
   const summary = {
     clientId:String(client.id), codeClient:clean(client.codeClient||'',20).toUpperCase(), lastSeenAt:now, lastAction:action,
@@ -104,7 +124,7 @@ function pageLabel(page, title) {
 }
 
 function actionLabel(action) {
-  return ({session_start:'Visite du site',page_view:'Page consultée',partner_view:'Fabricant consulté',product_view:'Produit consulté',stock_view:'Stock consulté',tariff_view:'Tarif consulté',cart_add:'Ajout panier',order_view:'Commande passée'})[action] || action || 'Activité';
+  return ({session_start:'Visite du site',page_view:'Page consultée',partner_view:'Fabricant consulté',product_view:'Produit consulté',stock_view:'Stock consulté',tariff_view:'Tarif consulté',cart_add:'Ajout panier',order_view:'Commande signalée comme envoyée'})[action] || action || 'Activité';
 }
 function emptyStats(){return{lastSeen:0,views:0,sessions:0,tariffs:0,products:0,stocks:0,partners:0,carts:0,orders:0,pages:new Map(),productsMap:new Map(),stocksMap:new Map(),partnersMap:new Map(),activeDays:new Set(),events:[],interest:0};}
 function scoreClient(s, now) {
@@ -146,7 +166,7 @@ const trackLrfActivity = onRequest({timeoutSeconds:30,memory:'256MiB'}, async (r
       page: clean(req.body?.page,180), title: clean(req.body?.title,180), device: clean(req.body?.device,20),
       partner: clean(req.body?.partner,80), productRef: clean(req.body?.productRef,80), productName: clean(req.body?.productName,180),
       collection: clean(req.body?.collection,120), stock: req.body?.stock, stockUnit: clean(req.body?.stockUnit,20),
-      sessionId: clean(req.body?.sessionId,80), source: clean(req.body?.source,50)
+      sessionId: clean(req.body?.sessionId,80), source: clean(req.body?.source,50), orderId:clean(req.body?.orderId,120)
     });
     return res.json({success:true});
   } catch (e) {
@@ -156,6 +176,7 @@ const trackLrfActivity = onRequest({timeoutSeconds:30,memory:'256MiB'}, async (r
 });
 
 const getLrfAnalytics = onRequest({timeoutSeconds:60,memory:'512MiB'}, async (req,res) => {
+  res.set('X-LRF-Analytics-Version', '20261103-reports2');
   if (cors(req,res,true)) return;
   if (req.method !== 'POST') return res.status(405).json({success:false,error:'Méthode non autorisée'});
   const agent = await requireAgent(req,res);
@@ -191,13 +212,14 @@ const getLrfAnalytics = onRequest({timeoutSeconds:60,memory:'512MiB'}, async (re
     const partners=[...new Set(rawEvents.map(e=>clean(e.partner,80)).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr'));
     const actions=[...new Set(rawEvents.map(e=>clean(e.action,40)).filter(Boolean))].sort();
 
-    const events=rawEvents.filter(e=>{
+    const selectedEvents=rawEvents.filter(e=>{
       if(filterDepartment && depFromClient(e.client)!==filterDepartment)return false;
       if(filterPartner && norm(e.partner)!==filterPartner)return false;
       if(filterAction && e.action!==filterAction)return false;
       if(filterClient && String(e.clientId)!==filterClient)return false;
       return true;
     });
+    const events=dedupeConfirmedOrders(selectedEvents);
 
     const byClient=new Map(), pageCounts=new Map(), productCounts=new Map(), stockCounts=new Map(), partnerCounts=new Map(), departmentCounts=new Map(), actionCounts=new Map();
     for(const e of events){
@@ -245,14 +267,17 @@ const getLrfAnalytics = onRequest({timeoutSeconds:60,memory:'512MiB'}, async (re
 
     const activeRows=clientRows.filter(c=>c.lastSeenAt>0), hotClients=activeRows.filter(c=>c.heatScore>=50);
     const connectedRecent=clientRows.filter(c=>c.isOnline).sort((a,b)=>b.lastSeenGlobal-a.lastSeenGlobal);
-    const timeline=events.slice(0,1200).map(e=>({
-      id:e.id,clientId:e.clientId,codeClient:clean(e.client.codeClient,20).toUpperCase(),societe:e.client.societe||'Client',departement:depFromClient(e.client),ville:e.client.ville||'',at:e.ms,action:e.action,actionLabel:actionLabel(e.action),page:pageLabel(e.page,e.title),partner:clean(e.partner,80),productRef:clean(e.productRef,80),productName:clean(e.productName,180),collection:clean(e.collection,120),stock:e.stock,stockUnit:clean(e.stockUnit,20),device:clean(e.device,20)
-    }));
+    const serializeEvent=e=>({
+      id:e.id,clientId:e.clientId,codeClient:clean(e.client.codeClient,20).toUpperCase(),societe:e.client.societe||'Client',departement:depFromClient(e.client),ville:e.client.ville||'',at:e.ms,action:e.action,actionLabel:actionLabel(e.action),page:pageLabel(e.page,e.title),partner:clean(e.partner,80),productRef:clean(e.productRef,80),productName:clean(e.productName,180),collection:clean(e.collection,120),stock:e.stock,stockUnit:clean(e.stockUnit,20),device:clean(e.device,20),source:clean(e.source,50),orderId:clean(e.orderId,120)
+    });
+    const timeline=events.slice(0,1200).map(serializeEvent);
+    const orders=events.filter(isConfirmedOrderEvent).map(serializeEvent);
 
     return res.json({
       success:true,generatedAt:now,agent:agentEmail,range,
       general:{totalClients:clientRows.length,activeClients:activeRows.length,connections:activeRows.reduce((n,c)=>n+c.sessions,0),events:events.length,pageViews:events.filter(e=>e.action==='page_view').length,productViews:events.filter(e=>e.action==='product_view').length,stockViews:events.filter(e=>e.action==='stock_view').length,tariffViews:events.filter(e=>e.action==='tariff_view').length,orders:events.filter(e=>e.action==='order_view').length,hotClients:hotClients.length,onlineNow:connectedRecent.length},
-      clients:clientRows,hotClients,connectedRecent,timeline,
+      clients:clientRows,hotClients,connectedRecent,timeline,orders,
+      orderAnalytics:{version:2,coverage:'tracked-client-events',timelineTruncated:events.length>1200,eventQueryLimitReached:eventSnap.size>=12000,unconfirmedOrderEvents:selectedEvents.filter(e=>e.action==='order_view'&&!isConfirmedOrderEvent(e)).length},
       pages:mapTop(pageCounts,30),products:mapTop(productCounts,40),stocks:mapTop(stockCounts,40),partners:mapTop(partnerCounts,30),departments:mapTop(departmentCounts,50),actions:mapTop(actionCounts,20),
       filters:{departments,partners,actions:actions.map(value=>({value,label:actionLabel(value)}))}
     });

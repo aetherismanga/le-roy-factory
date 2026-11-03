@@ -3,9 +3,17 @@
   if (window.__LRF_ORDER_ANALYTICS_ACCURACY__) return;
   window.__LRF_ORDER_ANALYTICS_ACCURACY__ = true;
 
+  // Old navigation modules may still be cached on mobile. This page loads its
+  // current revenue module explicitly and must not revive legacy DOM patches.
+  if (typeof document !== 'undefined' && document.body?.dataset.lrfReports === '2') {
+    window.__LRF_CLIENT_CA_LOADER__ = true;
+    window.__LRF_ANALYSIS_FIX_LOADER__ = true;
+  }
+
   const ANALYTICS_ENDPOINT = 'getLrfAnalytics';
   const originalFetch = window.fetch.bind(window);
-  const sourceOk = source => /(confirmed|sent|success|envoy)/i.test(String(source || ''));
+  const confirmedSources = new Set(['order-confirmed','order-sent','order-success','commande-envoyee','confirmed','sent','success','envoye','envoyee']);
+  const sourceOk = source => confirmedSources.has(String(source || '').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase());
   const isConfirmedOrder = e => e?.action !== 'order_view' || sourceOk(e?.source);
 
   function fixClient(c, counts) {
@@ -25,13 +33,21 @@
     if (!json || !json.success) return json;
     const timeline = Array.isArray(json.timeline) ? json.timeline : [];
     const cleanTimeline = timeline.filter(isConfirmedOrder);
+    json.timeline = cleanTimeline;
+    if (json.orderAnalytics?.version === 2) {
+      // The API counts all matching events before truncating its chronology.
+      // Never overwrite these totals with a recount of just the visible 1,200.
+      json.orders = Array.isArray(json.orders) ? json.orders.filter(e => e.action === 'order_view' && sourceOk(e.source)) : cleanTimeline.filter(e => e.action === 'order_view');
+      return json;
+    }
     const counts = new Map();
     cleanTimeline.forEach(e => {
       if (e.action !== 'order_view') return;
       const id = String(e.clientId || '');
       counts.set(id, (counts.get(id) || 0) + 1);
     });
-    json.timeline = cleanTimeline;
+    json.orders = cleanTimeline.filter(e => e.action === 'order_view');
+    json.orderAnalytics = {version:1,coverage:'tracked-client-events',incomplete:true,reason:'legacy-timeline-only'};
     if (json.general) json.general.orders = [...counts.values()].reduce((a,b)=>a+b,0);
     if (Array.isArray(json.clients)) json.clients.forEach(c => fixClient(c, counts));
     if (Array.isArray(json.hotClients)) json.hotClients.forEach(c => fixClient(c, counts));

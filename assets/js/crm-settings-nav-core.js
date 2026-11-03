@@ -48,10 +48,10 @@
   function loadClientRevenueAnalysis() {
     if (!isAnalysisPage() || window.__LRF_CLIENT_CA_LOADER__) return;
     window.__LRF_CLIENT_CA_LOADER__=true;
-    import('./analyse-clients-ca.js?v=20260909-ca1').catch(error=>{window.__LRF_CLIENT_CA_LOADER__=false;console.error('Analyse CA clients LRF : chargement impossible',error)});
+    import('./analyse-clients-ca.js?v=20261103-reports2').catch(error=>{window.__LRF_CLIENT_CA_LOADER__=false;console.error('Analyse CA clients LRF : chargement impossible',error)});
   }
   function loadAnalysisLiveFixes() {
-    if (!isAnalysisPage() || window.__LRF_ANALYSIS_FIX_LOADER__) return;
+    if (!isAnalysisPage() || document.body.dataset.lrfReports === '2' || window.__LRF_ANALYSIS_FIX_LOADER__) return;
     window.__LRF_ANALYSIS_FIX_LOADER__=true;
     import('./lrf-analysis-live-fixes.js?v=20260911-orders3').catch(error=>{window.__LRF_ANALYSIS_FIX_LOADER__=false;console.error('Correctifs analyse clients LRF : chargement impossible',error)});
   }

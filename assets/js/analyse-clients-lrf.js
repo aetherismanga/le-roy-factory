@@ -1,4 +1,7 @@
+import './analyse-clients-ca.js?v=20261103-reports2';
 import { auth, getAgentProfile } from './firebase.js';
+import { interestFor, nextActionFor, summaryFor, followScore, selectClients } from './analyse-client-report-model.mjs';
+import { loadClientHistory } from './analyse-client-history.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
 const ENDPOINT = 'https://us-central1-le-roy-factory.cloudfunctions.net/getLrfAnalytics';
@@ -11,18 +14,20 @@ let loading = false;
 let reloadPending = false;
 let pendingPreserveFilters = true;
 let detailClientId = '';
+let detailTrigger = null;
+let historyRequest = 0;
 
 function profile(user = auth.currentUser) {
   const saved = getAgentProfile(user);
   return saved || { email:String(user?.email || localStorage.getItem('agentEmail') || '').toLowerCase(), name:localStorage.getItem('agentName') || 'Agent' };
 }
 function fmtDate(ms, short=false) {
-  if (!ms) return 'Jamais';
+  if (!ms) return 'Non relevée sur la période';
   const d = new Date(Number(ms));
   if (Number.isNaN(d.getTime())) return '—';
   return d.toLocaleString('fr-FR', short ? {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'} : {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
 }
-function fmtStock(v,u='') { return v === null || v === undefined || v === '' ? '—' : `${Number(v).toLocaleString('fr-FR')} ${esc(u || '')}`.trim(); }
+function fmtStock(v,u='') { return v === null || v === undefined || v === '' ? '—' : `${typeof v==='number'?v.toLocaleString('fr-FR'):esc(v)} ${esc(u || '')}`.trim(); }
 function heatClass(label){return label==='Très chaud'?'veryhot':label==='Chaud'?'hot':label==='Tiède'?'warm':'cold';}
 function displayHeat(label){return label==='Très chaud'?'Très actif':label==='Chaud'?'À suivre':label==='Tiède'?'Actif':'Peu actif';}
 function heatIcon(label){return label==='Très chaud'?'🔥':label==='Chaud'?'🟠':label==='Tiède'?'🟢':'⚪';}
@@ -46,7 +51,7 @@ function showMessage(title, text, reconnect=false){
   root.innerHTML=`<div class="lrf-analysis-card lrf-state-card"><div class="lrf-state-icon">${reconnect?'🔐':'⚠️'}</div><h2>${esc(title)}</h2><p>${esc(text)}</p>${reconnect?'<a class="lrf-open-client" href="agent.html?return=analyse-clients-lrf.html">Reconnecter l’analyse clients</a>':'<button class="btn-primary-gold" type="button" onclick="location.reload()">Réessayer</button>'}</div>`;
 }
 function requestBody(){
-  const period=$('#lrf-period')?.value || '7d';
+  const period=$('#lrf-period')?.value || '30d';
   const body={period,department:$('#lrf-department')?.value||'',partner:$('#lrf-partner')?.value||'',action:$('#lrf-action')?.value||'',clientId:$('#lrf-client-filter')?.value||''};
   if(period==='custom'){body.startDate=$('#lrf-date-start')?.value||'';body.endDate=$('#lrf-date-end')?.value||'';}
   return body;
@@ -75,8 +80,16 @@ async function load({preserveFilters=true}={}){
   try{
     const json=await fetchAnalytics(); if(!json)return;
     if(reloadPending)return;
-    data=json; fillFilters(preserveFilters); renderAll();
-  }catch(err){console.error(err);showMessage('Analyse indisponible',err?.name==='AbortError'?'Le serveur met trop de temps à répondre. Réessayez dans quelques secondes.':(err.message||'Impossible de charger les données.'),false);}
+    data=json; $('#lrf-analysis-error')?.remove(); data.clients=(data.clients||[]).filter(c=>c.codeClient!=='LRF-00001'); fillFilters(preserveFilters); renderAll();
+  }catch(err){
+    console.error(err);
+    const message=err?.name==='AbortError'?'Le serveur met trop de temps à répondre.':(err.message||'Impossible de charger les données.');
+    if(data){
+      let alert=$('#lrf-analysis-error');
+      if(!alert){alert=document.createElement('p');alert.id='lrf-analysis-error';alert.className='lrf-private-note';alert.setAttribute('role','alert');$('#lrf-analysis-root').prepend(alert);}
+      alert.textContent=`Actualisation impossible : ${message} Les derniers résultats chargés restent affichés. Utilisez Actualiser pour réessayer.`;
+    }else showMessage('Analyse indisponible',message,false);
+  }
   finally{
     loading=false;
     if(btn){btn.disabled=false;btn.textContent='↻ Actualiser';}
@@ -100,28 +113,22 @@ function fillFilters(preserve=true){
 }
 function renderKpis(){
   const g=data.general||{};
-  const cards=[
-    ['👥','Clients actifs',g.activeClients||0,periodLabel()],
-    ['🌐','Visites du site',g.connections||0,'sessions clients'],
-    ['🛒','Commandes',g.orders||0,'sur la période'],
-    ['🔥','Clients à suivre',g.hotClients||0,'activité commerciale']
-  ];
-  $('#lrf-kpis').innerHTML=cards.map(([i,l,v,s])=>`<div class="lrf-kpi"><span class="lrf-kpi-icon">${i}</span><div><span>${esc(l)}</span><strong>${Number(v).toLocaleString('fr-FR')}</strong><small>${esc(s)}</small></div></div>`).join('');
+  const cards=[['👥','Clients sur le site',g.activeClients||0,periodLabel(),'clients'],['🌐','Visites du site',g.connections||0,'Sessions relevées','activity'],['🛒','Commandes suivies',data.orderAnalytics?.incomplete?'—':g.orders||0,data.orderAnalytics?.incomplete?'Confirmation indisponible':'Signalées confirmées','orders']];
+  $('#lrf-kpis').innerHTML=cards.map(([i,l,v,n,p])=>`<button type="button" class="lrf-kpi" data-open-panel="${p}"><span class="lrf-kpi-icon" aria-hidden="true">${i}</span><span><span>${esc(l)}</span><strong>${typeof v==='number'?v.toLocaleString('fr-FR'):esc(v)}</strong><small>${esc(n)}</small></span></button>`).join('');
 }
-function hotCard(c, compact=false){
-  const orderText=c.orderViews?` · ${c.orderViews} commande${c.orderViews>1?'s':''}`:'';
-  return `<article class="lrf-hot-card"><div class="lrf-hot-head"><div><div class="lrf-hot-name">${statusDot(c)}${esc(c.societe)}</div><div class="lrf-hot-meta">${esc(c.codeClient)} · ${esc(c.ville||'')} ${esc(c.departement||'')}</div></div><span class="lrf-heat ${heatClass(c.heatLabel)}">${heatIcon(c.heatLabel)} ${esc(displayHeat(c.heatLabel))}</span></div><div class="lrf-hot-reasons">${esc((c.heatReasons||[]).slice(0,3).join(' · ')||'Activité récente')}${esc(orderText)}</div>${compact?'':`<div class="lrf-mini-metrics"><span>🌐 ${c.sessions||0} visites</span><span>🧱 ${c.productViews||0} produits</span><span>💶 ${c.tariffViews||0} tarifs</span></div><div class="lrf-card-actions"><button class="lrf-link-btn" data-detail-client="${esc(c.id)}">Voir le client</button><a class="lrf-open-client" href="clients.html?edit=${encodeURIComponent(c.id)}">Fiche CRM</a></div>`}</article>`;
+function hotCard(c){
+  return `<article class="lrf-hot-card"><div class="lrf-hot-name">${esc(c.societe)}</div><div class="lrf-hot-meta">${esc(c.codeClient)} · ${esc(c.ville||'')}</div><p class="lrf-hot-reasons">${esc(summaryFor(c))}</p><p class="lrf-report-muted">${esc(nextActionFor(c))}</p><button class="lrf-link-btn" type="button" data-detail-client="${esc(c.id)}">Compte rendu</button></article>`;
 }
-function orderEvents(){return (data.timeline||[]).filter(e=>e.action==='order_view').sort((a,b)=>b.at-a.at);}
+function orderEvents(){return (data.orders || data.timeline || []).filter(e=>e.action==='order_view').slice().sort((a,b)=>b.at-a.at);}
 function orderRow(e){
   const detail=[partnerLabel(e.partner),e.productName,e.productRef?`réf. ${e.productRef}`:''].filter(Boolean).join(' · ');
   return `<button class="lrf-order-row" type="button" data-detail-client="${esc(e.clientId)}"><span class="lrf-order-icon">🛒</span><span><strong>${esc(e.societe)}</strong><small>${esc(detail||'Commande enregistrée')}</small></span><time>${fmtDate(e.at,true)}</time><b>Voir →</b></button>`;
 }
 function renderOrders(){
   const rows=orderEvents();
-  const empty='<div class="lrf-empty">Aucune commande enregistrée sur cette période.</div>';
+  const empty=`<div class="lrf-empty">${data.orderAnalytics?.incomplete?'Confirmation des commandes indisponible avec la réponse actuelle du serveur. Un zéro ne permet pas de conclure à une absence de commande.':'Aucune commande confirmée relevée dans le suivi du site pour cette période.'}</div>`;
   const full=$('#lrf-orders-list'), mini=$('#lrf-overview-orders');
-  if(full)full.innerHTML=rows.length?rows.map(orderRow).join(''):empty;
+  if(full)full.innerHTML=(data.orderAnalytics?.eventQueryLimitReached?'<p class="lrf-report-muted">La limite de lecture des événements a été atteinte : choisissez une période plus courte pour un suivi complet.</p>':'')+(rows.length?rows.map(orderRow).join(''):empty);
   if(mini)mini.innerHTML=rows.length?rows.slice(0,5).map(orderRow).join(''):empty;
 }
 function renderTopProducts(){
@@ -132,8 +139,8 @@ function renderTopProducts(){
 function renderOverview(){
   const online=data.connectedRecent||[];
   $('#lrf-online-list').innerHTML=online.length?online.map(c=>`<button class="lrf-online-row" data-detail-client="${esc(c.id)}"><span>${statusDot(c)}<strong>${esc(c.societe)}</strong><small>${esc(c.codeClient)} · ${fmtDate(c.lastSeenGlobal,true)}</small></span><b>Voir →</b></button>`).join(''):'<div class="lrf-empty">Aucun client actif dans les 5 dernières minutes.</div>';
-  const top=(data.hotClients||[]).slice(0,5);
-  $('#lrf-overview-hot').innerHTML=top.length?top.map(c=>hotCard(c,true)).join(''):'<div class="lrf-empty">Pas encore assez d’activité pour établir des priorités.</div>';
+  const top=(data.clients||[]).filter(c=>c.lastSeenAt && followScore(c)>0).slice().sort((a,b)=>followScore(b)-followScore(a)).slice(0,5);
+  $('#lrf-overview-hot').innerHTML=top.length?top.map(hotCard).join(''):'<div class="lrf-empty">Pas encore assez d’activité pour établir des priorités.</div>';
   renderBreakdown('#lrf-partner-bars',data.partners||[],'Aucune consultation fabricant sur cette période.');
   renderTopProducts(); renderOrders();
 }
@@ -141,20 +148,17 @@ function renderBreakdown(sel,rows,empty){
   const host=$(sel);if(!host)return;const max=Math.max(1,...rows.map(x=>x.count||0));
   host.innerHTML=rows.length?rows.slice(0,8).map(r=>`<div class="lrf-page-row"><div class="lrf-page-name" title="${esc(r.name)}">${esc(partnerLabel(r.name))}</div><div class="lrf-page-track"><div class="lrf-page-fill" style="width:${Math.max(3,Math.round((r.count/max)*100))}%"></div></div><div class="lrf-page-count">${Number(r.count||0).toLocaleString('fr-FR')}</div></div>`).join(''):`<div class="lrf-empty">${esc(empty)}</div>`;
 }
-function clientRows(rows){
-  if(!rows.length)return'<tr><td colspan="10"><div class="lrf-empty">Aucun client pour ces filtres.</div></td></tr>';
-  return rows.map(c=>`<tr><td data-label="Client"><button class="lrf-client-name-btn" data-detail-client="${esc(c.id)}">${statusDot(c)}<span><strong>${esc(c.societe)}</strong><small>${esc(c.codeClient)} · ${esc(c.ville||'')} ${esc(c.departement?`(${c.departement})`:'')}</small></span></button></td><td data-label="Dernière activité">${fmtDate(c.lastSeenAt)}</td><td data-label="Visites"><strong>${c.sessions||0}</strong></td><td data-label="Produits">${c.productViews||0}</td><td data-label="Tarifs">${c.tariffViews||0}</td><td data-label="Stocks">${c.stockViews||0}</td><td data-label="Commandes"><strong>${c.orderViews||0}</strong></td><td data-label="Intérêt principal">${c.topProduct?`${esc(c.topProduct.name||c.topProduct.ref)}<br><small>${esc(c.topProduct.ref||'')}</small>`:esc(c.topPage||'—')}</td><td data-label="Niveau"><span class="lrf-heat ${heatClass(c.heatLabel)}">${heatIcon(c.heatLabel)} ${esc(displayHeat(c.heatLabel))}</span></td><td data-label="Action"><div class="lrf-row-actions"><button class="lrf-link-btn" data-detail-client="${esc(c.id)}">Voir</button><a class="lrf-open-client" href="clients.html?edit=${encodeURIComponent(c.id)}">Fiche</a></div></td></tr>`).join('');
+function clientCard(c){
+  const interest=interestFor(c);
+  const presence=c.isOnline?'En ligne sur le site':c.lastSeenAt?`Site : ${fmtDate(c.lastSeenAt,true)}`:'Pas d’activité web sur la période';
+  return `<article class="lrf-client-card" data-client-id="${esc(c.id)}" data-client-company="${esc(c.societe)}"><div class="lrf-client-card-head"><div><h3>${esc(c.societe)}</h3><p class="lrf-report-muted">${esc(c.codeClient)} · ${esc(c.ville||'Ville non renseignée')}${c.departement?` (${esc(c.departement)})`:''}</p></div><span class="lrf-site-status ${c.isOnline?'is-online':''}">${esc(presence)}</span></div><p class="lrf-client-facts">${esc(summaryFor(c))}</p><p class="lrf-client-interest"><span>Consultation principale</span>${esc(interest || 'Intérêt produit non identifié')}</p><div data-client-revenue></div><button class="lrf-report-open" type="button" data-detail-client="${esc(c.id)}" aria-label="Compte rendu de ${esc(c.societe)}">Compte rendu <span aria-hidden="true">→</span></button></article>`;
 }
 function renderClients(){
-  const host=$('#lrf-clients-table-body'); if(!host)return;
-  const q=String($('#lrf-client-search')?.value||'').toLowerCase().trim();
-  const heat=$('#lrf-client-heat')?.value||'all';
-  const status=$('#lrf-client-status')?.value||'all';
-  let rows=(data.clients||[]).filter(c=>c.lastSeenAt>0 || status==='inactive');
-  if(q)rows=rows.filter(c=>[c.societe,c.codeClient,c.ville,c.departement,c.contact,c.topProduct?.name,c.topProduct?.ref].some(v=>String(v||'').toLowerCase().includes(q)));
-  if(heat!=='all')rows=rows.filter(c=>c.heatLabel===heat);
-  if(status==='online')rows=rows.filter(c=>c.isOnline); else if(status==='today')rows=rows.filter(c=>c.isToday); else if(status==='inactive')rows=rows.filter(c=>!c.lastSeenAt);
-  host.innerHTML=clientRows(rows); $('#lrf-client-count').textContent=`${rows.length} client${rows.length>1?'s':''}`;
+  const host=$('#lrf-client-cards'); if(!host)return;
+  const rows=selectClients(data.clients||[], {query:$('#lrf-client-search')?.value,status:$('#lrf-client-status')?.value,sort:$('#lrf-client-sort')?.value});
+  host.innerHTML=rows.length?rows.map(clientCard).join(''):'<div class="lrf-empty">Aucun client pour ces filtres. Essayez « Tous les clients » ou modifiez la recherche.</div>';
+  $('#lrf-client-count').textContent=`${rows.length} client${rows.length>1?'s':''}`;
+  document.dispatchEvent(new CustomEvent('lrf:clients-rendered'));
 }
 function eventDetail(e){
   const parts=[];
@@ -173,55 +177,85 @@ function renderTimeline(){
   host.innerHTML=rows.length?rows.slice(0,300).map(e=>`<button class="lrf-event ${e.action==='order_view'?'is-order':''}" data-detail-client="${esc(e.clientId)}"><span class="lrf-event-icon">${actionIcon(e.action)}</span><span class="lrf-event-main"><strong>${esc(e.societe)}</strong><b>${esc(e.actionLabel)}</b><small>${esc(eventDetail(e))}</small></span><time>${fmtDate(e.at,true)}</time></button>`).join(''):'<div class="lrf-empty">Aucune activité pour ces filtres.</div>';
 }
 function renderAll(){
+  $('#lrf-data-coverage')?.remove();
+  if(data.orderAnalytics?.eventQueryLimitReached){
+    const note=document.createElement('p');note.id='lrf-data-coverage';note.className='lrf-private-note';note.setAttribute('role','status');
+    note.textContent='Données partielles : la limite de lecture des événements est atteinte. Les chiffres et les clients sans activité relevée peuvent être incomplets. Choisissez une période plus courte.';
+    $('#lrf-analysis-root').prepend(note);
+  }
   renderKpis();renderOverview();renderClients();renderTimeline();
   const range=data.range||{};$('#lrf-generated-at').textContent=`Mise à jour : ${fmtDate(data.generatedAt)} · ${fmtDate(range.start,true)} → ${fmtDate(range.end,true)}`;
-  $('#lrf-load-summary').textContent=`${data.general?.activeClients||0} clients actifs · ${data.general?.orders||0} commande${data.general?.orders===1?'':'s'}`;
+  $('#lrf-load-summary').textContent=`${data.general?.activeClients||0} clients avec activité web · ${data.orderAnalytics?.incomplete?'commandes non vérifiées':`${data.general?.orders||0} commande${data.general?.orders===1?'':'s'} suivie${data.general?.orders===1?'':'s'}`}`;
 }
-function detailSummary(c){
-  const bits=[];
-  if(c.orderViews)bits.push(`${c.orderViews} commande${c.orderViews>1?'s':''} sur la période`);
-  if(c.productViews)bits.push(`${c.productViews} produit${c.productViews>1?'s':''} consulté${c.productViews>1?'s':''}`);
-  if(c.tariffViews)bits.push(`${c.tariffViews} tarif${c.tariffViews>1?'s':''} consulté${c.tariffViews>1?'s':''}`);
-  if(c.stockViews)bits.push(`${c.stockViews} consultation${c.stockViews>1?'s':''} de stock`);
-  if(c.topProduct?.name)bits.push(`intérêt principal : ${c.topProduct.name}`);
-  return bits.join(' · ') || (c.heatReasons||[]).join(' · ') || 'Pas encore assez de signaux commerciaux.';
+async function renderHistory(c){
+  const request=++historyRequest;
+  const host=$('#lrf-detail-history');
+  host.innerHTML='<p class="lrf-report-muted">Chargement des comptes rendus enregistrés…</p>';
+  $('#lrf-detail-add-note').href=`comptes-rendus.html?new=1&client=${encodeURIComponent(c.id)}`;
+  try{
+    const history=await loadClientHistory(c.id);
+    if(request!==historyRequest || detailClientId!==c.id)return;
+    host.innerHTML=history.items.length?history.items.slice(0,5).map(note=>`<article class="lrf-history-note"><div><strong>${esc(note.author || 'Auteur non renseigné')}</strong><time>${note.at?new Date(note.at).toLocaleDateString('fr-FR'):'Date non renseignée'}</time></div>${note.usine?`<small>${esc(note.usine)}</small>`:''}<p>${esc(note.text || 'Compte rendu sans texte')}</p></article>`).join(''):'<p class="lrf-report-muted">Aucun compte rendu enregistré dans cette fiche.</p>';
+    if(history.items.length>5)host.insertAdjacentHTML('beforeend',`<p class="lrf-report-muted">5 derniers comptes rendus sur ${history.count}. La fiche complète conserve tout l’historique.</p>`);
+  }catch(_){if(request===historyRequest && detailClientId===c.id)host.innerHTML='<p class="lrf-report-muted" role="status">Les comptes rendus n’ont pas pu être chargés. Consultez la fiche client ou réessayez à l’ouverture.</p>';}
 }
 function openClientDetail(id){
-  const c=(data.clients||[]).find(x=>x.id===id);if(!c)return;detailClientId=id;
-  $('#lrf-detail-title').innerHTML=`${statusDot(c)} ${esc(c.societe)}`;
+  const c=(data.clients||[]).find(x=>x.id===id);if(!c)return;
+  if(!detailClientId)detailTrigger=document.activeElement;
+  detailClientId=id;
+  $('#lrf-detail-title').textContent=c.societe;
   $('#lrf-detail-meta').textContent=`${c.codeClient} · ${c.ville||''} ${c.departement||''}`;
-  $('#lrf-detail-score').innerHTML=`<span class="lrf-heat lrf-heat-large ${heatClass(c.heatLabel)}">${heatIcon(c.heatLabel)} ${esc(displayHeat(c.heatLabel))}</span>`;
+  $('#lrf-detail-reasons').textContent=summaryFor(c)+'.';
+  $('#lrf-detail-interest').textContent=interestFor(c)?`Consultation principale : ${interestFor(c)}.`:'Le suivi ne permet pas encore d’identifier un intérêt produit.';
+  $('#lrf-detail-next-action').textContent=nextActionFor(c);
+  $('#lrf-detail-period').textContent=`Activité web : ${periodLabel()} · du ${fmtDate(data.range?.start,true)} au ${fmtDate(data.range?.end,true)}`;
   const highlight=$('#lrf-detail-order-highlight');
-  if(highlight)highlight.innerHTML=c.orderViews?`<div class="lrf-order-highlight">🛒 <strong>${c.orderViews} commande${c.orderViews>1?'s':''}</strong> enregistrée${c.orderViews>1?'s':''} sur la période.</div>`:'';
-  const metrics=[['Dernière activité',fmtDate(c.lastSeenAt)],['Visites du site',c.sessions||0],['Produits vus',c.productViews||0],['Tarifs consultés',c.tariffViews||0],['Stocks consultés',c.stockViews||0],['Commandes',c.orderViews||0],['Page favorite',c.topPage||'—'],['Produit favori',c.topProduct?.name||c.topProduct?.ref||'—']];
+  if(highlight)highlight.innerHTML=`<p class="lrf-report-muted">${data.orderAnalytics?.incomplete?'Confirmation des commandes indisponible dans le suivi actuel.':`${c.orderViews||0} commande(s) signalée(s) comme confirmée(s) par le suivi du site.`} Les commandes usine hors site ne sont pas couvertes.</p>`;
+  const metrics=[['Dernière activité web',fmtDate(c.lastSeenAt)],['Visites du site',c.sessions||0],['Consultations produit',c.productViews||0],['Tarifs consultés',c.tariffViews||0],['Stocks consultés',c.stockViews||0],['Commandes suivies',data.orderAnalytics?.incomplete?'Non vérifié':c.orderViews||0]];
   $('#lrf-detail-metrics').innerHTML=metrics.map(([l,v])=>`<div><span>${esc(l)}</span><strong>${esc(v)}</strong></div>`).join('');
-  $('#lrf-detail-reasons').textContent=detailSummary(c);
-  const events=(data.timeline||[]).filter(e=>e.clientId===id).slice(0,100);
-  $('#lrf-detail-timeline').innerHTML=events.length?events.map(e=>`<div class="lrf-detail-event ${e.action==='order_view'?'is-order':''}"><span>${actionIcon(e.action)}</span><div><strong>${esc(e.actionLabel)}</strong><small>${esc(eventDetail(e))}</small></div><time>${fmtDate(e.at,true)}</time></div>`).join(''):'<div class="lrf-empty">Aucun événement détaillé sur la période sélectionnée.</div>';
-  $('#lrf-detail-fiche').href=`clients.html?edit=${encodeURIComponent(c.id)}`;
-  $('#lrf-client-drawer').classList.add('open');$('#lrf-detail-backdrop').classList.add('open');document.body.classList.add('lrf-drawer-open');
+  const events=(data.timeline||[]).filter(e=>e.clientId===id).slice().sort((a,b)=>b.at-a.at).slice(0,50);
+  $('#lrf-detail-timeline').innerHTML=events.length?events.map(e=>`<div class="lrf-detail-event"><span aria-hidden="true">${actionIcon(e.action)}</span><div><strong>${esc(e.actionLabel)}</strong><small>${esc(eventDetail(e))}</small><time>${fmtDate(e.at,true)}</time></div></div>`).join(''):'<div class="lrf-empty">Aucun événement détaillé disponible pour cette période.</div>';
+  $('#lrf-detail-fiche').href=`clients.html?focus=${encodeURIComponent(c.id)}`;
+  const drawer=$('#lrf-client-drawer');drawer.inert=false;drawer.setAttribute('aria-hidden','false');drawer.classList.add('open');
+  $('#lrf-detail-backdrop').classList.add('open');document.body.classList.add('lrf-drawer-open');
+  $('#lrf-detail-close').focus();
+  renderHistory(c);
 }
-function closeDetail(){detailClientId='';$('#lrf-client-drawer')?.classList.remove('open');$('#lrf-detail-backdrop')?.classList.remove('open');document.body.classList.remove('lrf-drawer-open');}
+function closeDetail(){
+  detailClientId='';historyRequest++;
+  const drawer=$('#lrf-client-drawer');drawer?.classList.remove('open');drawer?.setAttribute('aria-hidden','true');if(drawer)drawer.inert=true;
+  $('#lrf-detail-backdrop')?.classList.remove('open');document.body.classList.remove('lrf-drawer-open');
+  if(detailTrigger?.isConnected)detailTrigger.focus();detailTrigger=null;
+}
 function updateCustomDates(){const custom=$('#lrf-period')?.value==='custom';$$('.lrf-custom-date').forEach(el=>el.hidden=!custom);if(custom)$('#lrf-advanced-filters')?.removeAttribute('hidden');}
 function openPanel(name){
   const btn=$(`.lrf-analytics-tab[data-panel="${name}"]`);if(!btn)return;
-  $$('.lrf-analytics-tab').forEach(b=>b.classList.toggle('active',b===btn));
+  $$('.lrf-analytics-tab').forEach(b=>{b.classList.toggle('active',b===btn);b.setAttribute('aria-pressed',String(b===btn));});
   $$('.lrf-analytics-panel').forEach(p=>p.classList.toggle('active',p.id===`panel-${name}`));
-  if(window.innerWidth<700)btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  if($('#lrf-kpis'))$('#lrf-kpis').hidden=name!=='overview';
 }
 function bind(){
   $$('.lrf-analytics-tab').forEach(btn=>btn.addEventListener('click',()=>openPanel(btn.dataset.panel)));
-  $$('[data-open-panel]').forEach(btn=>btn.addEventListener('click',()=>openPanel(btn.dataset.openPanel)));
+  document.addEventListener('click',e=>{const btn=e.target.closest('[data-open-panel]');if(btn)openPanel(btn.dataset.openPanel);});
   $('#lrf-toggle-filters')?.addEventListener('click',()=>{const panel=$('#lrf-advanced-filters'),btn=$('#lrf-toggle-filters');const opening=panel.hasAttribute('hidden');if(opening)panel.removeAttribute('hidden');else panel.setAttribute('hidden','');btn.setAttribute('aria-expanded',String(opening));});
   $('#lrf-period')?.addEventListener('change',()=>{updateCustomDates();if($('#lrf-period').value!=='custom')load();});
   ['#lrf-department','#lrf-partner','#lrf-action','#lrf-client-filter'].forEach(s=>$(s)?.addEventListener('change',()=>load()));
   $('#lrf-apply-custom')?.addEventListener('click',()=>load());
   $('#lrf-refresh-analysis')?.addEventListener('click',()=>load());
-  $('#lrf-reset-filters')?.addEventListener('click',()=>{['#lrf-department','#lrf-partner','#lrf-action','#lrf-client-filter'].forEach(s=>{if($(s))$(s).value='';});if($('#lrf-period'))$('#lrf-period').value='7d';updateCustomDates();load({preserveFilters:false});});
-  $('#lrf-client-search')?.addEventListener('input',renderClients);$('#lrf-client-heat')?.addEventListener('change',renderClients);$('#lrf-client-status')?.addEventListener('change',renderClients);$('#lrf-activity-search')?.addEventListener('input',renderTimeline);
+  $('#lrf-reset-filters')?.addEventListener('click',()=>{['#lrf-department','#lrf-partner','#lrf-action','#lrf-client-filter'].forEach(s=>{if($(s))$(s).value='';});if($('#lrf-period'))$('#lrf-period').value='30d';updateCustomDates();load({preserveFilters:false});});
+  $('#lrf-client-search')?.addEventListener('input',renderClients);$('#lrf-client-sort')?.addEventListener('change',renderClients);$('#lrf-client-status')?.addEventListener('change',renderClients);$('#lrf-activity-search')?.addEventListener('input',renderTimeline);
   document.addEventListener('click',e=>{const b=e.target.closest('[data-detail-client]');if(b){e.preventDefault();openClientDetail(b.dataset.detailClient);}});
-  $('#lrf-detail-close')?.addEventListener('click',closeDetail);$('#lrf-detail-backdrop')?.addEventListener('click',closeDetail);document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail();});
-  updateCustomDates();
+  $('#lrf-detail-close')?.addEventListener('click',closeDetail);$('#lrf-detail-backdrop')?.addEventListener('click',closeDetail);document.addEventListener('keydown',e=>{
+    if(!detailClientId)return;
+    if(e.key==='Escape'){e.preventDefault();closeDetail();}
+    if(e.key==='Tab'){
+      const focusable=$$('#lrf-client-drawer button, #lrf-client-drawer a[href], #lrf-client-drawer summary').filter(el=>el.getClientRects().length);
+      const first=focusable[0],last=focusable.at(-1);
+      if(e.shiftKey && document.activeElement===first){e.preventDefault();last?.focus();}
+      else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first?.focus();}
+    }
+  });
+  openPanel('clients');updateCustomDates();
 }
 
 bind();load({preserveFilters:false});
