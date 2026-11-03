@@ -1,0 +1,2691 @@
+{
+  "country": "fr",
+  "countryLabel": "France",
+  "selectionMeaning": "Pays du catalogue technique, et non origine du groupe fabricant.",
+  "checkedAt": "2026-11-03",
+  "brands": [
+    {
+      "id": "weber",
+      "name": "Weber",
+      "website": "https://www.fr.weber/",
+      "logoUrl": "https://www.fr.weber/files/fr/Weber_Logo_RGB.png",
+      "products": [
+        {
+          "id": "weber-for",
+          "name": "weberniv for",
+          "type": "Fibré P3 — intérieur",
+          "rate": 1.6,
+          "bag": 25,
+          "min": 3,
+          "max": 30,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "wood",
+            "anhydrite"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://www.fr.weber/preparation-et-finition-des-sols/les-ragreages-et-mortiers-de-lissage/weberniv",
+          "technicalUrl": "https://www.fr.weber/files/fr/2025-06/fichetechnique_weberniv%20for_fr.pdf?cb=d5f690e4",
+          "imageUrl": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_E67917A2831E42B494DCD8FF1E69DB74.jpg.webp?cb=53fd7eae&itok=5vSjUuzX",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "tile": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "weberprim RP",
+              "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+              "rateMin": 0.15,
+              "rateMax": 0.25,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "weberprim RP",
+              "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+              "rateMin": 0.15,
+              "rateMax": 0.25,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "wood": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "weberprim RP",
+              "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+              "rateMin": 0.15,
+              "rateMax": 0.25,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Chauffage arrêté au moins 48 h avant ; remise en chauffe selon le protocole du système et du revêtement.",
+            "La finition nue n’est pas proposée : la fiche comporte des indications contradictoires à ce sujet."
+          ]
+        },
+        {
+          "id": "weber-dur",
+          "name": "weberniv dur+",
+          "type": "Fibré P4SR — intérieur et extérieur",
+          "rate": 1.7,
+          "bag": 25,
+          "min": 3,
+          "max": 50,
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "wood",
+            "anhydrite",
+            "paint"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet",
+            "bare"
+          ],
+          "sourceUrl": "https://www.fr.weber/preparation-et-finition-des-sols/les-ragreages-et-mortiers-de-lissage/weberniv-dur",
+          "technicalUrl": "https://www.fr.weber/files/fr/2025-11/fichetechnique_weberniv%20dur%20%2B_fr.pdf?cb=d5f690e4",
+          "imageUrl": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-11/IMG_14988637.jpg.webp?cb=dbbbce25&itok=s9a7B2WG",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "tile": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "weberprim RP",
+              "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+              "rateMin": 0.15,
+              "rateMax": 0.25,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "weberprim RP",
+              "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+              "rateMin": 0.15,
+              "rateMax": 0.25,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "wood": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "weberprim RP",
+              "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+              "rateMin": 0.15,
+              "rateMax": 0.25,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            }
+          },
+          "locationSupports": {
+            "outside": [
+              "tile",
+              "cement",
+              "concrete",
+              "paint"
+            ]
+          },
+          "locationFinishes": {
+            "outside": [
+              "tile"
+            ]
+          },
+          "bareInsideAnnexOnly": true,
+          "notes": [
+            "À recouvrir en extérieur. À l’intérieur, nu uniquement en pièces annexes adaptées.",
+            "Pente extérieure existante d’au moins 1,5 % et écoulement des eaux requis."
+          ]
+        },
+        {
+          "id": "weber-lex",
+          "name": "weberniv lex 2",
+          "type": "Fibré de finition — extérieur / annexes",
+          "rate": 1.7,
+          "bag": 25,
+          "min": 3,
+          "max": 10,
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "bare"
+          ],
+          "sourceUrl": "https://www.fr.weber/preparation-et-finition-des-sols/les-ragreages-et-mortiers-de-lissage/weberniv-lex-2",
+          "technicalUrl": "https://www.fr.weber/files/fr/2026-05/fichetechnique_weberniv%20lex%202_fr.pdf?cb=d5f690e4",
+          "imageUrl": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_8F4455E5BD9A4745A7547B701929A9B6.jpg.webp?cb=53fd7eae&itok=Ch1DxRJ_",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "tile": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "weberprim RP",
+              "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+              "rateMin": 0.15,
+              "rateMax": 0.25,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "weberprim RP",
+              "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+              "rateMin": 0.15,
+              "rateMax": 0.25,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            }
+          },
+          "bareInsideAnnexOnly": true,
+          "exclusions": [
+            {
+              "when": {
+                "support": "tile",
+                "finish": "bare"
+              },
+              "message": "Finition nue sur ancien carrelage : préparation et primaire weberfloor 4716 à faire valider."
+            }
+          ],
+          "primaryOverrides": [
+            {
+              "when": {
+                "finish": "bare"
+              },
+              "primaries": {
+                "cementAbsorbent": {
+                  "name": "weberprim RP",
+                  "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+                  "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+                  "rateMin": 0.15,
+                  "rateMax": 0.25,
+                  "unit": "kg"
+                },
+                "concreteAbsorbent": {
+                  "name": "weberprim RP",
+                  "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+                  "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+                  "rateMin": 0.15,
+                  "rateMax": 0.25,
+                  "unit": "kg"
+                }
+              }
+            }
+          ],
+          "notes": [
+            "Calcul en couche continue sans ajout de sable ; le mode forme de pente et le dosage chargé sont exclus.",
+            "Pour une finition nue, utiliser uniquement le primaire prescrit (RP ou weberfloor 4716 selon le système)."
+          ]
+        },
+        {
+          "id": "weber-primo",
+          "name": "weberniv primo",
+          "type": "Autolissant P3 — grands chantiers",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 3,
+          "max": 10,
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "anhydrite",
+            "paint"
+          ],
+          "heating": [
+            "none",
+            "water"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "locations": [
+            "inside"
+          ],
+          "sourceUrl": "https://www.fr.weber/preparation-et-finition-des-sols/les-ragreages-et-mortiers-de-lissage/weberniv-primo",
+          "technicalUrl": "https://www.fr.weber/files/fr/2026-05/fichetechnique_weberniv%20primo_fr.pdf?cb=d5f690e4",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "tile": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "weberprim RP",
+              "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+              "rateMin": 0.15,
+              "rateMax": 0.25,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "weberprim RP",
+              "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+              "rateMin": 0.15,
+              "rateMax": 0.25,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "weberprim RP",
+              "detail": "Bouche-pores sur support minéral absorbant préparé ; sur anhydrite, respecter la préparation et la siccité prescrites.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-rp",
+              "rateMin": 0.15,
+              "rateMax": 0.25,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "weberprim universel",
+              "detail": "Primaire d’adhérence sur support fermé préparé ; respecter le séchage complet.",
+              "url": "https://www.fr.weber/preparation-et-finition-des-sols/les-primaires-et-produits-de-service-pour-sols/weberprim-universel",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            }
+          },
+          "comparison": {
+            "summary": "Ragréage courant non fibré P3 pour supports minéraux et anciens carrelages, jusqu’à 10 mm.",
+            "highlights": [
+              "3 à 10 mm en profil courant P3",
+              "Chauffage à eau, hors PRE"
+            ],
+            "walkable": "Environ 3 h à +20 °C.",
+            "covering": "Carrelage/textile : 6 à 8 h ; plastique : environ 24 h ; parquet : environ 48 h.",
+            "workingTime": "Environ 20 min à +20 °C.",
+            "sourceUrl": "https://www.fr.weber/files/fr/2026-05/fichetechnique_weberniv%20primo_fr.pdf?cb=d5f690e4"
+          },
+          "notes": [
+            "Le lissage 1–3 mm est réservé aux locaux P2. Ne peut pas rester nu. Peinture existante : époxy uniquement."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bostik",
+      "name": "Bostik",
+      "website": "https://www.bostik.com/france/fr/",
+      "logoUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/images/Logos/Bostik_Logo_Header.svg",
+      "products": [
+        {
+          "id": "bostik-c750",
+          "name": "SL C750 POLYRAG",
+          "type": "Fibré rapide P3 — neuf et rénovation",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 3,
+          "max": 10,
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "wood",
+            "anhydrite",
+            "paint"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://www.bostik.com/france/fr/catalog/product/construction/emea/france/product-sl-c750-polyrag/",
+          "technicalUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf",
+          "imageUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/images/Products/Construction/EMEA/france/bostik-30615457-packaging-avant-sl-c750-polyrag-ragreage",
+          "checkedAt": "2026-11-03",
+          "locationSupports": {
+            "outside": [
+              "tile",
+              "cement",
+              "concrete"
+            ]
+          },
+          "locationFinishes": {
+            "outside": [
+              "tile"
+            ]
+          },
+          "primaries": {
+            "tile": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "detail": "Primaire visé par la fiche SL C750 sur support ciment préparé et ancien carrelage ; adapter le nombre de couches à la porosité.",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "detail": "Primaire visé par la fiche SL C750 sur support ciment préparé et ancien carrelage ; adapter le nombre de couches à la porosité.",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "detail": "Primaire visé par la fiche SL C750 sur support ciment préparé et ancien carrelage ; adapter le nombre de couches à la porosité.",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "detail": "Support fermé préparé ; voir le tableau de la fiche SL C750.",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "detail": "Support fermé préparé ; voir le tableau de la fiche SL C750.",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            },
+            "wood": {
+              "name": "Bostik GRIP X910 FILL & WOOD",
+              "detail": "Pour bois rigide préparé : quantité et méthode différentes selon parquet à lames ou panneaux ; voir tableau fabricant.",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "detail": "Primaire visé par la fiche SL C750 sur support ciment préparé et ancien carrelage ; adapter le nombre de couches à la porosité.",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "Bostik GRIP A936 XPRESS",
+              "detail": "Après vérification de l’adhérence, ponçage de la peinture puis nettoyage et séchage.",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Minimum de calcul 3 mm en rénovation ; la fiche permet 1 mm dans certains cas neufs.",
+            "Extérieur uniquement sous carrelage ; ne pas laisser nu.",
+            "Sur plancher chauffant, ne pas dépasser 10 mm."
+          ]
+        },
+        {
+          "id": "bostik-c320",
+          "name": "SL C320 ARDASOL",
+          "type": "Autolissant P3 — intérieur",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 3,
+          "max": 10,
+          "supports": [
+            "cement",
+            "concrete",
+            "tile"
+          ],
+          "heating": [
+            "none",
+            "water"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "locations": [
+            "inside"
+          ],
+          "sourceUrl": "https://www.bostik.com/france/fr/catalog/product/construction/emea/france/product-sl-c320-ardasol/",
+          "technicalUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c320-ardasol.pdf",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "tile": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c320-ardasol.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c320-ardasol.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c320-ardasol.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c320-ardasol.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c320-ardasol.pdf",
+              "detail": "Sur support fermé préparé selon la fiche.",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c320-ardasol.pdf",
+              "detail": "Sur support fermé préparé selon la fiche.",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "Bostik GRIP A936 XPRESS",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c320-ardasol.pdf",
+              "detail": "Après contrôle, ponçage et aspiration de la peinture.",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            }
+          },
+          "comparison": {
+            "summary": "Sols courants P3, supports ciment et anciens carrelages.",
+            "highlights": [
+              "3 à 10 mm pour le profil courant",
+              "Chauffage à eau admis ; PRE exclu"
+            ],
+            "walkable": "4 à 6 h à +23 °C, conditions de la fiche.",
+            "covering": "Carrelage/textile : 24 h ; PVC : 48 à 72 h ; parquet : 72 h.",
+            "workingTime": "20 min à +23 °C.",
+            "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c320-ardasol.pdf"
+          },
+          "notes": [
+            "Profil courant classé P3/P4 à partir de 3 mm ; les usages de lissage P2 1–3 mm ne sont pas proposés."
+          ]
+        },
+        {
+          "id": "bostik-c510",
+          "name": "SL C510 PRO",
+          "type": "Haute résistance P4S — intérieur",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 3,
+          "max": 20,
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "paint"
+          ],
+          "heating": [
+            "none",
+            "water"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "locations": [
+            "inside"
+          ],
+          "sourceUrl": "https://www.bostik.com/france/fr/catalog/product/construction/emea/france/product-sl-c510-pro/",
+          "technicalUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c510-pro.pdf",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "tile": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c510-pro.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c510-pro.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c510-pro.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c510-pro.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c510-pro.pdf",
+              "detail": "Sur support fermé préparé selon la fiche.",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c510-pro.pdf",
+              "detail": "Sur support fermé préparé selon la fiche.",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "Bostik GRIP A936 XPRESS",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c510-pro.pdf",
+              "detail": "Après contrôle, ponçage et aspiration de la peinture.",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            }
+          },
+          "comparison": {
+            "summary": "Résistance mécanique supérieure, jusqu’à 20 mm. PRE exclu.",
+            "highlights": [
+              "3 à 20 mm pour le profil courant",
+              "Chauffage à eau admis ; PRE exclu"
+            ],
+            "walkable": "2 h à +23 °C, conditions de la fiche.",
+            "covering": "Carrelage/textile : 24 h ; PVC : 48 h ; parquet : 72 h.",
+            "workingTime": "20 min à +23 °C.",
+            "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c510-pro.pdf"
+          },
+          "notes": [
+            "Profil courant classé P3/P4 à partir de 3 mm ; les usages de lissage P2 1–3 mm ne sont pas proposés."
+          ]
+        },
+        {
+          "id": "bostik-c780",
+          "name": "SL C780 FLEX",
+          "type": "Fibré P4S — forte épaisseur",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 3,
+          "max": 30,
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "paint",
+            "wood",
+            "anhydrite"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "sourceUrl": "https://www.bostik.com/france/fr/catalog/product/construction/emea/france/product-sl-c780-flex/",
+          "technicalUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c780-flex.pdf",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "tile": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c780-flex.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c780-flex.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c780-flex.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c780-flex.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c780-flex.pdf",
+              "detail": "Sur support fermé préparé selon la fiche.",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c780-flex.pdf",
+              "detail": "Sur support fermé préparé selon la fiche.",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "Bostik GRIP A936 XPRESS",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c780-flex.pdf",
+              "detail": "Après contrôle, ponçage et aspiration de la peinture.",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            },
+            "wood": {
+              "name": "Bostik GRIP X910 FILL & WOOD",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c780-flex.pdf",
+              "detail": "Parquet à lames : 0,8–1 kg/m² ; panneaux CTBX/CTBH/OSB3 : 0,6–0,8 kg/m². Appliquer le système de la fiche.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "comparison": {
+            "summary": "Fibré pour rénovation, bois et fortes épaisseurs ; tous chauffages avec limites.",
+            "highlights": [
+              "3 à 30 mm pour le profil courant",
+              "Tous chauffages : maximum 10 mm"
+            ],
+            "walkable": "5 h à +23 °C, conditions de la fiche.",
+            "covering": "Carrelage/textile : 24 à 48 h ; PVC : 48 h ; parquet : 72 h.",
+            "workingTime": "30 min à +23 °C.",
+            "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c780-flex.pdf"
+          },
+          "notes": [
+            "Profil courant classé P3/P4 à partir de 3 mm ; les usages de lissage P2 1–3 mm ne sont pas proposés.",
+            "Extérieur uniquement sous carrelage. Bois : vérifier rigidité, fixation et système du primaire."
+          ],
+          "heatingLimits": {
+            "water": {
+              "max": 10
+            },
+            "electric": {
+              "max": 10
+            }
+          },
+          "locationSupports": {
+            "outside": [
+              "cement",
+              "concrete"
+            ]
+          },
+          "locationFinishes": {
+            "outside": [
+              "tile"
+            ]
+          }
+        },
+        {
+          "id": "bostik-c910",
+          "name": "SL C910 XPRESS",
+          "type": "Recouvrement rapide P4 — intérieur",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 3,
+          "max": 10,
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "paint"
+          ],
+          "heating": [
+            "none",
+            "water"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "locations": [
+            "inside"
+          ],
+          "sourceUrl": "https://www.bostik.com/france/fr/catalog/product/construction/emea/france/product-sl-c910-xpress/",
+          "technicalUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c910-xpress.pdf",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "tile": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c910-xpress.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c910-xpress.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c910-xpress.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c910-xpress.pdf",
+              "detail": "Sur support préparé, selon le tableau des primaires et la porosité réelle.",
+              "rateMin": 0.1,
+              "rateMax": 0.12,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c910-xpress.pdf",
+              "detail": "Sur support fermé préparé selon la fiche.",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Bostik GRIP A700 UNIVERSAL",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c910-xpress.pdf",
+              "detail": "Sur support fermé préparé selon la fiche.",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "Bostik GRIP A936 XPRESS",
+              "url": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c910-xpress.pdf",
+              "detail": "Après contrôle, ponçage et aspiration de la peinture.",
+              "rateMin": 0.08,
+              "rateMax": 0.1,
+              "unit": "kg"
+            }
+          },
+          "comparison": {
+            "summary": "Pour accélérer la pose du revêtement : carrelage dès 2 h dans les conditions de la fiche.",
+            "highlights": [
+              "3 à 10 mm pour le profil courant",
+              "Chauffage à eau admis ; PRE exclu"
+            ],
+            "walkable": "45 min à 1 h à +23 °C, conditions de la fiche.",
+            "covering": "Carrelage/textile : 2 h ; PVC : 4 h ; parquet/linoléum/caoutchouc : 24 h.",
+            "workingTime": "15 min à +23 °C.",
+            "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c910-xpress.pdf"
+          },
+          "notes": [
+            "Profil courant classé P3/P4 à partir de 3 mm ; les usages de lissage P2 1–3 mm ne sont pas proposés."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "parexlanko",
+      "name": "Parexlanko",
+      "website": "https://www.parexlanko.com/",
+      "logoUrl": "https://www.parexlanko.com/assets/home_page_img/Logo2.svg",
+      "products": [
+        {
+          "id": "parex-184",
+          "name": "184 SOLFIBRE",
+          "type": "Fibré P3 — rénovation intérieure",
+          "rate": 1.6,
+          "bag": 25,
+          "min": 3,
+          "max": 30,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "wood",
+            "anhydrite",
+            "paint"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/184-solfibre-25kg",
+          "technicalUrl": "https://www.parexlanko.com/uploads/resources/Wed%20Mar%2005%202025%2013%3A44%3A42%20GMT%2B0100%20%28Central%20European%20Standard%20Time%29-DTG_13fev2023_BD.pdf",
+          "imageUrl": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING/VISUELS%203D/184%20SOLFIBRE%2025KG_3D.jpg",
+          "checkedAt": "2026-11-03",
+          "supportLimits": {
+            "wood": {
+              "min": 5,
+              "max": 20
+            },
+            "anhydrite": {
+              "max": 10
+            }
+          },
+          "primaries": {
+            "tile": {
+              "name": "165 PROLIPRIM UNIVERSEL",
+              "detail": "Primaire du système Parexlanko sur support minéral préparé ou ancien carrelage. Consommation à confirmer sur sa fiche.",
+              "url": "https://www.parexlanko.com/produits/sheet/184-solfibre-25kg",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "165 PROLIPRIM UNIVERSEL",
+              "detail": "Primaire du système Parexlanko sur support minéral préparé ou ancien carrelage. Consommation à confirmer sur sa fiche.",
+              "url": "https://www.parexlanko.com/produits/sheet/184-solfibre-25kg",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "165 PROLIPRIM UNIVERSEL",
+              "detail": "Primaire du système Parexlanko sur support minéral préparé ou ancien carrelage. Consommation à confirmer sur sa fiche.",
+              "url": "https://www.parexlanko.com/produits/sheet/184-solfibre-25kg",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "165 PROLIPRIM UNIVERSEL",
+              "detail": "Primaire du système Parexlanko sur support minéral préparé ou ancien carrelage. Consommation à confirmer sur sa fiche.",
+              "url": "https://www.parexlanko.com/produits/sheet/184-solfibre-25kg",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "165 PROLIPRIM UNIVERSEL",
+              "detail": "Primaire du système Parexlanko sur support minéral préparé ou ancien carrelage. Consommation à confirmer sur sa fiche.",
+              "url": "https://www.parexlanko.com/produits/sheet/184-solfibre-25kg",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "wood": {
+              "name": "164 PROLIPRIM RAPID",
+              "detail": "Primaire recommandé sur parquet à lames, parquet collé et panneaux bois dans le tableau de 184 SOLFIBRE.",
+              "url": "https://www.parexlanko.com/uploads/resources/Wed%20Mar%2005%202025%2013%3A44%3A42%20GMT%2B0100%20%28Central%20European%20Standard%20Time%29-DTG_13fev2023_BD.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "165 PROLIPRIM UNIVERSEL",
+              "detail": "Sur chape anhydrite préparée et sèche : deux couches de 165 PROLIPRIM UNIVERSEL espacées d’au moins 30 minutes, selon la fiche 184 SOLFIBRE.",
+              "url": "https://www.parexlanko.com/produits/sheet/184-solfibre-25kg",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "165 PROLIPRIM UNIVERSEL",
+              "detail": "Primaire du système Parexlanko sur support minéral préparé ou ancien carrelage. Consommation à confirmer sur sa fiche.",
+              "url": "https://www.parexlanko.com/produits/sheet/184-solfibre-25kg",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Au-delà de 20 mm et jusqu’à 30 mm : hors certificat QB selon la documentation fabricant.",
+            "Sur bois à lames ou parquet collé, appliquer au moins 5 mm.",
+            "Sur chape anhydrite, ne pas dépasser 10 mm ; vérifier la siccité.",
+            "Ne pas utiliser sans revêtement final.",
+            "Sur plancher bois sous carrelage : 5–20 mm et carreaux de surface maximale 1 200 cm² selon le guide chantier fabricant.",
+            "Avant parquet collé : au moins 5 mm de ragréage, même sur support minéral."
+          ],
+          "finishLimits": {
+            "parquet": {
+              "min": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "prb",
+      "name": "PRB",
+      "website": "https://www.prb.fr/fr/",
+      "logoUrl": "https://www.prb.fr/images/holcim_endorsed_prb_l2_logo_2025_positive_black_srgb1.svg",
+      "products": [
+        {
+          "id": "prb-planifibre",
+          "name": "PRB PLANIFIBRE",
+          "type": "Fibré haute résistance — rénovation / extérieur",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 3,
+          "max": 10,
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "paint"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet",
+            "bare"
+          ],
+          "sourceUrl": "https://www.prb.fr/fr/produit/planifibre",
+          "technicalUrl": "https://pim.prb.fr/Produits/3.5.4.4-1.20.30.40/ft_prb_planifibre_fr_02_07_2025-1.pdf",
+          "imageUrl": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb_planifibre_25kg_1.png",
+          "checkedAt": "2026-11-03",
+          "locationSupports": {
+            "outside": [
+              "cement",
+              "concrete"
+            ]
+          },
+          "locationFinishes": {
+            "outside": [
+              "tile"
+            ]
+          },
+          "bareInsideAnnexOnly": true,
+          "primaries": {
+            "tile": {
+              "name": "PRB ACCROSOL PLUS",
+              "detail": "Support préparé, propre et sec. En extérieur : dilution 1 volume de primaire pour 1 volume d’eau ; respecter les dosages et le séchage de la fiche.",
+              "url": "https://pim.prb.fr/Produits/3.5.4.4-1.20.30.40/ft_prb_planifibre_fr_02_07_2025-1.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "PRB ACCROSOL PLUS",
+              "detail": "Support préparé, propre et sec. En extérieur : dilution 1 volume de primaire pour 1 volume d’eau ; respecter les dosages et le séchage de la fiche.",
+              "url": "https://pim.prb.fr/Produits/3.5.4.4-1.20.30.40/ft_prb_planifibre_fr_02_07_2025-1.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "PRB ACCROSOL PLUS",
+              "detail": "Support préparé, propre et sec. En extérieur : dilution 1 volume de primaire pour 1 volume d’eau ; respecter les dosages et le séchage de la fiche.",
+              "url": "https://pim.prb.fr/Produits/3.5.4.4-1.20.30.40/ft_prb_planifibre_fr_02_07_2025-1.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "PRB ACCROSOL PLUS",
+              "detail": "Support préparé, propre et sec. En extérieur : dilution 1 volume de primaire pour 1 volume d’eau ; respecter les dosages et le séchage de la fiche.",
+              "url": "https://pim.prb.fr/Produits/3.5.4.4-1.20.30.40/ft_prb_planifibre_fr_02_07_2025-1.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "PRB ACCROSOL PLUS",
+              "detail": "Support préparé, propre et sec. En extérieur : dilution 1 volume de primaire pour 1 volume d’eau ; respecter les dosages et le séchage de la fiche.",
+              "url": "https://pim.prb.fr/Produits/3.5.4.4-1.20.30.40/ft_prb_planifibre_fr_02_07_2025-1.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "PRB ACCROSOL PLUS",
+              "detail": "Support préparé, propre et sec. En extérieur : dilution 1 volume de primaire pour 1 volume d’eau ; respecter les dosages et le séchage de la fiche.",
+              "url": "https://pim.prb.fr/Produits/3.5.4.4-1.20.30.40/ft_prb_planifibre_fr_02_07_2025-1.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Profil de calcul rénovation et extérieur limité à 3–10 mm. La fiche permet 3–30 mm dans les cas neufs minéraux expressément visés.",
+            "Extérieur hors certification QB et pente minimale 1,5 %.",
+            "Bois non proposé automatiquement : la fiche vise notamment CTB.H/CTB.X de 22 mm et parquets stables, sans autorisation OSB explicite.",
+            "La finition nue est limitée aux garages privatifs et locaux P3 adaptés."
+          ],
+          "comparison": {
+            "summary": "Fibré haute résistance pour la rénovation ; utilisable aussi en extérieur sur support minéral préparé.",
+            "highlights": [
+              "Fibré ; classe P4S sur ciment neuf ou remis à nu",
+              "Rénovation et extérieur : 3 à 10 mm",
+              "Tous sols chauffants visés par la fiche, dont PRE"
+            ],
+            "walkable": "Environ 3 à 4 h, selon les conditions du chantier.",
+            "covering": "Carrelage : 4 à 12 h ; PVC : 24 à 48 h ; parquet collé : 48 à 96 h. Délais variables selon épaisseur et température.",
+            "coveringByFinish": {
+              "tile": "Carrelage : 4 à 12 h, selon épaisseur et température.",
+              "soft": "Textile : 4 à 12 h ; revêtement plastique : 24 à 48 h, selon épaisseur et température.",
+              "parquet": "Parquet collé : 48 à 96 h, selon épaisseur et température."
+            },
+            "workingTime": "15 min de durée pratique d’utilisation ; pouvoir autolissant : 15 min.",
+            "sourceUrl": "https://pim.prb.fr/Produits/3.5.4.4-1.20.30.40/ft_prb_planifibre_fr_02_07_2025-1.pdf",
+            "sourceDate": "2025-07-02"
+          }
+        },
+        {
+          "id": "prb-planidur-pro",
+          "name": "PRB PLANIDUR PRO",
+          "type": "Autolissant P3 — intérieur",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 3,
+          "max": 10,
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "paint"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "locations": [
+            "inside"
+          ],
+          "sourceUrl": "https://www.prb.fr/fr/produit/planidur-pro",
+          "technicalUrl": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.35/ft_prb_planidur_pro_fr_28_08_2025-1.pdf",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "PRB ACCROSOL PLUS",
+              "url": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.35/ft_prb_planidur_pro_fr_28_08_2025-1.pdf",
+              "detail": "Sur support propre et préparé ; séchage 4 à 24 h. En extérieur, appliquer la dilution prescrite par la fiche.",
+              "rateMin": 0.2,
+              "rateMax": 0.4,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "PRB ACCROSOL PLUS",
+              "url": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.35/ft_prb_planidur_pro_fr_28_08_2025-1.pdf",
+              "detail": "Sur support propre et préparé ; séchage 4 à 24 h. En extérieur, appliquer la dilution prescrite par la fiche.",
+              "rateMin": 0.2,
+              "rateMax": 0.4,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "PRB ACCROSOL PLUS",
+              "url": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.35/ft_prb_planidur_pro_fr_28_08_2025-1.pdf",
+              "detail": "Sur support propre et préparé ; séchage 4 à 24 h. En extérieur, appliquer la dilution prescrite par la fiche.",
+              "rateMin": 0.2,
+              "rateMax": 0.4,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "PRB ACCROSOL PLUS",
+              "url": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.35/ft_prb_planidur_pro_fr_28_08_2025-1.pdf",
+              "detail": "Sur support propre et préparé ; séchage 4 à 24 h. En extérieur, appliquer la dilution prescrite par la fiche.",
+              "rateMin": 0.2,
+              "rateMax": 0.4,
+              "unit": "kg"
+            },
+            "tile": {
+              "name": "PRB ACCROSOL PLUS",
+              "url": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.35/ft_prb_planidur_pro_fr_28_08_2025-1.pdf",
+              "detail": "Sur support propre et préparé ; séchage 4 à 24 h. En extérieur, appliquer la dilution prescrite par la fiche.",
+              "rateMin": 0.2,
+              "rateMax": 0.4,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "PRB ACCROSOL PLUS",
+              "url": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.35/ft_prb_planidur_pro_fr_28_08_2025-1.pdf",
+              "detail": "Sur support propre et préparé ; séchage 4 à 24 h. En extérieur, appliquer la dilution prescrite par la fiche.",
+              "rateMin": 0.2,
+              "rateMax": 0.4,
+              "unit": "kg"
+            }
+          },
+          "bareInsideAnnexOnly": false,
+          "comparison": {
+            "summary": "Ragréage courant P3 pour carrelage, sols souples et parquet, sur ciment ou ancien carrelage.",
+            "highlights": [
+              "3 à 10 mm sans ajout de sable",
+              "Sac de 25 kg · 1,5 kg/m²/mm"
+            ],
+            "walkable": "Environ 3 h.",
+            "covering": "Carrelage/textile : 4 à 12 h ; sols plastiques : 12 à 48 h. Parquet : 48 à 96 h.",
+            "workingTime": "Environ 20 min.",
+            "sourceUrl": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.35/ft_prb_planidur_pro_fr_28_08_2025-1.pdf"
+          },
+          "notes": [
+            "Profil continu limité à 3–10 mm. Les mélanges avec ajout de sable demandent un dosage spécifique.",
+            "Les planchers chauffants ne sont pas prescrits dans la fiche de cette référence ; demander validation au fabricant.",
+            "Le profil courant P3 est retenu. Le lissage 1–3 mm concerne uniquement les cas P2 en sol souple de la fiche."
+          ],
+          "imageUrl": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb_planidur_pro_25kg_1.png"
+        },
+        {
+          "id": "prb-planidur-plus",
+          "name": "PRB PLANIDUR PLUS",
+          "type": "Autolissant P3 — intérieur et extérieur",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 3,
+          "max": 10,
+          "supports": [
+            "cement",
+            "concrete"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "bare"
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "sourceUrl": "https://www.prb.fr/fr/produit/planidur-plus",
+          "technicalUrl": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.20/ft_prb_planidur_plus_fr_29_11_2019.pdf",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "PRB ACCROSOL PLUS",
+              "url": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.20/ft_prb_planidur_plus_fr_29_11_2019.pdf",
+              "detail": "Sur support propre et préparé ; séchage 4 à 24 h. En extérieur, appliquer la dilution prescrite par la fiche.",
+              "rateMin": 0.2,
+              "rateMax": 0.3,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "PRB ACCROSOL PLUS",
+              "url": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.20/ft_prb_planidur_plus_fr_29_11_2019.pdf",
+              "detail": "Sur support propre et préparé ; séchage 4 à 24 h. En extérieur, appliquer la dilution prescrite par la fiche.",
+              "rateMin": 0.2,
+              "rateMax": 0.3,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "PRB ACCROSOL PLUS",
+              "url": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.20/ft_prb_planidur_plus_fr_29_11_2019.pdf",
+              "detail": "Sur support propre et préparé ; séchage 4 à 24 h. En extérieur, appliquer la dilution prescrite par la fiche.",
+              "rateMin": 0.2,
+              "rateMax": 0.3,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "PRB ACCROSOL PLUS",
+              "url": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.20/ft_prb_planidur_plus_fr_29_11_2019.pdf",
+              "detail": "Sur support propre et préparé ; séchage 4 à 24 h. En extérieur, appliquer la dilution prescrite par la fiche.",
+              "rateMin": 0.2,
+              "rateMax": 0.3,
+              "unit": "kg"
+            }
+          },
+          "bareInsideAnnexOnly": true,
+          "comparison": {
+            "summary": "Support minéral intérieur/extérieur ; peut rester nu dans les annexes prévues.",
+            "highlights": [
+              "3 à 10 mm sans ajout de sable",
+              "Sac de 25 kg · 1,5 kg/m²/mm"
+            ],
+            "walkable": "Environ 3 h.",
+            "covering": "Carrelage/textile : 4 à 12 h ; sols plastiques : 12 à 48 h.",
+            "workingTime": "Environ 20 min.",
+            "sourceUrl": "https://pim.prb.fr/Produits/3.5.2.2-1.20.30.20/ft_prb_planidur_plus_fr_29_11_2019.pdf"
+          },
+          "notes": [
+            "Profil continu limité à 3–10 mm. Les mélanges avec ajout de sable demandent un dosage spécifique.",
+            "Les planchers chauffants ne sont pas prescrits dans la fiche de cette référence ; demander validation au fabricant.",
+            "Extérieur : conserver la pente et l’évacuation des eaux ; ce ragréage autonivelant ne crée pas la pente."
+          ],
+          "locationFinishes": {
+            "outside": [
+              "tile",
+              "bare"
+            ]
+          },
+          "imageUrl": "https://pim.prb.fr/20260413152652_prb-planidur-plus-25-kg.png"
+        }
+      ]
+    },
+    {
+      "id": "vpi",
+      "name": "VPI",
+      "website": "https://www.vpi.vicat.fr/",
+      "logoUrl": null,
+      "products": [
+        {
+          "id": "vpi-fibre-forte-epaisseur",
+          "name": "Ragréage fibré forte épaisseur",
+          "type": "Fibré — VPI Bricolage",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 10,
+          "max": 40,
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "supports": [
+            "cement",
+            "concrete",
+            "wood"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "bare"
+          ],
+          "locationSupports": {
+            "outside": [
+              "cement",
+              "concrete"
+            ]
+          },
+          "sourceUrl": "https://www.vpi-bricolage.fr/content/download/10418/88606/version/10/file/FT%2BRAGREAGE%2BFIBRE%2BFORTE%2BEPAISSEUR_08.2025.pdf",
+          "technicalUrl": "https://www.vpi-bricolage.fr/content/download/10418/88606/version/10/file/FT%2BRAGREAGE%2BFIBRE%2BFORTE%2BEPAISSEUR_08.2025.pdf",
+          "imageUrl": null,
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "PRIMAIRE D’ADHÉRENCE VPI",
+              "detail": "Appliquer sur le support préparé et respecter 30 min à 24 h avant le ragréage, selon la fiche du produit.",
+              "url": "https://www.vpi-bricolage.fr/content/download/10418/88606/version/10/file/FT%2BRAGREAGE%2BFIBRE%2BFORTE%2BEPAISSEUR_08.2025.pdf",
+              "rateMin": 0.05,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "PRIMAIRE D’ADHÉRENCE VPI",
+              "detail": "Appliquer sur le support préparé et respecter 30 min à 24 h avant le ragréage, selon la fiche du produit.",
+              "url": "https://www.vpi-bricolage.fr/content/download/10418/88606/version/10/file/FT%2BRAGREAGE%2BFIBRE%2BFORTE%2BEPAISSEUR_08.2025.pdf",
+              "rateMin": 0.05,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "PRIMAIRE D’ADHÉRENCE VPI",
+              "detail": "Appliquer sur le support préparé et respecter 30 min à 24 h avant le ragréage, selon la fiche du produit.",
+              "url": "https://www.vpi-bricolage.fr/content/download/10418/88606/version/10/file/FT%2BRAGREAGE%2BFIBRE%2BFORTE%2BEPAISSEUR_08.2025.pdf",
+              "rateMin": 0.05,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "PRIMAIRE D’ADHÉRENCE VPI",
+              "detail": "Appliquer sur le support préparé et respecter 30 min à 24 h avant le ragréage, selon la fiche du produit.",
+              "url": "https://www.vpi-bricolage.fr/content/download/10418/88606/version/10/file/FT%2BRAGREAGE%2BFIBRE%2BFORTE%2BEPAISSEUR_08.2025.pdf",
+              "rateMin": 0.05,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "wood": {
+              "name": "PRIMAIRE D’ADHÉRENCE VPI",
+              "detail": "Appliquer sur le support préparé et respecter 30 min à 24 h avant le ragréage, selon la fiche du produit.",
+              "url": "https://www.vpi-bricolage.fr/content/download/10418/88606/version/10/file/FT%2BRAGREAGE%2BFIBRE%2BFORTE%2BEPAISSEUR_08.2025.pdf",
+              "rateMin": 0.05,
+              "rateMax": 0.2,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Fiche fabricant VPI Bricolage août 2025 ; vérifier la version remise avec le produit avant commande.",
+            "Plage d’emploi 10–40 mm : ne convient pas à un ragréage mince de 3–5 mm.",
+            "Pas de compatibilité sur carrelage, anhydrite, peinture ou chauffage documentée dans le profil retenu.",
+            "Préparation du support et pente extérieure à valider ; ce profil ne calcule pas une forme de pente."
+          ],
+          "checkedAt": "2026-11-03"
+        }
+      ],
+      "catalogueNote": "Profil issu de la fiche VPI Bricolage d’août 2025. Le site fabricant est en migration ou maintenance ; vérifier la disponibilité et la fiche jointe au sac avant achat."
+    },
+    {
+      "id": "cegecol",
+      "name": "Cégécol",
+      "website": "https://www.cegecol.com/fr/",
+      "logoUrl": "https://www.cegecol.com/include/websites/cegecol/web/images/logo1.png",
+      "products": [
+        {
+          "id": "cegecol-f",
+          "name": "CEGESOL F",
+          "type": "Fibré P3 — rénovation intérieure",
+          "rate": 1.7,
+          "bag": 25,
+          "min": 3,
+          "max": 20,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "wood",
+            "paint"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://www.cegecol.com/fr/mise-en-oeuvre-du-carrelage/?p=321&pc=634",
+          "technicalUrl": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolf_fr_fr_tds.pdf",
+          "imageUrl": "https://media-pms2.schoenox.net/cegecol/products/cegecolcegesolf.jpg",
+          "checkedAt": "2026-11-03",
+          "supportLimits": {
+            "wood": {
+              "min": 5
+            }
+          },
+          "primaries": {
+            "tile": {
+              "name": "CEGEPRIM UN2",
+              "detail": "Primaire visé sur supports ciment préparés (poreux ou fermés) et ancien carrelage adhérent nettoyé.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolf_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "CEGEPRIM UN2",
+              "detail": "Primaire visé sur supports ciment préparés (poreux ou fermés) et ancien carrelage adhérent nettoyé.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolf_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "CEGEPRIM UN2",
+              "detail": "Primaire visé sur supports ciment préparés (poreux ou fermés) et ancien carrelage adhérent nettoyé.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolf_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "CEGEPRIM UN2",
+              "detail": "Primaire visé sur supports ciment préparés (poreux ou fermés) et ancien carrelage adhérent nettoyé.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolf_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "CEGEPRIM UN2",
+              "detail": "Primaire visé sur supports ciment préparés (poreux ou fermés) et ancien carrelage adhérent nettoyé.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolf_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "wood": {
+              "name": "CEGEPRIM ULTRA",
+              "detail": "Sur parquet à lames ou panneaux bois rigides, poncés et aspirés ; garder la ventilation en sous-face.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolf_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "CEGEPRIM ULTRA",
+              "detail": "Sur parquet à lames ou panneaux bois rigides, poncés et aspirés ; garder la ventilation en sous-face.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolf_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Sur bois, épaisseur minimale 5 mm et carrelage limité au format prescrit par la fiche (33 × 33 cm).",
+            "PRE mentionné hors certificat QB.",
+            "Le calcul tient compte des consommations moyennes annoncées : 5,2 kg/m² à 3 mm et 8,5 kg/m² à 5 mm, avec interpolation entre ces deux points et coefficient prudent hors de cette plage."
+          ],
+          "consumptionPoints": [
+            {
+              "thickness": 3,
+              "kgM2": 5.2
+            },
+            {
+              "thickness": 5,
+              "kgM2": 8.5
+            }
+          ],
+          "rateMinimum": 1.6,
+          "rateReferenceNote": "1,7 kg/m²/mm correspond à la consommation moyenne fabricant de 8,5 kg/m² à 5 mm ; le calcul utilise les points documentés et sa méthode annoncée."
+        },
+        {
+          "id": "cegecol-se",
+          "name": "CEGESOL SE",
+          "type": "Autolissant spécial extérieur P3",
+          "rate": 1.6,
+          "bag": 25,
+          "min": 3,
+          "max": 10,
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "paint"
+          ],
+          "heating": [
+            "none",
+            "water"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet",
+            "bare"
+          ],
+          "sourceUrl": "https://www.cegecol.com/fr/mise-en-oeuvre-du-carrelage/?p=4201&pc=634",
+          "technicalUrl": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolse_fr_fr_tds.pdf",
+          "imageUrl": "https://media-pms2.schoenox.net/cegecol/products/cegecolcegesolse.jpg",
+          "checkedAt": "2026-11-03",
+          "locationSupports": {
+            "outside": [
+              "concrete",
+              "cement"
+            ]
+          },
+          "locationFinishes": {
+            "outside": [
+              "tile",
+              "bare"
+            ]
+          },
+          "primaries": {
+            "tile": {
+              "name": "CEGEPRIM UN2",
+              "detail": "Intérieur : primaire sur béton/chape ciment préparés et ancien carrelage adhérent.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolse_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "CEGEPRIM UN2",
+              "detail": "Intérieur : primaire sur béton/chape ciment préparés et ancien carrelage adhérent.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolse_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "CEGEPRIM UN2",
+              "detail": "Intérieur : primaire sur béton/chape ciment préparés et ancien carrelage adhérent.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolse_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "CEGEPRIM UN2",
+              "detail": "Intérieur : primaire sur béton/chape ciment préparés et ancien carrelage adhérent.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolse_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "CEGEPRIM UN2",
+              "detail": "Intérieur : primaire sur béton/chape ciment préparés et ancien carrelage adhérent.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolse_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "CEGEPRIM ULTRA",
+              "detail": "Peinture adhérente, préparée et nettoyée ; voir la fiche fabricant.",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolse_fr_fr_tds.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "primaryOverrides": [
+            {
+              "when": {
+                "location": "outside"
+              },
+              "primaries": {
+                "cementAbsorbent": {
+                  "name": "EMULCIM",
+                  "detail": "Extérieur sur dalle béton ou chape ciment : diluer 1 volume d’EMULCIM dans 3 volumes d’eau, selon la fiche CEGESOL SE.",
+                  "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolse_fr_fr_tds.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                },
+                "concreteAbsorbent": {
+                  "name": "EMULCIM",
+                  "detail": "Extérieur sur dalle béton ou chape ciment : diluer 1 volume d’EMULCIM dans 3 volumes d’eau, selon la fiche CEGESOL SE.",
+                  "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolse_fr_fr_tds.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                },
+                "cementClosed": {
+                  "name": "EMULCIM",
+                  "detail": "Extérieur sur dalle béton ou chape ciment : diluer 1 volume d’EMULCIM dans 3 volumes d’eau, selon la fiche CEGESOL SE.",
+                  "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolse_fr_fr_tds.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                },
+                "concreteClosed": {
+                  "name": "EMULCIM",
+                  "detail": "Extérieur sur dalle béton ou chape ciment : diluer 1 volume d’EMULCIM dans 3 volumes d’eau, selon la fiche CEGESOL SE.",
+                  "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolse_fr_fr_tds.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                }
+              }
+            }
+          ],
+          "notes": [
+            "Calcul limité au mode ragréage non chargé 3–10 mm de la page produit. Les minichapes et formes de pente avec sable sont exclues.",
+            "PRE non visé.",
+            "À l’extérieur, seuls dalle béton et chape ciment sont proposés par ce profil."
+          ]
+        },
+        {
+          "id": "cegecol-str",
+          "name": "CEGESOL STR",
+          "type": "Autolissant P4/P4S — intérieur",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 3,
+          "max": 10,
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "paint",
+            "anhydrite"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "locations": [
+            "inside"
+          ],
+          "sourceUrl": "https://www.cegecol.com/",
+          "technicalUrl": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolstr_fr_fr_tds.pdf",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "CEGEPRIM E ou CEGEPRIM UN2",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolstr_fr_fr_tds.pdf",
+              "detail": "Support ciment sec et préparé selon la fiche.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "CEGEPRIM E ou CEGEPRIM UN2",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolstr_fr_fr_tds.pdf",
+              "detail": "Support ciment sec et préparé selon la fiche.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "CEGEPRIM E ou CEGEPRIM UN2",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolstr_fr_fr_tds.pdf",
+              "detail": "Support ciment sec et préparé selon la fiche.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "CEGEPRIM E ou CEGEPRIM UN2",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolstr_fr_fr_tds.pdf",
+              "detail": "Support ciment sec et préparé selon la fiche.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "tile": {
+              "name": "CEGEPRIM RN ou CEGEPRIM UN2",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolstr_fr_fr_tds.pdf",
+              "detail": "Ancien carrelage adhérent, lavé, rincé et sec.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "paint": {
+              "name": "CEGEPRIM ULTRA",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolstr_fr_fr_tds.pdf",
+              "detail": "Après contrôle d’adhérence, ponçage et aspiration.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "CEGEPRIM AN ou CEGEPRIM UN2",
+              "url": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolstr_fr_fr_tds.pdf",
+              "detail": "Vérifier l’humidité conforme à l’avis technique de la chape.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "consumptionPoints": [
+            {
+              "thickness": 3,
+              "kgM2": 5
+            },
+            {
+              "thickness": 5,
+              "kgM2": 7.5
+            }
+          ],
+          "comparison": {
+            "summary": "Ragréage haute résistance pour support ciment et rénovation, tous planchers chauffants.",
+            "highlights": [
+              "Profil P3/P4 : 3 à 10 mm",
+              "Table fabricant : 5 kg/m² à 3 mm"
+            ],
+            "walkable": "Environ 3 h.",
+            "covering": "24 à 48 h ; parquet : au moins 72 h et contrôle de siccité.",
+            "workingTime": "20 à 30 min.",
+            "sourceUrl": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolstr_fr_fr_tds.pdf"
+          },
+          "notes": [
+            "La commande est calculée à partir du tableau fabricant : 5 kg/m² à 3 mm et 7,5 kg/m² à 5 mm. Entre ces valeurs : interpolation ; hors tableau : extrapolation prudente explicitée dans le calcul.",
+            "Profil courant de 3–10 mm. Le lissage P2 de 1–3 mm n’est pas proposé."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sika",
+      "name": "Sika",
+      "website": "https://fra.sika.com/",
+      "logoUrl": "https://sika.scene7.com/is/content/sika/Sika_ClaimU_pos_rgb",
+      "products": [
+        {
+          "id": "sika-330",
+          "name": "Sikafloor-330 Fibré Level",
+          "type": "Fibré P3 — supports déformables",
+          "rate": 1.7,
+          "bag": 25,
+          "min": 3,
+          "max": 20,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "wood",
+            "paint"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://fra.sika.com/fr/construction/preparation-supports-collage-revetements/preparation-sols/ragreages-sols/sikafloor-330-fibrelevel.html",
+          "technicalUrl": "https://fra.sika.com/dms/getdocument.get/f65fa15e-f752-482d-bec1-dcd7f1c42eb9/sikafloor-330-fiberlevel.pdf",
+          "imageUrl": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:21818558-b177-492d-a894-08c9640df907/as/fr-sikafloor-330-fibre-level-25kg-3d-07234070.png?smartcrop=1-1&width=480&height=480",
+          "checkedAt": "2026-11-03",
+          "supportLimits": {
+            "tile": {
+              "max": 10
+            },
+            "wood": {
+              "min": 5,
+              "max": 10
+            }
+          },
+          "primaries": {
+            "tile": {
+              "name": "Sikafloor-18 Primaire Universel",
+              "detail": "Primaire visé par le certificat QB du Sikafloor-330 ; adapter consommation et nombre de passes à la porosité.",
+              "url": "https://fra.sika.com/dam/dms/fr01/e/fr-certif-qb-sikafloor-330-fibre-level.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "Sikafloor-18 Primaire Universel",
+              "detail": "Primaire visé par le certificat QB du Sikafloor-330 ; adapter consommation et nombre de passes à la porosité.",
+              "url": "https://fra.sika.com/dam/dms/fr01/e/fr-certif-qb-sikafloor-330-fibre-level.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Sikafloor-18 Primaire Universel",
+              "detail": "Primaire visé par le certificat QB du Sikafloor-330 ; adapter consommation et nombre de passes à la porosité.",
+              "url": "https://fra.sika.com/dam/dms/fr01/e/fr-certif-qb-sikafloor-330-fibre-level.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Sikafloor-18 Primaire Universel",
+              "detail": "Primaire visé par le certificat QB du Sikafloor-330 ; adapter consommation et nombre de passes à la porosité.",
+              "url": "https://fra.sika.com/dam/dms/fr01/e/fr-certif-qb-sikafloor-330-fibre-level.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Sikafloor-18 Primaire Universel",
+              "detail": "Primaire visé par le certificat QB du Sikafloor-330 ; adapter consommation et nombre de passes à la porosité.",
+              "url": "https://fra.sika.com/dam/dms/fr01/e/fr-certif-qb-sikafloor-330-fibre-level.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "wood": {
+              "name": "Sikafloor-13 Primaire Ultra",
+              "detail": "Primaire du système sur bois ou panneaux dérivés ; remplir les joints selon les prescriptions du certificat.",
+              "url": "https://fra.sika.com/dam/dms/fr01/e/fr-certif-qb-sikafloor-330-fibre-level.pdf",
+              "rateMin": 0.4,
+              "rateMax": 0.4,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Chape anhydrite, extérieur et finition nue exclus.",
+            "Les plafonds de 10 mm sur carrelage et bois suivent le certificat QB ; sous carrelage sur bois, minimum 5 mm.",
+            "Sur ancienne peinture, primaire à faire confirmer au fabricant.",
+            "Le calcul tient compte des consommations moyennes annoncées : 5,2 kg/m² à 3 mm et 8,5 kg/m² à 5 mm, avec interpolation entre ces deux points et coefficient prudent hors de cette plage."
+          ],
+          "consumptionPoints": [
+            {
+              "thickness": 3,
+              "kgM2": 5.2
+            },
+            {
+              "thickness": 5,
+              "kgM2": 8.5
+            }
+          ],
+          "rateMinimum": 1.6,
+          "rateReferenceNote": "1,7 kg/m²/mm correspond à la consommation moyenne fabricant de 8,5 kg/m² à 5 mm ; le calcul utilise les points documentés et sa méthode annoncée."
+        },
+        {
+          "id": "sika-200",
+          "name": "Sikafloor®-200 Level",
+          "type": "Autolissant P3 — forte épaisseur",
+          "rate": 1.8,
+          "bag": 25,
+          "min": 3,
+          "max": 60,
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "paint",
+            "anhydrite"
+          ],
+          "heating": [
+            "none",
+            "water"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "locations": [
+            "inside"
+          ],
+          "sourceUrl": "https://fra.sika.com/fr/construction/preparation-supports-collage-revetements/preparation-sols/ragreages-sols/sikafloor-200-level.html",
+          "technicalUrl": "https://fra.sika.com/content/dam/dms/fr01/2/sikafloor-200-level.pdf",
+          "checkedAt": "2026-11-03",
+          "primaries": {},
+          "comparison": {
+            "summary": "Rattrapage de 3 à 60 mm en intérieur, sur support minéral ; consommation France de 1,8 kg/m²/mm.",
+            "highlights": [
+              "3 à 60 mm en couche continue",
+              "Chauffage à eau ; PRE exclu"
+            ],
+            "walkable": "Environ 3 h.",
+            "covering": "Carrelage : 24 h jusqu’à 20 mm, 48 h au-delà ; PVC : 24 h jusqu’à 10 mm, 4 jours au-delà ; parquet : 72 h jusqu’à 10 mm puis contrôle d’humidité.",
+            "workingTime": "Environ 25 min à +20 °C.",
+            "sourceUrl": "https://fra.sika.com/content/dam/dms/fr01/2/sikafloor-200-level.pdf"
+          },
+          "notes": [
+            "De 30 à 60 mm : barbotine d’accrochage de Sikafloor-200 Level avec SikaLatex-360 dilué à 50 % dans l’eau, application frais sur frais.",
+            "Le calcul annonce la poudre de la couche continue ; prévoir séparément les produits d’accrochage.",
+            "Les 80 mm ponctuels ne sont pas utilisés comme épaisseur moyenne autorisée."
+          ],
+          "primaryThicknessRanges": [
+            {
+              "min": 3,
+              "max": 30,
+              "primaries": {
+                "tile": {
+                  "name": "Sikafloor®-18 Primaire Universel",
+                  "detail": "Sur support ciment ou ancien carrelage préparé ; épaisseur de 3 à 30 mm, selon la fiche.",
+                  "url": "https://fra.sika.com/content/dam/dms/fr01/2/sikafloor-200-level.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                },
+                "cementAbsorbent": {
+                  "name": "Sikafloor®-18 Primaire Universel",
+                  "detail": "Sur support ciment ou ancien carrelage préparé ; épaisseur de 3 à 30 mm, selon la fiche.",
+                  "url": "https://fra.sika.com/content/dam/dms/fr01/2/sikafloor-200-level.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                },
+                "cementClosed": {
+                  "name": "Sikafloor®-18 Primaire Universel",
+                  "detail": "Sur support ciment ou ancien carrelage préparé ; épaisseur de 3 à 30 mm, selon la fiche.",
+                  "url": "https://fra.sika.com/content/dam/dms/fr01/2/sikafloor-200-level.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                },
+                "concreteAbsorbent": {
+                  "name": "Sikafloor®-18 Primaire Universel",
+                  "detail": "Sur support ciment ou ancien carrelage préparé ; épaisseur de 3 à 30 mm, selon la fiche.",
+                  "url": "https://fra.sika.com/content/dam/dms/fr01/2/sikafloor-200-level.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                },
+                "concreteClosed": {
+                  "name": "Sikafloor®-18 Primaire Universel",
+                  "detail": "Sur support ciment ou ancien carrelage préparé ; épaisseur de 3 à 30 mm, selon la fiche.",
+                  "url": "https://fra.sika.com/content/dam/dms/fr01/2/sikafloor-200-level.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                }
+              }
+            },
+            {
+              "min": 30,
+              "max": 60,
+              "primaries": {
+                "cementAbsorbent": {
+                  "name": "Barbotine Sikafloor®-200 Level + SikaLatex®-360",
+                  "detail": "Pour 30 à 60 mm : Sikafloor-200 Level gâché avec SikaLatex-360 dilué à 50 % dans l’eau ; appliquer la couche sur barbotine fraîche. Quantités d’accrochage à prévoir séparément.",
+                  "url": "https://fra.sika.com/content/dam/dms/fr01/2/sikafloor-200-level.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                },
+                "cementClosed": {
+                  "name": "Barbotine Sikafloor®-200 Level + SikaLatex®-360",
+                  "detail": "Pour 30 à 60 mm : Sikafloor-200 Level gâché avec SikaLatex-360 dilué à 50 % dans l’eau ; appliquer la couche sur barbotine fraîche. Quantités d’accrochage à prévoir séparément.",
+                  "url": "https://fra.sika.com/content/dam/dms/fr01/2/sikafloor-200-level.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                },
+                "concreteAbsorbent": {
+                  "name": "Barbotine Sikafloor®-200 Level + SikaLatex®-360",
+                  "detail": "Pour 30 à 60 mm : Sikafloor-200 Level gâché avec SikaLatex-360 dilué à 50 % dans l’eau ; appliquer la couche sur barbotine fraîche. Quantités d’accrochage à prévoir séparément.",
+                  "url": "https://fra.sika.com/content/dam/dms/fr01/2/sikafloor-200-level.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                },
+                "concreteClosed": {
+                  "name": "Barbotine Sikafloor®-200 Level + SikaLatex®-360",
+                  "detail": "Pour 30 à 60 mm : Sikafloor-200 Level gâché avec SikaLatex-360 dilué à 50 % dans l’eau ; appliquer la couche sur barbotine fraîche. Quantités d’accrochage à prévoir séparément.",
+                  "url": "https://fra.sika.com/content/dam/dms/fr01/2/sikafloor-200-level.pdf",
+                  "rateMin": null,
+                  "rateMax": null,
+                  "unit": "kg"
+                }
+              }
+            }
+          ],
+          "conditionalLimits": [
+            {
+              "when": {
+                "support": [
+                  "tile",
+                  "paint",
+                  "anhydrite"
+                ]
+              },
+              "max": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mapei",
+      "name": "Mapei",
+      "website": "https://www.mapei.com/fr/fr/",
+      "logoUrl": null,
+      "products": [
+        {
+          "id": "mapei-reno3",
+          "name": "Ultraplan Reno 3",
+          "type": "Autolissant P3 — rénovation sous carrelage",
+          "rate": 1.4,
+          "bag": 25,
+          "min": 3,
+          "max": 10,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete"
+          ],
+          "heating": [
+            "none",
+            "water"
+          ],
+          "finishes": [
+            "tile"
+          ],
+          "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0",
+          "imageUrl": null,
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "tile": {
+              "name": "Eco Prim Universel",
+              "detail": "Primaire cité par la fiche française d’Ultraplan Reno 3 sur supports ciment poreux ou fermés et ancien carrelage préparé.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "Eco Prim Universel",
+              "detail": "Primaire cité par la fiche française d’Ultraplan Reno 3 sur supports ciment poreux ou fermés et ancien carrelage préparé.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Eco Prim Universel",
+              "detail": "Primaire cité par la fiche française d’Ultraplan Reno 3 sur supports ciment poreux ou fermés et ancien carrelage préparé.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Eco Prim Universel",
+              "detail": "Primaire cité par la fiche française d’Ultraplan Reno 3 sur supports ciment poreux ou fermés et ancien carrelage préparé.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Eco Prim Universel",
+              "detail": "Primaire cité par la fiche française d’Ultraplan Reno 3 sur supports ciment poreux ou fermés et ancien carrelage préparé.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Fiche technique spécifique au marché français, mai 2025.",
+            "Plancher chauffant à eau sur base ciment uniquement ; PRE non visé dans ce profil.",
+            "Le bois, l’anhydrite, la peinture et les finitions autres que céramiques ne sont pas proposés par la fiche retenue."
+          ]
+        },
+        {
+          "id": "mapei-maxi-fibre",
+          "name": "Ultraplan Maxi Fibre",
+          "type": "Fibré P4S — 3 à 30 mm",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 3,
+          "max": 30,
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "anhydrite"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "locations": [
+            "inside"
+          ],
+          "sourceUrl": "https://www.mapei.com/fr/fr/produits-et-solutions/produits/detail/ultraplan-maxi-fibre",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04038_ultraplan-maxi-fibre-_fr-fr_c6a2d845a49d46569fa7cbe642d502ec.pdf?sfvrsn=b8bc3f0b_0",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "Eco Prim Universel ou Primer G",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04038_ultraplan-maxi-fibre-_fr-fr_c6a2d845a49d46569fa7cbe642d502ec.pdf?sfvrsn=b8bc3f0b_0",
+              "detail": "Sur ciment poreux préparé, respecter la dilution et le séchage de la fiche.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Eco Prim Universel ou Primer G",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04038_ultraplan-maxi-fibre-_fr-fr_c6a2d845a49d46569fa7cbe642d502ec.pdf?sfvrsn=b8bc3f0b_0",
+              "detail": "Sur ciment poreux préparé, respecter la dilution et le séchage de la fiche.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Eco Prim Universel ou Eco Prim T Plus",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04038_ultraplan-maxi-fibre-_fr-fr_c6a2d845a49d46569fa7cbe642d502ec.pdf?sfvrsn=b8bc3f0b_0",
+              "detail": "Sur ciment peu poreux préparé ; suivre la fiche.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Eco Prim Universel ou Eco Prim T Plus",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04038_ultraplan-maxi-fibre-_fr-fr_c6a2d845a49d46569fa7cbe642d502ec.pdf?sfvrsn=b8bc3f0b_0",
+              "detail": "Sur ciment peu poreux préparé ; suivre la fiche.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "tile": {
+              "name": "Eco Prim T Plus ou Eco Prim Universel",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04038_ultraplan-maxi-fibre-_fr-fr_c6a2d845a49d46569fa7cbe642d502ec.pdf?sfvrsn=b8bc3f0b_0",
+              "detail": "Sur ancien carrelage adhérent, nettoyé et dégraissé ; en P4/P4S exclusivement Mapeprim SP.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "wood": {
+              "name": "Eco Prim Universel ou Eco Prim T Plus",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04038_ultraplan-maxi-fibre-_fr-fr_c6a2d845a49d46569fa7cbe642d502ec.pdf?sfvrsn=b8bc3f0b_0",
+              "detail": "Bois rigide conforme au DTU 51.3, ancien support préparé ; CTB-H/CTB-X ou plancher admis. OSB à faire confirmer.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "supportLimits": {
+            "wood": {
+              "min": 5
+            }
+          },
+          "comparison": {
+            "summary": "Fibré haute résistance avec rattrapage jusqu’à 30 mm ; au moins 5 mm sur bois.",
+            "highlights": [
+              "3 à 30 mm ; bois : 5 à 30 mm",
+              "Sac 25 kg · 1,5 kg/m²/mm"
+            ],
+            "walkable": "Environ 2 h.",
+            "covering": "Carrelage : environ 12 h ; PVC : 48 h. Contrôler le séchage pour les autres revêtements.",
+            "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04038_ultraplan-maxi-fibre-_fr-fr_c6a2d845a49d46569fa7cbe642d502ec.pdf?sfvrsn=b8bc3f0b_0"
+          },
+          "notes": [
+            "Bois : CTB-X/CTB-H ou plancher conforme. Faire valider les panneaux OSB avant utilisation.",
+            "Ancien carrelage en locaux P4/P4S : 20 mm maximum et Mapeprim SP exclusivement. Le calculateur concerne les usages courants.",
+            "Le sélecteur bois / OSB regroupe des panneaux différents. La fiche vise CTB-H/CTB-X et planchers : cette référence reste à faire valider sur bois, sans autorisation OSB explicite."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kerakoll",
+      "name": "Kerakoll",
+      "website": "https://fr.kerakoll.com/",
+      "logoUrl": null,
+      "products": [
+        {
+          "id": "kerakoll-planogel",
+          "name": "Planogel Rheo",
+          "type": "Gel-ragréage autolissant",
+          "rate": 1.6,
+          "bag": 25,
+          "min": 1,
+          "max": 30,
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "wood",
+            "anhydrite"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://fr.kerakoll.com/p/planogel-rheo",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf",
+          "imageUrl": "https://media.kerakoll.com/Sito_Web/mainImage/1_Fondi_di_posa/KK_ITALIA/K_Planogel-Rheo_26.jpg",
+          "checkedAt": "2026-11-03",
+          "locationSupports": {
+            "outside": [
+              "tile",
+              "cement",
+              "concrete"
+            ]
+          },
+          "locationFinishes": {
+            "outside": [
+              "tile"
+            ]
+          },
+          "finishLimits": {
+            "parquet": {
+              "min": 3
+            }
+          },
+          "heatingLimits": {
+            "water": {
+              "min": 5
+            },
+            "electric": {
+              "min": 5
+            }
+          },
+          "requiredWaterproofingOutside": true,
+          "primaries": {
+            "tile": {
+              "name": "Active Prime Fix",
+              "detail": "Sur ciment, béton, carrelage et bois, pur ou dilué uniquement selon les prescriptions du support. Sur anhydrite : pur.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementAbsorbent": {
+              "name": "Active Prime Fix",
+              "detail": "Sur ciment, béton, carrelage et bois, pur ou dilué uniquement selon les prescriptions du support. Sur anhydrite : pur.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Active Prime Fix",
+              "detail": "Sur ciment, béton, carrelage et bois, pur ou dilué uniquement selon les prescriptions du support. Sur anhydrite : pur.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Active Prime Fix",
+              "detail": "Sur ciment, béton, carrelage et bois, pur ou dilué uniquement selon les prescriptions du support. Sur anhydrite : pur.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Active Prime Fix",
+              "detail": "Sur ciment, béton, carrelage et bois, pur ou dilué uniquement selon les prescriptions du support. Sur anhydrite : pur.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "wood": {
+              "name": "Active Prime Fix",
+              "detail": "Sur ciment, béton, carrelage et bois, pur ou dilué uniquement selon les prescriptions du support. Sur anhydrite : pur.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "Active Prime Fix",
+              "detail": "Sur ciment, béton, carrelage et bois, pur ou dilué uniquement selon les prescriptions du support. Sur anhydrite : pur.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Extérieur : pente minimale 1,5 %, absence de remontées d’humidité et système d’étanchéité sous carrelage Aquastop Nanoflex ou Aquastop Green requis.",
+            "Chauffage hydronique ou électrique : application adhérente sur fond rigide, avec au moins 5 mm au-dessus de l’installation ; vérifier l’enrobage réel.",
+            "Sous parquet collé : épaisseur minimale 3 mm."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "litokol",
+      "name": "Litokol",
+      "website": "https://www.litokol.com/fr-fr/",
+      "products": [
+        {
+          "id": "litokol-xplan340",
+          "name": "X-Plan® 3-40",
+          "type": "Ragréage structurel autonivelant — intérieur",
+          "rate": 1.7,
+          "bag": 20,
+          "min": 3,
+          "max": 40,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "anhydrite"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "finishLimits": {
+            "parquet": {
+              "min": 3
+            }
+          },
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "X-Prime®",
+              "detail": "Sur support absorbant préparé. Suivre la fiche du primaire et son séchage.",
+              "url": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteAbsorbent": {
+              "name": "X-Prime®",
+              "detail": "Sur support absorbant préparé. Suivre la fiche du primaire et son séchage.",
+              "url": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteClosed": {
+              "name": "X-Activator® ou X-Activator® Grip",
+              "detail": "Sur béton lissé ou carrelage ancien : nettoyer avec le produit du système puis appliquer le primaire prescrit.",
+              "url": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "tile": {
+              "name": "X-Activator® ou X-Activator® Grip",
+              "detail": "Sur béton lissé ou carrelage ancien : nettoyer avec le produit du système puis appliquer le primaire prescrit.",
+              "url": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "anhydrite": {
+              "name": "X-Prime®",
+              "detail": "Anhydrite poncée et isolée ; humidité résiduelle < 0,5 % ou < 0,3 % avec chauffage, et barrière vapeur adaptée.",
+              "url": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf",
+              "rateMin": null,
+              "rateMax": null
+            }
+          },
+          "sourceUrl": "https://www.litokol.com/fr-fr/p/x-plan-3-40/",
+          "technicalUrl": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf",
+          "imageUrl": "https://www.litokol.com/media/filer_public/c9/32/c9327ec5-18bf-4f39-a51b-58b2d773060c/xplan3-40.jpg",
+          "checkedAt": "2026-11-03",
+          "notes": [
+            "Gamme actuelle X-Plan du site Litokol : sac de 20 kg, consommation de 1,7 kg/m²/mm. Ne pas utiliser les valeurs de l’ancien Litoliv S40 Eco.",
+            "Usage intérieur uniquement pour ce profil ; le ragréage ne remplace pas l’étanchéité d’un local humide.",
+            "Sous parquet : au moins 3 mm et humidité résiduelle maximale de 2 % à contrôler au carbure.",
+            "Chauffage eau ou électrique explicitement admis ; respecter le cycle de mise en chauffe et le retour à température ambiante avant le revêtement."
+          ],
+          "comparison": {
+            "summary": "Finition Flat, remplissage de 3 à 40 mm. Pour rattraper des écarts plus importants.",
+            "highlights": [
+              "3 à 40 mm",
+              "CT C25 F5 · sac de 20 kg"
+            ],
+            "sourceUrl": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf"
+          }
+        },
+        {
+          "id": "litokol-xplan120",
+          "name": "X-Plan® 1-20",
+          "type": "Ragréage structurel autonivelant — intérieur",
+          "rate": 1.7,
+          "bag": 20,
+          "min": 1,
+          "max": 20,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "anhydrite"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "finishLimits": {
+            "parquet": {
+              "min": 3
+            }
+          },
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "X-Prime®",
+              "detail": "Sur support absorbant préparé. Suivre la fiche du primaire et son séchage.",
+              "url": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteAbsorbent": {
+              "name": "X-Prime®",
+              "detail": "Sur support absorbant préparé. Suivre la fiche du primaire et son séchage.",
+              "url": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteClosed": {
+              "name": "X-Activator® ou X-Activator® Grip",
+              "detail": "Sur béton lissé ou carrelage ancien : nettoyer avec le produit du système puis appliquer le primaire prescrit.",
+              "url": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "tile": {
+              "name": "X-Activator® ou X-Activator® Grip",
+              "detail": "Sur béton lissé ou carrelage ancien : nettoyer avec le produit du système puis appliquer le primaire prescrit.",
+              "url": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "anhydrite": {
+              "name": "X-Prime®",
+              "detail": "Anhydrite poncée et isolée ; humidité résiduelle < 0,5 % ou < 0,3 % avec chauffage, et barrière vapeur adaptée.",
+              "url": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf",
+              "rateMin": null,
+              "rateMax": null
+            }
+          },
+          "sourceUrl": "https://www.litokol.com/fr-fr/p/x-plan-1-20/",
+          "technicalUrl": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf",
+          "imageUrl": "https://www.litokol.com/media/filer_public/6d/bc/6dbc5e8b-7f66-4f5d-9bc1-9673f603d5a1/xplan1-20.jpg",
+          "checkedAt": "2026-11-03",
+          "notes": [
+            "Intérieur uniquement. Sous parquet : 3 mm minimum, humidité résiduelle ≤ 2 % à contrôler.",
+            "Anhydrite : ponçage, X-Prime et humidité < 0,5 % (< 0,3 % sur chauffage)."
+          ],
+          "comparison": {
+            "summary": "Finition Superflat, adaptée aux couches fines de 1 à 20 mm et aux revêtements exigeant une grande planéité.",
+            "highlights": [
+              "1 à 20 mm ; sous parquet : 3 mm minimum",
+              "CT C30 F6 · sac de 20 kg"
+            ],
+            "walkable": "Environ 3 h.",
+            "covering": "Carrelage : environ 3 h ; revêtements souples et parquet : 12 h, sous réserve du séchage requis.",
+            "workingTime": "Environ 40 min à +23 °C.",
+            "sourceUrl": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf"
+          }
+        }
+      ],
+      "country": "fr"
+    }
+  ]
+}

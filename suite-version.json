@@ -11,7 +11,7 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261103-crm-client-reports-2",
+    "releaseId": "20261103-ragreage-ranges-4",
     "baselineCommit": "0a116a66e4fb03522876be09d417f853bb3b2ed9",
     "pages": [
       "configurateur-salle-de-bain-3d.html",
@@ -193,6 +193,16 @@
       "savedCommercialReports": true,
       "analyticsOrderContract": 2,
       "automaticCrmWrites": false
+    },
+    "ragreage": {
+      "releaseId": "20261103-ragreage-ranges-4",
+      "page": "configurateur-ragreage.html",
+      "products": 43,
+      "catalogues": 24,
+      "excludedProductsExplained": true,
+      "manufacturerFavourite": true,
+      "cardAfter": "Reviglass",
+      "cardBefore": "BILT"
     }
   },
   "configurators": {

@@ -1,0 +1,798 @@
+{
+  "country": "it",
+  "countryLabel": "Italie",
+  "catalogueScope": "Marques italiennes ; chaque profil conserve le pays de sa fiche technique. Aucun transfert automatique de formule entre marchés.",
+  "brands": [
+    {
+      "id": "it-mapei",
+      "name": "Mapei",
+      "website": "https://www.mapei.com/it/it/",
+      "products": [
+        {
+          "id": "it-mapei-eco",
+          "name": "Ultraplan Eco",
+          "type": "Ragréage autonivelant ciment — intérieur",
+          "rate": 1.6,
+          "bag": 23,
+          "min": 1,
+          "max": 10,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "cement",
+            "concrete",
+            "anhydrite",
+            "tile"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "Primer G ou Eco Prim T Plus",
+              "detail": "Sur support ciment absorbant : dilution selon la fiche et la porosité.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00513_ultraplan-eco_it-it_640035778d874290ad5e44ee5487cc9a.pdf?sfvrsn=be1100f_0",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteAbsorbent": {
+              "name": "Primer G ou Eco Prim T Plus",
+              "detail": "Sur support ciment absorbant : dilution selon la fiche et la porosité.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00513_ultraplan-eco_it-it_640035778d874290ad5e44ee5487cc9a.pdf?sfvrsn=be1100f_0",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "tile": {
+              "name": "Eco Prim T Plus ou Eco Prim Grip",
+              "detail": "Sur carrelage propre après préparation mécanique si nécessaire.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00513_ultraplan-eco_it-it_640035778d874290ad5e44ee5487cc9a.pdf?sfvrsn=be1100f_0",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "anhydrite": {
+              "name": "Primer G ou Eco Prim T Plus",
+              "detail": "Anhydrite poncée, aspirée et suffisamment sèche ; appliquer le primaire selon sa dilution prescrite.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00513_ultraplan-eco_it-it_640035778d874290ad5e44ee5487cc9a.pdf?sfvrsn=be1100f_0",
+              "rateMin": null,
+              "rateMax": null
+            }
+          },
+          "sourceUrl": "https://www.mapei.com/it/it/prodotti-e-soluzioni/prodotti/dettaglio/ultraplan-eco",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00513_ultraplan-eco_it-it_640035778d874290ad5e44ee5487cc9a.pdf?sfvrsn=be1100f_0",
+          "checkedAt": "2026-11-03",
+          "finishLimits": {
+            "parquet": {
+              "min": 3
+            }
+          },
+          "notes": [
+            "Profil de la fiche italienne : sac de 23 kg. Ne pas substituer les données d’une autre formule nationale.",
+            "Pas d’extérieur ni remontées d’humidité. Au-delà de 10 mm, un ajout de quartz est prescrit : ce mode n’est pas calculé.",
+            "Plancher chauffant cité, mais type eau/PRE à valider avant prescription automatique."
+          ]
+        }
+      ],
+      "country": "it"
+    },
+    {
+      "id": "it-kerakoll",
+      "name": "Kerakoll",
+      "website": "https://it.kerakoll.com/",
+      "products": [
+        {
+          "id": "it-kerakoll-planogel-rheo",
+          "name": "Planogel Rheo",
+          "type": "Ragréage autonivelant ciment — intérieur",
+          "rate": 1.6,
+          "bag": 25,
+          "min": 1,
+          "max": 30,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "cement",
+            "concrete",
+            "anhydrite",
+            "tile",
+            "wood"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "Active Prime Fix",
+              "detail": "Pur ou dilué selon porosité et fiche du primaire.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/1_Preparazione_fondi_di_posa/1_Preparazione_fondi_di_posa_en/Planogel%20Rheo_2025_en.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteAbsorbent": {
+              "name": "Active Prime Fix",
+              "detail": "Pur ou dilué selon porosité et fiche du primaire.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/1_Preparazione_fondi_di_posa/1_Preparazione_fondi_di_posa_en/Planogel%20Rheo_2025_en.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "cementClosed": {
+              "name": "Active Prime Fix ou Active Prime Grip",
+              "detail": "Appliquer pur sur support fermé préparé ; vérifier la fiche et le séchage.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/1_Preparazione_fondi_di_posa/1_Preparazione_fondi_di_posa_en/Planogel%20Rheo_2025_en.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteClosed": {
+              "name": "Active Prime Fix ou Active Prime Grip",
+              "detail": "Appliquer pur sur support fermé préparé ; vérifier la fiche et le séchage.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/1_Preparazione_fondi_di_posa/1_Preparazione_fondi_di_posa_en/Planogel%20Rheo_2025_en.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "tile": {
+              "name": "Active Prime Fix ou Active Prime Grip",
+              "detail": "Appliquer pur sur support fermé préparé ; vérifier la fiche et le séchage.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/1_Preparazione_fondi_di_posa/1_Preparazione_fondi_di_posa_en/Planogel%20Rheo_2025_en.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "wood": {
+              "name": "Active Prime Fix ou Active Prime Grip",
+              "detail": "Appliquer pur sur support fermé préparé ; vérifier la fiche et le séchage.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/1_Preparazione_fondi_di_posa/1_Preparazione_fondi_di_posa_en/Planogel%20Rheo_2025_en.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "anhydrite": {
+              "name": "Active Prime Fix",
+              "detail": "Appliquer pur sur anhydrite préparée et sèche.",
+              "url": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/1_Preparazione_fondi_di_posa/1_Preparazione_fondi_di_posa_en/Planogel%20Rheo_2025_en.pdf",
+              "rateMin": null,
+              "rateMax": null
+            }
+          },
+          "sourceUrl": "https://it.kerakoll.com/p/planogel-rheo",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/1_Preparazione_fondi_di_posa/1_Preparazione_fondi_di_posa_en/Planogel%20Rheo_2025_en.pdf",
+          "checkedAt": "2026-11-03",
+          "finishLimits": {
+            "parquet": {
+              "min": 3
+            }
+          },
+          "heatingLimits": {
+            "water": {
+              "min": 5
+            },
+            "electric": {
+              "min": 5
+            }
+          },
+          "notes": [
+            "Profil du catalogue Italie : sac de 25 kg, de 1 à 30 mm.",
+            "Parquet : au moins 3 mm ; contrôler l’humidité résiduelle avant collage.",
+            "Sur système chauffant eau ou électrique : couche adhérente sur fond rigide ; au moins 5 mm au-dessus de l’installation pour le carrelage et la pierre.",
+            "Intérieur uniquement ; ni pose flottante, ni eau permanente, ni support déformable."
+          ],
+          "imageUrl": "https://media.kerakoll.com/Sito_Web/mainImage/1_Fondi_di_posa/KK_ITALIA/K_Planogel-Rheo_26.jpg"
+        }
+      ],
+      "country": "it"
+    },
+    {
+      "id": "it-fassa",
+      "name": "Fassa Bortolo",
+      "website": "https://www.fassabortolo.it/",
+      "products": [
+        {
+          "id": "it-fassa-sl416",
+          "name": "SL 416",
+          "type": "Ragréage autonivelant ciment — intérieur",
+          "rate": 1.6,
+          "bag": 25,
+          "min": 1,
+          "max": 10,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "cement",
+            "concrete",
+            "anhydrite",
+            "tile"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "AG 15",
+              "detail": "Pour support très absorbant : dilué 1:8 ; suivre la fiche.",
+              "url": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_EN_SL-416_2023-12.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteAbsorbent": {
+              "name": "AG 15",
+              "detail": "Pour support très absorbant : dilué 1:8 ; suivre la fiche.",
+              "url": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_EN_SL-416_2023-12.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "tile": {
+              "name": "PRIMERTEK 101",
+              "detail": "Contrôler l’adhérence, abraser mécaniquement, aspirer puis appliquer le primaire ; laisser sécher.",
+              "url": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_EN_SL-416_2023-12.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "anhydrite": {
+              "name": "PRIMER DG 74",
+              "detail": "Après préparation mécanique, dépoussiérage et contrôle d’humidité résiduelle ; primaire totalement sec.",
+              "url": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_EN_SL-416_2023-12.pdf",
+              "rateMin": null,
+              "rateMax": null
+            }
+          },
+          "sourceUrl": "https://www.fassabortolo.it/prodotti/sistema-posa-pavimenti-e-rivestimenti/fassafloor-fondi-di-posa/sl-416/",
+          "technicalUrl": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_EN_SL-416_2023-12.pdf",
+          "checkedAt": "2026-11-03",
+          "imageUrl": "https://www.fassabortolo.it/wp-content/uploads/media/assets/SL_416.jpg",
+          "finishLimits": {
+            "parquet": {
+              "min": 3
+            }
+          },
+          "notes": [
+            "Intérieur uniquement ; minimum 3 mm sous parquet ou en trafic fort.",
+            "Chape chauffante : protocole cité par la fiche, mais typologie à vérifier avant prescription automatique.",
+            "La consommation et les primaires proviennent de la fiche SL 416 actuellement liée au domaine officiel."
+          ]
+        },
+        {
+          "id": "it-fassa-sm485",
+          "name": "SM 485",
+          "type": "Fibré rapide — 3 à 30 mm",
+          "rate": 1.7,
+          "bag": 25,
+          "min": 3,
+          "max": 30,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "anhydrite"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "AG 15",
+              "detail": "Sur ciment très absorbant : dilution 1:8 à l’eau propre ; recouvrir dans les 24 h selon la fiche.",
+              "url": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_IT_SM-485_2026-10.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "AG 15",
+              "detail": "Sur ciment très absorbant : dilution 1:8 à l’eau propre ; recouvrir dans les 24 h selon la fiche.",
+              "url": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_IT_SM-485_2026-10.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "tile": {
+              "name": "FASSAFLOOR PRIMERTEK ULTRA",
+              "detail": "Abrasion mécanique, aspiration et contrôle de l’adhérence de l’ancien carrelage ; laisser sécher le primaire.",
+              "url": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_IT_SM-485_2026-10.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "PRIMER DG 74",
+              "detail": "Ponçage, aspiration et contrôle de l’humidité admissible entre 0,2 et 0,5 % suivant le système.",
+              "url": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_IT_SM-485_2026-10.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "sourceUrl": "https://www.fassabortolo.it/prodotti/sistema-posa-pavimenti-e-rivestimenti/fassafloor-fondi-di-posa/sm-485/",
+          "technicalUrl": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_IT_SM-485_2026-10.pdf",
+          "checkedAt": "2026-11-03",
+          "imageUrl": "https://www.fassabortolo.it/wp-content/uploads/media/assets/SM_485.jpg",
+          "finishLimits": {
+            "parquet": {
+              "min": 3
+            }
+          },
+          "notes": [
+            "Fiche fabricant octobre 2026. Couche continue de 3 à 30 mm en intérieur.",
+            "Chauffage : le système existant doit être noyé dans une couche de compensation résistante. Le calculateur ne dimensionne pas un enrobage de tube.",
+            "Avant revêtement, vérifier l’humidité et les délais correspondant à l’épaisseur et au système."
+          ],
+          "comparison": {
+            "summary": "Fibré, pour rénovation et rattrapage jusqu’à 30 mm ; SL 416 est réservé aux couches plus fines, jusqu’à 10 mm.",
+            "highlights": [
+              "3 à 30 mm",
+              "Sac de 25 kg · 1,7 kg/m²/mm"
+            ],
+            "walkable": "Environ 3 h à +20 °C / 60 % HR.",
+            "workingTime": "Environ 30 min à +20 °C / 60 % HR.",
+            "sourceUrl": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_IT_SM-485_2026-10.pdf"
+          }
+        }
+      ],
+      "country": "it"
+    },
+    {
+      "id": "it-technokolla",
+      "name": "Technokolla",
+      "website": "https://www.technokolla.eu/",
+      "products": [
+        {
+          "id": "it-technokolla-plan10n",
+          "name": "PLAN-10 N",
+          "type": "Ragréage autonivelant ciment — intérieur",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 1,
+          "max": 10,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "cement",
+            "concrete",
+            "anhydrite",
+            "tile",
+            "wood"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "primaries": {},
+          "sourceUrl": "https://www.technokolla.eu/prodotto.php?id=248",
+          "technicalUrl": "https://www.technokolla.eu/download/catalogo/fr/plan-10n0125F.pdf",
+          "checkedAt": "2026-11-03",
+          "imageUrl": "https://www.technokolla.eu/images/prodotti/248_zoom.jpg",
+          "woodPanelsOnly": true,
+          "finishLimits": {
+            "parquet": {
+              "min": 2
+            }
+          },
+          "notes": [
+            "Bois : seulement panneaux OSB ou particules fixés mécaniquement ; anciens planchers bois exclus.",
+            "Mode sans granulats limité à 10 mm. Le mode avec sable jusqu’à 20 mm est exclu de ce calcul.",
+            "La fiche autorise les planchers chauffants à eau ou électriques.",
+            "Primaires : suivre le tableau de la fiche pour le support précis ; aucun remplacement automatique entre PRIMER-T PLUS et PRIMER-101 PLUS."
+          ],
+          "comparison": {
+            "summary": "Pour les faibles épaisseurs en intérieur, y compris les panneaux bois admis et correctement fixés.",
+            "highlights": [
+              "De 1 à 10 mm sans granulats ; minimum 2 mm sous parquet",
+              "Panneaux OSB ou particules fixés admis ; anciens parquets exclus",
+              "Planchers chauffants à eau ou électriques visés par la fiche"
+            ],
+            "walkable": "Environ 3 à 4 h, selon les conditions de la fiche.",
+            "covering": "Céramique ou textile : 24 à 36 h ; revêtements plastiques ou bois : 48 à 72 h, selon conditions et humidité admissible.",
+            "workingTime": "Environ 20 min à 23 °C et 50 % HR, selon la fiche française liée au produit.",
+            "sourceUrl": "https://www.technokolla.eu/download/catalogo/fr/plan-10n0125F.pdf"
+          }
+        },
+        {
+          "id": "it-technokolla-plan40ext",
+          "name": "PLAN-40 EXT",
+          "type": "Ragréage ciment — intérieur / extérieur couvert",
+          "rate": 1.8,
+          "bag": 25,
+          "min": 3,
+          "max": 40,
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "supports": [
+            "cement",
+            "concrete",
+            "anhydrite",
+            "tile"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "locationSupports": {
+            "outside": [
+              "cement",
+              "concrete",
+              "tile"
+            ]
+          },
+          "locationFinishes": {
+            "outside": [
+              "tile"
+            ]
+          },
+          "supportLimits": {
+            "anhydrite": {
+              "max": 10
+            }
+          },
+          "finishLimits": {
+            "parquet": {
+              "min": 5
+            }
+          },
+          "sourceUrl": "https://www.technokolla.com/_scheda-prodotto.php?id=250",
+          "technicalUrl": "https://www.technokolla.com/download/catalogo/en/plan-40ext0426GB.pdf",
+          "imageUrl": "https://www.technokolla.com/images/prodotti/250_zoom.jpg",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "PRIMER-T PLUS",
+              "detail": "Sur supports absorbants préparés ; deux couches si très absorbant, selon la fiche.",
+              "url": "https://www.technokolla.com/download/catalogo/en/plan-40ext0426GB.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteAbsorbent": {
+              "name": "PRIMER-T PLUS",
+              "detail": "Sur supports absorbants préparés ; deux couches si très absorbant, selon la fiche.",
+              "url": "https://www.technokolla.com/download/catalogo/en/plan-40ext0426GB.pdf",
+              "rateMin": null,
+              "rateMax": null
+            }
+          },
+          "notes": [
+            "En extérieur ou local humide : une couche d’étanchéité robuste ultérieure est obligatoire selon la fiche ; ne pas utiliser le ragréage comme étanchéité.",
+            "Le mode sans ajout de granulats est limité à 40 mm. La variante avec sable n’est pas calculée.",
+            "Anhydrite : maximum 10 mm. Sous parquet ou résine : minimum 5 mm.",
+            "Pas d’immersion, de bassin ni d’eau stagnante. Chauffage au sol mentionné sans typologie à valider avant prescription automatique."
+          ],
+          "requiredWaterproofingOutside": true,
+          "comparison": {
+            "summary": "Pour les rattrapages de 3 à 40 mm et les ouvrages extérieurs avec une étanchéité ultérieure adaptée.",
+            "highlights": [
+              "De 3 à 40 mm sans ajout de sable",
+              "Extérieur admis avec étanchéité ultérieure obligatoire",
+              "Anhydrite : maximum 10 mm ; parquet : minimum 5 mm",
+              "Les panneaux bois ne sont pas visés par ce profil"
+            ],
+            "sourceUrl": "https://www.technokolla.com/download/catalogo/en/plan-40ext0426GB.pdf"
+          }
+        }
+      ],
+      "country": "it"
+    },
+    {
+      "id": "it-index",
+      "name": "INDEX",
+      "website": "https://ita.sika.com/content/it/main/it/prodotti-soluzioni-in-evidenza/integrazione-index-s-p-a-.html",
+      "products": [],
+      "country": "it",
+      "unverifiedNote": "INDEX a été intégré à Sika Italia le 1er janvier 2026. La fiche PLANORAPID de mars 2022 et son visuel officiel ne sont plus accessibles ; demander à Sika la référence et la fiche actuellement commercialisées avant calcul.",
+      "sourceStatus": "historical-product-not-currently-revalidated",
+      "historicalSourceDate": "2022-03"
+    },
+    {
+      "id": "it-benfer",
+      "name": "Benfer",
+      "website": "https://www.benfer.it/",
+      "products": [
+        {
+          "id": "it-benfer-multiplan30",
+          "name": "MULTIPLAN-30",
+          "type": "Ragréage autonivelant ciment — intérieur",
+          "rate": 1.65,
+          "bag": 25,
+          "min": 1,
+          "max": 30,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "cement",
+            "concrete",
+            "anhydrite",
+            "tile"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "BENFERPRIM ou STARPRIM",
+              "detail": "Sur support absorbant ; attendre le séchage complet selon la fiche.",
+              "url": "https://www.benfer.it/it/cms/Utility.action?jm=Prodotto.196&schedaTecnica=",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteAbsorbent": {
+              "name": "BENFERPRIM ou STARPRIM",
+              "detail": "Sur support absorbant ; attendre le séchage complet selon la fiche.",
+              "url": "https://www.benfer.it/it/cms/Utility.action?jm=Prodotto.196&schedaTecnica=",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "cementClosed": {
+              "name": "STARPRIM",
+              "detail": "Sur support non absorbant préparé.",
+              "url": "https://www.benfer.it/it/cms/Utility.action?jm=Prodotto.196&schedaTecnica=",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteClosed": {
+              "name": "STARPRIM",
+              "detail": "Sur support non absorbant préparé.",
+              "url": "https://www.benfer.it/it/cms/Utility.action?jm=Prodotto.196&schedaTecnica=",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "tile": {
+              "name": "STARPRIM",
+              "detail": "Sur support non absorbant préparé.",
+              "url": "https://www.benfer.it/it/cms/Utility.action?jm=Prodotto.196&schedaTecnica=",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "anhydrite": {
+              "name": "BENFERPRIM ou STARPRIM",
+              "detail": "Sécher complètement, puis attendre 12 à 16 h supplémentaires avant la couche, limitée à 10 mm.",
+              "url": "https://www.benfer.it/it/cms/Utility.action?jm=Prodotto.196&schedaTecnica=",
+              "rateMin": null,
+              "rateMax": null
+            }
+          },
+          "sourceUrl": "https://www.benfer.it/PREPARAZIONE%20DEI%20SOTTOFONDI/Autolivellanti/it/MULTIPLAN-30/cms/Pagina.action?localeSite=it&page=Prodotto.196&pageAction=",
+          "technicalUrl": "https://www.benfer.it/it/cms/Utility.action?jm=Prodotto.196&schedaTecnica=",
+          "checkedAt": "2026-11-03",
+          "imageUrl": "https://www.benfer.it/userfiles/Prodotto/images/SACCHI_E_CONFEZIONI_2026/MULTIPLAN-30_sacco_25kg_3D_rid_0326.png?size=max_utilizzo",
+          "supportLimits": {
+            "anhydrite": {
+              "max": 10
+            }
+          },
+          "notes": [
+            "Catalogue italien actuel : intérieur uniquement, à recouvrir. Ne pas étendre à l’extérieur depuis une ancienne fiche française.",
+            "Anhydrite limitée à 10 mm, humidité résiduelle 0,5 % sans chauffage ou 0,3 % avec chauffage ; primaire séché puis délai prescrit.",
+            "Plancher chauffant cité sans distinction eau/PRE : validation avant prescription automatique."
+          ]
+        }
+      ],
+      "country": "it"
+    },
+    {
+      "id": "it-litokol",
+      "name": "Litokol",
+      "website": "https://www.litokol.com/it-it/",
+      "products": [
+        {
+          "id": "it-litokol-xplan340",
+          "name": "X-Plan® 3-40",
+          "type": "Ragréage structurel autonivelant — intérieur",
+          "rate": 1.7,
+          "bag": 20,
+          "min": 3,
+          "max": 40,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "anhydrite"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "finishLimits": {
+            "parquet": {
+              "min": 3
+            }
+          },
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "X-Prime®",
+              "detail": "Sur support absorbant préparé. Suivre la fiche du primaire et son séchage.",
+              "url": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteAbsorbent": {
+              "name": "X-Prime®",
+              "detail": "Sur support absorbant préparé. Suivre la fiche du primaire et son séchage.",
+              "url": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteClosed": {
+              "name": "X-Activator® ou X-Activator® Grip",
+              "detail": "Sur béton lissé ou carrelage ancien : nettoyer avec le produit du système puis appliquer le primaire prescrit.",
+              "url": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "tile": {
+              "name": "X-Activator® ou X-Activator® Grip",
+              "detail": "Sur béton lissé ou carrelage ancien : nettoyer avec le produit du système puis appliquer le primaire prescrit.",
+              "url": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "anhydrite": {
+              "name": "X-Prime®",
+              "detail": "Anhydrite poncée et isolée ; humidité résiduelle < 0,5 % ou < 0,3 % avec chauffage, et barrière vapeur adaptée.",
+              "url": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf",
+              "rateMin": null,
+              "rateMax": null
+            }
+          },
+          "sourceUrl": "https://www.litokol.com/it-it/p/x-plan-3-40/",
+          "technicalUrl": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf",
+          "imageUrl": "https://www.litokol.com/media/filer_public/c9/32/c9327ec5-18bf-4f39-a51b-58b2d773060c/xplan3-40.jpg",
+          "checkedAt": "2026-11-03",
+          "notes": [
+            "Gamme actuelle X-Plan du site Litokol : sac de 20 kg, consommation de 1,7 kg/m²/mm. Ne pas utiliser les valeurs de l’ancien Litoliv S40 Eco.",
+            "Usage intérieur uniquement pour ce profil ; le ragréage ne remplace pas l’étanchéité d’un local humide.",
+            "Sous parquet : au moins 3 mm et humidité résiduelle maximale de 2 % à contrôler au carbure.",
+            "Chauffage eau ou électrique explicitement admis ; respecter le cycle de mise en chauffe et le retour à température ambiante avant le revêtement."
+          ],
+          "comparison": {
+            "summary": "Finition Flat, remplissage de 3 à 40 mm. Pour rattraper des écarts plus importants.",
+            "highlights": [
+              "3 à 40 mm",
+              "CT C25 F5 · sac de 20 kg"
+            ],
+            "sourceUrl": "https://www.litokol.com/media/filer_public/5c/3a/5c3a117f-6aa2-448d-a46a-048d565fcc1f/ds_x_plan_3_40_it.pdf"
+          }
+        },
+        {
+          "id": "it-litokol-xplan120",
+          "name": "X-Plan® 1-20",
+          "type": "Ragréage structurel autonivelant — intérieur",
+          "rate": 1.7,
+          "bag": 20,
+          "min": 1,
+          "max": 20,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "cement",
+            "concrete",
+            "tile",
+            "anhydrite"
+          ],
+          "heating": [
+            "none",
+            "water",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "finishLimits": {
+            "parquet": {
+              "min": 3
+            }
+          },
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "X-Prime®",
+              "detail": "Sur support absorbant préparé. Suivre la fiche du primaire et son séchage.",
+              "url": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteAbsorbent": {
+              "name": "X-Prime®",
+              "detail": "Sur support absorbant préparé. Suivre la fiche du primaire et son séchage.",
+              "url": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "concreteClosed": {
+              "name": "X-Activator® ou X-Activator® Grip",
+              "detail": "Sur béton lissé ou carrelage ancien : nettoyer avec le produit du système puis appliquer le primaire prescrit.",
+              "url": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "tile": {
+              "name": "X-Activator® ou X-Activator® Grip",
+              "detail": "Sur béton lissé ou carrelage ancien : nettoyer avec le produit du système puis appliquer le primaire prescrit.",
+              "url": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf",
+              "rateMin": null,
+              "rateMax": null
+            },
+            "anhydrite": {
+              "name": "X-Prime®",
+              "detail": "Anhydrite poncée et isolée ; humidité résiduelle < 0,5 % ou < 0,3 % avec chauffage, et barrière vapeur adaptée.",
+              "url": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf",
+              "rateMin": null,
+              "rateMax": null
+            }
+          },
+          "sourceUrl": "https://www.litokol.com/fr-fr/p/x-plan-1-20/",
+          "technicalUrl": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf",
+          "imageUrl": "https://www.litokol.com/media/filer_public/6d/bc/6dbc5e8b-7f66-4f5d-9bc1-9673f603d5a1/xplan1-20.jpg",
+          "checkedAt": "2026-11-03",
+          "notes": [
+            "Intérieur uniquement. Sous parquet : 3 mm minimum, humidité résiduelle ≤ 2 % à contrôler.",
+            "Anhydrite : ponçage, X-Prime et humidité < 0,5 % (< 0,3 % sur chauffage)."
+          ],
+          "comparison": {
+            "summary": "Finition Superflat, adaptée aux couches fines de 1 à 20 mm et aux revêtements exigeant une grande planéité.",
+            "highlights": [
+              "1 à 20 mm ; sous parquet : 3 mm minimum",
+              "CT C30 F6 · sac de 20 kg"
+            ],
+            "walkable": "Environ 3 h.",
+            "covering": "Carrelage : environ 3 h ; revêtements souples et parquet : 12 h, sous réserve du séchage requis.",
+            "workingTime": "Environ 40 min à +23 °C.",
+            "sourceUrl": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf"
+          }
+        }
+      ],
+      "country": "it"
+    }
+  ]
+}
