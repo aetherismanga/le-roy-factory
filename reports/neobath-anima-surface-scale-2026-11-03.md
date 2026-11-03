@@ -1,6 +1,6 @@
 # Anima — veinage stable sur plans, chants et vasques
 
-Release : `20261103-neobath-anima-studio-one-surface-scale-9`.
+Release : `20261103-neobath-anima-studio-one-surface-scale-9a`.
 
 ## Défaut reproduit
 
@@ -20,9 +20,11 @@ Les références de taille des fichiers proviennent de `source.runtimeSize`/`nat
 
 ## Robustesse et vérification
 
+Les plans assortis au bois possèdent leurs propres clones de texture à rebouclage miroir : leurs coordonnées métriques peuvent dépasser l’image sans créer de bord Clamp étiré. Le meuble conserve ses textures, couleurs et transformations Alba d’origine. Le cache reste borné à deux sources actives, réutilisées sur 100 repeints et libérées au changement ou à la destruction.
+
 Le placage utilise les géométries et matériaux Three.js existants ; aucun nouveau shader n'est ajouté. Le découpage des sommets aux limites du placage conserve l'identité des géométries inscrites dans le registre de destruction des plans. Le chargement asynchrone ne recalcule que le plan courant ; les objets de scène ne sont pas stockés dans les données sérialisables du matériau.
 
-Les 251 tests Anima réussissent, sans échec ni test ignoré.
+Les 252 tests Anima réussissent, sans échec ni test ignoré.
 
 Des tests vérifient la densité isotrope, l'aire de texture des faces, les raccords aux rebords, les pentes, la stabilité après déplacement/rotation, le chargement tardif et la destruction des géométries. Les diagnostics CPU comparent les vrais plans et matériaux avant/après, y compris HPL A50 et grès BASIC50. Après correction, l'audit indépendant ne retrouve aucun triangle de texture dégénéré dans les sept cas inspectés.
 

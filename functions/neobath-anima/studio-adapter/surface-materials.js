@@ -66,8 +66,21 @@ export function applyPlanSurfaceUV(root,material){
 // basin colour changes cannot repaint a separate Fenix/HPL/stone worktop.
 export function createTopSurfaceController({wood,ceramic,textureLoader=null}={}){
  const material=new T.MeshPhysicalMaterial({color:'#f6f5f1',metalness:0,roughness:.62,clearcoat:0});
- const owned=new Set(),cache=new Map(),loaded=new Map();let revision=0,disposed=false,current=null,pending=Promise.resolve();
- function release(){for(const texture of owned)texture.dispose();owned.clear();cache.clear();loaded.clear();currentRootByMaterial.delete(material);}
+ const owned=new Set(),cache=new Map(),loaded=new Map(),furnitureClones=new Map();let revision=0,disposed=false,current=null,pending=Promise.resolve();
+ function releaseFurniture(keep=new Set()){for(const [source,entry]of furnitureClones)if(!keep.has(source)){entry.texture.dispose();owned.delete(entry.texture);furnitureClones.delete(source);}}
+ function applyFurnitureTextures(source,overrides){
+  const inputs=overrides?{map:overrides.map||null,bumpMap:overrides.bump||null}:{map:source?.map||null,bumpMap:source?.bumpMap||null},keep=new Set(Object.values(inputs).filter(texture=>texture?.isTexture));
+  releaseFurniture(keep);
+  for(const [slot,original]of Object.entries(inputs)){
+   if(!original?.isTexture){material[slot]=null;continue;}
+   let entry=furnitureClones.get(original),changed=false;
+   if(!entry){entry={texture:original.clone(),version:original.version};furnitureClones.set(original,entry);owned.add(entry.texture);changed=true;}
+   else if(entry.version!==original.version){entry.texture.copy(original);entry.version=original.version;changed=true;}
+   const texture=entry.texture;changed=changed||texture.wrapS!==T.MirroredRepeatWrapping||texture.wrapT!==T.MirroredRepeatWrapping;
+   if(changed){texture.wrapS=texture.wrapT=T.MirroredRepeatWrapping;texture.userData={...original.userData,animaMapping:MAPPING_MODE,animaFurnitureClone:true};texture.needsUpdate=true;}material[slot]=texture;
+  }
+ }
+ function release(){releaseFurniture();for(const texture of owned)texture.dispose();owned.clear();cache.clear();loaded.clear();currentRootByMaterial.delete(material);}
  const onDispose=()=>{disposed=true;revision++;release();};material.addEventListener('dispose',onDispose);
  function load(url){
   if(cache.has(url)){const value=cache.get(url);cache.delete(url);cache.set(url,value);return value;}
@@ -77,14 +90,14 @@ export function createTopSurfaceController({wood,ceramic,textureLoader=null}={})
   while(cache.size>4){const key=cache.keys().next().value;cache.delete(key);const texture=loaded.get(key);if(texture){texture.dispose();loaded.delete(key);owned.delete(texture);}}
   return promise;
  }
- function apply(settings,selection,{onReady}={}){
+ function apply(settings,selection,{onReady,furnitureTextures}={}){
   const ticket=++revision;current=normalizeTopSurface(settings,selection);
   if(!current){
-   const source=surfaceFamilyForSelection(selection)==='furniture'?wood:ceramic;
-   if(source)material.copy(source);material.name='NEOBATH_plan_'+(selection?.top?.ref||'sans_plan');material.userData.animaSurface={family:surfaceFamilyForSelection(selection),id:null};material.needsUpdate=true;
+   const furniture=surfaceFamilyForSelection(selection)==='furniture',source=furniture?wood:ceramic;
+   if(source)material.copy(source);if(furniture)applyFurnitureTextures(source,furnitureTextures);else releaseFurniture();material.name='NEOBATH_plan_'+(selection?.top?.ref||'sans_plan');material.userData.animaSurface={family:surfaceFamilyForSelection(selection),id:null};material.needsUpdate=true;
    pending=Promise.resolve(material);return current;
   }
-  const surface=current.surface;
+  releaseFurniture();const surface=current.surface;
   material.name='NEOBATH_surface_'+surface.id;material.color.set(surface.hex||'#f6f5f1');material.map=null;material.bumpMap=null;material.normalMap=null;
   material.metalness=0;material.roughness=surface.roughness??(current.family==='fenix'?.82:current.family==='gres'?.46:.62);
   material.clearcoat=surface.clearcoat??(current.family==='fenix'?0:.025);material.clearcoatRoughness=.65;material.ior=1.48;material.transparent=false;material.opacity=1;material.side=T.FrontSide;
