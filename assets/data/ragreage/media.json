@@ -1,0 +1,829 @@
+{
+  "byUrl": {
+    "https://www.parexlanko.com/assets/home_page_img/Logo2.svg": "assets/img/ragreage/brands/parexlanko.svg",
+    "https://sika.scene7.com/is/content/sika/Sika_ClaimU_pos_rgb": "assets/img/ragreage/brands/sika.svg",
+    "https://www.cegecol.com/include/websites/cegecol/web/images/logo1.png": "assets/img/ragreage/brands/cegecol.png",
+    "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING/VISUELS%203D/184%20SOLFIBRE%2025KG_3D.jpg": "assets/img/ragreage/products/parex-184.jpg",
+    "https://media-pms2.schoenox.net/cegecol/products/cegecolcegesolf.jpg": "assets/img/ragreage/products/cegesol-f.jpg",
+    "https://media-pms2.schoenox.net/cegecol/products/cegecolcegesolse.jpg": "assets/img/ragreage/products/cegesol-se.jpg",
+    "https://www.fassabortolo.it/wp-content/uploads/media/assets/SL_416.jpg": "assets/img/ragreage/products/fassa-sl416.jpg",
+    "https://www.technokolla.eu/images/prodotti/248_zoom.jpg": "assets/img/ragreage/products/technokolla-plan10n.jpg",
+    "https://www.benfer.it/userfiles/Prodotto/images/SACCHI_E_CONFEZIONI_2026/MULTIPLAN-30_sacco_25kg_3D_rid_0326.png?size=max_utilizzo": "assets/img/ragreage/products/benfer-multiplan30.png",
+    "https://www.grupopuma.com/assets/public/img/logo.png": "assets/img/ragreage/brands/puma.png",
+    "https://www.grupopuma.com/uploads/productos/media/1_b11c492eb7fabefd287f004b0b285927.png_2.png": "assets/img/ragreage/products/puma-niveland-10.png",
+    "https://www.molins.es/construction-solutions/wp-content/themes/molins-child/assets/img/logo-footer.svg": "assets/img/ragreage/brands/propam-molins.svg",
+    "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/PR475BI1997_0121_PROPAM%28r%29_FLOOR_LEVEL_10_IMD.jpg": "assets/img/ragreage/products/propam-floor-level-10.jpg",
+    "https://www.gecol.com/files/resize/outside/400-400-logo-web-gecol_2170bfa667993d0e957a8a9f8478567f.png": "assets/img/ragreage/brands/gecol.png",
+    "https://www.gecol.com/files/resize/outside/500-500-webimage-gecol-nivelante-10-r-plus_427af86462d15537401717461e7e4e93.png": "assets/img/ragreage/products/gecol-nivelante-10-r-plus.png",
+    "https://www.gecol.com/files/resize/outside/500-500-webimage-gecol-nivelante-35_34d8b5f4242097a8051e97bdb02be3fc.webp": "assets/img/ragreage/products/gecol-nivelante-35.webp",
+    "https://capa.es/wp-content/uploads/2021/10/LOGO-CAPA-upd.svg": "assets/img/ragreage/brands/capa.svg",
+    "https://capa.es/wp-content/uploads/2026/08/Aplica-Level-Plus.jpg": "assets/img/ragreage/products/capa-aplica-level-plus.jpg",
+    "https://publish-p136453-e1368545.adobeaemcloud.com/dam/media/sika-global/logo/glo-sika_claimu_pos_rgb.png": "assets/img/ragreage/brands/sika-es.png",
+    "https://fixcer.com/wp-content/uploads/2024/03/fixcer-autonivelantes-fix-nivel-01-180x180.jpg": "assets/img/ragreage/products/fixcer-fix-nivel.jpg",
+    "https://fixcer.com/wp-content/uploads/2024/04/fixcer-products-logo-2-217x129.png": "assets/img/ragreage/brands/fixcer.png",
+    "https://www.benfer.it/images/logo_benfer.gif": "assets/img/ragreage/brands/benfer.gif",
+    "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb_planifibre_25kg_1.png": "assets/img/ragreage/products/prb-planifibre.png",
+    "https://www.litokol.com/it-it/#header-logo": "assets/img/ragreage/brands/litokol.svg",
+    "https://www.fassabortolo.it/wp-content/themes/fassa/dist/build/logo-positive-DzmGC5YS.svg": "assets/img/ragreage/brands/fassa.svg",
+    "https://www.technokolla.com/images/prodotti/250_zoom.jpg": "assets/img/ragreage/products/it-technokolla-plan40ext.jpg",
+    "https://www.litokol.com/media/filer_public/c9/32/c9327ec5-18bf-4f39-a51b-58b2d773060c/xplan3-40.jpg": "assets/img/ragreage/products/it-litokol-xplan3-40.jpg",
+    "https://www.fr.weber/files/fr/2025-06/fichetechnique_weberniv%20for_fr.pdf?cb=d5f690e4#packshot-page-1": "assets/img/ragreage/products/weber-for-official-pdf.png",
+    "https://www.fr.weber/files/fr/2025-11/fichetechnique_weberniv%20dur%20%2B_fr.pdf?cb=d5f690e4#packshot-page-1": "assets/img/ragreage/products/weber-dur-official-pdf.png",
+    "https://www.fr.weber/files/fr/2026-05/fichetechnique_weberniv%20lex%202_fr.pdf?cb=d5f690e4#packshot-page-1": "assets/img/ragreage/products/weber-lex-official-pdf.png",
+    "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf#packshot-page-1": "assets/img/ragreage/products/bostik-c750-official-pdf.png",
+    "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0#packshot-page-1": "assets/img/ragreage/products/mapei-reno3-official-pdf.png",
+    "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf#packshot-page-1": "assets/img/ragreage/products/kerakoll-planogel-official-pdf.png",
+    "https://www.fr.weber/files/fr/2025-06/fichetechnique_weberniv%20for_fr.pdf?cb=d5f690e4#brand-logo-page-1": "assets/img/ragreage/brands/weber-official-pdf.png",
+    "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf#brand-logo-page-1": "assets/img/ragreage/brands/bostik-official-pdf.png",
+    "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0#brand-logo-page-1": "assets/img/ragreage/brands/mapei-official-pdf.png",
+    "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf#brand-logo-page-1": "assets/img/ragreage/brands/kerakoll-official-pdf.png",
+    "https://pim.prb.fr/Produits/3.5.4.4-1.20.30.40/ft_prb_planifibre_fr_02_07_2025-1.pdf#brand-logo-page-1": "assets/img/ragreage/brands/prb-official-pdf.png",
+    "https://www.vicat.com/sites/default/files/styles/logo_carte/public/2022-04/Original%20JPG-Logo_VPI_Signature2_Ombre_CMJN_%201%20couleur.jpg?itok=xOs8Cb-L": "assets/img/ragreage/brands/vpi.jpg",
+    "https://www.technokolla.eu/images/prodotti/248_zoom.jpg#brand-label": "assets/img/ragreage/brands/technokolla-official-packshot.png",
+    "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0#packshot-page-1": "assets/img/ragreage/products/mapei-ultraplan-eco-official-pdf.png",
+    "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:21818558-b177-492d-a894-08c9640df907/as/fr-sikafloor-330-fibre-level-25kg-3d-07234070.png?smartcrop=1-1&width=480&height=480": "assets/img/ragreage/products/sika-330.png",
+    "https://dynamicmedia.sika.com/adobe/assets/urn%3Aaaid%3Aaem%3A159306cb-25d5-4196-9c73-0bedc2c7432a/as/gr-02-el-GR-Sikafloor-200-Level-1x1--00000938.png?height=480&smartcrop=1-1&width=480": "assets/img/ragreage/products/sika-es-200-level.png",
+    "https://media.castorama.fr/is/image/Castorama/ragr-age-renovation-forte-paisseur-25kg~3538988200398_03c?$MOB_PREV$=&$height=640&$width=640": "assets/img/ragreage/products/vpi-fibre-forte-epaisseur.jpg"
+  },
+  "brands": {
+    "parexlanko": {
+      "path": "assets/img/ragreage/brands/parexlanko.svg",
+      "sourceUrl": "https://www.parexlanko.com/assets/home_page_img/Logo2.svg"
+    },
+    "sika": {
+      "path": "assets/img/ragreage/brands/sika.svg",
+      "sourceUrl": "https://sika.scene7.com/is/content/sika/Sika_ClaimU_pos_rgb"
+    },
+    "cegecol": {
+      "path": "assets/img/ragreage/brands/cegecol.png",
+      "sourceUrl": "https://www.cegecol.com/include/websites/cegecol/web/images/logo1.png"
+    },
+    "puma": {
+      "path": "assets/img/ragreage/brands/puma.png",
+      "sourceUrl": "https://www.grupopuma.com/assets/public/img/logo.png"
+    },
+    "propam-molins": {
+      "path": "assets/img/ragreage/brands/propam-molins.svg",
+      "sourceUrl": "https://www.molins.es/construction-solutions/wp-content/themes/molins-child/assets/img/logo-footer.svg"
+    },
+    "gecol": {
+      "path": "assets/img/ragreage/brands/gecol.png",
+      "sourceUrl": "https://www.gecol.com/files/resize/outside/400-400-logo-web-gecol_2170bfa667993d0e957a8a9f8478567f.png"
+    },
+    "capa": {
+      "path": "assets/img/ragreage/brands/capa.svg",
+      "sourceUrl": "https://capa.es/wp-content/uploads/2021/10/LOGO-CAPA-upd.svg"
+    },
+    "sika-es": {
+      "path": "assets/img/ragreage/brands/sika-es.png",
+      "sourceUrl": "https://publish-p136453-e1368545.adobeaemcloud.com/dam/media/sika-global/logo/glo-sika_claimu_pos_rgb.png"
+    },
+    "fixcer": {
+      "path": "assets/img/ragreage/brands/fixcer.png",
+      "sourceUrl": "https://fixcer.com/wp-content/uploads/2024/04/fixcer-products-logo-2-217x129.png"
+    },
+    "benfer": {
+      "path": "assets/img/ragreage/brands/benfer.gif",
+      "sourceUrl": "https://www.benfer.it/images/logo_benfer.gif"
+    },
+    "litokol": {
+      "path": "assets/img/ragreage/brands/litokol.svg",
+      "sourceUrl": "https://www.litokol.com/it-it/"
+    },
+    "fassa": {
+      "path": "assets/img/ragreage/brands/fassa.svg",
+      "sourceUrl": "https://www.fassabortolo.it/wp-content/themes/fassa/dist/build/logo-positive-DzmGC5YS.svg"
+    },
+    "weber": {
+      "path": "assets/img/ragreage/brands/weber-official-pdf.png",
+      "sourceUrl": "https://www.fr.weber/files/fr/2025-06/fichetechnique_weberniv%20for_fr.pdf?cb=d5f690e4"
+    },
+    "bostik": {
+      "path": "assets/img/ragreage/brands/bostik-official-pdf.png",
+      "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf",
+      "background": "#272856"
+    },
+    "mapei": {
+      "path": "assets/img/ragreage/brands/mapei-official-pdf.png",
+      "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0"
+    },
+    "kerakoll": {
+      "path": "assets/img/ragreage/brands/kerakoll-official-pdf.png",
+      "sourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf"
+    },
+    "prb": {
+      "path": "assets/img/ragreage/brands/prb-official-pdf.png",
+      "sourceUrl": "https://pim.prb.fr/Produits/3.5.4.4-1.20.30.40/ft_prb_planifibre_fr_02_07_2025-1.pdf"
+    },
+    "vpi": {
+      "path": "assets/img/ragreage/brands/vpi.jpg",
+      "sourceUrl": "https://www.vicat.com/sites/default/files/styles/logo_carte/public/2022-04/Original%20JPG-Logo_VPI_Signature2_Ombre_CMJN_%201%20couleur.jpg?itok=xOs8Cb-L"
+    },
+    "technokolla": {
+      "path": "assets/img/ragreage/brands/technokolla-official-packshot.png",
+      "sourceUrl": "https://www.technokolla.eu/images/prodotti/248_zoom.jpg"
+    }
+  },
+  "records": [
+    {
+      "kind": "brand",
+      "name": "parexlanko",
+      "sourceUrl": "https://www.parexlanko.com/assets/home_page_img/Logo2.svg",
+      "resolvedUrl": "https://www.parexlanko.com/assets/home_page_img/Logo2.svg",
+      "path": "assets/img/ragreage/brands/parexlanko.svg",
+      "contentType": "image/svg+xml",
+      "bytes": 13146,
+      "sha256": "11111c59bca8d7baf9cb89d61856833f1ea22bdd42e30fe84376510091393145"
+    },
+    {
+      "kind": "brand",
+      "name": "sika",
+      "sourceUrl": "https://sika.scene7.com/is/content/sika/Sika_ClaimU_pos_rgb",
+      "resolvedUrl": "https://sika.scene7.com/is/content/sika/Sika_ClaimU_pos_rgb",
+      "path": "assets/img/ragreage/brands/sika.svg",
+      "contentType": "image/svg+xml",
+      "bytes": 10006,
+      "sha256": "0ca01df5dcaa502c4cfb563955c765f55229e6a78bc791cbe5164a4ad5bb7496"
+    },
+    {
+      "kind": "brand",
+      "name": "cegecol",
+      "sourceUrl": "https://www.cegecol.com/include/websites/cegecol/web/images/logo1.png",
+      "resolvedUrl": "https://www.cegecol.com/include/websites/cegecol/web/images/logo1.png",
+      "path": "assets/img/ragreage/brands/cegecol.png",
+      "contentType": "image/png",
+      "bytes": 6394,
+      "sha256": "cade031f2f220a6e142f6be5c33984e65ad4fec4326dd745640b729b822ee6df"
+    },
+    {
+      "kind": "product",
+      "name": "parex-184",
+      "sourceUrl": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING/VISUELS%203D/184%20SOLFIBRE%2025KG_3D.jpg",
+      "resolvedUrl": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING/VISUELS%203D/184%20SOLFIBRE%2025KG_3D.jpg",
+      "path": "assets/img/ragreage/products/parex-184.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 64389,
+      "sha256": "a3850b743f23c08e9721a8197aa6aeeb6ca3737f31d4a64a150c94cf449a47be"
+    },
+    {
+      "kind": "product",
+      "name": "cegesol-f",
+      "sourceUrl": "https://media-pms2.schoenox.net/cegecol/products/cegecolcegesolf.jpg",
+      "resolvedUrl": "https://media-pms2.schoenox.net/cegecol/products/cegecolcegesolf.jpg",
+      "path": "assets/img/ragreage/products/cegesol-f.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 54250,
+      "sha256": "64b1ff720a75c100f7f7c286ec7d2c1e195e09d1d620d780bc31c5a46b19a681"
+    },
+    {
+      "kind": "product",
+      "name": "cegesol-se",
+      "sourceUrl": "https://media-pms2.schoenox.net/cegecol/products/cegecolcegesolse.jpg",
+      "resolvedUrl": "https://media-pms2.schoenox.net/cegecol/products/cegecolcegesolse.jpg",
+      "path": "assets/img/ragreage/products/cegesol-se.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 55211,
+      "sha256": "bcd5f31f0f8f86cd3b23dd08be76c680c36cfa74da598a2f3f08a6c7d5eab436"
+    },
+    {
+      "kind": "product",
+      "name": "fassa-sl416",
+      "sourceUrl": "https://www.fassabortolo.it/wp-content/uploads/media/assets/SL_416.jpg",
+      "resolvedUrl": "https://www.fassabortolo.it/wp-content/uploads/media/assets/SL_416.jpg",
+      "path": "assets/img/ragreage/products/fassa-sl416.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 550872,
+      "sha256": "90af29ea5a485ba1b15f3159d5bacd351c4945f17285dc30f7f8572dedf65329"
+    },
+    {
+      "kind": "product",
+      "name": "technokolla-plan10n",
+      "sourceUrl": "https://www.technokolla.eu/images/prodotti/248_zoom.jpg",
+      "resolvedUrl": "https://www.technokolla.eu/images/prodotti/248_zoom.jpg",
+      "path": "assets/img/ragreage/products/technokolla-plan10n.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 69262,
+      "sha256": "73ecd8390cb07753a123a753c7b34f5e597f4f35ca135f0e7b82a01b6c2278cf"
+    },
+    {
+      "kind": "product",
+      "name": "benfer-multiplan30",
+      "sourceUrl": "https://www.benfer.it/userfiles/Prodotto/images/SACCHI_E_CONFEZIONI_2026/MULTIPLAN-30_sacco_25kg_3D_rid_0326.png?size=max_utilizzo",
+      "resolvedUrl": "https://www.benfer.it/userfiles/Prodotto/images/SACCHI_E_CONFEZIONI_2026/MULTIPLAN-30_sacco_25kg_3D_rid_0326.png?size=max_utilizzo",
+      "path": "assets/img/ragreage/products/benfer-multiplan30.png",
+      "contentType": "image/png",
+      "bytes": 50463,
+      "sha256": "832237f750da29c601e40bc5efbd34bba0409889edf48789563621a11842c842"
+    },
+    {
+      "kind": "brand",
+      "name": "puma",
+      "sourceUrl": "https://www.grupopuma.com/assets/public/img/logo.png",
+      "resolvedUrl": "https://www.grupopuma.com/assets/public/img/logo.png",
+      "path": "assets/img/ragreage/brands/puma.png",
+      "contentType": "image/png",
+      "bytes": 17765,
+      "sha256": "a1b41ce114f61fb0a2e9c6ea72e1f2def89845adab42af8df4577dd98167ea31"
+    },
+    {
+      "kind": "product",
+      "name": "puma-niveland-10",
+      "sourceUrl": "https://www.grupopuma.com/uploads/productos/media/1_b11c492eb7fabefd287f004b0b285927.png_2.png",
+      "resolvedUrl": "https://www.grupopuma.com/uploads/productos/media/1_b11c492eb7fabefd287f004b0b285927.png_2.png",
+      "path": "assets/img/ragreage/products/puma-niveland-10.png",
+      "contentType": "image/png",
+      "bytes": 61276,
+      "sha256": "802e46705cfedb363c805648f212328e442ae6a95a8a0b45d79acc5ce4a8ed72"
+    },
+    {
+      "kind": "brand",
+      "name": "propam-molins",
+      "sourceUrl": "https://www.molins.es/construction-solutions/wp-content/themes/molins-child/assets/img/logo-footer.svg",
+      "resolvedUrl": "https://www.molins.es/construction-solutions/wp-content/themes/molins-child/assets/img/logo-footer.svg",
+      "path": "assets/img/ragreage/brands/propam-molins.svg",
+      "contentType": "image/svg+xml",
+      "bytes": 2304,
+      "sha256": "915d04caa82f07dfd460257513862d9234484c3a36a51779dbc7084e8d5ff961"
+    },
+    {
+      "kind": "product",
+      "name": "propam-floor-level-10",
+      "sourceUrl": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/PR475BI1997_0121_PROPAM%28r%29_FLOOR_LEVEL_10_IMD.jpg",
+      "resolvedUrl": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/PR475BI1997_0121_PROPAM%28r%29_FLOOR_LEVEL_10_IMD.jpg",
+      "path": "assets/img/ragreage/products/propam-floor-level-10.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 105622,
+      "sha256": "9fef020a0b77866968a8b009be210445d70e11aeb34f70cf439de15a6844e33d"
+    },
+    {
+      "kind": "brand",
+      "name": "gecol",
+      "sourceUrl": "https://www.gecol.com/files/resize/outside/400-400-logo-web-gecol_2170bfa667993d0e957a8a9f8478567f.png",
+      "resolvedUrl": "https://www.gecol.com/files/resize/outside/400-400-logo-web-gecol_2170bfa667993d0e957a8a9f8478567f.png",
+      "path": "assets/img/ragreage/brands/gecol.png",
+      "contentType": "image/png",
+      "bytes": 67212,
+      "sha256": "a5c985fec588096646351de62d8117558ab03fb60c5d55b3474f06827bef4478"
+    },
+    {
+      "kind": "product",
+      "name": "gecol-nivelante-10-r-plus",
+      "sourceUrl": "https://www.gecol.com/files/resize/outside/500-500-webimage-gecol-nivelante-10-r-plus_427af86462d15537401717461e7e4e93.png",
+      "resolvedUrl": "https://www.gecol.com/files/resize/outside/500-500-webimage-gecol-nivelante-10-r-plus_427af86462d15537401717461e7e4e93.png",
+      "path": "assets/img/ragreage/products/gecol-nivelante-10-r-plus.png",
+      "contentType": "image/png",
+      "bytes": 310493,
+      "sha256": "d8db052bf1aa30c47fcc2e6b10fc345be331eb4b8d6c37537f8cd98389279e20"
+    },
+    {
+      "kind": "product",
+      "name": "gecol-nivelante-35",
+      "sourceUrl": "https://www.gecol.com/files/resize/outside/500-500-webimage-gecol-nivelante-35_34d8b5f4242097a8051e97bdb02be3fc.webp",
+      "resolvedUrl": "https://www.gecol.com/files/resize/outside/500-500-webimage-gecol-nivelante-35_34d8b5f4242097a8051e97bdb02be3fc.webp",
+      "path": "assets/img/ragreage/products/gecol-nivelante-35.webp",
+      "contentType": "image/webp",
+      "bytes": 30886,
+      "sha256": "8f4683e0cffae5ed3ce76313fd8d49c5c2ae10eaa5cbeeb82f398817dbb6afd4"
+    },
+    {
+      "kind": "brand",
+      "name": "capa",
+      "sourceUrl": "https://capa.es/wp-content/uploads/2021/10/LOGO-CAPA-upd.svg",
+      "resolvedUrl": "https://capa.es/wp-content/uploads/2021/10/LOGO-CAPA-upd.svg",
+      "path": "assets/img/ragreage/brands/capa.svg",
+      "contentType": "image/svg+xml",
+      "bytes": 6986,
+      "sha256": "99f6e63209b2c09f9e2b0ab4ddd6b54a608c8fe61d7a12e60398dd65234679d8"
+    },
+    {
+      "kind": "product",
+      "name": "capa-aplica-level-plus",
+      "sourceUrl": "https://capa.es/wp-content/uploads/2026/08/Aplica-Level-Plus.jpg",
+      "resolvedUrl": "https://capa.es/wp-content/uploads/2026/08/Aplica-Level-Plus.jpg",
+      "path": "assets/img/ragreage/products/capa-aplica-level-plus.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 89140,
+      "sha256": "b555d46063c8e4cb3e0c83b0f84d0c72b848181233a0fa1a7f17d1c04d5e8bd9"
+    },
+    {
+      "kind": "brand",
+      "name": "sika-es",
+      "sourceUrl": "https://publish-p136453-e1368545.adobeaemcloud.com/dam/media/sika-global/logo/glo-sika_claimu_pos_rgb.png",
+      "resolvedUrl": "https://publish-p136453-e1368545.adobeaemcloud.com/dam/media/sika-global/logo/glo-sika_claimu_pos_rgb.png",
+      "path": "assets/img/ragreage/brands/sika-es.png",
+      "contentType": "image/png",
+      "bytes": 7663,
+      "sha256": "8c7970990bd3003852a7231fb13bdd99e12e3e6afe1bac05831f83e6de71cca4"
+    },
+    {
+      "kind": "product",
+      "name": "fixcer-fix-nivel",
+      "sourceUrl": "https://fixcer.com/wp-content/uploads/2024/03/fixcer-autonivelantes-fix-nivel-01-180x180.jpg",
+      "resolvedUrl": "https://fixcer.com/wp-content/uploads/2024/03/fixcer-autonivelantes-fix-nivel-01-180x180.jpg",
+      "path": "assets/img/ragreage/products/fixcer-fix-nivel.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 5532,
+      "sha256": "81c121d396866aba8cda92b08e76df335f7ce69f6c8ca4efd6bea9b44ef42c99"
+    },
+    {
+      "kind": "brand",
+      "name": "fixcer",
+      "sourceUrl": "https://fixcer.com/wp-content/uploads/2024/04/fixcer-products-logo-2-217x129.png",
+      "resolvedUrl": "https://fixcer.com/wp-content/uploads/2024/04/fixcer-products-logo-2-217x129.png",
+      "path": "assets/img/ragreage/brands/fixcer.png",
+      "contentType": "image/png",
+      "bytes": 13096,
+      "sha256": "c1a7c0a7091246181f98c393eef37cd66472f19422bdac550f18641246846d17"
+    },
+    {
+      "kind": "brand",
+      "name": "benfer",
+      "sourceUrl": "https://www.benfer.it/images/logo_benfer.gif",
+      "resolvedUrl": "https://www.benfer.it/images/logo_benfer.gif",
+      "path": "assets/img/ragreage/brands/benfer.gif",
+      "contentType": "image/gif",
+      "bytes": 6651,
+      "sha256": "5e0669309faec88bad1f1b8aad65cdc6dfdef428a52537bd66eb0487f70e68e0"
+    },
+    {
+      "kind": "product",
+      "name": "prb-planifibre",
+      "sourceUrl": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb_planifibre_25kg_1.png",
+      "resolvedUrl": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb_planifibre_25kg_1.png",
+      "path": "assets/img/ragreage/products/prb-planifibre.png",
+      "contentType": "image/png",
+      "bytes": 1740672,
+      "sha256": "61961f1c00a37e3f2b52152272d96a8b02b8f3aaec64c2676b9c01210e9cb087"
+    },
+    {
+      "kind": "brand",
+      "name": "litokol",
+      "sourceUrl": "https://www.litokol.com/it-it/",
+      "path": "assets/img/ragreage/brands/litokol.svg",
+      "contentType": "image/svg+xml",
+      "extraction": "Official homepage inline SVG, unchanged",
+      "bytes": 2898,
+      "sha256": "c27c685a7f0b74bb22ef4987107872373895bc93268836e52ad902d284c9d8e6"
+    },
+    {
+      "kind": "brand",
+      "name": "fassa",
+      "sourceUrl": "https://www.fassabortolo.it/wp-content/themes/fassa/dist/build/logo-positive-DzmGC5YS.svg",
+      "path": "assets/img/ragreage/brands/fassa.svg",
+      "contentType": "image/svg+xml",
+      "bytes": 23101,
+      "sha256": "3fe954d2ac242540cbba3dcebf04d057a84dc7ee990b34ee1ab5986d84693756"
+    },
+    {
+      "kind": "product",
+      "name": "it-technokolla-plan40ext",
+      "sourceUrl": "https://www.technokolla.com/images/prodotti/250_zoom.jpg",
+      "path": "assets/img/ragreage/products/it-technokolla-plan40ext.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 87203,
+      "sha256": "c8d3e6632ff002499f7267ba0ed4098e74dbb4ec0e05107f3472ad894ae5dd95"
+    },
+    {
+      "kind": "product",
+      "name": "it-litokol-xplan3-40",
+      "sourceUrl": "https://www.litokol.com/media/filer_public/c9/32/c9327ec5-18bf-4f39-a51b-58b2d773060c/xplan3-40.jpg",
+      "path": "assets/img/ragreage/products/it-litokol-xplan3-40.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 107843,
+      "sha256": "9ad0738260c4a08e32b9e62b436b2d7d9938c249312d60cf5586727d1eec295d"
+    },
+    {
+      "kind": "product",
+      "name": "weber-for",
+      "path": "assets/img/ragreage/products/weber-for-official-pdf.png",
+      "sourceUrl": "https://www.fr.weber/files/fr/2025-06/fichetechnique_weberniv%20for_fr.pdf?cb=d5f690e4",
+      "contentType": "image/png",
+      "extraction": "Unchanged embedded image with original transparency, official PDF page 1",
+      "bytes": 435892,
+      "sha256": "6e13195ade504c36d60b40c3127d709475a5c59a4cafd2368bd9de90c441516c"
+    },
+    {
+      "kind": "product",
+      "name": "weber-dur",
+      "path": "assets/img/ragreage/products/weber-dur-official-pdf.png",
+      "sourceUrl": "https://www.fr.weber/files/fr/2025-11/fichetechnique_weberniv%20dur%20%2B_fr.pdf?cb=d5f690e4",
+      "contentType": "image/png",
+      "extraction": "Unchanged embedded image with original transparency, official PDF page 1",
+      "bytes": 493662,
+      "sha256": "d6c0a44443cf19ef623f2ae128fd69605d7eb182d92c498469474623e6915520"
+    },
+    {
+      "kind": "product",
+      "name": "weber-lex",
+      "path": "assets/img/ragreage/products/weber-lex-official-pdf.png",
+      "sourceUrl": "https://www.fr.weber/files/fr/2026-05/fichetechnique_weberniv%20lex%202_fr.pdf?cb=d5f690e4",
+      "contentType": "image/png",
+      "extraction": "Unchanged embedded image with original transparency, official PDF page 1",
+      "bytes": 348106,
+      "sha256": "2c047c5df9116c591c3104752c725a57d4514f940a50fa1a31a44d0f120a020f"
+    },
+    {
+      "kind": "product",
+      "name": "bostik-c750",
+      "path": "assets/img/ragreage/products/bostik-c750-official-pdf.png",
+      "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf",
+      "contentType": "image/png",
+      "extraction": "Unchanged embedded image with original transparency, official PDF page 1",
+      "bytes": 361455,
+      "sha256": "fac71c1ce323342e076ce78ee43695939d9c739224bdcdbf02531adb5f11d5b9"
+    },
+    {
+      "kind": "product",
+      "name": "mapei-reno3",
+      "path": "assets/img/ragreage/products/mapei-reno3-official-pdf.png",
+      "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0",
+      "contentType": "image/png",
+      "extraction": "Unchanged embedded image with original transparency, official PDF page 1",
+      "bytes": 212883,
+      "sha256": "cd034dd1116010c98138a4e753a0163e6d87c189414b8cbdf986ef27586860ac"
+    },
+    {
+      "kind": "product",
+      "name": "kerakoll-planogel",
+      "path": "assets/img/ragreage/products/kerakoll-planogel-official-pdf.png",
+      "sourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf",
+      "contentType": "image/png",
+      "extraction": "Unchanged embedded image with original transparency, official PDF page 1",
+      "bytes": 418990,
+      "sha256": "a475cde452269444e15b607eaa8b2f9e3e10b697cb143474e2f7e835e272b382"
+    },
+    {
+      "kind": "brand",
+      "name": "weber",
+      "path": "assets/img/ragreage/brands/weber-official-pdf.png",
+      "sourceUrl": "https://www.fr.weber/files/fr/2025-06/fichetechnique_weberniv%20for_fr.pdf?cb=d5f690e4",
+      "contentType": "image/png",
+      "extraction": "Exact vector-artwork region rendered from official PDF page 1",
+      "page": 1,
+      "clipPdfPoints": [
+        458,
+        780,
+        573,
+        820
+      ],
+      "bytes": 10688,
+      "sha256": "535b1ea4f8efb6143212fdc8dbb19f89fc77473988a1826301f103ea923e2366"
+    },
+    {
+      "kind": "brand",
+      "name": "bostik",
+      "path": "assets/img/ragreage/brands/bostik-official-pdf.png",
+      "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf",
+      "contentType": "image/png",
+      "extraction": "Exact vector-artwork region rendered from official PDF page 1",
+      "page": 1,
+      "clipPdfPoints": [
+        190,
+        24,
+        370,
+        105
+      ],
+      "bytes": 147996,
+      "sha256": "0f0f2518b8b21cf90886336ecc3580dc87aa2a22a6debd07d11e6c1c685e92d4"
+    },
+    {
+      "kind": "brand",
+      "name": "mapei",
+      "path": "assets/img/ragreage/brands/mapei-official-pdf.png",
+      "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0",
+      "contentType": "image/png",
+      "extraction": "Exact vector-artwork region rendered from official PDF page 1",
+      "page": 1,
+      "clipPdfPoints": [
+        240,
+        807,
+        355,
+        839
+      ],
+      "bytes": 9338,
+      "sha256": "2e2121c307fb195f971c0a31dcc7cd751f28e43c7229bd594b0a346359451ae7"
+    },
+    {
+      "kind": "brand",
+      "name": "kerakoll",
+      "path": "assets/img/ragreage/brands/kerakoll-official-pdf.png",
+      "sourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf",
+      "contentType": "image/png",
+      "extraction": "Exact vector-artwork region rendered from official PDF page 1",
+      "page": 1,
+      "clipPdfPoints": [
+        48,
+        768,
+        190,
+        807
+      ],
+      "bytes": 7714,
+      "sha256": "a295498f7ca7c4eb76e78551670eefb6da9c614f2bbb3e2b3b8f4749dd62dff7"
+    },
+    {
+      "kind": "brand",
+      "name": "prb",
+      "path": "assets/img/ragreage/brands/prb-official-pdf.png",
+      "sourceUrl": "https://pim.prb.fr/Produits/3.5.4.4-1.20.30.40/ft_prb_planifibre_fr_02_07_2025-1.pdf",
+      "contentType": "image/png",
+      "extraction": "Exact vector-artwork region rendered from official PDF page 1",
+      "page": 1,
+      "clipPdfPoints": [
+        44,
+        22,
+        115,
+        110
+      ],
+      "bytes": 10907,
+      "sha256": "957b9e9d0fae6037c074ad282f72643dd5acf1d13449fc8ebd5afece4de3c4ad"
+    },
+    {
+      "kind": "brand",
+      "name": "vpi",
+      "sourceUrl": "https://www.vicat.com/sites/default/files/styles/logo_carte/public/2022-04/Original%20JPG-Logo_VPI_Signature2_Ombre_CMJN_%201%20couleur.jpg?itok=xOs8Cb-L",
+      "path": "assets/img/ragreage/brands/vpi.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 3033,
+      "sha256": "78dccee7bce28a0258071993b760a7050534cf47d8e13635f1f0af9e2c30bad5"
+    },
+    {
+      "kind": "brand",
+      "name": "technokolla",
+      "path": "assets/img/ragreage/brands/technokolla-official-packshot.png",
+      "sourceUrl": "https://www.technokolla.eu/images/prodotti/248_zoom.jpg",
+      "contentType": "image/png",
+      "extraction": "Exact brand label region cropped from official product packshot; no redrawing",
+      "cropPixels": [
+        75,
+        67,
+        374,
+        152
+      ],
+      "bytes": 38417,
+      "sha256": "1169a405a2c91b795d74b953103458eace217bdfd69def6abbbfd53f287fddec"
+    },
+    {
+      "kind": "product",
+      "name": "mapei-es-ultraplan-eco",
+      "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0",
+      "path": "assets/img/ragreage/products/mapei-ultraplan-eco-official-pdf.png",
+      "contentType": "image/png",
+      "extraction": "Unchanged embedded product image and original soft mask from official ES PDF page 1",
+      "bytes": 557142,
+      "sha256": "d0feae133f5c4c9ab33dd46d0de6355f12d25273a9c3bcea8583813318f21605"
+    },
+    {
+      "kind": "product",
+      "name": "sika-330",
+      "sourceUrl": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:21818558-b177-492d-a894-08c9640df907/as/fr-sikafloor-330-fibre-level-25kg-3d-07234070.png?smartcrop=1-1&width=480&height=480",
+      "path": "assets/img/ragreage/products/sika-330.png",
+      "contentType": "image/png",
+      "bytes": 196266,
+      "sha256": "ec63868d6af73c67ea735694abe65c2a3b849d0e6849d6acd83d979230121bae"
+    },
+    {
+      "kind": "product",
+      "name": "sika-es-200-level",
+      "sourceUrl": "https://dynamicmedia.sika.com/adobe/assets/urn%3Aaaid%3Aaem%3A159306cb-25d5-4196-9c73-0bedc2c7432a/as/gr-02-el-GR-Sikafloor-200-Level-1x1--00000938.png?height=480&smartcrop=1-1&width=480",
+      "path": "assets/img/ragreage/products/sika-es-200-level.png",
+      "contentType": "image/png",
+      "bytes": 140645,
+      "sha256": "c748e239549b4b6c9a12d94ebfed1a97ec8c77f78347e475c2ea355e39a3bc72",
+      "imageNote": "Visuel officiel Sikafloor-200 Level provenant de Sika Grèce ; illustration fabricant, édition de sac locale à confirmer."
+    },
+    {
+      "kind": "product",
+      "name": "vpi-fibre-forte-epaisseur",
+      "sourceUrl": "https://media.castorama.fr/is/image/Castorama/ragr-age-renovation-forte-paisseur-25kg~3538988200398_03c?$MOB_PREV$=&$height=640&$width=640",
+      "resolvedUrl": "https://media.castorama.fr/is/image/Castorama/ragr-age-renovation-forte-paisseur-25kg~3538988200398_03c?$MOB_PREV$=&$height=640&$width=640",
+      "sourceType": "retailer-exact-gtin",
+      "imageNote": "Visuel du conditionnement VPI — source Castorama, même référence GTIN.",
+      "gtin": "3538988200398",
+      "path": "assets/img/ragreage/products/vpi-fibre-forte-epaisseur.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 25566,
+      "width": 400,
+      "height": 400,
+      "sha256": "9d7378d3c5f434f2605b0e9c41502064623f9d0fa20f77bcf05a8926bd6cfd1b"
+    }
+  ],
+  "failures": [
+    {
+      "kind": "brand",
+      "name": "weber",
+      "sourceUrl": "https://www.fr.weber/files/fr/Weber_Logo_RGB.png",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "kind": "brand",
+      "name": "bostik",
+      "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/images/Logos/Bostik_Logo_Header.svg",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "kind": "brand",
+      "name": "prb",
+      "sourceUrl": "https://www.prb.fr/images/holcim_endorsed_prb_l2_logo_2025_positive_black_srgb1.svg",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "kind": "product",
+      "name": "weberniv-for",
+      "sourceUrl": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_E67917A2831E42B494DCD8FF1E69DB74.jpg.webp?cb=53fd7eae&itok=5vSjUuzX",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "kind": "product",
+      "name": "weberniv-dur",
+      "sourceUrl": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-11/IMG_14988637.jpg.webp?cb=dbbbce25&itok=s9a7B2WG",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "kind": "product",
+      "name": "weberniv-lex2",
+      "sourceUrl": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_8F4455E5BD9A4745A7547B701929A9B6.jpg.webp?cb=53fd7eae&itok=Ch1DxRJ_",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "kind": "product",
+      "name": "bostik-c750",
+      "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/images/Products/Construction/EMEA/france/bostik-30615457-packaging-avant-sl-c750-polyrag-ragreage",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "kind": "product",
+      "name": "sika-330",
+      "sourceUrl": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:21818558-b177-492d-a894-08c9640df907/as/fr-sikafloor-330-fibre-level-25kg-3d-07234070.png?smartcrop=1-1&width=480&height=480",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "kind": "product",
+      "name": "kerakoll-planogel",
+      "sourceUrl": "https://media.kerakoll.com/Sito_Web/mainImage/1_Fondi_di_posa/KK_ITALIA/K_Planogel-Rheo_26.jpg",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "kind": "product",
+      "name": "kerakoll-flowtech",
+      "sourceUrl": "https://media.kerakoll.com/Sito_Web/mainImage/1_Fondi_di_posa/Export/K_Flowtech-Easy_26_EXP.jpg",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "kind": "product",
+      "name": "sika-es-200-level",
+      "sourceUrl": "https://dynamicmedia.sika.com/adobe/assets/urn%3Aaaid%3Aaem%3A159306cb-25d5-4196-9c73-0bedc2c7432a/as/gr-02-el-GR-Sikafloor-200-Level-1x1--00000938.png?height=480&smartcrop=1-1&width=480",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "kind": "product",
+      "name": "it-kerakoll-planogel-rheo",
+      "sourceUrl": "https://media.kerakoll.com/Sito_Web/mainImage/1_Fondi_di_posa/KK_ITALIA/K_Planogel-Rheo_26.jpg",
+      "error": "HTTP Error 403: Forbidden"
+    }
+  ],
+  "products": {
+    "weber-for": {
+      "path": "assets/img/ragreage/products/weber-for-official-pdf.png",
+      "sourceUrl": "https://www.fr.weber/files/fr/2025-06/fichetechnique_weberniv%20for_fr.pdf?cb=d5f690e4"
+    },
+    "weber-dur": {
+      "path": "assets/img/ragreage/products/weber-dur-official-pdf.png",
+      "sourceUrl": "https://www.fr.weber/files/fr/2025-11/fichetechnique_weberniv%20dur%20%2B_fr.pdf?cb=d5f690e4"
+    },
+    "weber-lex": {
+      "path": "assets/img/ragreage/products/weber-lex-official-pdf.png",
+      "sourceUrl": "https://www.fr.weber/files/fr/2026-05/fichetechnique_weberniv%20lex%202_fr.pdf?cb=d5f690e4"
+    },
+    "bostik-c750": {
+      "path": "assets/img/ragreage/products/bostik-c750-official-pdf.png",
+      "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c750-polyrag.pdf"
+    },
+    "mapei-reno3": {
+      "path": "assets/img/ragreage/products/mapei-reno3-official-pdf.png",
+      "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04077_ultraplan-reno-3_fr-fr_34e075607f0649c4be52119c387e3530.pdf?sfvrsn=492447e5_0"
+    },
+    "kerakoll-planogel": {
+      "path": "assets/img/ragreage/products/kerakoll-planogel-official-pdf.png",
+      "sourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf"
+    },
+    "mapei-es-ultraplan-eco": {
+      "path": "assets/img/ragreage/products/mapei-ultraplan-eco-official-pdf.png",
+      "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0"
+    },
+    "it-mapei-eco": {
+      "path": "assets/img/ragreage/products/mapei-ultraplan-eco-official-pdf.png",
+      "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0"
+    },
+    "sika-330": {
+      "path": "assets/img/ragreage/products/sika-330.png",
+      "sourceUrl": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:21818558-b177-492d-a894-08c9640df907/as/fr-sikafloor-330-fibre-level-25kg-3d-07234070.png?smartcrop=1-1&width=480&height=480"
+    },
+    "sika-es-200-level": {
+      "path": "assets/img/ragreage/products/sika-es-200-level.png",
+      "sourceUrl": "https://dynamicmedia.sika.com/adobe/assets/urn%3Aaaid%3Aaem%3A159306cb-25d5-4196-9c73-0bedc2c7432a/as/gr-02-el-GR-Sikafloor-200-Level-1x1--00000938.png?height=480&smartcrop=1-1&width=480",
+      "imageNote": "Visuel officiel Sikafloor-200 Level provenant de Sika Grèce ; illustration fabricant, édition de sac locale à confirmer."
+    },
+    "it-kerakoll-planogel-rheo": {
+      "path": "assets/img/ragreage/products/kerakoll-planogel-official-pdf.png",
+      "sourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/1_Fondi_di_posa/Planogel%20Rheo_2026_(kkfr).pdf"
+    },
+    "vpi-fibre-forte-epaisseur": {
+      "path": "assets/img/ragreage/products/vpi-fibre-forte-epaisseur.jpg",
+      "sourceUrl": "https://media.castorama.fr/is/image/Castorama/ragr-age-renovation-forte-paisseur-25kg~3538988200398_03c?$MOB_PREV$=&$height=640&$width=640",
+      "sourceType": "retailer-exact-gtin",
+      "imageNote": "Visuel du conditionnement VPI — source Castorama, même référence GTIN.",
+      "gtin": "3538988200398",
+      "productName": "VPI Ragréage fibré forte épaisseur 10 à 40 mm — 25 kg",
+      "checkedAt": "2026-11-03",
+      "width": 400,
+      "height": 400
+    },
+    "weber-primo": {
+      "path": "assets/img/ragreage/products/weber-primo-official.png",
+      "sourceUrl": "https://www.fr.weber/files/fr/2026-05/fichetechnique_weberniv%20primo_fr.pdf?cb=d5f690e4#embedded-packshot",
+      "checkedAt": "2026-11-03"
+    },
+    "bostik-c320": {
+      "path": "assets/img/ragreage/products/bostik-c320-official.png",
+      "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c320-ardasol.pdf#embedded-packshot",
+      "checkedAt": "2026-11-03"
+    },
+    "bostik-c510": {
+      "path": "assets/img/ragreage/products/bostik-c510-official.png",
+      "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c510-pro.pdf#embedded-packshot",
+      "checkedAt": "2026-11-03"
+    },
+    "bostik-c780": {
+      "path": "assets/img/ragreage/products/bostik-c780-official.png",
+      "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c780-flex.pdf#embedded-packshot",
+      "checkedAt": "2026-11-03"
+    },
+    "bostik-c910": {
+      "path": "assets/img/ragreage/products/bostik-c910-official.png",
+      "sourceUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-tds-sl-c910-xpress.pdf#embedded-packshot",
+      "checkedAt": "2026-11-03"
+    },
+    "mapei-maxi-fibre": {
+      "path": "assets/img/ragreage/products/mapei-maxi-fibre-official.png",
+      "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_04038_ultraplan-maxi-fibre-_fr-fr_c6a2d845a49d46569fa7cbe642d502ec.pdf?sfvrsn=b8bc3f0b_0#embedded-packshot",
+      "checkedAt": "2026-11-03"
+    },
+    "it-litokol-xplan120": {
+      "path": "assets/img/ragreage/products/it-litokol-xplan120-official.png",
+      "sourceUrl": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf#embedded-packshot",
+      "checkedAt": "2026-11-03"
+    },
+    "litokol-xplan120": {
+      "path": "assets/img/ragreage/products/it-litokol-xplan120-official.png",
+      "sourceUrl": "https://www.litokol.com/media/filer_public/e8/b4/e8b4c5ca-ed23-492e-b761-f365ba5f6c40/ds_x_plan_1_20_fr.pdf#embedded-packshot",
+      "checkedAt": "2026-11-03"
+    },
+    "litokol-xplan340": {
+      "path": "assets/img/ragreage/products/it-litokol-xplan3-40.jpg",
+      "sourceUrl": "https://www.litokol.com/fr-fr/p/x-plan-3-40/",
+      "checkedAt": "2026-11-03"
+    },
+    "prb-planidur-pro": {
+      "path": "assets/img/ragreage/products/prb-planidur-pro.png",
+      "sourceUrl": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb_planidur_pro_25kg_1.png",
+      "checkedAt": "2026-11-03"
+    },
+    "prb-planidur-plus": {
+      "path": "assets/img/ragreage/products/prb-planidur-plus.png",
+      "sourceUrl": "https://pim.prb.fr/20260413152652_prb-planidur-plus-25-kg.png",
+      "checkedAt": "2026-11-03"
+    },
+    "sika-200": {
+      "path": "assets/img/ragreage/products/sika-200.png",
+      "sourceUrl": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:e4b2fea2-72d3-48f8-a4cf-16f3558f1cb8/as/fr-sikafloor-200-level-25kg-1x1-3D-00558032.png?smartcrop=1-1&width=480&height=480",
+      "checkedAt": "2026-11-03"
+    },
+    "fixcer-fix-nivel-premium": {
+      "path": "assets/img/ragreage/products/fixcer-fix-nivel-premium.jpg",
+      "sourceUrl": "https://fixcer.com/wp-content/uploads/2024/03/fixcer-autonivelantes-fix-nivel-premium-01.jpg",
+      "checkedAt": "2026-11-03"
+    },
+    "it-fassa-sm485": {
+      "path": "assets/img/ragreage/products/it-fassa-sm485.jpg",
+      "sourceUrl": "https://www.fassabortolo.it/wp-content/uploads/media/assets/SM_485.jpg",
+      "checkedAt": "2026-11-03"
+    },
+    "cegecol-str": {
+      "path": "assets/img/ragreage/products/cegecol-str.jpg",
+      "sourceUrl": "https://media-pms2.schoenox.net/cegecol/products/cegecolcegesolstr.jpg",
+      "checkedAt": "2026-11-03"
+    },
+    "puma-niveland-30r": {
+      "path": "assets/img/ragreage/products/puma-niveland-30r.png",
+      "sourceUrl": "https://www.grupopuma.com/uploads/productos/media/fb0b06bd964648d022bca7ed1cd55b79.png_2.png",
+      "checkedAt": "2026-11-03"
+    }
+  },
+  "checkedAt": "2026-11-03",
+  "notes": [
+    "Official manufacturer assets only. Source document artwork is extracted without redrawing.",
+    "Sika 200 Level image is an official manufacturer illustration from the Greek catalogue; confirm local packaging.",
+    "INDEX official sources currently redirect to Sika. No substitute logo or packaging has been fabricated.",
+    "VPI manufacturer logo is preserved from its official parent group Vicat. No current product packshot has been invented."
+  ]
+}

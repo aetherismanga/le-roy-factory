@@ -1,0 +1,878 @@
+{
+  "country": "es",
+  "countryLabel": "Espagne",
+  "catalogueMeaning": "Marché et fiches techniques espagnols, sans préjuger du pays d’origine du groupe.",
+  "brands": [
+    {
+      "id": "puma",
+      "name": "Grupo Puma",
+      "website": "https://www.grupopuma.com/es-ES/",
+      "logoUrl": "https://www.grupopuma.com/assets/public/img/logo.png",
+      "products": [
+        {
+          "id": "puma-niveland-10",
+          "name": "Niveland 10",
+          "type": "Ragréage ciment fibré intérieur CT-C25-F5",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 2,
+          "max": 10,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "cement",
+            "concrete"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://www.grupopuma.com/es-ES/productos/ver/niveland-10-es-es-1",
+          "technicalUrl": "https://www.grupopuma.com/services/pdf/9266",
+          "imageUrl": "https://www.grupopuma.com/uploads/productos/media/1_b11c492eb7fabefd287f004b0b285927.png_2.png",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "Paviland Primer R",
+              "detail": "Primaire prescrit par la fiche Niveland 10 ; adapter préparation et application à la fiche du primaire.",
+              "url": "https://www.grupopuma.com/es-ES/productos/ver/niveland-10-es-es-1",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Paviland Primer R",
+              "detail": "Primaire prescrit par la fiche Niveland 10 ; adapter préparation et application à la fiche du primaire.",
+              "url": "https://www.grupopuma.com/es-ES/productos/ver/niveland-10-es-es-1",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Paviland Primer R",
+              "detail": "Primaire prescrit par la fiche Niveland 10 ; adapter préparation et application à la fiche du primaire.",
+              "url": "https://www.grupopuma.com/es-ES/productos/ver/niveland-10-es-es-1",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Paviland Primer R",
+              "detail": "Primaire prescrit par la fiche Niveland 10 ; adapter préparation et application à la fiche du primaire.",
+              "url": "https://www.grupopuma.com/es-ES/productos/ver/niveland-10-es-es-1",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Recouvrement obligatoire ; non admis en extérieur ni avec humidité ou risque de remontées.",
+            "La fiche vise le béton et les chapes ciment ; autres supports à valider avec Grupo Puma.",
+            "Chauffage radiant annoncé sans distinction de système ; type eau ou électrique à faire valider avant sélection automatique.",
+            "Humidité résiduelle du support inférieure à 3 % selon cette fiche."
+          ],
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "id": "puma-niveland-30r",
+          "name": "Niveland 30R",
+          "type": "Fibré rapide — 2 à 15 mm sans sable",
+          "rate": 1.75,
+          "bag": 25,
+          "min": 2,
+          "max": 15,
+          "supports": [
+            "cement",
+            "concrete"
+          ],
+          "heating": [
+            "none",
+            "water"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "locations": [
+            "inside"
+          ],
+          "sourceUrl": "https://www.grupopuma.com/services/pdf/5801?t=1761545028",
+          "technicalUrl": "https://www.grupopuma.com/services/pdf/5801?t=1761545028",
+          "checkedAt": "2026-11-03",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "Paviland Primer R",
+              "url": "https://www.grupopuma.com/services/pdf/5801?t=1761545028",
+              "detail": "Sur ciment préparé ; suivre dilution, séchage et consommation de la fiche du primaire.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Paviland Primer R",
+              "url": "https://www.grupopuma.com/services/pdf/5801?t=1761545028",
+              "detail": "Sur ciment préparé ; suivre dilution, séchage et consommation de la fiche du primaire.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Paviland Primer R",
+              "url": "https://www.grupopuma.com/services/pdf/5801?t=1761545028",
+              "detail": "Sur ciment préparé ; suivre dilution, séchage et consommation de la fiche du primaire.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Paviland Primer R",
+              "url": "https://www.grupopuma.com/services/pdf/5801?t=1761545028",
+              "detail": "Sur ciment préparé ; suivre dilution, séchage et consommation de la fiche du primaire.",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "comparison": {
+            "summary": "Nivellement intérieur rapide ; 2 à 15 mm sans ajout de sable.",
+            "highlights": [
+              "2 à 15 mm sans ajout de sable",
+              "Consommation 1,65–1,75 ; calcul à 1,75 kg/m²/mm"
+            ],
+            "walkable": "Environ 2 h à +23 °C.",
+            "covering": "Céramique/moquette : environ 6 h ; parquet/revêtement synthétique : 24 h.",
+            "workingTime": "Environ 20 min.",
+            "sourceUrl": "https://www.grupopuma.com/services/pdf/5801?t=1761545028"
+          },
+          "notes": [
+            "La plage fabricant est de 1,65 à 1,75 kg/m²/mm ; la borne haute est retenue pour estimer la commande.",
+            "Au-delà de 15 mm et jusqu’à 30 mm, la fiche impose environ 30 % de sable de quartz (7,5 kg par sac). Ce mélange avec granulat est exclu du calcul continu.",
+            "Chauffage radiant : eau retenue ; faire confirmer les systèmes électriques. Ne peut pas rester nu."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "propam-molins",
+      "name": "PROPAM / Molins",
+      "aliases": [
+        "Propamsa",
+        "Molins Construction Solutions"
+      ],
+      "website": "https://www.molins.es/construction-solutions/",
+      "logoUrl": "https://www.molins.es/construction-solutions/wp-content/themes/molins-child/assets/img/logo-footer.svg",
+      "logoBackground": "dark",
+      "products": [
+        {
+          "id": "propam-floor-level-10",
+          "name": "PROPAM FLOOR LEVEL 10",
+          "type": "Ragréage ciment fibré CT-C25-F7",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 2,
+          "max": 10,
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "supports": [
+            "cement",
+            "concrete"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://www.molins.es/construction-solutions/products/morteros-especiales/pavimentos/autonivelantes/propam-floor-level-10/",
+          "technicalUrl": "https://print.saleslayer.com/WkxIU3VFYS81eTg9/products/0121/es",
+          "imageUrl": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/PR475BI1997_0121_PROPAM%28r%29_FLOOR_LEVEL_10_IMD.jpg",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "PROPAM PRIMER SOL",
+              "detail": "Sur support poreux ; attendre le séchage au toucher, environ 1 à 4 h selon conditions et fiche.",
+              "url": "https://www.molins.es/construction-solutions/products/morteros-especiales/pavimentos/imprimaciones/propam-primer-sol/",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "PROPAM PRIMER SOL",
+              "detail": "Sur support poreux ; attendre le séchage au toucher, environ 1 à 4 h selon conditions et fiche.",
+              "url": "https://www.molins.es/construction-solutions/products/morteros-especiales/pavimentos/imprimaciones/propam-primer-sol/",
+              "rateMin": 0.1,
+              "rateMax": 0.2,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "PROPAM PRIMER GRIP +",
+              "detail": "Sur support non poreux ; séchage au toucher 30 à 90 min selon la fiche du ragréage. Alternative époxy PROPAM FLOOR 100 à valider dans le système.",
+              "url": "https://print.saleslayer.com/WkxIU3VFYS81eTg9/products/0121/es",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "PROPAM PRIMER GRIP +",
+              "detail": "Sur support non poreux ; séchage au toucher 30 à 90 min selon la fiche du ragréage. Alternative époxy PROPAM FLOOR 100 à valider dans le système.",
+              "url": "https://print.saleslayer.com/WkxIU3VFYS81eTg9/products/0121/es",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Recouvrement prévu ; ne pas employer en sol industriel ni avec humidité permanente ou remontées.",
+            "Chauffage radiant mentionné mais système eau/électrique non identifié dans cette fiche ; validation du système nécessaire.",
+            "Sur chauffage validé : arrêt 24 h avant et remise en service 48 h après selon la fiche.",
+            "Contrôler l’humidité résiduelle avant recouvrement ; protéger du soleil, du vent et de la pluie durant le durcissement."
+          ],
+          "checkedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "id": "gecol",
+      "name": "GECOL",
+      "website": "https://www.gecol.com/es/",
+      "logoUrl": "https://www.gecol.com/files/resize/outside/400-400-logo-web-gecol_2170bfa667993d0e957a8a9f8478567f.png",
+      "products": [
+        {
+          "id": "gecol-nivelante-10-r-plus",
+          "name": "GECOL Nivelante 10-R PLUS",
+          "type": "Ragréage ciment rapide intérieur CT-C30-F6",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 3,
+          "max": 10,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://www.gecol.com/es/product/gecol-nivelante-10-r-plus",
+          "technicalUrl": "https://my.assets-library.com/asset/e036f8a4-6114-4d0c-9b3c-014d8e0b6b51/TDS-GECOL-Nivelante-10-R-PLUS.pdf",
+          "imageUrl": "https://www.gecol.com/files/resize/outside/500-500-webimage-gecol-nivelante-10-r-plus_427af86462d15537401717461e7e4e93.png",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "GECOL Primer-TP",
+              "detail": "Sur support absorbant, dilution 1 volume de produit pour 3 volumes d’eau ; attendre 3 à 24 h selon conditions. Une seconde passe peut être nécessaire si très absorbant. Quantité non convertie en kg car la fiche exprime le rendement en m²/litre.",
+              "url": "https://www.gecol.com/es/product/gecol-primer-tp",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "GECOL Primer-TP",
+              "detail": "Sur support absorbant, dilution 1 volume de produit pour 3 volumes d’eau ; attendre 3 à 24 h selon conditions. Une seconde passe peut être nécessaire si très absorbant. Quantité non convertie en kg car la fiche exprime le rendement en m²/litre.",
+              "url": "https://www.gecol.com/es/product/gecol-primer-tp",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "GECOL Primer-TP",
+              "detail": "Sur faible ou nulle absorption : pur sur support propre et sec ; attente 1 à 3 h selon conditions. Quantité non convertie en kg.",
+              "url": "https://www.gecol.com/es/product/gecol-primer-tp",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "GECOL Primer-TP",
+              "detail": "Sur faible ou nulle absorption : pur sur support propre et sec ; attente 1 à 3 h selon conditions. Quantité non convertie en kg.",
+              "url": "https://www.gecol.com/es/product/gecol-primer-tp",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "tile": {
+              "name": "GECOL Primer-TP",
+              "detail": "Sur faible ou nulle absorption : pur sur support propre et sec ; attente 1 à 3 h selon conditions. Quantité non convertie en kg.",
+              "url": "https://www.gecol.com/es/product/gecol-primer-tp",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Profil du calculateur limité à une couche continue de 3 à 10 mm : la fiche ne donne pas de minimum général mais décrit une couche de finition de 3 mm. Autres faibles épaisseurs à faire valider.",
+            "Sous parquet, épaisseur maximale 3 mm selon la fiche : le profil automatique ne peut donc retenir que 3 mm.",
+            "Non admis sur bois, plâtre, surfaces peintes, extérieur, support humide permanent ou finition nue.",
+            "Consommation fabricant nominale 1,5 kg/m²/mm avec variation annoncée ±0,3 kg/m²/mm.",
+            "Chauffage radiant mentionné sans type précis ; validation du système nécessaire."
+          ],
+          "checkedAt": "2026-11-03",
+          "finishLimits": {
+            "parquet": {
+              "max": 3
+            }
+          },
+          "rateMin": 1.2,
+          "rateMax": 1.8,
+          "comparison": {
+            "summary": "Pour les rattrapages fins, avec une reprise de la marche et une pose du carrelage plus rapides que Nivelante 35.",
+            "highlights": [
+              "Jusqu’à 10 mm sans ajout de sable",
+              "Classe CT-C30-F6",
+              "Sous parquet : maximum 3 mm dans la fiche"
+            ],
+            "walkable": "Environ 3 h selon les conditions ambiantes.",
+            "covering": "Carrelage : 8 à 12 h ; parquet, PVC et résine : 24 h, sous réserve des conditions et de l’humidité requise.",
+            "workingTime": "Temps ouvert d’autonivellement : 15 à 30 min selon les conditions ambiantes.",
+            "sourceUrl": "https://my.assets-library.com/asset/e036f8a4-6114-4d0c-9b3c-014d8e0b6b51/TDS-GECOL-Nivelante-10-R-PLUS.pdf"
+          }
+        },
+        {
+          "id": "gecol-nivelante-35",
+          "name": "GECOL Nivelante 35",
+          "type": "Ragréage ciment intérieur CT-C30-F5",
+          "rate": 1.5,
+          "bag": 25,
+          "min": 5,
+          "max": 35,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete"
+          ],
+          "heating": [
+            "none",
+            "electric"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://www.gecol.com/es/product/gecol-nivelante-35",
+          "technicalUrl": "https://my.assets-library.com/asset/76e4862d-68ea-4e1c-bb6c-53877c223c36/TDS-GECOL-Nivelante-35.pdf",
+          "imageUrl": "https://www.gecol.com/files/resize/outside/500-500-webimage-gecol-nivelante-35_34d8b5f4242097a8051e97bdb02be3fc.webp",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "GECOL Primer-TP",
+              "detail": "Sur support absorbant, dilution 1 volume de produit pour 3 volumes d’eau ; attendre 3 à 24 h selon conditions. Une seconde passe peut être nécessaire si très absorbant. Quantité non convertie en kg car la fiche exprime le rendement en m²/litre.",
+              "url": "https://www.gecol.com/es/product/gecol-primer-tp",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "GECOL Primer-TP",
+              "detail": "Sur support absorbant, dilution 1 volume de produit pour 3 volumes d’eau ; attendre 3 à 24 h selon conditions. Une seconde passe peut être nécessaire si très absorbant. Quantité non convertie en kg car la fiche exprime le rendement en m²/litre.",
+              "url": "https://www.gecol.com/es/product/gecol-primer-tp",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "GECOL Primer-TP",
+              "detail": "Sur faible ou nulle absorption : pur sur support propre et sec ; attente 1 à 3 h selon conditions. Quantité non convertie en kg.",
+              "url": "https://www.gecol.com/es/product/gecol-primer-tp",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "GECOL Primer-TP",
+              "detail": "Sur faible ou nulle absorption : pur sur support propre et sec ; attente 1 à 3 h selon conditions. Quantité non convertie en kg.",
+              "url": "https://www.gecol.com/es/product/gecol-primer-tp",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "tile": {
+              "name": "GECOL Primer-TP",
+              "detail": "Sur faible ou nulle absorption : pur sur support propre et sec ; attente 1 à 3 h selon conditions. Quantité non convertie en kg.",
+              "url": "https://www.gecol.com/es/product/gecol-primer-tp",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Sur nattes chauffantes à fil de cuivre, la fiche prescrit au moins 7 jours de séchage ; contrôler aussi le système chauffant et le revêtement.",
+            "Non admis sur bois, plâtre, peinture, extérieur, humidité permanente ou finition nue.",
+            "Consommation nominale 1,5 kg/m²/mm avec variation annoncée ±0,3 kg/m²/mm."
+          ],
+          "checkedAt": "2026-11-03",
+          "rateMin": 1.2,
+          "rateMax": 1.8,
+          "comparison": {
+            "summary": "Pour rattraper davantage d’épaisseur en une seule couche, de 5 à 35 mm.",
+            "highlights": [
+              "De 5 à 35 mm en une couche",
+              "Classe CT-C30-F5",
+              "Nattes électriques visées par la fiche : séchage minimal de 7 jours"
+            ],
+            "walkable": "Environ 24 h selon les conditions ambiantes.",
+            "covering": "Carrelage, parquet, PVC et résine : environ 24 h, sous réserve des conditions et de l’humidité requise.",
+            "workingTime": "Temps ouvert d’autonivellement : 15 à 30 min selon les conditions ambiantes.",
+            "sourceUrl": "https://my.assets-library.com/asset/76e4862d-68ea-4e1c-bb6c-53877c223c36/TDS-GECOL-Nivelante-35.pdf"
+          }
+        }
+      ]
+    },
+    {
+      "id": "capa",
+      "name": "Cementos Capa",
+      "website": "https://capa.es/",
+      "logoUrl": "https://capa.es/wp-content/uploads/2021/10/LOGO-CAPA-upd.svg",
+      "products": [
+        {
+          "id": "capa-aplica-level-plus",
+          "name": "Aplica Level Plus",
+          "type": "Ragréage ciment rapide CT-C35-F7",
+          "rate": 2.05,
+          "bag": 25,
+          "min": 10,
+          "max": 35,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://capa.es/aplica-level-plus/",
+          "technicalUrl": "https://capa.es/wp-content/uploads/2026/08/FT-Aplicalevel-Plus-E25K-Ago-26.pdf",
+          "imageUrl": "https://capa.es/wp-content/uploads/2026/08/Aplica-Level-Plus.jpg",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "APLICA LEVEL PRIMER",
+              "detail": "Primaire prescrit avant le ragréage. Préparation mécanique pour ouvrir le pore ; sur ancien carrelage intérieur, contrôler l’adhérence existante.",
+              "url": "https://capa.es/wp-content/uploads/2026/08/FT-Aplicalevel-Plus-E25K-Ago-26.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "APLICA LEVEL PRIMER",
+              "detail": "Primaire prescrit avant le ragréage. Préparation mécanique pour ouvrir le pore ; sur ancien carrelage intérieur, contrôler l’adhérence existante.",
+              "url": "https://capa.es/wp-content/uploads/2026/08/FT-Aplicalevel-Plus-E25K-Ago-26.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "APLICA LEVEL PRIMER",
+              "detail": "Primaire prescrit avant le ragréage. Préparation mécanique pour ouvrir le pore ; sur ancien carrelage intérieur, contrôler l’adhérence existante.",
+              "url": "https://capa.es/wp-content/uploads/2026/08/FT-Aplicalevel-Plus-E25K-Ago-26.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "APLICA LEVEL PRIMER",
+              "detail": "Primaire prescrit avant le ragréage. Préparation mécanique pour ouvrir le pore ; sur ancien carrelage intérieur, contrôler l’adhérence existante.",
+              "url": "https://capa.es/wp-content/uploads/2026/08/FT-Aplicalevel-Plus-E25K-Ago-26.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "tile": {
+              "name": "APLICA LEVEL PRIMER",
+              "detail": "Primaire prescrit avant le ragréage. Préparation mécanique pour ouvrir le pore ; sur ancien carrelage intérieur, contrôler l’adhérence existante.",
+              "url": "https://capa.es/wp-content/uploads/2026/08/FT-Aplicalevel-Plus-E25K-Ago-26.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Base conservatrice : 2,05 kg/m²/mm, limite haute des 19,5 à 20,5 kg/m² par cm publiés dans la fiche.",
+            "La fiche officielle est contradictoire sur l’extérieur : annoncé dans les applications puis interdit dans les précautions. Profil automatique limité à l’intérieur jusqu’à confirmation du fabricant.",
+            "Ne pas appliquer directement sur anhydrite, métal ou support fléchissant ; recouvrement obligatoire.",
+            "Chauffage radiant annoncé mais type non identifié ; validation du système requise."
+          ],
+          "checkedAt": "2026-11-03",
+          "rateMin": 1.95,
+          "rateMax": 2.05
+        }
+      ]
+    },
+    {
+      "id": "sika-es",
+      "name": "Sika",
+      "website": "https://esp.sika.com/",
+      "logoUrl": "https://publish-p136453-e1368545.adobeaemcloud.com/dam/media/sika-global/logo/glo-sika_claimu_pos_rgb.png",
+      "products": [
+        {
+          "id": "sika-es-200-level",
+          "name": "Sikafloor-200 Level (ES)",
+          "type": "Ragréage ciment intérieur C25-F6",
+          "rate": 1.74,
+          "bag": 25,
+          "min": 3,
+          "max": 50,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "anhydrite"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://esp.sika.com/es/construccion/acabados/pavimentos/nivelacion-de-pavimentos/sikafloor-200-leveles.html",
+          "technicalUrl": "https://esp.sika.com/content/dam/dms/es01/k/sikafloor-200-leveles.pdf",
+          "imageUrl": "https://dynamicmedia.sika.com/adobe/assets/urn%3Aaaid%3Aaem%3A159306cb-25d5-4196-9c73-0bedc2c7432a/as/gr-02-el-GR-Sikafloor-200-Level-1x1--00000938.png?height=480&smartcrop=1-1&width=480",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "Sika Level-01 Primer",
+              "detail": "Primaire acrylique prescrit par la fiche locale. Adapter dilution et préparation à la nature du support selon la fiche du primaire ; anciens carreaux fermement collés, nettoyés et poncés.",
+              "url": "https://esp.sika.com/content/dam/dms/es01/k/sikafloor-200-leveles.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Sika Level-01 Primer",
+              "detail": "Primaire acrylique prescrit par la fiche locale. Adapter dilution et préparation à la nature du support selon la fiche du primaire ; anciens carreaux fermement collés, nettoyés et poncés.",
+              "url": "https://esp.sika.com/content/dam/dms/es01/k/sikafloor-200-leveles.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Sika Level-01 Primer",
+              "detail": "Primaire acrylique prescrit par la fiche locale. Adapter dilution et préparation à la nature du support selon la fiche du primaire ; anciens carreaux fermement collés, nettoyés et poncés.",
+              "url": "https://esp.sika.com/content/dam/dms/es01/k/sikafloor-200-leveles.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Sika Level-01 Primer",
+              "detail": "Primaire acrylique prescrit par la fiche locale. Adapter dilution et préparation à la nature du support selon la fiche du primaire ; anciens carreaux fermement collés, nettoyés et poncés.",
+              "url": "https://esp.sika.com/content/dam/dms/es01/k/sikafloor-200-leveles.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "tile": {
+              "name": "Sika Level-01 Primer",
+              "detail": "Primaire acrylique prescrit par la fiche locale. Adapter dilution et préparation à la nature du support selon la fiche du primaire ; anciens carreaux fermement collés, nettoyés et poncés.",
+              "url": "https://esp.sika.com/content/dam/dms/es01/k/sikafloor-200-leveles.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "Sika Level-01 Primer",
+              "detail": "Primaire acrylique prescrit par la fiche locale. Adapter dilution et préparation à la nature du support selon la fiche du primaire ; anciens carreaux fermement collés, nettoyés et poncés.",
+              "url": "https://esp.sika.com/content/dam/dms/es01/k/sikafloor-200-leveles.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Valeurs du produit espagnol : 1,74 kg/m²/mm, à ne pas confondre avec la fiche française du même nom.",
+            "Sous parquet, couche complète de 5 mm minimum.",
+            "Zone humide : prévoir le système d’imperméabilisation requis. Pas de remontées d’humidité.",
+            "Chauffage au sol annoncé sans type précis ; validation du système eau/électrique requise."
+          ],
+          "checkedAt": "2026-11-03",
+          "finishLimits": {
+            "parquet": {
+              "min": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "mapei-es",
+      "name": "Mapei",
+      "website": "https://www.mapei.com/es/es/",
+      "products": [
+        {
+          "id": "mapei-es-ultraplan-eco",
+          "name": "Ultraplan Eco",
+          "type": "Ragréage ciment intérieur à durcissement ultrarapide",
+          "rate": 1.6,
+          "bag": 23,
+          "min": 1,
+          "max": 10,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "anhydrite"
+          ],
+          "heating": [
+            "none",
+            "water"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0",
+          "imageUrl": "",
+          "primaries": {
+            "cementAbsorbent": {
+              "name": "Primer G ou Eco Prim T Plus",
+              "detail": "Sur ciment absorbant : Primer G dilué 1:1 à l’eau, ou Eco Prim T Plus dilué jusqu’à 1:4 selon la fiche. Vérifier séchage et dilution dans la fiche courante.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteAbsorbent": {
+              "name": "Primer G ou Eco Prim T Plus",
+              "detail": "Sur ciment absorbant : Primer G dilué 1:1 à l’eau, ou Eco Prim T Plus dilué jusqu’à 1:4 selon la fiche. Vérifier séchage et dilution dans la fiche courante.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "cementClosed": {
+              "name": "Eco Prim T Plus ou Eco Prim Grip Plus",
+              "detail": "Après nettoyage adapté et abrasion mécanique de la céramique ou pierre existante ; suivre la fiche du primaire choisi.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "concreteClosed": {
+              "name": "Eco Prim T Plus ou Eco Prim Grip Plus",
+              "detail": "Après nettoyage adapté et abrasion mécanique de la céramique ou pierre existante ; suivre la fiche du primaire choisi.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "tile": {
+              "name": "Eco Prim T Plus ou Eco Prim Grip Plus",
+              "detail": "Après nettoyage adapté et abrasion mécanique de la céramique ou pierre existante ; suivre la fiche du primaire choisi.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            },
+            "anhydrite": {
+              "name": "Primer G ou Eco Prim T Plus",
+              "detail": "Sur anhydrite : Primer G pur ou Eco Prim T Plus dilué jusqu’à 1:2 à l’eau. Contrôle de l’humidité et préparation selon les prescriptions de la chape.",
+              "url": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg"
+            }
+          },
+          "notes": [
+            "Sac du catalogue espagnol : 23 kg.",
+            "Sous parquet, 3 mm minimum. Mode calcul sans ajout de sable : 10 mm maximum.",
+            "Chauffage à eau explicitement décrit par des tubes incorporés à la chape ; chauffage électrique non couvert par ce profil.",
+            "Interdit en extérieur et sur supports soumis à remontées d’humidité."
+          ],
+          "checkedAt": "2026-11-03",
+          "finishLimits": {
+            "parquet": {
+              "min": 3
+            }
+          },
+          "imagePdf": {
+            "url": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00513_ultraplan-eco_es-es_fe9168bf31a24760a9152939bdd4a0ac.pdf?sfvrsn=de025f0_0",
+            "page": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "fixcer",
+      "name": "Fixcer",
+      "website": "https://fixcer.com/",
+      "products": [
+        {
+          "id": "fixcer-fix-nivel",
+          "name": "FIX-NIVEL",
+          "type": "Ragréage intérieur à prise rapide CT-C11-F4",
+          "rate": 1.6,
+          "bag": 25,
+          "min": 1,
+          "max": 15,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "wood"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "finishLimits": {
+            "parquet": {
+              "min": 3
+            }
+          },
+          "primaries": {
+            "concreteAbsorbent": {
+              "url": "https://fixcer.com/upload/es/fichas/fixcer-ficha-producto-fix-nivel-es.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg",
+              "name": "PRIMFIX",
+              "detail": "Sur béton très absorbant ou poussiéreux : 1 volume de PRIMFIX pour 4 volumes d’eau, appliquer puis laisser sécher. La fiche donne 0,03 l/m² de produit ; aucune conversion en kg sans densité."
+            },
+            "tile": {
+              "url": "https://fixcer.com/upload/es/fichas/fixcer-ficha-producto-fix-nivel-es.pdf",
+              "rateMin": 0.15,
+              "rateMax": 0.15,
+              "unit": "kg",
+              "name": "BOND COAT",
+              "detail": "Sur bois ou ancien carrelage : pont d’adhérence BOND COAT, laisser sécher 3 à 5 h avant ragréage."
+            },
+            "wood": {
+              "url": "https://fixcer.com/upload/es/fichas/fixcer-ficha-producto-fix-nivel-es.pdf",
+              "rateMin": 0.15,
+              "rateMax": 0.15,
+              "unit": "kg",
+              "name": "BOND COAT",
+              "detail": "Sur bois ou ancien carrelage : pont d’adhérence BOND COAT, laisser sécher 3 à 5 h avant ragréage."
+            }
+          },
+          "imageUrl": "https://fixcer.com/wp-content/uploads/2024/03/fixcer-autonivelantes-fix-nivel-01-180x180.jpg",
+          "sourceUrl": "https://fixcer.com/material-construccion/autonivelantes/fix-nivel/",
+          "technicalUrl": "https://fixcer.com/upload/es/fichas/fixcer-ficha-producto-fix-nivel-es.pdf",
+          "notes": [
+            "Sous parquet collé : 3 mm minimum. Contrôler l’humidité résiduelle avant recouvrement.",
+            "Bois et ancien carrelage explicitement traités avec BOND COAT ; vérifier rigidité et stabilité du support.",
+            "Chauffage radiant mentionné sans distinction de système : validation du type eau ou électrique requise.",
+            "Ne pas utiliser ce profil pour des sollicitations industrielles sans validation de l’ouvrage."
+          ],
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "id": "fixcer-fix-nivel-premium",
+          "name": "FIX-NIVEL PREMIUM",
+          "type": "Ragréage intérieur à prise rapide CT-C11-F4",
+          "rate": 1.6,
+          "bag": 25,
+          "min": 1,
+          "max": 20,
+          "locations": [
+            "inside"
+          ],
+          "supports": [
+            "tile",
+            "cement",
+            "concrete",
+            "wood"
+          ],
+          "heating": [
+            "none"
+          ],
+          "finishes": [
+            "tile",
+            "soft",
+            "parquet"
+          ],
+          "finishLimits": {
+            "parquet": {
+              "min": 3
+            }
+          },
+          "primaries": {
+            "concreteAbsorbent": {
+              "url": "https://fixcer.com/upload/fr/fichas/fixcer-ficha-producto-fix-nivel-premium-fr.pdf",
+              "rateMin": null,
+              "rateMax": null,
+              "unit": "kg",
+              "name": "PRIMFIX",
+              "detail": "Sur béton très absorbant ou poussiéreux : 1 volume de PRIMFIX pour 4 volumes d’eau, appliquer puis laisser sécher. La fiche donne 0,03 l/m² de produit ; aucune conversion en kg sans densité."
+            },
+            "tile": {
+              "url": "https://fixcer.com/upload/fr/fichas/fixcer-ficha-producto-fix-nivel-premium-fr.pdf",
+              "rateMin": 0.15,
+              "rateMax": 0.15,
+              "unit": "kg",
+              "name": "BOND COAT",
+              "detail": "Sur bois ou ancien carrelage : pont d’adhérence BOND COAT, laisser sécher 3 à 5 h avant ragréage."
+            },
+            "wood": {
+              "url": "https://fixcer.com/upload/fr/fichas/fixcer-ficha-producto-fix-nivel-premium-fr.pdf",
+              "rateMin": 0.15,
+              "rateMax": 0.15,
+              "unit": "kg",
+              "name": "BOND COAT",
+              "detail": "Sur bois ou ancien carrelage : pont d’adhérence BOND COAT, laisser sécher 3 à 5 h avant ragréage."
+            }
+          },
+          "imageUrl": null,
+          "sourceUrl": "https://fixcer.com/fr/materiel-construction/mortiers-autonivelants/fix-nivel-premium/",
+          "technicalUrl": "https://fixcer.com/upload/fr/fichas/fixcer-ficha-producto-fix-nivel-premium-fr.pdf",
+          "notes": [
+            "Intérieur uniquement ; chauffage radiant admis selon la fiche.",
+            "Respecter la préparation du support et le séchage du pont BOND COAT sur ancienne céramique ou bois."
+          ],
+          "checkedAt": "2026-11-03",
+          "comparison": {
+            "summary": "Version extra-fluide, jusqu’à 20 mm contre 15 mm pour FIX-NIVEL.",
+            "highlights": [
+              "1 à 20 mm ; parquet collé : 3 mm minimum",
+              "Sac de 25 kg · 1,6 kg/m²/mm"
+            ],
+            "walkable": "3 à 12 h selon conditions.",
+            "covering": "Vérifier l’humidité après 12 à 24 h avant de poser le revêtement.",
+            "workingTime": "Environ 20 à 30 min.",
+            "sourceUrl": "https://fixcer.com/upload/fr/fichas/fixcer-ficha-producto-fix-nivel-premium-fr.pdf"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "weber-for": {
+    "summary": "Pour la rénovation intérieure, avec un ragréage fibré de 3 à 30 mm.",
+    "highlights": ["Intérieur uniquement", "Fibré, classe P3", "3 à 30 mm en couche continue"],
+    "walkable": "Environ 2 à 3 h à +20 °C, selon conditions.",
+    "covering": "Carrelage ou moquette : 3 à 4 h ; sol souple : 6 à 8 h ; parquet : environ 24 h à +20 °C, sous réserve du séchage requis.",
+    "workingTime": "Durée pratique d’utilisation : environ 20 min à +20 °C.",
+    "sourceUrl": "https://www.fr.weber/files/fr/2025-06/fichetechnique_weberniv%20for_fr.pdf?cb=d5f690e4"
+  },
+  "weber-dur": {
+    "summary": "Pour davantage d’épaisseur ou un usage extérieur à recouvrir.",
+    "highlights": ["3 à 50 mm en une passe", "Fibré, classe P4SR", "Intérieur et extérieur ; finition nue limitée aux annexes intérieures"],
+    "walkable": "Environ 2 à 4 h à +20 °C, selon conditions.",
+    "covering": "Carrelage ou moquette : 2 à 4 h ; sol plastique : 6 h ; parquet : 24 h à +20 °C, sous réserve du séchage requis.",
+    "workingTime": "Durée pratique d’utilisation : environ 30 min à +20 °C.",
+    "sourceUrl": "https://www.fr.weber/files/fr/2025-11/fichetechnique_weberniv%20dur%20%2B_fr.pdf?cb=d5f690e4"
+  },
+  "weber-lex": {
+    "summary": "Pour égaliser et finir les sols extérieurs, avec possibilité de rester nu.",
+    "highlights": ["3 à 10 mm en couche continue sans sable", "Peut rester nu en extérieur et dans les annexes admises", "Aspect non décoratif : nuances ou moirage possibles"],
+    "walkable": "Environ 2 à 4 h à +20 °C, selon conditions.",
+    "covering": "Carrelage : 8 à 12 h ; peinture de sol : 72 h à +20 °C, sous réserve du séchage requis.",
+    "workingTime": "Durée pratique d’utilisation : 20 à 30 min ; temps ouvert : 20 min, à +20 °C.",
+    "sourceUrl": "https://www.fr.weber/files/fr/2026-05/fichetechnique_weberniv%20lex%202_fr.pdf?cb=d5f690e4"
+  },
+  "cegecol-f": {
+    "summary": "Pour la rénovation intérieure sur supports bois ou mixtes admis, grâce à sa formulation fibrée.",
+    "highlights": ["Fibré et souple, classe P3", "Supports bois admis avec préparation et épaisseur minimale de 5 mm", "Sur bois avec carrelage : carreaux limités à 33 × 33 cm selon la fiche"],
+    "walkable": "Environ 4 à 6 h à +23 °C et 50 % HR, selon le chantier.",
+    "covering": "24 à 48 h selon revêtement ; 72 h avant parquet ; au moins 48 h à 20 mm, avec contrôle d’humidité.",
+    "workingTime": "Environ 20 min à +23 °C et 50 % HR.",
+    "sourceUrl": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolf_fr_fr_tds.pdf"
+  },
+  "cegecol-se": {
+    "summary": "Pour les sols intérieurs ou extérieurs, avec possibilité de rester nu ou d’être peint selon le système.",
+    "highlights": ["Classe P3, intérieur et extérieur", "Peut rester nu ou recevoir une peinture de sol", "Plancher chauffant à eau admis ; PRE exclu"],
+    "walkable": "Environ 4 h à +23 °C et 50 % HR, selon le chantier.",
+    "covering": "Carrelage : 12 h ; textile : 24 h ; sol souple : 48 h ; peinture : 72 h, selon séchage et conditions.",
+    "workingTime": "Environ 20 min à +23 °C et 50 % HR.",
+    "sourceUrl": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcegesolse_fr_fr_tds.pdf"
+  }
+}
