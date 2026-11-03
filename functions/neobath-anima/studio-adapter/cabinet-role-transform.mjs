@@ -35,7 +35,7 @@ function __animaCommitCabinetProject(project,{checkpoint=true}={}){
 }
 `;
 export function transformCabinetRoles(source){
- source=source.replace('model=makeModel();scene.add(model.root);',"model=makeModel({format:state.format,basinTop:state.top,topDrawer:state.topDrawer,includeMirror:false});scene.add(model.root);");
+ source=source.replace('model=makeModel();scene.add(model.root);',"model=makeModel({format:state.format,basinTop:state.top,topDrawer:state.topDrawer,includeMirror:true});scene.add(model.root);");
  source=source.replaceAll("format:'two'","format:'pura-base-two'").replaceAll("settings.format=options.format||'two'","settings.format=options.format||'pura-base-two'");
  source=source.replace('function saveCabinetState(){state.topDrawer=normalizeTopDrawer(state.topDrawer,state.top);',"function saveCabinetState(){state.topDrawer=cabinetFormat(state.format).subtype==='vanity'?'siphon':'full';");
  source=source.replace('const asset=makeSceneAsset(type,settings);',"if(type==='cabinet')Object.assign(settings,__animaCabinetRole(settings));const asset=makeSceneAsset(type,settings);");

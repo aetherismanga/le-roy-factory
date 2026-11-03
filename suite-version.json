@@ -149,7 +149,7 @@
       "privateApplicationEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-details-6",
+      "releaseId": "20261103-neobath-anima-studio-one-startup-6a",
       "page": "neobath-anima-configurateur.html",
       "access": "agents-only",
       "modules": 42,
@@ -158,7 +158,7 @@
       "products": 257,
       "compositions": 16,
       "projectSync": "shared-agent-private-api",
-      "appSha256": "2578ee7f02f246f352c4d868d74850ac392d3172530139ab8d4db574b2c692e8",
+      "appSha256": "96789a6ee5d8e0916fed87b3f083ebfb4ed5cf2b1d9070d42b5966f92e156ca9",
       "engine": "studio-one",
       "homeSha256": "bc5795674348d152f886c39d53a07066014746c9e49cc18c33b2949539c3b1a4",
       "photographs": 155,
@@ -198,7 +198,8 @@
       ],
       "strictTapCompatibility": true,
       "curvedIntegratedGrips": true,
-      "textileDrawerInterior": true
+      "textileDrawerInterior": true,
+      "startupMirrorContractVerified": true
     },
     "clientAnalysis": {
       "releaseId": "20261103-reports2",
@@ -249,7 +250,7 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-details-6",
+      "releaseId": "20261103-neobath-anima-studio-one-startup-6a",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true
