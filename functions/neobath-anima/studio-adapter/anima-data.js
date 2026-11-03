@@ -1,5 +1,5 @@
 import CATALOGUE from '../catalogue.json' with {type:'json'};
-import {animaWellProfile} from './top-profiles.js';
+import {animaWellProfile,animaWellLayout} from './top-profiles.js';
 import {MATERIAL_FAMILIES} from './materials-data.js';
 
 export {CATALOGUE};
@@ -23,7 +23,7 @@ export function productFitsWidth(p,width){
   if(p.minCompositionWidth&&width<p.minCompositionWidth)return false;
   return true;
 }
-export function topSelection(mode,width=80,format='two',layout='center',topSpan=width,topPlanId,topLength){
+export function topSelection(mode,width=80,format='two',layout='center',topSpan=width,topPlanId,topLength,options={}){
   const span=Number.isFinite(topSpan)&&topSpan>=width?topSpan:width;
   const length=topLength??span;
   if(!Number.isFinite(length)||length<span)return null;
@@ -52,8 +52,22 @@ export function topSelection(mode,width=80,format='two',layout='center',topSpan=
   if(basin&&positions.some(position=>Math.abs(position)*100+(basin.width||0)/2>finishedWidth/2-2.5))return null;
   const family=/^TFX/.test(top.ref||'')?'fenix':/^THPL/.test(top.ref||'')?'hpl':/^TGRS/.test(top.ref||'')?'gres':/^TXT/.test(top.ref||'')?'geacril-stone':/^TPGEA/.test(top.ref||'')?'geacril':null;
   const reference=MATERIAL_FAMILIES.find(entry=>entry.id===family);
-  return {mode,top,basin,product,topWidth:finishedWidth,billingLength:top.billingLength||length,integrated,topSpan:span,topLength:length,previewDepth:top.depth??reference?.referenceDepth??46.2,previewDepthNote:top.depth?null:reference?.referenceDepthNote||'Profondeur d’implantation à confirmer avant fabrication.',
-    positions:mode==='plain'||top.subtype==='cover'||top.subtype==='linear'&&!basin?[]:positions,reference:product.ref||null,format,layout:count===2?'double':position==='left'?'left':position==='right'?'right':'center'};
+  const referenceDepth=top.depth??reference?.referenceDepth??46.2,previewDepth=options.topDepth??referenceDepth;
+  const offsetX=options.basinOffsetX??0,offsetZ=options.basinOffsetZ??0;
+  if(![previewDepth,offsetX,offsetZ].every(Number.isFinite))return null;
+  // These are preview safety limits, never advertised as factory capacities.
+  // A different depth needs a manufacturer quotation; stock tops stay fixed.
+  if(top.configurableWidth?(previewDepth<46||previewDepth>90):(Math.abs(previewDepth-referenceDepth)>.001||offsetX!==0||offsetZ!==0))return null;
+  const hasBasin=!(mode==='plain'||top.subtype==='cover'||top.subtype==='linear'&&!basin);
+  const baseZ=basin&&!integrated?Math.min(.020,referenceDepth/200-well.d/2-.007):.020;
+  const centres=hasBasin?positions.map(x=>x+offsetX/100):[],positionsZ=centres.map(()=>baseZ+offsetZ/100);
+  const edge=basin?.subtype==='countertop'||basin?.subtype==='semi-recessed'? .007 : .025;
+  if(top.configurableWidth&&basin&&!integrated&&centres.some((x,i)=>Math.abs(x)+well.w/2>W/2-edge+1e-7||Math.abs(positionsZ[i])+well.d/2>previewDepth/200-edge+1e-7))return null;
+  if(centres.some((x,i)=>centres.some((other,j)=>j>i&&Math.abs(x-other)<well.w+.025)))return null;
+  const selection={mode,top,basin,product,basinOffsetX:offsetX,basinOffsetZ:offsetZ,topWidth:finishedWidth,billingLength:top.billingLength||length,integrated,topSpan:span,topLength:length,previewDepth,referenceDepth,customDepth:Math.abs(previewDepth-referenceDepth)>.001,previewDepthNote:top.depth?null:reference?.referenceDepthNote||'Profondeur d’implantation à confirmer avant fabrication.',
+    positions:centres,positionsZ,reference:product.ref||null,format,layout:count===2?'double':position==='left'?'left':position==='right'?'right':'center'};
+  if(integrated){selection.wellProfiles=animaWellLayout(selection);if(!selection.wellProfiles)return null;}
+  return selection;
 }
 export const TOP_OPTIONS=Object.freeze([
   {id:'bare',name:'Meuble seul — sans plan',description:'Caisson Anima seul',category:'bare',reference:null},

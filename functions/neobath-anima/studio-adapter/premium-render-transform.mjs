@@ -1,4 +1,5 @@
 import {parse} from 'acorn';
+import {cropAnimaWoodFrontTexture} from './premium-rendering.mjs';
 
 function amendFunction(source,name,change){
  const node=parse(source,{ecmaVersion:'latest',sourceType:'module'}).body.find(node=>node.type==='FunctionDeclaration'&&node.id?.name===name);
@@ -6,15 +7,22 @@ function amendFunction(source,name,change){
  return source.slice(0,node.start)+change(source.slice(node.start,node.end))+source.slice(node.end);
 }
 const filterMaps=`for(const texture of [map,front,bump,frontBump,ribelleFront,ribelleFrontBump]){texture.wrapS=texture.wrapT=T.MirroredRepeatWrapping;texture.magFilter=T.LinearFilter;texture.minFilter=T.LinearMipmapLinearFilter;texture.generateMipmaps=true;texture.anisotropy=Math.min(16,typeof renderer==='object'?renderer.capabilities?.getMaxAnisotropy?.()||8:8);texture.needsUpdate=true;}`;
+const cropFrontPixels='('+cropAnimaWoodFrontTexture.toString()+')(front);';
 function cabinetMaps(source){
- source=source.replace('f.frontTexture?await loadTexture(tileAssetURL(f.frontTexture),profile):map.clone()','f.frontTexture?(await loadTexture(tileAssetURL(f.frontTexture),profile)).clone():map.clone()')
+ source=source.replace('if(!file)return null;',"if(!file||f.textureMapped===false)return null;const textureProfile=profile==='fluid'&&quality.mode==='auto'?'balanced':profile;")
+  .replace('f.frontTexture?await loadTexture(tileAssetURL(f.frontTexture),profile):map.clone()','f.frontTexture?(await loadTexture(tileAssetURL(f.frontTexture),profile)).clone():map.clone()')
+  .replace('front.wrapS=front.wrapT=T.RepeatWrapping;',"if(f.id==='rovere-alba')"+cropFrontPixels+'front.wrapS=front.wrapT=T.RepeatWrapping;')
   .replace('const frontBump=bump.clone();','const frontBump=front.clone();frontBump.colorSpace=T.NoColorSpace;')
   .replace('const bump=map.clone();',"const ribelleFront=f.ribelleFrontTexture?(await loadTexture(tileAssetURL(f.ribelleFrontTexture),profile)).clone():front.clone();ribelleFront.wrapS=ribelleFront.wrapT=T.RepeatWrapping;ribelleFront.colorSpace=T.SRGBColorSpace;ribelleFront.repeat.copy(front.repeat);ribelleFront.center.set(.5,.5);ribelleFront.rotation=0;const ribelleFrontBump=ribelleFront.clone();ribelleFrontBump.colorSpace=T.NoColorSpace;const bump=map.clone();")
   .replace('return {map,front,bump,frontBump,profile};',filterMaps+'return {map,front,bump,frontBump,ribelleFront,ribelleFrontBump,profile};');
- return source;
+ return source.replaceAll('loadTexture(tileAssetURL(file),profile)','loadTexture(tileAssetURL(file),textureProfile)').replaceAll('loadTexture(tileAssetURL(f.frontTexture),profile)','loadTexture(tileAssetURL(f.frontTexture),textureProfile)').replaceAll('loadTexture(tileAssetURL(f.ribelleFrontTexture),profile)','loadTexture(tileAssetURL(f.ribelleFrontTexture),textureProfile)');
 }
 function previewMaps(source){
- source=source.replace('const frontBump=bump.clone();','const frontBump=front.clone();frontBump.colorSpace=T.NoColorSpace;')
+ source=source.replace('Math.min(devicePixelRatio||1,innerWidth<700?1.5:2)','Math.min(Math.max(devicePixelRatio||1,1.35),innerWidth<700?1.65:2)')
+  .replace('if(!definition?.texture)return null;','if(!definition?.texture||definition.textureMapped===false)return null;')
+  .replace('front.colorSpace=T.SRGBColorSpace;',"if(definition.id==='rovere-alba')"+cropFrontPixels+'front.colorSpace=T.SRGBColorSpace;')
+  .replace('if(!tx)continue;',"if(!tx){item.asset.furniturePlanTextures=null;item.asset.setSurface?.(item.settings,{onReady:invalidate});continue;}")
+  .replace('const frontBump=bump.clone();','const frontBump=front.clone();frontBump.colorSpace=T.NoColorSpace;')
   .replace('const bump=t.clone();',"const ribelleFront=definition.ribelleFrontTexture?await new T.TextureLoader().loadAsync(__animaAsset(definition.ribelleFrontTexture)):front.clone();ribelleFront.wrapS=ribelleFront.wrapT=T.RepeatWrapping;ribelleFront.colorSpace=T.SRGBColorSpace;ribelleFront.repeat.copy(front.repeat);ribelleFront.center.set(.5,.5);ribelleFront.rotation=0;const ribelleFrontBump=ribelleFront.clone();ribelleFrontBump.colorSpace=T.NoColorSpace;const bump=t.clone();")
   .replace('return {map:t,front,bump,frontBump};',filterMaps.replace('[map,','[t,')+'return {map:t,front,bump,frontBump,ribelleFront,ribelleFrontBump};');
  source=source.replaceAll('front?tx.front:tx.map',"front?(item.asset.spec?.facade==='RIBELLE'?tx.ribelleFront||tx.front:tx.front):tx.map")
@@ -30,11 +38,15 @@ function previewMaps(source){
 // adapters. No edit is applied to either original RANDAL application.
 export function transformPremiumRendering(source,relativePath){
  if(relativePath==='app.js'){
+  source=source.replace("from './performance.js'","from '@anima-adapter/render-quality.js'");
   source=amendFunction(source,'requestFinishAssets',cabinetMaps);
   source=amendFunction(source,'applyFurnitureMaterial',body=>body
-   .replace('const tx=finishTextures[finish.id];',"const tx=finishTextures[finish.id],ribelle=asset.spec?.facade==='RIBELLE';asset.furniturePlanTextures=tx?{map:tx.front,bump:tx.frontBump}:null;")
+   .replace('const tx=finishTextures[finish.id];',"const tx=finish.textureMapped===false?null:finishTextures[finish.id],ribelle=asset.spec?.facade==='RIBELLE';asset.furniturePlanTextures=tx?{map:tx.front,bump:tx.frontBump}:null;")
    .replaceAll('front?tx.front:tx.map','front?(ribelle?tx.ribelleFront||tx.front:tx.front):tx.map')
    .replaceAll('front?tx.frontBump:tx.bump','front?(ribelle?tx.ribelleFrontBump||tx.frontBump:tx.frontBump):tx.bump')
+   .replace(':grain;',':null;')
+   .replace(':.00004;',':0;')
+   .replace('material.needsUpdate=true;',"material.metalness=0;material.flatShading=false;material.userData.animaColourIdentity=finish.colourIdentity;material.needsUpdate=true;")
    .replace(/\n\}$/, "\n asset.setSurface?.({},{onReady:()=>invalidate(false,false)});\n}"));
   source=amendFunction(source,'selectBasinColor',body=>body.replace('saveCabinetState();',"if(color&&color.ceramic!==false)model.setBasinAppearance?.(color);saveCabinetState();"));
   source=amendFunction(source,'paintAsset',body=>body.replace('item.asset.setSurface?.(item.settings',"if(c&&c.ceramic!==false)item.asset.setBasinAppearance?.(c);item.asset.setSurface?.(item.settings"));

@@ -24,14 +24,15 @@ export function lineItems(item,project=null) {
     if(s.top&&s.top!=='bare') {
       const context=(s.topSpan??s.width)>s.width||s.topOffset?continuousTopContext(project,item):{span:s.width,offset:0,ids:[item.id]};
       const supported=context&&(!(context.span>s.width||s.topLength!==undefined||s.topShift)||continuousTopCompatible(project,item.id,s.top,context.span,context.offset));
-      const selection=supported&&topSelection(s.top,s.width,s.format,s.basinLayout,context.span,s.topPlanId,s.topLength);
+      const selection=supported&&topSelection(s.top,s.width,s.format,s.basinLayout,context.span,s.topPlanId,s.topLength,s);
       if(!selection){rows.push({itemId:item.id,name:'Plan / vasque Anima',ref:'À confirmer',detail:'Implantation à vérifier',publicTTC:null,note:'Le plan ne correspond pas à cette largeur.'});return rows;}
       const {top,basin}=selection;
       if(top) {
         const material=normalizeTopSurface(s,selection),key=variantKey(top,s.topPriceKey||(s.topSurfaceId?material?.priceKey:s.basinColor)),length=selection.billingLength||selection.topWidth||s.width;
         const color=s.topSurfaceId&&material?material.surface.name:top.prices?.find(p=>p.key===key)?.label||'';
         row(top,top.subtype==='integrated'?'Plan-vasque '+top.label:'Plan '+top.label,
-          `${selection.topWidth||top.width||s.width} × ${top.height||''} × ${top.depth||selection.previewDepth||46.2} cm · ${color}${context.span>s.width?' · plan continu sur '+context.span+' cm, '+context.ids.length+' meubles · décalage '+context.offset+' cm':''}${selection.topLength>context.span?' · débords G '+((selection.topLength-context.span)/2-(s.topShift||0))+' / D '+((selection.topLength-context.span)/2+(s.topShift||0))+' cm':''}${top.unit==='cm'?' · facturé '+length+' cm':''}${/ncs/i.test(key||'')?' · NCS '+(s.topSurfaceNcs||s.ncsCode||'à préciser avant commande'):''}`,key,length);
+          `${selection.topWidth||top.width||s.width} × ${top.height||''} × ${selection.previewDepth||top.depth||46.2} cm · ${color}${context.span>s.width?' · plan continu sur '+context.span+' cm, '+context.ids.length+' meubles · décalage '+context.offset+' cm':''}${selection.topLength>context.span?' · débords G '+((selection.topLength-context.span)/2-(s.topShift||0))+' / D '+((selection.topLength-context.span)/2+(s.topShift||0))+' cm':''}${top.unit==='cm'?' · facturé '+length+' cm':''}${/ncs/i.test(key||'')?' · NCS '+(s.topSurfaceNcs||s.ncsCode||'à préciser avant commande'):''}`,key,length);
+        if(selection.customDepth){rows.at(-1).publicTTC=null;rows.at(-1).note='Profondeur sur mesure : faisabilité et tarif à confirmer par le fabricant.';}
       }
       if(basin) {
         const key=variantKey(basin,s.basinPriceKey||s.basinColor),color=basin.prices?.find(p=>p.key===key)?.label||'';

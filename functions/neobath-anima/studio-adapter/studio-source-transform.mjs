@@ -2,6 +2,9 @@
 import {transformContinuousPlans,transformContinuousPreview} from './continuous-plan-transform.mjs';
 import {transformPremiumAtelier,transformPremiumPreview} from './premium-transform.mjs';
 import {transformPremiumRendering} from './premium-render-transform.mjs';
+import {transformAnimaCabinetUI} from './cabinet-ui-transform.mjs';
+import {transformAnimaMirrorUI} from './mirror-ui-transform.mjs';
+import {transformWorktopInteraction} from './worktop-transform.mjs';
 const STUDIO_ORIGIN='https://studio-one-beta-test-v2.vercel.app/';
 const PRIVATE_URL='https://leroyfactory.fr/neobath-anima-configurateur.html';
 const navigationPrelude=`
@@ -19,6 +22,7 @@ const __animaHistory={state:null,replaceState(state,_title,url){this.state=state
 
 export function transformCommonStudioSource(input,relativePath){
  let source=input.replace(/(['"])studio-one(?=[-'"])/g,'$1neobath-anima-studio').replaceAll('STUDIO ONE','NEOBATH ANIMA').replaceAll('RANDAL','NEOBATH').replaceAll("'ROBLE'","'rovere-alba'").replaceAll('https://leroyfactory.fr/configurateurs-randal.html','https://leroyfactory.fr/configurateurs.html');
+ if(relativePath==='cabinet-combinations.js')source=source.replace('cabinetCombinations(total){',"cabinetCombinations(total,format='two'){").replace('const count=Math.ceil(total/120),common=',"const stock=WIDTH_PRESETS.filter(width=>validWidth(width,format));if(!stock.length)return [];const count=Math.ceil(total/Math.max(...stock)),common=").replace('.filter(validWidth)','.filter(width=>validWidth(width,format))');
  if(relativePath==='commerce/appearance.js'){
   source=source.replace("';background-image:url(assets/'+f.texture+');background-size:cover'","';background-image:url('+__animaAsset(f.texture)+');background-size:cover'");source=assetPrelude+source;
  }
@@ -58,6 +62,15 @@ export function transformCommonStudioSource(input,relativePath){
  }
  if(relativePath==='app.js'){
   source=transformPremiumAtelier(source);
+  source=transformAnimaCabinetUI(source);
+  source=transformAnimaMirrorUI(source);
+  source=transformWorktopInteraction(source);
+  source=source.replace('choices=cabinetCombinations(total);','choices=cabinetCombinations(total,composition?.selected?.settings.format);')
+   .replace('widths.some(w=>!validWidth(w))','widths.some(w=>!validWidth(w,selected.settings.format))')
+   .replace("format:form.id,width,topSpan:width,topOffset:0,top:topAvailable(selected.settings.top,width,form.id)?selected.settings.top:'bare',","format:form.id,width,topSpan:width,topOffset:0,top:'bare',topPlanId:'',topLength:width,topShift:0,topDepth:undefined,basinOffsetX:0,basinOffsetZ:0,topSurfaceId:'',topSurfaceNcs:'',topPriceKey:'',basinPriceKey:'',")
+   .replace("const settings={...selected.settings,width,top:topAvailable(selected.settings.top,width)?selected.settings.top:'plain',drawers:[...selected.settings.drawers]}","const settings={...selected.settings,width,top:'bare',topSpan:width,topOffset:0,topPlanId:'',topLength:width,topShift:0,topDepth:undefined,basinOffsetX:0,basinOffsetZ:0,topSurfaceId:'',topSurfaceNcs:'',topPriceKey:'',basinPriceKey:'',drawers:[...selected.settings.drawers]}")
+   .replace("invalidate();placementStatus(total+' cm · '+widths.join(' + ')+' cm · caissons indépendants.');return true;}","invalidate();scheduleProjectCheckpoint();placementStatus(total+' cm · '+widths.join(' + ')+' cm · caissons indépendants. Choisissez ensuite un plan continu.');return true;}");
+
   // AquaHome taps follow the actual usable holes of the chosen Anima bowl.
   // A vessel which requires wall mounting must never receive a deck tap
   // intersecting its shell or a tap floating above a plan without a bowl.

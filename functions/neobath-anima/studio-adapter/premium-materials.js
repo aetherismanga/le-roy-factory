@@ -15,7 +15,7 @@ export function surfaceFamilyForSelection(selection){
  if(/^TPGEA/.test(ref)||top.material==='geacril')return 'geacril';
  return top.subtype==='cover'?'furniture':null;
 }
-export function settingsTopSelection(settings={}){return topSelection(settings.top,settings.width,settings.format,settings.basinLayout,settings.topSpan||settings.width,settings.topPlanId,settings.topLength);}
+export function settingsTopSelection(settings={}){return topSelection(settings.top,settings.width,settings.format,settings.basinLayout,settings.topSpan||settings.width,settings.topPlanId,settings.topLength,settings);}
 export function surfaceOptions(settings={},selection=settingsTopSelection(settings)){
  const family=surfaceFamilyForSelection(selection);
  return MANUFACTURER_SURFACES.filter(surface=>surface.family===family);

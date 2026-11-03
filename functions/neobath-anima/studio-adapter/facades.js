@@ -1,8 +1,11 @@
 import * as T from 'three';
 
-// Anima uses the Studio One carcass/joinery. Only the visible face profile is
-// changed here: smooth Pura or the actual vertical Ribelle relief.
+// The catalogue shows a recessed horizontal grip on every front, including
+// the two opposing centre grips on the reversible column (PDF pp.128–132).
+// Grip section and Ribelle pitch are photo-based preview reconstructions; the
+// catalogue supplies the cabinet envelope, not industrial machining sections.
 export const ANIMA_WOOD_PERIOD=Object.freeze({horizontal:.80,vertical:.70});
+export const ANIMA_GRIP_PROFILE=Object.freeze({height:.040,recess:.016,lip:.002,sourcePdfPages:[65,66,67],approximate:true});
 export const RIBELLE_PROFILE=Object.freeze({pitch:.0065,depth:.00135,samples:12});
 
 // UVs represent metres rather than one stretched swatch per door. Pura and
@@ -24,34 +27,48 @@ export function animaFacadeGeometry(width,height,ribelle=false,thickness=.019){
   const positions=[],normals=[],uvs=[],indices=[];
   const count=ribelle?Math.max(1,Math.round(width/RIBELLE_PROFILE.pitch)):1;
   const samples=ribelle?count*RIBELLE_PROFILE.samples:1,pitch=width/count;
-  const half=thickness/2,bottom=-height/2,backTop=height/2-thickness;
+  const half=thickness/2,bottom=-height/2,top=height/2;
+  const gripHeight=Math.min(ANIMA_GRIP_PROFILE.height,height*.22),recess=Math.min(ANIMA_GRIP_PROFILE.recess,thickness-.002);
+  const bodyTop=top-gripHeight,lip=ANIMA_GRIP_PROFILE.lip;
   const at=i=>{const x=-width/2+width*i/samples,phase=(x+width/2)/pitch;
     const z=half-(ribelle?RIBELLE_PROFILE.depth*(1-Math.cos(phase*Math.PI*2))/2:0);
     const derivative=ribelle?-RIBELLE_PROFILE.depth*Math.PI/pitch*Math.sin(phase*Math.PI*2):0;
-    return {x,z,y:height/2-(half-z),derivative};};
+    return {x,z,derivative};};
   const vertex=(x,y,z,nx,ny,nz)=>{const i=positions.length/3;positions.push(x,y,z);normals.push(nx,ny,nz);uvs.push(x/ANIMA_WOOD_PERIOD.horizontal+.5,y/ANIMA_WOOD_PERIOD.vertical+.5);return i;};
-  // An indexed, analytically smooth front avoids the flat microscopic facets
-  // which made fine ribs flicker in perspective. The groove joins are C1.
-  for(let i=0;i<=samples;i++){const p=at(i),n=new T.Vector3(-p.derivative,0,1).normalize();vertex(p.x,bottom,p.z,n.x,n.y,n.z);vertex(p.x,p.y,p.z,n.x,n.y,n.z);}
+  // The face relief is a continuous C1 surface. The grip above it is a smooth
+  // recessed section, rather than a dark line painted over full-height fronts.
+  for(let i=0;i<=samples;i++){const p=at(i),n=new T.Vector3(-p.derivative,0,1).normalize();vertex(p.x,bottom,p.z,n.x,n.y,n.z);vertex(p.x,bodyTop,p.z,n.x,n.y,n.z);}
   for(let i=0;i<samples;i++){const a=i*2;indices.push(a,a+2,a+1,a+2,a+3,a+1);}
   const quad=(a,b,c,d,normal)=>{const base=positions.length/3;for(const p of[a,b,c,d])vertex(...p,...normal);indices.push(base,base+1,base+2,base,base+2,base+3);};
-  for(let i=0;i<samples;i++){const a=at(i),b=at(i+1);
-    quad([a.x,a.y,a.z],[b.x,b.y,b.z],[b.x,backTop,-half],[a.x,backTop,-half],[0,Math.SQRT1_2,-Math.SQRT1_2]);
+  for(let i=0;i<samples;i++){
+    const a=at(i),b=at(i+1),za=half-recess,zb=half-recess;
+    // Small solid lip, sloped finger clearance, then the recessed upright.
+    quad([a.x,bodyTop,a.z],[b.x,bodyTop,b.z],[b.x,bodyTop+lip,b.z],[a.x,bodyTop+lip,a.z],[0,0,1]);
+    const n=new T.Vector3(0,recess,recess-lip).normalize();
+    quad([a.x,bodyTop+lip,a.z],[b.x,bodyTop+lip,b.z],[b.x,bodyTop+recess,zb],[a.x,bodyTop+recess,za],[n.x,n.y,n.z]);
+    quad([a.x,bodyTop+recess,za],[b.x,bodyTop+recess,zb],[b.x,top,zb],[a.x,top,za],[0,0,1]);
+    quad([a.x,top,za],[b.x,top,zb],[b.x,top,-half],[a.x,top,-half],[0,1,0]);
     quad([a.x,bottom,-half],[b.x,bottom,-half],[b.x,bottom,b.z],[a.x,bottom,a.z],[0,-1,0]);
   }
-  quad([-width/2,bottom,-half],[-width/2,backTop,-half],[width/2,backTop,-half],[width/2,bottom,-half],[0,0,-1]);
-  for(const side of[-1,1]){const p=at(side<0?0:samples),points=[[p.x,bottom,-half],[p.x,bottom,p.z],[p.x,p.y,p.z],[p.x,backTop,-half]];if(side>0)points.reverse();quad(...points,[side,0,0]);}
+  quad([-width/2,bottom,-half],[-width/2,top,-half],[width/2,top,-half],[width/2,bottom,-half],[0,0,-1]);
+  for(const side of[-1,1]){
+    const p=at(side<0?0:samples),profile=[[bottom,-half],[bottom,p.z],[bodyTop,p.z],[bodyTop+lip,p.z],[bodyTop+recess,half-recess],[top,half-recess],[top,-half]];
+    const base=positions.length/3;for(const [y,z]of profile)vertex(p.x,y,z,side,0,0);
+    // Concave section: triangulate the actual grip contour, never bridge it.
+    const vectors=profile.map(([y,z])=>new T.Vector2(y,z));
+    for(const triangle of T.ShapeUtils.triangulateShape(vectors,[])){const order=side>0?triangle:triangle.slice().reverse();indices.push(...order.map(i=>base+i));}
+  }
   const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));geometry.setAttribute('normal',new T.Float32BufferAttribute(normals,3));geometry.setAttribute('uv',new T.Float32BufferAttribute(uvs,2));geometry.setIndex(indices);geometry.computeBoundingBox();
-  geometry.userData.animaFacade={ribelle,pitch:ribelle?pitch:null,depth:ribelle?RIBELLE_PROFILE.depth:0,grain:'horizontal',uvScale:'metres'};
+  geometry.userData.animaFacade={ribelle,pitch:ribelle?pitch:null,depth:ribelle?RIBELLE_PROFILE.depth:0,grain:'horizontal',uvScale:'metres',grip:{...ANIMA_GRIP_PROFILE,height:gripHeight,recess},section:'horizontal-recessed-grip',approximate:true};
   return geometry;
 }
 
-export function addAnimaDoor({parent,width,height,bottom,frontZ,wood,metal,ribelle,count=1,hingeSide='left'}){
+export function addAnimaDoor({parent,width,height,bottom,frontZ,wood,metal,ribelle,count=1,hingeSide='left',gripEdge='top'}){
   const doors=[],frontMeshes=[],proxies=[];
   for(let i=0;i<count;i++){
     const side=count===2?(i===0?-1:1):(hingeSide==='right'?1:-1),w=(width-.004-(count-1)*.003)/count;
-    const door=new T.Group();door.name='Porte_Anima_'+(i+1);door.position.set(side*(width/2-.002),bottom,frontZ);parent.add(door);
-    const front=new T.Mesh(animaFacadeGeometry(w,height-.004,ribelle),wood);front.name=(ribelle?'Ribelle':'Pura')+'_porte';front.position.set(-side*w/2,(height-.004)/2+.002,0);front.castShadow=front.receiveShadow=true;front.userData.editTarget='furniture';door.add(front);applyAnimaWoodUV(front,{front:true});frontMeshes.push(front);
+    const door=new T.Group();door.name='Porte_Anima_'+(i+1);door.userData.animaOpening={type:'hinged',hingeSide:side<0?'left':'right',gripEdge};door.position.set(side*(width/2-.002),bottom,frontZ);parent.add(door);
+    const front=new T.Mesh(animaFacadeGeometry(w,height-.004,ribelle),wood);front.name=(ribelle?'Ribelle':'Pura')+'_porte';if(gripEdge==='bottom')front.geometry.rotateZ(Math.PI);front.userData.animaGripEdge=gripEdge;front.position.set(-side*w/2,(height-.004)/2+.002,0);front.castShadow=front.receiveShadow=true;front.userData.editTarget='furniture';door.add(front);applyAnimaWoodUV(front,{front:true});frontMeshes.push(front);
     for(const y of [.075,height-.075]){const barrel=new T.Mesh(new T.CylinderGeometry(.005,.005,.035,14),metal);barrel.name='Charniere_Anima';barrel.position.set(-side*.013,y,-.018);door.add(barrel);}
     // Studio One's opening controller writes .position.z. A proxy preserves its
     // existing animation while converting that travel into a real door swing.

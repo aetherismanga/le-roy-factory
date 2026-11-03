@@ -53,23 +53,28 @@ export function continuousTopCompatible(project,hostId,mode,span,offset=0) {
   const item=project?.items?.find(item=>item?.id===hostId&&item.type==='cabinet');if(!item)return false;
   const settings={...item.settings,top:mode,topSpan:span,topOffset:offset},host={...item,settings};
   const prospective={...project,items:project.items.map(item=>item.id===hostId?host:item)};
-  const context=continuousTopContext(prospective,host),selection=context&&topSelection(mode,settings.width,settings.format,settings.basinLayout,context.span,settings.topPlanId,settings.topLength);
+  const context=continuousTopContext(prospective,host),selection=context&&topSelection(mode,settings.width,settings.format,settings.basinLayout,context.span,settings.topPlanId,settings.topLength,settings);
   if(!selection)return false;
   const shift=settings.topShift??0,length=selection.topLength||context.span;
   if(!Number.isFinite(shift)||Math.abs(shift)>(length-context.span)/2+1e-6)return false;
   if(!selection.positions?.length)return true;
+  // A single fixed factory reference is validated by its catalogue fit. Its
+  // reconstructed preview bowl is not a published manufacturing cutout.
+  if(!selection.top.configurableWidth&&context.ids.length===1&&context.span===settings.width&&shift===0)return true;
   const supports=context.ids.flatMap(id=>{
     const item=project.items.find(item=>item.id===id),form=CABINET_FORMATS.find(form=>form.id===item?.settings?.format);
     return form?.subtype==='vanity'?[item]:[];
   });
   const count=Number(selection.basin?.basinCount||selection.top?.basinCount||1);
-  const bowlWidth=animaWellProfile(selection.top,selection.basin,selection.topWidth/100/count).w*100;
+  const profile=animaWellProfile(selection.top,selection.basin,selection.topWidth/100/count),bowlWidth=profile.w*100;
   // Clearance follows the visual cabinet's 19 mm sides and a small running
   // gap. Every bowl must sit over a genuine vanity, not an uncut base drawer.
-  const margin=bowlWidth/2+2.5;
-  return selection.positions.every(position=>{
+  const exteriorVessel=selection.basin&&selection.basin.subtype!=='integrated';
+  const margin=exteriorVessel?4:bowlWidth/2+2.5;
+  return selection.positions.every((position,index)=>{
     const centre=host.placement.u+context.offset+shift+position*100;
-    return supports.some(support=>Math.abs(centre-support.placement.u)<=support.settings.width/2-margin+JOINT_TOLERANCE_CM);
+    const well=selection.wellProfiles?.[index],z=(selection.positionsZ?.[index]??.02)*100+(selection.previewDepth-selection.referenceDepth)/2,halfDepth=exteriorVessel?4:(well?.depth??profile.d)*50;
+    return supports.some(support=>{const form=CABINET_FORMATS.find(form=>form.id===support.settings.format);return Math.abs(centre-support.placement.u)<=support.settings.width/2-(exteriorVessel?margin:(well?.width??profile.w)*50+2.5)+JOINT_TOLERANCE_CM&&Math.abs(z)+halfDepth<=form.depth*50-2.5+JOINT_TOLERANCE_CM;});
   });
 }
 export class ProjectJournal {
@@ -98,13 +103,14 @@ export function validateProject(data) {
       const context=continuousTopContext(data,item);
       if(!context)throw Error('Le plan continu doit reposer sur des meubles juxtaposés, sans autre plan, à la même hauteur.');
       if(!topAvailable(s.top||'bare',s.width,s.format,context.span))throw Error('Le plan / la vasque ne correspond pas à ce meuble Anima.');
-      const selected=topSelection(s.top||'bare',s.width,s.format,s.basinLayout,context.span,s.topPlanId,s.topLength),product=selected?.product;
+      const selected=topSelection(s.top||'bare',s.width,s.format,s.basinLayout,context.span,s.topPlanId,s.topLength,s),product=selected?.product;
       if(!selected)throw Error('Le plan choisi ne correspond pas à cette vasque Anima.');
+      for(const field of ['topDepth','basinOffsetX','basinOffsetZ'])if(s[field]!==undefined&&(typeof s[field]!=='number'||!Number.isFinite(s[field])))throw Error('Dimension ou position de vasque invalide.');
       for(const field of ['basinColor','topPriceKey','basinPriceKey','topSurfaceId'])if(s[field]!==undefined&&typeof s[field]!=='string')throw Error('Identifiant de finition Anima invalide.');
       if(s.topPlanId!==undefined&&(typeof s.topPlanId!=='string'||s.topPlanId&&!products.has(s.topPlanId)))throw Error('Référence de plan Anima inconnue.');
       const length=selected.topLength||context.span,shift=s.topShift??0;
       if(!Number.isFinite(shift)||Math.abs(shift)>(length-context.span)/2+1e-6)throw Error('Le plan doit couvrir tous ses supports ; vérifiez les débords gauche et droit.');
-      if((context.span>s.width||s.topLength!==undefined||s.topShift)&&!continuousTopCompatible(data,item.id,s.top||'bare',context.span,context.offset))throw Error('Chaque vasque du plan doit être portée par un meuble sous-vasque compatible.');
+      if(!continuousTopCompatible(data,item.id,s.top||'bare',context.span,context.offset))throw Error('Chaque vasque du plan doit être portée par un meuble sous-vasque compatible.');
       if(product?.prices?.length&&s.basinColor&&!product.prices.some(v=>v.key===s.basinColor))throw Error('Finition du plan / de la vasque Anima inconnue.');
       if(s.topPriceKey&&selected.top?.prices?.length&&!selected.top.prices.some(v=>v.key===s.topPriceKey))throw Error('Tarif de finition du plan Anima inconnu.');
       if(s.basinPriceKey&&selected.basin?.prices?.length&&!selected.basin.prices.some(v=>v.key===s.basinPriceKey))throw Error('Tarif de finition de vasque Anima inconnu.');

@@ -1,9 +1,27 @@
 import * as T from 'three';
 
-export function configureAnimaTexture(texture,renderer,{colour=true}={}){
+export function cropAnimaWoodFrontTexture(texture,{canvasFactory}={}){
+ const image=texture?.image,width=image?.width,height=image?.height;
+ if(!(width>0&&height>8)||texture.userData?.animaWoodCrop)return texture;
+ // The sourced 495×170 Pura sample includes the photographed top-edge shadow
+ // in its first eight rows. Mirrored wrapping otherwise reproduces that edge
+ // as a false horizontal joint. Copy the remaining source pixels 1:1; never
+ // sharpen, recolour, upscale or alter the public manufacturer photograph.
+ const inset=Math.max(1,Math.ceil(8*height/170)),croppedHeight=height-inset;
+ const canvas=canvasFactory?canvasFactory():typeof OffscreenCanvas!=='undefined'?new OffscreenCanvas(width,croppedHeight):typeof document!=='undefined'&&document.createElement?document.createElement('canvas'):null;
+ if(!canvas)return texture;
+ canvas.width=width;canvas.height=croppedHeight;const context=canvas.getContext?.('2d');if(!context)return texture;
+ context.drawImage(image,0,inset,width,croppedHeight,0,0,width,croppedHeight);
+ // A clone initially shares its Source with the cached original: replace the
+ // Source itself so this inset cannot crop Ribelle or any other map in place.
+ texture.source=new T.Source(canvas);texture.userData={...texture.userData,animaWoodCrop:{sourceWidth:width,sourceHeight:height,x:0,y:inset,width,height:croppedHeight,resampled:false}};
+ texture.needsUpdate=true;return texture;
+}
+
+export function configureAnimaTexture(texture,renderer,{colour=true,singleSheet=false}={}){
  if(!texture)return texture;
  texture.colorSpace=colour?T.SRGBColorSpace:T.NoColorSpace;
- texture.wrapS=texture.wrapT=T.RepeatWrapping;
+ texture.wrapS=texture.wrapT=singleSheet?T.ClampToEdgeWrapping:T.RepeatWrapping;
  texture.magFilter=T.LinearFilter;texture.minFilter=T.LinearMipmapLinearFilter;texture.generateMipmaps=true;
  texture.anisotropy=Math.max(1,Math.min(16,renderer?.capabilities?.getMaxAnisotropy?.()||8));
  texture.needsUpdate=true;return texture;
@@ -26,6 +44,7 @@ export function applyAnimaBasinAppearance(material,appearance={}){
 }
 export function setAnimaFurnitureTextures(asset,type,finish,tx,renderer){
  const ribelle=asset.spec?.facade==='RIBELLE';
+ if(finish.textureMapped===false)tx=null;
  asset.furniturePlanTextures=tx?{map:tx.front,bump:tx.frontBump}:null;
  for(const [material,front]of[[asset.wood,false],[asset.frontWood,['cabinet','column'].includes(type)]]){
   if(!material)continue;
@@ -33,8 +52,8 @@ export function setAnimaFurnitureTextures(asset,type,finish,tx,renderer){
   const bump=tx?(front?(ribelle?tx.ribelleFrontBump||tx.frontBump:tx.frontBump):tx.bump):null;
   material.color.set(map?'#ffffff':finish.hex);material.map=configureAnimaTexture(map,renderer);material.bumpMap=configureAnimaTexture(bump,renderer,{colour:false});
   for(const texture of[material.map,material.bumpMap])if(texture)texture.wrapS=texture.wrapT=T.MirroredRepeatWrapping;
-  material.bumpScale=finish.bumpScale??.000025;material.roughness=finish.roughness??.68;
+  material.bumpScale=bump?(finish.bumpScale??.000025):0;material.roughness=finish.roughness??.68;
   material.clearcoat=finish.clearcoat??0;material.clearcoatRoughness=finish.clearcoatRoughness??.68;
-  material.metalness=0;material.flatShading=false;material.needsUpdate=true;
+  material.metalness=0;material.flatShading=false;material.userData.animaColourIdentity=finish.colourIdentity;material.needsUpdate=true;
  }
 }

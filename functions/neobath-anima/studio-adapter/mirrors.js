@@ -3,7 +3,7 @@ import {makeCatalogueMirror as studioMakeMirror,roundedShape} from '@studio-one-
 import {PRODUCTS} from './anima-data.js';
 export {roundedShape};
 const products=PRODUCTS.filter(p=>p.category==='mirror');
-const shapeFor=p=>p.shape==='round'||/Rond|rotond/i.test(p.label)||p.width===p.height?'round':p.shape==='oval'||/ovale|Arona/i.test(p.label)?'oval':'rect';
+const shapeFor=p=>['round','oval','rect'].includes(p.shape)?p.shape:/Rond|rotond/i.test(p.label)?'round':/ovale|Arona/i.test(p.label)?'oval':'rect';
 export const MIRRORS=Object.freeze(products.map(p=>({id:p.id,name:p.label,led:!!p.backlit,metal:/cadre satin|SFT/i.test(p.label+' '+p.ref),shape:shapeFor(p),sizes:[[p.width,p.height,p.ref]],sourceProduct:p})));
 export const MIRROR_METALS=Object.freeze([{id:'Argent',hex:'#bdc4c4'}]);
 export function mirrorSpec(settings={}){

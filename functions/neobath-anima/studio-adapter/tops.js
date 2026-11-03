@@ -1,7 +1,7 @@
 import * as T from 'three';
 import {createTopSet as studioCreateTopSet,vesselGeometry as studioVesselGeometry} from '@studio-one-original/tops.js';
 import {TOP_OPTIONS,topSelection} from './anima-data.js';
-import {animaWellProfile} from './top-profiles.js';
+import {animaWellLayout} from './top-profiles.js';
 export {TOP_OPTIONS,topSelection};
 // Used only inside the untouched original Studio One factory, before its hidden
 // RANDAL demonstration tops are replaced by the selected Anima components.
@@ -84,36 +84,23 @@ function semiRecessedCutout(geometry,level){
     points.push([x*scale,z*scale]);
   }return points;
 }
-function fittedWells(selection,W,D){
-  const positions=(selection.positions||[]).slice();
-  if(!positions.length||positions.some(x=>!Number.isFinite(x)))throw Error('Implantation de cuve Anima invalide.');
-  const {top,basin}=selection,family=animaWellProfile(top,basin,W/positions.length),edge=.025,bridge=.025,z=.020,tapZ=-D/2+.055,tapRadius=.017;
-  return positions.map((x,index)=>{
-    const neighbours=positions.filter((_,i)=>i!==index).map(other=>Math.abs(other-x));
-    const halfWidth=Math.min(x+W/2-edge,W/2-edge-x,...neighbours.map(gap=>gap/2-bridge/2));
-    const halfDepth=Math.min(D/2-edge-z,z-(tapZ+tapRadius+.012));
-    if(halfWidth<=.055||halfDepth<=.055)throw Error('La cuve ne peut pas être placée dans le plan sans dépasser son bord.');
-    if(family.knownWidth&&family.w>halfWidth*2+.0001)throw Error('La largeur fabricant de la cuve est incompatible avec cette implantation.');
-    if(family.knownDepth&&family.d>halfDepth*2+.0001)throw Error('La profondeur fabricant de la cuve ne conserve pas le dégagement du perçage.');
-    return {x,z,width:Math.min(family.w,halfWidth*2),depth:Math.min(family.d,halfDepth*2),innerDepth:family.depth,power:family.power,tapX:x,tapZ,tapRadius};
-  });
-}
+
 export function buildAnimaTop({selection,ceramic,wood,chrome,planMaterial=null,bowlMaterial=null,surfaceY=.82,cabinetDepth=.46}){
-  const root=new T.Group();root.name='NEOBATH_ANIMA_PLAN';root.userData.editTarget='basin';
+  const root=new T.Group();root.name='NEOBATH_ANIMA_PLAN';root.userData.editTarget='basin';root.userData.animaWorktopTarget=true;
   const solid=new T.Group(),drilled=new T.Group(),insets={},vessels={};root.add(solid,drilled);
   const geometries=new Set(),ownedMaterials=[],surfaceMeshes=[],bowlMeshes=[];
   const add=(g,m,name,parent=root,x=0,y=0,z=0,role='bowl')=>{const o=new T.Mesh(g,m);o.name=name;o.position.set(x,y,z);o.castShadow=o.receiveShadow=true;o.userData.editTarget='basin';o.userData.animaSurfaceRole=role;parent.add(o);geometries.add(g);if(role==='deck')surfaceMeshes.push(o);else if(role==='bowl')bowlMeshes.push(o);return o;};
   const dispose=()=>{geometries.forEach(g=>g.dispose());ownedMaterials.forEach(m=>m.dispose());root.removeFromParent();};
   const ceramicBowl=bowlMaterial||ceramic;let previewBasinRise=0;
   if(!selection?.top)return {root,solid,drilled,vessels,insets,centers:[],previewBasinRise,planMaterial:planMaterial||ceramic,bowlMaterial:ceramicBowl,surfaceMeshes,bowlMeshes,dispose};
-  const {top,basin}=selection,W=selection.topWidth/100,H=top.height/100,D=(top.depth??selection.previewDepth??46.2)/100,Z=cabinetDepth/2-.23;
+  const {top,basin}=selection,W=selection.topWidth/100,H=top.height/100,D=(selection.previewDepth??top.depth??46.2)/100,Z=cabinetDepth/2-.23+(selection.previewDepth-(selection.referenceDepth??selection.previewDepth))/200;
   if(![W,H,D,surfaceY,Z].every(Number.isFinite)||W<=0||D<=0||H<=0)throw Error('Dimensions de plan Anima invalides.');
   const plateMaterial=planMaterial||(top.subtype==='cover'?wood:basin?.subtype==='countertop'?ceramic.clone():ceramic);
   if(!planMaterial&&plateMaterial!==wood&&plateMaterial!==ceramic)ownedMaterials.push(plateMaterial);
   const description={productId:top.id,reference:top.ref,width:W,height:H,depth:D,surfaceY,topSurface:surfaceY+H,zOffset:Z,wells:[],tapHoles:[]};
   if(!selection.integrated){
     const parent=basin?drilled:solid,holes=[];
-    const vesselZ=.020,vesselX=selection.positions?.[0]||0,semiRecessed=basin?.subtype==='semi-recessed',vesselShape=basin?vesselGeometry(basin):null;
+    const vesselZ=selection.positionsZ?.[0]??.020,vesselX=selection.positions?.[0]??0,semiRecessed=basin?.subtype==='semi-recessed',vesselShape=basin?vesselGeometry(basin):null;
     const fullHeight=vesselShape?.boundingBox.max.y||0,recessDepth=semiRecessed?Math.max(0,fullHeight-.025):0;
     previewBasinRise=fullHeight-recessDepth;
     if(basin){
@@ -140,7 +127,7 @@ export function buildAnimaTop({selection,ceramic,wood,chrome,planMaterial=null,b
     }
   }else{
     const group=new T.Group();group.name='Lavabo_'+(basin?.ref||top.ref||top.id);group.userData.editTarget='basin';root.add(group);insets[selection.mode]=group;
-    const wells=fittedWells(selection,W,D),holes=[];
+    const wells=animaWellLayout(selection),holes=[];if(!wells)throw Error('La largeur fabricant ou la profondeur de la cuve est incompatible avec cette implantation.');
     for(const well of wells){holes.push(superContour(well.width,well.depth,well.power).map(([xx,zz])=>[xx+well.x,zz+well.z]));holes.push(circleContour(well.tapX,well.tapZ,well.tapRadius));}
     add(plateGeometry(W,D,H,holes),plateMaterial,'Plan_lavabo_'+(top.ref||top.id),group,0,surfaceY,Z,'deck');
     for(const well of wells){

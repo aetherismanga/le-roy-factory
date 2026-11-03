@@ -19,3 +19,31 @@ export function animaWellProfile(top,basin,width){
   if(ref.startsWith('TOS')||ref.startsWith('TO'))return {w:Math.min(room,.55),d:.30,power:4.0,depth:.14};
   return {w:Math.min(room,.54),d:.30,power:4.6,depth:.14};
 }
+
+// One pure layout authority for validation and the actual drilled mesh. For
+// older fixed tops without a published bowl envelope we retain the fitted
+// catalogue preview proportions. Moving a bowl never shrinks that envelope.
+export function animaWellLayout(selection){
+  if(!selection?.integrated||!selection.top)return [];
+  const positions=selection.positions||[],positionsZ=selection.positionsZ||positions.map(()=>.020);
+  const W=selection.topWidth/100,D=selection.previewDepth/100,referenceD=(selection.referenceDepth??selection.top.depth??selection.previewDepth)/100;
+  const offsetX=(selection.basinOffsetX||0)/100,offsetZ=(selection.basinOffsetZ||0)/100;
+  if(!positions.length||![W,D,referenceD,...positions,...positionsZ].every(Number.isFinite)||positionsZ.length!==positions.length)return null;
+  const family=animaWellProfile(selection.top,selection.basin,W/positions.length),edge=.025,bridge=.025,tapRadius=.017;
+  const nominal=positions.map(x=>x-offsetX),nominalZ=.020,tapZ=-referenceD/2+.055;
+  const result=[];
+  for(let index=0;index<positions.length;index++){
+    const x=positions[index],z=positionsZ[index],baseX=nominal[index];
+    const neighbours=nominal.filter((_,i)=>i!==index).map(other=>Math.abs(other-baseX));
+    const halfWidth=Math.min(baseX+W/2-edge,W/2-edge-baseX,...neighbours.map(gap=>gap/2-bridge/2));
+    const halfDepth=Math.min(referenceD/2-edge-nominalZ,nominalZ-(tapZ+tapRadius+.012));
+    if(halfWidth<=.055||halfDepth<=.055)return null;
+    if(family.knownWidth&&family.w>halfWidth*2+.0001||family.knownDepth&&family.d>halfDepth*2+.0001)return null;
+    const width=family.knownWidth?family.w:Math.min(family.w,halfWidth*2),depth=family.knownDepth?family.d:Math.min(family.d,halfDepth*2);
+    const well={x,z,width,depth,innerDepth:family.depth,power:family.power,tapX:x,tapZ:tapZ+offsetZ,tapRadius};
+    if(Math.abs(x)+width/2>W/2-edge+1e-7||Math.abs(z)+depth/2>D/2-edge+1e-7||Math.abs(well.tapX)+tapRadius>W/2-.007+1e-7||Math.abs(well.tapZ)+tapRadius>D/2-.007+1e-7)return null;
+    if(result.some(other=>Math.abs(other.x-x)<(other.width+width)/2+bridge-1e-7&&Math.abs(other.z-z)<(other.depth+depth)/2+bridge-1e-7))return null;
+    result.push(well);
+  }
+  return result;
+}

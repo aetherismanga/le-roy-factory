@@ -10,8 +10,8 @@ export function makeColumn(settings={}){
   const old=asset.door.getObjectByName('Facade_colonne_19mm_biseau_45');old?.removeFromParent();old?.geometry.dispose();
   const fronts=[];for(let i=0;i<2;i++){
     const height=(1.316-.018)/2,geometry=animaFacadeGeometry(.376,height,ribelle);
-    if(i===0)geometry.rotateZ(Math.PI);
-    const mesh=new T.Mesh(geometry,asset.frontWood);mesh.name=(ribelle?'Ribelle':'Pura')+'_facade_colonne_'+(i+1);mesh.position.set(.188,height/2+i*(height+.018),0);mesh.castShadow=mesh.receiveShadow=true;asset.door.add(mesh);fronts.push(mesh);
+    if(i===1)geometry.rotateZ(Math.PI);
+    const mesh=new T.Mesh(geometry,asset.frontWood);mesh.name=(ribelle?'Ribelle':'Pura')+'_facade_colonne_'+(i+1);mesh.userData.animaGripEdge=i===0?'top':'bottom';mesh.userData.editTarget='column';mesh.position.set(.188,height/2+i*(height+.018),0);mesh.castShadow=mesh.receiveShadow=true;asset.door.add(mesh);fronts.push(mesh);
   }
   for(const shelf of asset.shelves){shelf.removeFromParent();shelf.geometry.dispose();}
   const glass=new T.MeshPhysicalMaterial({color:'#d8e4df',roughness:.12,transparent:true,opacity:.32,depthWrite:false,side:T.DoubleSide}),shelves=[];

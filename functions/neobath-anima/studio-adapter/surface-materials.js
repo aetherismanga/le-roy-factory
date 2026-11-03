@@ -2,19 +2,30 @@ import * as T from 'three';
 import {normalizeTopSurface,surfaceFamilyForSelection} from './premium-materials.js';
 import {configureAnimaTexture} from './premium-rendering.mjs';
 
-export function applyPlanSurfaceUV(root,material,period=[.8,.8]){
+export function applyPlanSurfaceUV(root,material){
+ // One source image covers the whole continuous slab. A centimetre-based
+ // repeating tile would add conspicuous duplicate bands when a custom top is
+ // lengthened. Project in the top's own frame, including nested transforms:
+ // moving/snapping the plan cannot move the texture underneath it, and the
+ // deck, cut-outs and matching integrated bowl share one continuous field.
+ root.updateWorldMatrix(true,true);
+ const inverse=new T.Matrix4().copy(root.matrixWorld).invert(),meshes=[],bounds=new T.Box3();
  root.traverse(mesh=>{
   if(!mesh.isMesh||mesh.material!==material||!mesh.geometry?.attributes.position)return;
-  const geometry=mesh.geometry,p=geometry.attributes.position,n=geometry.attributes.normal;
-  let uv=geometry.attributes.uv;if(!uv){uv=new T.Float32BufferAttribute(new Float32Array(p.count*2),2);geometry.setAttribute('uv',uv);}
-  for(let i=0;i<p.count;i++){
-   const x=p.getX(i)+mesh.position.x,y=p.getY(i)+mesh.position.y,z=p.getZ(i)+mesh.position.z,nx=Math.abs(n.getX(i)),ny=Math.abs(n.getY(i));
-   if(ny>=nx&&ny>=Math.abs(n.getZ(i)))uv.setXY(i,x/period[0]+.5,z/period[1]+.5);
-   else if(nx>.6)uv.setXY(i,z/period[1]+.5,y/period[0]+.5);
-   else uv.setXY(i,x/period[0]+.5,y/period[1]+.5);
-  }
-  uv.needsUpdate=true;
+  const transform=new T.Matrix4().multiplyMatrices(inverse,mesh.matrixWorld);
+  mesh.geometry.computeBoundingBox();bounds.union(mesh.geometry.boundingBox.clone().applyMatrix4(transform));meshes.push({mesh,transform});
  });
+ if(!meshes.length||bounds.isEmpty())return;
+ const top=root.userData.animaTop||{},width=top.width||bounds.max.x-bounds.min.x,depth=top.depth||bounds.max.z-bounds.min.z;
+ if(!(width>0&&depth>0))return;
+ const originX=top.width?-width/2:bounds.min.x,originZ=top.depth?(top.zOffset||0)-depth/2:bounds.min.z,point=new T.Vector3();
+ for(const {mesh,transform}of meshes){
+  const geometry=mesh.geometry,p=geometry.attributes.position;
+  let uv=geometry.attributes.uv;if(!uv){uv=new T.Float32BufferAttribute(new Float32Array(p.count*2),2);geometry.setAttribute('uv',uv);}
+  for(let i=0;i<p.count;i++){point.fromBufferAttribute(p,i).applyMatrix4(transform);uv.setXY(i,(point.x-originX)/width,(point.z-originZ)/depth);}
+  uv.needsUpdate=true;geometry.userData.animaSurfaceUV='continuous-single-sheet';
+ }
+ root.userData.animaSurfaceUV={mode:'continuous-single-sheet',width,depth,anchor:'plan-local',sourceLayout:'sample-fitted-to-preview'};
 }
 
 // A plan owns its material and texture clones. Furniture finish changes and
@@ -27,7 +38,7 @@ export function createTopSurfaceController({wood,ceramic,textureLoader=null}={})
  function load(url){
   if(cache.has(url)){const value=cache.get(url);cache.delete(url);cache.set(url,value);return value;}
   const loader=textureLoader||new T.TextureLoader();
-  const promise=loader.loadAsync(url).then(source=>{const texture=source.clone();texture.userData={...source.userData,animaSurfaceURL:url};owned.add(texture);if(textureLoader==null)source.dispose();configureAnimaTexture(texture);if(disposed||!cache.has(url)){texture.dispose();owned.delete(texture);}else loaded.set(url,texture);return texture;});
+  const promise=loader.loadAsync(url).then(source=>{const texture=source.clone();texture.userData={...source.userData,animaSurfaceURL:url,animaMapping:'continuous-single-sheet'};owned.add(texture);if(textureLoader==null)source.dispose();configureAnimaTexture(texture,null,{singleSheet:true});if(disposed||!cache.has(url)){texture.dispose();owned.delete(texture);}else loaded.set(url,texture);return texture;});
   cache.set(url,promise);promise.catch(()=>cache.delete(url));
   while(cache.size>4){const key=cache.keys().next().value;cache.delete(key);const texture=loaded.get(key);if(texture){texture.dispose();loaded.delete(key);owned.delete(texture);}}
   return promise;

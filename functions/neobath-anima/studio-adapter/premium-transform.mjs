@@ -29,10 +29,10 @@ function __animaPremiumSidebar(){const parent=$('#top-options');if(!parent)retur
 
 export function transformPremiumAtelier(source){
  if(!source.includes('function __animaTopContext(mode)'))throw Error('Anima premium controls require continuous plans first.');
- source=source.replace("'topSpan','topOffset'];","'topSpan','topOffset','topPlanId','topLength','topShift','topSurfaceId','topSurfaceNcs','topPriceKey','basinPriceKey'];");
- for(const object of ['s','state','settings'])source=source.replaceAll(`topSpan:${object}.topSpan,topOffset:${object}.topOffset,`,`topSpan:${object}.topSpan,topOffset:${object}.topOffset,topPlanId:${object}.topPlanId,topLength:${object}.topLength,topShift:${object}.topShift,topSurfaceId:${object}.topSurfaceId,topSurfaceNcs:${object}.topSurfaceNcs,`);
+ source=source.replace("'topSpan','topOffset'];","'topSpan','topOffset','topPlanId','topLength','topShift','topDepth','basinOffsetX','basinOffsetZ','topSurfaceId','topSurfaceNcs','topPriceKey','basinPriceKey'];");
+ for(const object of ['s','state','settings'])source=source.replaceAll(`topSpan:${object}.topSpan,topOffset:${object}.topOffset,`,`topSpan:${object}.topSpan,topOffset:${object}.topOffset,topPlanId:${object}.topPlanId,topLength:${object}.topLength,topShift:${object}.topShift,topDepth:${object}.topDepth,basinOffsetX:${object}.basinOffsetX,basinOffsetZ:${object}.basinOffsetZ,topSurfaceId:${object}.topSurfaceId,topSurfaceNcs:${object}.topSurfaceNcs,`);
  source=source.replace('if(!model.setTop(id,{topSpan:state.topSpan,topOffset:state.topOffset}))','if(!model.setTop(id,{...state}))');
- source=source.replace('state.topSpan=context.span;state.topOffset=context.offset;',"state.topSpan=context.span;state.topOffset=context.offset;if(id==='bare')Object.assign(state,{topPlanId:'',topLength:state.width,topShift:0,topSurfaceId:'',topSurfaceNcs:'',topPriceKey:'',basinPriceKey:''});")
+ source=source.replace('state.topSpan=context.span;state.topOffset=context.offset;',"state.topSpan=context.span;state.topOffset=context.offset;if(id==='bare')Object.assign(state,{topPlanId:'',topLength:state.width,topShift:0,topDepth:undefined,basinOffsetX:0,basinOffsetZ:0,topSurfaceId:'',topSurfaceNcs:'',topPriceKey:'',basinPriceKey:''});")
   .replace('const next=makeModel({width:cm/100,',"if(cm!==state.width){state.topSpan=cm;state.topOffset=0;state.topShift=0;if(!state.topLength||state.topLength<cm)state.topLength=cm;}const next=makeModel({width:cm/100,");
  // Selecting an existing cabinet must preserve its saved support group and
  // manufacturing length instead of silently choosing the widest available set.
@@ -49,14 +49,14 @@ export function transformPremiumAtelier(source){
  source=source.slice(0,loopStart)+'__animaPremiumSidebar();\n '+source.slice(loopEnd);
  // Forward the optional source worktop and manufacturing length through all
  // shared basin helpers. Their original call signatures remain valid elsewhere.
- source=source.replaceAll('state.basinLayout,state.topSpan)','state.basinLayout,state.topSpan,state.topPlanId,state.topLength)')
-  .replaceAll('state.basinColor,state.topSpan)','state.basinColor,state.topSpan,state.topPlanId,state.topLength)')
-  .replaceAll('s.basinLayout,s.topSpan)','s.basinLayout,s.topSpan,s.topPlanId,s.topLength)')
-  .replaceAll('undefined,s.topSpan)','undefined,s.topSpan,s.topPlanId,s.topLength)')
-  .replaceAll('item.settings.basinLayout,item.settings.topSpan)','item.settings.basinLayout,item.settings.topSpan,item.settings.topPlanId,item.settings.topLength)')
-  .replaceAll('host.settings.basinLayout,host.settings.topSpan)','host.settings.basinLayout,host.settings.topSpan,host.settings.topPlanId,host.settings.topLength)');
- source=source.replace('function __animaTopColors(top,width,format,layout,span){const colors=basinColors(top,width,format,layout,span);','function __animaTopColors(top,width,format,layout,span,plan,length){const colors=basinColors(top,width,format,layout,span,plan,length);')
-  .replace('top,width,format,layout,span),product=selection?.product','top,width,format,layout,span,plan,length),product=selection?.product');
+ source=source.replaceAll('state.basinLayout,state.topSpan)','state.basinLayout,state.topSpan,state.topPlanId,state.topLength,state)')
+  .replaceAll('state.basinColor,state.topSpan)','state.basinColor,state.topSpan,state.topPlanId,state.topLength,state)')
+  .replaceAll('s.basinLayout,s.topSpan)','s.basinLayout,s.topSpan,s.topPlanId,s.topLength,s)')
+  .replaceAll('undefined,s.topSpan)','undefined,s.topSpan,s.topPlanId,s.topLength,s)')
+  .replaceAll('item.settings.basinLayout,item.settings.topSpan)','item.settings.basinLayout,item.settings.topSpan,item.settings.topPlanId,item.settings.topLength,item.settings)')
+  .replaceAll('host.settings.basinLayout,host.settings.topSpan)','host.settings.basinLayout,host.settings.topSpan,host.settings.topPlanId,host.settings.topLength,host.settings)');
+ source=source.replace('function __animaTopColors(top,width,format,layout,span){const colors=basinColors(top,width,format,layout,span);','function __animaTopColors(top,width,format,layout,span,plan,length,options){const colors=basinColors(top,width,format,layout,span,plan,length,options);')
+  .replace('top,width,format,layout,span),product=selection?.product','top,width,format,layout,span,plan,length,options),product=selection?.product');
  source=source.replace('function refreshBasinUI(){','function refreshBasinUI(){__animaPremiumSidebar();')
   .replace("$('#basin-color-section').hidden=!colors.length;","$('#basin-color-section').hidden=true;")
   .replace('installCabinetTap(item);}else item.asset.setHingeSide',"item.asset.setSurface?.(item.settings,{onReady:()=>invalidate(false,false)});installCabinetTap(item);}else item.asset.setHingeSide")
@@ -65,13 +65,13 @@ export function transformPremiumAtelier(source){
   .replace('value+(host.settings.topOffset||0)/100+','value+((host.settings.topOffset||0)+(host.settings.topShift||0))/100+');
  // Any broken continuous plan returns to a clean bare cabinet, with no stale
  // manufacturing dimensions or material identifiers left in its saved record.
- source=source.replaceAll("{top:'bare',topSpan:item.settings.width,topOffset:0}","{top:'bare',topSpan:item.settings.width,topOffset:0,topPlanId:'',topLength:item.settings.width,topShift:0,topSurfaceId:'',topSurfaceNcs:'',topPriceKey:'',basinPriceKey:''}");
+ source=source.replaceAll("{top:'bare',topSpan:item.settings.width,topOffset:0}","{top:'bare',topSpan:item.settings.width,topOffset:0,topPlanId:'',topLength:item.settings.width,topShift:0,topDepth:undefined,basinOffsetX:0,basinOffsetZ:0,topSurfaceId:'',topSurfaceNcs:'',topPriceKey:'',basinPriceKey:''}");
  return premiumAtelierPrelude+source;
 }
 
 export function transformPremiumPreview(source){
- for(const object of ['s','state','settings'])source=source.replaceAll(`topSpan:${object}.topSpan,topOffset:${object}.topOffset,`,`topSpan:${object}.topSpan,topOffset:${object}.topOffset,topPlanId:${object}.topPlanId,topLength:${object}.topLength,topShift:${object}.topShift,topSurfaceId:${object}.topSurfaceId,topSurfaceNcs:${object}.topSurfaceNcs,`);
- return source.replaceAll('s.basinLayout,s.topSpan)','s.basinLayout,s.topSpan,s.topPlanId,s.topLength)')
+ for(const object of ['s','state','settings'])source=source.replaceAll(`topSpan:${object}.topSpan,topOffset:${object}.topOffset,`,`topSpan:${object}.topSpan,topOffset:${object}.topOffset,topPlanId:${object}.topPlanId,topLength:${object}.topLength,topShift:${object}.topShift,topDepth:${object}.topDepth,basinOffsetX:${object}.basinOffsetX,basinOffsetZ:${object}.basinOffsetZ,topSurfaceId:${object}.topSurfaceId,topSurfaceNcs:${object}.topSurfaceNcs,`);
+ return source.replaceAll('s.basinLayout,s.topSpan)','s.basinLayout,s.topSpan,s.topPlanId,s.topLength,s)')
   .replaceAll('item.asset.setTop(s.top,s);','item.asset.setTop(s.top,s);item.asset.setSurface?.(s);')
   .replace(/(?<![\w.])asset\.setTop\(s\.top,s\);/g,'asset.setTop(s.top,s);asset.setSurface?.(s);');
 }
