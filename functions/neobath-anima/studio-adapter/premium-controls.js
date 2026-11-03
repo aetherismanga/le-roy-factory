@@ -47,9 +47,10 @@ export function planSettings(project,host,planId,group,basinId=null){
  const old=host.settings,plan=PRODUCT_BY_ID.get(planId),span=group.span;
  if(!plan||plan.category!=='worktop')return null;
  const basin=basinId&&PRODUCT_BY_ID.get(basinId),top=basin?.id||plan.id,oldSelection=selectionFor(old),sameBasin=basin?.id===oldSelection?.basin?.id;
+ const samePlan=oldSelection?.top?.id===plan.id,referenceDepth=oldSelection?.referenceDepth||plan.depth||46.2,newBasinOffsetZ=basin&&samePlan&&plan.configurableWidth?(referenceDepth-Number(old.topDepth||oldSelection?.previewDepth||referenceDepth))/2:0;
  const length=plan.configurableWidth?Math.max(span,Math.min(plan.maxWidth||span,old.topLength||span)):span;
  const unchangedPlan=selectionFor(old)?.top?.id===plan.id&&span===(old.topSpan||old.width)&&group.offset===(old.topOffset||0);
- let settings={...old,topDepth:plan.configurableWidth&&oldSelection?.top?.id===plan.id?old.topDepth:undefined,basinOffsetX:sameBasin?old.basinOffsetX||0:0,basinOffsetZ:sameBasin?old.basinOffsetZ||0:0,top,topPlanId:plan.id,topSpan:span,topOffset:group.offset,topLength:length,topShift:unchangedPlan?old.topShift||0:0,basinLayout:'center',
+ let settings={...old,topDepth:plan.configurableWidth&&oldSelection?.top?.id===plan.id?old.topDepth:undefined,basinOffsetX:sameBasin?old.basinOffsetX||0:0,basinOffsetZ:sameBasin?old.basinOffsetZ||0:newBasinOffsetZ,top,topPlanId:plan.id,topSpan:span,topOffset:group.offset,topLength:length,topShift:unchangedPlan?old.topShift||0:0,basinLayout:'center',
   basinColor:mainColor(basin||plan,old.basinColor),topPriceKey:mainColor(plan,old.topPriceKey),basinPriceKey:basin?mainColor(basin,old.basinPriceKey||old.basinColor):''};
  if(settings.topDepth==null)delete settings.topDepth;
  const selection=selectionFor(settings);if(!selection)return null;
@@ -142,6 +143,16 @@ export function renderPremiumPlanControls(parent,{project,host,onPatch,onError=(
  const settings=host.settings,selection=selectionFor(settings),plan=selection?.top,choices=premiumPlanChoices(project,host),family=plan?worktopFamily(plan):'bare';
  const status=element(document,'small');status.setAttribute('role','alert');
  const apply=next=>{if(!next)return false;const ok=onPatch(next);if(ok===false){status.textContent='Cette sélection ne peut pas être appliquée. Vérifiez les supports et la position des vasques.';return false;}return true;};
+ const dimensionsInputs={},offsetInputs={};
+ const geometrySettings=()=>{const next={...settings};for(const [key,input] of [...Object.entries(dimensionsInputs),...Object.entries(offsetInputs)])next[key]=Number(input.value);return next;};
+ const commitGeometry=()=>{
+  const next=geometrySettings(),length=dimensionsInputs.topLength,depth=dimensionsInputs.topDepth;
+  if(length&&(!Number.isFinite(next.topLength)||next.topLength<Number(length.min)||next.topLength>Number(length.max))){status.textContent='Merci de demander une validation usine pour une longueur hors '+number(plan.minWidth||60)+'–'+number(plan.maxWidth||240)+' cm. Le plan doit aussi couvrir les '+number(settings.topSpan||settings.width)+' cm de supports.';onError(status.textContent);return;}
+  if(depth&&(!Number.isFinite(next.topDepth)||next.topDepth<Number(depth.min)||next.topDepth>Number(depth.max))){status.textContent='La profondeur doit couvrir les '+number(depth.min)+' cm du caisson et rester inférieure ou égale à '+depth.max+' cm.';onError(status.textContent);return;}
+  if(!Number.isFinite(next.topShift??0)||!Number.isFinite(next.basinOffsetX??0)||!Number.isFinite(next.basinOffsetZ??0)){status.textContent='Renseignez les déplacements en centimètres.';onError(status.textContent);return;}
+  if(!fits(project,host,next)){status.textContent='Le plan doit couvrir les supports et les cuves rester dans le plan, au-dessus de vrais sous-vasques. Vérifiez les dimensions et la position de la vasque.';onError(status.textContent);return;}
+  apply(next);
+ };
  const validFamilies=PREMIUM_FAMILIES.filter(item=>item.id==='bare'||choices.some(choice=>choice.family===item.id));
  field(root,'Famille du plan',validFamilies,family,value=>{
   if(value==='bare'){apply({...settings,top:'bare',topDepth:undefined,basinOffsetX:0,basinOffsetZ:0,topPlanId:'',topSurfaceId:'',topSurfaceNcs:'',topPriceKey:'',basinPriceKey:'',topSpan:settings.width,topOffset:0,topLength:settings.width,topShift:0,basinColor:'standard'});return;}
@@ -170,13 +181,9 @@ export function renderPremiumPlanControls(parent,{project,host,onPatch,onError=(
   const fields=element(document,'div',undefined,'anima-plan-fields'),lengthWrap=element(document,'label','Longueur du plan (cm)'),length=element(document,'input');length.type='number';length.step='.1';length.min=Math.max(settings.topSpan||settings.width,plan.minWidth||1);length.max=plan.maxWidth||600;length.value=selection.topLength;length.dataset.premiumControl='length';lengthWrap.append(length);
   const shiftWrap=element(document,'label','Décalage du plan (cm)'),move=element(document,'input');move.type='number';move.step='.1';move.min=-overhang;move.max=overhang;move.value=shift;move.dataset.premiumControl='shift';shiftWrap.append(move);
   const depthWrap=element(document,'label','Profondeur du plan (cm)'),depth=element(document,'input');depth.type='number';depth.step='.1';depth.min=Math.round(cabinetFormat(settings.format).depth*1000)/10;depth.max=90;depth.value=settings.topDepth||plan.depth||selection.previewDepth||46.2;depth.dataset.premiumControl='depth';depthWrap.append(depth);
-  const commit=element(document,'button','Appliquer les dimensions');commit.type='button';commit.dataset.premiumControl='dimensions';commit.onclick=()=>{
-   const next={...settings,topLength:Number(length.value),topShift:Number(move.value),topDepth:Number(depth.value)};
-   if(!Number.isFinite(next.topLength)||next.topLength<Number(length.min)||next.topLength>Number(length.max)){status.textContent='Merci de demander une validation usine pour une longueur hors '+number(plan.minWidth||60)+'–'+number(plan.maxWidth||240)+' cm. Le plan doit aussi couvrir les '+number(settings.topSpan||settings.width)+' cm de supports.';onError(status.textContent);return;}
-   if(!Number.isFinite(next.topDepth)||next.topDepth<Number(depth.min)||next.topDepth>Number(depth.max)){status.textContent='La profondeur doit couvrir les '+number(depth.min)+' cm du caisson et rester inférieure ou égale à '+depth.max+' cm.';onError(status.textContent);return;}
-   if(!fits(project,host,next)){status.textContent='Le plan doit couvrir les supports et les cuves rester au-dessus de vrais sous-vasques. Vérifiez le décalage et la position des vasques.';onError(status.textContent);return;}
-   apply(next);
-  };fields.append(lengthWrap,shiftWrap,depthWrap,commit);summary.append(fields);summary.append(element(document,'small','Une profondeur différente du catalogue nécessite un devis fabricant.'));
+  Object.assign(dimensionsInputs,{topLength:length,topShift:move,topDepth:depth});
+  const commit=element(document,'button','Appliquer les dimensions');commit.type='button';commit.dataset.premiumControl='dimensions';commit.onclick=commitGeometry;
+  fields.append(lengthWrap,shiftWrap,depthWrap,commit);summary.append(fields);summary.append(element(document,'small','Une profondeur différente du catalogue nécessite un devis fabricant.'));
   if(plan.requiresWidthConfirmation)summary.append(element(document,'p','Fabrication sur mesure : longueur et débords à confirmer avec le fabricant.'));
  }
  if(!plan.depth)summary.append(element(document,'p','Profondeur de prévisualisation '+number(selection.previewDepth||46.2)+' cm · implantation à confirmer avant fabrication.'));
@@ -213,8 +220,8 @@ export function renderPremiumPlanControls(parent,{project,host,onPatch,onError=(
  }
  if(plan.configurableWidth&&selection.basin){
   const positionFields=element(document,'div',undefined,'anima-plan-fields');positionFields.dataset.premiumBasinPosition='true';root.append(element(document,'h4','Déplacer la vasque sur le plan'));
-  const offsetInputs={};for(const [key,title] of [['basinOffsetX','Gauche / droite (cm)'],['basinOffsetZ','Avant / arrière (cm)']]){const wrap=element(document,'label',title),input=element(document,'input');input.type='number';input.step='.1';input.value=settings[key]||0;input.dataset.premiumControl=key;wrap.append(input);positionFields.append(wrap);offsetInputs[key]=input;}
-  const moveBasin=element(document,'button','Appliquer la position');moveBasin.type='button';moveBasin.dataset.premiumControl='basin-position-xy';moveBasin.onclick=()=>{const next={...settings,basinOffsetX:Number(offsetInputs.basinOffsetX.value),basinOffsetZ:Number(offsetInputs.basinOffsetZ.value)};if(!Number.isFinite(next.basinOffsetX)||!Number.isFinite(next.basinOffsetZ)){status.textContent='Renseignez deux déplacements en centimètres.';return;}if(!fits(project,host,next)){status.textContent='La cuve doit rester dans le plan et au-dessus d’un sous-vasque. Réduisez le déplacement.';onError(status.textContent);return;}apply(next);};positionFields.append(moveBasin,element(document,'small','0 cm correspond à la position du modèle. Les limites dépendent du plan, de la cuve et des caissons.'));root.append(positionFields);
+  for(const [key,title] of [['basinOffsetX','Gauche / droite (cm)'],['basinOffsetZ','Avant / arrière (cm)']]){const wrap=element(document,'label',title),input=element(document,'input');input.type='number';input.step='.1';input.value=settings[key]||0;input.dataset.premiumControl=key;wrap.append(input);positionFields.append(wrap);offsetInputs[key]=input;}
+  const moveBasin=element(document,'button','Appliquer la position');moveBasin.type='button';moveBasin.dataset.premiumControl='basin-position-xy';moveBasin.onclick=commitGeometry;positionFields.append(moveBasin,element(document,'small','0 cm correspond à la position du modèle. Les limites dépendent du plan, de la cuve et des caissons.'));root.append(positionFields);
  }
  if(selection.positions.length){
   const layoutOptions=basinLayouts(settings.top,settings.width,settings.format,undefined,settings.topSpan||settings.width,settings.topPlanId,settings.topLength,settings).filter(option=>fits(project,host,{...settings,basinLayout:option.layout}));

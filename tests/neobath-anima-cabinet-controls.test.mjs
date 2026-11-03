@@ -9,7 +9,7 @@ import {renderPremiumPlanControls,premiumPlanChoices,premiumBasinChoices,worktop
 import {transformAnimaCabinetUI} from '../functions/neobath-anima/studio-adapter/cabinet-ui-transform.mjs';
 import {transformCommonStudioSource} from '../functions/neobath-anima/studio-adapter/studio-source-transform.mjs';
 import {initialDraft,draftProject} from '../functions/neobath-anima/studio-adapter/commerce/guided.js';
-import {PRODUCT_BY_ID} from '../functions/neobath-anima/studio-adapter/anima-data.js';
+import {PRODUCT_BY_ID,topSelection} from '../functions/neobath-anima/studio-adapter/anima-data.js';
 import {validateProject} from '../functions/neobath-anima/studio-adapter/projects.js';
 class Element{
  constructor(document,tag){this.ownerDocument=document;this.tagName=tag.toUpperCase();this.children=[];this.dataset={};this.attributes={};this.style={};this.textContent='';this.hidden=false;}
@@ -68,4 +68,21 @@ test('every initial family photo selects its own exact source plan through a syn
   const card=find(root,'premiumPlanFamily',family);assert.ok(card);assert.equal(card.dataset.premiumPlan,planId);assert.match(card.attributes['aria-label'],/^Choisir /);card.onclick();
   assert.equal(host.settings.topPlanId,planId);assert.equal(worktopFamily(PRODUCT_BY_ID.get(host.settings.topPlanId)),family);assert.equal(find(root,'premiumControl','family').value,family);
  }
+});
+
+test('both geometry actions submit depth and basin XY together so a deep plan never needs an invalid intermediate state',()=>{
+ for(const action of ['dimensions','basin-position-xy']){
+  const {project,host}=customProject(),choice=premiumBasinChoices(project,host).find(choice=>choice.product.id==='vasca-a50');assert.ok(choice);host.settings=choice.settings;
+  const document=documentFixture(),patches=[],root=renderPremiumPlanControls(document.body,{project,host,onPatch:settings=>{validateProject({...project,items:project.items.map(item=>item.id===host.id?{...item,settings}:item)});patches.push(settings);return true;}});
+  find(root,'premiumControl','depth').value='80';find(root,'premiumControl','length').value='110';find(root,'premiumControl','shift').value='1';find(root,'premiumControl','basinOffsetX').value='1';find(root,'premiumControl','basinOffsetZ').value='-16.9';find(root,'premiumControl',action).onclick();
+  assert.equal(patches.length,1,action+' must commit one valid combined edit');assert.equal(patches[0].topDepth,80);assert.equal(patches[0].topLength,110);assert.equal(patches[0].topShift,1);assert.equal(patches[0].basinOffsetX,1);assert.equal(patches[0].basinOffsetZ,-16.9);
+ }
+});
+
+test('adding a new basin to an existing deep plan keeps the bowl above the actual cabinet',()=>{
+ const {project,host}=customProject();host.settings.topDepth=80;validateProject(project);
+ const selection=topSelection(host.settings.top,host.settings.width,host.settings.format,host.settings.basinLayout,host.settings.topSpan,host.settings.topPlanId,host.settings.topLength,host.settings),expectedOffset=-(80-selection.referenceDepth)/2;
+ const choices=premiumBasinChoices(project,host),choice=choices.find(choice=>choice.product.id==='vasca-a50');assert.ok(choice,'a supported deep plan must still offer its compatible A50 basin');assert.equal(choice.settings.topDepth,80);assert.equal(choice.settings.basinOffsetZ,expectedOffset);
+ validateProject({...project,items:project.items.map(item=>item.id===host.id?{...item,settings:choice.settings}:item)});
+ const document=documentFixture(),patches=[],root=renderPremiumPlanControls(document.body,{project,host,onPatch:settings=>{patches.push(settings);return true;}});find(root,'premiumBasin','vasca-a50').onclick();assert.equal(patches[0].basinOffsetZ,expectedOffset);assert.equal(patches[0].topDepth,80);
 });

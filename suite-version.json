@@ -149,7 +149,7 @@
       "privateApplicationEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-interactions-4",
+      "releaseId": "20261103-neobath-anima-studio-one-interactions-4b",
       "page": "neobath-anima-configurateur.html",
       "access": "agents-only",
       "modules": 42,
@@ -158,7 +158,7 @@
       "products": 257,
       "compositions": 16,
       "projectSync": "shared-agent-private-api",
-      "appSha256": "49ade4ef1ff4d28e459efaf1829264002f22cf05ff51819d12066af97ce21bb0",
+      "appSha256": "64111d509b526570bfc8d9b5dc7d17aed84563a5b5a70298350e9e55b4f97911",
       "engine": "studio-one",
       "homeSha256": "2114e3b0a8743f85117b310f2f904a90431633647dc855fbf1f86f91c8d7c8f3",
       "photographs": 155,
@@ -224,7 +224,7 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-interactions-4",
+      "releaseId": "20261103-neobath-anima-studio-one-interactions-4b",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true
