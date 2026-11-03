@@ -5,7 +5,7 @@ import {continuousPlanGroups,continuousTopContext,validateProject} from './proje
 
 // Only the deck assembly changes owner. Stock furniture, hardware, taps and
 // placements keep their own identities. Explicit source tariffs travel with it.
-export const WORKTOP_SETTINGS=Object.freeze(['top','topPlanId','topSpan','topOffset','topLength','topShift','topDepth','basinOffsetX','basinOffsetZ','topSurfaceId','topSurfaceNcs','topPriceKey','basinPriceKey','basinColor','basinLayout','basinBottom','basinSupport']);
+export const WORKTOP_SETTINGS=Object.freeze(['top','topPlanId','topSpan','topOffset','topLength','topShift','topAutoFit','topDepth','basinOffsetX','basinOffsetZ','topSurfaceId','topSurfaceNcs','topPriceKey','basinPriceKey','basinColor','basinLayout','basinBottom','basinSupport']);
 const clone=value=>structuredClone(value);
 const formOf=item=>CABINET_FORMATS.find(form=>form.id===item?.settings?.format);
 const cabinet=(project,id)=>project?.items?.find(item=>item.id===id&&item.type==='cabinet');
@@ -36,7 +36,7 @@ export function transferPlan(project,sourceId,targetId,{supportIds,topShift=0}={
  const context=groups.find(group=>group.ids.length===ids.length&&group.ids.every(id=>ids.includes(id)));
  if(!context||context.ids.some(id=>occupied.has(id)||locked(next,cabinet(next,id))))throw Error('Le plan doit reposer sur des meubles libres, juxtaposés et à la même hauteur.');
  if(!Number.isFinite(topShift))throw Error('Décalage de plan invalide.');
- to.settings={...to.settings,...payload,topSpan:context.span,topOffset:context.offset,topShift:round(topShift)};
+ to.settings={...to.settings,...payload,topSpan:context.span,topOffset:context.offset,topShift:round(topShift),topAutoFit:false};
  const normalized=normalizeCabinetRoles(next);validateProject(normalized);
  return {project:normalized,sourceId,targetId,context,topShift:round(topShift)};
 }

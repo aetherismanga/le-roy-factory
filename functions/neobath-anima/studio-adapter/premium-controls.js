@@ -5,6 +5,9 @@ import {cabinetFormat} from './configuration.js';
 import {normalizeCabinetRoles} from './cabinet-role.js';
 import {eclisseAccessoryFamily,eclisseBottomOptions,resolveBasinAccessories} from './basin-accessories.js';
 import {basinLayouts,basinColors,BASIN_LAYOUT_NAMES} from './basins.js';
+import {renderBasinFinishPalette} from './basin-finish-controls.js';
+import {appendBasinCardContent,BASIN_CARD_CSS} from './basin-card.js';
+import {preferredWorktopContext,automaticWorktopSettings,worktopFitsAutomatically} from './auto-fit-worktop.js';
 import VISUALS from '../../../assets/data/neobath-anima-visuals.json' with {type:'json'};
 
 export const PREMIUM_FAMILIES=Object.freeze([
@@ -51,8 +54,8 @@ export function planSettings(project,host,planId,group,basinId=null){
  const basin=basinId&&PRODUCT_BY_ID.get(basinId),top=basin?.id||plan.id,oldSelection=selectionFor(old),sameBasin=basin?.id===oldSelection?.basin?.id;
  const samePlan=oldSelection?.top?.id===plan.id,referenceDepth=oldSelection?.referenceDepth||plan.depth||46.2,newBasinOffsetZ=basin&&samePlan&&plan.configurableWidth?(referenceDepth-Number(old.topDepth||oldSelection?.previewDepth||referenceDepth))/2:0;
  const length=plan.configurableWidth?Math.max(span,Math.min(plan.maxWidth||span,old.topLength||span)):span;
- const unchangedPlan=selectionFor(old)?.top?.id===plan.id&&span===(old.topSpan||old.width)&&group.offset===(old.topOffset||0);
- let settings={...old,topDepth:plan.configurableWidth&&oldSelection?.top?.id===plan.id?old.topDepth:undefined,basinOffsetX:sameBasin?old.basinOffsetX||0:0,basinOffsetZ:sameBasin?old.basinOffsetZ||0:newBasinOffsetZ,basinBottom:sameBasin?old.basinBottom||'none':'none',basinSupport:sameBasin&&old.basinSupport===true,top,topPlanId:plan.id,topSpan:span,topOffset:group.offset,topLength:length,topShift:unchangedPlan?old.topShift||0:0,basinLayout:'center',
+ const unchangedSupports=span===(old.topSpan||old.width)&&group.offset===(old.topOffset||0),unchangedPlan=samePlan&&unchangedSupports,manualCustom=oldSelection?.top?.configurableWidth&&!worktopFitsAutomatically(old);
+ let settings={...old,topDepth:plan.configurableWidth&&oldSelection?.top?.id===plan.id?old.topDepth:undefined,basinOffsetX:sameBasin?old.basinOffsetX||0:0,basinOffsetZ:sameBasin?old.basinOffsetZ||0:newBasinOffsetZ,basinBottom:sameBasin?old.basinBottom||'none':'none',basinSupport:sameBasin&&old.basinSupport===true,top,topPlanId:plan.id,topAutoFit:plan.configurableWidth?!manualCustom:false,topSpan:span,topOffset:group.offset,topLength:length,topShift:unchangedPlan||plan.configurableWidth&&manualCustom&&unchangedSupports?old.topShift||0:0,basinLayout:'center',
   basinColor:mainColor(basin||plan,old.basinColor),topPriceKey:mainColor(plan,old.topPriceKey),basinPriceKey:basin?mainColor(basin,old.basinPriceKey||old.basinColor):''};
  if(settings.topDepth==null)delete settings.topDepth;
  try{settings=normalizeCabinetRoles(prospective(project,host,settings)).items.find(item=>item.id===host.id).settings;}catch{return null;}
@@ -88,15 +91,15 @@ function styles(document){
  if(document.getElementById('anima-premium-controls-style'))return;
  const style=document.createElement('style');style.id='anima-premium-controls-style';
  style.textContent=`
-.anima-premium{display:grid;gap:14px;min-width:0;width:100%;grid-column:1/-1;box-sizing:border-box}
+.anima-premium{display:grid;grid-auto-rows:max-content;align-content:start;gap:14px;min-width:0;width:100%;grid-column:1/-1;box-sizing:border-box;flex:0 0 auto}
 .anima-premium label{display:grid;gap:7px;min-width:0;font:600 13px/1.4 Arial,sans-serif;color:#29483e}
 .anima-premium select,.anima-premium input{box-sizing:border-box;width:100%;min-width:0;min-height:44px;border:1px solid #cbd2c5;border-radius:7px;background:#fffdf7;padding:10px;color:#29483e;font:14px Arial,sans-serif}
 .anima-premium .anima-plan-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .anima-premium .anima-plan-fields button{align-self:end;grid-column:1/-1;min-height:44px}
 .anima-premium small,.anima-premium p{margin:0;font:12px/1.5 Arial,sans-serif;color:#65715f}
 .anima-premium h4{margin:4px 0 0;font:600 13px Arial,sans-serif;color:#29483e}
-.anima-premium .anima-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;min-width:0}
-.anima-premium .anima-photo-choice{display:grid;align-content:start;gap:6px;min-width:0;border:1px solid #cbd2c5;border-radius:8px;background:#fffdf7;color:#29483e;padding:9px;text-align:left;cursor:pointer}
+.anima-premium .anima-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:max-content;align-content:start;gap:8px;min-width:0}
+.anima-premium .anima-photo-choice{display:grid;grid-auto-rows:max-content;align-content:start;gap:6px;min-width:0;height:auto;max-height:none;box-sizing:border-box;border:1px solid #cbd2c5;border-radius:8px;background:#fffdf7;color:#29483e;padding:9px;text-align:left;white-space:normal;cursor:pointer}
 .anima-premium .anima-photo-choice[aria-pressed=true]{border-color:#29483e;background:#e9efdf;box-shadow:inset 0 0 0 1px #29483e}
 .anima-premium .anima-photo-choice img{width:100%;height:96px;object-fit:contain;display:block;background:#fff}
 .anima-premium .anima-photo-choice strong{font:600 12px/1.4 Arial,sans-serif;overflow-wrap:anywhere}
@@ -113,6 +116,7 @@ function styles(document){
 .anima-premium .anima-basin-cards{max-height:350px;overflow-y:auto;overscroll-behavior:contain;padding:1px 4px 2px 1px}
 .anima-premium button{min-height:44px;touch-action:manipulation;font-size:14px}
 .anima-premium [hidden]{display:none!important}
+${BASIN_CARD_CSS}
 `;
  document.head.append(style);
 }
@@ -124,8 +128,7 @@ function field(parent,label,entries,value,onChange,key){
 }
 function photoButton(parent,product,selected,action,detail){
  const document=parent.ownerDocument,button=element(document,'button',undefined,'anima-photo-choice');button.type='button';button.dataset.premiumBasin=product.id;button.setAttribute('aria-pressed',String(selected));
- const src=photo(product);if(src){const image=element(document,'img');image.src=src;image.alt='NEOBATH ANIMA · '+product.label+' · '+product.ref;image.width=242;image.height=167;image.loading='lazy';image.decoding='async';button.append(image);}
- button.append(element(document,'strong',product.label+' · '+product.ref),element(document,'small',detail));button.onclick=action;parent.append(button);return button;
+ appendBasinCardContent(document,button,product,{image:photo(product),price:detail});button.onclick=action;parent.append(button);return button;
 }
 
 function planDiagram(document,product,settings){
@@ -144,14 +147,15 @@ export function renderPremiumPlanControls(parent,{project,host,onPatch,onError=(
  const root=element(document,'div',undefined,'anima-premium');root.dataset.premiumPlans='true';parent.append(root);
  if(!host||host.type!=='cabinet')return root;
  const settings=host.settings,selection=selectionFor(settings),plan=selection?.top,choices=premiumPlanChoices(project,host),family=plan?worktopFamily(plan):'bare';
+ const contextFor=choice=>preferredWorktopContext(choice,selection?.top?.configurableWidth?settings:{...settings,topAutoFit:true});
  const status=element(document,'small');status.setAttribute('role','alert');
  const apply=next=>{if(!next)return false;const ok=onPatch(next);if(ok===false){status.textContent='Cette sélection ne peut pas être appliquée. Vérifiez les supports et la position des vasques.';return false;}return true;};
  const dimensionsInputs={},offsetInputs={};
- const geometrySettings=()=>{const next={...settings};for(const [key,input] of [...Object.entries(dimensionsInputs),...Object.entries(offsetInputs)])next[key]=Number(input.value);return next;};
- const commitGeometry=()=>{
-  const next=geometrySettings(),length=dimensionsInputs.topLength,depth=dimensionsInputs.topDepth;
-  if(length&&(!Number.isFinite(next.topLength)||next.topLength<Number(length.min)||next.topLength>Number(length.max))){status.textContent='Merci de demander une validation usine pour une longueur hors '+number(plan.minWidth||60)+'–'+number(plan.maxWidth||240)+' cm. Le plan doit aussi couvrir les '+number(settings.topSpan||settings.width)+' cm de supports.';onError(status.textContent);return;}
-  if(depth&&(!Number.isFinite(next.topDepth)||next.topDepth<Number(depth.min)||next.topDepth>Number(depth.max))){status.textContent='La profondeur doit couvrir les '+number(depth.min)+' cm du caisson et rester inférieure ou égale à '+depth.max+' cm.';onError(status.textContent);return;}
+ const geometrySettings=({manualDimensions=false}={})=>{const next={...settings};for(const [key,input] of [...(manualDimensions?Object.entries(dimensionsInputs):[]),...Object.entries(offsetInputs)])next[key]=Number(input.value);return next;};
+ const commitGeometry=({manualDimensions=false}={})=>{
+  const next={...geometrySettings({manualDimensions}),...(manualDimensions?{topAutoFit:false}:{})},length=dimensionsInputs.topLength,depth=dimensionsInputs.topDepth;
+  if(manualDimensions&&length&&(!Number.isFinite(next.topLength)||next.topLength<Number(length.min)||next.topLength>Number(length.max))){status.textContent='Merci de demander une validation usine pour une longueur hors '+number(plan.minWidth||60)+'–'+number(plan.maxWidth||240)+' cm. Le plan doit aussi couvrir les '+number(settings.topSpan||settings.width)+' cm de supports.';onError(status.textContent);return;}
+  if(manualDimensions&&depth&&(!Number.isFinite(next.topDepth)||next.topDepth<Number(depth.min)||next.topDepth>Number(depth.max))){status.textContent='La profondeur doit couvrir les '+number(depth.min)+' cm du caisson et rester inférieure ou égale à '+depth.max+' cm.';onError(status.textContent);return;}
   if(!Number.isFinite(next.topShift??0)||!Number.isFinite(next.basinOffsetX??0)||!Number.isFinite(next.basinOffsetZ??0)){status.textContent='Renseignez les déplacements en centimètres.';onError(status.textContent);return;}
   if(!fits(project,host,next)){status.textContent='Le plan doit couvrir les supports et les cuves rester dans le plan, au-dessus de vrais sous-vasques. Vérifiez les dimensions et la position de la vasque.';onError(status.textContent);return;}
   apply(next);
@@ -159,33 +163,39 @@ export function renderPremiumPlanControls(parent,{project,host,onPatch,onError=(
  const validFamilies=PREMIUM_FAMILIES.filter(item=>item.id==='bare'||choices.some(choice=>choice.family===item.id));
  field(root,'Famille du plan',validFamilies,family,value=>{
   if(value==='bare'){apply({...settings,top:'bare',topDepth:undefined,basinOffsetX:0,basinOffsetZ:0,basinBottom:'none',basinSupport:false,topPlanId:'',topSurfaceId:'',topSurfaceNcs:'',topPriceKey:'',basinPriceKey:'',topSpan:settings.width,topOffset:0,topLength:settings.width,topShift:0,basinColor:'standard'});return;}
-  const choice=choices.find(choice=>choice.family===value),context=choice?.contexts.find(context=>context.span===(settings.topSpan||settings.width))||choice?.contexts[0];apply(context?.settings);
+  const choice=choices.find(choice=>choice.family===value),context=contextFor(choice);apply(context?.settings);
  },'family');
- const choosePlan=choice=>{const context=choice?.contexts.find(context=>context.span===(settings.topSpan||settings.width)&&context.offset===(settings.topOffset||0))||choice?.contexts[0];if(!context)return;const keepBasin=selection?.basin&&planSettings(project,host,choice.product.id,context,selection.basin.id);apply(keepBasin||context.settings);};
+ const choosePlan=choice=>{const context=contextFor(choice);if(!context)return;const keepBasin=selection?.basin&&planSettings(project,host,choice.product.id,context,selection.basin.id);apply(keepBasin||context.settings);};
  root.append(element(document,'h4',plan?'Choisir le modèle du plan':'Choisir un plan ou une vasque'));
  const planCards=element(document,'div',undefined,'anima-choice-grid anima-plan-cards');
  const visiblePlans=plan?choices.filter(choice=>choice.family===family):validFamilies.filter(entry=>entry.id!=='bare').map(entry=>choices.find(choice=>choice.family===entry.id)).filter(Boolean);
- for(const choice of visiblePlans){const button=planCard(planCards,choice,settings,choice.product.id===plan?.id,()=>choosePlan(choice),{family:!plan});if(choice.product.subtype==='integrated'){const context=choice.contexts.find(context=>context.span===(settings.topSpan||settings.width)&&context.offset===(settings.topOffset||0))||choice.contexts[0];onBasinCard?.(button,{...choice,settings:context.settings});}}root.append(planCards);
+ for(const choice of visiblePlans){const button=planCard(planCards,choice,settings,choice.product.id===plan?.id,()=>choosePlan(choice),{family:!plan});if(choice.product.subtype==='integrated'){const context=contextFor(choice);onBasinCard?.(button,{...choice,settings:context.settings});}}root.append(planCards);
  if(!plan){root.append(element(document,'p','Plans seuls et plans-vasques du catalogue. Pour un plan sur mesure, choisissez ensuite la vasque compatible.'),status);return root;}
  const familyChoices=choices.filter(choice=>choice.family===family),activeChoice=familyChoices.find(choice=>choice.product.id===plan.id);
  const planSelector=field(root,'Modèle / épaisseur du plan',familyChoices.map(choice=>({id:choice.product.id,name:choice.product.label+' · '+choice.product.ref+' · H '+number(choice.product.height)+' cm · '+money((choice.product.prices?.[0]?.price??NaN)*1.2)+(choice.product.unit==='cm'?' / cm':'')})),plan.id,id=>{
-  const choice=choices.find(choice=>choice.product.id===id),context=choice?.contexts.find(context=>context.span===(settings.topSpan||settings.width)&&context.offset===(settings.topOffset||0))||choice?.contexts[0];
+  const choice=choices.find(choice=>choice.product.id===id),context=contextFor(choice);
   if(!context)return;const keepBasin=selection.basin&&planSettings(project,host,id,context,selection.basin.id);apply(keepBasin||context.settings);
  },'plan');planSelector.parentNode.hidden=true;
  const contexts=activeChoice?.contexts||[];
  if(contexts.length>1)field(root,'Meubles supports du plan',contexts.map((context,index)=>({id:index,name:context.ids.length+' meuble'+(context.ids.length>1?'s':'')+' · '+number(context.span)+' cm'+(context.offset?' · décalage '+number(context.offset)+' cm':'')})),contexts.findIndex(context=>context.span===(settings.topSpan||settings.width)&&context.offset===(settings.topOffset||0)),id=>{
-  const group=contexts[Number(id)];apply(planSettings(project,host,plan.id,group,selection.basin?.id)||group.settings);
+  const group=contexts[Number(id)],next=planSettings(project,host,plan.id,group,selection.basin?.id)||group.settings;apply({...next,topAutoFit:false});
  },'supports');
  const summary=element(document,'div',undefined,'anima-plan-summary');
  summary.append(element(document,'strong',(selection.basin?'Plan + vasque':selection.integrated?'Plan-vasque intégré':'Plan seul · sans vasque')+' · '+plan.ref),element(document,'p','L '+number(selection.topWidth)+' × P '+number(settings.topDepth||plan.depth||selection.previewDepth||46.2)+' × H '+number(plan.height)+' cm · supports '+number(settings.topSpan||settings.width)+' cm'));
  if(plan.configurableWidth){
+  const adapt=element(document,'button','Adapter à la composition');adapt.type='button';adapt.dataset.premiumControl='fit-composition';adapt.onclick=()=>{
+   const context=preferredWorktopContext(activeChoice,{...settings,topAutoFit:true});if(!context)return;
+   const next=automaticWorktopSettings(settings,context);
+   if(!next||!fits(project,host,next)){status.textContent='Cette adaptation ne permet pas de conserver la vasque à son emplacement. Vérifiez les caissons supports ou déplacez d’abord la vasque.';onError(status.textContent);return;}
+   apply({...next,topAutoFit:true});
+  };summary.append(adapt,element(document,'small',settings.topAutoFit===false?'Dimensions personnalisées · adaptation automatique désactivée.':'Le plan suit automatiquement les caissons compatibles de la composition.'));
   const overhang=(selection.topLength-(settings.topSpan||settings.width))/2,shift=settings.topShift||0;
   summary.append(element(document,'p','Débord gauche '+number(overhang-shift)+' cm · débord droit '+number(overhang+shift)+' cm.'));
   const fields=element(document,'div',undefined,'anima-plan-fields'),lengthWrap=element(document,'label','Longueur du plan (cm)'),length=element(document,'input');length.type='number';length.step='.1';length.min=Math.max(settings.topSpan||settings.width,plan.minWidth||1);length.max=plan.maxWidth||600;length.value=selection.topLength;length.dataset.premiumControl='length';lengthWrap.append(length);
   const shiftWrap=element(document,'label','Décalage du plan (cm)'),move=element(document,'input');move.type='number';move.step='.1';move.min=-overhang;move.max=overhang;move.value=shift;move.dataset.premiumControl='shift';shiftWrap.append(move);
   const depthWrap=element(document,'label','Profondeur du plan (cm)'),depth=element(document,'input');depth.type='number';depth.step='.1';depth.min=Math.round(cabinetFormat(settings.format).depth*1000)/10;depth.max=90;depth.value=settings.topDepth||plan.depth||selection.previewDepth||46.2;depth.dataset.premiumControl='depth';depthWrap.append(depth);
   Object.assign(dimensionsInputs,{topLength:length,topShift:move,topDepth:depth});
-  const commit=element(document,'button','Appliquer les dimensions');commit.type='button';commit.dataset.premiumControl='dimensions';commit.onclick=commitGeometry;
+  const commit=element(document,'button','Appliquer les dimensions');commit.type='button';commit.dataset.premiumControl='dimensions';commit.onclick=()=>commitGeometry({manualDimensions:true});
   fields.append(lengthWrap,shiftWrap,depthWrap,commit);summary.append(fields);summary.append(element(document,'small','Une profondeur différente du catalogue nécessite un devis fabricant.'));
   if(plan.requiresWidthConfirmation)summary.append(element(document,'p','Fabrication sur mesure : longueur et débords à confirmer avec le fabricant.'));
  }
@@ -216,7 +226,7 @@ export function renderPremiumPlanControls(parent,{project,host,onPatch,onError=(
   const kind=selection.basin?(selection.basin.subtype==='integrated'?'integrated':'countertop'):'none',cards=element(document,'div',undefined,'anima-choice-grid anima-basin-cards');
   const renderCards=value=>{cards.replaceChildren();for(const choice of basins.filter(choice=>value==='integrated'?choice.product.subtype==='integrated':value==='countertop'?choice.product.subtype!=='integrated':true)){
    const p=choice.product,entry=p.prices.find(entry=>entry.key===choice.settings.basinColor)||p.prices[0];
-   const button=photoButton(cards,p,p.id===selection.basin?.id,()=>apply(choice.settings),(p.width?number(p.width)+' × '+number(p.depth)+' cm · ':'')+(p.basinCount===2?'2 cuves · ':'')+'supplément '+money(entry?.price==null?NaN:entry.price*1.2));onBasinCard?.(button,choice);
+   const button=photoButton(cards,p,p.id===selection.basin?.id,()=>apply(choice.settings),'Supplément '+money(entry?.price==null?NaN:entry.price*1.2));onBasinCard?.(button,choice);
   }};
   field(root,'Équipement du plan',kinds,kind,value=>{if(value==='none'){const context={span:settings.topSpan||settings.width,offset:settings.topOffset||0};apply(planSettings(project,host,plan.id,context));}else renderCards(value);},'basin-kind');
   root.append(element(document,'h4','Choisir une vasque compatible'),element(document,'small','Photos des formes · finition appliquée dans la vue 3D.'));renderCards(kind);root.append(cards);
@@ -231,7 +241,11 @@ export function renderPremiumPlanControls(parent,{project,host,onPatch,onError=(
   if(layoutOptions.length>1)field(root,'Position de la vasque',layoutOptions.map(option=>({id:option.layout,name:BASIN_LAYOUT_NAMES[option.layout]||option.layout})),settings.basinLayout||selection.layout,layout=>apply({...settings,basinLayout:layout}),'basin-position');
   const main=selection.basin||selection.top;
   const linkedMaterial=selection.basin?.subtype==='integrated'&&surfaces.length&&main.prices?.some(entry=>entry.key===material?.priceKey);
-  if(main.prices?.length>1&&(!surfaces.length||selection.basin)&&!linkedMaterial)field(root,'Finition de la vasque',main.prices.map(entry=>({id:entry.key,name:entry.label+' · '+money(entry.price==null?NaN:entry.price*1.2)})),settings.basinPriceKey||settings.basinColor,key=>apply({...settings,basinColor:key,basinPriceKey:selection.basin?key:'',...(!selection.basin?{topPriceKey:key}:{}),...(!['fume-matte','bronze-matte'].includes(key)?{basinBottom:'none',basinSupport:false}:{})}),'basin-color');
+  if(main.prices?.length>1&&(!surfaces.length||selection.basin)&&!linkedMaterial){
+   const chooseColour=key=>apply({...settings,basinColor:key,basinPriceKey:selection.basin?key:'',...(!selection.basin?{topPriceKey:key}:{}),...(!['fume-matte','bronze-matte'].includes(key)?{basinBottom:'none',basinSupport:false}:{})});
+   field(root,'Finition de la vasque',main.prices.map(entry=>({id:entry.key,name:entry.label+' · '+money(entry.price==null?NaN:entry.price*1.2)})),settings.basinPriceKey||settings.basinColor,chooseColour,'basin-color');
+   renderBasinFinishPalette(root,{colours:basinColors(settings.top,settings.width,settings.format,settings.basinLayout,settings.topSpan||settings.width,settings.topPlanId,settings.topLength,settings),selected:settings.basinPriceKey||settings.basinColor,onChoose:chooseColour});
+  }
   const accessories=resolveBasinAccessories(selection,settings);
   if(accessories.available){
    const bottomOptions=eclisseBottomOptions(selection,settings),support=PRODUCT_BY_ID.get('sup'+eclisseAccessoryFamily(selection)+'-accessory');

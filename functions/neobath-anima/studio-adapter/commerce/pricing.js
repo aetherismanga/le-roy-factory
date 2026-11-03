@@ -5,6 +5,8 @@ import {topSelection} from '../anima-data.js';
 import {continuousTopContext,continuousTopCompatible} from '../projects.js';
 import {normalizeTopSurface} from '../premium-materials.js';
 import {resolveBasinAccessories} from '../basin-accessories.js';
+import {planFabricationOperations} from '../fabrication-operations.js';
+import {normalizeBasinUnitSettings} from '../basin-unit-data.js';
 
 export const money = cents => Number.isInteger(cents) ? new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(cents/100) : 'Prix sur demande';
 export const finish = id => C.finishes.find(f=>f.id===id);
@@ -19,6 +21,7 @@ export function lineItems(item,project=null) {
     rows.push({itemId:item.id,productId:product?.id,name,ref:product?.ref||'À confirmer',detail,
       publicTTC:Number.isInteger(price)?Math.round(price*(1+extra)):null,note:sourceNote(product),image:productImage(product)});
   };
+  const fabrication=selection=>{for(const operation of planFabricationOperations(selection))for(let index=0;index<operation.quantity;index++)row(operation.product,'Percement robinet du plan',operation.planReference+' · '+(operation.quantity>1?'percement '+(index+1)+' / '+operation.quantity:'1 percement')+' · hors robinetterie');};
   if(item.type==='cabinet') {
     try{resolveBasinAccessories(PRODUCTS.get(s.top),s);}catch(error){rows.push({itemId:item.id,name:'Option de fond de vasque incompatible',ref:'À confirmer',detail:error.message,publicTTC:null,note:'Choisissez une tablette et une vasque compatibles avant de chiffrer le projet.'});return rows;}
     const m=C.models.find(m=>m.id===s.format),p=modelProduct(s.format,s.width);
@@ -40,9 +43,10 @@ export function lineItems(item,project=null) {
       }
       if(basin) {
         const key=variantKey(basin,s.basinPriceKey||s.basinColor),color=basin.prices?.find(p=>p.key===key)?.label||'';
-        row(basin,'Vasque '+basin.label,[basin.width&&basin.depth?`${basin.width} × ${basin.depth} cm`:'',color,basin.basinCount===2?'Deux cuves (tarif de la paire)':'',/ncs/i.test(key||'')?'NCS '+(s.ncsCode||'à préciser avant commande'):''].filter(Boolean).join(' · '),key);
+        row(basin,'Vasque '+basin.label,[basin.width&&basin.depth?`${basin.width} × ${basin.depth} cm`:'',color,basin.basinCount===2&&basin.ref!=='TWS110'?'Deux cuves (tarif de la paire)':basin.ref==='TWS110'?'Cuve continue 110 cm · deux emplacements de robinetterie':'',/ncs/i.test(key||'')?'NCS '+(s.ncsCode||'à préciser avant commande'):''].filter(Boolean).join(' · '),key);
         for(const accessory of selection.basinAccessoryProducts||[])row(accessory,accessory.label,accessory.ref+' · option de la vasque '+basin.ref);
       }
+      fabrication(selection);
     }
     try{const accessories=resolveFurnitureAccessories(s);for(const product of accessories.products)if(!rows.some(line=>line.productId===product.id)){
       row(product,product.label,(product.ref||'Référence à confirmer')+' · '+(product.subtype==='frame'?product.width+' × H '+product.height+' × P '+product.depth+' cm · Noir mat':(accessories.towelSide==='left'?'Côté gauche':'Côté droit')+' · '+product.colorName));
@@ -54,11 +58,18 @@ export function lineItems(item,project=null) {
     const {top,basin}=selection,material=normalizeTopSurface(normalized,selection),key=variantKey(top,s.topPriceKey||material?.priceKey||s.basinColor),color=material?.surface.name||top.prices?.find(entry=>entry.key===key)?.label||'';
     row(top,top.subtype==='integrated'?'Plan-vasque indépendant '+top.label:'Plan de travail indépendant '+top.label,selection.topWidth+' × P '+selection.previewDepth+' × H '+top.height+' cm · '+color+' · fixation/support non inclus',key,selection.billingLength);
     if(selection.customDepth){rows.at(-1).publicTTC=null;rows.at(-1).note='Profondeur sur mesure : faisabilité et tarif à confirmer par le fabricant.';}
-    if(basin){row(basin,'Vasque '+basin.label,basin.width+' × '+basin.depth+' cm',s.basinPriceKey||s.basinColor);for(const product of selection.basinAccessoryProducts||[])row(product,product.label,product.ref+' · option de la vasque '+basin.ref);}
+    if(basin){const basinKey=variantKey(basin,s.basinPriceKey||s.basinColor),basinColor=basin.prices?.find(entry=>entry.key===basinKey)?.label||'';row(basin,'Vasque '+basin.label,[basin.width+' × '+basin.depth+' cm',basinColor,/ncs/i.test(basinKey||'')?'NCS '+(s.topSurfaceNcs||s.ncsCode||'à préciser avant commande'):''].filter(Boolean).join(' · '),basinKey);for(const product of selection.basinAccessoryProducts||[])row(product,product.label,product.ref+' · option de la vasque '+basin.ref);}
+    fabrication(selection);
+  } else if(item.type==='basin-unit') {
+    try{
+      const normalized=normalizeBasinUnitSettings(s),basin=PRODUCTS.get(normalized.basinProductId),key=normalized.basinPriceKey,color=basin.prices.find(entry=>entry.key===key)?.label||'',accessories=resolveBasinAccessories(basin,normalized);
+      row(basin,'Vasque '+basin.label,[basin.width+' × '+basin.depth+' cm',color,/ncs/i.test(key)?'NCS '+(normalized.ncsCode||normalized.topSurfaceNcs||'à préciser avant commande'):''].filter(Boolean).join(' · '),key);
+      for(const product of accessories.products)row(product,product.label,product.ref+' · option de la vasque '+basin.ref);
+    }catch(error){rows.push({itemId:item.id,name:'Vasque Anima',ref:'À confirmer',detail:error.message,publicTTC:null,note:'Choisissez une référence, une finition et des options compatibles.'});}
   } else if(item.type==='column') {
     const c=C.columns.find(c=>c.id===s.columnModel)||C.columns.find(c=>c.facade===String(s.facade||'PURA').toUpperCase())||C.columns[0];
     const p=PRODUCTS.get(c?.productId);
-    row(p,c?.name||'Colonne Anima',`40 × 140 × 22 cm · ${f?.name||'Finition à vérifier'}`);
+    row(p,c?.name||'Colonne Anima',`${p?.width||40} × ${p?.height||140} × ${p?.depth||22} cm · ${f?.name||'Finition à vérifier'}`);
   } else if(item.type==='mirror') {
     const p=PRODUCTS.get(s.mirrorModel);
     row(p,'Miroir '+(p?.label||''),p?`${p.width} × ${p.height} cm${p.backlit?' · LED':''}`:'Référence à vérifier',s.mirrorPriceKey);

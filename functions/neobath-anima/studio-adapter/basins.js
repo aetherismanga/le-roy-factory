@@ -4,15 +4,15 @@ export {topSelection,INTEGRATED_TOP_IDS,VESSEL_TOP_IDS,isIntegratedTop,isVesselT
 export const BASIN_LAYOUT_NAMES=Object.freeze({center:'Centrée',left:'Décalée à gauche',right:'Décalée à droite',offset:'Décalée',double:'Double vasque'});
 const describe=(p,key)=>p?.prices?.find(v=>v.key===key);
 export const ECLISSE_VISUAL_COLOURS=Object.freeze({
- 'fume-matte':{roughness:.24,clearcoat:.32,transmission:.34,thickness:.006,attenuationDistance:.10},
- 'bronze-matte':{roughness:.24,clearcoat:.32,transmission:.30,thickness:.006,attenuationDistance:.10}
+ 'fume-matte':{hex:'#b5bcb8',roughness:.23,clearcoat:.18,transmission:.82,thickness:.006,attenuationDistance:.24},
+ 'bronze-matte':{hex:'#c0a58b',roughness:.23,clearcoat:.18,transmission:.80,thickness:.006,attenuationDistance:.24}
 });
 function appearance(p,entry){
  const key=entry.key,label=entry.label||key,gloss=/gloss|brillant/i.test(key+' '+label);
  const base={id:key,name:label,hex:/black|noir/i.test(key+' '+label)?'#292c2a':/anthracite/i.test(key+' '+label)?'#555854':'#f6f5f1',roughness:gloss?.14:.56,clearcoat:gloss?.8:0,transmission:0,opacity:1,reference:p.ref,source:p.source};
  if(!/^ECLISSE/.test(p.ref||'')||!ECLISSE_VISUAL_COLOURS[key])return base;
  const reference=OCRITECH_REFERENCE_FINISHES.find(finish=>finish.priceKey===key||finish.id===key);
- return {...base,...ECLISSE_VISUAL_COLOURS[key],hex:reference.hex,attenuationColor:reference.hex,swatch:reference.swatch,ior:1.49,colorAccuracy:'visual-approximation',colorNote:'Rendu indicatif : référence générique de matière Ocritech, non calibrée pour Neobath.',colorSource:{kind:'visual-approximation',material:'Ocritech Fumé / Bronze',catalogue:p.source,reference:reference.source}};
+ return {...base,...ECLISSE_VISUAL_COLOURS[key],swatchHex:reference.hex,attenuationColor:reference.hex,swatch:reference.swatch,ior:1.49,colorAccuracy:'visual-approximation',colorNote:'Rendu indicatif : référence générique de matière Ocritech, non calibrée pour Neobath.',colorSource:{kind:'visual-approximation',material:'Ocritech Fumé / Bronze',catalogue:p.source,reference:reference.source,rendering:'transmissive-resin-neutral-base-with-coloured-absorption'}};
 }
 export const INSET_COLORS=Object.freeze([{id:'white-gloss',name:'Blanc brillant',hex:'#f6f5f1',roughness:.14,clearcoat:.8},{id:'white-matte',name:'Blanc mat',hex:'#f6f5f1',roughness:.56,clearcoat:0},{id:'black-matte',name:'Noir mat',hex:'#292c2a',roughness:.6,clearcoat:0}]);
 export const VESSEL_COLORS=INSET_COLORS;

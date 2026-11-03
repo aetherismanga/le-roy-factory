@@ -8,8 +8,10 @@ import {transformWorktopInteraction} from './worktop-transform.mjs';
 import {transformCabinetRoles} from './cabinet-role-transform.mjs';
 import {transformAnimaBasinDragAtelier,transformAnimaBasinDragShared} from './basin-drag-transform.mjs';
 import {transformStandaloneSource} from './standalone-transform.mjs';
+import {transformBasinUnitSource} from './basin-unit-transform.mjs';
 import {transformFurnitureAccessoryAtelier,transformFurnitureAccessoryPreview} from './accessories-transform.mjs';
 import {transformCatalogueExtras} from './catalogue-extras-transform.mjs';
+import {transformAnimaQuoteDisplay} from './quote-display-transform.mjs';
 import {transformAnimaTapCompatibility,transformAnimaTapPreview} from './tap-compatibility-transform.mjs';
 const STUDIO_ORIGIN='https://studio-one-beta-test-v2.vercel.app/';
 const PRIVATE_URL='https://leroyfactory.fr/neobath-anima-configurateur.html';
@@ -90,13 +92,15 @@ export function transformCommonStudioSource(input,relativePath){
  }
  if(relativePath==='commerce/preview-model.js')source=transformPremiumPreview(source);
  source=transformStandaloneSource(source,relativePath);
+ source=transformBasinUnitSource(source,relativePath);
  if(relativePath==='app.js'){source=transformFurnitureAccessoryAtelier(source);source=transformCatalogueExtras(source,relativePath);source=transformAnimaTapCompatibility(source);}
  if(relativePath==='commerce/preview-model.js'){source=transformFurnitureAccessoryPreview(source);source=transformAnimaTapPreview(source);}
+ source=transformAnimaQuoteDisplay(source,relativePath);
  return transformPremiumRendering(source,relativePath);
 }
 
 function transformAtelierSource(source){
- source=topPrelude+source.replace(/\['sella','tampa'\]\.includes\(([^)]+)\)/g,'__animaIntegrated($1)').replace(/\['neris','torne'\]\.includes\(([^)]+)\)/g,'__animaVessel($1)');
+ source="import {animaColumnDimensions as __animaColumnDimensions} from '@anima-adapter/configuration.js';\n"+topPrelude+source.replace(/\['sella','tampa'\]\.includes\(([^)]+)\)/g,'__animaIntegrated($1)').replace(/\['neris','torne'\]\.includes\(([^)]+)\)/g,'__animaVessel($1)');
  for(const value of ['state.top','wantedTop'])source=source.replaceAll(`${value}==='sella'||${value}==='tampa'`,`__animaIntegrated(${value})`);
  source=source.replace("const remembered=id==='tampa'?state.tampaColor:id==='neris'||id==='torne'?state.vesselColor:'gloss';","const offered=basinColors(id,state.width,state.format,state.basinLayout);const remembered=offered.some(c=>c.id===state.basinColor)?state.basinColor:offered[0]?.id||'standard';")
   .replaceAll("state.basinColor=color?.id||'gloss'","state.basinColor=color?.id||'standard'").replaceAll("state.top==='neris'||state.top==='torne'","__animaVessel(state.top)")
@@ -114,7 +118,9 @@ function transformAtelierSource(source){
   .replace('colors[item.settings.mirrorFinish]||colors.Noir','colors[item.settings.mirrorFinish]||colors.Argent')
   .replace("[asset.frontWood,type==='cabinet']", "[asset.frontWood,['cabinet','column'].includes(type)]")
   .replace('asset.spec.bottom+asset.spec.height+.024','asset.spec.bottom+asset.spec.height+(asset.spec.topHeight||.018)+.006');
- source=source.replace("]:[{name:{column:'Colonne · 1 porte'", "]:type==='column'?[{name:'Colonne Pura',description:'40 × 140 × 22 cm',options:{columnModel:'pura-column',facade:'PURA'},icon:'column'},{name:'Colonne Ribelle',description:'40 × 140 × 22 cm',options:{columnModel:'ribelle-column',facade:'RIBELLE'},icon:'column'}]:[{name:{column:'Colonne · 1 porte'");
+ source=source.replace("type==='cabinet'?cabinetFormat(settings.format).base*100:28","type==='cabinet'?cabinetFormat(settings.format).base*100:type==='column'?__animaColumnDimensions(settings).base*100:28");
+ source=source.replace("selected.type==='column'?'Colonne · 1 porte'","selected.type==='column'?((selected.settings.columnModel||'').includes('half-column')?'Demi-colonne · 1 porte':'Colonne · 1 porte')");
+ source=source.replace("]:[{name:{column:'Colonne · 1 porte'", "]:type==='column'?StudioOneCatalog.columns.map(c=>({name:c.name,description:c.width+' × '+c.height+' × '+c.depth+' cm · '+(c.glassShelves===1?'1 étagère verre':c.glassShelves+' étagères verre'),options:{columnModel:c.id,facade:c.facade},icon:'column'})):[{name:{column:'Colonne · 1 porte'");
  source=source.replace('settings={...item.settings,format:id,drawers:Array(form.drawers).fill(0)}',"settings=(()=>{const value={...item.settings,format:id,drawers:Array(form.drawers).fill(0)};if(!form.allowedWidths.includes(value.width))value.width=form.allowedWidths[0];if(!topAvailable(value.top,value.width,id))value.top='bare';return value;})()");
  source=source.replace("if(!validWidth(cm,state.format)){$('#width-status').textContent='Saisissez une largeur entière entre 40 et 120 cm.';","if(!validWidth(cm,state.format)){$('#width-status').textContent='Largeurs disponibles : '+cabinetFormat(state.format).allowedWidths.join(', ')+' cm.';")
   .replace('const active=Number(b.dataset.width)===state.width;b.classList','const allowed=cabinetFormat(state.format).allowedWidths.includes(Number(b.dataset.width));b.hidden=!allowed;b.disabled=!allowed;const active=Number(b.dataset.width)===state.width;b.classList');
@@ -123,7 +129,7 @@ function transformAtelierSource(source){
  source=source.replace("'+f.name+' · prises de main à 45°'","'+f.name+' · façades '+f.facade");
  source=source.replace('name.textContent=option.name;const description',"name.textContent=option.name;if(option.image){const image=document.createElement('img');image.src=option.image;image.alt=option.name;image.loading='lazy';image.style.cssText='width:100%;height:86px;object-fit:contain';b.append(image);}const description");
  source=source.replaceAll("cabinetHeightLabel(f)+' · P 46 cm'",'cabinetHeightLabel(f)')
-  .replaceAll("'38 × 132 × 27 cm'","'40 × 140 × 22 cm'").replaceAll("item.type==='column'?' · 38 cm'","item.type==='column'?' · 40 cm'")
+  .replaceAll("selected.type==='column'?'38 × 132 × 27 cm'","selected.type==='column'?'40 × '+Math.round(__animaColumnDimensions(selected.settings).height*100)+' × 22 cm'").replaceAll("item.type==='column'?' · 38 cm'","item.type==='column'?' · 40 cm'")
   .replace("(cabinetFormat(selected.settings.format).height*100)+' × 46 cm'","(cabinetFormat(selected.settings.format).height*100)+' × '+Math.round(cabinetFormat(selected.settings.format).depth*100)+' cm'")
   .replace('`${state.width} × ${cabinetFormat(state.format).height*100} × 46 cm`','`${state.width} × ${cabinetFormat(state.format).height*100} × ${Math.round(cabinetFormat(state.format).depth*100)} cm`')
   .replace("cabinetFormat(state.format).height*100+' × 46 cm'","cabinetFormat(state.format).height*100+' × '+Math.round(cabinetFormat(state.format).depth*100)+' cm'")
@@ -151,7 +157,7 @@ export function transformSharedStudioSource(input,path){
  let source=input;
  if(path==='shared/lrf-3d/i18n/index.js')source=routePrelude+source.replace(/\blocation\.(href|search|hash|pathname|origin)\b/g,'__animaLocation().$1').replace(/\bhistory(?=\.|\[)/g,'__animaHistory');
  if(path==='shared/lrf-3d/drawer-options.js')source="import {TOP_OPTIONS as __animaDrawerTops} from '@anima-adapter/anima-data.js';\n"+source.replace("export const fullTopDrawerAvailable=top=>['plain','neris','torne'].includes(top);","export const fullTopDrawerAvailable=top=>top==='bare'||top==='plain'||__animaDrawerTops.some(option=>option.id===top&&['cover','countertop'].includes(option.category));");
- if(path==='shared/lrf-3d/product-placement-drag.js'){source=transformAnimaBasinDragShared(source);source=transformStandaloneSource(source,path);}
+ if(path==='shared/lrf-3d/product-placement-drag.js'){source=transformAnimaBasinDragShared(source);source=transformStandaloneSource(source,path);source=transformBasinUnitSource(source,path);}
  if(path==='shared/lrf-3d/public-compositions.js')return 'export const PUBLIC_COMPOSITIONS=Object.freeze([]);export const publicComposition=()=>null;export const publicCompositionProject=()=>null;\n';
  if(path==='shared/lrf-3d/cabinet-options-ui.js'){
   source=source.replace("export const topOptionPhoto=id=>['sella','tampa','neris','torne'].includes(id)?media+'basin-'+id+'.webp':null;","export const topOptionPhoto=id=>{const v=globalThis.NEOBATH_ANIMA_VISUALS?.products?.[id];return typeof v==='string'?v:v?.image||v?.photo||null;};")

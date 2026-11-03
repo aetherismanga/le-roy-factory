@@ -9,7 +9,7 @@ import {transformOriginalModel} from '../functions/neobath-anima/studio-adapter/
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),studio=join(root,'studio-one/src'),adapter=join(root,'functions/neobath-anima/studio-adapter');
 mkdirSync(join(root,'node_modules/.cache'),{recursive:true});const dir=mkdtempSync(join(root,'node_modules/.cache/anima-studio-model-'));
 const aliases=new Map(['model','configuration','finishes','tops','basins','column','mirrors'].map(n=>[join(studio,n+'.js'),join(adapter,n+'.js')]));
-await build({stdin:{contents:`export * from ${JSON.stringify(join(adapter,'model.js'))};export * from ${JSON.stringify(join(adapter,'column.js'))};export {CABINET_FORMATS,cabinetProduct,topAvailable,animaCabinetDimensions} from ${JSON.stringify(join(adapter,'configuration.js'))};export {TOP_OPTIONS,topSelection} from ${JSON.stringify(join(adapter,'anima-data.js'))};export {makeCatalogueMirror,mirrorGeometry,mirrorSpec} from ${JSON.stringify(join(adapter,'mirrors.js'))};`,resolveDir:root,loader:'js'},outfile:join(dir,'model.mjs'),bundle:true,format:'esm',platform:'node',packages:'external',plugins:[{name:'anima-original-model-contract',setup(b){b.onResolve({filter:/^@studio-one-original\//},a=>({path:join(studio,a.path.slice('@studio-one-original/'.length))}));b.onResolve({filter:/^\./},a=>{const target=aliases.get(resolve(a.resolveDir,a.path));return target?{path:target}:undefined;});b.onLoad({filter:/studio-one\/src\/model\.js$/},a=>({contents:transformOriginalModel(readFileSync(a.path,'utf8')),loader:'js',resolveDir:dirname(a.path)}));}}]});
+await build({stdin:{contents:`export * from ${JSON.stringify(join(adapter,'model.js'))};export * from ${JSON.stringify(join(adapter,'column.js'))};export {CABINET_FORMATS,cabinetProduct,topAvailable,animaCabinetDimensions,animaColumnDimensions} from ${JSON.stringify(join(adapter,'configuration.js'))};export {TOP_OPTIONS,topSelection} from ${JSON.stringify(join(adapter,'anima-data.js'))};export {makeCatalogueMirror,mirrorGeometry,mirrorSpec} from ${JSON.stringify(join(adapter,'mirrors.js'))};`,resolveDir:root,loader:'js'},outfile:join(dir,'model.mjs'),bundle:true,format:'esm',platform:'node',packages:'external',plugins:[{name:'anima-original-model-contract',setup(b){b.onResolve({filter:/^@studio-one-original\//},a=>({path:join(studio,a.path.slice('@studio-one-original/'.length))}));b.onResolve({filter:/^\./},a=>{const target=aliases.get(resolve(a.resolveDir,a.path));return target?{path:target}:undefined;});b.onLoad({filter:/studio-one\/src\/model\.js$/},a=>({contents:transformOriginalModel(readFileSync(a.path,'utf8')),loader:'js',resolveDir:dirname(a.path)}));}}]});
 const M=await import(pathToFileURL(join(dir,'model.mjs')).href);
 const C=JSON.parse(readFileSync(join(root,'functions/neobath-anima/catalogue.json')));
 after(()=>rmSync(dir,{recursive:true,force:true}));
@@ -43,6 +43,21 @@ test('Studio One opening animation drives actual Anima doors and preserves rever
   a.drawers[0].position.z=0;assert.equal(a.doors[0].rotation.y,0);
   const c=M.makeColumn({columnModel:'ribelle-column',hingeSide:'right'});assert.equal(c.shelves.length,4);assert.equal(c.getHingeSide(),'right');assert.equal(c.frontMeshes.length,2);
   dispose(a.root);dispose(c.root);
+});
+
+test('the stock demi-colonne has its PA4070 envelope, bottom grip, one shelf and reversible opening',()=>{
+  for(const facade of ['pura','ribelle'])for(const hingeSide of ['left','right']){
+    const settings={columnModel:facade+'-half-column',hingeSide},asset=M.makeColumn(settings),bounds=visibleBounds(asset.root),size=bounds.getSize(new T.Vector3());
+    assert.ok(Math.abs(size.x-.40)<.001);assert.ok(Math.abs(size.y-.70)<.001);assert.ok(Math.abs(size.z-.22)<.001);
+    assert.ok(Math.abs(bounds.min.y-1.10)<.001,'H70 starts at the wall-unit mounting height');
+    assert.equal(asset.spec.reference,(facade==='pura'?'APUR':'ARIB')+'-PA4070');assert.equal(asset.spec.height,.70);
+    assert.deepEqual(M.animaColumnDimensions(settings),{width:.4,height:.7,depth:.22,base:1.1});
+    assert.equal(asset.frontMeshes.length,1);assert.equal(asset.frontMeshes[0].userData.animaGripEdge,'bottom');assert.equal(asset.shelves.length,1);
+    assert.equal(asset.getHingeSide(),hingeSide);assert.equal(asset.frontMeshes[0].geometry.userData.animaFacade.ribelle,facade==='ribelle');
+    const shelfBox=new T.Box3().setFromObject(asset.shelves[0]);assert.ok(Math.abs(shelfBox.getSize(new T.Vector3()).y-.006)<.0001,'glass keeps a real 6mm thickness');
+    const closedFront=new T.Box3().setFromObject(asset.frontMeshes[0]);asset.door.rotation.y=-Math.PI*.55*asset.getHingeSign();asset.root.updateMatrixWorld(true);const openFront=new T.Box3().setFromObject(asset.frontMeshes[0]);assert.ok(openFront.max.z>closedFront.max.z+.2,'the single stock door swings outwards');
+    dispose(asset.root);
+  }
 });
 test('every compatible source basin/plan replaces the Randal sanitary models with its own reference and healthy geometry',()=>{
   const asset=M.makeModel({width:.8,format:'two',includeMirror:false});let count=0;

@@ -1,3 +1,4 @@
+import {columnModelId,columnName} from '../column-data.js';
 import {CABINET_FORMATS} from '../configuration.js';
 import {CATALOGUE} from '../anima-data.js';
 import VISUALS from '../../../../assets/data/neobath-anima-visuals.json' with {type:'json'};
@@ -35,7 +36,7 @@ function moduleMatches(product, form) {
   return product.category === 'module' && product.facade === facade && product.subtype === subtype && product.drawers === drawers && product.doors === doors && product.height === Math.round(form.height * 100);
 }
 export function createAnimaCommerceCatalogue(source = raw) {
-  const columns = source.products.filter(p => p.category === 'module' && p.subtype === 'column').map(p => ({...p,id:p.facade.toLowerCase()+'-column',productId:p.id,name:p.facade==='PURA'?'Colonne Pura':'Colonne Ribelle',ttc:publicPrice(p),image:productImage(p)}));
+  const columns = source.products.filter(p => p.category === 'module' && ['column','wall'].includes(p.subtype)).sort((a,b)=>b.height-a.height||a.facade.localeCompare(b.facade)).map(p => ({...p,id:columnModelId(p),productId:p.id,name:columnName(p),ttc:publicPrice(p),image:productImage(p)}));
   const models = CABINET_FORMATS.map(form => {
     const products = source.products.filter(p => moduleMatches(p,form));
     const byWidth = Object.fromEntries(products.map(p => [p.width,p]));

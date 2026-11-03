@@ -9,6 +9,7 @@ import {makeCatalogueMirror} from './mirrors.js';
 import {createTopSurfaceController,applyPlanSurfaceUV} from './surface-materials.js';
 import {surfaceFamilyForSelection} from './premium-materials.js';
 import {applyAnimaBasinAppearance} from './premium-rendering.mjs';
+import {basinColors} from './basins.js';
 import {animaBasinStyle} from './top-profiles.js';
 import {applyAnimaDrawerFinish} from './drawer-finish.js';
 export {FINISHES,roundedRect};
@@ -60,7 +61,9 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='ba
   bareTopHitTarget.userData={editTarget:'basin',animaWorktopTarget:true,animaBareTop:true,sourceCabinetId:product.id};asset.root.add(bareTopHitTarget);asset.bareTopHitTarget=bareTopHitTarget;
   const surfaceOwner=new T.Mesh(new T.BufferGeometry(),[asset.planMaterial,whiteGelcoat,coloredGelcoat]);surfaceOwner.name='Anima_surface_material_owner';surfaceOwner.visible=false;asset.root.add(surfaceOwner);
   asset.setSurface=(settings={},options={})=>{
-    surfaceSettings={...surfaceSettings,...settings,top:topMode,width:cm,format,basinLayout,topSpan:topSpan||cm,topOffset,topPlanId,topLength,topShift,topDepth,basinOffsetX,basinOffsetZ};
+    surfaceSettings={...surfaceSettings,...settings,top:topMode,width:cm,format,basinLayout,topSpan:topSpan||cm,topOffset,topPlanId,topLength,topShift,topDepth,basinOffsetX,basinOffsetZ,basinBottom,basinSupport,basinColor,basinPriceKey};
+    const bowlAppearance=basinColors(topMode,cm,format,basinLayout,topSpan||cm,topPlanId,topLength,surfaceSettings).find(colour=>colour.id===(basinPriceKey||basinColor));
+    if(bowlAppearance)applyAnimaBasinAppearance(asset.ceramic,bowlAppearance);
     const normalized=surfaceController.apply(surfaceSettings,selection,{...options,furnitureTextures:asset.furniturePlanTextures});
     if(animaBasinStyle(selection?.top,selection?.basin).gelcoat==='colored'){coloredGelcoat.color.set(normalized?.surface?.hex||'#f6f5f1');coloredGelcoat.userData.colorAccuracy='visual-approximation';coloredGelcoat.userData.colorNote='Teinte Gelcoat indicative, à confirmer sur le nuancier fabricant.';coloredGelcoat.needsUpdate=true;}
     if(currentTop)applyPlanSurfaceUV(currentTop.root,asset.planMaterial);
@@ -68,7 +71,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='ba
     return normalized;
   };
   asset.prepareSurface=()=>surfaceController.ready();asset.disposeSurface=()=>surfaceController.dispose();
-  asset.setBasinAppearance=appearance=>{applyAnimaBasinAppearance(asset.ceramic,appearance);asset.setSurface({});};
+  asset.setBasinAppearance=appearance=>{if(appearance?.id){basinColor=appearance.id;basinPriceKey=appearance.id;}asset.setSurface({});applyAnimaBasinAppearance(asset.ceramic,appearance);};
   const body=asset.faucet.getObjectByName('Corps'),heads=['Bec_courbe','Mousseur','Levier_mitigeur'].map(n=>asset.faucet.getObjectByName(n));
   const headY=heads.map(o=>o.position.y);const rawFaucets=[...asset.faucets];
   // Normalize the original tap's base before a lateral installation rotates

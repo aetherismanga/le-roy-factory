@@ -6,12 +6,13 @@ import {parse} from 'acorn';
 import {transformCommonStudioSource} from '../functions/neobath-anima/studio-adapter/studio-source-transform.mjs';
 import {TOP_OPTIONS,topSelection,isIntegratedTop,isVesselTop,CATALOGUE} from '../functions/neobath-anima/studio-adapter/anima-data.js';
 import * as basins from '../functions/neobath-anima/studio-adapter/basins.js';
-import {topAvailable,cabinetFormat,CABINET_FORMATS,animaCabinetDimensions} from '../functions/neobath-anima/studio-adapter/configuration.js';
+import {topAvailable,cabinetFormat,CABINET_FORMATS,animaCabinetDimensions,animaColumnDimensions} from '../functions/neobath-anima/studio-adapter/configuration.js';
 import {continuousPlanOption} from '../functions/neobath-anima/studio-adapter/continuous-plan-ui.js';
 import {validateProject,encodeProject,decodeProject,ProjectJournal,continuousTopContext,continuousTopCompatible} from '../functions/neobath-anima/studio-adapter/projects.js';
 import {draftProject,initialDraft} from '../functions/neobath-anima/studio-adapter/commerce/guided.js';
 import {normalizeCabinetRoles,cabinetSettingsForRole} from '../functions/neobath-anima/studio-adapter/cabinet-role.js';
 import {planSettings} from '../functions/neobath-anima/studio-adapter/premium-controls.js';
+import {normalizeAutomaticWorktops} from '../functions/neobath-anima/studio-adapter/auto-fit-worktop.js';
 import {quoteProject} from '../functions/neobath-anima/studio-adapter/commerce/pricing.js';
 
 // Execute the actual transformed atelier handlers, without requiring a GPU or
@@ -32,8 +33,9 @@ function atelier(width=80,top='bare'){
   const makeModel=settings=>({root,drawers:[{position:{z:0}},{position:{z:0}}],basinLayout:basins.resolveBasinLayout(settings.basinTop,Math.round(settings.width*100),settings.format),
     setTop:()=>true,setTopDrawer:v=>v,setSurface:noop,format:cabinetFormat(settings.format),getBasinPositions:()=>[],ceramic:{color:{set:noop}},frontWood:{},spec:{}});
   const item={id:'runtime-cabinet',type:'cabinet',settings:{...state},placement:{wall:0,u:125,height:form.base*100},asset:makeModel({width:width/100,format:state.format,basinTop:top}),root,decor:[],motion:{drawers:[0,0]},dimensions:animaCabinetDimensions(state)};
-  const composition={selected:item,selectedId:item.id,items:[item],validate:()=>'',sync:noop,resize:(_item,dimensions)=>{item.dimensions=dimensions;return null;}};
+  const composition={selected:item,selectedId:item.id,items:[item],snapshot:()=>project(item).items,validate:()=>'',sync:noop,resize:(_item,dimensions)=>{item.dimensions=dimensions;return null;}};
   const context={...basins,state,CABINET_KEYS,TOP_OPTIONS,composition,grain:null,currentDrawers:[0,0],counterDecor:[],roomScene:{},
+    restoring:false,roomConfig:project(item).room,cloneRoom:structuredClone,__animaNormalizeAutomaticWorktops:normalizeAutomaticWorktops,
     __animaRolePlanSettings:planSettings,__animaNormalizeRoles:normalizeCabinetRoles,__animaCabinetRole:cabinetSettingsForRole,projectWorkspace:{locked:false},isItemPositionLocked:()=>false,disposeObject:noop,validateProject,collectProject:()=>project(item),makeSceneAsset:(_type,s)=>makeModel({...s,width:s.width/100,basinTop:s.top}),refreshInspector:noop,scheduleProjectCheckpoint:noop,paintAsset:noop,
     __animaTopSelection:topSelection,__animaIntegrated:isIntegratedTop,__animaVessel:isVesselTop,__animaPlanOption:continuousPlanOption,
     __animaPremiumContext:continuousTopContext,__animaPremiumCompatible:continuousTopCompatible,
@@ -47,7 +49,7 @@ function atelier(width=80,top='bare'){
   const names=['selectTop','selectBasinColor','saveCabinetState','setWidth','__animaTopContext',
     ...[...functions.keys()].filter(name=>/^__anima/.test(name))];
   const unique=[...new Set(names)];
-  vm.createContext(context);vm.runInContext(unique.filter(name=>functions.has(name)).map(name=>functions.get(name)).join('\n'),context);
+  vm.createContext(context);vm.runInContext('let __animaFittingWorktopSupports=false;'+unique.filter(name=>functions.has(name)).map(name=>functions.get(name)).join('\n'),context);
   return {context,item,state};
 }
 
@@ -92,7 +94,7 @@ test('initial scene and original addition controls produce strict Anima cabinet,
   const stateNode=ast.body.flatMap(n=>n.type==='VariableDeclaration'?n.declarations:[]).find(n=>n.id.name==='state');
   const state=vm.runInNewContext('('+source.slice(stateNode.init.start,stateNode.init.end)+')');
   const MIRRORS=CATALOGUE.products.filter(p=>p.category==='mirror').map(p=>({id:p.id,sizes:[[p.width,p.height,p.ref]],led:!!p.backlit}));
-  const context={state,CABINET_KEYS,MIRRORS,cabinetFormat,__animaCabinetRole:cabinetSettingsForRole,model:{root:{removeFromParent:noop},mirror:{removeFromParent:noop}},mirror:{},
+  const context={state,CABINET_KEYS,MIRRORS,cabinetFormat,__animaColumnDimensions:animaColumnDimensions,__animaCabinetRole:cabinetSettingsForRole,model:{root:{removeFromParent:noop},mirror:{removeFromParent:noop}},mirror:{},
     counterDecor:[],scene:{add:noop},cabinetContact:null,selectItem:noop,
     isFixture:()=>false,isOpening:()=>false,makeSceneAsset:()=>({}),itemDimensions:()=>({width:.8}),normalizeTopDrawer:v=>v,
     __animaVessel:isVesselTop,resolveBasinLayout:basins.resolveBasinLayout};
@@ -103,10 +105,11 @@ test('initial scene and original addition controls produce strict Anima cabinet,
   validateProject({...project(context.composition.items[0]),items:context.composition.items.map(i=>({id:i.id,type:i.type,settings:i.settings,placement:i.placement}))});
   for(const [type,options] of [
     ...CABINET_FORMATS.map(f=>['cabinet',{format:f.id}]),
-    ['column',{}],['column',{columnModel:'ribelle-column'}],['mirror',{}],
+    ['column',{}],['column',{columnModel:'ribelle-column'}],['column',{columnModel:'pura-half-column'}],['column',{columnModel:'ribelle-half-column'}],['mirror',{}],
     ...MIRRORS.map(m=>['mirror',{mirrorModel:m.id,width:m.sizes[0][0],height:m.sizes[0][1],led:m.led}])
   ]){
     const result=context.prepareProductAddition(type,0,options);
+    if(type==='column'&&options.columnModel?.includes('half-column'))assert.ok(Math.abs(result.preferred.height-110)<1e-6);
     validateProject(project({id:'added',type,settings:result.settings,placement:result.preferred}));
   }
 });

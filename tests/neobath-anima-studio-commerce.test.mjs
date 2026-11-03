@@ -2,6 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {parse} from 'acorn';
+import vm from 'node:vm';
 import {CATALOG as C,RAW_CATALOGUE,modelProduct} from '../functions/neobath-anima/studio-adapter/commerce/catalog.js';
 import {initialDraft,normalizeDraft,draftProject} from '../functions/neobath-anima/studio-adapter/commerce/guided.js';
 import {quoteProject} from '../functions/neobath-anima/studio-adapter/commerce/pricing.js';
@@ -12,7 +13,7 @@ import {normalizeCabinetRoles} from '../functions/neobath-anima/studio-adapter/c
 test('the original Studio One catalogue contract covers all 42 Anima modules and only its six finishes',()=>{
   assert.equal(C.models.length,16);
   const refs=C.models.flatMap(m=>Object.values(m.productsByWidth).map(p=>p.id)).concat(C.columns.map(c=>c.productId));
-  assert.equal(refs.length,42);assert.equal(new Set(refs).size,42);
+  assert.equal(refs.length,44);assert.equal(new Set(refs).size,42); // H70 is also discoverable as demi-colonne, with its existing PA4070 SKU.
   assert.deepEqual(C.finishes.map(f=>f.id),RAW_CATALOGUE.finishes.map(f=>f.id));
   assert.ok(!C.finishes.some(f=>['ROBLE','ALBA','NOGAL','WHITE'].includes(f.id)));
   for(const m of C.models)for(const width of m.allowedWidths)assert.equal(modelProduct(m.id,width).height,m.height);
@@ -52,8 +53,8 @@ test('Ribelle H26 starts as the real base SKU and switches to its source vanity 
 test('per-centimetre tops and integrated bowl supplements stay separate tariff lines',()=>{
   const p=draftProject({...initialDraft(),width:100,top:'tpgea12-b938-1-basin'});
   const q=quoteProject(p);
-  assert.deepEqual(q.rows.map(r=>r.ref),['APUR-PL10052','TPGEA12','B938']);
-  assert.equal(q.publicTTC,195120);
+  assert.deepEqual(q.rows.map(r=>r.ref),['APUR-PL10052','TPGEA12','B938','MFR']);
+  assert.equal(q.publicTTC,203040);
   assert.equal(q.rows[1].publicTTC,55560);
   assert.equal(q.rows[2].publicTTC,67200);
 });
@@ -132,7 +133,7 @@ test('a 160cm double-bowl plan needs two genuine vanities and the pair is billed
   const normalized=normalizeCabinetRoles(project),q=quoteProject(validateProject(normalized));
   assert.equal(q.rows.filter(row=>row.ref==='APUR-PL8052').length,2,'both real supports become vanities under their own bowl');
   assert.equal(q.rows.filter(row=>row.ref==='B855').length,1);assert.equal(q.rows.find(row=>row.ref==='B855').publicTTC,206520);
-  assert.equal(q.rows.find(row=>row.ref==='TPGEA12').publicTTC,88896);assert.equal(q.publicTTC,431736);
+  assert.equal(q.rows.find(row=>row.ref==='TPGEA12').publicTTC,88896);assert.equal(q.publicTTC,447576);
   normalized.items.find(item=>item.id===companion.id).settings.format='pura-base-two';
   assert.throws(()=>validateProject(normalized),/sous-vasque/);assert.equal(quoteProject(normalized).publicTTC,null);
 });
@@ -142,4 +143,26 @@ test('the Anima build adapts the original five-step Studio One source and retain
   for(const marker of ["$('#new-project').onclick","const projectWorkspace=createWorkspace",'function renderAccount()','function renderQuote()','function launch(','product-grid','model-card'])assert.ok(adapted.includes(marker),marker);
   assert.ok(adapted.includes('ANIMA_TOP_OPTIONS'));assert.ok(!adapted.includes("name:{sella:'Sella encastrée'"));
   assert.ok(!adapted.includes("C.media+'hero-meuble-hd.webp'"));
+});
+
+
+test('both H70 demi-colonnes use native PA4070 visuals, Anima prices and survive project sharing',()=>{
+  for(const [facade,ref,price] of [['pura','APUR-PA4070',40200],['ribelle','ARIB-PA4070',43800]]){
+    const model=C.columns.find(c=>c.id===facade+'-half-column');assert.ok(model);assert.equal(model.ref,ref);assert.equal(model.name,'Demi-colonne '+(facade==='pura'?'Pura':'Ribelle'));
+    assert.deepEqual([model.width,model.height,model.depth,model.glassShelves],[40,70,22,1]);assert.ok(model.image.endsWith('/'+facade+'-wall.webp'));assert.equal(model.ttc,price);
+    const project={version:2,manufacturer:'neobath-anima',room:{height:250,points:[[0,0],[300,0],[300,300],[0,300]]},items:[{id:'half',type:'column',settings:{columnModel:model.id,facade:facade.toUpperCase(),finish:'rovere-alba',hingeSide:'left',doorOpen:false},placement:{wall:0,u:100,height:110}}]};
+    assert.equal(validateProject(project).items[0].settings.columnModel,model.id);assert.equal(decodeProject(encodeProject(project)).items[0].settings.columnModel,model.id);
+    const guided=draftProject({...initialDraft(),column:true,columnModel:model.id}),guidedColumn=guided.items.find(item=>item.type==='column');assert.equal(guidedColumn.placement.height,110);assert.equal(guidedColumn.settings.columnModel,model.id);validateProject(guided);
+    const quote=quoteProject(project);assert.equal(quote.rows.length,1);assert.equal(quote.rows[0].ref,ref);assert.equal(quote.publicTTC,price);assert.match(quote.rows[0].detail,/40 × 70 × 22 cm/);
+  }
+});
+
+
+test('the retained wizard describes one or four glass shelves for the actual selected column',()=>{
+  const source=transformHomeSource(readFileSync(new URL('../studio-one/src/commerce/home.js',import.meta.url),'utf8')),ast=parse(source,{ecmaVersion:'latest',sourceType:'module'}),node=ast.body.find(n=>n.type==='FunctionDeclaration'&&n.id.name==='renderWizard');
+  const fields=new Map(),field=id=>{if(!fields.has(id))fields.set(id,{innerHTML:'',querySelectorAll:()=>[]});return fields.get(id);};
+  const context={C,step:3,draft:{...initialDraft(),column:true,columnModel:'pura-half-column'},$:field,esc:String,productCard:(_id,name,detail)=>name+' '+detail,swatches:()=>'',error:()=>{},attachPreview:()=>{}};vm.createContext(context);vm.runInContext(source.slice(node.start,node.end),context);
+  for(const [model,description,height] of [['pura-half-column','1 étagère en verre.',110],['ribelle-column','4 étagères en verre.',30]]){
+    context.draft.columnModel=model;context.renderWizard();const html=field('#step-content').innerHTML;assert.ok(html.includes(description));assert.ok(!html.includes('quatre étagères'));assert.equal(draftProject({...context.draft}).items.find(item=>item.type==='column').placement.height,height);
+  }
 });

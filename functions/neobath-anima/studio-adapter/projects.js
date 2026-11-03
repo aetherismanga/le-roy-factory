@@ -1,3 +1,5 @@
+import {normalizeBasinUnitSettings,basinUnitDimensions} from './basin-unit-data.js';
+import {COLUMN_MODEL_IDS} from './column-data.js';
 import {normalizeStandaloneSettings,standaloneDimensions} from './standalone-worktop-data.js';
 import {resolveFurnitureAccessories,furnitureAccessoryPlacementError} from './furniture-accessories.js';
 import {furnitureLayoutError} from './furniture-layout.js';
@@ -61,6 +63,21 @@ export function continuousTopCompatible(project,hostId,mode,span,offset=0) {
   if(!selection)return false;
   const shift=settings.topShift??0,length=selection.topLength||context.span;
   if(!Number.isFinite(shift)||Math.abs(shift)>(length-context.span)/2+1e-6)return false;
+  // A bare companion can support one shared slab. Two real slabs on the
+  // same cabinet-top plane cannot cover the same physical area, including
+  // deliberately extended overhangs. Edge contact remains permissible.
+  if(selection.top){
+    const hp=host.placement,hf=CABINET_FORMATS.find(form=>form.id===settings.format),centre=hp.u+context.offset+shift,width=selection.topWidth||length,min=centre-width/2,max=centre+width/2;
+    const surface=hp.height+hf.height*100,back=hp.offset||0,front=back+selection.previewDepth;
+    for(const other of prospective.items){
+      if(other.id===hostId||other.type!=='cabinet'||!other.settings?.top||other.settings.top==='bare')continue;
+      const op=other.placement,os=other.settings,of=CABINET_FORMATS.find(form=>form.id===os.format);
+      if(!op||!of||op.wall!==hp.wall||!close(op.height+of.height*100,surface)||Math.abs(Number(op.rotation||0)%360)>1e-6)continue;
+      const otherSelection=topSelection(os.top,os.width,os.format,os.basinLayout,os.topSpan||os.width,os.topPlanId,os.topLength,os);if(!otherSelection?.top)continue;
+      const otherCentre=op.u+(os.topOffset||0)+(os.topShift||0),otherWidth=otherSelection.topWidth||otherSelection.topLength,otherBack=op.offset||0;
+      if(min<otherCentre+otherWidth/2-JOINT_TOLERANCE_CM&&max>otherCentre-otherWidth/2+JOINT_TOLERANCE_CM&&back<otherBack+otherSelection.previewDepth-JOINT_TOLERANCE_CM&&front>otherBack+JOINT_TOLERANCE_CM)return false;
+    }
+  }
   if(!selection.positions?.length)return true;
   // A single fixed factory reference is validated by its catalogue fit. Its
   // reconstructed preview bowl is not a published manufacturing cutout.
@@ -102,6 +119,7 @@ export function validateProject(data) {
     ids.add(item.id);const s=item.settings,p=item.placement;
     if(!Number.isInteger(p.wall)||p.wall<0||p.wall>63||!Number.isFinite(p.u)||!Number.isFinite(p.height)||p.offset!==undefined&&!Number.isFinite(p.offset)||p.rotation!==undefined&&!Number.isFinite(p.rotation))throw Error('Position d’élément invalide.');
     if(item.type==='cabinet'){
+      if(s.topAutoFit!==undefined&&typeof s.topAutoFit!=='boolean')throw Error('Mode d’ajustement du plan invalide.');
       const form=CABINET_FORMATS.find(f=>f.id===s.format);
       if(!form||!form.allowedWidths.includes(s.width)||!finishes.has(s.finish))throw Error('Format ou finition de meuble Anima inconnu.');
       resolveFurnitureAccessories(s);const accessoryPlacementError=furnitureAccessoryPlacementError(s,p);if(accessoryPlacementError)throw Error(accessoryPlacementError);
@@ -116,7 +134,7 @@ export function validateProject(data) {
       if(s.topPlanId!==undefined&&(typeof s.topPlanId!=='string'||s.topPlanId&&!products.has(s.topPlanId)))throw Error('Référence de plan Anima inconnue.');
       const length=selected.topLength||context.span,shift=s.topShift??0;
       if(!Number.isFinite(shift)||Math.abs(shift)>(length-context.span)/2+1e-6)throw Error('Le plan doit couvrir tous ses supports ; vérifiez les débords gauche et droit.');
-      if(!continuousTopCompatible(data,item.id,s.top||'bare',context.span,context.offset))throw Error('Chaque vasque du plan doit être portée par un meuble sous-vasque compatible.');
+      if(!continuousTopCompatible(data,item.id,s.top||'bare',context.span,context.offset))throw Error('Les plans ne doivent pas se superposer ; chaque vasque doit être portée par un meuble sous-vasque compatible.');
       if(product?.prices?.length&&s.basinColor&&!product.prices.some(v=>v.key===s.basinColor))throw Error('Finition du plan / de la vasque Anima inconnue.');
       if(s.topPriceKey&&selected.top?.prices?.length&&!selected.top.prices.some(v=>v.key===s.topPriceKey))throw Error('Tarif de finition du plan Anima inconnu.');
       if(s.basinPriceKey&&selected.basin?.prices?.length&&!selected.basin.prices.some(v=>v.key===s.basinPriceKey))throw Error('Tarif de finition de vasque Anima inconnu.');
@@ -135,8 +153,11 @@ export function validateProject(data) {
       for(const key of ['format','topSpan','topLength','topOffset','topShift','mounting'])if(s[key]!==undefined&&s[key]!==normalized[key])throw Error('Paramètres de plan indépendant incohérents.');
       if(p.height<dimensions.clearanceBelow*100-.1)throw Error('La vasque du plan indépendant traverse le sol.');
       if(Number.isFinite(data.room.height)&&p.height+dimensions.height*100>data.room.height+.1)throw Error('Le plan indépendant dépasse la hauteur de la pièce.');
+    } else if(item.type==='basin-unit'){
+      const dimensions=basinUnitDimensions(normalizeBasinUnitSettings(s));
+      if(p.height<0||Number.isFinite(data.room.height)&&p.height+dimensions.height*100>data.room.height+.1)throw Error('La vasque dépasse la hauteur de la pièce.');
     } else if(item.type==='column'){
-      if(!finishes.has(s.finish)||s.columnModel&&!['pura-column','ribelle-column'].includes(s.columnModel))throw Error('Colonne Anima inconnue.');
+      if(!finishes.has(s.finish)||s.columnModel&&!COLUMN_MODEL_IDS.includes(s.columnModel))throw Error('Colonne Anima inconnue.');
     } else if(item.type==='mirror'){
       const mirror=products.get(s.mirrorModel);
       if(!mirror||mirror.category!=='mirror'||s.width!==mirror.width||s.height!==mirror.height)throw Error('Miroir Anima inconnu.');

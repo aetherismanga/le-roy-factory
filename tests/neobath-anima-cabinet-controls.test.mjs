@@ -70,12 +70,18 @@ test('every initial family photo selects its own exact source plan through a syn
  }
 });
 
-test('both geometry actions submit depth and basin XY together so a deep plan never needs an invalid intermediate state',()=>{
+test('dimension edits commit depth and basin XY together; basin-only edits keep unsubmitted slab dimensions',()=>{
  for(const action of ['dimensions','basin-position-xy']){
   const {project,host}=customProject(),choice=premiumBasinChoices(project,host).find(choice=>choice.product.id==='vasca-a50');assert.ok(choice);host.settings=choice.settings;
   const document=documentFixture(),patches=[],root=renderPremiumPlanControls(document.body,{project,host,onPatch:settings=>{validateProject({...project,items:project.items.map(item=>item.id===host.id?{...item,settings}:item)});patches.push(settings);return true;}});
   find(root,'premiumControl','depth').value='80';find(root,'premiumControl','length').value='110';find(root,'premiumControl','shift').value='1';find(root,'premiumControl','basinOffsetX').value='1';find(root,'premiumControl','basinOffsetZ').value='-16.9';find(root,'premiumControl',action).onclick();
-  assert.equal(patches.length,1,action+' must commit one valid combined edit');assert.equal(patches[0].topDepth,80);assert.equal(patches[0].topLength,110);assert.equal(patches[0].topShift,1);assert.equal(patches[0].basinOffsetX,1);assert.equal(patches[0].basinOffsetZ,-16.9);
+  if(action==='dimensions'){
+   assert.equal(patches.length,1,'dimensions must commit one valid combined edit');assert.equal(patches[0].topDepth,80);assert.equal(patches[0].topLength,110);assert.equal(patches[0].topShift,1);assert.equal(patches[0].basinOffsetX,1);assert.equal(patches[0].basinOffsetZ,-16.9);assert.equal(patches[0].topAutoFit,false);
+  }else{
+   assert.equal(patches.length,0,'a position outside the unchanged slab must be rejected');
+   find(root,'premiumControl','basinOffsetZ').value='0';find(root,'premiumControl',action).onclick();assert.equal(patches.length,1);
+   assert.equal(patches[0].topLength,host.settings.topLength);assert.equal(patches[0].topDepth,host.settings.topDepth);assert.equal(patches[0].topShift,host.settings.topShift);assert.equal(patches[0].topAutoFit,host.settings.topAutoFit);assert.equal(patches[0].basinOffsetX,1);
+  }
  }
 });
 

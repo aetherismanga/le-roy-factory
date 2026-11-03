@@ -1,7 +1,7 @@
 import {cabinetSettingsForRole} from '../cabinet-role.js';
 import {openingBathroomProject} from '../../../../shared/lrf-3d/opening-project.js';
 import {basinColors,basinLayouts,resolveBasinLayout,topSelection} from '../basins.js';
-import {topAvailable,cabinetFormat} from '../configuration.js';
+import {topAvailable,cabinetFormat,animaColumnDimensions} from '../configuration.js';
 import {CATALOG as C} from './catalog.js';
 
 export const DRAFT_KEY='neobath-anima-studio-guided-v1';
@@ -33,7 +33,7 @@ export function draftProject(input) {
     basinLayout:d.basinLayout,basinColor:d.basinColor,tampaColor:d.basinColor,vesselColor:d.basinColor,grass:d.grass,ncsCode:d.ncsCode,
     drawers:Array(m.drawers||0).fill(0),decor:true,tap:null},placement:{wall:0,u:125,height:bottom}}];
   const mirror=d.mirror?C.mirrors.find(m=>m.id===d.mirror):null,size=mirror?.sizes[d.mirrorSize];
-  if(d.column)items.push({id:'guided-column',type:'column',settings:{finish:d.columnFinish,columnModel:d.columnModel,facade:d.columnModel.startsWith('ribelle')?'RIBELLE':'PURA',hingeSide:'left',doorOpen:false},placement:{wall:0,u:125+Math.max(d.width,size?.width||0)/2+25,height:28}});
+  if(d.column)items.push({id:'guided-column',type:'column',settings:{finish:d.columnFinish,columnModel:d.columnModel,facade:d.columnModel.startsWith('ribelle')?'RIBELLE':'PURA',hingeSide:'left',doorOpen:false},placement:{wall:0,u:125+Math.max(d.width,size?.width||0)/2+25,height:Math.round(animaColumnDimensions({columnModel:d.columnModel}).base*100)}});
   if(mirror)items.push({id:'guided-mirror',type:'mirror',settings:{mirrorModel:d.mirror,width:size.width,height:size.height,mirrorFinish:'standard',led:mirror.led},placement:{wall:0,u:125,height:Math.max(109,m.height+bottom+12)+size.height/2}});
   const opening=openingBathroomProject();
   return {...opening,manufacturer:'neobath-anima',title:'Ma composition NEOBATH ANIMA',items:[...items,...opening.items]};

@@ -1,4 +1,6 @@
 const prelude=`
+import {normalizeAutomaticWorktops as __animaNormalizeAutomaticWorktops} from '@anima-adapter/auto-fit-worktop.js';
+let __animaFittingWorktopSupports=false;
 import {continuousPlanOption as __animaPlanOption,validContinuousPlan as __animaValidPlan} from '@anima-adapter/continuous-plan-ui.js';
 function __animaCombinationFormat(width,format=state.format){const current=cabinetFormat(format);return (current.allowedWidths.includes(width)?current:CABINET_FORMATS.find(form=>form.facade===current.facade&&form.height===current.height&&form.depth===current.depth&&form.allowedWidths.includes(width)))?.id||null;}
 function __animaTopContext(mode){
@@ -9,6 +11,10 @@ function __animaTopContext(mode){
 }
 function __animaSyncContinuousTops(){
  if(!composition)return;
+ if(!__animaFittingWorktopSupports&&!projectWorkspace?.locked&&!restoring){
+  const project={version:2,manufacturer:'neobath-anima',room:cloneRoom(roomConfig),locked:!!composition.locked,items:composition.snapshot()},fitted=__animaNormalizeAutomaticWorktops(project);
+  if(fitted!==project){__animaFittingWorktopSupports=true;try{__animaCommitCabinetProject(fitted,{checkpoint:false});}finally{__animaFittingWorktopSupports=false;}}
+ }
  for(const item of composition.items){
   if(item.type!=='cabinet'||!(item.settings.topSpan>item.settings.width)||__animaValidPlan(composition,item))continue;
   Object.assign(item.settings,{top:'bare',topSpan:item.settings.width,topOffset:0});item.asset.setTop('bare',item.settings);item.dimensions=itemDimensions('cabinet',item.settings);

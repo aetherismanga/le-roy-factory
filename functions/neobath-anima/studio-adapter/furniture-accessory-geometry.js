@@ -12,10 +12,14 @@ export function buildFurnitureAccessoryGeometry(settings={}){
   const color=TOWEL_FINISHES.find(option=>option.id===selected.towelFinish),material=new T.MeshStandardMaterial({color:color.hex,metalness:color.metalness,roughness:color.roughness});materials.push(material);
   const group=new T.Group();group.name='SideBar_'+selected.towelSide;group.userData.animaFurnitureAccessory='towel';group.userData.editTarget='cabinet-accessories';root.add(group);towelRoot=group;
   const sign=selected.towelSide==='left'?-1:1,width=settings.width/100,depth=form.depth,projection=.05,length=.40,height=.025,rail=.004;
-  group.position.set(sign*(width/2+projection/2),form.base+form.height-.055,depth/2-.23);if(sign<0)group.rotation.y=Math.PI;
-  add(group,rail,height,length,projection/2-rail/2,0,0,material,'SideBar_barre_40cm','towel');
-  for(const z of[-length/2+.009,length/2-.009])add(group,projection-rail,height,.018,-rail/2,0,z,material,'SideBar_fixation','towel');
-  group.userData.animaAccessory={ref:'SIDEBAR',sourcePdfPage:54,width:projection,height,length,mountingPositionApproximate:true,side:selected.towelSide,finish:selected.towelFinish};
+  group.position.set(sign*(width/2+projection/2),form.base+form.height-.055,depth/2-.23);
+  // PDF54 / printed106–107: one solid rear mounting block and a free,
+  // capped cantilever rail. A second front return would turn it into a U.
+  // Mirror X only: both left/right versions keep the fixing at the rear.
+  add(group,rail,height,length,sign*(projection/2-rail/2),0,0,material,'SideBar_barre_40cm','towel');
+  const mountingLength=.045;
+  add(group,projection-rail,height,mountingLength,-sign*rail/2,0,-length/2+mountingLength/2,material,'SideBar_fixation_arriere','towel');
+  group.userData.animaAccessory={ref:'SIDEBAR',sourcePdfPage:54,width:projection,height,length,mountingPositionApproximate:true,mountingBlockLengthApproximate:true,mounting:'single-rear-cantilever',side:selected.towelSide,finish:selected.towelFinish};
  }
  if(selected.support){
   const product=selected.support,W=product.width/100,D=product.depth/100,H=product.height/100,t=.02,material=new T.MeshStandardMaterial({color:'#252626',roughness:.55,metalness:.45});materials.push(material);
