@@ -6,6 +6,12 @@
  * structurelle. Les données d’un sac ne sont jamais remplacées par la saisie.
  */
 
+export function matchesBrandSearch(brand, query) {
+  const normalize = value => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase();
+  const needle = normalize(query);
+  return [brand.name, ...(brand.aliases || [])].some(name => normalize(name).includes(needle));
+}
+
 export const SUPPORTS = Object.freeze([
   { id: 'tile', label: 'Ancien carrelage', short: 'Carrelage', description: 'Carreaux sains, adhérents et dégraissés.' },
   { id: 'cement', label: 'Chape ciment', short: 'Chape ciment', description: 'Support ciment sec, cohésif et préparé.' },

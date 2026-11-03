@@ -1,5 +1,5 @@
-import { calculate, SUPPORTS } from './ragreage-core.mjs?v=20261103-4';
-import { BRANDS, COUNTRIES } from './ragreage-catalog.mjs?v=20261103-4';
+import { calculate, SUPPORTS, matchesBrandSearch } from './ragreage-core.mjs?v=20261103-5';
+import { BRANDS, COUNTRIES } from './ragreage-catalog.mjs?v=20261103-5';
 
 const $ = id => document.getElementById(id);
 const form = $('project-form');
@@ -30,8 +30,8 @@ function syncImages(root=document){
   root.querySelectorAll('img').forEach(img=>{if(img.dataset.errorBound)return;img.dataset.errorBound='1';img.addEventListener('error',()=>{img.hidden=true;const box=img.closest('.brand-image,.product-image');if(box){box.classList.add('image-unavailable');const note=document.createElement('span');note.className='media-unavailable';note.textContent=box.classList.contains('product-image')?'Visuel fabricant indisponible':'';box.append(note);}});});
 }
 function renderBrands(){
-  const query=$('brand-search').value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-  const visible=BRANDS.filter(b=>b.country===selectedCountry && b.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(query));
+  const query=$('brand-search').value;
+  const visible=BRANDS.filter(b=>b.country===selectedCountry && matchesBrandSearch(b,query));
   $('brands-status').textContent=visible.length ? `${visible.length} fabricant${visible.length>1?'s':''} · ${countryLabel(selectedCountry)}` : 'Aucun fabricant ne correspond à cette recherche.';
   $('brand-grid').innerHTML=visible.map(b=>`<button type="button" class="brand-card${selectedBrand?.id===b.id?' selected':''}" data-brand-id="${esc(b.id)}" aria-pressed="${selectedBrand?.id===b.id}" aria-label="Choisir ${esc(b.name)}"><span class="brand-image">${media(b.logoPath||b.logoUrl,b.name)}</span><strong>${esc(b.name)}</strong>${favorite?.brand===b.id?'<span class="brand-favorite" aria-label="Favori">★</span>':''}<small>${b.products?.length?`${b.products.length} référence${b.products.length>1?'s':''} vérifiée${b.products.length>1?'s':''}`:'Fiches à compléter'}</small></button>`).join('');
   $('favorite-shortcut').hidden=!favorite;
