@@ -30,7 +30,7 @@ test('all 42 Anima modules adapt the genuine Studio One assembly to exact catalo
 test('Ribelle changes the real front relief while Pura retains a smooth profile and Studio One drawer interiors',()=>{
   const a=M.makeModel({width:.8,format:'two',includeMirror:false}),b=M.makeModel({width:.8,format:'ribelle-two',includeMirror:false});
   const depthValues=mesh=>new Set(Array.from(mesh.geometry.attributes.position.array).filter((_,i)=>i%3===2).map(v=>v.toFixed(5))).size;
-  assert.ok(depthValues(a.frontMeshes[0])>=8,'Pura has a rounded recessed grip');assert.equal(a.frontMeshes[0].geometry.userData.animaFacade.section,'horizontal-recessed-grip');assert.ok(depthValues(b.frontMeshes[0])>depthValues(a.frontMeshes[0]),'Ribelle adds actual rib relief');
+  assert.ok(depthValues(a.frontMeshes[0])>=3,'Pura has a real recessed rectilinear grip');assert.equal(a.frontMeshes[0].geometry.userData.animaFacade.grip.profile,'rectilinear-channel-with-end-returns');assert.equal(a.frontMeshes[0].geometry.userData.animaFacade.section,'horizontal-recessed-grip');assert.ok(depthValues(b.frontMeshes[0])>depthValues(a.frontMeshes[0]),'Ribelle adds actual rib relief');
   assert.ok(a.drawers[0].getObjectByName('Interieur_tiroir'));assert.ok(a.cabinet.getObjectByName('Coulisse_fixe'));
   assert.ok(b.frontMeshes.every(o=>/Ribelle/.test(o.name)));
   dispose(a.root);dispose(b.root);
@@ -49,9 +49,9 @@ test('every compatible source basin/plan replaces the Randal sanitary models wit
   for(const option of M.TOP_OPTIONS){if(!M.topAvailable(option.id,80,'two'))continue;assert.ok(asset.setTop(option.id),option.id);const s=M.topSelection(option.id,80,'two');assert.equal(asset.spec.basinRef,s?.reference||null,option.id);asset.tops.root.traverse(o=>{if(o.isMesh){assert.ok([...o.geometry.attributes.position.array].every(Number.isFinite),option.id);assert.ok(!/Sella|Tampa|Neris|Torne/i.test(o.name),option.id);}});count++;}
   assert.ok(count>30);dispose(asset.root);
 });
-test('manufacturer finishes and mirror references use real Anima assets without Randal colors',()=>{
-  assert.equal(M.FINISHES.length,6);assert.ok(M.FINISHES.every(f=>f.texture.startsWith('https://leroyfactory.fr/assets/img/neobath-anima-2026/')));
-  const wood=M.FINISHES.find(f=>f.id==='rovere-alba');assert.equal(wood.frontRotation,0);assert.notEqual(wood.texture,wood.frontTexture);
+test('Anima finishes and mirror references retain commercial identity with the requested approved Alba appearance',()=>{
+  assert.equal(M.FINISHES.length,6);assert.ok(M.FINISHES.filter(f=>f.id!=='rovere-alba').every(f=>f.texture.startsWith('https://leroyfactory.fr/assets/img/neobath-anima-2026/')));
+  const wood=M.FINISHES.find(f=>f.id==='rovere-alba');assert.equal(wood.frontRotation,Math.PI/2);assert.equal(wood.texture,wood.frontTexture);assert.ok(wood.texture.includes('/finishes/20261022/alba-balanced.webp'));assert.equal(wood.source.requestedVisualReplacement,true);
   for(const p of C.products.filter(p=>p.category==='mirror')){const settings={mirrorModel:p.id},s=M.mirrorSpec(settings);assert.equal(s.reference,p.ref);assert.equal(s.width,p.width/100);assert.equal(s.height,p.height/100);const g=M.mirrorGeometry(settings);g.computeBoundingBox();const size=g.boundingBox.getSize(new T.Vector3());assert.ok(Math.abs(size.x-s.width)<.001);assert.ok(Math.abs(size.y-s.height)<.001);g.dispose();}
 });
 test('changing Neobath basins updates the original Studio One siphon floor and complete drawer option',()=>{

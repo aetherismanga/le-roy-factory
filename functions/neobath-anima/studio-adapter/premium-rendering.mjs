@@ -48,10 +48,10 @@ export function setAnimaFurnitureTextures(asset,type,finish,tx,renderer){
  asset.furniturePlanTextures=tx?{map:tx.front,bump:tx.frontBump}:null;
  for(const [material,front]of[[asset.wood,false],[asset.frontWood,['cabinet','column'].includes(type)]]){
   if(!material)continue;
-  const map=tx?(front?(ribelle?tx.ribelleFront||tx.front:tx.front):tx.map):null;
-  const bump=tx?(front?(ribelle?tx.ribelleFrontBump||tx.frontBump:tx.frontBump):tx.bump):null;
+  const map=tx?(front?((type==='column'||ribelle)?tx.ribelleFront||tx.front:tx.front):tx.map):null;
+  const bump=tx?(front?((type==='column'||ribelle)?tx.ribelleFrontBump||tx.frontBump:tx.frontBump):tx.bump):null;
   material.color.set(map?'#ffffff':finish.hex);material.map=configureAnimaTexture(map,renderer);material.bumpMap=configureAnimaTexture(bump,renderer,{colour:false});
-  for(const texture of[material.map,material.bumpMap])if(texture)texture.wrapS=texture.wrapT=T.MirroredRepeatWrapping;
+  for(const texture of[material.map,material.bumpMap])if(texture)texture.wrapS=texture.wrapT=finish.textureWrap==='repeat'?T.RepeatWrapping:T.MirroredRepeatWrapping;
   material.bumpScale=bump?(finish.bumpScale??.000025):0;material.roughness=finish.roughness??.68;
   material.clearcoat=finish.clearcoat??0;material.clearcoatRoughness=finish.clearcoatRoughness??.68;
   material.metalness=0;material.flatShading=false;material.userData.animaColourIdentity=finish.colourIdentity;material.needsUpdate=true;

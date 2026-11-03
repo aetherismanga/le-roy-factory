@@ -29,17 +29,15 @@ test('Pura wood copies the exact native source inset without editing a shared or
  cropAnimaWoodFrontTexture(front,{canvasFactory:()=>{throw Error('already cropped');}});front.dispose();bump.dispose();original.dispose();
 });
 
-test('actual atelier loader crops only the Pura front before deriving its bump, with Ribelle source untouched',async()=>{
+test('actual atelier reuses the approved flat Alba sample without the old photographed Pura inset',async()=>{
  const copies=[],sources=[],finish=FINISHES.find(f=>f.id==='rovere-alba');
  const context={FINISHES,T,quality:{mode:'balanced',profile:{id:'balanced'}},finishTextures:{},renderer:{capabilities:{getMaxAnisotropy:()=>8}},
   document:{createElement:()=>({getContext:()=>({drawImage:(...args)=>copies.push(args)})})},tileAssetURL:url=>url,
-  loadTexture:async url=>{const image={src:url,width:url===finish.frontTexture?495:385,height:url===finish.frontTexture?170:204};const texture=new T.Texture(image);sources.push(texture);return texture;},
+  loadTexture:async url=>{const texture=new T.Texture({src:url,width:473,height:1024});sources.push(texture);return texture;},
   cacheTextures:(_key,load)=>load(),refreshFurnitureMaterials:noop,invalidate:noop};
  vm.createContext(context);vm.runInContext(functions.get('requestFinishAssets'),context);const tx=await context.requestFinishAssets(finish.id);
- assert.equal(copies.length,1);assert.deepEqual(copies[0].slice(1),[0,8,495,162,0,0,495,162]);
- assert.equal(tx.front.image.height,162);assert.equal(tx.frontBump.image,tx.front.image);
- assert.equal(tx.ribelleFront.image.height,204);assert.equal(tx.ribelleFront.image.src,finish.ribelleFrontTexture);
- assert.equal(sources.find(t=>t.image.src===finish.frontTexture).image.height,170,'cached original source is unchanged');
+ assert.equal(copies.length,0);assert.equal(sources.length,1);assert.equal(tx.front.image.height,1024);assert.equal(tx.front.image,sources[0].image);
+ assert.equal(tx.frontBump.image,tx.front.image);assert.equal(tx.ribelleFront.image,tx.front.image);assert.equal(tx.front.userData.animaWoodCrop,undefined);
  for(const texture of new Set([...Object.values(tx).filter(t=>t?.isTexture),...sources]))texture.dispose();
 });
 
@@ -69,7 +67,7 @@ test('real atelier keeps separate sharp source wood faces and skips all uniform 
  for(const finish of FINISHES.filter(f=>!f.textureMapped))assert.equal(await context.requestFinishAssets(finish.id),null);
  assert.equal(calls.length,0);
  const wood=FINISHES.find(f=>f.textureMapped),tx=await context.requestFinishAssets(wood.id);
- assert.equal(calls.length,3);assert.ok(calls.every(call=>call.profile==='balanced'),'auto economises optical effects without downsampling the grain to the manual minimum');
+ assert.equal(calls.length,1);assert.ok(calls.every(call=>call.profile==='balanced'),'auto economises optical effects without downsampling the grain to the manual minimum');
  assert.equal(tx.front.image.src,wood.frontTexture);assert.equal(tx.ribelleFront.image.src,wood.ribelleFrontTexture);
  assert.notEqual(tx.front,tx.ribelleFront);assert.equal(tx.frontBump.image,tx.front.image);assert.equal(tx.ribelleFrontBump.image,tx.ribelleFront.image);
  for(const value of Object.values(tx).filter(t=>t?.isTexture)){assert.equal(value.minFilter,T.LinearMipmapLinearFilter);assert.equal(value.magFilter,T.LinearFilter);assert.equal(value.anisotropy,16);value.dispose();}

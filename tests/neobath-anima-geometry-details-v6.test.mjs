@@ -20,7 +20,7 @@ test('Pura and Ribelle have the same drawer boxes, 25.6 cm stock fronts, and pho
  try{
   for(const asset of [pure,rib]){
    const m=asset.drawerMetal;assert.equal(m.metalness,0);assert.equal(m.roughness,.86);assert.equal(m.color.getHexString(),'b8b6af');assert.ok(m.bumpMap?.isDataTexture);assert.equal(m.userData.animaDrawerAppearance.sourcePdfPage,9);assert.equal(m.userData.animaDrawerAppearance.approximate,true);
-   for(const front of asset.frontMeshes){close(front.geometry.boundingBox.max.y-front.geometry.boundingBox.min.y,.256,'published H52 cell front');assert.ok(front.geometry.userData.animaFacade.grip.curveSegments>=8,'actual rounded grip');}
+   for(const front of asset.frontMeshes){close(front.geometry.boundingBox.max.y-front.geometry.boundingBox.min.y,.256,'published H52 cell front');assert.equal(front.geometry.userData.animaFacade.grip.profile,'rectilinear-channel-with-end-returns');assert.equal(front.geometry.userData.animaFacade.grip.closedEnds,true);}
    // A new offset sanitary passage must keep the same non-metallic material
    // and physical textile period after the inherited drawer is rebuilt.
    asset.setTop('tpgea12-b938-1-basin',{basinOffsetX:6,basinOffsetZ:-2});
@@ -33,13 +33,13 @@ test('Pura and Ribelle have the same drawer boxes, 25.6 cm stock fronts, and pho
 
 test('Ribelle relief has sharp geometric lands, continuous smooth valleys and no invented machining precision',()=>{
  const g=M.animaFacadeGeometry(.8,.256,true),p=g.attributes.position,n=g.attributes.normal,meta=g.userData.animaFacade;
- try{assert.equal(meta.sourcePdfPage,9);assert.equal(meta.approximate,true);assert.ok(meta.ridgeFraction>.5);assert.ok(meta.pitch>=.0079&&meta.pitch<=.0081);assert.equal(meta.grip.approximate,true);let plateaus=0,valleys=0;for(let i=0;i<p.count;i+=2){if(p.getY(i)>-.12)break;if(Math.abs(p.getZ(i)-.0095)<1e-6){plateaus++;close(n.getX(i),0,'flat land normal');}else valleys++;}assert.ok(plateaus>valleys,'the visible raised land is broader than its valley');assert.ok(valleys>30);assert.ok([...n.array].every(Number.isFinite));}
+ try{assert.equal(meta.sourcePdfPage,9);assert.equal(meta.approximate,true);assert.ok(meta.ridgeFraction>.5);assert.ok(meta.pitch>=.0079&&meta.pitch<=.0081);assert.equal(meta.grip.approximate,true);let plateaus=0,valleys=0;for(let i=0;i<p.count;i++){if(p.getY(i)>-.12||n.getZ(i)<.25)continue;if(Math.abs(p.getZ(i)-.0095)<1e-6){plateaus++;close(n.getX(i),0,'flat land normal');}else valleys++;}assert.ok(plateaus>valleys,'the visible raised land is broader than its valley');assert.ok(valleys>30);assert.ok([...n.array].every(Number.isFinite));}
  finally{g.dispose();}
 });
 
-test('Ribelle ends its ribs below a smooth horizontal grip band, as in the Anima detail photograph',()=>{
- const g=M.animaFacadeGeometry(.8,.256,true),p=g.attributes.position,n=g.attributes.normal,meta=g.userData.animaFacade,rows=new Map(),bodyTop=.128-meta.grip.height;
- try{assert.equal(meta.grip.smoothBand,true);for(let i=0;i<p.count;i++){const y=p.getY(i),z=p.getZ(i);if(y<=bodyTop+meta.grip.lip+.00001||y>=.128-.00001||z<=-.00949||Math.abs(n.getX(i))>.01)continue;const key=y.toFixed(7);if(!rows.has(key))rows.set(key,[]);rows.get(key).push(z);}assert.ok(rows.size>=7);for(const values of rows.values())assert.ok(Math.max(...values)-Math.min(...values)<1e-6,'grip profile remains constant over every rib and valley');}
+test('Ribelle ends its ribs below straight smooth grip facets and closed side returns, as in the Anima detail photograph',()=>{
+ const g=M.animaFacadeGeometry(.8,.256,true),p=g.attributes.position,n=g.attributes.normal,meta=g.userData.animaFacade,bodyTop=.128-meta.grip.height;
+ try{assert.equal(meta.grip.smoothBand,true);assert.equal(meta.grip.closedEnds,true);assert.equal(meta.grip.curveSegments,0);const normals=new Set();let faceVertices=0;for(let i=0;i<p.count;i++){if(Math.abs(p.getX(i))>=.38||p.getY(i)<=bodyTop+meta.grip.lip+.00001||p.getZ(i)<=-.00949||n.getZ(i)<=0)continue;normals.add([n.getX(i),n.getY(i),n.getZ(i)].map(v=>v.toFixed(5)).join(','));faceVertices++;}assert.ok(faceVertices>100);assert.equal(normals.size,2,'central lower bevel and vertical recessed face are two actual planes, never a quarter-circle');}
  finally{g.dispose();}
 });
 

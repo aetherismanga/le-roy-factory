@@ -149,7 +149,7 @@
       "privateApplicationEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-startup-6a",
+      "releaseId": "20261103-neobath-anima-studio-one-facades-8",
       "page": "neobath-anima-configurateur.html",
       "access": "agents-only",
       "modules": 42,
@@ -158,9 +158,9 @@
       "products": 257,
       "compositions": 16,
       "projectSync": "shared-agent-private-api",
-      "appSha256": "96789a6ee5d8e0916fed87b3f083ebfb4ed5cf2b1d9070d42b5966f92e156ca9",
+      "appSha256": "fd13b9aa9faf244fa156ab93f6b703a86e173984cc04626e65c24db2b954e97e",
       "engine": "studio-one",
-      "homeSha256": "bc5795674348d152f886c39d53a07066014746c9e49cc18c33b2949539c3b1a4",
+      "homeSha256": "8fda236a6cfa29c36811805c1797dfb095b8706a30c003ec049361980831f6fa",
       "photographs": 155,
       "sourceEntries": [
         "studio-one/src/commerce/home.js",
@@ -199,7 +199,13 @@
       "strictTapCompatibility": true,
       "curvedIntegratedGrips": true,
       "textileDrawerInterior": true,
-      "startupMirrorContractVerified": true
+      "startupMirrorContractVerified": true,
+      "rectilinearGripsWithEndReturns": true,
+      "woodAppearance": "studio-one-serenade-alba",
+      "woodMaxNativeSize": [
+        945,
+        2048
+      ]
     },
     "clientAnalysis": {
       "releaseId": "20261103-reports2",
@@ -250,7 +256,7 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-startup-6a",
+      "releaseId": "20261103-neobath-anima-studio-one-facades-8",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true

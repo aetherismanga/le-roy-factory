@@ -5,11 +5,12 @@ import * as T from 'three';
 // Grip section and Ribelle pitch are photo-based preview reconstructions; the
 // catalogue supplies the cabinet envelope, not industrial machining sections.
 export const ANIMA_WOOD_PERIOD=Object.freeze({horizontal:.80,vertical:.70});
-export const ANIMA_GRIP_PROFILE=Object.freeze({height:.040,recess:.016,lip:.002,curveSegments:8,sourcePdfPages:[9,65,66,67],approximate:true});
+export const ANIMA_GRIP_PROFILE=Object.freeze({height:.040,recess:.016,lip:.0015,lowerBevel:.007,endReturn:.017,curveSegments:0,profile:'rectilinear-channel-with-end-returns',sourcePdfPages:[4,9,29,42,65,66,67],approximate:true});
 export const RIBELLE_PROFILE=Object.freeze({pitch:.008,depth:.00135,samples:16,ridgeFraction:.56,sourcePdfPage:9,approximate:true});
 
-// UVs represent metres rather than one stretched swatch per door. Pura and
-// Ribelle have the same grain direction; the rib relief never rotates a map.
+// UVs represent metres rather than one stretched swatch per door. Material
+// orientation follows the native photos: horizontal Pura, vertical Ribelle.
+// The rib relief itself never distorts or rotates the texture coordinates.
 export function applyAnimaWoodUV(mesh,{front=false,period=ANIMA_WOOD_PERIOD}={}){
   const geometry=mesh.geometry,p=geometry.attributes.position,n=geometry.attributes.normal;
   let uv=geometry.attributes.uv;if(!uv){uv=new T.Float32BufferAttribute(new Float32Array(p.count*2),2);geometry.setAttribute('uv',uv);}
@@ -29,46 +30,36 @@ export function animaFacadeGeometry(width,height,ribelle=false,thickness=.019){
   const samples=ribelle?count*RIBELLE_PROFILE.samples:1,pitch=width/count;
   const half=thickness/2,bottom=-height/2,top=height/2;
   const gripHeight=Math.min(ANIMA_GRIP_PROFILE.height,height*.22),recess=Math.min(ANIMA_GRIP_PROFILE.recess,thickness-.002);
-  const bodyTop=top-gripHeight,lip=ANIMA_GRIP_PROFILE.lip;
-  const at=i=>{const x=-width/2+width*i/samples,phase=((x+width/2)/pitch)%1,edge=RIBELLE_PROFILE.ridgeFraction/2,groove=1-RIBELLE_PROFILE.ridgeFraction,t=(phase-edge)/groove,inGroove=t>0&&t<1;
-    // Broad raised lands and a narrow rounded valley reproduce the visible
-    // Ribelle section without a second blurred photographic groove pattern.
+  const bodyTop=top-gripHeight,lip=ANIMA_GRIP_PROFILE.lip,bevel=Math.min(ANIMA_GRIP_PROFILE.lowerBevel,gripHeight-lip-.002),endReturn=Math.min(ANIMA_GRIP_PROFILE.endReturn,width*.08);
+  // The native Anima photographs show straight grip facets with mitred end
+  // returns. The outer ends of the front remain full rectangles. A rounded,
+  // full-width C cut is visibly different from this catalogue construction.
+  const xs=[...new Set([...Array.from({length:samples+1},(_,i)=>-width/2+width*i/samples),-width/2+endReturn,width/2-endReturn].map(x=>Number(x.toFixed(12))))].sort((a,b)=>a-b);
+  const ys=[bottom,bodyTop,bodyTop+lip,bodyTop+lip+bevel,top];
+  const at=x=>{const phase=((x+width/2)/pitch)%1,edge=RIBELLE_PROFILE.ridgeFraction/2,groove=1-RIBELLE_PROFILE.ridgeFraction,t=(phase-edge)/groove,inGroove=t>0&&t<1;
     const z=half-(ribelle&&inGroove?RIBELLE_PROFILE.depth*(1-Math.cos(t*Math.PI*2))/2:0);
     const derivative=ribelle&&inGroove?-RIBELLE_PROFILE.depth*Math.PI/(pitch*groove)*Math.sin(t*Math.PI*2):0;
-    return {x,z,derivative};};
-  const vertex=(x,y,z,nx,ny,nz)=>{const i=positions.length/3;positions.push(x,y,z);normals.push(nx,ny,nz);uvs.push(x/ANIMA_WOOD_PERIOD.horizontal+.5,y/ANIMA_WOOD_PERIOD.vertical+.5);return i;};
-  // The face relief is a continuous C1 surface. The grip above it is a smooth
-  // recessed section, rather than a dark line painted over full-height fronts.
-  for(let i=0;i<=samples;i++){const p=at(i),n=new T.Vector3(-p.derivative,0,1).normalize();vertex(p.x,bottom,p.z,n.x,n.y,n.z);vertex(p.x,bodyTop,p.z,n.x,n.y,n.z);}
-  for(let i=0;i<samples;i++){const a=i*2;indices.push(a,a+2,a+1,a+2,a+3,a+1);}
-  const quad=(a,b,c,d,normal)=>{const base=positions.length/3;for(const p of[a,b,c,d])vertex(...p,...normal);indices.push(base,base+1,base+2,base,base+2,base+3);};
-  const curve=Array.from({length:ANIMA_GRIP_PROFILE.curveSegments+1},(_,i)=>{const angle=i/ANIMA_GRIP_PROFILE.curveSegments*Math.PI/2;return {y:bodyTop+lip+recess*Math.sin(angle),blend:Math.cos(angle),sine:Math.sin(angle)};});
-  for(let i=0;i<samples;i++){
-    const a=at(i),b=at(i+1),za=half-recess,zb=half-recess;
-    // Solid lower nose, rounded finger clearance and recessed upright. This
-    // geometric profile replaces the inherited Studio One 45-degree bevel.
-    quad([a.x,bodyTop,a.z],[b.x,bodyTop,b.z],[b.x,bodyTop+lip,half],[a.x,bodyTop+lip,half],[0,0,1]);
-    for(let j=0;j<curve.length-1;j++){
-      const c=curve[j],d=curve[j+1],base=positions.length/3;
-      // Anima p.9: the horizontal grip is smooth even on Ribelle. The narrow
-      // solid nose above closes the rib valleys before this rounded section.
-      for(const [p,section]of[[a,c],[b,c],[b,d],[a,d]]){const n=new T.Vector3(0,recess*section.sine,recess*section.blend).normalize();vertex(p.x,section.y,za+recess*section.blend,n.x,n.y,n.z);}
-      indices.push(base,base+1,base+2,base,base+2,base+3);
+    return {z,derivative};};
+  const point=(x,row,back=false)=>[x,ys[row],back?-half:row<2?at(x).z:row===2?half:half-recess*Math.min(1,Math.max(0,(width/2-Math.abs(x))/endReturn))];
+  const vertex=(p,n)=>{const i=positions.length/3;positions.push(...p);normals.push(...n);uvs.push(p[0]/ANIMA_WOOD_PERIOD.horizontal+.5,p[1]/ANIMA_WOOD_PERIOD.vertical+.5);return i;};
+  const triangle=(a,b,c,ns=null)=>{const normal=ns?null:new T.Vector3().crossVectors(new T.Vector3().fromArray(b).sub(new T.Vector3().fromArray(a)),new T.Vector3().fromArray(c).sub(new T.Vector3().fromArray(a))).normalize().toArray();const base=positions.length/3;for(const [i,p]of[a,b,c].entries())vertex(p,ns?.[i]||normal);indices.push(base,base+1,base+2);};
+  const quad=(a,b,c,d,ns=null)=>{triangle(a,b,c,ns?[ns[0],ns[1],ns[2]]:null);triangle(a,c,d,ns?[ns[0],ns[2],ns[3]]:null);};
+  for(let i=0;i<xs.length-1;i++){
+    const a=xs[i],b=xs[i+1];
+    for(let j=0;j<ys.length-1;j++){
+      const na=j===0?new T.Vector3(-at(a).derivative,0,1).normalize().toArray():null,nb=j===0?new T.Vector3(-at(b).derivative,0,1).normalize().toArray():null;
+      quad(point(a,j),point(b,j),point(b,j+1),point(a,j+1),na?[na,nb,nb,na]:null);
+      quad(point(a,j,true),point(a,j+1,true),point(b,j+1,true),point(b,j,true));
     }
-    quad([a.x,curve.at(-1).y,za],[b.x,curve.at(-1).y,zb],[b.x,top,zb],[a.x,top,za],[0,0,1]);
-    quad([a.x,top,za],[b.x,top,zb],[b.x,top,-half],[a.x,top,-half],[0,1,0]);
-    quad([a.x,bottom,-half],[b.x,bottom,-half],[b.x,bottom,b.z],[a.x,bottom,a.z],[0,-1,0]);
+    quad(point(a,4),point(b,4),point(b,4,true),point(a,4,true));
+    quad(point(a,0,true),point(b,0,true),point(b,0),point(a,0));
   }
-  quad([-width/2,bottom,-half],[-width/2,top,-half],[width/2,top,-half],[width/2,bottom,-half],[0,0,-1]);
-  for(const side of[-1,1]){
-    const p=at(side<0?0:samples),profile=[[bottom,-half],[bottom,p.z],[bodyTop,p.z],...curve.map(c=>[c.y,half-recess+recess*c.blend]),[top,half-recess],[top,-half]];
-    const base=positions.length/3;for(const [y,z]of profile)vertex(p.x,y,z,side,0,0);
-    // Concave section: triangulate the actual grip contour, never bridge it.
-    const vectors=profile.map(([y,z])=>new T.Vector2(y,z));
-    for(const triangle of T.ShapeUtils.triangulateShape(vectors,[])){const order=side>0?triangle:triangle.slice().reverse();indices.push(...order.map(i=>base+i));}
+  for(const [side,x]of[[-1,-width/2],[1,width/2]])for(let j=0;j<ys.length-1;j++){
+    if(side<0)quad(point(x,j,true),point(x,j),point(x,j+1),point(x,j+1,true));
+    else quad(point(x,j,true),point(x,j+1,true),point(x,j+1),point(x,j));
   }
   const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));geometry.setAttribute('normal',new T.Float32BufferAttribute(normals,3));geometry.setAttribute('uv',new T.Float32BufferAttribute(uvs,2));geometry.setIndex(indices);geometry.computeBoundingBox();
-  geometry.userData.animaFacade={ribelle,pitch:ribelle?pitch:null,depth:ribelle?RIBELLE_PROFILE.depth:0,ridgeFraction:ribelle?RIBELLE_PROFILE.ridgeFraction:null,grain:'horizontal',uvScale:'metres',grip:{...ANIMA_GRIP_PROFILE,height:gripHeight,recess,smoothBand:true},section:'horizontal-recessed-grip',sourcePdfPage:9,approximate:true};
+  geometry.userData.animaFacade={ribelle,pitch:ribelle?pitch:null,depth:ribelle?RIBELLE_PROFILE.depth:0,ridgeFraction:ribelle?RIBELLE_PROFILE.ridgeFraction:null,grain:ribelle?'vertical':'horizontal',uvScale:'metres',grip:{...ANIMA_GRIP_PROFILE,height:gripHeight,recess,lowerBevel:bevel,endReturn,smoothBand:true,closedEnds:true},section:'horizontal-recessed-grip',sourcePdfPage:9,approximate:true};
   return geometry;
 }
 
