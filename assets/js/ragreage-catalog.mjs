@@ -2996,9 +2996,11 @@ export const BRANDS=[
   },
   {
     "id": "es-propam-molins",
-    "name": "PROPAM / Molins",
+    "name": "Propamsa / Molins",
     "aliases": [
       "Propamsa",
+      "PROPAM",
+      "Propensa",
       "Molins Construction Solutions"
     ],
     "website": "https://www.molins.es/construction-solutions/",
@@ -3075,6 +3077,255 @@ export const BRANDS=[
         "checkedAt": "2026-11-03",
         "imageNote": null,
         "imagePath": "assets/img/ragreage/products/propam-floor-level-10.jpg"
+      },
+      {
+        "id": "es-propam-floor-level-15",
+        "name": "PROPAM FLOOR LEVEL 15",
+        "type": "Ragréage ciment à durcissement rapide CT-C30-F6",
+        "rate": 1.6,
+        "bag": 25,
+        "min": 3,
+        "max": 15,
+        "locations": [
+          "inside",
+          "outside"
+        ],
+        "supports": [
+          "cement",
+          "concrete"
+        ],
+        "heating": [
+          "none"
+        ],
+        "finishes": [
+          "tile",
+          "soft",
+          "parquet"
+        ],
+        "sourceUrl": "https://www.molins.es/construction-solutions/products/morteros-especiales/pavimentos/autonivelantes/propam-floor-level-15/",
+        "technicalUrl": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/PROPAM_FLOOR_LEVEL_15-DOCUMENTACION-FICHA_TECNICA.pdf",
+        "imageUrl": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/PR476BI1987_0122_PROPAM%28r%29_FLOOR_LEVEL_15_IMD.jpg",
+        "primaries": {
+          "cementAbsorbent": {
+            "name": "PROPAM PRIMER SOL",
+            "detail": "Sur support poreux, laisser sécher au toucher, environ 1 à 4 h. Quantité à déterminer selon la fiche du primaire et le chantier.",
+            "url": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/PROPAM_FLOOR_LEVEL_15-DOCUMENTACION-FICHA_TECNICA.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "concreteAbsorbent": {
+            "name": "PROPAM PRIMER SOL",
+            "detail": "Sur support poreux, laisser sécher au toucher, environ 1 à 4 h. Quantité à déterminer selon la fiche du primaire et le chantier.",
+            "url": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/PROPAM_FLOOR_LEVEL_15-DOCUMENTACION-FICHA_TECNICA.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "cementClosed": {
+            "name": "PROPAM PRIMER GRIP +",
+            "detail": "Sur support non poreux, laisser sécher au toucher, environ 30 à 90 min. Quantité à déterminer selon la fiche du primaire et le chantier.",
+            "url": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/PROPAM_FLOOR_LEVEL_15-DOCUMENTACION-FICHA_TECNICA.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "concreteClosed": {
+            "name": "PROPAM PRIMER GRIP +",
+            "detail": "Sur support non poreux, laisser sécher au toucher, environ 30 à 90 min. Quantité à déterminer selon la fiche du primaire et le chantier.",
+            "url": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/PROPAM_FLOOR_LEVEL_15-DOCUMENTACION-FICHA_TECNICA.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          }
+        },
+        "notes": [
+          "Ancienne dénomination : BETOLEVEL 15.",
+          "Support ciment ou béton sec, cohésif, propre et préparé mécaniquement ; respecter les joints et contrôler l’humidité avant recouvrement.",
+          "Chauffage radiant mentionné sans distinction eau/électrique : validation du système nécessaire avant emploi sur plancher chauffant."
+        ],
+        "checkedAt": "2026-11-03",
+        "comparison": {
+          "summary": "Ragréage de 3 à 15 mm, sur ciment ou béton.",
+          "highlights": [
+            "Sac de 25 kg · 1,6 kg/m²/mm",
+            "Anciennement BETOLEVEL 15"
+          ],
+          "walkable": "3 à 4 h à 20 °C et 50 % HR.",
+          "covering": "Selon humidité résiduelle et fiche du revêtement.",
+          "sourceUrl": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/PROPAM_FLOOR_LEVEL_15-DOCUMENTACION-FICHA_TECNICA.pdf"
+        },
+        "imageNote": null,
+        "imagePath": null
+      },
+      {
+        "id": "es-propam-floor-level-30",
+        "name": "PROPAM FLOOR LEVEL 30",
+        "type": "Ragréage ciment fibré à durcissement rapide CT-C35-F7",
+        "rate": 1.7,
+        "bag": 25,
+        "min": 8,
+        "max": 30,
+        "locations": [
+          "inside",
+          "outside"
+        ],
+        "supports": [
+          "cement",
+          "concrete"
+        ],
+        "heating": [
+          "none"
+        ],
+        "finishes": [
+          "tile",
+          "soft",
+          "parquet"
+        ],
+        "sourceUrl": "https://www.molins.es/construction-solutions/products/morteros-especiales/pavimentos/autonivelantes/propam-floor-level-30/",
+        "technicalUrl": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/PROPAM_FLOOR_LEVEL_30-DOCUMENTACION-FICHA_TECNICA.pdf",
+        "imageUrl": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/PR477BI1988_0123_PROPAM%28r%29_FLOOR_LEVEL_30_IMD.jpg",
+        "primaries": {
+          "cementAbsorbent": {
+            "name": "PROPAM PRIMER SOL",
+            "detail": "Sur support poreux, laisser sécher au toucher, environ 1 à 4 h. Quantité à déterminer selon la fiche du primaire et le chantier.",
+            "url": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/PROPAM_FLOOR_LEVEL_30-DOCUMENTACION-FICHA_TECNICA.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "concreteAbsorbent": {
+            "name": "PROPAM PRIMER SOL",
+            "detail": "Sur support poreux, laisser sécher au toucher, environ 1 à 4 h. Quantité à déterminer selon la fiche du primaire et le chantier.",
+            "url": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/PROPAM_FLOOR_LEVEL_30-DOCUMENTACION-FICHA_TECNICA.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "cementClosed": {
+            "name": "PROPAM PRIMER GRIP +",
+            "detail": "Sur support non poreux, laisser sécher au toucher, environ 30 à 90 min. Quantité à déterminer selon la fiche du primaire et le chantier.",
+            "url": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/PROPAM_FLOOR_LEVEL_30-DOCUMENTACION-FICHA_TECNICA.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "concreteClosed": {
+            "name": "PROPAM PRIMER GRIP +",
+            "detail": "Sur support non poreux, laisser sécher au toucher, environ 30 à 90 min. Quantité à déterminer selon la fiche du primaire et le chantier.",
+            "url": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/PROPAM_FLOOR_LEVEL_30-DOCUMENTACION-FICHA_TECNICA.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          }
+        },
+        "notes": [
+          "Ancienne dénomination : BETOLEVEL 30.",
+          "Support ciment ou béton sec, cohésif, propre et préparé mécaniquement ; respecter les joints et contrôler l’humidité avant recouvrement.",
+          "Chauffage radiant mentionné sans distinction eau/électrique : validation du système nécessaire avant emploi sur plancher chauffant."
+        ],
+        "checkedAt": "2026-11-03",
+        "comparison": {
+          "summary": "Ragréage de 8 à 30 mm, sur ciment ou béton.",
+          "highlights": [
+            "Sac de 25 kg · 1,7 kg/m²/mm",
+            "Anciennement BETOLEVEL 30"
+          ],
+          "walkable": "3 à 4 h à 20 °C et 50 % HR.",
+          "covering": "Selon humidité résiduelle et fiche du revêtement.",
+          "sourceUrl": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/PROPAM_FLOOR_LEVEL_30-DOCUMENTACION-FICHA_TECNICA.pdf"
+        },
+        "imageNote": null,
+        "imagePath": null
+      },
+      {
+        "id": "es-propam-floor-level-100",
+        "name": "PROPAM FLOOR LEVEL 100",
+        "type": "Chape autonivelante non structurelle CT-C20-F5",
+        "rate": 1.75,
+        "bag": 25,
+        "min": 10,
+        "max": 100,
+        "locations": [
+          "inside",
+          "outside"
+        ],
+        "supports": [
+          "cement",
+          "concrete"
+        ],
+        "heating": [
+          "none"
+        ],
+        "finishes": [
+          "tile",
+          "soft",
+          "parquet"
+        ],
+        "sourceUrl": "https://www.molins.es/construction-solutions/products/morteros-especiales/pavimentos/autonivelantes/propam-floor-level-100/",
+        "technicalUrl": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/0124_FT-NIVELANTE_80.pdf",
+        "imageUrl": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/PR478BI1989_0124_PROPAM%28r%29_FLOOR_LEVEL_100_IMD.jpg",
+        "primaries": {
+          "cementAbsorbent": {
+            "name": "PROPAM PRIMER SOL",
+            "detail": "Sur support poreux, laisser sécher au toucher, environ 1 à 4 h. Quantité à déterminer selon la fiche du primaire et le chantier.",
+            "url": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/0124_FT-NIVELANTE_80.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "concreteAbsorbent": {
+            "name": "PROPAM PRIMER SOL",
+            "detail": "Sur support poreux, laisser sécher au toucher, environ 1 à 4 h. Quantité à déterminer selon la fiche du primaire et le chantier.",
+            "url": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/0124_FT-NIVELANTE_80.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "cementClosed": {
+            "name": "PROPAM PRIMER GRIP +",
+            "detail": "Sur support non poreux, laisser sécher au toucher, environ 30 à 90 min. Quantité à déterminer selon la fiche du primaire et le chantier.",
+            "url": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/0124_FT-NIVELANTE_80.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "concreteClosed": {
+            "name": "PROPAM PRIMER GRIP +",
+            "detail": "Sur support non poreux, laisser sécher au toucher, environ 30 à 90 min. Quantité à déterminer selon la fiche du primaire et le chantier.",
+            "url": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/0124_FT-NIVELANTE_80.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          }
+        },
+        "notes": [
+          "Ancienne dénomination : NIVELANTE 80.",
+          "Support ciment ou béton sec, cohésif, propre et préparé mécaniquement ; respecter les joints et contrôler l’humidité avant recouvrement.",
+          "Chauffage radiant mentionné sans distinction eau/électrique : validation du système nécessaire avant emploi sur plancher chauffant.",
+          "Profil automatique : pose adhérente de 10 à 50 mm. Entre 50 et 100 mm, le fabricant recommande une chape flottante sur barrière de vapeur : étude du système requise, hors calcul automatique.",
+          "Ne pas employer en sol industriel ni avec humidité permanente ou remontées capillaires."
+        ],
+        "checkedAt": "2026-11-03",
+        "comparison": {
+          "summary": "Grandes épaisseurs ; calcul automatique limité à 50 mm en pose adhérente.",
+          "highlights": [
+            "Sac de 25 kg · 1,75 kg/m²/mm",
+            "Anciennement NIVELANTE 80"
+          ],
+          "walkable": "24 h à 20 °C et 50 % HR.",
+          "covering": "Carrelage ou textile : 48 h ; bois, PVC ou peinture : 7 jours. Délais indicatifs, humidité à contrôler.",
+          "sourceUrl": "https://d7rh5s3nxmpy4.cloudfront.net/CMP5489/files/1/0124_FT-NIVELANTE_80.pdf",
+          "workingTime": "Environ 75 min à 20 °C."
+        },
+        "conditionalLimits": [
+          {
+            "when": {},
+            "max": 50
+          }
+        ],
+        "imageNote": null,
+        "imagePath": null
       }
     ],
     "country": "es",
@@ -3751,6 +4002,182 @@ export const BRANDS=[
     "logoPath": "assets/img/ragreage/brands/fixcer.png",
     "logoBackground": null,
     "logoUrl": "https://fixcer.com/wp-content/uploads/2024/04/fixcer-products-logo-2-217x129.png"
+  },
+  {
+    "id": "es-solbau",
+    "name": "SOLBAU",
+    "aliases": [
+      "Solbau Morteros"
+    ],
+    "website": "https://solbaumorteros.com/",
+    "logoUrl": "https://solbaumorteros.com/wp-content/uploads/2024/06/Logo-optimizado.webp",
+    "products": [
+      {
+        "id": "es-solbau-level-03",
+        "name": "SOLBAU LEVEL 03",
+        "type": "Ragréage ciment intérieur CT-C35-F10-AR1",
+        "rate": 1.8,
+        "bag": 25,
+        "min": 3,
+        "max": 40,
+        "locations": [
+          "inside"
+        ],
+        "supports": [
+          "cement",
+          "concrete"
+        ],
+        "heating": [
+          "none"
+        ],
+        "finishes": [
+          "tile",
+          "soft"
+        ],
+        "sourceUrl": "https://solbaumorteros.com/producto/level/",
+        "technicalUrl": "https://solbaumorteros.com/wp-content/uploads/2023/09/FT-TEC-Level-03.pdf",
+        "imageUrl": "https://solbaumorteros.com/wp-content/uploads/2023/09/Level.png.webp",
+        "imageNote": "Visuel de gamme fourni par Solbau.",
+        "primaries": {
+          "cementAbsorbent": {
+            "name": "SOLBAU Primer",
+            "detail": "Sur support très absorbant, appliquer SOLBAU Primer et attendre le séchage au toucher.",
+            "url": "https://solbaumorteros.com/wp-content/uploads/2023/09/FT-TEC-Level-03.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "concreteAbsorbent": {
+            "name": "SOLBAU Primer",
+            "detail": "Sur support très absorbant, appliquer SOLBAU Primer et attendre le séchage au toucher.",
+            "url": "https://solbaumorteros.com/wp-content/uploads/2023/09/FT-TEC-Level-03.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "cementClosed": {
+            "name": "SOLBAU Grip",
+            "detail": "Sur support peu poreux, utiliser SOLBAU Grip ; préparer mécaniquement si nécessaire.",
+            "url": "https://solbaumorteros.com/wp-content/uploads/2023/09/FT-TEC-Level-03.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "concreteClosed": {
+            "name": "SOLBAU Grip",
+            "detail": "Sur support peu poreux, utiliser SOLBAU Grip ; préparer mécaniquement si nécessaire.",
+            "url": "https://solbaumorteros.com/wp-content/uploads/2023/09/FT-TEC-Level-03.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          }
+        },
+        "notes": [
+          "Support sec, dur, compact, propre et stable ; vérifier une humidité résiduelle inférieure à 3 % avant application.",
+          "Calcul limité à l’intérieur : l’extérieur nécessite une membrane de cure et la validation du système.",
+          "La fiche mentionne le parquet flottant ; le parquet collé n’est pas qualifié dans ce profil. Chauffage au sol à faire valider.",
+          "Fiche technique édition juin 2016, toujours liée par le site officiel lors du contrôle du 3 novembre 2026."
+        ],
+        "checkedAt": "2026-11-03",
+        "comparison": {
+          "summary": "Nivellement intérieur de 3 à 40 mm, avant carrelage ou sol souple.",
+          "highlights": [
+            "Sac de 25 kg · 1,8 kg/m²/mm",
+            "Sur ciment et béton préparés"
+          ],
+          "walkable": "Environ 12 h selon conditions.",
+          "workingTime": "Au moins 60 min selon la fiche.",
+          "covering": "Après séchage et contrôle de l’humidité ; délai à confirmer selon le revêtement.",
+          "sourceUrl": "https://solbaumorteros.com/wp-content/uploads/2023/09/FT-TEC-Level-03.pdf"
+        },
+        "imagePath": null
+      },
+      {
+        "id": "es-solbau-level-05",
+        "name": "SOLBAU LEVEL 05",
+        "type": "Ragréage ciment intérieur CT-C25-F7",
+        "rate": 1.9,
+        "bag": 25,
+        "min": 6,
+        "max": 50,
+        "locations": [
+          "inside"
+        ],
+        "supports": [
+          "cement",
+          "concrete"
+        ],
+        "heating": [
+          "none"
+        ],
+        "finishes": [
+          "tile",
+          "soft"
+        ],
+        "sourceUrl": "https://solbaumorteros.com/producto/level-05/",
+        "technicalUrl": "https://solbaumorteros.com/wp-content/uploads/2024/11/FT-TEC-Level-05.pdf",
+        "imageUrl": "https://solbaumorteros.com/wp-content/uploads/2023/09/Level.png.webp",
+        "imageNote": "Visuel de gamme fourni par Solbau.",
+        "primaries": {
+          "cementAbsorbent": {
+            "name": "SOLBAU Primer",
+            "detail": "Sur support très absorbant, appliquer SOLBAU Primer et attendre le séchage au toucher.",
+            "url": "https://solbaumorteros.com/wp-content/uploads/2024/11/FT-TEC-Level-05.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "concreteAbsorbent": {
+            "name": "SOLBAU Primer",
+            "detail": "Sur support très absorbant, appliquer SOLBAU Primer et attendre le séchage au toucher.",
+            "url": "https://solbaumorteros.com/wp-content/uploads/2024/11/FT-TEC-Level-05.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "cementClosed": {
+            "name": "SOLBAU Grip",
+            "detail": "Sur support peu poreux, utiliser SOLBAU Grip ; préparer mécaniquement si nécessaire.",
+            "url": "https://solbaumorteros.com/wp-content/uploads/2024/11/FT-TEC-Level-05.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          },
+          "concreteClosed": {
+            "name": "SOLBAU Grip",
+            "detail": "Sur support peu poreux, utiliser SOLBAU Grip ; préparer mécaniquement si nécessaire.",
+            "url": "https://solbaumorteros.com/wp-content/uploads/2024/11/FT-TEC-Level-05.pdf",
+            "rateMin": null,
+            "rateMax": null,
+            "unit": "kg"
+          }
+        },
+        "notes": [
+          "Support sec, dur, compact, propre et stable ; vérifier une humidité résiduelle inférieure à 3 % avant application.",
+          "Calcul limité à l’intérieur : l’extérieur nécessite une membrane de cure et la validation du système.",
+          "La fiche mentionne le parquet flottant ; le parquet collé n’est pas qualifié dans ce profil. Chauffage au sol à faire valider.",
+          "Fiche technique édition juin 2016, toujours liée par le site officiel lors du contrôle du 3 novembre 2026.",
+          "La fiche indique 5 mm dans le tableau technique et 6 mm dans son intitulé : minimum prudent de 6 mm retenu. Toute application à 5 mm demande confirmation de Solbau."
+        ],
+        "checkedAt": "2026-11-03",
+        "comparison": {
+          "summary": "Nivellement intérieur de 6 à 50 mm, avant carrelage ou sol souple.",
+          "highlights": [
+            "Sac de 25 kg · 1,9 kg/m²/mm",
+            "Sur ciment et béton préparés"
+          ],
+          "walkable": "Environ 12 h selon conditions.",
+          "workingTime": "Au moins 60 min selon la fiche.",
+          "covering": "Après séchage et contrôle de l’humidité ; délai à confirmer selon le revêtement.",
+          "sourceUrl": "https://solbaumorteros.com/wp-content/uploads/2024/11/FT-TEC-Level-05.pdf"
+        },
+        "imagePath": null
+      }
+    ],
+    "country": "es",
+    "countryLabel": "Espagne",
+    "logoPath": null,
+    "logoBackground": null
   },
   {
     "id": "it-mapei",

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { calculate } from '../assets/js/ragreage-core.mjs';
+import { calculate, matchesBrandSearch } from '../assets/js/ragreage-core.mjs';
 
 const RP = { name:'Primaire absorbant du fabricant', detail:'Fiche du système', rateMin:.15, rateMax:.25, url:'https://example.test/primary' };
 const GRIP = { name:'Primaire fermé du fabricant', detail:'Fiche du système', rateMin:.1, rateMax:.2, url:'https://example.test/grip' };
@@ -424,11 +424,60 @@ test('la liste des exclusions couvre aussi une marque sans solution et ne fourni
 
 test('le catalogue public contient tous les nouveaux médias et la carte est entre Reviglass et BILT',async()=>{
   const {BRANDS}=await import('../assets/js/ragreage-catalog.mjs');
-  assert.equal(BRANDS.flatMap(b=>b.products).length,43);
-  for(const b of BRANDS){if(b.products.length)assert.ok(b.logoPath,`${b.name}: logo local`);}
+  assert.equal(BRANDS.flatMap(b=>b.products).length,48);
+  for(const b of BRANDS){if(b.products.length)assert.ok(b.logoPath || /^https:\/\//.test(b.logoUrl || ''),`${b.name}: logo fabricant`);}
+  assert.equal(BRANDS.filter(b=>b.logoPath).length,23);
   const page=readFileSync(new URL('../configurateurs.html',import.meta.url),'utf8');
   const titles=[...page.matchAll(/<article class="config-card">(.*?)<\/article>/gs)].map(x=>x[1]);
   const index=titles.findIndex(x=>x.includes('configurateur-ragreage.html'));
   assert.ok(titles[index-1].includes('myvirtualpool.reviglass.es'));assert.ok(titles[index+1].includes('configurateur-croisillons.html'));
   assert.equal(titles.filter(x=>x.includes('configurateur-ragreage.html')).length,1);
+});
+
+test('Solbau propose ses deux produits avec leurs vraies consommations et primaires',()=>{
+  const catalogue=countryBrands('spain');
+  const input={brand:'solbau',support:'cement',porosity:'absorbent',thickness:10,...clearBounds};
+  const r=run(input,catalogue);
+  assert.deepEqual(r.alternatives.map(x=>[x.id,x.rate,x.bag,x.bags]),[
+    ['solbau-level-03',1.8,25,38],['solbau-level-05',1.9,25,40]
+  ]);
+  assert.equal(r.primary.label,'SOLBAU Primer');assert.equal(r.primaryMin,null);
+  const closed=run({...input,productId:'solbau-level-05',porosity:'closed'},catalogue);
+  assert.equal(closed.product.id,'solbau-level-05');assert.equal(closed.primary.label,'SOLBAU Grip');
+  const thin=run({...input,thickness:5},catalogue);
+  assert.equal(thin.product.id,'solbau-level-03');assert.ok(thin.excludedProducts.some(x=>x.product.id==='solbau-level-05'));
+});
+
+test('Solbau ne reçoit pas de compatibilités non documentées',()=>{
+  const catalogue=countryBrands('spain');
+  const input={brand:'solbau',support:'cement',thickness:10,...clearBounds};
+  for(const change of [{support:'tile'},{heating:'water'},{heating:'electric'},{location:'outside',slope:'ready'},{finish:'parquet'}]){
+    const r=run({...input,...change},catalogue);
+    assert.equal(r.alternatives.length,0);assert.equal(r.bags,null);assert.equal(r.excludedProducts.length,2);
+  }
+});
+
+test('Propamsa garde son identifiant favori et répond aux anciennes appellations',async()=>{
+  const {BRANDS}=await import('../assets/js/ragreage-catalog.mjs');
+  for(const query of ['PROPAMSA',' propensa ','PROPAM','mólins']){
+    const matches=BRANDS.filter(b=>b.country==='es'&&matchesBrandSearch(b,query));
+    assert.deepEqual(matches.map(b=>b.id),['es-propam-molins']);
+    assert.equal(matches[0].name,'Propamsa / Molins');
+  }
+  assert.equal(BRANDS.filter(b=>matchesBrandSearch(b,'SOLBAU'))[0].id,'es-solbau');
+  assert.equal(BRANDS.some(b=>matchesBrandSearch(b,'fabricant inexistant')),false);
+});
+
+test('Propamsa permet de comparer Level 10, 15, 30 et 100 sans mélanger les quantités',()=>{
+  const catalogue=countryBrands('spain');
+  const input={brand:'propam-molins',support:'cement',porosity:'closed',thickness:10,...clearBounds};
+  const r=run(input,catalogue);
+  assert.deepEqual(r.alternatives.map(x=>[x.id,x.rate,x.bags]),[
+    ['propam-floor-level-10',1.5,32],['propam-floor-level-15',1.6,34],
+    ['propam-floor-level-30',1.7,36],['propam-floor-level-100',1.75,37]
+  ]);
+  assert.equal(run({...input,productId:'propam-floor-level-30'},catalogue).primary.label,'PROPAM PRIMER GRIP +');
+  assert.equal(run({...input,thickness:50},catalogue).product.id,'propam-floor-level-100');
+  const floating=run({...input,thickness:60},catalogue);
+  assert.equal(floating.bags,null);assert.ok(floating.excludedProducts.some(x=>x.product.id==='propam-floor-level-100'));
 });
