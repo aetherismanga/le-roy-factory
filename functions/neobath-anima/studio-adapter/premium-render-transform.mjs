@@ -9,7 +9,7 @@ function amendFunction(source,name,change){
 const filterMaps=(definition='f')=>`for(const texture of [map,front,bump,frontBump,ribelleFront,ribelleFrontBump]){texture.wrapS=texture.wrapT=${definition}.textureWrap==='repeat'?T.RepeatWrapping:T.MirroredRepeatWrapping;texture.magFilter=T.LinearFilter;texture.minFilter=T.LinearMipmapLinearFilter;texture.generateMipmaps=true;texture.anisotropy=Math.min(16,typeof renderer==='object'?renderer.capabilities?.getMaxAnisotropy?.()||8:8);texture.needsUpdate=true;}`;
 const cropFrontPixels='('+cropAnimaWoodFrontTexture.toString()+')(front);';
 function cabinetMaps(source){
- source=source.replace("file=f?.textureVariants?.[profile]||f?.texture;","textureProfile=profile==='fluid'&&quality.mode==='auto'?'balanced':profile,file=f?.textureVariants?.[textureProfile]||f?.texture;").replace('if(!file)return null;',"if(!file||f.textureMapped===false)return null;")
+ source=source.replace("file=f?.textureVariants?.[profile]||f?.texture;","textureProfile=profile==='fluid'?'balanced':profile,file=f?.textureVariants?.[textureProfile]||f?.texture;").replace('if(!file)return null;',"if(!file||f.textureMapped===false)return null;")
   .replace('f.frontTexture?await loadTexture(tileAssetURL(f.frontTexture),profile):map.clone()',"f.sharedWoodTexture?map.clone():f.frontTexture?(await loadTexture(tileAssetURL(f.frontTexture),profile)).clone():map.clone()")
   .replace('front.wrapS=front.wrapT=T.RepeatWrapping;',"if(f.woodCrop==='catalogue-front-inset')"+cropFrontPixels+'front.wrapS=front.wrapT=T.RepeatWrapping;')
   .replace('const frontBump=bump.clone();','const frontBump=front.clone();frontBump.colorSpace=T.NoColorSpace;')

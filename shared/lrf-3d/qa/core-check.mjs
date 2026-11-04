@@ -42,7 +42,7 @@ for(const record of provenance.modules){
 for(const mobile of [false,true]){
  const policy=new AdaptiveQuality({mobile});
  for(let frame=0;frame<3500;frame++)policy.sample(frame*16);
- assert.equal(policy.profile.id,mobile?'balanced':'max','Automatic quality respects mobile headroom');
+ assert.equal(policy.profile.id,'balanced','Automatic quality preserves fluent Standard without enabling Ultra on desktop or mobile');
  if(mobile)assert(policy.profile.pixels<QUALITY_PROFILES[1].pixels);
  policy.setMode('max');
  for(let frame=0;frame<1000;frame++)policy.sample(60000+frame*70);
@@ -53,10 +53,10 @@ for(const mobile of [false,true]){
 }
 const resizing=new AdaptiveQuality();
 resizing.setMode('auto');for(let frame=0;frame<3500;frame++)resizing.sample(frame*16);
-assert.equal(resizing.profile.id,'max');resizing.setMobile(true);assert.equal(resizing.profile.id,'balanced');
+assert.equal(resizing.profile.id,'balanced');resizing.setMobile(true);assert.equal(resizing.profile.id,'balanced');
 resizing.setMode('max');resizing.setMobile(false);resizing.setMobile(true);assert.equal(resizing.profile.id,'max','Resize does not cancel a manual HD choice');
 
-assert.equal(textureLimit('fluid'),512);assert.equal(textureLimit('balanced'),1024);assert.equal(textureLimit('max'),4096);
+assert.equal(textureLimit('fluid'),1024);assert.equal(textureLimit('balanced'),1024);assert.equal(textureLimit('max'),4096);
 assert.equal(textureLimit('max',{capabilities:{maxTextureSize:2048}}),2048);
 const reflection=new ReflectionSchedule();assert(reflection.shouldCapture(0,'scene',30));assert.equal(reflection.shouldCapture(100,'scene',30),false);reflection.reset();assert(reflection.shouldCapture(101,'scene',30));
 console.log(JSON.stringify({passed:true,unchangedExtractedModules:provenance.modules.filter(record=>!record.current).length,documentedSourceChanges:provenance.modules.filter(record=>record.current).map(record=>({module:record.module,changeType:record.current.changeType})),wrapperIdentity:'both applications',checks:['original and current source provenance','comment-only confidentiality cleanup preserves executable data','documented functional evolution retains original extraction provenance','single module identities through compatibility paths','desktop/mobile automatic quality','manual HD preserved','responsive quality transition','texture/GPU budgets','reflection reuse']},null,2));

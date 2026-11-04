@@ -74,15 +74,15 @@ test('real atelier keeps separate sharp source wood faces and skips all uniform 
  for(const texture of textures)texture.dispose();
 });
 
-test('Anima auto retains readable pixels and anisotropy while manual minimum and full HD stay intact',()=>{
+test('Anima auto and manual Light retain readable pixels and anisotropy while full HD stays intact',()=>{
  assert.equal(QUALITY_PROFILES[0],STUDIO_PROFILES[0]);assert.equal(QUALITY_PROFILES[2],STUDIO_PROFILES[2]);
  for(const mobile of[false,true]){
   const q=new AdaptiveQuality({mobile});assert.ok(q.profile.anisotropy>=8);
-  const size=mobile?[390,600]:[1440,900];assert.ok(renderPixelRatio(q.profile,...size,1)>=1.3);
+  const size=mobile?[390,600]:[1440,900];assert.ok(renderPixelRatio(q.profile,...size,1)>=(mobile?1.3:1),'working definition stays native on desktop and dense on phones');
   for(let now=0;now<5000;now+=50)q.sample(now);
   assert.equal(q.level,2);assert.equal(q.profile,mobile?MOBILE_ECONOMY:AUTO_ECONOMY);
   assert.ok(renderPixelRatio(q.profile,...size,1)>=1);assert.equal(q.profile.anisotropy,8);assert.ok(profileSizes(q.profile,mobile).shadow>=512);
-  q.setMode('fluid');assert.equal(q.profile,STUDIO_PROFILES[2]);assert.equal(q.profile.pixels,500000);assert.equal(q.profile.shadow,0);
+  q.setMode('fluid');assert.equal(q.profile.id,'fluid');if(!mobile)assert.equal(q.profile,STUDIO_PROFILES[2]);assert.ok(q.profile.pixels>=1000000);assert.ok(renderPixelRatio(q.profile,...size,1)>=1,'manual Light must not reintroduce the 500K upscaled view');assert.equal(q.profile.anisotropy,8);assert.ok(q.profile.shadow>=512,'the final stationary image regains contact shadows');
   q.setMode('max');assert.equal(q.profile,STUDIO_PROFILES[0]);assert.equal(q.profile.pixels,8300000);
  }
  assert.match(source,/from '@anima-adapter\/render-quality.js'/,'actual app imports the isolated policy');

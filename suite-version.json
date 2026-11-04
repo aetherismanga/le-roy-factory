@@ -154,7 +154,7 @@
       "privateApplicationEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication"
     },
     "neobathAnima": {
-      "releaseId": "20261104-neobath-anima-studio-one-taps-12",
+      "releaseId": "20261104-neobath-anima-crisp-office-13",
       "page": "neobath-anima-configurateur.html",
       "access": "agents-only",
       "modules": 42,
@@ -163,9 +163,9 @@
       "products": 257,
       "compositions": 16,
       "projectSync": "shared-agent-private-api",
-      "appSha256": "df95a0710c8a93e698b7a9274d30ede63f4ed2f6b9f023394182a00310161d2d",
+      "appSha256": "4f27b9ccd9a9beea960cd825f50b4cdee1a9355fffeab92d7a23e6b923c38ffa",
       "engine": "studio-one",
-      "homeSha256": "b00716291279691c0c22fd719d3b349c65a9b0cfa34c444e51b12acfb442782c",
+      "homeSha256": "b1d0b44289a7ff08642648575004a0b82f2c2a4d192e8bfaed43a968c32c1d3b",
       "photographs": 155,
       "sourceEntries": [
         "studio-one/src/commerce/home.js",
@@ -231,7 +231,9 @@
       "automaticBasinMixers": true,
       "wallTapDetection": true,
       "customTapDrillingFollowsMount": true,
-      "independentDoubleBasinTapMounts": true
+      "independentDoubleBasinTapMounts": true,
+      "crispOfficeRendering": true,
+      "ribelleOptimizedGeometry": true
     },
     "clientAnalysis": {
       "releaseId": "20261103-reports2",
@@ -291,10 +293,27 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261104-neobath-anima-studio-one-taps-12",
+      "releaseId": "20261104-neobath-anima-crisp-office-13",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true
     }
+  },
+  "rendering": {
+    "releaseId": "20261104-crisp-office-1",
+    "applications": [
+      "studio-one",
+      "randal-general",
+      "neobath-anima"
+    ],
+    "lightPixelBudget": 2400000,
+    "lightTextureLimit": 1024,
+    "lightAnisotropy": 8,
+    "autoUltra": false,
+    "settledRefinementMs": 180,
+    "hdCaptureIndependent": true,
+    "studioAppSha256": "02b0e923191f1e279918e952b7675201eb36f7c927b039f6062ccdc3b9c6be24",
+    "generalAppSha256": "6f1c58732fd61955bc5e3aade932db3456971076d2e16fa2d2bbc72edbce2079",
+    "animaAppSha256": "4f27b9ccd9a9beea960cd825f50b4cdee1a9355fffeab92d7a23e6b923c38ffa"
   }
 }

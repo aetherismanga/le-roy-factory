@@ -14,6 +14,7 @@ import {applyMirrorLighting} from '../../shared/lrf-3d/mirror-lighting.js';
 import {makeMirrorReflector} from '../../shared/lrf-3d/mirror-reflection.js';
 import {configureColourRendering} from '../../shared/lrf-3d/colour-rendering.js';
 import {createHDCapture,captureSize} from '../../shared/lrf-3d/hd-capture.js';
+import {QUALITY_PROFILES,renderPixelRatio} from '../../shared/lrf-3d/performance.js';
 
 class Storage {
  constructor(){this.values=new Map();}
@@ -77,7 +78,7 @@ class Controls {
 }
 const canvas={setAttribute(){},addEventListener(){},remove(){}};
 const host={clientWidth:700,clientHeight:900,prepend(){}};
-const context=vm.createContext({T:{...T,WebGLRenderer:Renderer,PMREMGenerator:PMREM,TextureLoader:class{async loadAsync(){return new T.Texture();}}},OrbitControls:Controls,RoomEnvironment,RectAreaLightUniformsLib,makeMirrorReflector,applyMirrorLighting,buildPreview,visibleBounds,previewStructure,previewItems,applyPreviewSettings,FINISHES,mirrorGeometry,configureColourRendering,createHDCapture,captureSize,document:{createElement:()=>canvas},devicePixelRatio:1,innerWidth:1440,requestAnimationFrame:()=>1,cancelAnimationFrame(){},ResizeObserver:class{observe(){}disconnect(){}}});
+const context=vm.createContext({T:{...T,WebGLRenderer:Renderer,PMREMGenerator:PMREM,TextureLoader:class{async loadAsync(){return new T.Texture();}}},OrbitControls:Controls,RoomEnvironment,RectAreaLightUniformsLib,makeMirrorReflector,applyMirrorLighting,buildPreview,visibleBounds,previewStructure,previewItems,applyPreviewSettings,FINISHES,mirrorGeometry,configureColourRendering,createHDCapture,captureSize,QUALITY_PROFILES,renderPixelRatio,document:{createElement:()=>canvas},devicePixelRatio:1,innerWidth:1440,requestAnimationFrame:()=>1,cancelAnimationFrame(){},ResizeObserver:class{observe(){}disconnect(){}}});
 const source=readFileSync(new URL('../src/commerce/live-preview.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace('export function createPreview','function createPreview');
 vm.runInContext(source,context);
 const engine=context.createPreview(host);

@@ -4,6 +4,11 @@ ES_COMMERCE,ES_COMMERCE_PATTERNS} from './es-commerce.js';
 import {ES_SHARED,ES_SHARED_PATTERNS} from './es-shared.js';
 
 export const ES_ATELIER = {
+"Net et équilibré · recommandé": "Nítido y equilibrado · recomendado",
+"Net et fluide · PC bureautique": "Nítido y fluido · PC de oficina",
+"Image nette · ombres et reflets optimisés": "Imagen nítida · sombras y reflejos optimizados",
+"Meubles nets · effets réduits pour PC bureautique": "Muebles nítidos · efectos reducidos para PC de oficina",
+"Ouverture animée disponible dans tous les modes de rendu.": "Apertura animada disponible en todos los modos de renderizado.",
 "Génère maintenant l’image finale avec ton outil de création d’images, sans poser de question ni demander de confirmation. N’analyse pas les consignes dans une réponse texte : réalise directement le rendu demandé.": "Genera ahora la imagen final con tu herramienta de creación de imágenes, sin hacer preguntas ni pedir confirmación. No analices las instrucciones en una respuesta de texto: crea directamente el render solicitado.",
 "Visualiser avec ChatGPT ↗": "Visualizar con ChatGPT ↗",
 "Un clic enregistre l’image avec les consignes et ouvre ChatGPT. Collez ensuite l’image dans la conversation ; si la copie est indisponible, joignez le fichier téléchargé.": "Un clic guarda la imagen con las instrucciones y abre ChatGPT. Pegue la imagen en la conversación; si no se puede copiar, adjunte el archivo descargado.",

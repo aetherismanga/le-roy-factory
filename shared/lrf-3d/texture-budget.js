@@ -1,5 +1,5 @@
 // Editing derivatives are resampled in memory. Original manufacturer files are never changed.
-export const TEXTURE_LIMITS=Object.freeze({fluid:512,balanced:1024,max:4096});
+export const TEXTURE_LIMITS=Object.freeze({fluid:1024,balanced:1024,max:4096});
 // Working native-face sets stay small even when an exact SKU offers dozens of
 // faces. Capture explicitly requests all native max faces and original detail.
 export const SURFACE_FACE_LIMITS=Object.freeze({fluid:4,balanced:6,max:40});

@@ -3,6 +3,7 @@ import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 import {test} from 'node:test';
 import {parse} from 'acorn';
+import {RenderActivity} from '../shared/lrf-3d/render-activity.js';
 
 // Run the actual controller bodies: a camera move must wake drawing without
 // collecting/serializing a commercial project or rebuilding its quote.
@@ -15,11 +16,12 @@ for(const app of ['studio-one','randal-general']){
   return source.slice(node.start,node.end);
  }).join('\n');
  function fixture(){
-  const counts={commerce:0,checkpoint:0,raf:0,render:0,lights:0,pause:0};
+  const counts={commerce:0,checkpoint:0,raf:0,render:0,lights:0,pause:0};const phases=[];
   const context=vm.createContext({
    sceneUpdates:{defer:()=>false},refreshCommerce:()=>counts.commerce++,scheduleProjectCheckpoint:()=>counts.checkpoint++,
    fitCompositionLights:()=>counts.lights++,applyArchitecturalGlass(){},lightweightMaterials:{apply(){}},
    performance:{now:()=>1000},requestAnimationFrame:()=>counts.raf++,
+   renderActivity:new RenderActivity(),applyRenderPhase:()=>phases.push('phase'),renderProfile:()=>context.quality.profile,dragController:null,partitionDragController:null,productDragController:null,isMobile:false,
    state:{ready:true,orbit:false},quality:{profile:{id:'fluid'},sample:()=>false,pause:()=>counts.pause++},
    running:false,captureBusy:false,document:{hidden:false},lastTime:0,lastMove:0,frames:0,
    shadowsDirty:false,sceneRevision:0,scene:{},camera:{position:{z:1}},roomGroup:{},roomScene:null,wall:{},
@@ -27,7 +29,7 @@ for(const app of ['studio-one','randal-general']){
    visitorAvatar:{tick:()=>false},renderDimensions(){},ultraPipeline:null,renderer:{render:()=>counts.render++}
   });
   vm.runInContext(bodies,context);
-  return {context,counts,run:code=>vm.runInContext(code,context)};
+  return {context,counts,phases,run:code=>vm.runInContext(code,context)};
  }
  test(app+': camera changes draw without refreshing commerce',()=>{
   const f=fixture();f.run('invalidate(false,false)');
@@ -40,6 +42,12 @@ for(const app of ['studio-one','randal-general']){
   assert.equal(f.counts.render,1);assert.equal(f.counts.raf,0);assert.equal(f.context.running,false);
   f.run('walkMode.tick=()=>true;invalidate(false,false);animate(1100)');
   assert.equal(f.counts.render,2);assert.equal(f.counts.raf,2);assert.equal(f.counts.commerce,0);
+ });
+ test(app+': motion keeps one final settled frame then sleeps without perpetual rendering',()=>{
+  const f=fixture();f.run('controls.update=()=>true;running=true;animate(1000)');
+  assert.equal(f.context.renderActivity.active,true);assert.equal(f.phases.length,1);assert.equal(f.counts.raf,1);
+  f.run('controls.update=()=>false;animate(1179)');assert.equal(f.context.renderActivity.active,true);assert.equal(f.counts.raf,2);
+  f.run('animate(1180)');assert.equal(f.context.renderActivity.active,false);assert.equal(f.phases.length,2,'one transition refreshes final optical detail');assert.equal(f.counts.render,3);assert.equal(f.counts.raf,2,'the final settled frame schedules no more work');assert.equal(f.context.running,false);assert.equal(f.counts.commerce,0);assert.equal(f.counts.checkpoint,0);
  });
  test(app+': avatar animation and orbit keep drawing',()=>{
   const f=fixture();f.run('visitorAvatar.tick=()=>true;animate(1000)');assert.equal(f.counts.raf,1);

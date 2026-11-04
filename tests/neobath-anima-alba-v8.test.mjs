@@ -31,7 +31,7 @@ test('requested Alba replacement preserves the Anima commercial identity and exa
 });
 
 test('actual atelier loads one flat image at each quality, keeps MAX native, and never crops or recolours the approved sample',async()=>{
- for(const [profile,mode,effective]of [['max','max','max'],['balanced','balanced','balanced'],['fluid','fluid','fluid'],['fluid','auto','balanced']]){
+ for(const [profile,mode,effective]of [['max','max','max'],['balanced','balanced','balanced'],['fluid','fluid','balanced'],['fluid','auto','balanced']]){
   const calls=[],context={T,FINISHES,renderer,quality:{mode,profile:{id:profile}},finishTextures:{},tileAssetURL:x=>x,loadTexture:async(url,quality)=>{calls.push({url,quality});return texture(url);},cacheTextures:(_key,load)=>load(),refreshFurnitureMaterials:noop,invalidate:noop,document:{createElement(){throw Error('The flat ALBA sample must not be drawn, cropped or resampled.');}}};
   vm.createContext(context);vm.runInContext(declaration(app,appNodes,'requestFinishAssets'),context);const tx=await context.requestFinishAssets(wood.id);
   assert.equal(calls.length,1);assert.equal(calls[0].url,wood.textureVariants[effective]);assert.equal(calls[0].quality,effective);

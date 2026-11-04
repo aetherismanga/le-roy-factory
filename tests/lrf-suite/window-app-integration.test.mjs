@@ -43,12 +43,12 @@ for(const app of ['studio-one','randal-general']){
   h.emit('pointerup',event);h.emit('pointerdown',event);h.emit('pointermove',{...event,clientX:65});h.flush();assert.equal(h.calls.menu,1,'Dragging keeps moving rather than opening a context menu');
   h.emit('pointerup',event);h.emit('pointerdown',event);h.emit('pointerdown',{...event,pointerId:2});h.flush();assert.equal(h.calls.menu,1,'Pinch gestures never open the window context menu');
  });
- test(`${app}: opening explicitly activates Ultra HD; low quality preserves intent and HD capture restores preview`,async()=>{
-  const {context:c,item}=host(app);assert.equal(c.windowActionLabel(item),'Ouvrir en Ultra HD');assert(c.toggleRoomWindow());assert.equal(c.quality.profile.id,'max');assert.equal(item.settings.windowOpen,true);
+ test(`${app}: opening retains the working quality and HD capture preserves the current window preview`,async()=>{
+  const {context:c,item}=host(app);assert.equal(c.windowActionLabel(item),'Ouvrir la fenêtre');assert(c.toggleRoomWindow());assert.equal(c.quality.profile.id,'balanced','opening cannot silently enable Ultra');assert.equal(item.settings.windowOpen,true);
   assert(c.updateWindowMotion(item,.05));assert(item.asset.getOpenProgress()>0&&item.asset.getOpenProgress()<1);
-  c.quality.profile.id='fluid';c.syncWindowStates(true);assert.equal(item.asset.getOpenProgress(),0);assert.equal(item.settings.windowOpen,true);
+  c.quality.profile.id='fluid';c.syncWindowStates(true);assert.equal(item.asset.getOpenProgress(),1);assert.equal(item.settings.windowOpen,true);
   const capture=createHDCapture({snapshot:()=>({mode:c.quality.profile.id,windows:c.windowMotionSnapshot()}),prepare:()=>{c.quality.profile.id='max';c.syncWindowStates(true);},render:()=>{assert.equal(item.asset.getOpenProgress(),1);return 'HD';},restore:previous=>{c.quality.profile.id=previous.mode;c.syncWindowStates(true);c.restoreWindowMotion(previous.windows);}});
-  assert.equal(await capture(),'HD');assert.equal(item.asset.getOpenProgress(),0);assert.equal(item.settings.windowOpen,true);assert.equal(c.quality.profile.id,'fluid');
+  assert.equal(await capture(),'HD');assert.equal(item.asset.getOpenProgress(),1);assert.equal(item.settings.windowOpen,true);assert.equal(c.quality.profile.id,'fluid');
   c.quality.profile.id='max';item.motion.window=.42;item.asset.setOpenProgress(.42);const snapshot=c.windowMotionSnapshot();c.syncWindowStates(true);c.restoreWindowMotion(snapshot);assert.equal(item.asset.getOpenProgress(),.42);
  });
  test(`${app}: visits open and close both window types in every quality without escalating rendering or editing read-only projects`,()=>{
