@@ -1,6 +1,6 @@
 # Office-PC crisp rendering — 4 November 2026
 
-Release: `20261104-crisp-office-1`. Applications: Studio One, Randal Catalogue Général, private Neobath Anima (`20261104-neobath-anima-crisp-office-13`).
+Release: `20261104-crisp-office-1`. Applications: Studio One, Randal Catalogue Général, private Neobath Anima (`20261104-neobath-anima-studio-one-crisp-office-13`).
 
 ## Rendering changes
 
