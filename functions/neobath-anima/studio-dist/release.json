@@ -1,5 +1,5 @@
 {
-  "id": "20261104-neobath-anima-studio-one-navigation-decors-15",
+  "id": "20261104-neobath-anima-studio-one-navigation-decors-16",
   "engine": "studio-one",
   "assets": {
     "accueil.html": "fde516e107498ae2244b8ac701be01d83ce14c28cbe3d82f961bde89df8aa5a2",
@@ -7,7 +7,7 @@
     "accueil.js": "8ebf870a7ce0d9ceabc140d6d4f52df8557de6ab0240c7c9abc1705033730d60",
     "atelier.html": "d03c2ced6e57fc20612f145fe4285e1c06793c738db30ec9b3687f3f8494ace8",
     "atelier.css": "71fdf9a6d812fa9e064fdd12c47594dc281d6d7e147b27ca1f78f6d4cadb3338",
-    "app.js": "3fb7a65e639cd963d51c19103a41f4b8461adc3fccb1f4b6224ddc0b5ad0d648",
+    "app.js": "64eb7d9719222708188497d9ae4d1311f9e04efe57f9801ad42eac9cb25b5f2b",
     "catalogue.json": "77981993b503a4f1a3f05b6a003cb10941ecd8cc12728ea6314477c8bf480a22",
     "visuals.json": "7b6a9e2d968aed996357a03a0766a363bd4f005d6ed5889f9ff89ddf1766d173"
   },
@@ -169,7 +169,7 @@
       "shared/lrf-3d/surface-contract.mjs": "c3cc4cf36b7589e1f0ebfb74be583551bdb559b7f7a15408a8e0ff92ab489c45",
       "shared/lrf-3d/door-interior.js": "6df5432f6bfa29d0ea75b7700b9c2bd3dcaf45cde90a39ed61a949afa4441f95",
       "shared/lrf-3d/partition-snap.js": "cada8ba7a4dd91a1ca445ae125bb7ee85b6fd47c0bc4b2a1f6018e97ee2b379f",
-      "shared/lrf-3d/surface-quality.js": "ec6a69fe532b322780b4e07356a55ef529b763851116d25e6854e7ad34a99c90",
+      "shared/lrf-3d/surface-quality.js": "f7874b3d2de557fcd227d2fc59d8a66e0b8c8687b2c46baea88ad5714af5e9f2",
       "studio-one/src/catalogue-product-visuals.js": "db724615c25726d7540fcbdbe84b0175802d661beeccf847cc1be4099e096e6d",
       "studio-one/src/surface-zones.js": "a6af16a5dc324aaad9dd6933aa7846a4161047ed62e72184077c0de5d3c6d40a",
       "shared/lrf-3d/renovation.js": "4b4be70334be936caa2ba49f11cfa1a1572a65b3d0e7fc6f495f80b5ac861bc5",
