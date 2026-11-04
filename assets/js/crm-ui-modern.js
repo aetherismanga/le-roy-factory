@@ -15,19 +15,23 @@ function injectStyles(){
   .row-partners{margin-top:7px!important}.row-partners img{width:36px!important;height:24px!important;border-radius:6px!important;padding:3px!important}.activity-pill{margin:5px 0 0 0!important;display:block!important;width:max-content;background:#F1EEE7!important;color:#5C5140!important;padding:4px 8px!important}
   .btn-mail-row{border-radius:9px!important;padding:.48rem .7rem!important;background:#fff!important}.btn-mail-row:hover{background:#111!important;color:#FFD700!important}
 
-  #client-modal .modal-content{max-width:1080px!important;padding:0!important;border-radius:18px!important;overflow:hidden!important;background:#fff!important;max-height:94vh!important;display:flex;flex-direction:column}
+  #client-modal{padding:16px;box-sizing:border-box}
+  #client-modal .modal-content{max-width:1080px!important;padding:0!important;border-radius:18px!important;overflow:hidden!important;background:#fff!important;height:min(900px,calc(100vh - 32px));max-height:94vh!important;min-height:0;display:flex;flex-direction:column;box-sizing:border-box}
+  @supports(height:100dvh){#client-modal .modal-content{height:min(900px,calc(100dvh - 32px));max-height:calc(100dvh - 32px)!important}}
+  #client-modal .modal-header,#client-modal .lrf-client-summary,#client-modal .lrf-tabs{flex-shrink:0}
   #client-modal .modal-close{top:18px!important;right:20px!important;z-index:30;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92)!important;display:grid;place-items:center;box-shadow:0 2px 12px rgba(0,0,0,.08)}
   #client-modal .modal-header{margin:0!important;padding:22px 68px 16px 26px!important;border:0!important;background:linear-gradient(135deg,#151515,#2b2924);color:#fff;align-items:flex-start!important}.modal-header h2{color:#fff!important;font-size:1.45rem!important}.modal-header .badge{margin-top:2px}
-  #client-form{overflow:auto;padding:0 26px 88px;position:relative}
+  #client-form{flex:1 1 auto;min-height:0;min-width:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:0 26px;position:relative;scroll-padding-block:16px}
   .lrf-client-summary{margin:18px 26px 0;display:grid;grid-template-columns:2fr repeat(4,1fr);gap:10px}.lrf-summary-main,.lrf-summary-card{border:1px solid var(--lrf-line);border-radius:12px;background:#fff;padding:12px 14px;min-height:72px}.lrf-summary-main{background:linear-gradient(135deg,#FFFDF7,#F7F2E4);border-color:#E5D5A2}.lrf-summary-name{font-size:1.05rem;font-weight:800;color:var(--lrf-ink);margin-bottom:5px}.lrf-summary-sub{font-size:.78rem;color:#6b7280;line-height:1.45}.lrf-summary-card small{display:block;color:#8a8175;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;font-weight:800;margin-bottom:5px}.lrf-summary-card strong{display:block;font-size:.93rem;color:var(--lrf-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .lrf-tabs{display:flex;gap:4px;margin:16px 26px 0;border-bottom:1px solid var(--lrf-line);overflow-x:auto;padding:0 2px}.lrf-tab{border:0;background:transparent;padding:11px 14px;font-weight:750;color:#6b7280;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}.lrf-tab:hover{color:#111}.lrf-tab.active{color:#111;border-bottom-color:var(--lrf-gold)}.lrf-tab-count{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;margin-left:5px;border-radius:999px;background:#F0ECE3;font-size:.68rem;color:#665a45}
-  .lrf-tab-pane{display:none!important;margin-top:18px!important}.lrf-tab-pane.active{display:block!important}.modal-grid-edit.lrf-tab-pane.active{display:grid!important}.crm-extra-section.lrf-tab-pane{border-top:0!important;padding-top:0!important;margin-top:18px!important}.documents-section.lrf-tab-pane{border-top:0!important;margin-top:18px!important;padding-top:0!important}
+  #client-modal.lrf-client-ready .lrf-tab-pane{display:none!important;margin-top:18px!important}#client-modal.lrf-client-ready .lrf-tab-pane.active{display:block!important}#client-modal.lrf-client-ready .modal-grid-edit.lrf-tab-pane.active{display:grid!important}.crm-extra-section.lrf-tab-pane{border-top:0!important;padding-top:0!important;margin-top:18px!important}.documents-section.lrf-tab-pane{border-top:0!important;margin-top:18px!important;padding-top:0!important}
   .modal-grid-edit{gap:14px!important}.modal-grid-edit .form-field{background:#FCFBF9;border:1px solid #EEEAE3;border-radius:10px;padding:10px}.modal-grid-edit .form-field label{font-size:.75rem!important;color:#665f56!important}.modal-grid-edit .form-field input,.modal-grid-edit .form-field select{background:#fff!important;border-radius:8px!important;min-height:42px}
   .crm-extra-title,.documents-title{font-size:1.05rem!important;margin-bottom:12px!important}.contact-card{border-radius:12px!important;background:#FCFBF9!important;padding:10px!important}.partner-card-mini{border-radius:12px!important;min-height:64px!important;transition:.15s}.partner-card-mini:hover{transform:translateY(-1px);border-color:#D4AF37!important}.partner-card-mini.active{box-shadow:0 0 0 2px rgba(212,175,55,.15)}.partner-card-mini img{width:58px!important;height:38px!important}.history-card{border-left:0!important;border:1px solid #ECE7DD!important;border-radius:12px!important;background:#FCFBF9!important;position:relative;padding:12px 14px 12px 20px!important}.history-card:before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:4px;border-radius:4px;background:#D4AF37}
   #crm-extra-history{display:none!important}
-  #client-modal .modal-footer{position:sticky;bottom:-88px;margin:22px -26px -88px!important;padding:14px 26px!important;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--lrf-line);z-index:20;display:flex;justify-content:flex-end;gap:10px}
+  #client-modal .modal-footer{position:sticky;bottom:0;margin:22px -26px 0!important;padding:14px 26px!important;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--lrf-line);z-index:20;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px}
   .lrf-empty-pane{padding:30px;text-align:center;background:#FCFBF9;border:1px dashed #D8D2C7;border-radius:12px;color:#777}
   @media(max-width:1050px){.lrf-client-summary{grid-template-columns:1fr 1fr}.lrf-summary-main{grid-column:1/-1}}
+  @media(min-width:901px) and (max-height:820px){#client-modal .modal-header{padding-block:14px!important}.lrf-client-summary{margin-top:10px;grid-template-columns:minmax(0,1.8fr) repeat(4,minmax(0,1fr));gap:8px}.lrf-summary-main{grid-column:auto}.lrf-summary-main,.lrf-summary-card{min-width:0;min-height:58px;padding:9px 10px;box-sizing:border-box}.lrf-summary-card small{font-size:.62rem}.lrf-summary-card strong{font-size:.82rem}.lrf-tabs{margin-top:10px}}
   @media(max-width:720px){#client-modal .modal-content{width:98vw!important;max-height:97vh!important;border-radius:14px!important}.lrf-client-summary{margin:12px 14px 0;grid-template-columns:1fr 1fr}.lrf-tabs{margin:12px 14px 0}#client-form{padding:0 14px 80px}.modal-grid-edit{grid-template-columns:1fr!important}.modal-grid-edit .form-field.full-width{grid-column:auto!important}.contact-card{grid-template-columns:1fr!important}.lrf-summary-card{min-height:62px}.crm-main-content{padding:1rem!important}.crm-toolbar{align-items:stretch}.search-wrapper{min-width:100%}.select-filters{width:100%}.select-filters>*{flex:1}.crm-table{min-width:960px}}
   `;
   document.head.appendChild(s);
@@ -82,8 +86,19 @@ function updateSummary(){
 }
 
 function activateTab(key){
-  document.querySelectorAll("#client-modal .lrf-tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===key));
-  document.querySelectorAll("#client-modal .lrf-tab-pane").forEach(p=>p.classList.toggle("active",p.dataset.lrfPane===key));
+  const setActive=(element,active)=>{
+    if(element.classList.contains("active")!==active)element.classList.toggle("active",active);
+  };
+  document.querySelectorAll("#client-modal .lrf-tab").forEach(b=>{
+    const active=b.dataset.tab===key;
+    setActive(b,active);
+    b.setAttribute("aria-pressed",String(active));
+  });
+  document.querySelectorAll("#client-modal .lrf-tab-pane").forEach(p=>setActive(p,p.dataset.lrfPane===key));
+  if(key==="partners"){
+    const section=document.getElementById("lrf-partner-access-section");
+    if(section)section.dataset.collapsed="0";
+  }
 }
 function updateTabCounts(){
   const counts={contacts:countContacts(),partners:countPartners(),history:countHistory()};
@@ -92,15 +107,21 @@ function updateTabCounts(){
 
 function classifySections(){
   const modal=document.getElementById("client-modal");if(!modal)return;
-  const info=modal.querySelector(".modal-grid-edit");if(info){info.classList.add("lrf-tab-pane");info.dataset.lrfPane="infos";}
+  const markPane=(section,key)=>{
+    if(!section.classList.contains("lrf-tab-pane"))section.classList.add("lrf-tab-pane");
+    if(section.dataset.lrfPane!==key)section.dataset.lrfPane=key;
+  };
+  const info=modal.querySelector(".modal-grid-edit");if(info)markPane(info,"infos");
+  const partners=modal.querySelector("#lrf-partner-access-section");if(partners)markPane(partners,"partners");
   const extras=[...modal.querySelectorAll(".crm-extra-section")];
   extras.forEach(sec=>{
     const t=(sec.textContent||"").toLowerCase();
-    if(t.includes("interlocuteur")){sec.hidden=false;sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="contacts";}
-    else if(t.includes("partenaire")){sec.hidden=false;sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="partners";}
+    if(t.includes("interlocuteur")){sec.hidden=false;markPane(sec,"contacts");}
+    else if(t.includes("partenaire")){sec.hidden=false;markPane(sec,"partners");}
     else if(t.includes("historique")){
       // Historique Moovago dupliqué : la section native Comptes-Rendus reste la référence unique.
-      sec.classList.remove("lrf-tab-pane","active");
+      if(sec.classList.contains("lrf-tab-pane"))sec.classList.remove("lrf-tab-pane");
+      if(sec.classList.contains("active"))sec.classList.remove("active");
       sec.removeAttribute("data-lrf-pane");
       sec.hidden=true;
     }
@@ -108,10 +129,10 @@ function classifySections(){
   const docs=[...modal.querySelectorAll(".documents-section")];
   docs.forEach(sec=>{
     const t=(sec.textContent||"").toLowerCase();
-    if(t.includes("documents joints")){sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="documents";}
+    if(t.includes("documents joints")){markPane(sec,"documents");}
     else if(t.includes("compte")||t.includes("visites")||t.includes("échanges")){
       // Une seule zone Historique : formulaire + liste des visites/échanges.
-      sec.classList.add("lrf-tab-pane");sec.dataset.lrfPane="history";sec.hidden=false;
+      markPane(sec,"history");sec.hidden=false;
     }
   });
 }
@@ -135,6 +156,7 @@ function buildShell(){
   classifySections();
   activateTab(document.querySelector("#lrf-client-tabs .lrf-tab.active")?.dataset.tab||"infos");
   updateSummary();
+  if(!modal.classList.contains("lrf-client-ready"))modal.classList.add("lrf-client-ready");
 }
 
 function watchModal(){
@@ -143,11 +165,13 @@ function watchModal(){
   const refreshShell=()=>{clearTimeout(timer);timer=setTimeout(()=>{if(getComputedStyle(modal).display!=="none")buildShell();},40)};
   new MutationObserver(refreshShell).observe(modal,{attributes:true,attributeFilter:["style"]});
 
+  // Data modules may mutate the form before the opening timer fires. Every
+  // refresh must build the complete shell; a data-only timer used to cancel it.
   const form=document.getElementById("client-form");
-  if(form){
-    const refreshData=()=>{clearTimeout(timer);timer=setTimeout(()=>{if(getComputedStyle(modal).display!=="none"){classifySections();updateSummary();}},35)};
-    new MutationObserver(refreshData).observe(form,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]});
-  }
+  if(form)new MutationObserver(refreshShell).observe(form,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]});
+  modal.addEventListener("click",event=>{
+    if(event.target.closest(".lrf-client-partners-open"))activateTab("partners");
+  },true);
   modal.addEventListener("input",()=>setTimeout(updateSummary,30));
   modal.addEventListener("change",()=>setTimeout(updateSummary,30));
 }

@@ -251,6 +251,15 @@
       "cardAfter": "Reviglass",
       "cardBefore": "BILT",
       "manufacturerAliasSearch": true
+    },
+    "clientCard": {
+      "releaseId": "20261104-client-shell1",
+      "page": "clients.html",
+      "deterministicInitialization": true,
+      "nativePartnerTab": true,
+      "boundedDesktopFormScroll": true,
+      "compactLaptopSummary": true,
+      "preserveClientFields": true
     }
   },
   "configurators": {

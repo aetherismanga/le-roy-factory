@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-04",
+  "releaseId": "20261104-client-shell1",
+  "sourceCommit": "a8e885d37885015ba4fa8068c810c488d40b4344",
+  "problem": "The delayed form-data refresh cancelled creation of the client-card shell, leaving classified sections hidden and only partner permissions visible. Reproduced in the existing live CRM and in an isolated DOM fixture.",
+  "correction": [
+    "Every queued refresh creates or reconciles the complete shell.",
+    "Hide panes only after summary, navigation and active content exist.",
+    "Section classification is idempotent; later modules join the currently selected tab.",
+    "The current partner permissions section belongs to the Partners tab, including the mobile shortcut.",
+    "Desktop form has explicit available height, min-height:0 and its own vertical scroll; footer uses bottom:0 without negative offset.",
+    "Compact summary on laptop-height viewports; existing mobile page-scroll layout preserved."
+  ],
+  "validation": {
+    "isolatedDOM": "JSDOM 26.1.0; real client HTML and UI module; no network or CRM writes",
+    "before": "Opening followed by a form mutation at 20 ms reproducibly produces no tabs or summary and hides the information section.",
+    "after": [
+      "same opening/data timing renders summary, navigation and information fields",
+      "all five tabs expose their assigned content",
+      "a section arriving after tab selection becomes visible in that selected tab",
+      "MutationObservers settle without a refresh loop",
+      "close/reopen preserves the shell and input values"
+    ],
+    "existingTests": "7 client-analysis/history tests passed. Unrelated tariff-source/UI suites were not runnable with the sparse checkout and missing Playwright dependency.",
+    "browserBefore": "Same client-card defect observed in the live CRM.",
+    "platformLimit": "No native macOS Safari engine is exposed in this environment."
+  },
+  "sourceHashes": {
+    "assets/js/crm-ui-modern.js": "849e5dc39c29a013ae0f64f68a8cd4501420ecb6cc1445d26735c734a702214e",
+    "assets/css/crm-client-mobile-fix.css": "7730f0b2d6010ece826a0b45b021e491ffc27325915fa95236fc707445b45952",
+    "assets/js/firebase.js": "882a3c5a6b89b6d6927d20d5a5edeec4fe0923c9367232a5bb7ad0c8ce7fea25",
+    "clients.html": "42f802b2eb940c2d89e96402109cdd2033aa2f1dbae5eca4adacc12b179d8613"
+  }
+}
