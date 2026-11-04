@@ -1,5 +1,7 @@
-import { db } from "./firebase.js";
-import { collection, doc, getDoc, updateDoc, addDoc, onSnapshot, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { db, auth } from "./firebase.js";
+import { collection, doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+import { extraSignature, cloneExtra } from "./crm-extra-save-core.mjs?v=20261105-audit1";
 
 const SEND_URL = "https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail";
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -12,10 +14,15 @@ const SIGNATURES = {
 
 let clients = [];
 let activeEditClientId = null;
-let pendingNewClient = null;
+let emailDraftKey = null;
+let emailDraftInitialized = false;
+let emailBaseline = [];
+let storedEmailsBaseline;
 let currentMailClient = null;
 let mailAttachments = [];
 let initialized = false;
+let sendingMail = false;
+let mailOpenRequest = 0;
 
 const esc = value => String(value ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 const validEmail = value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
@@ -133,10 +140,7 @@ function findClientForRow(row) {
   if (!row) return null;
   const id = row.dataset.clientId;
   if (id) return clients.find(c => c.id === id) || null;
-  const cells = row.querySelectorAll("td");
-  const societe = cells[1]?.textContent?.trim() || "";
-  const cpVille = cells[2]?.textContent?.trim() || "";
-  return clients.find(c => norm(c.societe) === norm(societe) && cpVille.includes(String(c.codePostal || c.code_postal || ""))) || clients.find(c => norm(c.societe) === norm(societe)) || null;
+  return null;
 }
 
 function latestExchange(client) {
@@ -197,11 +201,13 @@ function renderRecipients(client) {
 
 async function openMailModal(client) {
   if (!client?.id) return;
+  const request=++mailOpenRequest;
   try {
     const snap = await getDoc(doc(db, "clients", client.id));
     if (snap.exists()) client = { id:snap.id, ...snap.data() };
   } catch (e) { console.warn("Lecture fiche e-mail", e); }
 
+  if(request!==mailOpenRequest)return;
   currentMailClient = client;
   mailAttachments = [];
   renderMailFiles();
@@ -217,6 +223,7 @@ async function openMailModal(client) {
 }
 
 function closeMailModal() {
+  mailOpenRequest++;
   const overlay = document.getElementById("client-mail-overlay");
   if (overlay) overlay.style.display = "none";
   currentMailClient = null;
@@ -247,7 +254,8 @@ function renderMailFiles() {
 }
 
 async function sendDirectMail() {
-  if (!currentMailClient) return;
+  if (!currentMailClient || sendingMail) return;
+  const mailClient=currentMailClient;
   const recipients = [...new Map(Array.from(document.querySelectorAll(".client-mail-recipient:checked")).map(i=>[norm(i.value),i.value])).values()];
   const senderMode = document.getElementById("client-mail-sender").value;
   const subject = document.getElementById("client-mail-subject").value.trim();
@@ -256,19 +264,20 @@ async function sendDirectMail() {
   if (!subject) return alert("Saisissez l'objet du mail.");
   if (!body) return alert("Rédigez le message.");
   const btn = document.getElementById("client-mail-send");
+  sendingMail=true;
   btn.disabled = true; btn.textContent = "Envoi en cours...";
   const htmlContent = `${esc(body).replace(/\n/g,"<br>")}${SIGNATURES[senderMode] || SIGNATURES.jerome}`;
   try {
-    const response = await fetch(SEND_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({senderMode,bccRecipients:recipients,subject,htmlContent,attachments:mailAttachments})});
+    const user=auth.currentUser;
+    if(!user)throw new Error("Reconnectez-vous au CRM avant d’envoyer le mail.");
+    const token=await user.getIdToken();
+    const response = await fetch(SEND_URL,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${token}`},body:JSON.stringify({senderMode,bccRecipients:recipients,subject,htmlContent,attachments:mailAttachments,clientIds:[mailClient.id]})});
     const result = await response.json();
     if (!response.ok || !result.success) throw new Error(result.error || "Erreur d'envoi");
-    const dateFr = new Date().toLocaleDateString("fr-FR");
-    const agentLabel = senderMode === "coryne" ? "Coryne" : "Jérôme";
-    await updateDoc(doc(db,"clients",currentMailClient.id),{historiqueMails:arrayUnion({date:dateFr,expediteur:agentLabel,objet:subject,destinataires:recipients})});
-    await addDoc(collection(db,"historique_mails"),{date:new Date().toISOString(),expediteur:senderMode==="coryne"?"coryne@leroyfactory.fr":"jerome@leroyfactory.fr",objet:subject,nbDestinataires:recipients.length,destinataires:recipients,clientId:currentMailClient.id,client:currentMailClient.societe||"",statut:"Succès"});
+    // The authenticated server writes mail history and client reports once.
     alert(`✅ E-mail envoyé avec succès à ${recipients.length} adresse(s).`); closeMailModal();
   } catch (err) { console.error(err); alert(`❌ Échec de l'envoi : ${err.message || "Erreur inconnue"}`); }
-  finally { btn.disabled=false; btn.textContent="✉ Envoyer"; }
+  finally { sendingMail=false;btn.disabled=false; btn.textContent="✉ Envoyer"; }
 }
 
 function setupEvents() {
@@ -286,21 +295,38 @@ function setupEvents() {
     }
   }, true);
 
-  document.getElementById("btn-add-client")?.addEventListener("click",()=>{activeEditClientId=null;setTimeout(()=>populateEditEmails(null),0);},true);
-
-  document.getElementById("client-form")?.addEventListener("submit",()=>{
-    const emails = collectEditEmails();
-    const primary = document.getElementById("edit-email");
-    if (primary) primary.value = emails[0] || "";
-    if (activeEditClientId) {
-      setTimeout(()=>updateDoc(doc(db,"clients",activeEditClientId),{email:emails[0]||"",emails}).catch(console.error),100);
-    } else {
-      pendingNewClient={societe:document.getElementById("edit-societe")?.value.trim()||"",emails,startedAt:Date.now()};
-    }
-  },true);
-
   const modal=document.getElementById("client-modal");
-  if(modal)new MutationObserver(()=>{if(getComputedStyle(modal).display!=="none"){const item=clients.find(c=>c.id===activeEditClientId)||null;setTimeout(()=>populateEditEmails(item),30);}}).observe(modal,{attributes:true,attributeFilter:["style"]});
+  const openDraft=(client,force=false)=>{
+    const id=String(modal?.dataset.clientId||"").trim();
+    const key=id||"new-client";
+    if(!force&&emailDraftInitialized&&emailDraftKey===key)return;
+    const item=client||clients.find(c=>c.id===id)||null;
+    if(id&&!item)return;
+    activeEditClientId=id||null;
+    populateEditEmails(item);
+    emailBaseline=collectEditEmails();
+    storedEmailsBaseline=cloneExtra(item?.emails);
+    emailDraftKey=key;emailDraftInitialized=true;
+  };
+  const syncOpen=()=>{
+    if(!modal)return;
+    if(getComputedStyle(modal).display!=="none")openDraft();
+    else {emailDraftInitialized=false;emailDraftKey=null;activeEditClientId=null;}
+  };
+  if(modal)new MutationObserver(syncOpen).observe(modal,{attributes:true,attributeFilter:["style","data-client-id"]});
+  window.addEventListener("lrf-client-opened",event=>openDraft(event.detail?.client,true));
+  window.addEventListener("lrf-client-closed",()=>{emailDraftInitialized=false;emailDraftKey=null;activeEditClientId=null;});
+  window.LRFClientEmail={
+    getPatch(){
+      const key=String(modal?.dataset.clientId||"").trim()||"new-client";
+      if(!emailDraftInitialized||emailDraftKey!==key)return {};
+      const emails=collectEditEmails();
+      return extraSignature(emails)===extraSignature(emailBaseline)?{}:{emails};
+    },
+    getBaseline(){return {emails:cloneExtra(storedEmailsBaseline)}},
+    initializeOpenDraft:syncOpen
+  };
+  syncOpen();
 }
 
 function init() {
@@ -309,11 +335,9 @@ function init() {
   const tbody=document.getElementById("clients-table-body");
   if(tbody)new MutationObserver(()=>setTimeout(enhanceRows,0)).observe(tbody,{childList:true});
   onSnapshot(collection(db,"clients"),snapshot=>{
-    clients=[]; snapshot.forEach(d=>clients.push({id:d.id,...d.data()})); enhanceRows();
-    if(pendingNewClient && Date.now()-pendingNewClient.startedAt<10000){
-      const match=clients.filter(c=>norm(c.societe)===norm(pendingNewClient.societe)).sort((a,b)=>String(b.id).localeCompare(String(a.id)))[0];
-      if(match){updateDoc(doc(db,"clients",match.id),{email:pendingNewClient.emails[0]||"",emails:pendingNewClient.emails}).catch(console.error);pendingNewClient=null;}
-    }
+    clients=[]; snapshot.forEach(d=>clients.push({...d.data(),id:d.id})); enhanceRows();
+    const modal=document.getElementById("client-modal");
+    if(modal&&getComputedStyle(modal).display!=="none"&&!emailDraftInitialized)window.LRFClientEmail?.initializeOpenDraft();
   });
 }
 

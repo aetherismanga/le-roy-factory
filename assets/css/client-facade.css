@@ -1,0 +1,14 @@
+.lrf-client-facade{grid-column:1/-1;min-width:0}
+.lrf-client-facade .lrf-facade-label{display:block;font-weight:700;margin-bottom:.5rem}
+.lrf-facade-preview{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.45rem;width:100%;min-height:130px;max-height:250px;padding:12px;border:1px dashed #d8d2c7;border-radius:9px;background:#fff;color:#665f56;font:inherit;cursor:pointer;overflow:hidden;box-sizing:border-box}
+.lrf-facade-preview img{display:block;max-width:100%;width:auto;max-height:220px;object-fit:contain;border-radius:5px}
+.lrf-facade-preview [data-facade-icon]{font-size:2rem}
+.lrf-facade-preview:focus-visible,.lrf-facade-actions button:focus-visible{outline:3px solid #b89b4c;outline-offset:3px}
+.lrf-facade-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+.lrf-facade-actions button{font:inherit;font-size:.8rem;padding:.45rem .65rem;cursor:pointer}
+.lrf-facade-status{font-size:.78rem;line-height:1.45;margin:.5rem 0 0;color:#665f56;overflow-wrap:anywhere}
+.lrf-facade-status[data-error="true"]{color:#b91c1c}
+.lrf-facade-source{display:inline-block;margin-top:.3rem;font-size:.75rem;color:inherit}
+.lrf-client-facade input[type="file"],.lrf-client-facade [hidden]{display:none!important}
+.lrf-client-facade button:disabled{cursor:wait;opacity:.65}
+@media(max-width:720px){.lrf-facade-preview{min-height:125px;max-height:225px}.lrf-facade-preview img{max-height:200px}.lrf-facade-actions button{min-height:42px;flex:1}}

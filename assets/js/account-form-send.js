@@ -1,10 +1,11 @@
-import { db } from './firebase.js';
+import { db, auth } from './firebase.js';
 import { collection,onSnapshot } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
 const SEND='https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail';
 const FORM='https://leroyfactory.fr/ouverture-compte.html';
 let clients=[];
 let emailLookupTimer=null;
+let sendingForm=false;
 const norm=v=>String(v||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const normEmail=v=>String(v||'').trim().toLowerCase();
 const esc=v=>String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -22,12 +23,12 @@ function clientEmails(c){
 }
 function findClientByEmail(email){
   const e=normEmail(email);if(!/^\S+@\S+\.\S+$/.test(e))return null;
-  return clients.find(c=>clientEmails(c).includes(e))||null;
+  const matches=clients.filter(c=>!c.archived&&!c.archive&&clientEmails(c).includes(e));return matches.length===1?matches[0]:null;
 }
 function currentClient(){
-  const title=document.getElementById('modal-title')?.textContent||'';const name=title.replace(/^Édition\s*:\s*/i,'').trim();
-  if(!name||/Nouveau Client/i.test(title))return null;
-  return clients.find(c=>norm(c.societe)===norm(name))||null;
+  const id=document.getElementById('client-modal')?.dataset.clientId;
+  if(id)return clients.find(c=>c.id===id&&!c.archived&&!c.archive)||null;
+  return null;
 }
 function injectStyles(){if(document.getElementById('account-send-style'))return;const s=document.createElement('style');s.id='account-send-style';s.textContent=`
 .account-send-overlay{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:100000;display:none;align-items:center;justify-content:center;padding:1rem}.account-send-box{width:min(620px,95vw);background:#fff;border-radius:14px;padding:1.35rem;box-shadow:0 20px 60px rgba(0,0,0,.3);border:1px solid rgba(212,175,55,.45)}.account-send-box h3{margin:0 0 .8rem}.account-send-grid{display:grid;grid-template-columns:1fr 180px;gap:.75rem}.account-send-box label{display:block;font-size:.78rem;font-weight:800;margin:.65rem 0 .3rem}.account-send-box input,.account-send-box select,.account-send-box textarea{width:100%;box-sizing:border-box;padding:.7rem;border:1px solid #d8d1c5;border-radius:8px;font:inherit}.account-send-box textarea{min-height:170px;resize:vertical}.account-send-actions{display:flex;gap:.65rem;justify-content:flex-end;margin-top:1rem;flex-wrap:wrap}.account-send-btn{border:1px solid #D4AF37;background:#111;color:#FFD700;border-radius:8px;padding:.7rem 1rem;font-weight:800;cursor:pointer}.account-send-cancel{border:1px solid #d8d1c5;background:#fff;border-radius:8px;padding:.7rem 1rem;font-weight:700;cursor:pointer}#btn-send-account-form{width:auto!important;max-width:max-content!important;flex:0 0 auto!important;display:inline-flex!important;align-items:center;justify-content:center;white-space:nowrap;padding:.72rem 1.15rem!important}#btn-send-account-form-client{width:auto!important;flex:0 0 auto!important;white-space:nowrap}@media(max-width:620px){.account-send-grid{grid-template-columns:1fr}#btn-send-account-form{max-width:100%!important;white-space:normal}}
@@ -43,7 +44,7 @@ function ensureDialog(){
   document.getElementById('account-send-email').addEventListener('change',syncDialogClient);
   document.getElementById('account-send-submit').onclick=sendForm;
 }
-function closeDialog(){document.getElementById('account-send-overlay').style.display='none';window.__ACCOUNT_SEND_CLIENT=null}
+function closeDialog(){if(sendingForm)return;document.getElementById('account-send-overlay').style.display='none';window.__ACCOUNT_SEND_CLIENT=null}
 function fillMessage(c){
   const type=document.getElementById('account-send-type').value;const update=type==='mise_a_jour';const code=c?.codeClient||'';const dep=clientDep(c);
   const link=update?`${FORM}?type=mise_a_jour${code&&dep?`&code=${encodeURIComponent(code)}&dep=${encodeURIComponent(dep)}`:''}`:FORM;
@@ -60,19 +61,37 @@ function syncDialogClient(){
   fillMessage(c||null);
 }
 function openDialog(c=null){
+  if(sendingForm)return;
   ensureDialog();window.__ACCOUNT_SEND_CLIENT=c;
   document.getElementById('account-send-email').value=c?.email||'';
   document.getElementById('account-send-type').value=c?.codeClient?'mise_a_jour':'ouverture';
   if(c)fillMessage(c);else syncDialogClient();
   document.getElementById('account-send-overlay').style.display='flex';
 }
-async function sendForm(){const email=document.getElementById('account-send-email').value.trim(),subject=document.getElementById('account-send-subject').value.trim(),text=document.getElementById('account-send-message').value.trim();if(!email||!subject||!text){alert('E-mail, objet et message sont obligatoires.');return}const btn=document.getElementById('account-send-submit');btn.disabled=true;btn.textContent='Envoi…';try{const html=`<div style="font-family:Arial,sans-serif;white-space:pre-line;line-height:1.6">${esc(text).replace(/\n/g,'<br>')}</div>`;const r=await fetch(SEND,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({senderMode:'both',bccRecipients:[email],subject,htmlContent:html,attachments:[]})});if(!r.ok)throw new Error('Échec de l’envoi');alert('Formulaire envoyé au client.');closeDialog()}catch(e){console.error(e);alert(e.message||'Impossible d’envoyer le formulaire.')}finally{btn.disabled=false;btn.textContent='Envoyer au client'}}
+async function sendForm(){
+  if(sendingForm)return;
+  const email=document.getElementById('account-send-email').value.trim(),subject=document.getElementById('account-send-subject').value.trim(),text=document.getElementById('account-send-message').value.trim();
+  if(!/^\S+@\S+\.\S+$/.test(email)||!subject||!text){alert('E-mail valide, objet et message sont obligatoires.');return;}
+  const selected=window.__ACCOUNT_SEND_CLIENT,client=selected&&clientEmails(selected).includes(normEmail(email))?selected:findClientByEmail(email),btn=document.getElementById('account-send-submit');sendingForm=true;btn.disabled=true;btn.textContent='Envoi…';
+  try{
+    const token=await auth.currentUser?.getIdToken();
+    if(!token)throw new Error('Votre session a expiré. Reconnectez-vous au CRM avant d’envoyer le formulaire.');
+    const html=`<div style="font-family:Arial,sans-serif;white-space:pre-line;line-height:1.6">${esc(text).replace(/\n/g,'<br>')}</div>`;
+    const r=await fetch(SEND,{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({senderMode:'both',bccRecipients:[email],subject,htmlContent:html,attachments:[],clientIds:client?.id?[client.id]:[]})});
+    const result=await r.json().catch(()=>({}));
+    if(r.status===401)throw new Error('Votre session a expiré. Reconnectez-vous au CRM avant d’envoyer le formulaire.');
+    if(!r.ok||!result.success)throw new Error(result.error||'Échec de l’envoi');
+    alert('Formulaire envoyé au client.');sendingForm=false;closeDialog();
+  }catch(e){console.error(e);alert(e.message||'Impossible d’envoyer le formulaire.');}
+  finally{sendingForm=false;btn.disabled=false;btn.textContent='Envoyer au client';}
+}
+
 function injectButtons(){
   const toolbar=document.querySelector('.crm-toolbar');if(toolbar&&!document.getElementById('btn-send-account-form')){const b=document.createElement('button');b.id='btn-send-account-form';b.type='button';b.className='btn-primary-gold';b.style.cssText='width:auto!important;max-width:max-content!important;flex:0 0 auto!important;display:inline-flex!important;align-items:center;justify-content:center;white-space:nowrap;padding:.72rem 1.15rem!important';b.textContent='✉ Envoyer ouverture / mise à jour';b.onclick=()=>openDialog(null);toolbar.insertBefore(b,toolbar.children[1]||null)}
   const footer=document.querySelector('#client-modal .modal-footer');if(footer&&!document.getElementById('btn-send-account-form-client')){const b=document.createElement('button');b.id='btn-send-account-form-client';b.type='button';b.className='filter-btn';b.textContent='✉ Envoyer ouverture / mise à jour';b.onclick=()=>openDialog(currentClient());footer.insertBefore(b,footer.firstChild)}
 }
 function init(){
   injectStyles();ensureDialog();injectButtons();
-  onSnapshot(collection(db,'clients'),s=>{clients=[];s.forEach(d=>clients.push({id:d.id,...d.data()}));injectButtons();const overlay=document.getElementById('account-send-overlay');if(overlay?.style.display==='flex'&&document.getElementById('account-send-type')?.value==='mise_a_jour')syncDialogClient()})
+  onSnapshot(collection(db,'clients'),s=>{clients=[];s.forEach(d=>clients.push({...d.data(),id:d.id}));injectButtons();const overlay=document.getElementById('account-send-overlay');if(overlay?.style.display==='flex'&&document.getElementById('account-send-type')?.value==='mise_a_jour')syncDialogClient()})
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();

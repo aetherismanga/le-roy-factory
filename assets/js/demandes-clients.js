@@ -1,11 +1,11 @@
-import { db } from './firebase.js';
+import { db, auth } from './firebase.js';
 import { collection,onSnapshot,doc,updateDoc,query,where,getDocs,getDoc,limit,runTransaction,serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { partnerOpeningEmail } from './partner-opening-config.js';
 
 const SEND='https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail';
 const PARTNER_SEND='https://us-central1-le-roy-factory.cloudfunctions.net/sendAccountPartnerMail';
 const FILE_API='https://us-central1-le-roy-factory.cloudfunctions.net/getAccountRequestAttachment';
-let requests=[],current=null,currentClient=null;
+let requests=[],current=null,currentClient=null,validationPending=false,requestLoadSerial=0;
 const $=s=>document.querySelector(s);const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const depFromCp=cp=>{const s=String(cp||'').replace(/\s/g,'');if(!/^\d{5}$/.test(s))return'';if(s.startsWith('97')||s.startsWith('98'))return s.slice(0,3);if(s.startsWith('20'))return Number(s)>=20200?'2B':'2A';return s.slice(0,2)};
 const fmtCode=n=>`LRF-${String(n).padStart(5,'0')}`;
@@ -17,9 +17,9 @@ $('#drawer').addEventListener('click',e=>{if(e.target===$('#drawer'))$('#drawer'
 
 function statusLabel(s){return s==='validee'?'Validée':s==='refusee'?'Refusée':s==='complement'?'Complément demandé':'À valider'}
 function statusClass(s){return s==='validee'?'s-validee':s==='refusee'?'s-refusee':s==='complement'?'s-complement':'s-attente'}
-function render(){const st=$('#status-filter').value,ty=$('#type-filter').value,q=$('#search').value.toLowerCase().trim();const rows=requests.filter(r=>(!st||r.status===st)&&(!ty||r.requestType===ty)&&(!q||[r.societe,r.codeClient,r.departement,r.departementAuth,r.ville].some(x=>String(x||'').toLowerCase().includes(q))));$('#requests-list').innerHTML=rows.length?rows.map(r=>`<div class="req-card" data-id="${r.id}"><div><div class="req-title">${esc(r.societe||'Sans nom')}</div><div class="req-meta">${r.requestType==='mise_a_jour'?'Mise à jour':'Ouverture'} · ${esc(r.codeClient||'Nouveau compte')} · Dép. ${esc(r.departement||r.departementAuth||'-')} · ${new Date(r.submittedAt?.toDate?r.submittedAt.toDate():r.submittedAt||Date.now()).toLocaleDateString('fr-FR')}</div></div><span class="status ${statusClass(r.status)}">${statusLabel(r.status)}</span></div>`).join(''):'<div class="section">Aucune demande.</div>';document.querySelectorAll('.req-card').forEach(c=>c.onclick=()=>openRequest(c.dataset.id))}
+function render(){const st=$('#status-filter').value,ty=$('#type-filter').value,q=$('#search').value.toLowerCase().trim();const rows=requests.filter(r=>(!st||r.status===st)&&(!ty||r.requestType===ty)&&(!q||[r.societe,r.codeClient,r.departement,r.departementAuth,r.ville].some(x=>String(x||'').toLowerCase().includes(q))));$('#requests-list').innerHTML=rows.length?rows.map(r=>`<div class="req-card" data-id="${esc(r.id)}"><div><div class="req-title">${esc(r.societe||'Sans nom')}</div><div class="req-meta">${r.requestType==='mise_a_jour'?'Mise à jour':'Ouverture'} · ${esc(r.codeClient||'Nouveau compte')} · Dép. ${esc(r.departement||r.departementAuth||'-')} · ${new Date(r.submittedAt?.toDate?r.submittedAt.toDate():r.submittedAt||Date.now()).toLocaleDateString('fr-FR')}</div></div><span class="status ${statusClass(r.status)}">${statusLabel(r.status)}</span></div>`).join(''):'<div class="section">Aucune demande.</div>';document.querySelectorAll('.req-card').forEach(c=>c.onclick=()=>openRequest(c.dataset.id))}
 ['status-filter','type-filter','search'].forEach(id=>$('#'+id).addEventListener(id==='search'?'input':'change',render));
-onSnapshot(collection(db,'account_requests'),snap=>{requests=[];snap.forEach(d=>requests.push({id:d.id,...d.data()}));requests.sort((a,b)=>{const ad=a.submittedAt?.toMillis?.()||Date.parse(a.submittedAt||0),bd=b.submittedAt?.toMillis?.()||Date.parse(b.submittedAt||0);return bd-ad});render()});
+onSnapshot(collection(db,'account_requests'),snap=>{requests=[];snap.forEach(d=>requests.push({...d.data(),id:d.id}));requests.sort((a,b)=>{const ad=a.submittedAt?.toMillis?.()||Date.parse(a.submittedAt||0),bd=b.submittedAt?.toMillis?.()||Date.parse(b.submittedAt||0);return bd-ad});render()});
 
 async function findExisting(r){
   if(r.requestType!=='mise_a_jour')return null;
@@ -27,13 +27,20 @@ async function findExisting(r){
     const direct=await getDoc(doc(db,'clients',String(r.existingClientId)));
     if(direct.exists()){
       const data=direct.data();
-      if(!r.codeClient||String(data.codeClient||'').toUpperCase()===String(r.codeClient||'').toUpperCase())return{id:direct.id,...data};
+      if(!r.codeClient||String(data.codeClient||'').toUpperCase()===String(r.codeClient||'').toUpperCase())return{...data,id:direct.id};
     }
   }
   if(!r.codeClient)return null;
-  const s=await getDocs(query(collection(db,'clients'),where('codeClient','==',r.codeClient),limit(1)));if(s.empty)return null;const d=s.docs[0];return{id:d.id,...d.data()}
+  const s=await getDocs(query(collection(db,'clients'),where('codeClient','==',r.codeClient),limit(2)));if(s.empty)return null;if(s.size>1)throw new Error('Plusieurs fiches portent ce code LRF. Vérifiez les doublons avant validation.');const d=s.docs[0];return{...d.data(),id:d.id}
 }
-async function openRequest(id){current=requests.find(x=>x.id===id);if(!current)return;currentClient=await findExisting(current);$('#panel-title').textContent=`${current.requestType==='mise_a_jour'?'Mise à jour':'Ouverture'} — ${current.societe||''}`;$('#panel-sub').textContent=`Réf. ${id} · ${statusLabel(current.status)}`;renderPanel();$('#drawer').classList.add('open')}
+async function openRequest(id){
+  if(validationPending)return;
+  const serial=++requestLoadSerial,request=requests.find(x=>x.id===id);if(!request)return;
+  try{
+    const client=await findExisting(request);if(serial!==requestLoadSerial)return;
+    current=request;currentClient=client;$('#panel-title').textContent=`${current.requestType==='mise_a_jour'?'Mise à jour':'Ouverture'} — ${current.societe||''}`;$('#panel-sub').textContent=`Réf. ${id} · ${statusLabel(current.status)}`;renderPanel();$('#drawer').classList.add('open');
+  }catch(err){if(serial===requestLoadSerial)alert(err.message||'Impossible de charger cette demande.');}
+}
 function partnerChips(){return (current.partenaires||[]).map(p=>`<span class="chip">${esc(p)}</span>`).join('')||'<span class="req-meta">Aucun partenaire demandé</span>'}
 function diffBlock(label,oldV,newV){if(current.requestType!=='mise_a_jour')return'';return `<div class="full"><label>${esc(label)} — comparaison</label><div class="diff"><div class="old">Actuel : ${esc(oldV||'—')}</div><div class="new">Demandé : ${esc(newV||'—')}</div></div></div>`}
 function requiredDocsOk(){const roles=new Set((current?.attachments||[]).map(a=>String(a.role||'').toLowerCase()));return roles.has('rib')&&roles.has('kbis')}
@@ -64,8 +71,8 @@ function renderPanel(){const r=current,c=currentClient||{};const docs=(r.attachm
   $('#save-request').onclick=saveEdits;$('#validate-request').onclick=validateRequest;$('#ask-complement').onclick=askComplement;$('#refuse-request').onclick=refuseRequest;document.querySelectorAll('.send-partner').forEach(b=>b.onclick=()=>sendPartner(b.dataset.partner))
 }
 function edited(){return{societe:$('#f-societe').value.trim(),activite:$('#f-activite').value.trim(),adresse:$('#f-adresse').value.trim(),codePostal:$('#f-cp').value.trim(),ville:$('#f-ville').value.trim(),siret:$('#f-siret').value.trim(),tva:$('#f-tva').value.trim(),chiffreAffaires:$('#f-ca').value.trim(),contact:$('#f-contact').value.trim(),fonction:$('#f-fonction').value.trim(),telephone:$('#f-tel').value.trim(),email:$('#f-email').value.trim(),emailsAutres:$('#f-emails').value.split(',').map(x=>x.trim()).filter(Boolean),contactsAutres:$('#f-contacts').value.trim(),demande:$('#f-demande').value.trim()}}
-async function saveEdits(){const e=edited();await updateDoc(doc(db,'account_requests',current.id),{...e,reviewEditedAt:serverTimestamp(),reviewEditedBy:localStorage.getItem('agentName')||'Agent'});Object.assign(current,e);}
-async function allocateCode(clientRef,data){const counterRef=doc(db,'crm_meta','client_codes');return runTransaction(db,async tx=>{const cs=await tx.get(counterRef);const last=Number(cs.exists()?cs.data().lastNumber:0)||0;const next=last+1;if(next>99999)throw new Error('Limite codes LRF atteinte.');const code=fmtCode(next);tx.set(counterRef,{lastNumber:next,updatedAt:new Date().toISOString()},{merge:true});tx.set(clientRef,{...data,codeClient:code},{merge:true});return code})}
+async function saveEdits(){if(validationPending)return;const e=edited();await updateDoc(doc(db,'account_requests',current.id),{...e,reviewEditedAt:serverTimestamp(),reviewEditedBy:localStorage.getItem('agentName')||'Agent'});Object.assign(current,e);}
+
 function mergedPhones(newPrimary,existing){
   const oldPrimary=String(existing?.telephone||'').trim();
   const oldList=Array.isArray(existing?.telephones)?existing.telephones.map(x=>String(x||'').trim()).filter(Boolean):(oldPrimary?[oldPrimary]:[]);
@@ -73,36 +80,77 @@ function mergedPhones(newPrimary,existing){
   return [...new Set([String(newPrimary||'').trim(),...secondary].filter(Boolean))];
 }
 async function validateRequest(){
-  if(current.status==='validee')return;
+  if(validationPending||!current||current.status==='validee')return;
+  validationPending=true;const request={...current},client=currentClient?{...currentClient}:null;
   const button=$('#validate-request');if(button)button.disabled=true;
   try{
     const e=edited();if(!requiredDocsOk())throw new Error('Le RIB et le Kbis sont obligatoires.');
-    await saveEdits();let code=current.codeClient,clientId=currentClient?.id;
-    if(current.requestType==='mise_a_jour'&&!currentClient)throw new Error('Fiche existante introuvable.');
-    const lockedDepartment=current.requestType==='mise_a_jour'
-      ? String(currentClient?.departement||depFromCp(currentClient?.codePostal||currentClient?.code_postal)||current.departementAuth||'').replace(/^FR-/i,'').trim().toUpperCase()
-      : depFromCp(e.codePostal);
-    const phones=mergedPhones(e.telephone,current.requestType==='mise_a_jour'?currentClient:null);
-    const clientData={type:'client',societe:e.societe,activite:e.activite,categorieActivite:e.activite,adresse:e.adresse,codePostal:e.codePostal,ville:e.ville,departement:lockedDepartment,siret:e.siret,tva:e.tva,chiffreAffaires:e.chiffreAffaires,contact:e.contact,fonction:e.fonction,telephone:e.telephone,telephones:phones,email:e.email,emails:e.emailsAutres,contactsAutres:e.contactsAutres,partenaires:current.partenaires||[],documentsDemande:(current.attachments||[]).map(a=>({nom:a.filename,role:a.role,storagePath:a.storagePath||''})),updatedAt:new Date().toISOString()};
-    if(current.requestType==='mise_a_jour'){
-      clientId=currentClient.id;
-      await updateDoc(doc(db,'clients',clientId),clientData);
-      code=currentClient.codeClient;
-      currentClient={...currentClient,...clientData,codeClient:code};
-    }else{
-      if(e.siret){const dup=await getDocs(query(collection(db,'clients'),where('siret','==',e.siret),limit(1)));if(!dup.empty)throw new Error(`Un client avec ce SIRET existe déjà (${dup.docs[0].data().codeClient||'code LRF existant'}).`)}
-      const ref=doc(collection(db,'clients'));clientId=ref.id;code=await allocateCode(ref,clientData);
+    if(!e.societe||!e.email)throw new Error('La société et l’e-mail sont obligatoires.');
+    if(request.requestType==='mise_a_jour'&&!client)throw new Error('Fiche existante introuvable.');
+    if(request.requestType!=='mise_a_jour'&&e.siret){
+      const dup=await getDocs(query(collection(db,'clients'),where('siret','==',e.siret),limit(1)));
+      if(!dup.empty&&dup.docs[0].id!==`request-${request.id}`)throw new Error(`Un client avec ce SIRET existe déjà (${dup.docs[0].data().codeClient||'code LRF existant'}).`);
     }
-    await updateDoc(doc(db,'account_requests',current.id),{status:'validee',validatedAt:serverTimestamp(),validatedBy:localStorage.getItem('agentName')||'Agent',clientId,codeClientFinal:code,departementFinal:lockedDepartment});current.status='validee';current.codeClientFinal=code;current.departementFinal=lockedDepartment;
-    await sendClientConfirmation(e.email,code,lockedDepartment,e.societe).catch(err=>console.error('Mail confirmation',err));alert(`Demande validée. Client ${code}. Le mail de confirmation a été envoyé.`);renderPanel();
+    const requestRef=doc(db,'account_requests',request.id),clientRef=doc(db,'clients',request.requestType==='mise_a_jour'?client.id:`request-${request.id}`),counterRef=doc(db,'crm_meta','client_codes');
+    const result=await runTransaction(db,async tx=>{
+      const requestSnap=await tx.get(requestRef);if(!requestSnap.exists())throw new Error('Demande introuvable.');
+      const freshRequest=requestSnap.data();
+      if(freshRequest.status==='validee')return{alreadyValidated:true,code:freshRequest.codeClientFinal||freshRequest.codeClient,department:freshRequest.departementFinal||'',clientId:freshRequest.clientId};
+      const clientSnap=await tx.get(clientRef),existing=clientSnap.exists()?clientSnap.data():null;
+      let code=existing?.codeClient,counter=null,next=0;
+      if(request.requestType==='mise_a_jour'&&!existing)throw new Error('Fiche existante introuvable.');
+      if(!code){counter=await tx.get(counterRef);next=(Number(counter.exists()?counter.data().lastNumber:0)||0)+1;if(next>99999)throw new Error('Limite codes LRF atteinte.');code=fmtCode(next);}
+      const department=request.requestType==='mise_a_jour'?String(existing.departement||depFromCp(existing.codePostal||existing.code_postal)||request.departementAuth||'').replace(/^FR-/i,'').trim().toUpperCase():depFromCp(e.codePostal);
+      const partners=[...new Set([...(Array.isArray(existing?.partenaires)?existing.partenaires:[]),...(request.partenaires||[])])];
+      const clientData={type:'client',societe:e.societe,activite:e.activite,categorieActivite:e.activite,adresse:e.adresse,codePostal:e.codePostal,ville:e.ville,departement:department,siret:e.siret,tva:e.tva,chiffreAffaires:e.chiffreAffaires,contact:e.contact,fonction:e.fonction,telephone:e.telephone,telephones:mergedPhones(e.telephone,existing),email:e.email,emails:e.emailsAutres,contactsAutres:e.contactsAutres,partenaires:partners,documentsDemande:(request.attachments||[]).map(a=>({nom:a.filename,role:a.role,storagePath:a.storagePath||''})),codeClient:code,updatedAt:new Date().toISOString()};
+      if(counter)tx.set(counterRef,{lastNumber:next,updatedAt:new Date().toISOString()},{merge:true});
+      tx.set(clientRef,clientData,{merge:true});
+      tx.update(requestRef,{...e,status:'validee',validatedAt:serverTimestamp(),validatedBy:localStorage.getItem('agentName')||'Agent',clientId:clientRef.id,codeClientFinal:code,departementFinal:department,reviewEditedAt:serverTimestamp()});
+      return{code,department,clientId:clientRef.id};
+    });
+    Object.assign(current,e,{status:'validee',codeClientFinal:result.code,departementFinal:result.department,clientId:result.clientId});
+    if(result.alreadyValidated)alert(`Cette demande a déjà été validée. Client ${result.code}.`);
+    else{
+      let mailSent=false;try{await sendClientConfirmation(e.email,result.code,result.department,e.societe);mailSent=true;}catch(err){console.error('Mail confirmation',err);}
+      alert(`Demande validée. Client ${result.code}. ${mailSent?'Le mail de confirmation a été envoyé.':'Le mail de confirmation n’a pas pu être envoyé.'}`);
+    }
+    renderPanel();
   }catch(err){console.error('Validation demande client',err);alert(`Validation impossible : ${err?.message||err}`)}
-  finally{if(button&&current?.status!=='validee')button.disabled=false}
+  finally{validationPending=false;if(button&&current?.status!=='validee')button.disabled=false;}
 }
-async function sendMail(to,subject,html){const r=await fetch(SEND,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({senderMode:'both',bccRecipients:[to],subject,htmlContent:html,attachments:[]})});if(!r.ok)throw new Error('Échec mail')}
+async function accountApi(url,payload){
+  const token=await auth.currentUser?.getIdToken();
+  if(!token)throw new Error('Votre session a expiré. Reconnectez-vous au CRM.');
+  const response=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify(payload)});
+  const result=await response.json().catch(()=>({}));
+  if(response.status===401)throw new Error('Votre session a expiré. Reconnectez-vous au CRM.');
+  if(!response.ok||!result.success)throw new Error(result.error||'Opération impossible.');
+  return result;
+}
+async function sendMail(to,subject,html){return accountApi(SEND,{senderMode:'both',bccRecipients:[to],subject,htmlContent:html,attachments:[]});}
 async function sendClientConfirmation(email,code,dep,societe){if(!email)return;return sendMail(email,'Votre compte professionnel LE ROY FACTORY est actif',`<p>Bonjour,</p><p>Votre compte professionnel <strong>${esc(societe)}</strong> a été créé ou mis à jour.</p><p><strong>Identifiant client : ${esc(code)}</strong><br><strong>Département : ${esc(dep)}</strong></p><p>Ces informations vous permettent d'accéder à votre espace Tarifs PRO.</p><p><a href="https://leroyfactory.fr/tarifs-pro.html">Accéder aux tarifs professionnels</a></p><p>Cordialement,<br>LE ROY FACTORY</p>`)}
-async function askComplement(){const email=$('#f-email').value.trim();const text=prompt('Quel complément souhaitez-vous demander au client ?');if(!text)return;await sendMail(email,'Complément nécessaire pour votre demande LE ROY FACTORY',`<p>Bonjour,</p><p>Nous avons bien reçu votre demande concernant <strong>${esc($('#f-societe').value)}</strong>.</p><p>${esc(text)}</p><p>Merci de nous transmettre les éléments complémentaires.</p><p>Cordialement,<br>LE ROY FACTORY</p>`);await updateDoc(doc(db,'account_requests',current.id),{status:'complement',complementMessage:text,complementAt:serverTimestamp()});current.status='complement';renderPanel()}
-async function refuseRequest(){if(!confirm('Refuser cette demande ?'))return;const motif=prompt('Motif du refus (facultatif)')||'';await updateDoc(doc(db,'account_requests',current.id),{status:'refusee',refusalReason:motif,refusedAt:serverTimestamp()});current.status='refusee';if($('#f-email').value.trim())await sendMail($('#f-email').value.trim(),'Votre demande LE ROY FACTORY',`<p>Bonjour,</p><p>Votre demande concernant <strong>${esc($('#f-societe').value)}</strong> n'a pas pu être validée.</p>${motif?`<p>Motif : ${esc(motif)}</p>`:''}<p>Vous pouvez contacter votre agent pour plus d'informations.</p>`).catch(()=>{});renderPanel()}
+async function askComplement(){if(validationPending)return;const email=$('#f-email').value.trim();const text=prompt('Quel complément souhaitez-vous demander au client ?');if(!text)return;await sendMail(email,'Complément nécessaire pour votre demande LE ROY FACTORY',`<p>Bonjour,</p><p>Nous avons bien reçu votre demande concernant <strong>${esc($('#f-societe').value)}</strong>.</p><p>${esc(text)}</p><p>Merci de nous transmettre les éléments complémentaires.</p><p>Cordialement,<br>LE ROY FACTORY</p>`);await updateDoc(doc(db,'account_requests',current.id),{status:'complement',complementMessage:text,complementAt:serverTimestamp()});current.status='complement';renderPanel()}
+async function refuseRequest(){if(validationPending)return;if(!confirm('Refuser cette demande ?'))return;const motif=prompt('Motif du refus (facultatif)')||'';await updateDoc(doc(db,'account_requests',current.id),{status:'refusee',refusalReason:motif,refusedAt:serverTimestamp()});current.status='refusee';if($('#f-email').value.trim())await sendMail($('#f-email').value.trim(),'Votre demande LE ROY FACTORY',`<p>Bonjour,</p><p>Votre demande concernant <strong>${esc($('#f-societe').value)}</strong> n'a pas pu être validée.</p>${motif?`<p>Motif : ${esc(motif)}</p>`:''}<p>Vous pouvez contacter votre agent pour plus d'informations.</p>`).catch(()=>{});renderPanel()}
 function defaultPartnerMessage(){const r=current||{};const emails=Array.isArray(r.emailsAutres)?r.emailsAutres.join(', '):'';return `Bonjour,\n\nVous trouverez ci-joint la demande d'ouverture de compte du client suivant :\n\nSociété : ${r.societe||''}\nCode client LRF : ${r.codeClientFinal||r.codeClient||''}\nActivité : ${r.activite||''}\nAdresse : ${r.adresse||''}\nCode postal : ${r.codePostal||''}\nVille : ${r.ville||''}\nDépartement : ${r.departementFinal||r.departement||r.departementAuth||''}\nSIRET / SIREN : ${r.siret||''}\nN° TVA intracommunautaire : ${r.tva||''}\nChiffre d'affaires annuel HT : ${r.chiffreAffaires||''}\n\nContact principal : ${r.contact||''}\nFonction : ${r.fonction||''}\nTéléphone : ${r.telephone||''}\nE-mail : ${r.email||''}${emails?`\nAutres e-mails : ${emails}`:''}${r.contactsAutres?`\nAutres contacts : ${r.contactsAutres}`:''}${r.demande?`\n\nDemande complémentaire : ${r.demande}`:''}\n\nLe RIB, le Kbis et les autres pièces fournies par le client sont joints à ce message.\n\nMerci de bien vouloir procéder à son référencement et à l'ouverture du compte.\n\nCordialement,\nLE ROY FACTORY`}
 function partnerMailSection(){return `<div class="section"><h3>📨 Ouverture auprès des partenaires</h3><p class="req-meta">Relisez le message et envoyez-le partenaire par partenaire. Les pièces jointes de la demande seront ajoutées automatiquement.</p>${(current.partenaires||[]).map((p,i)=>`<div class="partner-mail"><strong>${esc(p)}</strong><div class="req-meta">Adresse provisoire : ${esc(partnerOpeningEmail(p))}</div><textarea id="pm-${i}">${esc(defaultPartnerMessage())}</textarea><button class="btn-main send-partner" data-partner="${esc(p)}" data-i="${i}" style="margin-top:.5rem">Envoyer à ${esc(p)}</button></div>`).join('')||'Aucun partenaire.'}</div>`}
-async function sendPartner(partner){const idx=(current.partenaires||[]).indexOf(partner);const message=$(`#pm-${idx}`).value;const recipient=partnerOpeningEmail(partner);const res=await fetch(PARTNER_SEND,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({requestId:current.id,partner,recipient,message,senderMode:'both'})});const d=await res.json().catch(()=>({}));if(!res.ok||!d.success)throw new Error(d.error||'Échec envoi partenaire');await updateDoc(doc(db,'account_requests',current.id),{[`partnerMails.${partner.replace(/[.]/g,'_')}`]:{sentAt:new Date().toISOString(),recipient}}).catch(()=>{});alert(`Ouverture envoyée à ${partner}.`)}
-async function downloadAttachment(index){const res=await fetch(FILE_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({requestId:current.id,index})});const d=await res.json();if(!res.ok||!d.success)throw new Error(d.error||'Document indisponible');const a=current.attachments[index];const bin=atob(d.content),bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);const url=URL.createObjectURL(new Blob([bytes],{type:a.contentType||'application/octet-stream'}));const link=document.createElement('a');link.href=url;link.download=a.filename||'document';link.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+const pendingPartnerMails=new Set();
+async function sendPartner(partner){
+  if(validationPending||!current)return;
+  const request=current,idx=(request.partenaires||[]).indexOf(partner),message=$(`#pm-${idx}`).value,recipient=partnerOpeningEmail(partner),key=`${request.id}:${partner}`;
+  if(pendingPartnerMails.has(key))return;pendingPartnerMails.add(key);
+  try{
+    await accountApi(PARTNER_SEND,{requestId:request.id,partner,recipient,message,senderMode:'both'});
+    // The server stores sentAt, recipient and the authenticated sentBy together.
+    alert(`Ouverture envoyée à ${partner}.`);
+  }catch(error){console.error(error);alert(error.message||'Échec envoi partenaire');}
+  finally{pendingPartnerMails.delete(key);}
+}
+async function downloadAttachment(index){
+  const request=current,a=request?.attachments?.[index];if(!a)return;
+  try{
+    const d=await accountApi(FILE_API,{requestId:request.id,index});
+    const bin=atob(d.content),bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+    const url=URL.createObjectURL(new Blob([bytes],{type:a.contentType||'application/octet-stream'})),link=document.createElement('a');
+    link.href=url;link.download=a.filename||'document';link.click();setTimeout(()=>URL.revokeObjectURL(url),2000);
+  }catch(error){console.error(error);alert(error.message||'Document indisponible');}
+}

@@ -59,7 +59,7 @@ function latestHistoryText(){
   const native=nativeHistoryEntries();
   if(native.length){
     const head=native[0].querySelector(":scope > div:first-child");
-    const date=head?.querySelector("span")?.textContent?.trim()||"";
+    const date=head?.querySelector("span:last-child")?.textContent?.trim()||"";
     if(date) return `${date} • Visite / échange`;
     return "Historique présent";
   }

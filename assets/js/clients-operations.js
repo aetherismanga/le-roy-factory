@@ -40,7 +40,8 @@ function followupInfo(c){
 function clientForRow(row){
   const id=row.dataset.clientId;if(id)return clients.find(c=>c.id===id)||null;
   const cells=row.querySelectorAll("td");const name=norm(cells[1]?.childNodes?.[0]?.textContent||cells[1]?.textContent);const cp=String(cells[2]?.textContent||"");
-  return clients.find(c=>norm(c.societe)===name&&(!c.codePostal||cp.includes(c.codePostal)))||clients.find(c=>norm(c.societe)===name)||null;
+  const candidates=clients.filter(c=>c.archived!==true&&c.archive!==true&&!c.duplicateOf&&norm(c.societe)===name&&(!c.codePostal||cp.includes(String(c.codePostal))));
+  return candidates.length===1?candidates[0]:null;
 }
 
 function injectStyles(){
@@ -89,6 +90,9 @@ function decorate(){
     const actionCell=cells[6];let box=actionCell.querySelector(".quick-actions");
     if(!box){box=document.createElement("div");box.className="quick-actions";while(actionCell.firstChild)box.appendChild(actionCell.firstChild);actionCell.appendChild(box)}
     const mailBtn=box.querySelector(".btn-mail-row");if(mailBtn){const m=mailBtn.textContent.match(/\((\d+)\)/);compactMailButton(mailBtn,m?Number(m[1]):1)}
+    const oldPhone=box.querySelector(".qa-phone");
+    const currentPhone=String(c.telephone||(c.telephones||[])[0]||"").replace(/\s/g,"");
+    if(oldPhone&&oldPhone.getAttribute("href")!==`tel:${encodeURIComponent(currentPhone)}`)oldPhone.remove();
     if(!box.querySelector(".qa-phone")){
       const tel=(c.telephone||(c.telephones||[])[0]||"").replace(/\s/g,"");
       if(tel){const a=document.createElement("a");a.className="quick-icon qa-phone";a.href=`tel:${encodeURIComponent(tel)}`;a.title=`Appeler ${tel}`;a.textContent="📞";a.onclick=e=>e.stopPropagation();box.appendChild(a)}
@@ -105,6 +109,6 @@ function applyFilters(){
 function init(){
   injectStyles();injectFilters();
   const tbody=document.getElementById("clients-table-body");if(tbody)new MutationObserver(()=>setTimeout(decorate,0)).observe(tbody,{childList:true});
-  onSnapshot(collection(db,"clients"),snap=>{clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));setTimeout(decorate,0)});
+  onSnapshot(collection(db,"clients"),snap=>{clients=[];snap.forEach(d=>clients.push({...d.data(),id:d.id}));setTimeout(decorate,0)});
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();

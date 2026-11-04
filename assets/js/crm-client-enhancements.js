@@ -1,5 +1,5 @@
 import { db } from "./firebase.js";
-import { collection, doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const PARTNERS = {
   "elios-ceramica":["Elios Ceramica","elios.png"],"view-ceramica":["View Ceramica","view.png"],"la-fenice":["La Fenice","lafenice.png"],
@@ -21,26 +21,17 @@ const ACTIVITY = [
 let clients = [];
 let selectedPartners = new Set();
 let editingId = null;
-let autoGroupsDone = false;
-let autoIndependentDone = false;
+let draftKey = null;
+let activityBaseline = "";
+let storedActivityBaseline;
+let activityInitialized = false;
 
 const norm = v => String(v || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 const esc = v => String(v || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 
-function findClientBySociete(name) {
-  const n = norm(name);
-  return clients.find(c => norm(c.societe) === n) || null;
-}
-
 function clientForRow(row) {
-  if (!row) return null;
-  const id = row.dataset.clientId;
-  if (id) {
-    const c = clients.find(x => x.id === id);
-    if (c) return c;
-  }
-  const td = row.querySelectorAll("td");
-  return findClientBySociete(td[1]?.childNodes?.[0]?.textContent?.trim() || td[1]?.textContent?.trim() || "");
+  const id=row?.dataset.clientId;
+  return id ? clients.find(c=>c.id===id)||null : null;
 }
 
 function firstPhone(c) {
@@ -195,80 +186,54 @@ function decorateRows() {
   applyPartnerFilter();
 }
 
-async function autoClassifyGroups() {
-  if (autoGroupsDone) return;
-  autoGroupsDone = true;
-  const todo = clients.filter(c => !c.categorieActivite && !c.sousCategorie && GROUP_PATTERNS.some(r => r.test(c.societe || "")));
-  for (const c of todo) {
-    try { await updateDoc(doc(db,"clients",c.id), { categorieActivite:"groupe" }); }
-    catch (e) { console.warn("Classement groupe", c.societe, e); }
-  }
-}
-
-async function autoClassifyIndependent() {
-  if (autoIndependentDone) return;
-  autoIndependentDone = true;
-  const todo = clients.filter(c => {
-    const activity = norm(c.categorieActivite || c.sousCategorie);
-    if (activity) return false;
-    return !GROUP_PATTERNS.some(r => r.test(c.societe || ""));
-  });
-  for (const c of todo) {
-    try { await updateDoc(doc(db,"clients",c.id), { categorieActivite:"negoce-independant" }); }
-    catch (e) { console.warn("Classement négoce indépendant", c.societe, e); }
-  }
-}
-
-function refreshOpenClient() {
-  const c = clients.find(x => x.id === editingId) || null;
+function refreshOpenClient(client, force=false) {
+  const modal=document.getElementById("client-modal");
+  const id=String(modal?.dataset.clientId||"").trim();
+  const key=id||"new-client";
+  if(!force&&activityInitialized&&draftKey===key)return;
+  const c=client||clients.find(x=>x.id===id)||null;
+  if(id&&!c)return;
+  editingId=id||null;
   setActivity(c);
+  activityBaseline=document.getElementById("edit-activity")?.value||"";
+  storedActivityBaseline=c?.categorieActivite;
+  draftKey=key;activityInitialized=true;
   mountMobileQuickActions(c);
-  setTimeout(() => mountMobileQuickActions(c), 120);
-  setTimeout(() => mountMobileQuickActions(c), 350);
 }
+
+window.LRFClientEnhancements={
+  getPatch(){
+    const key=String(document.getElementById("client-modal")?.dataset.clientId||"").trim()||"new-client";
+    const value=document.getElementById("edit-activity")?.value||"";
+    return activityInitialized&&draftKey===key&&value!==activityBaseline?{categorieActivite:value}:{};
+  },
+  getBaseline(){return {categorieActivite:storedActivityBaseline}}
+};
 
 function init() {
   styles();
   injectActivity();
   injectPartnerFilter();
 
-  document.addEventListener("click", e => {
-    const row = e.target.closest("#clients-table-body tr");
-    if (row) {
-      const c = clientForRow(row);
-      if (c) editingId = c.id;
-    }
-  }, true);
-
   const modal = document.getElementById("client-modal");
-  if (modal) new MutationObserver(() => {
-    if (getComputedStyle(modal).display !== "none") refreshOpenClient();
-  }).observe(modal, { attributes:true, attributeFilter:["style"] });
-
-  document.getElementById("btn-add-client")?.addEventListener("click", () => {
-    editingId = null;
-    setTimeout(() => {
-      setActivity(null);
-      mountMobileQuickActions(null);
-    }, 0);
-  }, true);
-
-  document.getElementById("client-form")?.addEventListener("submit", () => {
-    if (!editingId) return;
-    const v = document.getElementById("edit-activity")?.value || "";
-    updateDoc(doc(db,"clients",editingId), { categorieActivite:v }).catch(console.error);
-  }, true);
+  const syncOpen=()=>{
+    if(!modal)return;
+    if(getComputedStyle(modal).display!=="none")refreshOpenClient();
+    else {activityInitialized=false;draftKey=null;editingId=null;}
+  };
+  if(modal)new MutationObserver(syncOpen).observe(modal,{attributes:true,attributeFilter:["style","data-client-id"]});
+  window.addEventListener("lrf-client-opened",e=>refreshOpenClient(e.detail?.client,true));
+  window.addEventListener("lrf-client-closed",()=>{activityInitialized=false;draftKey=null;editingId=null;});
+  syncOpen();
 
   const tbody = document.getElementById("clients-table-body");
   if (tbody) new MutationObserver(() => setTimeout(decorateRows, 0)).observe(tbody, { childList:true });
 
   onSnapshot(collection(db,"clients"), snap => {
     clients = [];
-    snap.forEach(d => clients.push({ id:d.id, ...d.data() }));
+    snap.forEach(d => clients.push({ ...d.data(), id:d.id }));
     setTimeout(decorateRows, 0);
-    if (modal && getComputedStyle(modal).display !== "none") setTimeout(refreshOpenClient, 0);
-    autoClassifyGroups();
-    autoClassifyIndependent();
+    if(modal&&getComputedStyle(modal).display!=="none"&&!activityInitialized)refreshOpenClient();
   });
 }
 

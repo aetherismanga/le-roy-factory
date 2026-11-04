@@ -1,3 +1,5 @@
+import { auth } from "./firebase.js";
+import { mailCompositionSnapshot } from "./mails-groupes.js?v=20261105-audit1";
 const SCHEDULE_URL = "https://us-central1-le-roy-factory.cloudfunctions.net/scheduleGroupEmail";
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const MAX_TOTAL_SIZE = 18 * 1024 * 1024;
@@ -8,19 +10,7 @@ const SIGNATURES = {
   both: `<br><br><table style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px;color:#1A2530"><tr><td style="padding-right:20px"><strong>Coryne & Jérôme</strong><br><em>Agence Le Roy Factory</em><br>Jérôme : 07 66 04 03 61 — jerome@leroyfactory.fr<br>Coryne : 06 13 09 36 06 — coryne@leroyfactory.fr<br>Site : <a href="https://leroyfactory.fr">https://leroyfactory.fr</a></td><td style="padding-left:20px;border-left:2px solid #D4AF37"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/logo03lrf.png" width="120"></td></tr></table>`
 };
 
-let capturedAttachments = [];
-let capturedInline = [];
-const norm = v => String(v || "").trim().toLowerCase();
-const validEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || "").trim());
-
-function readFile(file) {
-  return new Promise((resolve, reject) => {
-    const r = new FileReader();
-    r.onload = () => resolve(String(r.result).split(",")[1] || "");
-    r.onerror = reject;
-    r.readAsDataURL(file);
-  });
-}
+let schedulingMail = false;
 
 function injectStyles() {
   if (document.getElementById("scheduled-mail-style")) return;
@@ -68,68 +58,12 @@ function setMinimumDate() {
   input.min = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
-async function captureAttachmentChange(event) {
-  if (event.target?.id !== "file-attachment") return;
-  const files = Array.from(event.target.files || []);
-  for (const file of files) {
-    if (file.size > MAX_FILE_SIZE) continue;
-    const content = await readFile(file);
-    capturedAttachments.push({ filename:file.name, size:file.size, content, encoding:"base64", contentType:file.type || undefined });
-  }
-}
-
-async function captureInlinePaste(event) {
-  if (event.target?.id !== "email-body-editor") return;
-  const files = Array.from(event.clipboardData?.items || []).filter(i => i.type.startsWith("image/")).map(i => i.getAsFile()).filter(Boolean);
-  if (!files.length) return;
-  const start = capturedInline.length;
-  for (const file of files) {
-    if (file.size > MAX_FILE_SIZE) continue;
-    const content = await readFile(file);
-    capturedInline.push({ filename:`image-programmee-${capturedInline.length+1}.png`, size:file.size, content, encoding:"base64", contentType:file.type || "image/png", cid:null, inline:true });
-  }
-  setTimeout(() => {
-    const imgs = Array.from(document.querySelectorAll('#email-body-editor img[src^="cid:"]'));
-    const unassigned = imgs.map(img => img.getAttribute("src").slice(4)).filter(cid => !capturedInline.some(x => x.cid === cid));
-    capturedInline.slice(start).forEach((item, i) => { if (unassigned[i]) item.cid = unassigned[i]; });
-  }, 80);
-}
-
-function visibleAttachmentNames() {
-  return new Set(Array.from(document.querySelectorAll("#file-preview-info .file-chip strong")).map(e => e.textContent.trim()));
-}
-
-function selectedRecipients() {
-  const map = new Map();
-  const clientIds = new Set();
-  document.querySelectorAll("#recipients-tbody .contact-checkbox:checked").forEach(cb => {
-    const row = cb.closest("tr");
-    const email = row?.querySelectorAll("td")?.[5]?.textContent?.trim() || "";
-    if (validEmail(email)) map.set(norm(email), email);
-    const key = cb.dataset.key || "";
-    const id = key.split("|")[0];
-    if (id) clientIds.add(id);
-  });
-  return { emails:[...map.values()], clientIds:[...clientIds] };
-}
-
-function currentAttachments(html) {
-  const names = visibleAttachmentNames();
-  const standard = capturedAttachments.filter(a => names.has(a.filename));
-  const activeCids = new Set(Array.from(document.querySelectorAll('#email-body-editor img[src^="cid:"]')).map(img => img.getAttribute("src").slice(4)));
-  const inline = capturedInline.filter(a => a.cid && activeCids.has(a.cid)).map(a => ({...a, inline:true}));
-  return [...standard, ...inline];
-}
 
 async function scheduleMail() {
+  if(schedulingMail)return;
   const whenValue = document.getElementById("scheduled-mail-datetime")?.value || "";
   const when = whenValue ? new Date(whenValue) : null;
-  const { emails, clientIds } = selectedRecipients();
-  const subject = document.getElementById("email-subject")?.value?.trim() || "";
-  const editor = document.getElementById("email-body-editor");
-  const bodyHtml = editor?.innerHTML?.trim() || "";
-  const bodyText = editor?.innerText?.trim() || "";
-  const senderMode = document.getElementById("select-sender")?.value || "jerome";
+  const {emails,clientIds,subject,bodyHtml,bodyText,senderMode,attachments}=mailCompositionSnapshot();
 
   if (!emails.length) return alert("Sélectionnez au moins un destinataire.");
   if (!subject) return alert("Saisissez l’objet du mail.");
@@ -138,7 +72,6 @@ async function scheduleMail() {
   if (when.getTime() < Date.now() + 60000) return alert("Choisissez une date d’envoi dans le futur.");
 
   const htmlContent = `${bodyHtml}${SIGNATURES[senderMode] || SIGNATURES.jerome}`;
-  const attachments = currentAttachments(bodyHtml);
   const total = attachments.reduce((s,a)=>s+(a.size||0),0);
   if (total > MAX_TOTAL_SIZE) return alert("Les pièces jointes du mail programmé dépassent la taille autorisée.");
 
@@ -146,15 +79,18 @@ async function scheduleMail() {
   if (!confirm(`Programmer cet e-mail pour ${label} ?\n\n${emails.length} destinataire(s)`)) return;
 
   const btn = document.getElementById("btn-schedule-mail");
-  btn.disabled = true;
+  schedulingMail=true;btn.disabled = true;
   btn.textContent = "Programmation...";
   try {
+    const token=await auth.currentUser?.getIdToken();
+    if(!token)throw new Error("Votre session a expiré. Reconnectez-vous au CRM avant de programmer le mail.");
     const res = await fetch(SCHEDULE_URL, {
       method:"POST",
-      headers:{"Content-Type":"application/json"},
+      headers:{"Content-Type":"application/json",Authorization:`Bearer ${token}`},
       body:JSON.stringify({ senderMode, bccRecipients:emails, subject, htmlContent, attachments, scheduledAt:when.toISOString(), clientIds })
     });
-    const result = await res.json();
+    const result = await res.json().catch(()=>({}));
+    if(res.status===401)throw new Error("Votre session a expiré. Reconnectez-vous au CRM avant de programmer le mail.");
     if (!res.ok || !result.success) throw new Error(result.error || "Erreur de programmation");
     alert(`✅ Mail programmé pour ${label}.\nIl sera envoyé automatiquement à ${emails.length} destinataire(s).`);
     document.getElementById("scheduled-mail-datetime").value = "";
@@ -163,7 +99,7 @@ async function scheduleMail() {
     console.error(e);
     alert(`❌ Impossible de programmer le mail : ${e.message || "Erreur inconnue"}`);
   } finally {
-    btn.disabled = false;
+    schedulingMail=false;btn.disabled = false;
     btn.textContent = "📅 Programmer l’envoi";
   }
 }
@@ -171,8 +107,6 @@ async function scheduleMail() {
 function init() {
   injectStyles();
   injectBox();
-  document.addEventListener("change", captureAttachmentChange, true);
-  document.addEventListener("paste", captureInlinePaste, true);
   const timer = setInterval(() => { injectBox(); if (document.getElementById("scheduled-mail-box")) clearInterval(timer); }, 500);
 }
 

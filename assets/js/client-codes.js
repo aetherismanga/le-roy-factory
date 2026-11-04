@@ -29,6 +29,8 @@ async function assignCode(clientId){
     const clientSnap=await tx.get(clientRef);
     if(!clientSnap.exists())return null;
     const data=clientSnap.data();
+    // The list may have changed since this allocation was queued.
+    if(data.archived===true||data.archive===true||data.duplicateOf)return null;
     if(/^LRF-\d{5}$/i.test(String(data.codeClient||"")))return data.codeClient;
     const counterSnap=await tx.get(counterRef);
     const last=Number(counterSnap.exists()?counterSnap.data().lastNumber:0)||0;
@@ -36,7 +38,8 @@ async function assignCode(clientId){
     if(next>99999)throw new Error("La limite de 99 999 codes clients est atteinte.");
     const code=formatCode(next);
     tx.set(counterRef,{lastNumber:next,updatedAt:new Date().toISOString()},{merge:true});
-    tx.update(clientRef,{codeClient:code,departement:clientDepartment(data)||departmentFromPostal(data.codePostal||data.code_postal)});
+    const previousCodes=[...new Set([...(Array.isArray(data.codesLRF)?data.codesLRF:[]),String(data.codeClient||"").trim()].filter(Boolean))];
+    tx.update(clientRef,{codeClient:code,codesLRF:[...new Set([...previousCodes,code])],departement:clientDepartment(data)||departmentFromPostal(data.codePostal||data.code_postal)});
     return code;
   });
 }
@@ -101,7 +104,8 @@ function findClientForRow(row){
   if(!row)return null;
   const id=row.dataset.clientId;if(id){const c=clients.find(x=>x.id===id);if(c)return c;}
   const cells=row.querySelectorAll("td");const name=norm(cells[1]?.childNodes?.[0]?.textContent||cells[1]?.textContent||"");const cp=String(cells[2]?.textContent||"");
-  return clients.find(c=>norm(c.societe)===name&&(!c.codePostal||cp.includes(String(c.codePostal))))||clients.find(c=>norm(c.societe)===name)||null;
+  const candidates=clients.filter(c=>c.archived!==true&&c.archive!==true&&!c.duplicateOf&&norm(c.societe)===name&&(!c.codePostal||cp.includes(String(c.codePostal))));
+  return candidates.length===1?candidates[0]:null;
 }
 
 function decorateRows(){
@@ -118,8 +122,9 @@ function decorateRows(){
 function fillModal(){
   injectModalFields();
   const modal=document.getElementById("client-modal");if(!modal||getComputedStyle(modal).display==="none")return;
-  let c=activeClientId?clients.find(x=>x.id===activeClientId):null;
-  if(!c){const title=document.getElementById("modal-title")?.textContent||"";const name=title.replace(/^Édition\s*:\s*/i,"").trim();if(name)c=clients.find(x=>norm(x.societe)===norm(name))||null;}
+  const exactId=modal.dataset.clientId||activeClientId;
+  let c=exactId?clients.find(x=>x.id===exactId):null;
+  if(!c&&!exactId){const title=document.getElementById("modal-title")?.textContent||"";if(/^Édition\s*:/i.test(title)){const name=title.replace(/^Édition\s*:\s*/i,"").trim();const candidates=clients.filter(x=>x.archived!==true&&x.archive!==true&&norm(x.societe)===norm(name));if(candidates.length===1)c=candidates[0];}}
   const code=document.getElementById("edit-code-client"),dep=document.getElementById("edit-departement");
   if(code)code.value=c?.codeClient||"";
   if(dep)dep.value=c?clientDepartment(c):departmentFromPostal(document.getElementById("edit-code-postal")?.value||"");
@@ -154,7 +159,7 @@ function installMobileUnifiedSearch(){
   const sync=()=>{
     const value=unified.value.trim();
     const compact=value.replace(/\s/g,'').toUpperCase();
-    const looksCode=/^(LRF[- ]?)?\d{1,5}$/i.test(compact)||/^LRF-/i.test(compact);
+    const looksCode=/^LRF(?:-|\d)/i.test(compact);
     const code=document.getElementById('lrf-code-search');
     if(looksCode){
       if(general){general.value='';general.dispatchEvent(new Event('input',{bubbles:true}));}
@@ -176,8 +181,10 @@ function init(){
   const tbody=document.getElementById("clients-table-body");if(tbody)new MutationObserver(()=>setTimeout(()=>{decorateRows();injectCodeSearch();installMobileUnifiedSearch()},0)).observe(tbody,{childList:true});
   document.addEventListener("click",e=>{const row=e.target.closest("#clients-table-body tr");if(row){const c=findClientForRow(row);activeClientId=c?.id||null;setTimeout(fillModal,30)}},true);
   document.getElementById("btn-add-client")?.addEventListener("click",()=>{activeClientId=null;setTimeout(fillModal,30)},true);
+  window.addEventListener("lrf-client-opened",event=>{activeClientId=event.detail?.clientId||null;setTimeout(fillModal,0)});
+  window.addEventListener("lrf-client-closed",()=>{activeClientId=null});
   const modal=document.getElementById("client-modal");if(modal)new MutationObserver(()=>setTimeout(fillModal,0)).observe(modal,{attributes:true,attributeFilter:["style"]});
-  onSnapshot(collection(db,"clients"),snap=>{clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));setTimeout(()=>{decorateRows();injectCodeSearch();fillModal();installMobileUnifiedSearch()},0);assignMissingCodes()});
+  onSnapshot(collection(db,"clients"),snap=>{clients=[];snap.forEach(d=>clients.push({...d.data(),id:d.id}));setTimeout(()=>{decorateRows();injectCodeSearch();fillModal();installMobileUnifiedSearch()},0);assignMissingCodes()});
   setTimeout(()=>{injectCodeSearch();installMobileUnifiedSearch()},150);
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();

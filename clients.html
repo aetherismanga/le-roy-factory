@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="assets/css/components.css?media=20261018">
   <link rel="stylesheet" href="assets/css/layout.css?media=20261018">
   <link rel="stylesheet" href="assets/css/clients.css">
+  <link rel="stylesheet" href="assets/css/client-facade.css?v=20261105-audit1">
   <style>
     /* Fond général de la page en blanc crème / coquille d'œuf */
     body.crm-body {
@@ -283,18 +284,26 @@
   </div>
 
   <script type="module">
-    import { db } from "./assets/js/firebase.js";
-    import { collection, doc, addDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { db, auth, getAgentProfile } from "./assets/js/firebase.js";
+    import "./assets/js/client-facade.js?v=20261105-audit1";
+    import "./assets/js/crm-moovago.js?v=20261105-audit1";
+    import "./assets/js/crm-client-enhancements.js?v=20261105-audit1";
+    import "./assets/js/client-direct-email.js?v=20261105-audit1";
+    import "./assets/js/crm-client-partner-access.js?v=20261105-audit1";
+    import { fingerprint, changedFields, assertUnchanged, reconcileList, sameValue, safeDocumentUrl, localDate, matchesClientSearch } from "./assets/js/client-form-core.mjs?v=20261105-audit1";
+    import { ready as integrityReady, canonicalId } from "./assets/js/crm-client-integrity.js?v=20261105-audit1";
+    import { cloneExtra } from "./assets/js/crm-extra-save-core.mjs";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { collection, doc, setDoc, getDocs, runTransaction, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    document.addEventListener("DOMContentLoaded", () => {
-      // 1. Vérification session agent
-      const isLoggedIn = localStorage.getItem("agentLoggedIn");
-      if (!isLoggedIn) {
-        window.location.href = "agent.html";
-        return;
-      }
-
-      const currentAgent = localStorage.getItem("agentName") || "Jérôme Hugol";
+    document.addEventListener("DOMContentLoaded", async () => {
+      // Firebase is the session authority; localStorage may be empty on a valid session.
+      const profile = await new Promise(resolve => {
+        const stop = onAuthStateChanged(auth, user => { stop(); resolve(getAgentProfile(user)); });
+      });
+      if (!profile) return;
+      await integrityReady;
+      const currentAgent = profile.name;
       document.getElementById("user-greeting").textContent = `Connecté en tant que ${currentAgent}`;
       document.getElementById("cr-author-input").value = currentAgent;
 
@@ -325,21 +334,22 @@
       const villeInput = document.getElementById("edit-ville");
 
       if (cpInput && villeInput) {
-        cpInput.addEventListener("input", async (e) => {
-          const cp = e.target.value.trim();
-          if (/^\d{5}$/.test(cp)) {
-            try {
-              const res = await fetch(`https://geo.api.gouv.fr/communes?codePostal=${cp}&fields=nom&format=json`);
-              const data = await res.json();
-              if (data && data.length > 0) {
-                villeInput.value = data[0].nom;
-                villeInput.style.borderColor = "#10B981";
-                setTimeout(() => { villeInput.style.borderColor = ""; }, 1500);
-              }
-            } catch (err) {
-              console.warn("Échec recherche ville :", err);
+        let postalRequest = 0;
+        cpInput.addEventListener("input", async () => {
+          const request = ++postalRequest, cp = cpInput.value.trim(), previousCity = villeInput.value;
+          const opening = modal?.dataset.clientId;
+          if (!/^\d{5}$/.test(cp)) return;
+          try {
+            const res = await fetch(`https://geo.api.gouv.fr/communes?codePostal=${cp}&fields=nom&format=json`);
+            if (!res.ok) return;
+            const data = await res.json();
+            // A postal code can cover several towns. Never replace a manual choice.
+            if (request !== postalRequest || cpInput.value.trim() !== cp || villeInput.value !== previousCity || modal?.dataset.clientId !== opening) return;
+            if (Array.isArray(data) && data.length === 1 && !villeInput.value.trim()) {
+              villeInput.value = data[0].nom;
+              villeInput.dispatchEvent(new Event('input', {bubbles:true}));
             }
-          }
+          } catch (err) { console.warn("Échec recherche ville :", err); }
         });
       }
 
@@ -348,6 +358,34 @@
       let currentEditingId = null;
       let currentDocList = [];
       let currentCRList = [];
+      let baselineClient = {}, baselineForm = {}, baselineDocuments = [], baselineReports = [];
+      let draftClientRef = null, saving = false;
+      const clone = cloneExtra;
+      const esc = value => String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+      function readForm() {
+        const phones = [...document.querySelectorAll('.phone-input')].map(input=>input.value.trim()).filter(Boolean);
+        return {
+          type: document.getElementById('edit-type').value,
+          societe: document.getElementById('edit-societe').value.trim(),
+          adresse: document.getElementById('edit-adresse').value.trim(),
+          codePostal: document.getElementById('edit-code-postal').value.trim(),
+          ville: document.getElementById('edit-ville').value.trim(),
+          contact: document.getElementById('edit-contact').value.trim(),
+          email: document.getElementById('edit-email').value.trim(),
+          telephones: phones, telephone: phones[0] || '',
+          notes: document.getElementById('edit-notes').value.trim()
+        };
+      }
+      function serverForm(client) {
+        let cp=String(client.codePostal || client.code_postal || '').trim(), city=String(client.ville || '').trim();
+        if (/^\d{5}$/.test(city) && !/^\d{5}$/.test(cp)) [cp,city]=[city,cp];
+        const phones=Array.isArray(client.telephones)?client.telephones:(client.telephone?[client.telephone]:[]);
+        return {type:String(client.type||'client').toLowerCase(),societe:client.societe||'',adresse:client.adresse||'',codePostal:cp,ville:city,contact:client.contact||'',email:client.email||'',telephones:phones,telephone:phones[0]||'',notes:client.notes||''};
+      }
+
+      function serverReports(client) {
+        return [...new Map([...(Array.isArray(client.comptes_rendus)?client.comptes_rendus:[]),...(Array.isArray(client.comptesRendus)?client.comptesRendus:[])].map(report=>[fingerprint(report),report])).values()];
+      }
 
       // Modale
       const modal = document.getElementById("client-modal");
@@ -374,13 +412,20 @@
       editTypeSelect?.addEventListener("change", (e) => updateModalBadge(e.target.value));
 
       function openModal(docId = null) {
+        if (saving) return;
+        if (docId) docId = canonicalId(docId) || docId;
+        if (docId && docId === currentEditingId && modal.style.display !== "none") return;
+        const selected = docId ? clientsData.find(c=>c.id===docId && c.archived!==true && c.archive!==true) : null;
+        if (docId && !selected) { alert('Cette fiche est introuvable ou archivée. Actualisez la liste des clients.'); return; }
         currentEditingId = docId;
+        draftClientRef = doc(db, 'clients', docId || doc(collection(db, 'clients')).id);
+        modal.dataset.clientId = docId || '';
         phonesContainer.innerHTML = "";
         currentDocList = [];
         currentCRList = [];
         if (btnDeleteClient) btnDeleteClient.style.display = docId ? "inline-flex" : "none";
 
-        document.getElementById("cr-date-input").value = new Date().toISOString().split('T')[0];
+        document.getElementById("cr-date-input").value = localDate();
         document.getElementById("cr-text-input").value = "";
 
         if (docId) {
@@ -411,7 +456,7 @@
             phones.forEach(p => addPhoneRow(p));
 
             currentDocList = Array.isArray(item.documents) ? [...item.documents] : [];
-            currentCRList = Array.isArray(item.comptes_rendus || item.comptesRendus) ? [...(item.comptes_rendus || item.comptesRendus)] : [];
+            currentCRList = serverReports(item);
           }
         } else {
           document.getElementById("modal-title").textContent = "Nouveau Client / Prospect";
@@ -422,14 +467,37 @@
 
         renderDocList();
         renderCRList();
+        baselineClient = clone(selected || {});
+        baselineForm = clone(readForm());
+        baselineDocuments = clone(currentDocList);
+        baselineReports = clone(currentCRList);
         modal.style.display = "flex";
+        window.dispatchEvent(new CustomEvent('lrf-client-opened',{detail:{clientId:docId || '',client:selected || {}}}));
       }
 
       function closeModal() {
+        if (saving) return;
         modal.style.display = "none";
         currentEditingId = null;
+        modal.dataset.clientId = '';
+        window.dispatchEvent(new CustomEvent('lrf-client-closed'));
       }
 
+      window.addEventListener('lrf-request-open-client', event => {
+        const id=String(event.detail?.clientId||'').trim();
+        if(id) openModal(id);
+      });
+      function consumeNewClientShortcut() {
+        if (saving || !['#new-client','#new-prospect'].includes(location.hash)) return;
+        const prospect=location.hash==='#new-prospect';
+        openModal();
+        const type=document.getElementById('edit-type');
+        type.value=prospect?'prospect':'client';
+        type.dispatchEvent(new Event('change',{bubbles:true}));
+        history.replaceState(null,'',location.pathname+location.search);
+      }
+      window.addEventListener('hashchange',consumeNewClientShortcut);
+      consumeNewClientShortcut();
       btnAddClient?.addEventListener("click", () => openModal());
       btnCloseModal?.addEventListener("click", closeModal);
       btnCancelModal?.addEventListener("click", closeModal);
@@ -465,7 +533,7 @@
         row.className = "phone-row";
         row.style.cssText = "display: flex; gap: 0.5rem; margin-bottom: 0.5rem;";
         row.innerHTML = `
-          <input type="tel" class="phone-input crm-select" placeholder="Ex: 04 67 00 00 00" value="${value}" style="flex: 1;">
+          <input type="tel" class="phone-input crm-select" placeholder="Ex: 04 67 00 00 00" value="${esc(value)}" style="flex: 1;">
           <button type="button" class="btn-remove-phone filter-btn" style="color: #DC2626;">&times;</button>
         `;
         row.querySelector(".btn-remove-phone").addEventListener("click", () => {
@@ -489,10 +557,10 @@
           div.style.cssText = "background: #FFF; padding: 0.75rem; border-radius: 6px; border: 1px solid #E5E7EB; font-size: 0.88rem;";
           div.innerHTML = `
             <div style="display: flex; justify-content: space-between; font-weight: 700; color: #1A2530; margin-bottom: 0.25rem;">
-              <span>👤 ${cr.author || 'Agent'}</span>
-              <span>📅 ${cr.date || ''}</span>
+              <span>👤 ${esc(cr.author || 'Agent')}</span>
+              <span>📅 ${esc(cr.date || '')}</span>
             </div>
-            <div style="color: #444; white-space: pre-wrap;">${cr.text || ''}</div>
+            <div style="color: #444; white-space: pre-wrap;">${esc(cr.text || '')}</div>
           `;
           container.appendChild(div);
         });
@@ -521,7 +589,7 @@
           const li = document.createElement("li");
           li.className = "document-item";
           li.innerHTML = `
-            <a href="${doc.url}" target="_blank">📄 ${doc.nom}</a>
+            ${safeDocumentUrl(doc.url) ? `<a href="${esc(safeDocumentUrl(doc.url))}" target="_blank" rel="noopener noreferrer">📄 ${esc(doc.nom || doc.name || 'Document')}</a>` : `<span>📄 ${esc(doc.nom || doc.name || 'Document')}${doc.pendingFile ? ' · à enregistrer' : ' · fichier indisponible'}</span>`}
             <button type="button" class="btn-delete-doc">&times;</button>
           `;
           li.querySelector(".btn-delete-doc").addEventListener("click", () => {
@@ -532,73 +600,107 @@
         });
       }
 
-      document.getElementById("file-input")?.addEventListener("change", (e) => {
-        const files = Array.from(e.target.files);
-        files.forEach(f => {
-          currentDocList.push({ nom: f.name, url: "#" });
-        });
+      document.getElementById("file-input")?.addEventListener("change", (event) => {
+        for (const file of Array.from(event.target.files || [])) {
+          if (!file.size || file.size > 20*1024*1024) { alert(`${file.name} : le fichier doit faire entre 1 octet et 20 Mo.`); continue; }
+          currentDocList.push({ nom:file.name, pendingFile:file });
+        }
+        event.target.value = '';
         renderDocList();
       });
+      async function prepareDocuments(clientId) {
+        const result=[];
+        for (const item of currentDocList) {
+          if (!item.pendingFile) { result.push(item); continue; }
+          const file=item.pendingFile;
+          const base64=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result).split(',')[1]);r.onerror=()=>reject(Error('Lecture du document impossible.'));r.readAsDataURL(file);});
+          const token=await auth.currentUser.getIdToken();
+          const response=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/crmFilesUpload',{
+            method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},
+            body:JSON.stringify({scope:'client-documents',parentId:clientId,fileName:file.name,contentType:file.type||'application/octet-stream',base64})
+          });
+          const body=await response.json();
+          if (!response.ok || !body.success || !safeDocumentUrl(body.file?.url)) throw Error(body.error || 'Enregistrement du document impossible.');
+          // Retain completed upload on retry; never store a fictitious # link.
+          Object.assign(item,{...body.file,nom:file.name}); delete item.pendingFile;
+          result.push({...item});
+        }
+        return result;
+      }
 
-      // Soumission du formulaire
-      document.getElementById("client-form")?.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const phones = Array.from(document.querySelectorAll(".phone-input"))
-          .map(i => i.value.trim())
-          .filter(v => v !== "");
-
-        const formData = {
-          type: document.getElementById("edit-type").value,
-          societe: document.getElementById("edit-societe").value.trim(),
-          adresse: document.getElementById("edit-adresse").value.trim(),
-          codePostal: document.getElementById("edit-code-postal").value.trim(),
-          ville: document.getElementById("edit-ville").value.trim(),
-          contact: document.getElementById("edit-contact").value.trim(),
-          email: document.getElementById("edit-email").value.trim(),
-          telephones: phones,
-          telephone: phones[0] || "",
-          notes: document.getElementById("edit-notes").value.trim(),
-          documents: currentDocList,
-          comptes_rendus: currentCRList
-        };
-
+      document.getElementById("client-form")?.addEventListener("submit", async event => {
+        event.preventDefault();
+        if (saving || !draftClientRef) return;
+        const formData=readForm();
+        if (!formData.societe) return;
+        if (formData.codePostal && !/^\d{5}$/.test(formData.codePostal)) { alert('Veuillez saisir un code postal à 5 chiffres.'); return; }
+        const ref=draftClientRef, clientId=ref.id, wasNew=!currentEditingId;
+        const buttons=[...document.querySelectorAll('#client-form button, #btn-close-modal')];
+        saving=true; buttons.forEach(button=>button.disabled=true);
+        const submit=document.querySelector('#client-form button[type="submit"]'), label=submit.textContent;
+        submit.textContent='Enregistrement…';
         try {
-          if (currentEditingId) {
-            await updateDoc(doc(db, "clients", currentEditingId), formData);
-          } else {
-            // Protection LRF : une demande de mise à jour ne doit jamais recréer
-            // un client existant avec un deuxième identifiant / code LRF.
-            const normalise = v => String(v || "").normalize("NFD")
-              .replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
-            const nom = normalise(formData.societe);
-            const postal = String(formData.codePostal || "").replace(/\D/g, "");
-            const email = String(formData.email || "").trim().toLowerCase();
-            const telephone = v => String(v || "").replace(/\D/g, "").replace(/^33(?=\d{9}$)/, "0");
-            const num = telephone(formData.telephone);
-            const snap = await getDocs(collection(db, "clients"));
-            const existing = snap.docs.map(d => ({ id: d.id, ...d.data() }))
-              .filter(c => c.archived !== true && c.archive !== true)
-              .find(c => {
-                if (!nom || normalise(c.societe) !== nom) return false;
-                const oldCp = String(c.codePostal || c.code_postal || "").replace(/\\D/g, "");
-                const sameCp = postal && oldCp && postal === oldCp;
-                const sameEmail = email && [c.email, ...(Array.isArray(c.emails) ? c.emails : [])]
-                  .some(v => String(v || "").trim().toLowerCase() === email);
-                const samePhone = num && [c.telephone, ...(Array.isArray(c.telephones) ? c.telephones : [])]
-                  .some(v => telephone(v) === num);
-                return sameCp || sameEmail || samePhone;
-              });
-            if (existing) {
-              alert(`Ce client existe déjà (code LRF : ${existing.codeClient || "en cours d'attribution"}). Ouvrez sa fiche existante pour la mettre à jour : aucun nouveau code LRF ne sera créé.`);
-              return;
-            }
-            await addDoc(collection(db, "clients"), formData);
+          if (wasNew) {
+            const snap=await getDocs(collection(db,'clients'));
+            const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
+            const phone=value=>String(value||'').replace(/\D/g,'').replace(/^(?:0033|33)(?=\d{9}$)/,'0');
+            const existing=snap.docs.map(d=>({id:d.id,...d.data()})).filter(c=>c.archived!==true&&c.archive!==true).find(c=>
+              norm(c.societe)===norm(formData.societe) && (
+                (norm(formData.adresse)&&norm(c.adresse)===norm(formData.adresse)&&String(c.codePostal||c.code_postal||'')===formData.codePostal) ||
+                (formData.email && String(c.email||'').toLowerCase()===formData.email.toLowerCase()) ||
+                (formData.telephone && phone(c.telephone)===phone(formData.telephone))));
+            if (existing) throw Error(`Ce client existe déjà (${existing.codeClient || existing.societe}). Ouvrez sa fiche existante.`);
           }
-          closeModal();
+          let patch=wasNew ? {...formData} : changedFields(baselineForm,formData);
+          const extraBaseline={};
+          for(const api of [window.LRFClientExtras,window.LRFClientEnhancements,window.LRFClientEmail,window.LRFClientPartnerAccess]) {
+            const extra=api?.getPatch?.()||{};
+            Object.assign(patch,extra);
+            const base=api?.getBaseline?.()||{};
+            for(const key of Object.keys(extra)) extraBaseline[key]=base[key];
+          }
+          Object.assign(patch,await window.LRFClientFacade.prepareSave({clientId}));
+          const documents=await prepareDocuments(clientId);
+          let identityRef=null;
+          if(wasNew){
+            const identity=[formData.societe,formData.codePostal,formData.adresse||formData.ville].map(value=>String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'')).join('|');
+            const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(identity));
+            const key=[...new Uint8Array(digest)].map(byte=>byte.toString(16).padStart(2,'0')).join('');
+            identityRef=doc(db,'crmClientIdentities',key);
+          }
+          if (wasNew) {
+            patch.documents=documents; patch.comptes_rendus=currentCRList;
+            patch.createdAt=new Date().toISOString(); patch.createdBy=profile.email;
+          }
+          await runTransaction(db,async transaction=>{
+            const snapshot=await transaction.get(ref);
+            if(wasNew){
+              const identity=await transaction.get(identityRef);
+              if(identity.exists() && identity.data().clientId!==clientId){
+                const claimed=await transaction.get(doc(db,'clients',identity.data().clientId));
+                if(claimed.exists()&&claimed.data().archived!==true&&claimed.data().archive!==true) throw Error('Ce magasin vient déjà d’être créé sur un autre appareil. Actualisez la liste.');
+              }
+              if(snapshot.exists()) throw Error('Cette fiche a déjà été créée. Actualisez la liste avant de réessayer.');
+              transaction.set(ref,patch);
+              transaction.set(identityRef,{clientId,createdAt:new Date().toISOString()}); return;
+            }
+            if(!snapshot.exists() || snapshot.data().archived===true || snapshot.data().archive===true) throw Error('Cette fiche a été archivée ou fusionnée. Actualisez la liste avant de réessayer.');
+            const current=snapshot.data(), scalar={...patch};
+            delete scalar.photoFacade;
+            assertUnchanged({...serverForm(current),...Object.fromEntries(Object.keys(extraBaseline).map(key=>[key,Array.isArray(extraBaseline[key])?(Array.isArray(current[key])?current[key]:[]):current[key]]))},{...baselineForm,...extraBaseline},scalar);
+            if ('photoFacade' in patch && !sameValue(current.photoFacade,baselineClient.photoFacade) && !sameValue(current.photoFacade,patch.photoFacade)) throw Error('La photo a été modifiée ailleurs. Rouvrez la fiche pour la conserver.');
+            const finalPatch={...patch,updatedAt:new Date().toISOString(),updatedBy:profile.email};
+            if(!sameValue(baselineDocuments,documents)) finalPatch.documents=reconcileList(current.documents||[],baselineDocuments,documents);
+            if(!sameValue(baselineReports,currentCRList)) finalPatch.comptes_rendus=reconcileList(serverReports(current),baselineReports,currentCRList);
+            transaction.update(ref,finalPatch);
+          });
+          window.dispatchEvent(new CustomEvent('lrf-client-saved',{detail:{clientId,patch}}));
+          saving=false; closeModal();
         } catch (err) {
-          console.error("Erreur de sauvegarde :", err);
-          alert("Erreur lors de la sauvegarde dans Firebase.");
+          console.error('Erreur de sauvegarde :',err);
+          alert(err.message || 'Erreur lors de la sauvegarde. Votre saisie est conservée.');
+        } finally {
+          saving=false; buttons.forEach(button=>button.disabled=false); submit.textContent=label;
         }
       });
 
@@ -645,12 +747,7 @@
 
           const matchType = !type || cType === type;
           const matchDep = !dep || cp.startsWith(dep);
-          const matchSearch = !search ||
-            (c.societe && c.societe.toLowerCase().includes(search)) ||
-            (ville && ville.toLowerCase().includes(search)) ||
-            (cp && cp.includes(search)) ||
-            (c.contact && c.contact.toLowerCase().includes(search)) ||
-            (c.telephone && c.telephone.includes(search));
+          const matchSearch = matchesClientSearch({...c,codePostal:cp,ville},search);
 
           return matchType && matchDep && matchSearch;
         });
@@ -688,14 +785,15 @@
           const lastCR = crList.length > 0 ? crList[0].date : "Aucun";
 
           const tr = document.createElement("tr");
+          tr.dataset.clientId = c.id;
           tr.style.cursor = "pointer";
           tr.innerHTML = `
-            <td><span class="badge ${badgeClass}">${cType}</span></td>
-            <td><strong>${c.societe || ''}</strong></td>
-            <td>${cp ? cp + ' ' : ''}${ville}</td>
-            <td>${c.contact || '-'}</td>
-            <td>${c.telephone || '-'}</td>
-            <td>${lastCR}</td>
+            <td><span class="badge ${badgeClass}">${esc(cType)}</span></td>
+            <td><strong>${esc(c.societe || '')}</strong></td>
+            <td>${esc(cp ? cp + ' ' : '')}${esc(ville)}</td>
+            <td>${esc(c.contact || '-')}</td>
+            <td>${esc(c.telephone || '-')}</td>
+            <td>${esc(lastCR)}</td>
             <td>
               <button class="filter-btn btn-edit-row" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">✏️ Éditer</button>
             </td>
@@ -711,23 +809,24 @@
         });
       }
 
+      const editParam = canonicalId(new URLSearchParams(location.search).get("edit"));
+      let directOpened = false;
       onSnapshot(collection(db, "clients"), (snapshot) => {
         clientsData = [];
         snapshot.forEach(docSnap => {
-          clientsData.push({ id: docSnap.id, ...docSnap.data() });
+          clientsData.push({ ...docSnap.data(), id: docSnap.id });
         });
         renderTable();
+        if (!directOpened && editParam && clientsData.some(c=>c.id===editParam)) { directOpened=true; openModal(editParam); }
+      }, error => {
+        console.error('Chargement clients',error);
+        tableBody.textContent='Impossible de charger les clients. Vérifiez votre connexion puis actualisez la page.';
       });
 
       searchInput?.addEventListener("input", renderTable);
       filterType?.addEventListener("change", renderTable);
       filterDep?.addEventListener("change", renderTable);
 
-      // Ouverture directe via query string (?edit=ID)
-      const editParam = urlParams.get("edit");
-      if (editParam) {
-        setTimeout(() => openModal(editParam), 500);
-      }
     });
   </script>
 </body>

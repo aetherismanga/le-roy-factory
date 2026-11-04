@@ -1,5 +1,5 @@
 import { db } from './firebase.js';
-import { collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { collection, addDoc, serverTimestamp, doc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
 const $=s=>document.querySelector(s);
 const clean=v=>String(v??'').trim();
@@ -7,6 +7,7 @@ const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>
 const LOCAL_KEY='lrf:saved-tours:v1';
 let latestPlan=null;
 let navSheet=null;
+let saving=false;
 
 function status(text,type='ok'){
   const e=$('#tour-status');
@@ -15,8 +16,8 @@ function status(text,type='ok'){
   e.innerHTML=text;
 }
 
-function readLocal(){try{return JSON.parse(localStorage.getItem(LOCAL_KEY)||'[]')}catch{return[]}}
-function writeLocal(items){try{localStorage.setItem(LOCAL_KEY,JSON.stringify(items.slice(0,40)))}catch{}}
+function readLocal(){try{const items=JSON.parse(localStorage.getItem(LOCAL_KEY)||'[]');return Array.isArray(items)?items:[]}catch{return[]}}
+function writeLocal(items){try{localStorage.setItem(LOCAL_KEY,JSON.stringify(items.slice(0,40)));return true;}catch{return false;}}
 
 function capturePlanFromDom(){
   const route=[...document.querySelectorAll('.route-stop-v5')].map((row,i)=>{
@@ -46,37 +47,41 @@ function capturePlanFromDom(){
 }
 
 async function reliableSave(btn){
+  if(saving)return;
   const plan=latestPlan||capturePlanFromDom();
   if(!plan){status('Aucune tournée prête à enregistrer.','error');return;}
-  latestPlan=plan;
+  latestPlan=plan;saving=true;
   btn.disabled=true;
   const old=btn.innerHTML;
   btn.innerHTML='⏳ Enregistrement…';
   status('💾 Enregistrement de la tournée…','');
   const payload=JSON.parse(JSON.stringify(plan));
-  payload.createdAt=serverTimestamp();
+  if(!plan.id)payload.createdAt=serverTimestamp();
+  delete payload.id;
   payload.savedAt=serverTimestamp();
   payload.createdBy=payload.createdBy||localStorage.getItem('agentName')||'Agent';
   payload.createdByEmail=payload.createdByEmail||localStorage.getItem('agentEmail')||'';
   try{
-    const ref=await addDoc(collection(db,'tournees'),payload);
-    latestPlan.id=ref.id;
+    const ref=plan.id&&!String(plan.id).startsWith('local-')?doc(db,'tournees',plan.id):null;
+    const saved=ref?(await updateDoc(ref,payload),ref):await addDoc(collection(db,'tournees'),payload);
+    if(String(plan.id||'').startsWith('local-'))writeLocal(readLocal().filter(item=>item.id!==plan.id));
+    plan.id=saved.id;
     btn.innerHTML='✅ Enregistrée';
     status('✅ <strong>Tournée enregistrée.</strong> Elle sera disponible dans « Tournées enregistrées ».','ok');
-    window.dispatchEvent(new CustomEvent('lrf-tour-saved',{detail:{id:ref.id}}));
-    setTimeout(()=>{btn.innerHTML=old;btn.disabled=false;location.reload();},900);
+    window.dispatchEvent(new CustomEvent('lrf-tour-saved',{detail:{id:saved.id,plan}}));
+    setTimeout(()=>{btn.innerHTML=old;btn.disabled=false;if(latestPlan===plan)location.reload();},900);
   }catch(error){
     console.error('[Tournées] Firestore indisponible, sauvegarde locale de secours',error);
     const local=readLocal();
     const copy=JSON.parse(JSON.stringify(plan));
-    copy.id=`local-${Date.now()}`;copy.savedAtLocal=new Date().toISOString();
-    writeLocal([copy,...local.filter(x=>x.id!==copy.id)]);
-    latestPlan=copy;
+    copy.id=String(plan.id||'').startsWith('local-')?plan.id:`local-${Date.now()}`;copy.savedAtLocal=new Date().toISOString();
+    if(!writeLocal([copy,...local.filter(x=>x.id!==copy.id)])){status('La tournée n’a pas pu être enregistrée. Réessayez sans quitter cette page.','error');btn.innerHTML=old;btn.disabled=false;return;}
+    if(latestPlan===plan)latestPlan=copy;
     btn.innerHTML='✅ Enregistrée';
     status('✅ Tournée enregistrée sur cet appareil. La synchronisation serveur est momentanément indisponible.','ok');
     injectLocalSaved();
     setTimeout(()=>{btn.innerHTML=old;btn.disabled=false;},1000);
-  }
+  }finally{saving=false;}
 }
 
 function injectLocalSaved(){
@@ -162,9 +167,10 @@ function hookSave(){
 
 function detectPlan(){
   const route=$('#tour-route');if(!route)return;
-  const sync=()=>{if(route.querySelector('.route-stop-v5')){latestPlan=capturePlanFromDom();ensureStartButton(true);}};
+  const sync=()=>{if(route.querySelector('.route-stop-v5')){if(!latestPlan)latestPlan=capturePlanFromDom();ensureStartButton(true);}};
   new MutationObserver(sync).observe(route,{childList:true,subtree:true});sync();
 }
 
 function init(){ensureStyles();ensureNavSheet();ensureStartButton(false);hookSave();detectPlan();setTimeout(injectLocalSaved,500);}
+window.addEventListener('lrf-tour-plan-ready',event=>{latestPlan=event.detail;});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();

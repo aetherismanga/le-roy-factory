@@ -1,5 +1,5 @@
-import { db } from "./firebase.js";
-import { collection, getDocs, addDoc, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { db, auth } from "./firebase.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 let allContacts=[];
 let filteredContacts=[];
@@ -8,6 +8,7 @@ let attachedFiles=[];
 let inlineImages=[];
 let selectedDepartments=new Set();
 let selectedPartners=new Set();
+let sendingMail=false;
 
 const MAX_FILE_SIZE=10*1024*1024;
 const MAX_TOTAL_SIZE=18*1024*1024;
@@ -148,9 +149,33 @@ function getMessageHtml(){return getEditor()?.innerHTML?.trim()||""}function get
 function openConfirmModal(){const subject=document.getElementById("email-subject")?.value?.trim();const bodyText=getMessageText(),bodyHtml=getMessageHtml();if(!selectedContacts.size)return alert("Veuillez sélectionner au moins un destinataire.");if(!subject)return alert("Veuillez saisir un objet pour votre e-mail.");if(!bodyText&&!bodyHtml.includes("<img"))return alert("Veuillez rédiger le corps de votre message.");const sender=document.getElementById("select-sender")?.value||"jerome";document.getElementById("summary-sender").textContent=sender==="coryne"?"coryne@leroyfactory.fr":sender==="both"?"Jérôme & Coryne":"jerome@leroyfactory.fr";document.getElementById("summary-subject").textContent=subject;document.getElementById("summary-count").textContent=`${new Set([...selectedContacts.values()].map(c=>norm(c.email))).size} destinataire(s) en Cci`;document.getElementById("summary-attachment").textContent=attachedFiles.length?`${attachedFiles.length} fichier(s)`:"Aucune";document.getElementById("modal-confirm").style.display="flex"}
 function closeModal(){document.getElementById("modal-confirm").style.display="none"}
 
+export function mailCompositionSnapshot(){
+  const contacts=[...selectedContacts.values()],senderMode=document.getElementById("select-sender")?.value||"jerome",editor=getEditor(),clone=editor?.cloneNode?.(true);
+  if(clone)clone.querySelectorAll('img[data-email-cid]').forEach(img=>{if(img.dataset.emailCid)img.setAttribute('src',`cid:${img.dataset.emailCid}`);});
+  const bodyHtml=(clone?.innerHTML||getMessageHtml()).trim(),activeCids=new Set([...bodyHtml.matchAll(/\bsrc=["']cid:([^"']+)/gi)].map(match=>match[1]));
+  return {senderMode,subject:document.getElementById("email-subject")?.value?.trim()||"",bodyHtml,bodyText:getMessageText(),
+    emails:[...new Map(contacts.filter(c=>validEmail(c.email)).map(c=>[norm(c.email),c.email])).values()],clientIds:[...new Set(contacts.map(c=>c.clientId).filter(Boolean))],
+    attachments:[...attachedFiles,...inlineImages.filter(image=>activeCids.has(image.cid))].map(file=>({...file}))};
+}
+
 async function executeEmailSending(){
-  const btn=document.getElementById("btn-confirm-send");btn.disabled=true;btn.textContent="Envoi en cours...";const sender=document.getElementById("select-sender")?.value||"jerome";const subject=document.getElementById("email-subject")?.value?.trim();const bcc=[...new Map([...selectedContacts.values()].map(c=>[norm(c.email),c.email])).values()];const htmlContent=`${getMessageHtml()}${SIGNATURES[sender]||SIGNATURES.jerome}`;
-  try{const res=await fetch("https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({senderMode:sender,bccRecipients:bcc,subject,htmlContent,attachments:[...attachedFiles,...inlineImages]})});const result=await res.json();if(!result.success)throw new Error(result.error||"Erreur inconnue");const exp=sender==="coryne"?"coryne@leroyfactory.fr":sender==="both"?"jerome@leroyfactory.fr & coryne@leroyfactory.fr":"jerome@leroyfactory.fr";await addDoc(collection(db,"historique_mails"),{date:new Date().toISOString(),expediteur:exp,objet:subject,nbDestinataires:bcc.length,destinataires:bcc,statut:"Succès"});const dateStr=new Date().toLocaleDateString("fr-FR");const agent=sender==="coryne"?"Coryne":sender==="both"?"Jérôme & Coryne":"Jérôme";for(const clientId of new Set([...selectedContacts.values()].map(c=>c.clientId))){try{await updateDoc(doc(db,"clients",clientId),{historiqueMails:arrayUnion({date:dateStr,expediteur:agent,objet:subject})})}catch(e){console.warn(e)}}alert(`✅ E-mail envoyé avec succès à ${bcc.length} destinataire(s) !`);closeModal();location.reload()}catch(err){console.error(err);alert(`❌ Échec de l'envoi : ${err.message||"Erreur réseau"}`)}finally{btn.disabled=false;btn.textContent="✓ Confirmer et envoyer"}}
+  if(sendingMail)return;
+  const composition=mailCompositionSnapshot(),sender=composition.senderMode,subject=composition.subject,bcc=composition.emails;
+  if(!bcc.length||!subject||(!composition.bodyText&&!composition.bodyHtml.includes("<img")))return alert("Vérifiez les destinataires, l’objet et le message avant l’envoi.");
+  const payload={senderMode:sender,bccRecipients:bcc,subject,htmlContent:`${composition.bodyHtml}${SIGNATURES[sender]||SIGNATURES.jerome}`,attachments:composition.attachments,clientIds:composition.clientIds};
+  const btn=document.getElementById("btn-confirm-send");sendingMail=true;btn.disabled=true;btn.textContent="Envoi en cours...";
+  try{
+    const token=await auth.currentUser?.getIdToken();
+    if(!token)throw new Error("Votre session a expiré. Reconnectez-vous au CRM avant d’envoyer le mail.");
+    const res=await fetch("https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail",{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${token}`},body:JSON.stringify(payload)});
+    const result=await res.json().catch(()=>({}));
+    if(res.status===401)throw new Error("Votre session a expiré. Reconnectez-vous au CRM avant d’envoyer le mail.");
+    if(!res.ok||!result.success)throw new Error(result.error||"Erreur d’envoi");
+    // The authenticated server records the global and per-client histories once.
+    alert(`✅ E-mail envoyé avec succès à ${bcc.length} destinataire(s) !`);closeModal();location.reload();
+  }catch(err){console.error(err);alert(`❌ Échec de l'envoi : ${err.message||"Erreur réseau"}`)}
+  finally{sendingMail=false;btn.disabled=false;btn.textContent="✓ Confirmer et envoyer";}
+}
 
 async function loadHistory(){const tbody=document.getElementById("history-tbody");if(!tbody)return;try{const snap=await getDocs(collection(db,"historique_mails"));if(snap.empty){tbody.innerHTML=`<tr><td colspan="5" style="text-align:center;padding:20px">Aucun envoi enregistré.</td></tr>`;return}const list=[];snap.forEach(d=>list.push(d.data()));list.sort((a,b)=>new Date(b.date)-new Date(a.date));tbody.innerHTML=list.map(i=>`<tr><td>${new Date(i.date).toLocaleString("fr-FR")}</td><td>${esc(i.expediteur)}</td><td><strong>${esc(i.objet)}</strong></td><td>${i.nbDestinataires} contact(s)</td><td><span class="badge badge-client">${esc(i.statut||"Envoyé")}</span></td></tr>`).join("")}catch(e){console.error(e)}}
 

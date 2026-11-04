@@ -1,5 +1,6 @@
-import { db } from './firebase.js';
-import { collection, onSnapshot, doc, getDoc, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { db, auth } from './firebase.js';
+import { collection, onSnapshot, doc, runTransaction } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { localDate, reportField, reportFingerprint } from './crm-report-core.mjs?v=20261105-audit1';
 import { PARTNER_CONTACTS } from './partner-contacts.js?media=20261018';
 
 const $ = (s) => document.querySelector(s);
@@ -10,6 +11,7 @@ let clients = [];
 let selectedClientId = '';
 let selectedClient = null;
 let sending = false;
+let savedDraft = null;
 
 function injectStyles(){
   if ($('#lrf-new-cr-mail-style')) return;
@@ -49,7 +51,7 @@ function injectStyles(){
 function clientLabel(c){
   return [c.societe || c.nom || 'Client sans nom', [c.codePostal||c.code_postal||'',c.ville||''].filter(Boolean).join(' ')].filter(Boolean).join(' — ');
 }
-function clientSearchText(c){return norm([c.societe,c.nom,c.contact,c.ville,c.codePostal,c.code_postal,c.telephone,(c.telephones||[]).join(' ')].filter(Boolean).join(' '));}
+function clientSearchText(c){return norm([c.societe,c.nom,c.contact,c.ville,c.codePostal,c.code_postal,c.telephone,(Array.isArray(c.telephones)?c.telephones:[]).join(' ')].filter(Boolean).join(' '));}
 
 function installClientSearch(){
   const select=$('#select-client'); if(!select || $('#lrf-client-search')) return;
@@ -97,36 +99,53 @@ function renderPartnerContacts(){
 function selectedRecipients(){return [...document.querySelectorAll('#lrf-partner-contacts input:checked')].map(x=>({email:x.value,name:x.dataset.name||x.value}));}
 function setStatus(msg,type){const el=$('#lrf-mail-status');el.className=`lrf-mail-status show ${type}`;el.innerHTML=msg;el.scrollIntoView({behavior:'smooth',block:'nearest'});}
 
-async function saveReport(){
+function reportContext(withMail){
   if(!selectedClientId||!selectedClient)throw new Error('Choisissez un client / prospect.');
   const text=$('#textarea-notes')?.value?.trim();if(!text)throw new Error('Écrivez votre compte-rendu.');
-  const date=$('#input-date')?.value||new Date().toISOString().slice(0,10);const author=localStorage.getItem('agentName')||$('#input-author')?.value||'Agent';
-  const ref=doc(db,'clients',selectedClientId);const snap=await getDoc(ref);if(!snap.exists())throw new Error('Client introuvable dans le CRM.');
-  const cr={date,author,text,createdAt:new Date().toISOString(),source:'nouveau-compte-rendu'};
-  await updateDoc(ref,{comptes_rendus:arrayUnion(cr)});
-  return cr;
+  const date=$('#input-date')?.value||localDate(),author=localStorage.getItem('agentName')||$('#input-author')?.value||'Agent';
+  const partner=$('#lrf-partner-select')?.value||'',rec=selectedRecipients();
+  if(withMail&&!partner)throw new Error('Choisissez une usine / partenaire.');
+  if(withMail&&!rec.length)throw new Error('Choisissez au moins une personne destinataire.');
+  return {clientId:selectedClientId,client:{...selectedClient},date,author,text,partner,rec};
 }
 
-function mailHtml(cr){
-  const c=selectedClient||{},partner=$('#lrf-partner-select')?.value||'';
+async function saveReport(context){
+  const key=reportFingerprint({clientId:context.clientId,date:context.date,author:context.author,text:context.text});
+  // A mail retry must reuse the report already saved, including its createdAt.
+  if(savedDraft?.key===key)return savedDraft.cr;
+  const cr={id:globalThis.crypto?.randomUUID?.()||`cr-${Date.now()}-${Math.random().toString(36).slice(2)}`,date:context.date,author:context.author,text:context.text,createdAt:new Date().toISOString(),source:'nouveau-compte-rendu'};
+  const ref=doc(db,'clients',context.clientId);
+  await runTransaction(db,async tx=>{
+    const snap=await tx.get(ref);
+    if(!snap.exists()||snap.data().archived||snap.data().archive)throw new Error('Client indisponible dans le CRM.');
+    const data=snap.data(),field=reportField(data);
+    tx.update(ref,{[field]:[cr,...(data[field]||[])]});
+  });
+  savedDraft={key,cr};return cr;
+}
+
+function mailHtml(cr,context){
+  const c=context.client,partner=context.partner;
   return `<div style="font-family:Arial,sans-serif;color:#202020;line-height:1.55"><h2 style="color:#9b7311">Compte-rendu de visite — ${esc(c.societe||c.nom||'Client')}</h2><p><strong>Date :</strong> ${esc(cr.date)}<br><strong>Commercial :</strong> ${esc(cr.author)}${partner?`<br><strong>Partenaire :</strong> ${esc(partner)}`:''}</p><div style="padding:16px;border-left:4px solid #d4af37;background:#faf7ef;white-space:pre-wrap">${esc(cr.text)}</div><p style="margin-top:18px;color:#6a6255;font-size:12px">Envoyé depuis le CRM LE ROY FACTORY.</p></div>`;
 }
 
-async function sendReport(cr){
-  const rec=selectedRecipients();if(!$('#lrf-partner-select').value)throw new Error('Choisissez une usine / partenaire.');if(!rec.length)throw new Error('Choisissez au moins une personne destinataire.');
-  const senderName=norm(localStorage.getItem('agentName'));const senderMode=senderName.includes('coryne')?'coryne':'jerome';
-  const subject=`Compte-rendu de visite – ${selectedClient.societe||selectedClient.nom||'Client'} – ${cr.date}`;
-  const res=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({senderMode,bccRecipients:rec.map(x=>x.email),subject,htmlContent:mailHtml(cr),attachments:[]})});
-  const json=await res.json().catch(()=>({}));if(!res.ok||!json.success)throw new Error(json.error||`Erreur d’envoi (${res.status})`);
-  return rec;
+async function sendReport(cr,context){
+  const senderName=norm(cr.author),senderMode=senderName.includes('coryne')?'coryne':'jerome';
+  const subject=`Compte-rendu de visite – ${context.client.societe||context.client.nom||'Client'} – ${cr.date}`;
+  const token=await auth.currentUser?.getIdToken();if(!token)throw new Error('Votre session a expiré. Reconnectez-vous au CRM avant d’envoyer le mail.');
+  const res=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/sendGroupEmail',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({senderMode,bccRecipients:context.rec.map(x=>x.email),subject,htmlContent:mailHtml(cr,context),attachments:[]})});
+  const json=await res.json().catch(()=>({}));if(res.status===401)throw new Error('Votre session a expiré. Reconnectez-vous au CRM avant d’envoyer le mail.');if(!res.ok||!json.success)throw new Error(json.error||`Erreur d’envoi (${res.status})`);
+  return context.rec;
 }
 
 async function saveFlow(withMail){
-  if(sending)return;sending=true;const a=$('#lrf-save-report'),b=$('#lrf-save-send-report');a.disabled=b.disabled=true;b.textContent=withMail?'Enregistrement et envoi…':'✉️ Enregistrer + envoyer';a.textContent=withMail?'💾 Enregistrer seulement':'Enregistrement…';
+  if(sending)return;
+  let context;try{context=reportContext(withMail);}catch(e){setStatus(`❌ ${esc(e.message)}`,'err');return;}
+  sending=true;const a=$('#lrf-save-report'),b=$('#lrf-save-send-report');a.disabled=b.disabled=true;b.textContent=withMail?'Enregistrement et envoi…':'✉️ Enregistrer + envoyer';a.textContent=withMail?'💾 Enregistrer seulement':'Enregistrement…';
   try{
-    const cr=await saveReport();
+    const cr=await saveReport(context);
     if(withMail){
-      try{const rec=await sendReport(cr);setStatus(`✅ <strong>Compte-rendu enregistré et mail envoyé.</strong><br>${rec.length} destinataire(s) : ${esc(rec.map(x=>x.name).join(', '))}`,'ok');}
+      try{const rec=await sendReport(cr,context);setStatus(`✅ <strong>Compte-rendu enregistré et mail envoyé.</strong><br>${rec.length} destinataire(s) : ${esc(rec.map(x=>x.name).join(', '))}`,'ok');}
       catch(e){console.error(e);setStatus(`⚠️ <strong>Compte-rendu enregistré</strong>, mais le mail n’a pas été envoyé.<br>${esc(e.message)}`,'warn');return;}
     }else setStatus('✅ <strong>Compte-rendu enregistré.</strong>','ok');
     setTimeout(()=>{location.href='comptes-rendus.html'},withMail?1800:900);
@@ -135,7 +154,7 @@ async function saveFlow(withMail){
 }
 
 function loadClients(){
-  onSnapshot(collection(db,'clients'),snap=>{clients=snap.docs.map(d=>({id:d.id,...d.data()})).filter(c=>!c.archived&&!c.archive).sort((a,b)=>String(a.societe||'').localeCompare(String(b.societe||''),'fr'));
+  onSnapshot(collection(db,'clients'),snap=>{clients=snap.docs.map(d=>({...d.data(),id:d.id})).filter(c=>!c.archived&&!c.archive).sort((a,b)=>String(a.societe||'').localeCompare(String(b.societe||''),'fr'));
     const requested=new URLSearchParams(location.search).get('client');if(requested&&!selectedClientId&&clients.some(c=>c.id===requested))chooseClient(requested);
   },err=>{console.error('[Nouveau CR] Chargement clients',err);setStatus('❌ Impossible de charger les clients du CRM.','err')});
 }

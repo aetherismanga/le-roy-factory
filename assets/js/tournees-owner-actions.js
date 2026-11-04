@@ -147,11 +147,11 @@ async function fetchTours() {
   try {
     let snap;
     try {
-      snap = await getDocs(query(collection(db, 'tournees'), orderBy('createdAt', 'desc'), limit(20)));
+      snap = await getDocs(query(collection(db, 'tournees'), orderBy('savedAt', 'desc'), limit(40)));
     } catch {
       snap = await getDocs(collection(db, 'tournees'));
     }
-    cachedTours = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    cachedTours = snap.docs.map((d) => ({ ...d.data(), id: d.id }));
   } catch (error) {
     console.error('[Tournées propriétaires] Chargement impossible', error);
     cachedTours = [];
@@ -176,8 +176,9 @@ function decorateSavedList() {
   addLegend();
 
   const items = [...box.querySelectorAll('.tour-saved-item')];
-  items.forEach((item, index) => {
-    const tour = cachedTours[index];
+  items.forEach((item) => {
+    if (item.dataset.localTour) return;
+    const tour = cachedTours.find(candidate => candidate.id === item.dataset.tourId);
     if (!tour) return;
 
     const owner = ownerInfo(tour);

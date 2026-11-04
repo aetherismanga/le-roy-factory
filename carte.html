@@ -285,6 +285,7 @@
 
   <script type="module">
     import { db } from "./assets/js/firebase.js?v=20261022-mapgps1";
+    import { activeMapClient, mapText, mapPhone } from "./assets/js/crm-map-core.mjs?v=20261105-audit1";
     import { collection, doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -448,11 +449,11 @@
 
             const popupContent = `
               <div style="font-family: 'Inter', sans-serif; padding: 2px; min-width: 200px;">
-                <span class="popup-badge ${item.type === 'prospect' ? 'badge-prospect' : 'badge-client'}">${item.type} (Dept: ${dept || 'N/C'})</span>
-                <div class="popup-title">${item.societe}</div>
+                <span class="popup-badge ${item.type === 'prospect' ? 'badge-prospect' : 'badge-client'}">${mapText(item.type)} (Dept: ${mapText(dept || 'N/C')})</span>
+                <div class="popup-title">${mapText(item.societe)}</div>
                 <div class="popup-address">
-                  📍 ${item.adresse ? item.adresse + '<br>' : ''}${item.cp} ${item.ville}
-                  ${item.telephone ? '<br>📞 <a href="tel:' + item.telephone + '" style="color: #111; font-weight: 600;">' + item.telephone + '</a>' : ''}
+                  📍 ${item.adresse ? mapText(item.adresse) + '<br>' : ''}${mapText(item.cp)} ${mapText(item.ville)}
+                  ${item.telephone ? '<br>📞 <a href="tel:' + mapPhone(item.telephone) + '" style="color: #111; font-weight: 600;">' + mapText(item.telephone) + '</a>' : ''}
                 </div>
                 <div class="popup-actions">
                   <a href="clients.html?edit=${encodeURIComponent(item.id)}" class="popup-btn btn-fiche">✏️ Fiche client</a>
@@ -492,9 +493,10 @@
         querySnapshot.forEach((docSnap) => {
           const docId = docSnap.id;
           const data = docSnap.data();
+          if(!activeMapClient(data,docId))return;
 
           const societe = data.societe || "Entreprise sans nom";
-          const adresse = (data.adresse || "").trim();
+          const adresse = String(data.adresse || "").trim();
           
           let cp = (data.codePostal || data.code_postal || "").toString().trim();
           let ville = (data.ville || "").toString().trim();
@@ -504,7 +506,7 @@
             const tmp = cp; cp = ville; ville = tmp;
           }
 
-          const type = (data.type || "prospect").toLowerCase();
+          const type = String(data.type || "prospect").toLowerCase();
           const telephone = data.telephone || "";
 
           // Accepter aussi les coordonnées déjà stockées sous latitude/longitude.

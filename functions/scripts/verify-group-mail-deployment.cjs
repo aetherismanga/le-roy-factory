@@ -13,7 +13,9 @@ const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 async function verify() {
   if (process.env.GOOGLE_CLOUD_PROJECT !== 'le-roy-factory') throw new Error('Unexpected Firebase project.');
   const client = await new GoogleAuth({ scopes: ['https://www.googleapis.com/auth/cloud-platform'] }).getClient();
-  const names = ['sendGroupEmail', 'scheduleGroupEmail', 'processScheduledEmails'];
+  const allowed = ['sendGroupEmail', 'scheduleGroupEmail', 'processScheduledEmails'];
+  const names = process.env.MAIL_VERIFY_FUNCTIONS ? process.env.MAIL_VERIFY_FUNCTIONS.split(',').map(value=>value.trim()).filter(Boolean) : allowed;
+  if (!names.length || names.some(name=>!allowed.includes(name))) throw new Error('Unexpected mail verification target.');
   const expected = ['index.js', 'group-mail-history.js'].map(name => ({
     name, hash: sha256(fs.readFileSync(path.join(__dirname, '..', name)))
   }));

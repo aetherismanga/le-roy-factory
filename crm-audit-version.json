@@ -1,0 +1,9 @@
+{
+  "version": "20261105-crm-audit1",
+  "date": "2026-11-05",
+  "auditedFrom": "c104b4546b8e9250ec62295a0f09fdbb6721c249",
+  "scope": "CRM clients, comptes rendus, agenda, tournees, demandes, mails, carte, export, dashboard",
+  "visualLayout": "preserved",
+  "verifiedShopFronts": 7,
+  "automatedTests": 95
+}

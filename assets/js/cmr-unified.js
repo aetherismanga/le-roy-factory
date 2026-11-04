@@ -24,9 +24,11 @@ function isoWeek(dateValue) {
 function buildClientCrUrl({ create = false } = {}) {
   const societe = document.getElementById('edit-societe')?.value?.trim() || '';
   const cp = document.getElementById('edit-code-postal')?.value?.trim() || '';
-  if (!societe) return null;
+  const clientId = document.getElementById('client-modal')?.dataset.clientId;
+  if (!societe || !clientId) return null;
   const params = new URLSearchParams();
   if (create) params.set('new', '1');
+  params.set('client', clientId);
   params.set('clientName', societe);
   if (cp) params.set('cp', cp);
   return `comptes-rendus.html?${params.toString()}`;
@@ -252,7 +254,9 @@ function installPartnerMultiSelect() {
     names.forEach(name => {
       const chip = document.createElement('span');
       chip.className = 'lrf-cr-partner-chip';
-      chip.innerHTML = `<span>${name}</span><button type="button" aria-label="Retirer ${name}">×</button>`;
+      const label = document.createElement('span'); label.textContent=name;
+      const remove = document.createElement('button'); remove.type='button'; remove.setAttribute('aria-label',`Retirer ${name}`); remove.textContent='×';
+      chip.append(label,remove);
       chip.querySelector('button').addEventListener('click', () => {
         selected.delete(name);
         renderSelection(true);
@@ -262,7 +266,9 @@ function installPartnerMultiSelect() {
     legacy.forEach(name => {
       const chip = document.createElement('span');
       chip.className = 'lrf-cr-partner-chip legacy';
-      chip.innerHTML = `<span>${name}</span><button type="button" aria-label="Retirer ${name}">×</button>`;
+      const label = document.createElement('span'); label.textContent=name;
+      const remove = document.createElement('button'); remove.type='button'; remove.setAttribute('aria-label',`Retirer ${name}`); remove.textContent='×';
+      chip.append(label,remove);
       chip.querySelector('button').addEventListener('click', () => {
         legacy = legacy.filter(v => v !== name);
         renderSelection(true);

@@ -141,6 +141,11 @@ exports.sendGroupEmail = onRequest({
       typeEnvoi: "immediat",
       sentAt: admin.firestore.FieldValue.serverTimestamp(),
       authenticatedAgent: agent.email
+    }).catch(error => {
+      // SMTP has already accepted the message. A history failure must not invite
+      // the client to resend it and deliver the same mail a second time.
+      console.error("Mail accepté par SMTP, historique global non enregistré:", error);
+      return null;
     });
     await appendClientHistory(payload.clientIds, payload.senderMode, payload.subject, { programme:false }).catch(err => {
       console.warn("Historique client non bloquant:", err);
@@ -148,7 +153,7 @@ exports.sendGroupEmail = onRequest({
     await appendGroupMailReports(db, payload, { messageId: info?.messageId, sentAt: new Date() }).catch(err => {
       console.warn("Compte-rendu du mail non bloquant:", err.message);
     });
-    res.status(200).json({ success: true, historyId: historyRef.id, messageId: info?.messageId || null });
+    res.status(200).json({ success: true, historyId: historyRef?.id || null, historyRecorded: Boolean(historyRef), messageId: info?.messageId || null });
   } catch (error) {
     console.error("Erreur d'envoi:", error);
     await writeMailHistory(payload, {

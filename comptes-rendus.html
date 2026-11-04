@@ -106,7 +106,9 @@
 
   <script type="module">
     import { db } from "./assets/js/firebase.js";
-    import { collection, doc, updateDoc, onSnapshot, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { collection, doc, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    import { localDate, reportField, reportFingerprint, unchangedReportIndex } from "./assets/js/crm-report-core.mjs?v=20261105-audit1";
 
     document.addEventListener("DOMContentLoaded",()=>{
       if(!localStorage.getItem("agentLoggedIn")){location.href="agent.html";return;}
@@ -116,10 +118,10 @@
       const searchInput=$("cr-search-input"),filterAgent=$("cr-filter-agent"),filterUsine=$("cr-filter-usine"),filterDate=$("cr-filter-date"),sortSelect=$("cr-sort"),feed=$("cr-feed-container");
       const currentAgent=localStorage.getItem("agentName")||"Jérôme Hugol";
       const defaultUsines=["Elios","BILT","View","Randal","OPAL","Aquahome","Neobath","Uptrend","Bulbo","Reviglass","Koibath"];
-      let globalCRs=[],allCRs=[],editing=null,clientCache=new Map(),crSnapshotVersion=0;
+      let globalCRs=[],allCRs=[],editing=null,clientCache=new Map(),crSnapshotVersion=0,saving=false;
 
       const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
-      const today=()=>new Date().toISOString().slice(0,10);
+      const today=()=>localDate();
       const dateTime=()=>{const n=new Date(),d=$("current-date"),t=$("current-time");if(d){let s=n.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"});d.textContent=s.charAt(0).toUpperCase()+s.slice(1)}if(t)t.textContent=n.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})};
       dateTime();setInterval(dateTime,1000);
       $("logout-btn")?.addEventListener("click",()=>{localStorage.removeItem("agentLoggedIn");location.href="agent.html"});
@@ -203,9 +205,17 @@
         for(const ds of snap.docs){
           const data=ds.data(),id=ds.id,societe=data.societe||"Entreprise sans nom";let cp=String(data.codePostal||data.code_postal||"").trim(),ville=String(data.ville||"").trim();if(/^\d{5}$/.test(ville)&&!/^\d{5}$/.test(cp)){[cp,ville]=[ville,cp]}if(!ville&&/^\d{5}$/.test(cp))ville=await villeFromCP(cp);
           if(version!==crSnapshotVersion)return;
-          const field=Array.isArray(data.comptes_rendus)?"comptes_rendus":Array.isArray(data.comptesRendus)?"comptesRendus":"comptes_rendus",list=Array.isArray(data[field])?data[field]:[];nextClients.set(id,{data,field,list});
+          const field=reportField(data),list=Array.isArray(data[field])?data[field]:[];nextClients.set(id,{data,field,list});
           const opt=document.createElement("option");opt.value=id;opt.textContent=`${societe} (${cp?cp+" ":""}${ville})`;nextOptions.appendChild(opt);
-          list.forEach((raw,index)=>nextCRs.push({clientId:id,crIndex:index,crField:field,societe,ville,code_postal:cp,author:raw.author||raw.auteur||"Agent",date:raw.date||"",text:raw.text||raw.texte||raw.notes||"",usine:detectUsine(raw),createdAt:raw.createdAt||raw.created_at||"",raw}));
+          const seen=new Set();
+          for(const crField of ["comptes_rendus","comptesRendus"]){
+            if(!Array.isArray(data[crField]))continue;
+            data[crField].forEach((raw,index)=>{
+              if(!raw||typeof raw!=="object")return;
+              const signature=reportFingerprint(raw);if(seen.has(signature))return;seen.add(signature);
+              nextCRs.push({clientId:id,crIndex:index,crField,societe,ville,code_postal:cp,author:raw.author||raw.auteur||"Agent",date:raw.date||"",text:raw.text||raw.texte||raw.notes||"",usine:detectUsine(raw),createdAt:raw.createdAt||raw.created_at||"",raw});
+            });
+          }
         }
         if(version!==crSnapshotVersion)return;
         const selected=clientSelect.value;allCRs=nextCRs;clientCache=nextClients;clientSelect.replaceChildren(nextOptions);if(nextClients.has(selected)||(editing?.globalId&&selected==="__global__"))clientSelect.value=selected;
@@ -218,31 +228,56 @@
       },err=>{console.error("Chargement des comptes-rendus globaux",err);});
 
       form.addEventListener("submit",async e=>{
-        e.preventDefault();const targetId=clientSelect.value,date=dateInput.value,author=authorSelect.value,text=textInput.value.trim(),usine=usineInput.value.trim();if((!targetId&&!editing?.globalId)||!text)return;
-        const btn=$("btn-save-cr");btn.disabled=true;btn.textContent=editing?"Modification…":"Enregistrement…";
+        e.preventDefault();if(saving)return;
+        const targetId=clientSelect.value,date=dateInput.value,author=authorSelect.value,text=textInput.value.trim(),usine=usineInput.value.trim(),edit=editing?{...editing}:null;
+        if((!targetId&&!edit?.globalId)||!text)return;
+        saving=true;
+        const btn=$("btn-save-cr");btn.disabled=true;btn.textContent=edit?"Modification…":"Enregistrement…";
         try{
-          const newCR={date,author,text};if(usine)newCR.usine=usine;
-          if(editing){if(editing.createdAt)newCR.createdAt=editing.createdAt;newCR.updatedAt=new Date().toISOString();}
-          else newCR.createdAt=new Date().toISOString();
-          if(editing?.globalId){
-            await updateDoc(doc(db,"comptes_rendus",editing.globalId),newCR);
-          }else if(editing){
-            const sourceRef=doc(db,"clients",editing.clientId),sourceSnap=await getDoc(sourceRef);if(!sourceSnap.exists())throw new Error("client source introuvable");const sourceData=sourceSnap.data(),sourceField=editing.crField|| (Array.isArray(sourceData.comptes_rendus)?"comptes_rendus":"comptesRendus"),sourceList=[...(sourceData[sourceField]||[])];
-            if(editing.clientId===targetId){if(editing.crIndex<0||editing.crIndex>=sourceList.length)throw new Error("compte-rendu introuvable");sourceList[editing.crIndex]=newCR;await updateDoc(sourceRef,{[sourceField]:sourceList});}
-            else{
-              sourceList.splice(editing.crIndex,1);const targetRef=doc(db,"clients",targetId),targetSnap=await getDoc(targetRef);if(!targetSnap.exists())throw new Error("client cible introuvable");const td=targetSnap.data(),targetField=Array.isArray(td.comptes_rendus)?"comptes_rendus":Array.isArray(td.comptesRendus)?"comptesRendus":"comptes_rendus",targetList=[newCR,...(td[targetField]||[])];await updateDoc(targetRef,{[targetField]:targetList});await updateDoc(sourceRef,{[sourceField]:sourceList});
+          const newCR={...(edit?.raw||{}),date,author,text,usine};
+          if(edit)newCR.updatedAt=new Date().toISOString();
+          else {newCR.createdAt=new Date().toISOString();newCR.id=globalThis.crypto?.randomUUID?.()||`cr-${Date.now()}-${Math.random().toString(36).slice(2)}`;}
+          await runTransaction(db,async tx=>{
+            if(edit?.globalId){
+              const ref=doc(db,"comptes_rendus",edit.globalId),snap=await tx.get(ref);
+              if(!snap.exists())throw new Error("Compte-rendu introuvable.");
+              unchangedReportIndex([snap.data()],edit.raw);
+              tx.update(ref,newCR);return;
             }
-          }else{
-            const ref=doc(db,"clients",targetId),snap=await getDoc(ref);if(!snap.exists())throw new Error("client introuvable");const data=snap.data(),field=Array.isArray(data.comptes_rendus)?"comptes_rendus":Array.isArray(data.comptesRendus)?"comptesRendus":"comptes_rendus";await updateDoc(ref,{[field]:[newCR,...(data[field]||[])]});
-          }
+            if(edit){
+              const sourceRef=doc(db,"clients",edit.clientId),sourceSnap=await tx.get(sourceRef);
+              if(!sourceSnap.exists())throw new Error("Client source introuvable.");
+              const sourceData=sourceSnap.data(),sourceField=reportField(sourceData,edit.crField),sourceList=[...(sourceData[sourceField]||[])];
+              const index=unchangedReportIndex(sourceList,edit.raw);
+              const sourcePatch={},signature=reportFingerprint(edit.raw);
+              // Keep exact legacy mirrors consistent when editing or moving a visit.
+              for(const otherField of ["comptes_rendus","comptesRendus"]){
+                if(otherField===sourceField||!Array.isArray(sourceData[otherField]))continue;
+                sourcePatch[otherField]=edit.clientId===targetId?sourceData[otherField].map(raw=>reportFingerprint(raw)===signature?newCR:raw):sourceData[otherField].filter(raw=>reportFingerprint(raw)!==signature);
+              }
+              if(edit.clientId===targetId){sourceList[index]=newCR;tx.update(sourceRef,{...sourcePatch,[sourceField]:sourceList});return;}
+              const targetRef=doc(db,"clients",targetId),targetSnap=await tx.get(targetRef);
+              if(!targetSnap.exists()||targetSnap.data().archived||targetSnap.data().archive)throw new Error("Client cible indisponible.");
+              const targetData=targetSnap.data(),targetField=reportField(targetData);
+              sourceList.splice(index,1);
+              tx.update(sourceRef,{...sourcePatch,[sourceField]:sourceList});
+              tx.update(targetRef,{[targetField]:[newCR,...(targetData[targetField]||[])]});
+            }else{
+              const ref=doc(db,"clients",targetId),snap=await tx.get(ref);
+              if(!snap.exists()||snap.data().archived||snap.data().archive)throw new Error("Client indisponible.");
+              const data=snap.data(),field=reportField(data);
+              tx.update(ref,{[field]:[newCR,...(data[field]||[])]});
+            }
+          });
           closeModal();
-        }catch(err){console.error("Erreur sauvegarde compte-rendu",err);alert("Une erreur s'est produite lors de l'enregistrement. Aucune donnée n'a été volontairement supprimée.")}
-        finally{btn.disabled=false;btn.textContent=editing?"✓ Enregistrer les modifications":"✓ Enregistrer"}
+        }catch(err){console.error("Erreur sauvegarde compte-rendu",err);alert(err.message||"Impossible d’enregistrer le compte-rendu. Réessayez.")}
+        finally{saving=false;btn.disabled=false;btn.textContent=editing?"✓ Enregistrer les modifications":"✓ Enregistrer"}
       });
 
       [searchInput,filterDate].forEach(el=>el.addEventListener("input",render));[filterAgent,filterUsine,sortSelect].forEach(el=>el.addEventListener("change",render));
       $("cr-reset-filters").addEventListener("click",()=>{searchInput.value="";filterAgent.value="";filterUsine.value="";filterDate.value="";sortSelect.value="date-desc";render();searchInput.focus()});
       resetForm();
+      if(new URLSearchParams(location.search).get("new")==="1")openNew();
     });
   </script>
 </body>

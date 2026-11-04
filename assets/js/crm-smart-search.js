@@ -93,8 +93,8 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
       clientsPromise = getDocs(collection(db, 'clients')).then(snap => {
         const out = [];
         snap.forEach(d => {
-          const c = { id:d.id, ...d.data() };
-          if (c.archived === true || c.archive === true) return;
+          const c = { ...d.data(), id:d.id };
+          if (c.archived === true || c.archive === true || c.duplicateOf) return;
           out.push(c);
         });
         return out;
@@ -110,7 +110,7 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
     const q = String(query || '').trim();
     if (compact(q).length < 2) return [];
     return list.map(c => {
-      const fields = [c.societe, c.codeClient, c.ville, c.codePostal || c.code_postal, c.contact, c.telephone, ...(c.telephones || [])].filter(Boolean);
+      const fields = [c.societe, c.codeClient, c.ville, c.codePostal || c.code_postal, c.contact, c.telephone, ...(Array.isArray(c.telephones) ? c.telephones : []), ...(Array.isArray(c.codesLRF) ? c.codesLRF : [])].filter(Boolean);
       let best = 0;
       fields.forEach(v => { best = Math.max(best, score(q, v)); });
       best = Math.max(best, score(q, c.societe || '') * 1.04);
@@ -131,52 +131,16 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
     document.head.appendChild(s);
   }
 
-  function rowForClientId(clientId) {
-    const id = String(clientId || '');
-    if (!id) return null;
-    return [...document.querySelectorAll('#clients-table-body tr')].find(r =>
-      String(r.dataset.clientId || r.getAttribute('data-client-id') || r.dataset.id || r.getAttribute('data-id') || '') === id
-    ) || null;
-  }
-
-  function notifyExactClient(clientId, source = 'smart-search') {
-    const id = String(clientId || '');
-    if (!id) return;
-    window.__LRF_EXACT_CLIENT_ID__ = id;
-    try { sessionStorage.setItem('lrfExactClientId', id); } catch (_) {}
-    window.dispatchEvent(new CustomEvent('lrf-client-opened', { detail:{ clientId:id, source } }));
-  }
-
-  function openExactRow(clientId) {
-    const row = rowForClientId(clientId);
-    if (!row) return false;
-    notifyExactClient(clientId);
-    row.click();
+  function requestExactClient(clientId, source = 'smart-search') {
+    const id = String(clientId || '').trim();
+    if (!id) return false;
+    // The page controller owns resolution of aliases, loading and opening.
+    // A suggestion can point to a record absent from the currently filtered DOM.
+    // Never announce lrf-client-opened until the modal has actually opened.
+    window.dispatchEvent(new CustomEvent('lrf-request-open-client', {
+      detail: { clientId: id, source }
+    }));
     return true;
-  }
-
-  function waitAndOpenExactRow(clientId, fallbackHref = '') {
-    if (openExactRow(clientId)) return;
-    const tbody = document.getElementById('clients-table-body');
-    if (!tbody) {
-      if (fallbackHref) location.href = fallbackHref;
-      return;
-    }
-    let done = false;
-    const finish = () => {
-      if (done) return true;
-      if (!openExactRow(clientId)) return false;
-      done = true;
-      observer.disconnect();
-      return true;
-    };
-    const observer = new MutationObserver(finish);
-    observer.observe(tbody, { childList:true, subtree:true, attributes:true, attributeFilter:['data-client-id','data-id'] });
-    setTimeout(() => {
-      if (finish()) return;
-      observer.disconnect();
-      if (fallbackHref) location.href = fallbackHref;
-    }, 1800);
   }
 
   async function enhanceDashboard() {
@@ -243,19 +207,12 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
       event.stopPropagation();
       const id = btn.dataset.clientId || '';
       box.classList.remove('open');
-      // Important : on ouvre exactement la même ligne que lorsqu'on passe par les filtres département.
-      // Aucun rechargement de page, donc aucun risque qu'un autre module choisisse une fiche homonyme.
-      waitAndOpenExactRow(id, `clients.html?edit=${encodeURIComponent(id)}`);
+      requestExactClient(id);
     });
     document.addEventListener('click', e => { if (!wrap.contains(e.target)) box.classList.remove('open'); });
 
-    // Pour les liens provenant du dashboard ou d'une autre page, on force ensuite un vrai clic
-    // sur la ligne Firebase exacte. Cela remet tous les modules CRM sur le même client.
     const editId = new URLSearchParams(location.search).get('edit');
-    if (editId) {
-      notifyExactClient(editId, 'direct-link');
-      setTimeout(() => waitAndOpenExactRow(editId), 80);
-    }
+    if (editId) requestExactClient(editId, 'direct-link');
   }
 
   async function enhanceCrFeed() {

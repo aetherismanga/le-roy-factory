@@ -1,5 +1,5 @@
 import { db } from './firebase.js';
-import { collection, doc, onSnapshot, updateDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { collection, doc, onSnapshot, runTransaction } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
 if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
   window.__LRF_CLIENT_PARTNER_ACCESS__ = true;
@@ -16,27 +16,34 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
   let activeClientId = '';
   let draft = new Set();
   let saving = false;
+  let dirty = false;
+  let draftClientId = null;
+  let baseline = [];
+  const values = value => [...new Set((Array.isArray(value) ? value : []).map(item => String(item).trim()).filter(Boolean))];
+  const samePartners = (left, right) => JSON.stringify([...values(left)].sort()) === JSON.stringify([...values(right)].sort());
   const clean = v => String(v ?? '').trim();
   const norm = v => clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
   const esc = v => clean(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 
   function currentClient() {
-    if (activeClientId) {
-      const c = clients.find(x => x.id === activeClientId);
-      if (c) return c;
-    }
-    const code = clean(document.querySelector('#edit-code-client')?.value).toUpperCase();
-    if (code) {
-      const c = clients.find(x => clean(x.codeClient).toUpperCase() === code);
-      if (c) { activeClientId = c.id; return c; }
-    }
-    const company = norm(document.querySelector('#edit-societe')?.value);
-    if (company) {
-      const c = clients.find(x => norm(x.societe) === company);
-      if (c) { activeClientId = c.id; return c; }
-    }
-    return null;
+    const modalId = clean(document.querySelector('#client-modal')?.dataset.clientId);
+    const id = modalId || activeClientId;
+    return id ? clients.find(client => client.id === id) || null : null;
   }
+  function resetDraft(clientId = '', sourceClient = null) {
+    activeClientId = clean(clientId);
+    draftClientId = activeClientId;
+    baseline = values(sourceClient?.partenaires ?? currentClient()?.partenaires);
+    draft = new Set(baseline);
+    dirty = false;
+  }
+  window.LRFClientPartnerAccess = {
+    getPatch() {
+      if (saving) throw new Error('Les autorisations sont en cours d’enregistrement. Réessayez dans un instant.');
+      return dirty ? { partenaires: [...draft] } : {};
+    },
+    getBaseline() { return { partenaires: [...baseline] }; }
+  };
 
   function installStyles() {
     if (document.querySelector('#lrf-client-partner-access-style')) return;
@@ -105,8 +112,13 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
     const section = ensureSection();
     const grid = section?.querySelector('#crm-partner-grid');
     const client = currentClient();
-    if (!grid || !client) return;
-    draft = new Set(Array.isArray(client.partenaires) ? client.partenaires.filter(id => PARTNERS[id]) : []);
+    if (!grid) return;
+    const clientId = clean(client?.id || activeClientId);
+    if (draftClientId !== clientId) resetDraft(clientId);
+    if (!dirty && client) {
+      baseline = values(client.partenaires);
+      draft = new Set(baseline);
+    }
     grid.innerHTML = Object.entries(PARTNERS).map(([id,[name,logo]]) => `
       <button type="button" class="partner-card-mini${draft.has(id)?' active':''}" data-pid="${esc(id)}" aria-pressed="${draft.has(id)?'true':'false'}">
         ${partnerVisual(id,logo)}<span class="partner-name">${esc(name)}</span>
@@ -115,31 +127,41 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
       e.preventDefault(); e.stopPropagation();
       const id = btn.dataset.pid;
       if (draft.has(id)) draft.delete(id); else draft.add(id);
+      dirty = !samePartners([...draft], baseline);
       btn.classList.toggle('active', draft.has(id));
       btn.setAttribute('aria-pressed', draft.has(id) ? 'true' : 'false');
       const state = section.querySelector('.lrf-partner-state');
       if (state) state.textContent = `${draft.size} partenaire${draft.size>1?'s':''} sélectionné${draft.size>1?'s':''} — à enregistrer`;
     }));
     const state = section.querySelector('.lrf-partner-state');
-    if (state) state.textContent = `${draft.size} partenaire${draft.size>1?'s':''} autorisé${draft.size>1?'s':''}`;
+    if (state) state.textContent = dirty ? `${draft.size} partenaire${draft.size>1?'s':''} sélectionné${draft.size>1?'s':''} — à enregistrer` : `${draft.size} partenaire${draft.size>1?'s':''} autorisé${draft.size>1?'s':''}`;
     ensureMobilePartnerButton();
   }
 
   async function saveDraft() {
     const client = currentClient();
     const state = document.querySelector('#lrf-partner-access-section .lrf-partner-state');
-    if (!client || saving) return;
+    if (!client || saving || !dirty) return;
     saving = true;
     if (state) state.textContent = 'Enregistrement…';
     try {
       const next = [...draft];
-      await updateDoc(doc(db,'clients',client.id), { partenaires:next, partenairesUpdatedAt:new Date().toISOString() });
+      const expected = [...baseline];
+      await runTransaction(db, async transaction => {
+        const ref = doc(db, 'clients', client.id);
+        const snapshot = await transaction.get(ref);
+        if (!snapshot.exists() || snapshot.data().archived === true || snapshot.data().archive === true) throw new Error('Cette fiche a été archivée ou supprimée.');
+        if (!samePartners(snapshot.data().partenaires, expected)) throw new Error('Les autorisations ont changé dans une autre session. Fermez puis rouvrez la fiche avant de réessayer.');
+        transaction.update(ref, { partenaires: next, partenairesUpdatedAt: new Date().toISOString() });
+      });
+      baseline = [...next];
+      dirty = false;
       client.partenaires = next;
       if (state) state.textContent = `✓ ${next.length} partenaire${next.length>1?'s':''} enregistré${next.length>1?'s':''} — accès tarifs mis à jour`;
       window.dispatchEvent(new CustomEvent('lrf-client-partners-saved',{detail:{clientId:client.id,partenaires:next}}));
     } catch (error) {
       console.error('Enregistrement partenaires', error);
-      if (state) state.textContent = 'Erreur lors de l’enregistrement.';
+      if (state) state.textContent = error.message || 'Erreur lors de l’enregistrement.';
     } finally { saving = false; }
   }
 
@@ -173,7 +195,8 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
     if (id) return clients.find(c => c.id === id) || null;
     const cells = row?.querySelectorAll?.('td') || [];
     const company = norm(cells[1]?.childNodes?.[0]?.textContent || cells[1]?.textContent || '');
-    return clients.find(c => norm(c.societe) === company) || null;
+    const candidates = clients.filter(c => norm(c.societe) === company);
+    return candidates.length === 1 ? candidates[0] : null;
   }
 
   function focusMainCard(clientId) {
@@ -203,8 +226,9 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
     const row = e.target.closest('#clients-table-body tr');
     if (row) {
       const c = findClientForRow(row);
-      if (c) activeClientId = c.id;
+      if (c && c.id !== activeClientId) resetDraft(c.id);
     }
+    if (e.target.closest('#btn-add-client')) resetDraft('');
   }, true);
 
   const modal = document.querySelector('#client-modal');
@@ -212,13 +236,31 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
   const quickObserver = new MutationObserver(() => { if (modalOpen()) ensureMobilePartnerButton(); });
   quickObserver.observe(document.body,{childList:true,subtree:true});
 
-  document.querySelector('#client-form')?.addEventListener('submit', () => { if (activeClientId) saveDraft(); }, true);
-  window.addEventListener('lrf-client-opened', e => { if (e.detail?.clientId) activeClientId = clean(e.detail.clientId); setTimeout(refreshModal,30); });
+  // One form transaction, owned by clients.html, persists all changed fields.
+  window.addEventListener('lrf-client-opened', event => {
+    const id = clean(event.detail?.clientId);
+    if (event.detail?.client && !dirty) resetDraft(id,event.detail.client);
+    else if (id !== activeClientId || draftClientId === null) resetDraft(id,event.detail?.client);
+    setTimeout(refreshModal, 30);
+  });
+  window.addEventListener('lrf-client-closed', () => resetDraft(''));
+  window.addEventListener('lrf-client-saved', event => {
+    const id = clean(event.detail?.clientId);
+    if (id && (!activeClientId || id === activeClientId)) {
+      activeClientId = id;
+      draftClientId = id;
+      if (Array.isArray(event.detail?.patch?.partenaires)) {
+        baseline = values(event.detail.patch.partenaires);
+        draft = new Set(baseline);
+        dirty = false;
+      }
+    }
+  });
 
   onSnapshot(collection(db,'clients'), snap => {
     clients = [];
     snap.forEach(d => {
-      const c = {id:d.id,...d.data()};
+      const c = {...d.data(),id:d.id};
       if (c.archived === true || c.archive === true || clean(c.codeClient).toUpperCase() === 'LRF-00001') return;
       clients.push(c);
     });

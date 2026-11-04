@@ -17,7 +17,7 @@ const esc = v => String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 
 let agent=null, calendar=null, tokenClient=null, tokenRenewTimer=null, googleReady=false, googleConnected=false;
 let googleCalendars=[], visibleCalendarIds=new Set(), activeEvent=null, tourUnsubscribe=null, localAgendaUnsubscribe=null;
-let resizeTimer=null, lastRange=null, googleLoadSerial=0;
+let resizeTimer=null, lastRange=null, googleLoadSerial=0, eventMutationPending=false;
 
 function ownerKeyFrom(value){
   const s=lower(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'');
@@ -213,6 +213,7 @@ async function refreshGoogleEvents(start,end){
     if(serial!==googleLoadSerial)return;
     try{
       const response=await gapi.client.calendar.events.list({calendarId:meta.id,timeMin:start.toISOString(),timeMax:end.toISOString(),showDeleted:false,singleEvents:true,orderBy:'startTime',maxResults:2500});
+      if(serial!==googleLoadSerial)return;
       for(const event of response.result.items||[]){
         if(!event.start)continue;
         calendar.addEvent({
@@ -222,6 +223,7 @@ async function refreshGoogleEvents(start,end){
         });
       }
     }catch(err){
+      if(serial!==googleLoadSerial)return;
       console.warn('[Agenda] Calendrier inaccessible',meta.id,err);if(isAuthError(err)){handleAuthExpired();return;}
       meta.available=false;visibleCalendarIds.delete(meta.id);renderLegend();
     }
@@ -233,7 +235,7 @@ function subscribeTours(){
   tourUnsubscribe=onSnapshot(collection(db,'tournees'),snap=>{
     calendar.getEvents().filter(e=>e.extendedProps.sourceType==='tour').forEach(e=>e.remove());
     snap.docs.forEach(tourDoc=>{
-      const tour={id:tourDoc.id,...tourDoc.data()},ownerKey=ownerKeyFrom(`${tour.createdBy||''} ${tour.createdByEmail||''}`),color=ownerColor(ownerKey);
+      const tour={...tourDoc.data(),id:tourDoc.id},ownerKey=ownerKeyFrom(`${tour.createdBy||''} ${tour.createdByEmail||''}`),color=ownerColor(ownerKey);
       (tour.days||[]).forEach((day,index)=>{
         const stops=Array.isArray(day.stops)?day.stops:[],first=stops[0],last=stops[stops.length-1];
         const startTime=first?.arrival||tour.startTime||'08:00',endTime=last?.departure||tour.endTime||'18:00';
@@ -269,11 +271,13 @@ function resetModal(readOnly=false){
   $('#btn-submit-text').style.display=readOnly?'none':'';$('#btn-delete-event').style.display='none';$('#event-source-note').style.display='none';
 }
 function openCreateModal(startDate='',startTime='09:00',endDate='',endTime='10:00'){
+  if(eventMutationPending)return;
   activeEvent=null;resetModal(false);$('#event-edit-id').value='';$('#modal-main-title').textContent='Planifier un rendez-vous';$('#btn-submit-text').textContent='💾 Enregistrer';
   const today=dateOnly(new Date());$('#event-title').value='';$('#event-start-date').value=startDate||today;$('#event-start-time').value=startTime||'09:00';
   $('#event-end-date').value=endDate||startDate||today;$('#event-end-time').value=endTime||'10:00';$('#event-description').value='';renderCalendarSelect();$('#event-modal').style.display='flex';
 }
 function openEvent(event){
+  if(eventMutationPending)return;
   activeEvent=event;const type=event.extendedProps.sourceType;
   if(type==='tour'){
     resetModal(true);$('#modal-main-title').textContent='Tournée commerciale';$('#event-title').value=event.title;$('#event-start-date').value=dateOnly(event.start);$('#event-start-time').value=timeOnly(event.start);
@@ -285,37 +289,46 @@ function openEvent(event){
   $('#event-start-date').value=dateOnly(start);$('#event-start-time').value=timeOnly(start);$('#event-end-date').value=dateOnly(end);$('#event-end-time').value=timeOnly(end);$('#event-description').value=event.extendedProps.description||'';
   if(type==='google'){
     const meta=googleCalendars.find(c=>c.id===event.extendedProps.calendarId),readOnly=!canWriteCalendar(meta);resetModal(readOnly);
-    $('#modal-main-title').textContent=readOnly?'Rendez-vous Google (lecture seule)':'Modifier le rendez-vous';renderCalendarSelect();
+    $('#modal-main-title').textContent=readOnly?'Rendez-vous Google (lecture seule)':'Modifier le rendez-vous';$('#btn-delete-event').style.display=readOnly?'none':'';renderCalendarSelect();
     if(!readOnly&&[...$('#event-calendar').options].some(o=>o.value===event.extendedProps.calendarId))$('#event-calendar').value=event.extendedProps.calendarId;
     else $('#event-calendar').innerHTML=`<option>${esc(event.extendedProps.calendarLabel||event.extendedProps.calendarId)}</option>`;
     $('#event-calendar').disabled=true;const note=$('#event-source-note');note.innerHTML=`Google Calendar · <strong>${esc(event.extendedProps.calendarLabel||event.extendedProps.calendarId)}</strong>`;note.style.display='';
   }else{$('#event-calendar').innerHTML='<option value="crm">Agenda partagé LE ROY FACTORY</option>';$('#event-calendar').value='crm';}
   $('#event-modal').style.display='flex';
 }
-function closeModal(){$('#event-modal').style.display='none';activeEvent=null;}
+function closeModal(){if(eventMutationPending)return;$('#event-modal').style.display='none';activeEvent=null;}
 async function submitEvent(event){
-  event.preventDefault();const editId=$('#event-edit-id').value,title=clean($('#event-title').value),start=combineDateTime($('#event-start-date').value,$('#event-start-time').value),end=combineDateTime($('#event-end-date').value,$('#event-end-time').value),description=clean($('#event-description').value);
+  event.preventDefault();if(eventMutationPending)return;const editing=activeEvent;const editId=$('#event-edit-id').value,title=clean($('#event-title').value),start=combineDateTime($('#event-start-date').value,$('#event-start-time').value),end=combineDateTime($('#event-end-date').value,$('#event-end-time').value),description=clean($('#event-description').value);
   if(!title)return alert('Indiquez un titre de rendez-vous.');if(!(end>start))return alert("L'heure de fin doit être après l'heure de début.");const targetCalendar=$('#event-calendar').value;
+  if(editId&&(!editing||editing.extendedProps.sourceType==='tour'))return;
+  if(editing?.extendedProps.sourceType==='google'&&!canWriteCalendar(googleCalendars.find(c=>c.id===editing.extendedProps.calendarId)))return;
+  eventMutationPending=true;$('#btn-submit-text').disabled=true;$('#btn-delete-event').disabled=true;
   try{
-    if(editId&&activeEvent?.extendedProps.sourceType==='google'){
-      await gapi.client.calendar.events.patch({calendarId:activeEvent.extendedProps.calendarId,eventId:activeEvent.extendedProps.googleEventId,resource:{summary:title,description,start:{dateTime:start.toISOString()},end:{dateTime:end.toISOString()}}});
-    }else if(editId&&activeEvent?.extendedProps.sourceType==='crm'){
-      await updateDoc(doc(db,'agenda_events',activeEvent.extendedProps.firestoreId),{title,description,start:start.toISOString(),end:end.toISOString(),updatedAt:serverTimestamp()});
+    if(editId&&editing?.extendedProps.sourceType==='google'){
+      await gapi.client.calendar.events.patch({calendarId:editing.extendedProps.calendarId,eventId:editing.extendedProps.googleEventId,resource:{summary:title,description,start:editing.allDay?{date:dateOnly(start)}:{dateTime:start.toISOString()},end:editing.allDay?{date:dateOnly(end)}:{dateTime:end.toISOString()}}});
+    }else if(editId&&editing?.extendedProps.sourceType==='crm'){
+      await updateDoc(doc(db,'agenda_events',editing.extendedProps.firestoreId),{title,description,start:start.toISOString(),end:end.toISOString(),updatedAt:serverTimestamp()});
     }else if(googleConnected&&targetCalendar&&targetCalendar!=='crm'){
       await gapi.client.calendar.events.insert({calendarId:targetCalendar,resource:{summary:title,description,start:{dateTime:start.toISOString()},end:{dateTime:end.toISOString()}}});
     }else{
       await addDoc(collection(db,'agenda_events'),{title,description,start:start.toISOString(),end:end.toISOString(),ownerName:agent.name,ownerEmail:agent.email,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});
     }
-    closeModal();if(googleConnected&&lastRange)await refreshGoogleEvents(lastRange.start,lastRange.end);
+    eventMutationPending=false;closeModal();if(googleConnected&&lastRange)await refreshGoogleEvents(lastRange.start,lastRange.end);
   }catch(err){console.error('[Agenda] Enregistrement impossible',err);if(isAuthError(err))handleAuthExpired();alert('Impossible d’enregistrer ce rendez-vous pour le moment.');}
+  finally{eventMutationPending=false;$('#btn-submit-text').disabled=false;$('#btn-delete-event').disabled=false;}
 }
 async function deleteActiveEvent(){
-  if(!activeEvent||!confirm('Supprimer définitivement ce rendez-vous ?'))return;
+  if(eventMutationPending||!activeEvent)return;const editing=activeEvent;
+  if(editing.extendedProps.sourceType==='tour')return;
+  if(editing.extendedProps.sourceType==='google'&&!canWriteCalendar(googleCalendars.find(c=>c.id===editing.extendedProps.calendarId)))return;
+  if(!confirm('Supprimer définitivement ce rendez-vous ?'))return;
+  eventMutationPending=true;$('#btn-submit-text').disabled=true;$('#btn-delete-event').disabled=true;
   try{
-    if(activeEvent.extendedProps.sourceType==='google')await gapi.client.calendar.events.delete({calendarId:activeEvent.extendedProps.calendarId,eventId:activeEvent.extendedProps.googleEventId});
-    else if(activeEvent.extendedProps.sourceType==='crm')await deleteDoc(doc(db,'agenda_events',activeEvent.extendedProps.firestoreId));
-    closeModal();if(googleConnected&&lastRange)await refreshGoogleEvents(lastRange.start,lastRange.end);
+    if(editing.extendedProps.sourceType==='google')await gapi.client.calendar.events.delete({calendarId:editing.extendedProps.calendarId,eventId:editing.extendedProps.googleEventId});
+    else if(editing.extendedProps.sourceType==='crm')await deleteDoc(doc(db,'agenda_events',editing.extendedProps.firestoreId));
+    eventMutationPending=false;closeModal();if(googleConnected&&lastRange)await refreshGoogleEvents(lastRange.start,lastRange.end);
   }catch(err){console.error('[Agenda] Suppression impossible',err);alert('Impossible de supprimer ce rendez-vous.');}
+  finally{eventMutationPending=false;$('#btn-submit-text').disabled=false;$('#btn-delete-event').disabled=false;}
 }
 function bindUi(){
   $('#btn-new-event')?.addEventListener('click',()=>openCreateModal());$('#modal-event-close')?.addEventListener('click',closeModal);$('#btn-cancel-event')?.addEventListener('click',closeModal);

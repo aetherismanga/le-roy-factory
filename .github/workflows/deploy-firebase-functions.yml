@@ -9,6 +9,7 @@ on:
         default: affected
         options:
           - affected
+          - send-only
           - analytics
           - neobath-anima
   push:
@@ -92,6 +93,18 @@ jobs:
           mail_consolidation='functions/scripts/consolidate-group-mail-reports.cjs' in changed and os.environ['EVENT_NAME']=='push'
           mail_verify_only=changed==['functions/scripts/verify-group-mail-deployment.cjs']
           mail_only=bool(changed) and all(p in ['functions/index.js','functions/group-mail-history.js','functions/scripts/backfill-group-mail-reports.cjs','functions/scripts/verify-group-mail-deployment.cjs','functions/test/group-mail-history.test.cjs'] for p in changed)
+          crm_mail_send_only=False
+          if 'functions/index.js' in changed and all(p in ['functions/index.js','functions/scripts/verify-group-mail-deployment.cjs'] for p in changed):
+              try:
+                  def outside_send(source):
+                      start=source.index('exports.sendGroupEmail = onRequest(')
+                      end=source.index('exports.scheduleGroupEmail = onRequest(', start)
+                      return source[:start]+source[end:]
+                  previous=subprocess.check_output(['git','show','HEAD^:functions/index.js'],text=True)
+                  current=subprocess.check_output(['git','show','HEAD:functions/index.js'],text=True)
+                  crm_mail_send_only=outside_send(previous)==outside_send(current)
+              except (ValueError, subprocess.CalledProcessError):
+                  pass
           plan_pose_only=bool(changed) and all(p in ['functions/entry.js','functions/plan-pose-access.js','functions/plan-pose-access-core.cjs','functions/scripts/prepare-plan-pose.cjs','functions/test/plan-pose-access.test.cjs','assets/js/lrf-plan-pose/app.mjs'] or p.startswith('functions/plan-pose/') for p in changed)
           analytics_only=bool(changed) and all(p == 'functions/lrf-analytics.js' for p in changed)
           neobath_only=bool(changed) and all(p == 'functions/entry.js' or p.startswith(('functions/neobath-anima-','functions/neobath-anima/','functions/test/neobath-anima-')) for p in changed)
@@ -101,7 +114,7 @@ jobs:
           fenice_only=bool(changed) and all(p in ['functions/entry.js','functions/fenice-request.js','functions/fenice-request-core.js','functions/fenice-packaging.json','functions/fenice-packaging.mjs','functions/test/fenice-request.test.cjs'] for p in changed)
           biopietra_only=bool(changed) and all(p in ['functions/entry.js','functions/biopietra-request.js','functions/biopietra-request-core.js','functions/biopietra-catalogue.json','functions/test/biopietra-request.test.cjs'] for p in changed)
           cerastone_only=bool(changed) and all(p in ['functions/entry.js','functions/cerastone-request.js','functions/cerastone-request-core.js','functions/cerastone-quantities.js','functions/cerastone-catalogue.json.gz','functions/cerastone-catalogue.manifest.json','functions/test/cerastone-request.test.cjs'] for p in changed)
-          target='functions:getLrfAnalytics' if os.environ['FUNCTION_GROUP']=='analytics' or (os.environ['FUNCTION_GROUP']=='affected' and analytics_only and os.environ['EVENT_NAME']=='push') else 'functions:neobathAnimaApplication' if os.environ['FUNCTION_GROUP']=='neobath-anima' or (neobath_only and os.environ['EVENT_NAME']=='push') else 'functions:sendGroupEmail,functions:scheduleGroupEmail' if mail_consolidation else 'functions:planPoseApplication' if plan_pose_only and os.environ['EVENT_NAME']=='push' else 'functions:sendGroupEmail,functions:scheduleGroupEmail,functions:processScheduledEmails' if mail_only and os.environ['EVENT_NAME']=='push' else 'functions:cerastoneRequest' if cerastone_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf' if tariff_only and os.environ['EVENT_NAME']=='push' else 'functions:biopietraRequest' if biopietra_only and os.environ['EVENT_NAME']=='push' else 'functions:feniceRequest' if fenice_only and os.environ['EVENT_NAME']=='push' else 'functions:getConfiguratorPurchasePrices' if purchase_only and os.environ['EVENT_NAME']=='push' else 'functions:randalProjects' if project_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog,functions:randalProjects,functions:getConfiguratorPurchasePrices,functions:feniceRequest,functions:biopietraRequest,functions:cerastoneRequest,functions:planPoseApplication,functions:neobathAnimaApplication'
+          target='functions:sendGroupEmail' if os.environ['FUNCTION_GROUP']=='send-only' or (os.environ['FUNCTION_GROUP']=='affected' and crm_mail_send_only and os.environ['EVENT_NAME']=='push') else 'functions:getLrfAnalytics' if os.environ['FUNCTION_GROUP']=='analytics' or (os.environ['FUNCTION_GROUP']=='affected' and analytics_only and os.environ['EVENT_NAME']=='push') else 'functions:neobathAnimaApplication' if os.environ['FUNCTION_GROUP']=='neobath-anima' or (neobath_only and os.environ['EVENT_NAME']=='push') else 'functions:sendGroupEmail,functions:scheduleGroupEmail' if mail_consolidation else 'functions:planPoseApplication' if plan_pose_only and os.environ['EVENT_NAME']=='push' else 'functions:sendGroupEmail,functions:scheduleGroupEmail,functions:processScheduledEmails' if mail_only and os.environ['EVENT_NAME']=='push' else 'functions:cerastoneRequest' if cerastone_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf' if tariff_only and os.environ['EVENT_NAME']=='push' else 'functions:biopietraRequest' if biopietra_only and os.environ['EVENT_NAME']=='push' else 'functions:feniceRequest' if fenice_only and os.environ['EVENT_NAME']=='push' else 'functions:getConfiguratorPurchasePrices' if purchase_only and os.environ['EVENT_NAME']=='push' else 'functions:randalProjects' if project_only and os.environ['EVENT_NAME']=='push' else 'functions:getTariffPdf,functions:getNeobathDnaTariff,functions:createProSession,functions:validateProSession,functions:revokeProSession,functions:trackLrfActivity,functions:getLrfAnalytics,functions:eliosStock,functions:eliosOrder,functions:eliosPoseOrder,functions:eliosCatalog,functions:biltOrder,functions:biltDecision,functions:biltScheduleAutoRelease,functions:biltAutoReleaseSweep,functions:crmFilesUpload,functions:siteControl,functions:aquahomeCatalog,functions:reitanoCatalog,functions:randalProjects,functions:getConfiguratorPurchasePrices,functions:feniceRequest,functions:biopietraRequest,functions:cerastoneRequest,functions:planPoseApplication,functions:neobathAnimaApplication'
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('only='+target+'\n')
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('mail_verify_only='+str(mail_verify_only).lower()+'\n')
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('group_mail_consolidation='+str(mail_consolidation).lower()+'\n')
@@ -213,6 +226,7 @@ jobs:
         working-directory: functions
         env:
           GOOGLE_CLOUD_PROJECT: le-roy-factory
+          MAIL_VERIFY_FUNCTIONS: ${{ steps.targets.outputs.only == 'functions:sendGroupEmail' && 'sendGroupEmail' || '' }}
         run: node scripts/verify-group-mail-deployment.cjs
 
       - name: Verify bulk mail endpoints reject unauthenticated requests

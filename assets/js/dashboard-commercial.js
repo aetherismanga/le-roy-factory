@@ -1,4 +1,4 @@
-import { db } from './firebase.js';
+import { db, auth, getAgentProfile } from './firebase.js';
 import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { PARTNER_CONTACTS } from './partner-contacts.js?v=20260903-search&media=20261018';
 
@@ -11,7 +11,33 @@ function localDateKey(d=new Date()){return `${d.getFullYear()}-${String(d.getMon
 function clock(v){const d=parseDate(v);return d?d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):''}
 function duration(sec){const m=Math.round((Number(sec)||0)/60);return m<60?`${m} min`:`${Math.floor(m/60)} h ${String(m%60).padStart(2,'0')}`}
 function distance(m){return `${((Number(m)||0)/1000).toFixed(1).replace('.',',')} km`}
-async function safeCollection(name){try{const s=await getDocs(collection(db,name)),a=[];s.forEach(d=>a.push({id:d.id,...d.data()}));return a}catch(e){console.warn(`Collection ${name} indisponible`,e);return[]}}
+async function safeCollection(name){
+  const snapshot=await getDocs(collection(db,name)),rows=[];
+  snapshot.forEach(document=>rows.push({...document.data(),id:document.id}));
+  return rows;
+}
+
+function waitDashboardAgent(timeout=15000){
+  const current=getAgentProfile(auth.currentUser);
+  if(current)return Promise.resolve(current);
+  return new Promise((resolve,reject)=>{
+    let timer;
+    const stop=()=>{clearTimeout(timer);window.removeEventListener('lrf-agent-auth-ready',ready)};
+    const ready=()=>{const profile=getAgentProfile(auth.currentUser);if(profile){stop();resolve(profile)}};
+    window.addEventListener('lrf-agent-auth-ready',ready);
+    timer=setTimeout(()=>{stop();reject(new Error('Session CRM indisponible. Reconnectez-vous puis réessayez.'))},timeout);
+    ready();
+  });
+}
+
+async function loadDashboardData(){
+  await waitDashboardAgent();
+  return Promise.all([safeCollection('clients'),safeCollection('tournees'),safeCollection('account_requests'),googleEventsToday()]);
+}
+let dashboardLoading=false;
+let dashboardLoaded=false;
+let dashboardLoadFailed=false;
+let dashboardSearchIndex=[];
 
 function injectStyle(){if(document.getElementById('lrf-dashboard-v2-style'))return;const s=document.createElement('style');s.id='lrf-dashboard-v2-style';s.textContent=`
 .comdash{display:grid;gap:1.05rem}.dash-actions{display:flex;gap:.5rem;flex-wrap:wrap}.dash-action{display:inline-flex;align-items:center;gap:.4rem;border:1px solid #d9cfbf;background:linear-gradient(180deg,#fff,#fff9ef);border-radius:10px;padding:.58rem .78rem;text-decoration:none;color:#252525;font-weight:850;font-size:.78rem;box-shadow:0 4px 10px rgba(70,45,20,.055)}.dash-action:hover{border-color:#d4a12b;transform:translateY(-1px)}.dash-action.tour{color:#fff;border-color:#118b82;background:linear-gradient(180deg,#35c3b8,#11867f);box-shadow:0 6px 14px rgba(17,134,127,.18)}.dash-action.saved-tour{border-color:#d8a51e;background:linear-gradient(180deg,#fff7cf,#ffe59a);color:#5a4300}
@@ -35,8 +61,10 @@ function makeSearchIndex(clients,tours,requests){
   return index;
 }
 function setupSearch(index){
-  const input=document.getElementById('crm-global-search'),box=document.getElementById('crm-global-results');if(!input||!box)return;
-  const render=()=>{const q=norm(input.value.trim());if(q.length<2){box.classList.remove('open');box.innerHTML='';return;}const terms=q.split(/\s+/).filter(Boolean);const hits=index.filter(x=>terms.every(t=>x.hay.includes(t))).slice(0,14);box.innerHTML=hits.length?hits.map(x=>`<a class=\"dash-search-result\" href=\"${x.href}\"><span class=\"dash-search-icon\">${x.icon}</span><span><b>${esc(x.title)}</b><small>${esc(x.sub||'')}</small></span><span class=\"dash-search-kind\">${esc(x.kind)}</span></a>`).join(''):'<div class=\"dash-search-empty\">Aucun résultat dans le CRM.</div>';box.classList.add('open');};
+  dashboardSearchIndex=index;
+  const input=document.getElementById('crm-global-search'),box=document.getElementById('crm-global-results');if(!input||!box||input.dataset.lrfSearchBound)return;
+  input.dataset.lrfSearchBound='1';
+  const render=()=>{const q=norm(input.value.trim());if(q.length<2){box.classList.remove('open');box.innerHTML='';return;}const terms=q.split(/\s+/).filter(Boolean);const hits=dashboardSearchIndex.filter(x=>terms.every(t=>x.hay.includes(t))).slice(0,14);box.innerHTML=hits.length?hits.map(x=>`<a class=\"dash-search-result\" href=\"${x.href}\"><span class=\"dash-search-icon\">${x.icon}</span><span><b>${esc(x.title)}</b><small>${esc(x.sub||'')}</small></span><span class=\"dash-search-kind\">${esc(x.kind)}</span></a>`).join(''):'<div class=\"dash-search-empty\">Aucun résultat dans le CRM.</div>';box.classList.add('open');};
   input.addEventListener('input',render);input.addEventListener('keydown',e=>{if(e.key==='Escape'){input.value='';box.classList.remove('open')}if(e.key==='Enter'){const first=box.querySelector('a');if(first)location.href=first.href;}});document.addEventListener('click',e=>{if(!e.target.closest('.dash-search-wrap'))box.classList.remove('open')});document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();input.focus();}});
 }
 async function googleEventsToday(){
@@ -79,7 +107,16 @@ async function init(){
     <div class=\"dash-grid\"><div class=\"dash-card dash-today\"><div class=\"dash-title\"><h3>📅 Planning du jour</h3><div><a href=\"tournees.html\">Créer une tournée</a> · <a href=\"tournees.html#tour-saved-list\">Mes tournées</a> · <a href=\"agenda.html\">Ouvrir l’agenda</a></div></div><div id=\"dash-today-list\" class=\"today-list\"><div class=\"dash-empty\">Chargement du planning…</div></div></div></div>
     <div class=\"dash-grid\"><div class=\"dash-card\"><div class=\"dash-title\"><h3>🕒 Dernières activités commerciales</h3></div><div id=\"dash-activities\" class=\"activity-list\"></div></div><div class=\"dash-card\"><div class=\"dash-title\"><h3>📌 État du portefeuille</h3></div><div id=\"dash-state\"></div></div></div>`;top.insertAdjacentElement('afterend',root);
 
-  const [clients,tours,requests,events]=await Promise.all([safeCollection('clients'),safeCollection('tournees'),safeCollection('account_requests'),googleEventsToday()]);
+  window.addEventListener('online',()=>{if(dashboardLoadFailed)reloadDashboard()});
+  await reloadDashboard();
+}
+async function reloadDashboard(){
+  if(dashboardLoading)return;
+  dashboardLoading=true;
+  const alert=document.getElementById('dash-alert');
+  if(alert)alert.textContent='Chargement du portefeuille…';
+  try{
+    const [clients,tours,requests,events]=await loadDashboardData();
   const myTours=document.getElementById('dash-my-tours');if(myTours)myTours.textContent=`🗂 Mes tournées${tours.length?` (${tours.length})`:''}`;
   const active=clients.filter(c=>!c.archived&&!c.archive);const nbClients=active.filter(c=>String(c.type||'client').toLowerCase()!=='prospect').length;const prospects=active.length-nbClients;const known=active.filter(c=>days(c)!==null);const never=active.length-known.length;const d60=known.filter(c=>days(c)>60).length;const d90=known.filter(c=>days(c)>90).length;
   document.getElementById('dash-kpis').innerHTML=`<div class=\"dash-card\"><div class=\"dash-kpi-label\">Clients</div><div class=\"dash-kpi-value\">${nbClients}</div><div class=\"dash-kpi-sub\">portefeuille actif</div></div><div class=\"dash-card\"><div class=\"dash-kpi-label\">Prospects</div><div class=\"dash-kpi-value\">${prospects}</div><div class=\"dash-kpi-sub\">à convertir</div></div><div class=\"dash-card\"><div class=\"dash-kpi-label\">À relancer +60 j</div><div class=\"dash-kpi-value\">${d60}</div><div class=\"dash-kpi-sub\">contact connu</div></div><div class=\"dash-card\"><div class=\"dash-kpi-label\">Urgents +90 j</div><div class=\"dash-kpi-value\">${d90}</div><div class=\"dash-kpi-sub\">priorité commerciale</div></div><div class=\"dash-card\"><div class=\"dash-kpi-label\">Jamais contactés</div><div class=\"dash-kpi-value\">${never}</div><div class=\"dash-kpi-sub\">à qualifier</div></div>`;
@@ -88,5 +125,19 @@ async function init(){
 
   const acts=[];active.forEach(c=>{(c.comptes_rendus||c.comptesRendus||[]).forEach(x=>{const d=parseDate(x.date||x.dateCreation);if(d)acts.push({d,label:x.type||'Compte-rendu',name:c.societe})});(c.historiqueMails||[]).forEach(x=>{const d=parseDate(x.date);if(d)acts.push({d,label:'Mail envoyé',name:c.societe})})});acts.sort((a,b)=>b.d-a.d);document.getElementById('dash-activities').innerHTML=acts.slice(0,8).map(a=>`<div class=\"activity-row\"><div><div class=\"priority-name\">${esc(a.label)}</div><div class=\"priority-meta\">${esc(a.name||'')}</div></div><span class=\"priority-meta\">${a.d.toLocaleDateString('fr-FR')}</span></div>`).join('')||'<div class=\"dash-empty\">Aucune activité enregistrée.</div>';
   const recent=known.filter(c=>days(c)<=30).length,mid=known.filter(c=>days(c)>30&&days(c)<=60).length,late=known.filter(c=>days(c)>60&&days(c)<=90).length;document.getElementById('dash-state').innerHTML=`<div class=\"dash-state-list\"><div>🟢 Contact récent ≤30 j : <strong>${recent}</strong></div><div>🟡 31–60 jours : <strong>${mid}</strong></div><div>🟠 61–90 jours : <strong>${late}</strong></div><div>🔴 +90 jours : <strong>${d90}</strong></div><div>⚪ Jamais contacté : <strong>${never}</strong></div></div>`;
+    dashboardLoaded=true;dashboardLoadFailed=false;
+  }catch(error){
+    console.error('Chargement du tableau de bord impossible',error);
+    dashboardLoadFailed=true;
+    if(alert){
+      alert.innerHTML=`${dashboardLoaded?'Actualisation impossible. Les derniers chiffres chargés restent affichés.':'Impossible de charger les données du CRM. Vérifiez votre connexion et réessayez.'} <button type="button" class="dash-action" id="dash-retry-load">↻ Réessayer</button>`;
+      document.getElementById('dash-retry-load')?.addEventListener('click',reloadDashboard);
+    }
+    if(!dashboardLoaded){
+      for(const id of ['dash-today-list','dash-activities','dash-state']){
+        const host=document.getElementById(id);if(host)host.textContent='Données indisponibles. Utilisez Réessayer.';
+      }
+    }
+  }finally{dashboardLoading=false;}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
