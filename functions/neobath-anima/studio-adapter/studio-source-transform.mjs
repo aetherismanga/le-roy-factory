@@ -12,6 +12,7 @@ import {transformBasinUnitSource} from './basin-unit-transform.mjs';
 import {transformFurnitureAccessoryAtelier,transformFurnitureAccessoryPreview} from './accessories-transform.mjs';
 import {transformCatalogueExtras} from './catalogue-extras-transform.mjs';
 import {transformAnimaQuoteDisplay} from './quote-display-transform.mjs';
+import {transformAnimaTapUI} from './tap-ui-transform.mjs';
 import {transformAnimaTapCompatibility,transformAnimaTapPreview} from './tap-compatibility-transform.mjs';
 const STUDIO_ORIGIN='https://studio-one-beta-test-v2.vercel.app/';
 const PRIVATE_URL='https://leroyfactory.fr/neobath-anima-configurateur.html';
@@ -30,6 +31,11 @@ const __animaHistory={state:null,replaceState(state,_title,url){this.state=state
 
 export function transformCommonStudioSource(input,relativePath){
  let source=input.replace(/(['"])studio-one(?=[-'"])/g,'$1neobath-anima-studio').replaceAll('STUDIO ONE','NEOBATH ANIMA').replaceAll('RANDAL','NEOBATH').replaceAll("'ROBLE'","'rovere-alba'").replaceAll('https://leroyfactory.fr/configurateurs-randal.html','https://leroyfactory.fr/configurateurs.html');
+ if(relativePath==='composition.js'){
+  const start='validate(item,p=item.placement,d=item.dimensions,items=this.items,room=this.room){';
+  if(!source.includes(start))throw Error('Anima wall mixer lock guard contract changed.');
+  source=source.replace(start,start+"if(item.type==='tap'&&item.settings?.use==='basin-wall'&&this.items.some(live=>live.id===item.id)&&p&&['wall','u','height','offset','rotation'].some(key=>(p[key]||0)!==(this.items.find(live=>live.id===item.id)?.placement?.[key]||0))&&this.items.some(host=>['cabinet','worktop'].includes(host.type)&&host.settings.tapWallIds?.includes(item.id)&&isItemPositionLocked(this,host)))return 'Déverrouillez la vasque avant de déplacer son mitigeur mural.';");
+ }
  if(relativePath==='cabinet-combinations.js')source=source.replace('cabinetCombinations(total){',"cabinetCombinations(total,format='two'){").replace('const count=Math.ceil(total/120),common=',"const stock=WIDTH_PRESETS.filter(width=>validWidth(width,format));if(!stock.length)return [];const count=Math.ceil(total/Math.max(...stock)),common=").replace('.filter(validWidth)','.filter(width=>validWidth(width,format))');
  if(relativePath==='commerce/appearance.js'){
   source=source.replace("';background-image:url(assets/'+f.texture+');background-size:cover'","';background-image:url('+__animaAsset(f.texture)+');background-size:cover'");source=assetPrelude+source;
@@ -93,7 +99,7 @@ export function transformCommonStudioSource(input,relativePath){
  if(relativePath==='commerce/preview-model.js')source=transformPremiumPreview(source);
  source=transformStandaloneSource(source,relativePath);
  source=transformBasinUnitSource(source,relativePath);
- if(relativePath==='app.js'){source=transformFurnitureAccessoryAtelier(source);source=transformCatalogueExtras(source,relativePath);source=transformAnimaTapCompatibility(source);}
+ if(relativePath==='app.js'){source=transformFurnitureAccessoryAtelier(source);source=transformCatalogueExtras(source,relativePath);source=transformAnimaTapCompatibility(source);source=transformAnimaTapUI(source,relativePath);}
  if(relativePath==='commerce/preview-model.js'){source=transformFurnitureAccessoryPreview(source);source=transformAnimaTapPreview(source);}
  source=transformAnimaQuoteDisplay(source,relativePath);
  return transformPremiumRendering(source,relativePath);

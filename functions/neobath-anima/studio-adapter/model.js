@@ -12,18 +12,19 @@ import {applyAnimaBasinAppearance} from './premium-rendering.mjs';
 import {basinColors} from './basins.js';
 import {animaBasinStyle} from './top-profiles.js';
 import {applyAnimaDrawerFinish} from './drawer-finish.js';
+import {tapDrillingKey} from './tap-drilling.js';
 export {FINISHES,roundedRect};
 export const SPEC={series:'NEOBATH ANIMA · Pura',width:.80,height:.52,depth:.46,bottom:.30,panel:.019,mirrorDiameter:.60,basin:'Lavabo Neobath Anima',cabinetRef:'APUR-PL8052',basinRef:null,mirrorRef:'SP6070'};
 function discardGeometry(root){root?.removeFromParent();const seen=new Set();root?.traverse(o=>{if(o.isMesh&&!seen.has(o.geometry)){seen.add(o.geometry);o.geometry.dispose();}});}
 export function makeMirrorFrame(){return makeCatalogueMirror({mirrorModel:'sp6070-mirror'}).root;}
-export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='bare',topDrawer='siphon',format='two',facadeMode='overlay',hingeSide='left',topSpan=null,topOffset=0,topPlanId=null,topSurfaceId=null,topSurfaceNcs='',topLength=null,topShift=0,topDepth=null,basinOffsetX=0,basinOffsetZ=0,basinBottom='none',basinSupport=false,basinColor='standard',basinPriceKey=null}={}){
+export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='bare',topDrawer='siphon',format='two',facadeMode='overlay',hingeSide='left',topSpan=null,topOffset=0,topPlanId=null,topSurfaceId=null,topSurfaceNcs='',topLength=null,topShift=0,topDepth=null,basinOffsetX=0,basinOffsetZ=0,basinBottom='none',basinSupport=false,basinColor='standard',basinPriceKey=null,tapMode='auto',tapWallIds=[]}={}){
   const cm=Math.round(width*100),form=cabinetFormat(format),product=cabinetProduct(format,cm);
   if(!validWidth(cm,format)||!product)throw Error('Ce format Anima n’existe pas dans cette largeur.');
   // Import the real Studio One factory; do not maintain a second carcass,
   // drawer, runners or hardware implementation. Its configuration alias sets
   // the Anima 52/26 cm heights while preserving the established assembly.
   const insideHost=x=>x>=-width/2+.09&&x<=width/2-.09;
-  const initial=topSelection(basinTop,cm,format,basinLayout,topSpan||cm,topPlanId,topLength,{topDepth:topDepth??undefined,basinOffsetX,basinOffsetZ,basinBottom,basinSupport,basinColor,basinPriceKey}),initialCentres=(initial?.positions?.length?initial.positions:[]).map(x=>x+(topOffset+topShift)/100).filter(insideHost);
+  const initial=topSelection(basinTop,cm,format,basinLayout,topSpan||cm,topPlanId,topLength,{topDepth:topDepth??undefined,basinOffsetX,basinOffsetZ,basinBottom,basinSupport,basinColor,basinPriceKey,tapMode,tapWallIds}),initialCentres=(initial?.positions?.length?initial.positions:[]).map(x=>x+(topOffset+topShift)/100).filter(insideHost);
   const asset=studioMakeModel({width,includeMirror:false,basinTop:'plain',topDrawer:form.subtype==='vanity'?topDrawer:'full',format,facadeMode:'overlay',animaPlumbing:initialCentres,animaPlumbingZ:initialCentres.map(x=>{const i=(initial?.positions||[]).findIndex(local=>Math.abs(local+(topOffset+topShift)/100-x)<1e-7);return (initial?.positionsZ?.[i]??.020)+(initial?.previewDepth-initial?.referenceDepth||0)/200;})});
   // These are closed shells with correctly oriented inner and outer walls.
   // Rendering their back faces as well produces extra layers in smoked bowls.
@@ -61,7 +62,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='ba
   bareTopHitTarget.userData={editTarget:'basin',animaWorktopTarget:true,animaBareTop:true,sourceCabinetId:product.id};asset.root.add(bareTopHitTarget);asset.bareTopHitTarget=bareTopHitTarget;
   const surfaceOwner=new T.Mesh(new T.BufferGeometry(),[asset.planMaterial,whiteGelcoat,coloredGelcoat]);surfaceOwner.name='Anima_surface_material_owner';surfaceOwner.visible=false;asset.root.add(surfaceOwner);
   asset.setSurface=(settings={},options={})=>{
-    surfaceSettings={...surfaceSettings,...settings,top:topMode,width:cm,format,basinLayout,topSpan:topSpan||cm,topOffset,topPlanId,topLength,topShift,topDepth,basinOffsetX,basinOffsetZ,basinBottom,basinSupport,basinColor,basinPriceKey};
+    surfaceSettings={...surfaceSettings,...settings,top:topMode,width:cm,format,basinLayout,topSpan:topSpan||cm,topOffset,topPlanId,topLength,topShift,topDepth,basinOffsetX,basinOffsetZ,basinBottom,basinSupport,basinColor,basinPriceKey,tapMode,tapWallIds};
     const bowlAppearance=basinColors(topMode,cm,format,basinLayout,topSpan||cm,topPlanId,topLength,surfaceSettings).find(colour=>colour.id===(basinPriceKey||basinColor));
     if(bowlAppearance)applyAnimaBasinAppearance(asset.ceramic,bowlAppearance);
     const normalized=surfaceController.apply(surfaceSettings,selection,{...options,furnitureTextures:asset.furniturePlanTextures});
@@ -89,16 +90,16 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='ba
   asset.getTopDrawer=()=>drawerMode;
   asset.setTop=(mode,settings={})=>{
     const span=Number.isFinite(settings.topSpan)?settings.topSpan:topSpan||cm,offset=Number.isFinite(settings.topOffset)?settings.topOffset:topOffset;
-    const nextSettings={topPlanId,basinLayout,topLength,topShift,topDepth,basinOffsetX,basinOffsetZ,basinBottom,basinSupport,basinColor,basinPriceKey};
+    const nextSettings={topPlanId,basinLayout,topLength,topShift,topDepth,basinOffsetX,basinOffsetZ,basinBottom,basinSupport,basinColor,basinPriceKey,tapMode,tapWallIds};
     for(const key of Object.keys(nextSettings))if(settings[key]!==undefined)nextSettings[key]=settings[key];
-    const next=topSelection(mode,cm,format,nextSettings.basinLayout,span,nextSettings.topPlanId,nextSettings.topLength,{topDepth:nextSettings.topDepth??undefined,basinOffsetX:nextSettings.basinOffsetX,basinOffsetZ:nextSettings.basinOffsetZ,basinBottom:nextSettings.basinBottom,basinSupport:nextSettings.basinSupport,basinColor:nextSettings.basinColor,basinPriceKey:nextSettings.basinPriceKey});if(mode!=='bare'&&!next)return false;
-    const key=[mode,span,offset,...['topPlanId','basinLayout','topLength','topShift','topDepth','basinOffsetX','basinOffsetZ','basinBottom','basinSupport'].map(key=>nextSettings[key])].join('|');if(topKey===key&&currentTop){selection=next;({topPlanId,basinLayout,topLength,topShift,topDepth,basinOffsetX,basinOffsetZ,basinBottom,basinSupport,basinColor,basinPriceKey}=nextSettings);asset.setSurface(settings);return true;}
+    const next=topSelection(mode,cm,format,nextSettings.basinLayout,span,nextSettings.topPlanId,nextSettings.topLength,{topDepth:nextSettings.topDepth??undefined,basinOffsetX:nextSettings.basinOffsetX,basinOffsetZ:nextSettings.basinOffsetZ,basinBottom:nextSettings.basinBottom,basinSupport:nextSettings.basinSupport,basinColor:nextSettings.basinColor,basinPriceKey:nextSettings.basinPriceKey,tapMode:nextSettings.tapMode,tapWallIds:nextSettings.tapWallIds});if(mode!=='bare'&&!next)return false;
+    const key=[mode,span,offset,...['topPlanId','basinLayout','topLength','topShift','topDepth','basinOffsetX','basinOffsetZ','basinBottom','basinSupport'].map(key=>nextSettings[key]),tapDrillingKey(nextSettings)].join('|');if(topKey===key&&currentTop){selection=next;({topPlanId,basinLayout,topLength,topShift,topDepth,basinOffsetX,basinOffsetZ,basinBottom,basinSupport,basinColor,basinPriceKey,tapMode,tapWallIds}=nextSettings);asset.setSurface(settings);return true;}
     const family=surfaceFamilyForSelection(next),style=animaBasinStyle(next?.top,next?.basin),bowlMaterial=style.gelcoat==='white'?whiteGelcoat:style.gelcoat==='colored'?coloredGelcoat:next?.integrated&&family&&family!=='furniture'?asset.planMaterial:asset.ceramic;
     let nextTop;try{nextTop=buildAnimaTop({selection:next,wood:asset.frontWood,ceramic:asset.ceramic,planMaterial:asset.planMaterial,bowlMaterial,chrome:rawFaucets[0].getObjectByName('Embase').material,surfaceY:form.base+form.height,cabinetDepth:actualDepth});}catch{return false;}
     // Commit one complete assembly only after its geometry succeeds. A failed
     // replacement must not leave an old bowl floating over a second worktop.
     currentTop?.dispose();currentTop=nextTop;selection=next;topMode=mode;topSpan=span;topOffset=offset;topKey=key;
-    ({topPlanId,basinLayout,topLength,topShift,topDepth,basinOffsetX,basinOffsetZ,basinBottom,basinSupport,basinColor,basinPriceKey}=nextSettings);
+    ({topPlanId,basinLayout,topLength,topShift,topDepth,basinOffsetX,basinOffsetZ,basinBottom,basinSupport,basinColor,basinPriceKey,tapMode,tapWallIds}=nextSettings);
     applyAnimaBasinAppearance(asset.ceramic,{hex:'#f6f5f1',roughness:.56,clearcoat:0});
     currentTop.root.position.x=(topOffset+topShift)/100;
     currentTop.root.userData.sourceCabinetId=product.id;currentTop.root.userData.animaWorktopTarget=true;asset.worktopRoot=currentTop.root;bareTopHitTarget.visible=!selection?.top;

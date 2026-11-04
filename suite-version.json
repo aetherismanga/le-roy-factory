@@ -149,7 +149,7 @@
       "privateApplicationEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-basins-11",
+      "releaseId": "20261104-neobath-anima-studio-one-taps-12",
       "page": "neobath-anima-configurateur.html",
       "access": "agents-only",
       "modules": 42,
@@ -158,9 +158,9 @@
       "products": 257,
       "compositions": 16,
       "projectSync": "shared-agent-private-api",
-      "appSha256": "8f8b708baffe910fb794fb47594e8f60746ee7b0d4238cb79b9b7353f869d009",
+      "appSha256": "df95a0710c8a93e698b7a9274d30ede63f4ed2f6b9f023394182a00310161d2d",
       "engine": "studio-one",
-      "homeSha256": "b6bace8bc5784f2a387857dd98f5574a9760e3c7e4ebcf9913475aa8c35884d0",
+      "homeSha256": "b00716291279691c0c22fd719d3b349c65a9b0cfa34c444e51b12acfb442782c",
       "photographs": 155,
       "sourceEntries": [
         "studio-one/src/commerce/home.js",
@@ -222,7 +222,11 @@
       "visibleEclisseFinishPalette": true,
       "sidebarRearCantileverFixing": true,
       "customPlanTapHolePricing": true,
-      "quoteShowsKnownSubtotal": true
+      "quoteShowsKnownSubtotal": true,
+      "automaticBasinMixers": true,
+      "wallTapDetection": true,
+      "customTapDrillingFollowsMount": true,
+      "independentDoubleBasinTapMounts": true
     },
     "clientAnalysis": {
       "releaseId": "20261103-reports2",
@@ -273,7 +277,7 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261103-neobath-anima-studio-one-basins-11",
+      "releaseId": "20261104-neobath-anima-studio-one-taps-12",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true

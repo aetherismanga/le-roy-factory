@@ -1,28 +1,57 @@
 import {parse} from 'acorn';
 function replaceFunction(source,name,replacement){const node=parse(source,{ecmaVersion:'latest',sourceType:'module'}).body.find(node=>node.type==='FunctionDeclaration'&&node.id.name===name);if(!node)throw Error('Anima faucet compatibility contract changed: '+name);return source.slice(0,node.start)+replacement+source.slice(node.end);}
 export const tapCompatibilityPrelude=`
-import {planTapCompatibility as __animaTapCheck,compatibleAnimaTaps as __animaTapChoices,exactAnimaTap as __animaExactTap} from '@anima-adapter/tap-compatibility-runtime.js';
+import {planTapCompatibility as __animaTapCheck,exactAnimaTap as __animaExactTap} from '@anima-adapter/tap-compatibility-runtime.js';
+import {normalizeAnimaLiveTaps as __animaNormalizeLiveTaps,animaPlanTapContext as __animaPlanTapContext,animaProspectiveTapCheck as __animaProspectiveTapCheck,animaCompatibleTapProducts as __animaTapProducts,animaWallTapProposal as __animaWallTapProposal} from '@anima-adapter/tap-automation-runtime.js';
+let __animaSyncingTaps=false;
 function __animaClearAttachedTaps(asset){for(const key of ['aquaTap','aquaTapExtra']){const tap=asset?.[key];if(tap){tap.removeFromParent();disposeObject(tap);asset[key]=null;}}for(const tap of asset?.faucets||[asset?.faucet])if(tap)tap.visible=false;}
+function __animaTapSnapshot(){return {version:2,manufacturer:'neobath-anima',room:cloneRoom(roomConfig),locked:!!composition.locked,items:composition.snapshot()};}
+function __animaSyncTapInstallations(){
+ if(!composition||__animaSyncingTaps||projectWorkspace?.locked||restoring)return;
+ const project=__animaTapSnapshot();
+ try{const next=__animaNormalizeLiveTaps(project,composition.items);if(next===project)return;__animaSyncingTaps=true;try{__animaCommitCabinetProject(next,{checkpoint:false});}finally{__animaSyncingTaps=false;}}catch(error){placementStatus(error.message||'Vérifiez la pose du mitigeur.');}
+}
+function __animaCommitTapSettings(item,patch){
+ if(!item||!['cabinet','worktop'].includes(item.type)||projectWorkspace?.locked)return false;
+ if(isItemPositionLocked(composition,item)){placementStatus('Déverrouillez cet élément pour modifier sa robinetterie.');return false;}
+ const project=__animaTapSnapshot(),draft={...project,items:project.items.map(raw=>raw.id===item.id?{...raw,settings:{...raw.settings,...patch}}:raw)};
+ try{const next=__animaNormalizeLiveTaps(draft,composition.items);__animaSyncingTaps=true;try{return __animaCommitCabinetProject(next);}finally{__animaSyncingTaps=false;}}catch(error){placementStatus(error.message);return false;}
+}
+function __animaSetAutomaticTap(){const item=composition?.selected;return __animaCommitTapSettings(item,{tap:null,tapMode:'auto'});}
+function __animaChooseTapProduct(product){
+ if(!product||projectWorkspace?.locked)return false;
+ let host=composition?.selected;
+ if(!['cabinet','worktop'].includes(host?.type)){const candidates=composition.items.filter(item=>['cabinet','worktop'].includes(item.type)&&__animaPlanTapContext(item)?.top?.wells?.length);host=candidates.length===1?candidates[0]:null;}
+ if(['basin','basin-xl'].includes(product.use)){
+  if(!host){placementStatus('Sélectionnez la vasque à équiper dans la pièce.');return false;}
+  selectItem(host.id);return setCabinetTap(product.reference);
+ }
+ const settings={use:product.use,tap:product.reference,metal:product.finish};
+ if(product.use==='basin-wall'&&host){
+  if(isItemPositionLocked(composition,host)){placementStatus('Déverrouillez la vasque pour modifier son installation.');return false;}
+  const wells=__animaPlanTapContext(host)?.top?.wells||[];if(wells.length&&wells.every((_,index)=>host.settings.tapWallIds?.[index])){placementStatus('Cette vasque est déjà équipée. Sélectionnez son mitigeur mural dans la pièce pour le modifier.');return false;}
+  let prepared;try{prepared=prepareProductAddition('tap',host.placement.wall,settings);const proposal=__animaWallTapProposal(__animaTapSnapshot(),host,product,prepared.asset);if(!proposal){placementStatus('La portée de ce mitigeur mural ne convient pas à cette vasque.');return false;}return !!addItem('tap',proposal.placement.wall,{...settings,placement:proposal.placement,strictPlacement:true});}finally{if(prepared?.asset)disposeObject(prepared.asset.root);}
+ }
+ return !!addItem('tap',undefined,settings);
+}
+function __animaWallTapLockedHost(id){return composition?.items.find(host=>['cabinet','worktop'].includes(host.type)&&host.settings.tapWallIds?.includes(id)&&isItemPositionLocked(composition,host));}
 `;
 export function transformAnimaTapCompatibility(source){
  if(source.includes('function __animaClearAttachedTaps('))return source;
  source=source.replace("if(type==='cabinet')installCabinetTap(result.item)","if(['cabinet','worktop'].includes(type))installCabinetTap(result.item)");
+ source=source.replace("'topShift','topAutoFit'","'tapMode','tapWallIds','tapPreferredRef','topShift','topAutoFit'");
+ for(const s of ['s','state','settings'])source=source.replaceAll('topPlanId:'+s+'.topPlanId,','tapMode:'+s+'.tapMode,tapWallIds:'+s+'.tapWallIds,topPlanId:'+s+'.topPlanId,');
  source=source.replace('function renderTapChooser(','function __animaLegacyRenderTapChooser(');
  source+=`\nfunction renderTapChooser(parent,item){
   if(!item||!['cabinet','worktop'].includes(item.type))return __animaLegacyRenderTapChooser(parent,item);
-  const box=document.createElement('div');box.className='tap-chooser';const title=document.createElement('strong');title.textContent='AQUA HOME · mitigeurs compatibles';box.append(title);
-  const products=__animaTapChoices(item.asset),selected=products.find(product=>product.reference===item.settings.tap),none=document.createElement('small');
-  if(!products.length){none.textContent=item.asset?.tops?.root?.userData?.animaTop?.wells?.length?'Aucun mitigeur de plan proposé ne correspond à cette pose. Choisissez une pose murale adaptée.':'Ajoutez une vasque pour choisir un mitigeur adapté.';box.append(none);parent.append(box);return;}
-  const group=product=>tapModelKey(product)+'|'+product.use,families=[...new Set(products.map(group))];field(box,'Modèle',selected?group(selected):'',[{id:'',name:'Sans mitigeur'},...families.map(id=>{const product=products.find(product=>group(product)===id);return {id,name:tapModelLabel(product)+(product.use==='basin-xl'?' · XL':' · standard')};})],id=>{if(!id){setCabinetTap('');return;}const product=products.find(product=>group(product)===id&&product.finish===selected?.finish)||products.find(product=>group(product)===id);setCabinetTap(product.reference);});if(selected)field(box,'Finition',selected.reference,products.filter(product=>group(product)===group(selected)).map(product=>({id:product.reference,name:product.finish})),reference=>setCabinetTap(reference));
-  if(selected){const ref=document.createElement('small');ref.textContent='Réf. '+selected.reference;box.append(ref);renderAquahomeProductPreview(box,selected);renderAquahomeModelChoices(box,{products:products.filter(product=>product.use===selected.use),selected,onSelect:product=>setCabinetTap(product.reference)});}else if(item.asset?.tapCompatibilityReason){none.textContent=item.asset.tapCompatibilityReason;box.append(none);}
-  parent.append(box);
+  return __animaRenderTapChooser(parent,{item,products:__animaTapProducts(item),onChoose:product=>setCabinetTap(product.reference),onAuto:__animaSetAutomaticTap,onNone:()=>setCabinetTap(''),onWall:__animaOpenWallTapChooser,renderPreview:renderAquahomeProductPreview,renderModels:renderAquahomeModelChoices});
  }\n`;
  source=replaceFunction(source,'installCabinetTap',`function installCabinetTap(item){
   if(!item||!['cabinet','worktop'].includes(item.type))return;const asset=item.asset;if(!asset)return;
   for(const tap of asset.faucets||[asset.faucet])if(tap)tap.visible=false;
   if(!item.settings.tap){__animaClearAttachedTaps(asset);return;}
   const product=__animaExactTap(item.settings.tap),check=__animaTapCheck(asset,product);
-  if(!check.compatible){asset.tapCompatibilityReason=check.reason;item.settings.tap=null;__animaClearAttachedTaps(asset);return;}
+  if(!check.compatible){asset.tapCompatibilityReason=check.reason;item.settings.tapPreferredRef=item.settings.tap;item.settings.tap=null;__animaClearAttachedTaps(asset);return;}
   asset.tapCompatibilityReason='';const keys=['aquaTap','aquaTapExtra'];
   for(const [index,placement]of check.placements.entries()){
    const key=keys[index];if(!key)continue;if(asset[key]?.userData.reference!==product.reference){if(asset[key]){asset[key].removeFromParent();disposeObject(asset[key]);}asset[key]=makeTap(product);asset[key].userData.editTarget='basin';asset.root.add(asset[key]);}
@@ -33,9 +62,14 @@ export function transformAnimaTapCompatibility(source){
  }`);
  source=replaceFunction(source,'setCabinetTap',`function setCabinetTap(reference){
   const item=composition?.selected;if(!item||!['cabinet','worktop'].includes(item.type)||projectWorkspace?.locked)return false;
-  if(reference){const product=__animaExactTap(reference),check=__animaTapCheck(item.asset,product);if(!check.compatible){placementStatus(check.reason);return false;}}
-  item.settings.tap=reference||null;installCabinetTap(item);refreshInspector();invalidate();scheduleProjectCheckpoint();return true;
+  if(reference){const check=__animaProspectiveTapCheck(item,reference);if(!check.compatible){placementStatus(check.reason);return false;}}
+  return __animaCommitTapSettings(item,reference?{tap:reference,tapPreferredRef:reference,tapMode:'manual'}:{tap:null,tapMode:'none'});
  }`);
+ source=source.replace('function renderComposition(){','function renderComposition(){__animaSyncTapInstallations();');
+ source=source.replace('function collectProject(){__animaSyncContinuousTops();','function collectProject(){__animaSyncContinuousTops();__animaSyncTapInstallations();');
+ source=source.replace('function removeItem(','function __animaRemoveItemWithoutTapGuard(');
+ source+='\nfunction removeItem(id){if(__animaWallTapLockedHost(id)){placementStatus(\'Déverrouillez la vasque avant de retirer son mitigeur mural.\');return false;}return __animaRemoveItemWithoutTapGuard(id);}\n';
+ source=source.replace('function updateFixture(patch){','function updateFixture(patch){if(__animaWallTapLockedHost(composition?.selected?.id)){placementStatus(\'Déverrouillez la vasque avant de modifier son mitigeur mural.\');return false;}');
  return tapCompatibilityPrelude+source;
 }
 

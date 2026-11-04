@@ -3,9 +3,9 @@ import {CABINET_FORMATS} from './configuration.js';
 import {topSelection} from './anima-data.js';
 import {continuousPlanGroups,continuousTopContext,validateProject} from './projects.js';
 
-// Only the deck assembly changes owner. Stock furniture, hardware, taps and
-// placements keep their own identities. Explicit source tariffs travel with it.
-export const WORKTOP_SETTINGS=Object.freeze(['top','topPlanId','topSpan','topOffset','topLength','topShift','topAutoFit','topDepth','basinOffsetX','basinOffsetZ','topSurfaceId','topSurfaceNcs','topPriceKey','basinPriceKey','basinColor','basinLayout','basinBottom','basinSupport']);
+// The deck and its basin-mounted mixer change owner together. Stock furniture,
+// hardware and placements keep their identities. Source tariffs travel with the deck.
+export const WORKTOP_SETTINGS=Object.freeze(['tap','tapMode','tapWallIds','tapPreferredRef','top','topPlanId','topSpan','topOffset','topLength','topShift','topAutoFit','topDepth','basinOffsetX','basinOffsetZ','topSurfaceId','topSurfaceNcs','topPriceKey','basinPriceKey','basinColor','basinLayout','basinBottom','basinSupport']);
 const clone=value=>structuredClone(value);
 const formOf=item=>CABINET_FORMATS.find(form=>form.id===item?.settings?.format);
 const cabinet=(project,id)=>project?.items?.find(item=>item.id===id&&item.type==='cabinet');
@@ -14,7 +14,7 @@ const selectionOf=item=>item&&topSelection(item.settings.top,item.settings.width
 const round=value=>Math.round(value*1000000)/1000000;
 const dist=(a,b)=>Math.hypot(a.x-b.x,a.z-b.z);
 const add=(point,tangent,distance)=>({x:point.x+tangent.x*distance,y:point.y,z:point.z+tangent.z*distance});
-function bareSettings(settings){const result={...settings};for(const key of WORKTOP_SETTINGS)delete result[key];return {...result,top:'bare',topSpan:settings.width,topOffset:0};}
+function bareSettings(settings){const result={...settings};for(const key of WORKTOP_SETTINGS)if(key!=='tap'||selectionOf({settings})?.positions?.length)delete result[key];return {...result,top:'bare',topSpan:settings.width,topOffset:0};}
 function occupiedSupports(project,exceptId){const occupied=new Set();for(const item of project.items||[]){if(item.type!=='cabinet'||item.id===exceptId||!item.settings.top||item.settings.top==='bare')continue;const context=continuousTopContext(project,item);for(const id of context?.ids||[item.id])occupied.add(id);}return occupied;}
 
 export function isCustomWorktop(item){return !!selectionOf(item)?.top?.configurableWidth;}
@@ -25,7 +25,8 @@ export function transferPlan(project,sourceId,targetId,{supportIds,topShift=0}={
  const source=cabinet(project,sourceId),target=cabinet(project,targetId);
  if(!source||!target||!isCustomWorktop(source))throw Error('Choisissez un plan sur mesure.');
  if(locked(project,source)||locked(project,target))throw Error('Déverrouillez le meuble avant de déplacer son plan.');
- const payload=Object.fromEntries(WORKTOP_SETTINGS.filter(key=>Object.hasOwn(source.settings,key)).map(key=>[key,clone(source.settings[key])]));
+ const carriesBasin=!!selectionOf(source)?.positions?.length;
+ const payload=Object.fromEntries(WORKTOP_SETTINGS.filter(key=>(key!=='tap'||carriesBasin)&&Object.hasOwn(source.settings,key)).map(key=>[key,clone(source.settings[key])]));
  const next=clone(project),from=cabinet(next,sourceId),to=cabinet(next,targetId);
  from.settings=bareSettings(from.settings);
  const occupied=occupiedSupports(next,sourceId);

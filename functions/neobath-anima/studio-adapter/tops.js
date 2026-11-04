@@ -2,6 +2,7 @@ import * as T from 'three';
 import {createTopSet as studioCreateTopSet,vesselGeometry as studioVesselGeometry} from '@studio-one-original/tops.js';
 import {TOP_OPTIONS,topSelection} from './anima-data.js';
 import {animaWellLayout,animaBasinStyle} from './top-profiles.js';
+import {planTapContext} from './tap-drilling.js';
 import {animaVesselProfile,animaLedgeVesselGeometry,vesselContour} from './vessel-profiles.js';
 export {TOP_OPTIONS,topSelection};
 // Used only inside the untouched original Studio One factory, before its hidden
@@ -98,7 +99,7 @@ export function buildAnimaTop({selection,ceramic,wood,chrome,planMaterial=null,b
   if(![W,H,D,surfaceY,Z].every(Number.isFinite)||W<=0||D<=0||H<=0)throw Error('Dimensions de plan Anima invalides.');
   const plateMaterial=planMaterial||(top.subtype==='cover'?wood:basin?.subtype==='countertop'?ceramic.clone():ceramic);
   if(!planMaterial&&plateMaterial!==wood&&plateMaterial!==ceramic)ownedMaterials.push(plateMaterial);
-  const style=animaBasinStyle(top,basin),description={productId:top.id,reference:top.ref,width:W,height:H,depth:D,surfaceY,topSurface:surfaceY+H,zOffset:Z,wells:[],tapHoles:[],basinStyle:style,accessories:[]};
+  const taps=planTapContext(selection,{surfaceY,cabinetDepth}),style=animaBasinStyle(top,basin),description={...taps.top,wells:[],basinStyle:style,accessories:[]};
   const wasteCover=(well,parent=root)=>{
     const y=surfaceY+H-well.innerDepth+.008,z=Z+well.z;
     if(style.drain==='rectangular-matched')add(plateGeometry(Math.min(.09,well.width*.18),Math.min(.06,well.depth*.18),.004),ceramicBowl,'Bonde_rectangulaire_assortie',parent,well.x,y,z,'drain-cover');
@@ -119,15 +120,7 @@ export function buildAnimaTop({selection,ceramic,wood,chrome,planMaterial=null,b
         const cutout=semiRecessedCutout(vesselShape,recessDepth).map(([x,z])=>[x+vesselX,z+vesselZ]);holes.push(cutout);
         description.reconstruction={mounting:'semi-recessed',sourcePdfPage:75,approximate:true,rimRise:previewBasinRise,recessDepth,note:'Implantation semi-encastrée reconstruite pour la prévisualisation; cote d’encastrement et découpe à confirmer sur le gabarit fabricant.'};
       }else holes.push(circleContour(vesselX,vesselZ,.024));
-      const radius=.017,clearance=.012,edge=.007,basinW=(basin.width||40)/100,basinD=(basin.depth||40)/100;
-      const rearZ=vesselZ-basinD/2-clearance-radius;
-      let tap=vesselProfile?.tap?{...vesselProfile.tap,x:vesselX+vesselProfile.tap.x,z:vesselZ+vesselProfile.tap.z,rotationY:0,surfaceY:surfaceY+H+previewBasinRise,wellIndex:0}:rearZ-radius>=-D/2+edge?{x:vesselX,z:rearZ,radius,rotationY:0}:null;
-      if(!tap){
-        const side=vesselX>0?-1:1,sideX=vesselX+side*(basinW/2+clearance+radius);
-        if(Math.abs(sideX)+radius<=W/2-edge)tap={x:sideX,z:vesselZ,radius,rotationY:side>0?-Math.PI/2:Math.PI/2};
-      }
-      if(tap){if(!semiRecessed||tap.mount!=='basin')holes.push(circleContour(tap.x,tap.z,tap.radius));description.tapHoles.push({...tap,z:tap.z+Z});description.tapMount=tap.mount||'deck';}
-      else description.tapMount='wall';
+      for(const tap of taps.physicalHoles)if(tap.mount!=='basin')holes.push(circleContour(tap.x,tap.z-Z,tap.radius));
     }
     add(plateGeometry(W,D,H,holes),plateMaterial,'Plan_'+(top.ref||top.id),parent,0,surfaceY,Z,'deck');
     if(basin){
@@ -144,17 +137,18 @@ export function buildAnimaTop({selection,ceramic,wood,chrome,planMaterial=null,b
         }
         if(selection.basinBottom==='tvl'){add(insertGeometry(w,d,.004,power),white,'Tablette_amovible_TVL'+code,group,0,level,insertZ,'basin-accessory');if(!selection.basinSupport)feet(white,'Pied_tablette_TVL');description.accessories.push({ref:'TVL'+code,kind:'removable-white-bottom',approximate:true,sourcePdfPage:75});}
       }
-      description.wells.push({x:vesselX,z:Z+vesselZ,width:vesselProfile.width,depth:vesselProfile.depth,power:vesselProfile.power,openingWidth:vesselProfile.openingWidth,openingDepth:vesselProfile.openingDepth,openingCenterX:vesselX,openingCenterZ:Z+vesselZ+vesselProfile.openingOffsetZ,height:basin.height==null?null:basin.height/100,rimRise:previewBasinRise,recessDepth,kind:semiRecessed?'semi-recessed':'countertop',reconstruction:vesselProfile.reconstruction});
+      description.wells.push({wellIndex:0,x:vesselX,z:Z+vesselZ,width:vesselProfile.width,depth:vesselProfile.depth,power:vesselProfile.power,openingWidth:vesselProfile.openingWidth,openingDepth:vesselProfile.openingDepth,openingCenterX:vesselX,openingCenterZ:Z+vesselZ+vesselProfile.openingOffsetZ,height:basin.height==null?null:basin.height/100,rimRise:previewBasinRise,recessDepth,kind:semiRecessed?'semi-recessed':'countertop',reconstruction:vesselProfile.reconstruction});
     }
   }else{
     const group=new T.Group();group.name='Lavabo_'+(basin?.ref||top.ref||top.id);group.userData.editTarget='basin';root.add(group);insets[selection.mode]=group;
     const wells=animaWellLayout(selection),holes=[];if(!wells)throw Error('La largeur fabricant ou la profondeur de la cuve est incompatible avec cette implantation.');
-    for(const well of wells){holes.push(superContour(well.width,well.depth,well.power).map(([xx,zz])=>[xx+well.x,zz+well.z]));holes.push(circleContour(well.tapX,well.tapZ,well.tapRadius));}
+    for(const well of wells)holes.push(superContour(well.width,well.depth,well.power).map(([xx,zz])=>[xx+well.x,zz+well.z]));
+    for(const tap of taps.physicalHoles)holes.push(circleContour(tap.x,tap.z-Z,tap.radius));
     add(plateGeometry(W,D,H,holes),plateMaterial,'Plan_lavabo_'+(top.ref||top.id),group,0,surfaceY,Z,'deck');
-    for(const well of wells){
+    for(const [wellIndex,well]of wells.entries()){
       add(bowlGeometry(well.width,well.depth,well.innerDepth,well.power,style),ceramicBowl,'Vasque_'+selection.mode.toUpperCase()+'_coque_3D',group,well.x,surfaceY+H,Z+well.z);
       wasteCover(well,group);
-      description.wells.push({...well,z:Z+well.z,kind:'integrated'});description.tapHoles.push({x:well.tapX,z:Z+well.tapZ,radius:well.tapRadius,rotationY:0});
+      description.wells.push({...well,z:Z+well.z,wellIndex,kind:'integrated'});
     }
     group.userData.basinCenters=selection.positions;group.userData.basinLayout=selection.layout;group.userData.animaWells=description.wells;
   }

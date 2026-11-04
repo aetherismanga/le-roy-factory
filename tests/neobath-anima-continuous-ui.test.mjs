@@ -29,7 +29,7 @@ test('the original atelier preserves continuous plan settings through selection,
  assert.ok(source.includes('topAvailable(s.top,s.width,s.format,s.topSpan)'));
  assert.ok(source.includes('model.setTop(id,{...state})'));
  assert.ok(source.includes('basinTop:s.top,topSpan:s.topSpan,topOffset:s.topOffset,'));
- assert.ok(source.includes("__animaSyncContinuousTops();return publicProjectData"));
+ assert.ok(source.includes("__animaSyncContinuousTops();__animaSyncTapInstallations();return publicProjectData"));
 });
 
 test('the original multi-cabinet chooser resolves a40cm support to its real source module',()=>{

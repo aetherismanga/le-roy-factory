@@ -7,6 +7,7 @@ import {surfaceFamilyForSelection} from './premium-materials.js';
 import {basinColors} from './basins.js';
 import {FINISHES} from './finishes.js';
 import {applyAnimaBasinAppearance,configureAnimaTexture} from './premium-rendering.mjs';
+import {tapDrillingKey} from './tap-drilling.js';
 export {normalizeStandaloneSettings,standaloneSelection,standaloneDimensions};
 
 export function makeStandaloneWorktop(input={}){
@@ -23,7 +24,7 @@ export function makeStandaloneWorktop(input={}){
  const asset={root,wood,frontWood:wood,ceramic,planMaterial:surface.material,drawers:[],faucets:[],spec:{bottom:0,series:'NEOBATH ANIMA · plan indépendant',cabinetRef:null},format:{subtype:'worktop'}};
  asset.setSettings=(patch={},options={})=>{
   let next,selected,nextTop;try{next=normalizeStandaloneSettings({...settings,...patch});selected=standaloneSelection(next);}catch{return false;}
-  const geometryKey=[selected.mode,selected.top.id,next.width,next.topDepth,next.basinLayout,next.basinOffsetX,next.basinOffsetZ,next.basinBottom,next.basinSupport].join('|');
+  const geometryKey=[selected.mode,selected.top.id,next.width,next.topDepth,next.basinLayout,next.basinOffsetX,next.basinOffsetZ,next.basinBottom,next.basinSupport,tapDrillingKey(next)].join('|');
   if(!current||key!==geometryKey){
    const style=animaBasinStyle(selected.top,selected.basin),family=surfaceFamilyForSelection(selected),bowl=style.gelcoat==='white'?white:style.gelcoat==='colored'?colored:selected.integrated&&family&&family!=='furniture'?surface.material:ceramic;
    try{nextTop=buildAnimaTop({selection:selected,wood,ceramic,chrome,planMaterial:surface.material,bowlMaterial:bowl,surfaceY:0,cabinetDepth:selected.referenceDepth/100});}catch{return false;}

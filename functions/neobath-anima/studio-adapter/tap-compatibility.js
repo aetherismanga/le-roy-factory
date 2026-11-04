@@ -1,3 +1,4 @@
+import {normalizeTapDrilling,tapHoleActive} from './tap-drilling.js';
 // Pure geometry checks in metres. The AquaHome profile is supplied by the
 // existing renderer's catalogue adapter; this module has no browser/Three.js
 // dependency and never treats reconstructed dimensions as certified drilling.
@@ -25,7 +26,9 @@ export function checkAnimaTapCompatibility(product,context,profile){
  const {top,holes=[],topOffset=0}=context||{},wells=top?.wells||[];
  if(!top||!wells.length)return fail('Ajoutez une vasque avant de choisir un mitigeur.');
  if(top.tapMount==='wall'||!holes.length)return fail('Cette vasque nécessite un mitigeur mural indépendant.');
- if(holes.length!==wells.length)return fail('Les perçages du plan ne correspondent pas aux cuves.');
+ let drilling;try{drilling=normalizeTapDrilling(top);}catch{return fail('Le mode de pose du mitigeur est invalide.');}
+ const candidates=top.tapCandidates,expected=Array.isArray(candidates)?candidates.filter(hole=>tapHoleActive(drilling,hole.wellIndex??0)).length:wells.filter((_,index)=>tapHoleActive(drilling,index)).length;
+ if(holes.length!==expected||holes.some(hole=>hole.wellIndex!==undefined&&!tapHoleActive(drilling,hole.wellIndex)))return fail('Les perçages du plan ne correspondent pas aux cuves et à leurs mitigeurs muraux.');
  if(![top.width,top.depth,top.topSurface,top.zOffset??0,topOffset].every(finite))return fail('Les cotes de pose du plan ne sont pas disponibles.');
  const actualWells=wells.map(well=>({...well,x:well.x+topOffset,openingCenterX:(well.openingCenterX??well.x)+topOffset,openingCenterZ:well.openingCenterZ??well.z}));
  if(actualWells.some(well=>![well.x,well.z,well.width,well.depth].every(finite)||well.width<=0||well.depth<=0))return fail('Les cotes de la vasque ne sont pas disponibles.');
@@ -42,7 +45,7 @@ export function checkAnimaTapCompatibility(product,context,profile){
   const openings=actualWells.map(well=>({...well,x:well.openingCenterX,z:well.openingCenterZ,width:well.openingWidth??well.width,depth:well.openingDepth??well.depth,power:well.openingPower??well.power}));
   if((hole.mount==='basin'?openings:actualWells).some(well=>insideOpening(hole,well,-dimensions.baseRadius-.002)))return fail('L’embase du mitigeur touche la vasque.');
   const outlet={x:hole.x+Math.sin(angle)*dimensions.outletReach,z:hole.z+Math.cos(angle)*dimensions.outletReach};
-  const index=openings.findIndex((well,index)=>!used.has(index)&&insideOpening(outlet,well,.014));
+  const index=openings.findIndex((well,index)=>!used.has(index)&&(hole.wellIndex===undefined||index===hole.wellIndex)&&insideOpening(outlet,well,.014));
   if(index<0)return fail('La portée du bec ne permet pas de verser dans la cuve.');
   const well=actualWells[index],rimRise=well.kind==='integrated'?0:well.rimRise??well.height;
   if(!finite(rimRise))return fail('La hauteur du bord de vasque n’est pas connue.');

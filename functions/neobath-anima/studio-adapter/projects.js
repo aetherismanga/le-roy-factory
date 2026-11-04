@@ -1,3 +1,4 @@
+import {validateAnimaTapInstallation} from './tap-installation.js';
 import {normalizeBasinUnitSettings,basinUnitDimensions} from './basin-unit-data.js';
 import {COLUMN_MODEL_IDS} from './column-data.js';
 import {normalizeStandaloneSettings,standaloneDimensions} from './standalone-worktop-data.js';
@@ -118,6 +119,7 @@ export function validateProject(data) {
     if(!item||typeof item.id!=='string'||ids.has(item.id)||!item.settings||typeof item.settings!=='object'||!item.placement)throw Error('Éléments de projet invalides.');
     ids.add(item.id);const s=item.settings,p=item.placement;
     if(!Number.isInteger(p.wall)||p.wall<0||p.wall>63||!Number.isFinite(p.u)||!Number.isFinite(p.height)||p.offset!==undefined&&!Number.isFinite(p.offset)||p.rotation!==undefined&&!Number.isFinite(p.rotation))throw Error('Position d’élément invalide.');
+    if(['cabinet','worktop'].includes(item.type))validateAnimaTapInstallation(s,{project:data,hostId:item.id});
     if(item.type==='cabinet'){
       if(s.topAutoFit!==undefined&&typeof s.topAutoFit!=='boolean')throw Error('Mode d’ajustement du plan invalide.');
       const form=CABINET_FORMATS.find(f=>f.id===s.format);

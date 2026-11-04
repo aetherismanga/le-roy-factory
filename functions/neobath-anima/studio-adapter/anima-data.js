@@ -2,6 +2,7 @@ import CATALOGUE from '../catalogue.json' with {type:'json'};
 import {animaWellProfile,animaWellLayout} from './top-profiles.js';
 import {MATERIAL_FAMILIES} from './materials-data.js';
 import {resolveBasinAccessories} from './basin-accessories.js';
+import {normalizeTapDrilling} from './tap-drilling.js';
 
 export {CATALOGUE};
 export const PRODUCTS=CATALOGUE.products;
@@ -25,10 +26,11 @@ export function productFitsWidth(p,width){
   return true;
 }
 export function topSelection(mode,width=80,format='two',layout='center',topSpan=width,topPlanId,topLength,options={}){
+  let tapDrilling;try{tapDrilling=normalizeTapDrilling(options);}catch{return null;}
   const span=Number.isFinite(topSpan)&&topSpan>=width?topSpan:width;
   const length=topLength??span;
   if(!Number.isFinite(length)||length<span)return null;
-  if(mode==='bare'||!mode){try{resolveBasinAccessories(null,options);}catch{return null;}return {mode:'bare',top:null,basin:null,product:null,topWidth:0,billingLength:0,integrated:false,positions:[],basinBottom:'none',basinSupport:false,basinAccessoryProducts:[]};}
+  if(mode==='bare'||!mode){try{resolveBasinAccessories(null,options);}catch{return null;}return {...tapDrilling,mode:'bare',top:null,basin:null,product:null,topWidth:0,billingLength:0,integrated:false,positions:[],basinBottom:'none',basinSupport:false,basinAccessoryProducts:[]};}
   let product=PRODUCT_BY_ID.get(mode),top=null,basin=null;
   if(mode==='plain')product=TOP_PRODUCTS.find(p=>p.subtype==='cover'&&p.compatibleWidths?.includes(width))||PRODUCT_BY_ID.get('tpgea12-linear-top');
   if(!product)return null;
@@ -67,7 +69,7 @@ export function topSelection(mode,width=80,format='two',layout='center',topSpan=
   const edge=basin?.subtype==='countertop'||basin?.subtype==='semi-recessed'? .007 : .025;
   if(top.configurableWidth&&basin&&!integrated&&centres.some((x,i)=>Math.abs(x)+well.w/2>W/2-edge+1e-7||Math.abs(positionsZ[i])+well.d/2>previewDepth/200-edge+1e-7))return null;
   if(centres.some((x,i)=>centres.some((other,j)=>j>i&&Math.abs(x-other)<well.w+.025)))return null;
-  const selection={mode,top,basin,product,basinOffsetX:offsetX,basinOffsetZ:offsetZ,topWidth:finishedWidth,billingLength:top.billingLength||length,integrated,topSpan:span,topLength:length,previewDepth,referenceDepth,customDepth:Math.abs(previewDepth-referenceDepth)>.001,previewDepthNote:top.depth?null:reference?.referenceDepthNote||'Profondeur d’implantation à confirmer avant fabrication.',
+  const selection={...tapDrilling,mode,top,basin,product,basinOffsetX:offsetX,basinOffsetZ:offsetZ,topWidth:finishedWidth,billingLength:top.billingLength||length,integrated,topSpan:span,topLength:length,previewDepth,referenceDepth,customDepth:Math.abs(previewDepth-referenceDepth)>.001,previewDepthNote:top.depth?null:reference?.referenceDepthNote||'Profondeur d’implantation à confirmer avant fabrication.',
     positions:centres,positionsZ,reference:product.ref||null,format,layout:count===2?'double':position==='left'?'left':position==='right'?'right':'center'};
   if(integrated){selection.wellProfiles=animaWellLayout(selection);if(!selection.wellProfiles)return null;}
   try{const accessories=resolveBasinAccessories(basin||product,options);Object.assign(selection,{basinBottom:accessories.basinBottom,basinSupport:accessories.basinSupport,basinAccessoryProducts:accessories.products,basinBottomProduct:accessories.bottomProduct,basinSupportProduct:accessories.supportProduct});}catch{return null;}
