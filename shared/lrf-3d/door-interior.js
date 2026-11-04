@@ -1,9 +1,13 @@
 import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
+import {COLLECTIONS} from './surface-catalog.js';
+import {buildTileGeometry} from './tile-layout.js';
+import {loadQueuedTexture,surfaceAssetURL} from './texture-loader.js';
 
 // A small adjoining hall, modeled in metres behind the doorway. It is scenery,
 // never another editable room or part of the opening's commercial dimensions.
-// No image plane, remote image or camera-dependent perspective is involved.
+// The flooring uses true chevron geometry and the original manufacturer sample;
+// its bitmap is a material map, never a billboard or camera-dependent view.
 function microTexture(kind){
  const size=128,data=new Uint8Array(size*size);let seed=1769;
  for(let y=0;y<size;y++)for(let x=0;x<size;x++){
@@ -14,14 +18,46 @@ function microTexture(kind){
  const texture=new T.DataTexture(data,size,size,T.RedFormat);texture.wrapS=texture.wrapT=T.RepeatWrapping;texture.repeat.set(kind==='wood'?3:2,kind==='wood'?1:2);texture.anisotropy=4;texture.needsUpdate=true;return texture;
 }
 
-export function makeDoorInterior({width=.83,height=2.04}={}){
+export const DOOR_INTERIOR_FLOOR=Object.freeze({collection:'Yosemite',color:'honey',format:'15x85',reference:'03H1840',pattern:'chevron'});
+
+function floorDefinition(){
+ const collection=COLLECTIONS[DOOR_INTERIOR_FLOOR.collection],colour=collection?.colors.find(c=>c.id===DOOR_INTERIOR_FLOOR.color),format=collection?.formats.find(f=>f.id===DOOR_INTERIOR_FLOOR.format);
+ if(!colour||!format||format.shape!=='chevron'||!colour.formats.includes(format.id))throw Error('La référence Yosemite Honey du couloir est indisponible.');
+ // Existing reconstructed faces remain labeled as such in the catalogue. The
+ // hall deliberately uses the observed native manufacturer sample instead.
+ const source=colour.nativeFaces===true||colour.textureProvenance?.manufacturerOriginal===true
+  ?colour.textureVariants?.balanced?.[0]||colour.faces?.[0]||colour.file
+  :colour.manufacturerSample;
+ if(!source)throw Error('Le visuel fabricant Yosemite Honey est indisponible.');
+ return {source,roughness:collection.roughness,layout:{direction:'horizontal',pattern:'chevron',shape:'chevron',width:format.width,height:format.height,chevronAngle:format.chevronAngle,groutWidth:2}};
+}
+
+export function makeDoorInterior({width=.83,height=2.04,loadTexture=null,onReady=()=>{}}={}){
  if(![width,height].every(Number.isFinite)||width<.6||width>1.4||height<1.8||height>2.6)throw Error('Dimensions de passage intérieur invalides.');
  const root=new T.Group();root.name='Espace_interieur_maison';root.userData={visualOnly:true,excludeFromProductBounds:true,openingBackdrop:true};
  const clearWidth=width-.10,hallWidth=Math.max(1.75,width+.85),hallHeight=Math.max(2.5,height+.12),front=-.53,back=-3.45,depth=front-back;
  const mineral=microTexture('mineral'),wood=microTexture('wood');
  const wall=new T.MeshStandardMaterial({color:'#d6cebf',roughness:.87,bumpMap:mineral,bumpScale:.00035,emissive:'#c6b799',emissiveIntensity:.025});
  const plaster=new T.MeshStandardMaterial({color:'#e8e2d8',roughness:.83,bumpMap:mineral,bumpScale:.0003});
- const stone=new T.MeshStandardMaterial({color:'#b9ac95',roughness:.55,bumpMap:mineral,bumpScale:.0003});
+ const floorSpec=floorDefinition(),honey=new T.MeshStandardMaterial({color:'#a57d51',roughness:floorSpec.roughness??.82});
+ const floorState={...DOOR_INTERIOR_FLOOR,source:floorSpec.source,fidelity:'manufacturer-sample',textureState:'pending'};root.userData.hallFloor=floorState;
+ let disposed=false,textureTask=null,ownedFloorTexture=null;const textureAbort=new AbortController();
+ const prepareFloor=()=>{
+  if(disposed)return Promise.resolve(false);
+  if(textureTask)return textureTask;
+  // Node geometry checks and closed doors do not require a network/browser.
+  if(!loadTexture&&typeof Image==='undefined')return Promise.resolve(false);
+  floorState.textureState='loading';
+  textureTask=Promise.resolve().then(()=>(loadTexture||loadQueuedTexture)(surfaceAssetURL(floorSpec.source),{signal:textureAbort.signal,maxDimension:2048})).then(texture=>{
+   if(disposed){texture.dispose();return false;}
+   ownedFloorTexture=texture;texture.colorSpace=T.SRGBColorSpace;texture.wrapS=texture.wrapT=T.ClampToEdgeWrapping;texture.minFilter=T.LinearMipmapLinearFilter;texture.magFilter=T.LinearFilter;texture.generateMipmaps=true;texture.anisotropy=8;texture.needsUpdate=true;
+   honey.map=texture;honey.color.set('#ffffff');honey.needsUpdate=true;floorState.textureState='ready';onReady();
+   if(typeof window!=='undefined'&&typeof window.dispatchEvent==='function'&&typeof Event!=='undefined')window.dispatchEvent(new Event('lrf-door-interior-ready'));
+   return true;
+  }).catch(error=>{if(!disposed){floorState.textureState='error';floorState.error=String(error?.message||error);textureTask=null;}return false;});
+  return textureTask;
+ };
+ honey.addEventListener('dispose',()=>{disposed=true;textureAbort.abort();ownedFloorTexture?.dispose();});
  const oak=new T.MeshStandardMaterial({color:'#8c7052',roughness:.43,bumpMap:wood,bumpScale:.0004});
  const metal=new T.MeshStandardMaterial({color:'#8a857b',metalness:.88,roughness:.30});
  const dark=new T.MeshStandardMaterial({color:'#383a35',roughness:.55});
@@ -47,16 +83,17 @@ export function makeDoorInterior({width=.83,height=2.04}={}){
  box(hallWidth,hallHeight-(height-.05),.26,0,(hallHeight+height-.05)/2,-.40,plaster,'Linteau_interieur_hall');
  box(hallWidth+.16,.08,depth+.09,0,hallHeight+.04,(front+back)/2,plaster,'Plafond_hall');
  box(hallWidth,.075,.015,0,.0375,back+.0075,plaster,'Plinthe_fond_hall');
- // Real 60x120cm mineral slabs with narrow joints and clipped perimeter cuts.
+ // Manufacturer-sized, mitred chevrons share one material and only two
+ // batched geometries. Both parts use the same world grid across the passage.
  box(hallWidth,.018,depth,0,-.010,(front+back)/2,dark,'Support_sol_hall');
- const tiles=[];for(let x=-hallWidth/2;x<hallWidth/2-1e-6;x+=.60)for(let z=back;z<front-1e-6;z+=1.20){const w=Math.min(.60,hallWidth/2-x),d=Math.min(1.20,front-z);tiles.push({x:x+w/2,z:z+d/2,w:w-.0015,d:d-.0015});}
- const floor=new T.InstancedMesh(new RoundedBoxGeometry(1,1,1,1,.0015),stone,tiles.length),matrix=new T.Matrix4(),quaternion=new T.Quaternion();
- tiles.forEach((tile,index)=>{matrix.compose(new T.Vector3(tile.x,-.003,tile.z),quaternion,new T.Vector3(tile.w,.008,tile.d));floor.setMatrixAt(index,matrix);floor.setColorAt(index,new T.Color().setScalar(.97+(index*17%7)*.008));});
- floor.name='Dalles_minerales_hall_60x120';floor.castShadow=false;floor.receiveShadow=true;floor.raycast=()=>{};floor.userData.visualOnly=true;root.add(floor);
- // Meet the hall boundary rather than overlapping the first slab. Its half
- // 1.5mm joint remains a narrow grout line, with no coplanar surface band.
+ const chevrons=(polygon,name)=>{
+  const geometry=buildTileGeometry(polygon,floorSpec.layout);geometry.rotateX(-Math.PI/2);
+  const mesh=add(geometry,honey,0,.001,0,name);mesh.castShadow=false;
+  mesh.userData={visualOnly:true,hallFloor:{...DOOR_INTERIOR_FLOOR},textureSource:floorSpec.source};return mesh;
+ };
+ const floor=chevrons([[-hallWidth/2,-front],[hallWidth/2,-front],[hallWidth/2,-back],[-hallWidth/2,-back]],'Yosemite_Honey_chevron_hall');
  const passageFront=-.22,passageBack=front;
- box(clearWidth,.010,passageFront-passageBack,0,-.004,(passageFront+passageBack)/2,stone,'Sol_continu_passage');
+ chevrons([[-clearWidth/2,-passageFront],[clearWidth/2,-passageFront],[clearWidth/2,-passageBack],[-clearWidth/2,-passageBack]],'Sol_continu_passage');
  box(clearWidth+.010,.003,.035,0,.0015,-.23,metal,'Seuil_transition_interieur',.0005);
  // A closed inner door establishes a believable house interior and scale.
  const innerDoorWidth=.73,innerDoorHeight=Math.min(2.08,hallHeight-.25),doorX=hallWidth*.19,doorZ=back+.035;
@@ -88,5 +125,5 @@ export function makeDoorInterior({width=.83,height=2.04}={}){
  }
  const fill=new T.PointLight('#ffecd1',4,1.55,2);fill.position.set(-.20,hallHeight-.25,-2.35);fill.name='Lumiere_interieure_hall';fill.castShadow=false;root.add(fill);
  root.visible=false;
- return {root,dimensions:{width:hallWidth,height:hallHeight,depth:Math.abs(back+.23)},setVisible:value=>{root.visible=!!value;}};
+ return {root,dimensions:{width:hallWidth,height:hallHeight,depth:Math.abs(back+.23)},prepareFloor,setVisible:value=>{root.visible=!!value;if(root.visible)prepareFloor();}};
 }

@@ -44,8 +44,8 @@ test('the doorway has continuous threshold/floor levels, room-scale architecture
 test('the passage meets the first hall slab with only its half-joint and no coplanar overlap band',()=>{
  const asset=makeOpening('door',{width:83,height:204});
  try{
-  const hall=asset.interior,passage=new T.Box3().setFromObject(hall.getObjectByName('Sol_continu_passage')),tiles=hall.getObjectByName('Dalles_minerales_hall_60x120');tiles.geometry.computeBoundingBox();
-  const matrix=new T.Matrix4(),boxes=[];for(let index=0;index<tiles.count;index++){tiles.getMatrixAt(index,matrix);boxes.push(tiles.geometry.boundingBox.clone().applyMatrix4(matrix));}
+  const hall=asset.interior,passage=new T.Box3().setFromObject(hall.getObjectByName('Sol_continu_passage')),tiles=hall.getObjectByName('Yosemite_Honey_chevron_hall');
+  const boxes=[new T.Box3().setFromObject(tiles)];
   const front=Math.max(...boxes.map(box=>box.max.z));assert(Math.abs(passage.max.z+.22)<1e-7);assert(passage.min.z>=front-1e-7);
   assert(passage.min.z-front<.00076,'Only the 0.75mm half-joint separates the full passage slab and the tiled hall');
   for(const box of boxes){const intersection=passage.clone().intersect(box);if(!intersection.isEmpty()){const size=intersection.getSize(new T.Vector3());assert(size.x<1e-7||size.z<1e-7,'A shared-height passage must not cover any hall tile');}}

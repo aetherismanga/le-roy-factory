@@ -1,0 +1,3297 @@
+{
+  "source": "Official Elios public collection pages and native source JPEGs",
+  "fetchedDate": "2026-11-04",
+  "notes": [
+    "Native 250px individual decor previews are not advertised as HD.",
+    "Mix montages are split into physical per-tile pixels, never repeated as one tile.",
+    "No source is upscaled, recolored, sharpened or generated."
+  ],
+  "assets": [
+    {
+      "collection": "deco",
+      "colorId": "nordic-a",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_nordic_a_tacca.jpg",
+      "sourceSha256": "e698ecbd861c61f01b62d52f7f99a9b6d1b467e5bc40a04df5e0f81c60e1cf3c",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/nordic-a-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/nordic-a-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/nordic-a-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "nordic-b",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Nordic-B_Z.jpg",
+      "sourceSha256": "5e0133412f0ab77693c4d1492dd18c89c6b25f47c91e715df0f22c9872a5fd2d",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/nordic-b-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/nordic-b-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/nordic-b-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "nordic-c",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Nordic-C_Z.jpg",
+      "sourceSha256": "05425a2b808d4ea4fce3ac7a24c36b935ad4fe6c55b4d78bff3039be66c7ce22",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/nordic-c-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/nordic-c-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/nordic-c-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "geo-a-light-blue",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Geo-A-Light-Blue_Z.jpg",
+      "sourceSha256": "f76334b20e01ed33d1bed9586ef90a0ee205e4eb00b3e5cb0f9195dc7b951110",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/geo-a-light-blue-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/geo-a-light-blue-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/geo-a-light-blue-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "geo-b-bw",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Geo-B-B-W_Z.jpg",
+      "sourceSha256": "e29c68565a4f4332a1d84e7618172d4880761e8109e101aae661bc01e9f3155a",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/geo-b-bw-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/geo-b-bw-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/geo-b-bw-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "geo-c-taupe",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Geo-C-Taupe_Z.jpg",
+      "sourceSha256": "d407806f31925093ddd35150f04ca84bf9bb5aae70ba4df7190d4a9760eb2a1f",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/geo-c-taupe-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/geo-c-taupe-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/geo-c-taupe-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "original-b-bw",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Original-B-B-W_Z.jpg",
+      "sourceSha256": "f0212dc76ff06e66a51610b9d91b5b6c2a1d5ee9554bce2452a664c8f500dcf0",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-b-bw-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-b-bw-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-b-bw-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "original-b-light-blue",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Original-B-Light-Blue_Z.jpg",
+      "sourceSha256": "cee1ba65608700f468b17a1d55b2f2c2136e2cecb811c8e2adf5f3a4382b4ecb",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-b-light-blue-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-b-light-blue-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-b-light-blue-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "original-c-grey",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Original-C-Grey_Z.jpg",
+      "sourceSha256": "48ace6e14d72bca3bcf34711b37bb9d453eaff713564cfde95749d1e9239e0c8",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-c-grey-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-c-grey-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-c-grey-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "original-c-taupe",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Original-C-Taupe_Z.jpg",
+      "sourceSha256": "5f8f4d8b2c09d9f20085febe5a2f619d36e19add7e33ae51d7bfb6195ce67938",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-c-taupe-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-c-taupe-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-c-taupe-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "original-d-grey",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Original-D-Grey_Z.jpg",
+      "sourceSha256": "26ccbcd4fdebe1cffc58823d9ef40cc69bdf0d69f337ed3a726af3d8ad1a9040",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-d-grey-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-d-grey-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-d-grey-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "original-d-taupe",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Original-D-Taupe_Z.jpg",
+      "sourceSha256": "0a202fcce7e1a6ed2660965e278109cd196ed2714aeaeee2541d72d8963416a7",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-d-taupe-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-d-taupe-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/original-d-taupe-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "etnic-a-bw",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Etnic-A-B-W_Z.jpg",
+      "sourceSha256": "eda94d83d00b147feb562e05691c012147b489e5fe0d6149518de2cff859c4e6",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-a-bw-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-a-bw-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-a-bw-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "etnic-a-light-blue",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Etnic-A-Light-Blue_Z.jpg",
+      "sourceSha256": "0623b25f891860cb24ac95a2a0e4adfc7c2c258a8505801a18e45535ad4df4b9",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-a-light-blue-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-a-light-blue-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-a-light-blue-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "etnic-b-bw",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Etnic-B-B-W_Z.jpg",
+      "sourceSha256": "3ee657461133c40b8d2aff0b4267ae2aaac7326da93b0b7a3f4f0927b64fbfff",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-b-bw-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-b-bw-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-b-bw-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "etnic-b-light-blue",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Etnic-B-Light-Blue_Z.jpg",
+      "sourceSha256": "39ed8b95d2c27ffa30d01e0b767468daff02c5601ccc39dc369e05aa68b578cc",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-b-light-blue-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-b-light-blue-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-b-light-blue-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "deco",
+      "colorId": "etnic-c-bw",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2018/10/Etnic-C-B-W_Z.jpg",
+      "sourceSha256": "bef5237ec518ac05c6578acc0be21daecd53049cd8487e165c51c5e0914cb5f8",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-c-bw-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-c-bw-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/deco/etnic-c-bw-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-e",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_ducale_E.jpg",
+      "sourceSha256": "a398f5227e673cbbe629c99d388e322433cb9c9e06418955299e8272c8dacb91",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-e-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-e-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-e-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-f",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_ducale_F.jpg",
+      "sourceSha256": "3c184fac6a21d1bbb45ce74979bd60b706d3175308a79d43a0f29c94ce203d66",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-f-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-f-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-f-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-g",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_ducale_G.jpg",
+      "sourceSha256": "2f8185f9e1ce383001da29b05c9c3463cc2f1ac801f75348c9a09ed87f9f49a2",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-g-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-g-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-g-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-b",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_ducale_B2.jpg",
+      "sourceSha256": "59eb49b5b6d3959871a27034e74c7502d577a26864dcaab6188b3271b29159c6",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-b-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-b-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-b-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-a",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_ducale_A.jpg",
+      "sourceSha256": "232ccee77c85f69763ce91508a28f09426cf48898888cf6145454b6b36cd48fa",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-a-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-a-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-a-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-c",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_ducale_C.jpg",
+      "sourceSha256": "f1b4179514fcaebf887cd8f6c1044625ad6b4a20ab5a250dc9e2c02751730c28",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-c-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-c-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-c-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-d",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_ducale_D.jpg",
+      "sourceSha256": "6488c85a7a063bd74b5784387bd5b13ff769798c14b41da07b93bf9994384466",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-d-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-d-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-d-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-z",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_ducale_Z.jpg",
+      "sourceSha256": "019bb4ff6aa13c2823a6c04f16423f26cf3aa3d44d7a9e45cd8c4d36ace1325c",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-z-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-z-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-z-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-bw-x",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_ducale_X.jpg",
+      "sourceSha256": "3a9f2ee5f8bfc386de5b28f8eb18dba8e400b97c6bbb1f141cda12358da8b2c6",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-bw-x-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-bw-x-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-bw-x-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-bw-d",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_ducale_bw_D.jpg",
+      "sourceSha256": "f380d75707ecf9e9ba7d128089f9331eb692dee5dcf7a2752f594e63fe1d6d65",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-bw-d-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-bw-d-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-bw-d-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-bw-z",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_ducale_bw_Z.jpg",
+      "sourceSha256": "ea49b99102e262711a7e55eb320c0c59560bc88483a13ebdf81ccfe6ff426608",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-bw-z-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-bw-z-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-bw-z-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-bw-b",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_ducale_B.jpg",
+      "sourceSha256": "e211d52245bc75efc9e5e1aff76617622fe386009eaa2714289d4762d862d59b",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-bw-b-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-bw-b-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-bw-b-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-a",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_A.jpg",
+      "sourceSha256": "73152d229385022543e7204d210cb875f91ebd29d0bed2d41f69ebdd914a1ab4",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-a-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-a-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-a-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-b",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_B.jpg",
+      "sourceSha256": "fb8bd1a56d179ecc52eac94b3e826579adb2a2f69dec0d9ab3c8c339132ce5e8",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-b-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-b-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-b-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-a",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_A.jpg",
+      "sourceSha256": "fb72ec2b86697795a7b6d3872afdaf705b208026444f69a09c914b7c18bbd41d",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-a-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-a-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-a-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-b",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_B.jpg",
+      "sourceSha256": "d88d9eb88612d3ed7774a89fdc0b3d5c4f2b8d6358c74cc7e9fb3bf9a5426f05",
+      "sourceSize": [
+        250,
+        250
+      ],
+      "crop": null,
+      "nativeSize": [
+        250,
+        250
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-b-1-250x250.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-b-1-250x250.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-b-1-250x250.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        2,
+        2,
+        212,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-1-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-1-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-1-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 2,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        216,
+        2,
+        427,
+        212
+      ],
+      "nativeSize": [
+        211,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-2-211x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-2-211x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-2-211x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 3,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        431,
+        2,
+        641,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-3-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-3-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-3-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 4,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        645,
+        2,
+        855,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-4-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-4-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-4-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 5,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        859,
+        2,
+        1069,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-5-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-5-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-5-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 6,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        1073,
+        2,
+        1284,
+        212
+      ],
+      "nativeSize": [
+        211,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-6-211x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-6-211x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-6-211x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 7,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        1288,
+        2,
+        1498,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-7-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-7-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-7-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 8,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        2,
+        216,
+        212,
+        425
+      ],
+      "nativeSize": [
+        210,
+        209
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-8-210x209.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-8-210x209.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-8-210x209.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 9,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        216,
+        216,
+        427,
+        425
+      ],
+      "nativeSize": [
+        211,
+        209
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-9-211x209.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-9-211x209.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-9-211x209.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 10,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        431,
+        216,
+        641,
+        425
+      ],
+      "nativeSize": [
+        210,
+        209
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-10-210x209.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-10-210x209.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-10-210x209.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 11,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        645,
+        216,
+        855,
+        425
+      ],
+      "nativeSize": [
+        210,
+        209
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-11-210x209.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-11-210x209.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-11-210x209.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 12,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        859,
+        216,
+        1069,
+        425
+      ],
+      "nativeSize": [
+        210,
+        209
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-12-210x209.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-12-210x209.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-12-210x209.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 13,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        1073,
+        216,
+        1284,
+        425
+      ],
+      "nativeSize": [
+        211,
+        209
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-13-211x209.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-13-211x209.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-13-211x209.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "palazzo-ducale-mix",
+      "face": 14,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_palazzo_mix.jpg",
+      "sourceSha256": "5e9dd505ce5ab375f0fc2fdb72847d7693a4ee0088a4811087c9624ea0f7b84c",
+      "sourceSize": [
+        1500,
+        427
+      ],
+      "crop": [
+        1288,
+        216,
+        1498,
+        425
+      ],
+      "nativeSize": [
+        210,
+        209
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-14-210x209.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-14-210x209.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/palazzo-ducale-mix-14-210x209.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        2,
+        2,
+        212,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-1-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-1-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-1-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 2,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        216,
+        2,
+        426,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-2-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-2-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-2-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 3,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        430,
+        2,
+        640,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-3-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-3-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-3-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 4,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        644,
+        2,
+        854,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-4-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-4-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-4-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 5,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        2,
+        216,
+        212,
+        426
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-5-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-5-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-5-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 6,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        216,
+        216,
+        426,
+        426
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-6-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-6-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-6-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 7,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        430,
+        216,
+        640,
+        426
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-7-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-7-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-7-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 8,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        644,
+        216,
+        854,
+        426
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-8-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-8-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-8-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 9,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        2,
+        430,
+        212,
+        640
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-9-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-9-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-9-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 10,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        216,
+        430,
+        426,
+        640
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-10-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-10-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-10-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 11,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        430,
+        430,
+        640,
+        640
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-11-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-11-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-11-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 12,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        644,
+        430,
+        854,
+        640
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-12-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-12-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-12-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 13,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        2,
+        644,
+        212,
+        854
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-13-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-13-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-13-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 14,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        216,
+        644,
+        426,
+        854
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-14-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-14-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-14-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 15,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        430,
+        644,
+        640,
+        854
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-15-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-15-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-15-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-senape-mix",
+      "face": 16,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_senape_mix.jpg",
+      "sourceSha256": "b1df30536c02f39c964a149c02e935f80c11589965fc1bf893d7ebbf20a2f57e",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        644,
+        644,
+        854,
+        854
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-16-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-16-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-senape-mix-16-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        2,
+        2,
+        212,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-1-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-1-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-1-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 2,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        216,
+        2,
+        426,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-2-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-2-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-2-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 3,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        430,
+        2,
+        640,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-3-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-3-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-3-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 4,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        644,
+        2,
+        854,
+        212
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-4-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-4-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-4-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 5,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        2,
+        216,
+        212,
+        426
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-5-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-5-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-5-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 6,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        216,
+        216,
+        426,
+        426
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-6-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-6-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-6-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 7,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        430,
+        216,
+        640,
+        426
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-7-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-7-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-7-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 8,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        644,
+        216,
+        854,
+        426
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-8-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-8-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-8-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 9,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        2,
+        430,
+        212,
+        640
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-9-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-9-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-9-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 10,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        216,
+        430,
+        426,
+        640
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-10-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-10-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-10-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 11,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        430,
+        430,
+        640,
+        640
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-11-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-11-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-11-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 12,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        644,
+        430,
+        854,
+        640
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-12-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-12-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-12-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 13,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        2,
+        644,
+        212,
+        854
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-13-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-13-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-13-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 14,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        216,
+        644,
+        426,
+        854
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-14-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-14-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-14-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 15,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        430,
+        644,
+        640,
+        854
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-15-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-15-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-15-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "evo-ciano-mix",
+      "face": 16,
+      "source": "https://eliosceramica.com/wp-content/uploads/2021/02/d_esignEvo_evo_ciano_mix.jpg",
+      "sourceSha256": "75cad858a7c2452fb3edb724ae53f276301b60a5fe41068b6e58ed544bc1079d",
+      "sourceSize": [
+        856,
+        856
+      ],
+      "crop": [
+        644,
+        644,
+        854,
+        854
+      ],
+      "nativeSize": [
+        210,
+        210
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-16-210x210.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-16-210x210.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/evo-ciano-mix-16-210x210.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "lossless WebP"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "bianco",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Bianco_z.jpg",
+      "sourceSha256": "51a0e1984d5664707cf43c82e1e148e8bdb66b354bfd71fc2f8d8ef5e74538fe",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/bianco-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/bianco-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/bianco-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "brown",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Brown_z.jpg",
+      "sourceSha256": "58eb3334e24f467bf636069bcc93dbd525315293e26660c40f5eb408c1caef6b",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/brown-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/brown-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/brown-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "grigio",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Grigio_z.jpg",
+      "sourceSha256": "f5eff179c23ea88399a59cdbf56e25e2f7229e45b3eb81cdce1f5e3fd9b33a0b",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/grigio-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/grigio-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/grigio-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "ciano",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Ciano_z.jpg",
+      "sourceSha256": "243692f751eeab36e2ae1878c1a77640235318f2d08cc05d61114ae99225b7a7",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/ciano-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/ciano-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/ciano-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "antracite",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Antracite_z.jpg",
+      "sourceSha256": "fe0e80c414ed8a02234cd0bde934527e5527f7e4cc5489891a1cce16853ee36d",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/antracite-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/antracite-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/antracite-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "verde-inglese",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Verde_Inglese_z.jpg",
+      "sourceSha256": "1edd49883288466b03128bbbe28612f6b4a2494788d0c16f2e52ff9854290cff",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/verde-inglese-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/verde-inglese-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/verde-inglese-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "burro",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Burro_z.jpg",
+      "sourceSha256": "ce13896457969c0857cf7b974899e52ea6041b36345829bffbaa4cebb98e8a68",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/burro-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/burro-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/burro-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "terra-di-siena",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Terra_di_Siena_z.jpg",
+      "sourceSha256": "60f58444e0f677b71a489afc4d7052eb1de8e31a640f8f4ee69e49a699f0c5fa",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/terra-di-siena-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/terra-di-siena-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/terra-di-siena-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "design-evo",
+      "colorId": "tortora",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Tortora_z.jpg",
+      "sourceSha256": "f67aff87dc26973cd7b0f45015962fb96710137b1da246de5c175ae43ee25639",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/tortora-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/tortora-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/tortora-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "chalk",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/CHALK.jpg",
+      "sourceSha256": "c75aa65dad641ef233cdc61b4d1956c74a29c3f16e854fe08fce3a6123758063",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/chalk-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/chalk-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/chalk-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "chalk",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/CHALK.jpg",
+      "sourceSha256": "c75aa65dad641ef233cdc61b4d1956c74a29c3f16e854fe08fce3a6123758063",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        0,
+        150,
+        1200,
+        550
+      ],
+      "nativeSize": [
+        1200,
+        400
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/chalk-1-512x171.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/chalk-1-1024x341.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/chalk-1-1200x400.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "sand",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/SAND.jpg",
+      "sourceSha256": "675f4b110414b50531f226ebe4421c36bbd48e89c8cd9d1fa0f52ec5a492f976",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/sand-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/sand-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/sand-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "sand",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/SAND.jpg",
+      "sourceSha256": "675f4b110414b50531f226ebe4421c36bbd48e89c8cd9d1fa0f52ec5a492f976",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        0,
+        150,
+        1200,
+        550
+      ],
+      "nativeSize": [
+        1200,
+        400
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/sand-1-512x171.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/sand-1-1024x341.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/sand-1-1200x400.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "bone",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BONE.jpg",
+      "sourceSha256": "181e3f2a46e86238b719f60fcd86976d9ad76d119644f3eef008a4997d449d99",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/bone-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/bone-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/bone-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "bone",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BONE.jpg",
+      "sourceSha256": "181e3f2a46e86238b719f60fcd86976d9ad76d119644f3eef008a4997d449d99",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        0,
+        150,
+        1200,
+        550
+      ],
+      "nativeSize": [
+        1200,
+        400
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/bone-1-512x171.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/bone-1-1024x341.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/bone-1-1200x400.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "thyme-green",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/THYME-GREEN.jpg",
+      "sourceSha256": "afa6bcd99208b7fc24dfd2210c7ff2b13841b958f45e1940f481853910431a4d",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/thyme-green-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/thyme-green-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/thyme-green-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "thyme-green",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/THYME-GREEN.jpg",
+      "sourceSha256": "afa6bcd99208b7fc24dfd2210c7ff2b13841b958f45e1940f481853910431a4d",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        0,
+        150,
+        1200,
+        550
+      ],
+      "nativeSize": [
+        1200,
+        400
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/thyme-green-1-512x171.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/thyme-green-1-1024x341.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/thyme-green-1-1200x400.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "burgundy",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BURGUNDY.jpg",
+      "sourceSha256": "aa4e813d1ba8e3f3f9627e3a8973a3632cb7cc1a97078e56fbd00071f778bed4",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/burgundy-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/burgundy-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/burgundy-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "burgundy",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BURGUNDY.jpg",
+      "sourceSha256": "aa4e813d1ba8e3f3f9627e3a8973a3632cb7cc1a97078e56fbd00071f778bed4",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        0,
+        150,
+        1200,
+        550
+      ],
+      "nativeSize": [
+        1200,
+        400
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/burgundy-1-512x171.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/burgundy-1-1024x341.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/burgundy-1-1200x400.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "coffee-bean",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/COFEE-BEAN.jpg",
+      "sourceSha256": "9ec2bfaa718932ccb8d10dee4c392f32921e0d82158d8d7db2fd36fcef4056a3",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/coffee-bean-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/coffee-bean-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/coffee-bean-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "coffee-bean",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/COFEE-BEAN.jpg",
+      "sourceSha256": "9ec2bfaa718932ccb8d10dee4c392f32921e0d82158d8d7db2fd36fcef4056a3",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        0,
+        150,
+        1200,
+        550
+      ],
+      "nativeSize": [
+        1200,
+        400
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/coffee-bean-1-512x171.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/coffee-bean-1-1024x341.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/coffee-bean-1-1200x400.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "blue",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BLUE.jpg",
+      "sourceSha256": "1edbac5678e3165d1c894e3edc8af874635abecdcbf2d96389081b69b4b8be97",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/blue-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/blue-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/blue-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "blue",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BLUE.jpg",
+      "sourceSha256": "1edbac5678e3165d1c894e3edc8af874635abecdcbf2d96389081b69b4b8be97",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        0,
+        150,
+        1200,
+        550
+      ],
+      "nativeSize": [
+        1200,
+        400
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/blue-1-512x171.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/blue-1-1024x341.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/blue-1-1200x400.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "bottle-green",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BOTTLE-GREEN.jpg",
+      "sourceSha256": "a8c5d371c61677e395d335febcca8ffe7eb3f330e3f5a1022277a3999c4f6a00",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/bottle-green-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/bottle-green-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/bottle-green-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "bottle-green",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/BOTTLE-GREEN.jpg",
+      "sourceSha256": "a8c5d371c61677e395d335febcca8ffe7eb3f330e3f5a1022277a3999c4f6a00",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        0,
+        150,
+        1200,
+        550
+      ],
+      "nativeSize": [
+        1200,
+        400
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/bottle-green-1-512x171.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/bottle-green-1-1024x341.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/bottle-green-1-1200x400.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "turquoise",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/TURQUOISE.jpg",
+      "sourceSha256": "bf34d63647a632d7adf21046611b54efcf9e318589ce5dda1511e5c03345f57f",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/turquoise-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/turquoise-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/turquoise-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "turquoise",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/TURQUOISE.jpg",
+      "sourceSha256": "bf34d63647a632d7adf21046611b54efcf9e318589ce5dda1511e5c03345f57f",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        0,
+        150,
+        1200,
+        550
+      ],
+      "nativeSize": [
+        1200,
+        400
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/turquoise-1-512x171.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/turquoise-1-1024x341.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/turquoise-1-1200x400.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "dusk",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/DUSK.jpg",
+      "sourceSha256": "2b3ad40c84715248a28104457c640972a60a7d61d640f91550f50152430cd386",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/dusk-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/dusk-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/dusk-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "dusk",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/DUSK.jpg",
+      "sourceSha256": "2b3ad40c84715248a28104457c640972a60a7d61d640f91550f50152430cd386",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        0,
+        150,
+        1200,
+        550
+      ],
+      "nativeSize": [
+        1200,
+        400
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/dusk-1-512x171.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/dusk-1-1024x341.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/dusk-1-1200x400.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "dawn",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/DAWN.jpg",
+      "sourceSha256": "fa3f5e5ac0c17c196117ae0f1048f4638c779de65284135379c70facebd23d98",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        250,
+        0,
+        950,
+        700
+      ],
+      "nativeSize": [
+        700,
+        700
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/dawn-1-512x512.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/dawn-1-700x700.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/dawn-1-700x700.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "azuli-mood",
+      "colorId": "dawn",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2026/07/DAWN.jpg",
+      "sourceSha256": "fa3f5e5ac0c17c196117ae0f1048f4638c779de65284135379c70facebd23d98",
+      "sourceSize": [
+        1200,
+        700
+      ],
+      "crop": [
+        0,
+        150,
+        1200,
+        550
+      ],
+      "nativeSize": [
+        1200,
+        400
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/dawn-1-512x171.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/dawn-1-1024x341.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/azuli-mood/dawn-1-1200x400.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "glow",
+      "colorId": "arizona",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_ARIZONA_tacca_z.jpg",
+      "sourceSha256": "8ac8649fe1389b95b3f7756445c0dc91a71f9e6894e01952f1334dc5abe9f04d",
+      "sourceSize": [
+        1400,
+        700
+      ],
+      "crop": [
+        0,
+        275,
+        1400,
+        424
+      ],
+      "nativeSize": [
+        1400,
+        149
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/arizona-1-512x54.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/arizona-1-1024x109.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/arizona-1-1400x149.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "glow",
+      "colorId": "dakota",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_DAKOTA_tacca_z.jpg",
+      "sourceSha256": "6d91b2def1ad7da3976ada1017fb2b9ce348a5dafba625f57624295cdd4df056",
+      "sourceSize": [
+        1400,
+        700
+      ],
+      "crop": [
+        0,
+        275,
+        1400,
+        424
+      ],
+      "nativeSize": [
+        1400,
+        149
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/dakota-1-512x54.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/dakota-1-1024x109.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/dakota-1-1400x149.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "glow",
+      "colorId": "montana",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_MONTANA_tacca_z.jpg",
+      "sourceSha256": "73e0679735960d067d85765cfd4e7a0cdd1fd4bd8e3228a1e66b7ddefb79f4c0",
+      "sourceSize": [
+        1400,
+        700
+      ],
+      "crop": [
+        0,
+        275,
+        1400,
+        424
+      ],
+      "nativeSize": [
+        1400,
+        149
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/montana-1-512x54.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/montana-1-1024x109.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/montana-1-1400x149.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "glow",
+      "colorId": "oregon",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_OREGON_tacca_z.jpg",
+      "sourceSha256": "d3b97b198f839419ceb48a2f86799a4af9b5ef9d6c30ae681d8df2837dd78e14",
+      "sourceSize": [
+        1400,
+        700
+      ],
+      "crop": [
+        0,
+        275,
+        1400,
+        424
+      ],
+      "nativeSize": [
+        1400,
+        149
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/oregon-1-512x54.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/oregon-1-1024x109.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/oregon-1-1400x149.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "glow",
+      "colorId": "california",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_CALIFORNIA_tacca_z.jpg",
+      "sourceSha256": "0a88ff270b9cf69a569e60b2c774ce5905108f511f06232457d6db317e4f9250",
+      "sourceSize": [
+        1400,
+        700
+      ],
+      "crop": [
+        0,
+        275,
+        1400,
+        424
+      ],
+      "nativeSize": [
+        1400,
+        149
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/california-1-512x54.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/california-1-1024x109.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/california-1-1400x149.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "glow",
+      "colorId": "texas",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_TEXAS_tacca_z.jpg",
+      "sourceSha256": "a2fdc1376d7ae61dd8b83a5b71cf8a5daf45d5385e2288f4afde4502775b4891",
+      "sourceSize": [
+        1400,
+        700
+      ],
+      "crop": [
+        0,
+        275,
+        1400,
+        424
+      ],
+      "nativeSize": [
+        1400,
+        149
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/texas-1-512x54.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/texas-1-1024x109.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/texas-1-1400x149.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "glow",
+      "colorId": "virginia",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_VIRGINIA_tacca_z.jpg",
+      "sourceSha256": "9517ee11c3f9c23d0bbd3b80236b1273aae7c4f63bc264b8ed26df78da5a06f6",
+      "sourceSize": [
+        1400,
+        700
+      ],
+      "crop": [
+        0,
+        275,
+        1400,
+        424
+      ],
+      "nativeSize": [
+        1400,
+        149
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/virginia-1-512x54.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/virginia-1-1024x109.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/virginia-1-1400x149.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "glow",
+      "colorId": "florida",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_FLORIDA_tacca_z.jpg",
+      "sourceSha256": "66ee3335d249fcdc22c967b7de600cbb051508d39185a063cea6d3f1c178034e",
+      "sourceSize": [
+        1400,
+        700
+      ],
+      "crop": [
+        0,
+        275,
+        1400,
+        424
+      ],
+      "nativeSize": [
+        1400,
+        149
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/florida-1-512x54.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/florida-1-1024x109.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/florida-1-1400x149.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    },
+    {
+      "collection": "glow",
+      "colorId": "indiana",
+      "face": 1,
+      "source": "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_INDIANA_tacca_z.jpg",
+      "sourceSha256": "265ee98998217851c58ea116282b07e8c8996ae6221f2c0fd83d1e9211c4d8ef",
+      "sourceSize": [
+        1400,
+        700
+      ],
+      "crop": [
+        0,
+        275,
+        1400,
+        424
+      ],
+      "nativeSize": [
+        1400,
+        149
+      ],
+      "variants": {
+        "fluid": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/indiana-1-512x54.webp",
+        "balanced": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/indiana-1-1024x109.webp",
+        "max": "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/indiana-1-1400x149.webp"
+      },
+      "upscaled": false,
+      "generated": false,
+      "encoding": "WebP quality95"
+    }
+  ]
+}

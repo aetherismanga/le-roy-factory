@@ -8,7 +8,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   const keys=new Set();const eye=1.58,radius=.20,speed=1.7,turn=1.8;
   let viewMode='first',walker=new T.Vector3(),moving=false;
   let active=false,forward=new T.Vector3(0,0,-1),panel=null,button=null,pitch=0,touchMove={x:0,y:0},touchLook=null,mouseLook=false;
-  const editable=el=>!!el?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"]');
+  const editable=el=>!!el?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"],[role="menu"],[role="dialog"]');
   const inside=(x,z,pts)=>{
     if(!pts?.length)return true;
     let hit=false;

@@ -11,7 +11,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   const touches=new Map();let moveOrigin=null,hintTimer=null;
   const touchDevice=()=>navigator.maxTouchPoints>0||matchMedia('(pointer:coarse)').matches;
   function resetInput(){taps.reset();keys.clear();touches.clear();moveOrigin=null;touchMove={x:0,y:0};mouseLook=false;}
-  const editable=el=>!!el?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"]');
+  const editable=el=>!!el?.closest?.('input,textarea,select,[contenteditable="true"],[role="textbox"],[role="menu"],[role="dialog"]');
   const inside=(x,z,pts)=>{
     if(!pts?.length)return true;
     let hit=false;

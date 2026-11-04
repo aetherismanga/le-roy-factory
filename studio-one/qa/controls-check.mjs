@@ -215,7 +215,7 @@ assert(vm.runInContext('resizeOpening(93,210)',context));assert(vm.runInContext(
 vm.runInContext(`removeItem(${JSON.stringify(windowId)})`,context);assert.equal(vm.runInContext('roomScene.walls[2].openings.length',context),0);vm.runInContext('restoreFurnishedSceneForControls()',context);assert(vm.runInContext('roomScene.walls.every(w=>w.openings.length===0)',context));
 // A normal selection keeps measurements hidden; contextual dimensions are explicit.
 vm.runInContext('state.dimensions=false;closeInspector();selectItem(composition.selectedId);renderDimensions()',context);assert.equal(vm.runInContext('selectedDimensions',context),false);assert.equal(ids.get('dimension-overlay').hidden,true);
-assert.equal(vm.runInContext('itemContextActions(composition.selected,{}).map(a=>a.id).join(",")',context),'duplicate,lock,remove,dimensions,finish,options');
+assert.equal(vm.runInContext('itemContextActions(composition.selected,{}).map(a=>a.id).join(",")',context),'open-close,duplicate,lock,remove,dimensions,finish,options');
 vm.runInContext('itemContextActions(composition.selected,{}).find(a=>a.id==="dimensions").run();renderDimensions()',context);assert.equal(vm.runInContext('selectedDimensions',context),true);assert.equal(vm.runInContext('state.dimensions',context),false);assert.equal(ids.get('dimension-overlay').hidden,false);
 vm.runInContext('toggleItemDimensions(composition.selectedId);renderDimensions()',context);assert.equal(ids.get('dimension-overlay').hidden,true);
 const beforeDirection=vm.runInContext('JSON.stringify({p:camera.position.toArray(),t:controls.target.toArray(),v:state.view})',context);

@@ -24,7 +24,7 @@ assert(formatsForColor('Mysterium','acqua').length>0,'Legacy project dimensions 
 assert.equal(availableColors('Lithos').length,0);
 assert.equal(availableColors('Azuli Mood').length,11,'All eleven colours use recovered native manufacturer sources instead of the former 47–56 px faces');
 assert.equal(availableColors('Allure').length,9,'Allure colours and complete continuous panels share the same catalogue as Studio One');
-for(const color of availableColors('Azuli Mood')){assert.deepEqual(color.resolution,[1200,700]);assert.equal(color.faces.length,1);assert(color.textureVariants.max[0].endsWith('-native.jpg'));assert(!color.textureVariants.max[0].endsWith('-fluid.webp'));}
+for(const color of availableColors('Azuli Mood')){assert.deepEqual(color.resolution,[1200,400]);assert.equal(color.faces.length,1);assert.equal(color.textureProvenance.kind,'manufacturer-swatch-crop');assert(color.textureVariants.max[0].endsWith('-1200x400.webp'));assert.equal(color.nativeFaces,false);}
 for(const collection of ['COCO','Venere'])assert(availableColors(collection).every(color=>color.definitionLimited===true),'Limited samples are usable and honestly labelled');
 for(const id of ['eden','safari','fenix-blueberry','fenix-juniper'])assert(availableColors('Allure').find(color=>color.id===id)?.continuousDecor);
 assert.equal(availableColors('Glow').some(c=>c.id==='washington'),false,'Framed blank image is not a tile texture');

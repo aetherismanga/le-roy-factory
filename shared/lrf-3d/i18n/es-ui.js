@@ -4,6 +4,15 @@ ES_COMMERCE,ES_COMMERCE_PATTERNS} from './es-commerce.js';
 import {ES_SHARED,ES_SHARED_PATTERNS} from './es-shared.js';
 
 export const ES_ATELIER = {
+"Vue extérieure": "Vista exterior",
+"Jardin méditerranéen": "Jardín mediterráneo",
+"Bord de mer": "Costa",
+"Forêt et lac": "Bosque y lago",
+"Montagne": "Montaña",
+"Jardin contemporain": "Jardín contemporáneo",
+"Ouvrir la fenêtre": "Abrir la ventana",
+"Fermer la fenêtre": "Cerrar la ventana",
+
 "Net et équilibré · recommandé": "Nítido y equilibrado · recomendado",
 "Net et fluide · PC bureautique": "Nítido y fluido · PC de oficina",
 "Image nette · ombres et reflets optimisés": "Imagen nítida · sombras y reflejos optimizados",
@@ -336,7 +345,7 @@ export const ES_ATELIER = {
   "Quitter le configurateur": "Salir del configurador",
   "Étapes de configuration": "Pasos de configuración",
   "Vue interactive du meuble en trois dimensions": "Vista interactiva del mueble en tres dimensiones",
-  "Meuble 3D. Cliquez sur le meuble, la vasque, le sol ou le mur pour les personnaliser. Maintenez un élément pour le déplacer. Faites glisser sur le fond pour tourner, pincez ou utilisez la molette pour zoomer. Touches fléchées pour tourner, plus et moins pour zoomer.": "Mueble 3D. Haz clic en el mueble, el lavabo, el suelo o la pared para personalizarlos. Mantén pulsado un elemento para moverlo. Arrastra sobre el fondo para girar; pellizca o utiliza la rueda para ampliar. Flechas del teclado para girar; más y menos para ampliar o reducir.",
+  "Meuble 3D. Cliquez sur le meuble, la vasque, le sol ou le mur pour les personnaliser. Maintenez un élément pour le déplacer. Faites glisser sur le fond pour tourner, pincez ou utilisez la molette pour zoomer. Touches fléchées pour se déplacer à gauche, à droite, en avant et en arrière, plus et moins pour zoomer.": "Mueble 3D. Haz clic en el mueble, el lavabo, el suelo o la pared para personalizarlos. Mantén pulsado un elemento para moverlo. Arrastra sobre el fondo para girar; pellizca o utiliza la rueda para ampliar. Flechas del teclado para desplazarse a la izquierda, a la derecha, hacia delante y hacia atrás; más y menos para ampliar o reducir.",
   "Cotes de la pièce et de l’élément sélectionné, en centimètres": "Cotas de la estancia y del elemento seleccionado, en centímetros",
   "Ajouter un élément": "Añadir un elemento",
   "Ajouter à la composition": "Añadir a la composición",
@@ -632,6 +641,7 @@ export const ES_ATELIER = {
   "2 tiroirs XL": "2 cajones XL",
   "droite": "derecha",
   "gauche": "izquierda",
+  "Aperçu indisponible": "Vista previa no disponible",
   "Fermer": "Cerrar",
   "Ouvrir": "Abrir",
   "Verrouiller": "Bloquear",

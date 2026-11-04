@@ -207,7 +207,18 @@
       "module": "navigation.js",
       "sha256": "fbdbd6dabb399504df9f8ff9e59fee40072ce5d94b9f5541a995afcad4c0c8fc",
       "bytes": 406,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "sha256": "207ab37757702ab0c0b59aa017ac48b77d1b6bc0968e329763cbcfcf24d9b187",
+        "bytes": 1519,
+        "changeType": "functional-update-20261104",
+        "reason": "Support native arrow-key translation, safe opening and ambience context actions during editable or transient locked visits, and true Yosemite Honey chevron geometry in the adjoining hall; preserve source geometry, identities and project security.",
+        "validation": [
+          "tests/lrf-normal-navigation-context.test.mjs",
+          "tests/lrf-surface-reference-preview.test.mjs",
+          "tests/lrf-door-honey-chevron.test.mjs"
+        ]
+      }
     },
     {
       "module": "niches.js",

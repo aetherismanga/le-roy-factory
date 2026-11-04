@@ -16400,7 +16400,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/bianco-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/bianco-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/bianco-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -16436,7 +16456,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/grigio-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/grigio-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/grigio-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -16472,7 +16512,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/antracite-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/antracite-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/antracite-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -16508,7 +16568,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/burro-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/burro-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/burro-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -16544,7 +16624,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/tortora-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/tortora-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/tortora-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -16580,7 +16680,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/brown-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/brown-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/brown-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -16616,7 +16736,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/ciano-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/ciano-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/ciano-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -16652,7 +16792,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/verde-inglese-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/verde-inglese-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/verde-inglese-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -16688,7 +16848,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/terra-di-siena-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/terra-di-siena-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/terra-di-siena-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "brand": "ELIOS",
@@ -17261,17 +17441,30 @@
       "faces": [
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/glow/oregon.webp"
       ],
-      "nativeFaces": true,
+      "nativeFaces": false,
       "textureResolution": [
         1400,
-        700
+        149
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/oregon-1-512x54.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/oregon-1-1024x109.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/oregon-1-1400x149.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "textureReference": "04D4570"
     },
     {
       "brand": "ELIOS",
@@ -17308,17 +17501,30 @@
       "faces": [
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/glow/california.webp"
       ],
-      "nativeFaces": true,
+      "nativeFaces": false,
       "textureResolution": [
         1400,
-        700
+        149
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/california-1-512x54.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/california-1-1024x109.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/california-1-1400x149.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "textureReference": "04D4560"
     },
     {
       "brand": "ELIOS",
@@ -17355,17 +17561,30 @@
       "faces": [
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/glow/montana.webp"
       ],
-      "nativeFaces": true,
+      "nativeFaces": false,
       "textureResolution": [
         1400,
-        700
+        149
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/montana-1-512x54.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/montana-1-1024x109.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/montana-1-1400x149.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "textureReference": "04D4540"
     },
     {
       "brand": "ELIOS",
@@ -17402,17 +17621,30 @@
       "faces": [
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/glow/florida.webp"
       ],
-      "nativeFaces": true,
+      "nativeFaces": false,
       "textureResolution": [
         1400,
-        700
+        149
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/florida-1-512x54.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/florida-1-1024x109.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/florida-1-1400x149.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "textureReference": "04D4550"
     },
     {
       "brand": "ELIOS",
@@ -17449,17 +17681,30 @@
       "faces": [
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/glow/virginia.webp"
       ],
-      "nativeFaces": true,
+      "nativeFaces": false,
       "textureResolution": [
         1400,
-        700
+        149
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/virginia-1-512x54.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/virginia-1-1024x109.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/virginia-1-1400x149.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "textureReference": "04D4530"
     },
     {
       "brand": "ELIOS",
@@ -17496,17 +17741,30 @@
       "faces": [
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/glow/arizona.webp"
       ],
-      "nativeFaces": true,
+      "nativeFaces": false,
       "textureResolution": [
         1400,
-        700
+        149
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/arizona-1-512x54.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/arizona-1-1024x109.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/arizona-1-1400x149.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "textureReference": "04D4520"
     },
     {
       "brand": "ELIOS",
@@ -17543,17 +17801,30 @@
       "faces": [
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/glow/dakota.webp"
       ],
-      "nativeFaces": true,
+      "nativeFaces": false,
       "textureResolution": [
         1400,
-        700
+        149
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/dakota-1-512x54.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/dakota-1-1024x109.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/dakota-1-1400x149.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "textureReference": "04D4510"
     },
     {
       "brand": "ELIOS",
@@ -17590,17 +17861,30 @@
       "faces": [
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/glow/indiana.webp"
       ],
-      "nativeFaces": true,
+      "nativeFaces": false,
       "textureResolution": [
         1400,
-        700
+        149
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/indiana-1-512x54.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/indiana-1-1024x109.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/indiana-1-1400x149.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "textureReference": "04D4580"
     },
     {
       "brand": "ELIOS",
@@ -17684,17 +17968,30 @@
       "faces": [
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/glow/texas.webp"
       ],
-      "nativeFaces": true,
+      "nativeFaces": false,
       "textureResolution": [
         1400,
-        700
+        149
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/texas-1-512x54.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/texas-1-1024x109.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/glow/texas-1-1400x149.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "textureReference": "04D4590"
     },
     {
       "brand": "ELIOS",
@@ -29164,14 +29461,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q1000"
     },
     {
       "brand": "ELIOS",
@@ -29219,14 +29517,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q5500"
     },
     {
       "brand": "ELIOS",
@@ -29274,14 +29573,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q1001"
     },
     {
       "brand": "ELIOS",
@@ -29329,14 +29629,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q5501"
     },
     {
       "brand": "ELIOS",
@@ -29384,14 +29685,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q1002"
     },
     {
       "brand": "ELIOS",
@@ -29439,14 +29741,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q5502"
     },
     {
       "brand": "ELIOS",
@@ -29494,14 +29797,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q1003"
     },
     {
       "brand": "ELIOS",
@@ -29549,14 +29853,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q5503"
     },
     {
       "brand": "ELIOS",
@@ -29604,14 +29909,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q1004"
     },
     {
       "brand": "ELIOS",
@@ -29659,14 +29965,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q5504"
     },
     {
       "brand": "ELIOS",
@@ -29714,14 +30021,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q1005"
     },
     {
       "brand": "ELIOS",
@@ -29769,14 +30077,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q5505"
     },
     {
       "brand": "ELIOS",
@@ -29824,14 +30133,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q1006"
     },
     {
       "brand": "ELIOS",
@@ -29879,14 +30189,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q5506"
     },
     {
       "brand": "ELIOS",
@@ -29934,14 +30245,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q1007"
     },
     {
       "brand": "ELIOS",
@@ -29989,14 +30301,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q5507"
     },
     {
       "brand": "ELIOS",
@@ -30044,14 +30357,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q1008"
     },
     {
       "brand": "ELIOS",
@@ -30099,14 +30413,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q5508"
     },
     {
       "brand": "ELIOS",
@@ -30154,14 +30469,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q1009"
     },
     {
       "brand": "ELIOS",
@@ -30209,14 +30525,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q5509"
     },
     {
       "brand": "ELIOS",
@@ -30264,14 +30581,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q1010"
     },
     {
       "brand": "ELIOS",
@@ -30319,14 +30637,15 @@
       "nativeFaces": false,
       "textureResolution": [
         1200,
-        700
+        400
       ],
-      "definitionLimited": false,
+      "definitionLimited": true,
       "continuousDecor": false,
-      "textureSourceKind": "manufacturer-face",
+      "textureSourceKind": "reference-face",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureReference": "04Q5510"
     },
     {
       "brand": "ELIOS",
@@ -51750,7 +52069,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/bianco-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/bianco-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/bianco-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "key": "ELIOS|D_esign Evo|brown|60x60",
@@ -51783,7 +52122,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/brown-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/brown-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/brown-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "key": "ELIOS|D_esign Evo|grigio|60x60",
@@ -51816,7 +52175,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/grigio-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/grigio-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/grigio-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "key": "ELIOS|D_esign Evo|ciano|60x60",
@@ -51849,7 +52228,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/ciano-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/ciano-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/ciano-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "key": "ELIOS|D_esign Evo|antracite|60x60",
@@ -51882,7 +52281,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/antracite-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/antracite-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/antracite-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "key": "ELIOS|D_esign Evo|verde-inglese|60x60",
@@ -51915,7 +52334,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/verde-inglese-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/verde-inglese-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/verde-inglese-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "key": "ELIOS|D_esign Evo|burro|60x60",
@@ -51948,7 +52387,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/burro-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/burro-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/burro-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "key": "ELIOS|D_esign Evo|terra-di-siena|60x60",
@@ -51981,7 +52440,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/terra-di-siena-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/terra-di-siena-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/terra-di-siena-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "key": "ELIOS|D_esign Evo|tortora|60x60",
@@ -52014,7 +52493,27 @@
       "catalogueRevision": "lrf-surfaces-20261024-v1",
       "purchaseHT": null,
       "purchasePaletteHT": null,
-      "publicPriceHT": null
+      "publicPriceHT": null,
+      "textureVariants": {
+        "fluid": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/tortora-1-512x512.webp"
+        ],
+        "balanced": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/tortora-1-700x700.webp"
+        ],
+        "max": [
+          "https://leroyfactory.fr/assets/img/lrf-plan-pose/faces/elios-20261104/design-evo/tortora-1-700x700.webp"
+        ]
+      },
+      "textureRotation": 0,
+      "nativeFaces": false,
+      "textureResolution": [
+        700,
+        700
+      ],
+      "definitionLimited": false,
+      "continuousDecor": true,
+      "textureSourceKind": "manufacturer-face"
     },
     {
       "key": "ELIOS|Marechiaro|mix|40.6x40.6",

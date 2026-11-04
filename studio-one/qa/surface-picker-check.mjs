@@ -24,7 +24,7 @@ assert(formatsForColor('Mysterium','acqua').length>0,'Legacy project dimensions 
 assert.equal(availableColors('Lithos').length,0);
 assert.equal(availableColors('Azuli Mood').length,11,'All eleven colours use the recovered manufacturer samples');
 assert.equal(availableColors('Allure').length,9,'All nine Allure colours and decors stay selectable');
-for(const color of availableColors('Azuli Mood')){assert.deepEqual(color.resolution,[1200,700]);assert.equal(color.faces.length,1);assert(color.textureVariants.max[0].endsWith('-native.jpg'));}
+for(const color of availableColors('Azuli Mood')){assert.deepEqual(color.resolution,[1200,400]);assert.equal(color.faces.length,1);assert.equal(color.textureProvenance.kind,'manufacturer-swatch-crop');assert(color.textureVariants.max[0].endsWith('-1200x400.webp'));assert.equal(color.nativeFaces,false);}
 for(const id of ['eden','safari','fenix-blueberry','fenix-juniper'])assert(availableColors('Allure').some(c=>c.id===id));
 assert.equal(availableColors('Glow').some(c=>c.id==='washington'),false,'Framed blank image is not a tile texture');
 assert.equal(availableColors('Skultura').length,0,'Prelit surface photographs are not selectable flat textures');

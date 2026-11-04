@@ -1,6 +1,12 @@
 // Catalogue presence, visual definition and technical availability are separate.
 // Reviewed limited samples stay selectable with an honest label in the picker.
 const reviewedExclusions=Object.freeze({'Glow|washington':'framed-blank-image','Marechiaro|amalfi':'floral-panel-excluded'});
+function reviewedNativeDecor(collection,color){
+ const p=color.textureProvenance,size=color.resolution,official=/^https:\/\/eliosceramica\.com\/wp-content\/uploads\/.+\.(?:jpe?g|png)$/i;
+ if(!['Deco','D_esign Evo'].includes(collection)||color.definitionLimited!==true||color.previewReviewed!==true||color.nativeFaces!==false||p?.kind!=='manufacturer-catalogue-sample'||!official.test(p.source||'')||!/^([a-f0-9]{64})$/.test(p.sourceSha256||'')||p.generated!==false||p.upscaled!==false||p.referenceAssignmentVerified!==true||!color.references?.includes(p.reference)||color.formats?.length!==1||color.formats[0]!=='20x20'||!Array.isArray(size)||size.length!==2||!Array.isArray(p.nativeDimensions)||p.nativeDimensions.length!==2||p.nativeDimensions.some((v,i)=>v!==size[i]))return false;
+ if(!p.faces?.length||p.faces.length!==color.faces?.length)return false;
+ return p.faces.every((face,i)=>official.test(face.source||'')&&face.source===p.source&&face.sourceSha256===p.sourceSha256&&face.generated===false&&face.upscaled===false&&face.nativeSize?.length===2&&face.sourceSize?.length===2&&face.nativeSize.every((v,j)=>Number.isInteger(v)&&v>=100&&v<=250&&v<=face.sourceSize[j])&&face.variants?.max===color.faces[i]&&/^https:\/\/leroyfactory\.fr\/assets\/img\/lrf-plan-pose\/faces\/elios-20261104\/(?:deco|design-evo)\//.test(color.faces[i])&&(!face.crop||face.crop.length===4&&face.crop[0]>=0&&face.crop[1]>=0&&face.crop[2]<=face.sourceSize[0]&&face.crop[3]<=face.sourceSize[1]&&face.crop[2]-face.crop[0]===face.nativeSize[0]&&face.crop[3]-face.crop[1]===face.nativeSize[1]));
+}
 export function surfaceColorIssue(collection,color){
  if(!color||color.available3d===false)return 'no-usable-manufacturer-face';
  if(collection==='Peinture')return /^#[\da-f]{6}$/i.test(color.hex||'')?null:'missing-paint-colour';
@@ -15,6 +21,7 @@ export function surfaceColorIssue(collection,color){
  // pixels are preserved, and neither this exception nor a larger derivative
  // marks them as original manufacturer HD faces.
  if(color.definitionLimited===true&&color.previewReviewed===true&&color.nativeFaces===false&&color.textureProvenance?.kind==='manufacturer-catalogue-sample'&&/^https:\/\/eliosceramica\.com\/wp-content\/uploads\/.+\.pdf(?:#.*)?$/i.test(color.textureProvenance.source||''))return null;
+ if(reviewedNativeDecor(collection,color))return null;
  if(Math.max(width,height)<700||width*height<150000)return 'insufficient-source-definition';
  return null;
 }
