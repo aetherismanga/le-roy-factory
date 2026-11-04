@@ -153,6 +153,7 @@ exports.sendGroupEmail = onRequest({
     await appendGroupMailReports(db, payload, { messageId: info?.messageId, sentAt: new Date() }).catch(err => {
       console.warn("Compte-rendu du mail non bloquant:", err.message);
     });
+    // success describes SMTP acceptance; historyRecorded describes storage only.
     res.status(200).json({ success: true, historyId: historyRef?.id || null, historyRecorded: Boolean(historyRef), messageId: info?.messageId || null });
   } catch (error) {
     console.error("Erreur d'envoi:", error);

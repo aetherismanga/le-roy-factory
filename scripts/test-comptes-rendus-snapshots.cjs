@@ -7,6 +7,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 test('a slower previous Firestore snapshot cannot duplicate or replace the current reports', async () => {
+  const { reportField, reportFingerprint } = await import('../assets/js/crm-report-core.mjs');
   const html = fs.readFileSync(path.join(__dirname, '../comptes-rendus.html'), 'utf8');
   const body = html.match(/onSnapshot\(collection\(db,"clients"\),async snap=>\{([\s\S]*?)\n      \},err=>/)[1];
   let resolveCity;
@@ -15,6 +16,7 @@ test('a slower previous Firestore snapshot cannot duplicate or replace the curre
   const clientSelect = element(), renders = [];
   const context = vm.createContext({
     document: { createElement: element, createDocumentFragment: element }, clientSelect,
+    reportField, reportFingerprint,
     villeFromCP: () => delayedCity, detectUsine: () => 'RANDAL', refreshUsineChoices() {},
     render: () => renders.push(context.inspect().reports.map(item => item.clientId))
   });

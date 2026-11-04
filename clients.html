@@ -473,6 +473,8 @@
         baselineReports = clone(currentCRList);
         modal.style.display = "flex";
         window.dispatchEvent(new CustomEvent('lrf-client-opened',{detail:{clientId:docId || '',client:selected || {}}}));
+        document.getElementById('client-form').scrollTop = 0;
+        requestAnimationFrame(() => { document.getElementById('client-form').scrollTop = 0; });
       }
 
       function closeModal() {
