@@ -102,7 +102,10 @@ test('mobile creation shortcut is consumed only by the authenticated client cont
   const start=html.indexOf('function consumeNewClientShortcut()');
   const end=html.indexOf("window.addEventListener('hashchange'",start);
   let opened=0,changed=0,replaced='';const type={value:'',dispatchEvent(){changed++}};
-  const context={saving:false,location:{hash:'#new-prospect',pathname:'/clients.html',search:'?filter=prospect'},openModal(){opened++},document:{getElementById(){return type}},Event:class{},history:{replaceState(_a,_b,url){replaced=url}}};
+  const context={URLSearchParams,saving:false,location:{hash:'#new-prospect',pathname:'/clients.html',search:'?filter=prospect'},openModal(){opened++},document:{getElementById(){return type}},Event:class{},history:{replaceState(_a,_b,url){replaced=url}}};
   vm.runInNewContext(html.slice(start,end)+';consumeNewClientShortcut()',context);
   assert.equal(opened,1);assert.equal(type.value,'prospect');assert.equal(changed,1);assert.equal(replaced,'/clients.html?filter=prospect');
+  context.location.hash='';context.location.search='?action=new-client';
+  vm.runInNewContext(html.slice(start,end)+';consumeNewClientShortcut()',context);
+  assert.equal(opened,2);assert.equal(type.value,'client');assert.equal(replaced,'/clients.html');
 });

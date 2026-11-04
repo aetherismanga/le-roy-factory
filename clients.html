@@ -490,13 +490,16 @@
         if(id) openModal(id);
       });
       function consumeNewClientShortcut() {
-        if (saving || !['#new-client','#new-prospect'].includes(location.hash)) return;
-        const prospect=location.hash==='#new-prospect';
+        const params=new URLSearchParams(location.search);
+        const hashAction=location.hash.replace(/^#/, '');
+        const action=['new-client','new-prospect'].includes(hashAction)?hashAction:params.get('action');
+        if (saving || !['new-client','new-prospect'].includes(action)) return;
         openModal();
         const type=document.getElementById('edit-type');
-        type.value=prospect?'prospect':'client';
+        type.value=action==='new-prospect'?'prospect':'client';
         type.dispatchEvent(new Event('change',{bubbles:true}));
-        history.replaceState(null,'',location.pathname+location.search);
+        params.delete('action');
+        history.replaceState(null,'',location.pathname+(params.size?'?'+params.toString():''));
       }
       window.addEventListener('hashchange',consumeNewClientShortcut);
       consumeNewClientShortcut();
