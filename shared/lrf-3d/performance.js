@@ -10,16 +10,16 @@ export const QUALITY_PROFILES=Object.freeze([
 export const MOBILE_STANDARD=Object.freeze({...QUALITY_PROFILES[1],pixelRatio:1.5,supersampling:1.35,pixels:1400000,shadow:1024,reflection:256,reflectionFps:12,transmission:.35});
 export const MOBILE_LIGHT=Object.freeze({...QUALITY_PROFILES[2],pixelRatio:1.4,supersampling:1.35,pixels:1100000,shadow:512,reflection:256,reflectionFps:8,transmission:.35});
 export function renderPixelRatio(profile,width,height,deviceRatio=1){const budget=Math.sqrt(profile.pixels/Math.max(1,width*height));return Math.max(.1,Math.min(Math.max(deviceRatio,profile.supersampling||0),profile.pixelRatio,budget));}
-export function profileSizes(profile,mobile=false,maxTextureSize=16384){return {shadow:Math.min(profile.shadow,mobile?(profile.ao?2048:1536):4096,maxTextureSize),reflection:Math.min(profile.reflection,mobile?(profile.ao?1024:512):2048,maxTextureSize)};}
+export function profileSizes(profile,mobile=false,maxTextureSize=16384,{editing=false}={}){return {shadow:Math.min(profile.shadow,mobile?(profile.ao?2048:1536):4096,maxTextureSize),reflection:Math.min(profile.reflection,editing?1024:2048,mobile?(profile.ao?1024:512):2048,maxTextureSize)};}
 
 // Gesture phases must not resize the canvas or change texture identity. The
-// renderer can retain settled render-target allocations and only throttle
+// renderer retains lighting, AO, shadows and transmission allocations; only throttle
 // updates while the pointer, camera or furniture is moving.
 const interactionProfiles=new WeakMap();
 export function interactionProfile(profile,{mobile=false}={}){
  let pair=interactionProfiles.get(profile);if(!pair){pair={};interactionProfiles.set(profile,pair);}
  const key=mobile?'mobile':'desktop';
- return pair[key]||(pair[key]=Object.freeze({...profile,shadow:profile.id==='fluid'?0:Math.min(profile.shadow,512),reflection:Math.min(profile.reflection,256),reflectionFps:profile.id==='fluid'?6:8,reflectionSamples:0,transmission:Math.min(profile.transmission,.35),ao:false}));
+ return pair[key]||(pair[key]=Object.freeze({...profile,reflectionFps:Math.min(profile.reflectionFps,mobile?8:profile.id==='max'?24:profile.id==='balanced'?15:8)}));
 }
 export class AdaptiveQuality{
  constructor({mobile=false}={}){this.mobile=mobile;this.level=1;this.mode='auto';this.previous=null;this.samples=[];this.lastChange=0;this.lastEvaluation=0;this.frameMs=0;}

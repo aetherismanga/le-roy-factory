@@ -1,5 +1,5 @@
 {
-  "id": "20261104-neobath-anima-studio-one-crisp-office-13",
+  "id": "20261104-neobath-anima-studio-one-visit-stable-14",
   "engine": "studio-one",
   "assets": {
     "accueil.html": "fde516e107498ae2244b8ac701be01d83ce14c28cbe3d82f961bde89df8aa5a2",
@@ -7,7 +7,7 @@
     "accueil.js": "b1d0b44289a7ff08642648575004a0b82f2c2a4d192e8bfaed43a968c32c1d3b",
     "atelier.html": "8d578a53d326b6b77f7bd878d62c56338a5efb84efd3a27b65d8ac4a9c717261",
     "atelier.css": "71fdf9a6d812fa9e064fdd12c47594dc281d6d7e147b27ca1f78f6d4cadb3338",
-    "app.js": "4f27b9ccd9a9beea960cd825f50b4cdee1a9355fffeab92d7a23e6b923c38ffa",
+    "app.js": "0e69fda63eef084d9887ced0ad3e964ea14eb04f3fb4cfbe82e72304e139fdb6",
     "catalogue.json": "77981993b503a4f1a3f05b6a003cb10941ecd8cc12728ea6314477c8bf480a22",
     "visuals.json": "7b6a9e2d968aed996357a03a0766a363bd4f005d6ed5889f9ff89ddf1766d173"
   },
@@ -46,7 +46,7 @@
       "shared/lrf-3d/floor-wall-alignment.js": "51ccdd0f54c1e9da81a7f11d6a84b7a4cfb28dcb0d7fadfca0f972aedecabe41",
       "shared/lrf-3d/room.js": "cffee4e746ec96fd978a00e43bce784357a1c7d0aa7976a22500186e96a6bbfd",
       "shared/lrf-3d/mirror-reflection.js": "41e26cdcfd001c3c514e1a8100b03a6ca50d872b1f19c8d1138b81f68d0cb456",
-      "shared/lrf-3d/performance.js": "10eca8cd7f785c13023ada2ab712f3c84605a38e3c495dcab16309d1bafbb1eb",
+      "shared/lrf-3d/performance.js": "1c87ea04ac9c9595ba5b3a49ea1fc803b4726875d126bccbe6d6b346363dc119",
       "shared/lrf-3d/hd-capture.js": "957ebf31d341a79b6bc251d3074e0ace014e0d9c976749cf5f3daaf9dd9542f3",
       "shared/lrf-3d/colour-rendering.js": "576744fdd670cf0c8358b6d3f6d5a05e7af112680a4ac5cd981f43306e22c443",
       "shared/lrf-3d/mirror-lighting.js": "9ffa79f96dc8287c47a0bb171724042acc60b743cf2f0c9332b263e15e56daef",
@@ -76,7 +76,7 @@
       "shared/lrf-3d/drawer-joinery.js": "a0f1314c8a5201eafe6b8f9784c6306539ad1c7c610f33691b42b668546a8374",
       "studio-one/src/cabinet-hardware.js": "006225c1fd870219bff472e3047558c5f148dfbb2ece6b70f67f3965b643408d",
       "shared/lrf-3d/ceramic-basins.js": "2b16714ca8613a9c763d01cd364e2559647088f10974d7f808e3c9cc3f06a7ca",
-      "studio-one/src/app.js": "6440a45d51d7452bf70c6afc44d1c02f1eb0f8a703234f4265f65694a431ae37",
+      "studio-one/src/app.js": "0021150eb571f68c9ff8147210612a4c0524cf178d89afbd0b4aaf45ebbf3e3d",
       "studio-one/src/photoreal-export.js": "0565441be18ed654153395042e01a334ed82d09a05b54decd0a0326392098aaa",
       "shared/lrf-3d/visit-interactions.js": "91f088119e46e25b3749fa294eb87e16981674906a5044312616ca360128a299",
       "shared/lrf-3d/public-composition-session.js": "a41b673a7c67fe3e7e9dc376d0f839c3d872a41b21c3a3254a28c84f87ec9845",
@@ -153,7 +153,7 @@
       "shared/lrf-3d/daylight.js": "fb57207c80d58ae4a870c60364f079b0cc5e178588f564b9603feac6c6be8400",
       "shared/lrf-3d/surfaces.js": "4a1bca248f8a9aba1f724b05448aae2cfa11efa5cf380446bf2623ad4b552d9d",
       "shared/lrf-3d/texture-budget.js": "7ae3396d92a40c5c1a85bff2971c03229966c7e98829ba07704804296c859834",
-      "shared/lrf-3d/ultra-rendering.js": "40cd410c3bedc45e8f1facb4680b7bd69ba8a0c6cdf835784cf2ade777556f82",
+      "shared/lrf-3d/ultra-rendering.js": "1ae3c9ac3e274ca123b71dc22a9079bf738c3c33b63b1f1eb88941a61158f6da",
       "shared/lrf-3d/plinth-ui.mjs": "66c0263656d5d11f1f6363d9ab407206770fd1eef9b497c34f49387bfa1c6741",
       "shared/lrf-3d/quantities.js": "40cf4c36204ebd2070db71dcff42172158e8e8d155901ccd8374e6f356e826f5",
       "shared/lrf-3d/sanitaries.js": "c33c86f1a464bd6d2a2b12c05c2985b9a675ca312376636d013f0413b63cb9a7",

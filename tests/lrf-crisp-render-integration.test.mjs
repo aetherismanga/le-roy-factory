@@ -26,14 +26,14 @@ for(const app of ['studio-one','randal-general']){
   vm.runInContext(body('renderProfile')+'\n'+body('applyRenderPhase'),context);
   return {context,quality,renderActivity,events};
  }
- test(app+': native phase controller keeps crisp density, bypasses moving shadows and refreshes every mirror once settled',()=>{
+ test(app+': native phase controller keeps crisp density, retains moving shadows and refreshes every mirror once settled',()=>{
   const f=fixture(),p=f.quality.profile;f.renderActivity.update(100,true);f.context.applyRenderPhase();
-  assert.equal(f.context.renderer.shadowMap.enabled,false);assert.equal(f.context.renderProfile().pixels,p.pixels);
-  assert.equal(f.events.filter(x=>typeof x==='string').length,2);assert.equal(f.context.renderProfile().ao,false);
+  assert.equal(f.context.renderer.shadowMap.enabled,true);assert.equal(f.context.renderProfile().pixels,p.pixels);
+  assert.equal(f.events.filter(x=>typeof x==='string').length,0);assert.equal(f.context.renderProfile().ao,false);
   f.renderActivity.update(280,false);f.context.applyRenderPhase();assert.equal(f.context.renderer.shadowMap.enabled,true);
-  assert.equal(f.context.renderProfile(),p);assert.equal(f.events.filter(x=>typeof x==='string').length,4);
-  assert.deepEqual(f.events.filter(Array.isArray).filter(x=>x[0]==='lighting').map(x=>x[1]),['fluid','fluid'],'lighting identity cannot change with the moving effects');
-  assert.equal(f.context.shadowsDirty,true);
+  assert.equal(f.context.renderProfile(),p);assert.equal(f.events.filter(x=>typeof x==='string').length,2);
+  assert.deepEqual(f.events.filter(Array.isArray).filter(x=>x[0]==='lighting').map(x=>x[1]),[],'a camera phase never refits the lighting');
+  assert.equal(f.context.shadowsDirty,false);
  });
  test(app+': active gesture cannot simplify the explicit HD capture profile',async()=>{
   const f=fixture();f.renderActivity.update(100,true);f.context.captureBusy=true;f.quality.setMode('max');f.context.applyRenderPhase();

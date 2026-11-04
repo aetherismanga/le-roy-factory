@@ -490,14 +490,15 @@
       "bytes": 2443,
       "originalsIdentical": true,
       "current": {
-        "sha256": "40cd410c3bedc45e8f1facb4680b7bd69ba8a0c6cdf835784cf2ade777556f82",
-        "bytes": 3105,
-        "changeType": "functional-update-20261102",
-        "reason": "Preserve the native transmission and opacity of each architectural glazing recipe through Light/Standard/Ultra toggles; shared panes do not overwrite their native state during repeated traversal.",
+        "sha256": "1ae3c9ac3e274ca123b71dc22a9079bf738c3c33b63b1f1eb88941a61158f6da",
+        "bytes": 3958,
+        "changeType": "functional-update-20261104",
+        "reason": "Keep native architectural glass and stable Ultra contact shading while avoiding repeated composer resizing and full-to-half AO render-target reallocations during unchanged layout, quality application and HD restoration.",
         "validation": [
           "tests/lrf-suite/architectural-glass-native.test.mjs",
           "studio-one/qa/quality-tiers-check.mjs",
-          "randal-general/qa/project-lighting.mjs"
+          "randal-general/qa/project-lighting.mjs",
+          "tests/lrf-ultra-resize-stability.test.mjs"
         ]
       }
     }

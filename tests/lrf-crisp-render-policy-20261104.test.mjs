@@ -50,13 +50,22 @@ test('gesture effects reuse a stable profile while retaining furniture definitio
  for(const p of[...QUALITY_PROFILES,MOBILE_STANDARD,MOBILE_LIGHT]){
   const moving=interactionProfile(p);assert.equal(moving,interactionProfile(p),'no per-frame profile churn');assert.notEqual(moving,p);
   for(const key of['id','pixelRatio','pixels','supersampling','anisotropy'])assert.equal(moving[key],p[key],key);
-  assert.equal(moving.ao,false);assert.ok(moving.reflectionFps<=8);assert.ok(moving.shadow<=512);assert.ok(moving.transmission>0,'Three transmission target must not become zero-sized');
+  assert.equal(moving.ao,p.ao);assert.ok(moving.reflectionFps<=24);assert.equal(moving.shadow,p.shadow);assert.equal(moving.transmission,p.transmission,'motion retains the existing transmission buffer');
   for(const[width,height,dpr]of[[1600,900,1],[1920,1080,2],[390,600,3]])assert.equal(renderPixelRatio(moving,width,height,dpr),renderPixelRatio(p,width,height,dpr));
  }
- assert.equal(interactionProfile(QUALITY_PROFILES[2]).shadow,0);
+ assert.equal(interactionProfile(QUALITY_PROFILES[2]).shadow,QUALITY_PROFILES[2].shadow);
 });
 
 test('settled reflections stop recapturing an unchanged scene and can refresh immediately after a phase reset',()=>{
  const schedule=new ReflectionSchedule();assert.equal(schedule.shouldCapture(0,'camera-a',6),true);assert.equal(schedule.shouldCapture(20,'camera-b',6),false);assert.equal(schedule.shouldCapture(170,'camera-b',6),true);assert.equal(schedule.shouldCapture(1000,'camera-b',6),false);
  schedule.reset();assert.equal(schedule.shouldCapture(1001,'camera-b',12),true);
+});
+
+
+test('Ultra editing bounds persistent mirror targets while capture keeps native full-resolution targets',()=>{
+ const p=QUALITY_PROFILES[0];
+ assert.equal(profileSizes(p,false,16384,{editing:true}).reflection,1024);
+ assert.equal(profileSizes(p,false,16384,{editing:false}).reflection,2048);
+ assert.equal(profileSizes(p,false,512,{editing:true}).reflection,512);
+ assert.equal(profileSizes(p,false,16384,{editing:true}).shadow,4096);
 });

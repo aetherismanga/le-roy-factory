@@ -154,7 +154,7 @@
       "privateApplicationEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication"
     },
     "neobathAnima": {
-      "releaseId": "20261104-neobath-anima-crisp-office-13",
+      "releaseId": "20261104-neobath-anima-studio-one-visit-stable-14",
       "page": "neobath-anima-configurateur.html",
       "access": "agents-only",
       "modules": 42,
@@ -163,7 +163,7 @@
       "products": 257,
       "compositions": 16,
       "projectSync": "shared-agent-private-api",
-      "appSha256": "4f27b9ccd9a9beea960cd825f50b4cdee1a9355fffeab92d7a23e6b923c38ffa",
+      "appSha256": "0e69fda63eef084d9887ced0ad3e964ea14eb04f3fb4cfbe82e72304e139fdb6",
       "engine": "studio-one",
       "homeSha256": "b1d0b44289a7ff08642648575004a0b82f2c2a4d192e8bfaed43a968c32c1d3b",
       "photographs": 155,
@@ -300,7 +300,7 @@
     }
   },
   "rendering": {
-    "releaseId": "20261104-crisp-office-1",
+    "releaseId": "20261104-visit-stable-1",
     "applications": [
       "studio-one",
       "randal-general",
@@ -312,8 +312,14 @@
     "autoUltra": false,
     "settledRefinementMs": 180,
     "hdCaptureIndependent": true,
-    "studioAppSha256": "02b0e923191f1e279918e952b7675201eb36f7c927b039f6062ccdc3b9c6be24",
-    "generalAppSha256": "6f1c58732fd61955bc5e3aade932db3456971076d2e16fa2d2bbc72edbce2079",
-    "animaAppSha256": "4f27b9ccd9a9beea960cd825f50b4cdee1a9355fffeab92d7a23e6b923c38ffa"
+    "studioAppSha256": "9664df3174cbc7f0937e09ee63df404b0ffe8dcc0bc236d2e059b393c79e6c00",
+    "generalAppSha256": "b129894f2c4e8ea37aa7b4de3c15c5dbbdfc751aa04a4db2d9a95c7f94c18911",
+    "animaAppSha256": "0e69fda63eef084d9887ced0ad3e964ea14eb04f3fb4cfbe82e72304e139fdb6",
+    "motionLightingStable": true,
+    "cachedCameraShadows": true,
+    "stableTransmissionBuffers": true,
+    "stableUltraAO": true,
+    "editingUltraMirrorSize": 1024,
+    "editingMirrorSamples": 0
   }
 }
