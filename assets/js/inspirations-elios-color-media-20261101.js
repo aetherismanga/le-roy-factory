@@ -18,43 +18,86 @@ window.ELIOS_COLOR_MEDIA = {
     },
     "yosemite": {
       "Natural": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-natural-01.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-natural-02.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-natural-03.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_natural_zoom.jpg"
       ],
       "Honey": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-honey-01.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-honey-02.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-honey-03.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_honey_zoom.jpg"
       ],
       "White": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-white-01.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-white-02.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-white-03.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_white_zoom.jpg"
       ],
       "Amber": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-amber-01.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-amber-02.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-amber-03.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amber_zoom.jpg"
       ]
     },
     "dolomiti": {
       "Bianco": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_LIVING_bianco_greige.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_bianco_macro.jpg"
       ],
       "Grigio": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_BAGNO_grigio.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Greige_Grigio_Esterno_Dett.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_greige_Grigio_Esterno.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Grigio_In_Out_Dett.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_grigio_macro.jpg"
       ],
       "Beige": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_CAMERA_beige.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Beige_Ristorante_Interno_Esterno.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Beige_Ristorante_Dett_Esterno.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Beige_Ristorante_Dett_Interno.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_beige_macro.jpg"
       ],
       "Antracite": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_CUCINA_antracite.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_antracite_amb.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_antracite_macro.jpg"
       ],
       "Greige": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_LIVING_bianco_greige.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_LIVING_greige.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_dettaglio.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Greige_Sgabello.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_greige_macro.jpg"
       ]
     },
     "grand-place": {
       "Bruxelles": [
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Bruxelles_1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Bruxelles_3.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Bruxelles_4.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Bruxelles_5.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/01/grand_place_bruxelles_z.jpg"
       ],
       "Namur": [
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Namur_3.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/GrandPlace_namur_DecWarm_Esterno.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Namur_2.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Namur_1.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/01/grand_place_namur_z.jpg"
       ],
       "Antwerpen": [
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_1-scaled.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_2.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_3.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_4.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_5.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_6.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_7-scaled.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_8.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/01/grand_place_antwerpen_z.jpg"
       ]
     },
@@ -77,6 +120,7 @@ window.ELIOS_COLOR_MEDIA = {
     },
     "roma": {
       "Aventino": [
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Aventino_pav.jpg",
         "https://eliosceramica.com/wp-content/uploads/2016/09/roma_aventino_z-e1613149566773.jpg"
       ],
       "Celio": [
@@ -105,18 +149,26 @@ window.ELIOS_COLOR_MEDIA = {
     },
     "slate": {
       "River": [
+        "https://www.fliesengigant.de/out/pictures/master/product/1/03f60606.jpg",
+        "https://www.fliesengigant.de/out/pictures/master/product/3/03f60602.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/slate_river_zoom.jpg"
       ],
       "Dark": [
+        "https://www.fliesengigant.de/out/pictures/master/product/4/ambiente3_dark.jpeg",
+        "https://www.fliesengigant.de/out/pictures/generated/product/1/1000_1000_75/03f60903.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/slate_dark_zoom.jpg"
       ],
       "Flame": [
+        "https://www.fliesengigant.de/out/pictures/master/product/4/slate_flame_cortile_04_1copia.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/slate_flame_zoom.jpg"
       ],
       "Natural": [
+        "https://id-sol.fr/cdn/shop/files/slate_amb_7-scaled_1024x1024.jpg?v=1751123554",
+        "https://www.fliesengigant.de/out/pictures/generated/product/4/1000_1000_75/03f36004.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/slate_natural_zoom.jpg"
       ],
       "Gold": [
+        "https://www.fliesengigant.de/out/pictures/generated/product/4/1000_1000_75/stilllife_slate_gold60x120_30x60%281%29.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/slate_gold_zoom.jpg"
       ],
       "Grey": [
@@ -125,6 +177,7 @@ window.ELIOS_COLOR_MEDIA = {
     },
     "brooklyn": {
       "White": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLYN_LVING_white.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_WHITE_taccaZ.jpg"
       ],
       "Almond": [
@@ -134,41 +187,60 @@ window.ELIOS_COLOR_MEDIA = {
         "https://eliosceramica.com/wp-content/uploads/2024/10/brooklin_GOLD_tacca_z.jpg"
       ],
       "Grey": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Brooklyn_Grey_PubblicoZenitale.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_GREY_taccaZ.jpg"
       ],
       "Beige": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLYN_CAMERA_beige.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Brooklyn_Beige_Interno_Esterno.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Brooklyn_beige_amb.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Brooklyn_Beige_Vassoio.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_BEIGE_taccaZ.jpg"
       ],
       "Taupe": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLYN_LIVING_taupe.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Brooklyn_Taupe_Esterno.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_TAUPE_taccaZ.jpg"
       ],
       "Dark": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLYN_BAR_dark_grey-scaled.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_DARK_taccaZ.jpg"
       ]
     },
     "clay": {
       "Emerald": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_BAR_COTTON_EMERALD.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Emerald_macro.jpg"
       ],
       "Linen": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_BAGNO_LINEN.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Linen_macro.jpg"
       ],
       "Ocean": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_RISTORANTE_OCEAN_MUSTARD-scaled.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Ocean_Bouquet_Cotton.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Ocean_macro.jpg"
       ],
       "Bouquet": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Ocean_Bouquet_Cotton.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_CAMERA_BOUQUET.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_bouquet_amb.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Bouquet_macro.jpg"
       ],
       "Aqua": [
         "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Aqua_macro.jpg"
       ],
       "Silk": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_CUCINA_SILK.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Silk_macro.jpg"
       ],
       "Mustard": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_RISTORANTE_OCEAN_MUSTARD-scaled.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Mustard_macro.jpg"
       ],
       "Cotton": [
+        "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_BAR_COTTON_EMERALD.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Ocean_Bouquet_Cotton.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Cotton_macro.jpg"
       ]
     },
@@ -336,12 +408,16 @@ window.ELIOS_COLOR_MEDIA = {
     },
     "hexagon": {
       "Sky": [
+        "https://eliosceramica.com/wp-content/uploads/2023/05/hexagon_cube_sky_amb.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_sky_zoom.jpg"
       ],
       "Teal": [
+        "https://eliosceramica.com/wp-content/uploads/2023/05/hexagon_lily_teal_amb.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_teal_zoom.jpg"
       ],
       "Grey": [
+        "https://eliosceramica.com/wp-content/uploads/2023/05/hexagon_frame_grey_amb.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/05/hexagon_lily_grey_amb.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_grey_zoom.jpg"
       ],
       "White": [
@@ -368,18 +444,39 @@ window.ELIOS_COLOR_MEDIA = {
         "https://eliosceramica.com/wp-content/uploads/2024/02/marechiaro_blu_tacca_z.jpg"
       ],
       "Mix": [
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_mix_bianco_amb_1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_mix_amb_1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_mix_amb_2.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_mix_blu_amb_1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_mix_amb_3.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_mix_amb_4.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2024/02/Marechiaro_mix_blu_amb_1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2024/02/Marechiaro_mix_bianco_amb_1.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_mix_z.jpg"
       ],
       "Amalfi": [
         "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_amalfi_tacca_z.jpg"
       ],
       "Positano": [
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_positano_amb_1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_positano_blu_amb_1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_positano_amb_2.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2024/02/Marechiaro_positano_blu_amb_1.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_positano_z.jpg"
       ],
       "Sorrento": [
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Sorrento_amb_1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Sorrento_amb_2.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Sorrento_amb_3.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Sorrento_amb_4.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Sorrento_amb_5.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_sorrento_z.jpg"
       ],
       "Vietri": [
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_vietri_amb_1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_vietri_bianco_amb_1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_vietri_amb_2.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2024/02/Marechiaro_vietri_bianco_amb_1.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_vietri_z.jpg"
       ]
     },
@@ -449,35 +546,71 @@ window.ELIOS_COLOR_MEDIA = {
     },
     "dust": {
       "Niagara": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/niagara-01.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/niagara-02.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/niagara-03.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/niagara-04.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/niagara-05.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_niagara_zoom-1.jpg"
       ],
       "Ink": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ink-01.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ink-02.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ink-03.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ink-04.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_ink_zoom-1.jpg"
       ],
       "Terrae": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/terrae-01.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/terrae-02.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/terrae-03.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/terrae-04.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_terrae_zoom-1.jpg"
       ],
       "Blush": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/blush-01.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/blush-02.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/blush-03.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/blush-04.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/blush-05.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_blush_zoom-1.jpg"
       ],
       "Dove": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/dove-01.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/dove-02.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/dove-03.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/dove-04.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_dove_zoom-1.jpg"
       ],
       "Ice": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ice-01.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ice-02.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ice-03.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ice-04.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_ice_zoom-1.jpg"
       ],
       "Sage": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/sage-01.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/sage-02.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/sage-03.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/sage-04.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_sage_zoom-1.jpg"
       ],
       "Pine": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/pine-01.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/pine-02.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/pine-03.jpg",
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/pine-04.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_pine_zoom-1.jpg"
       ]
     },
     "segmento": {
       "Albus": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-01.jpg",
         "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-ALBUS_tacca.jpg"
       ],
       "Nigrum": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-04.jpg",
         "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-NIGRUM_tacca.jpg"
       ],
       "Amaryllis": [
@@ -493,12 +626,14 @@ window.ELIOS_COLOR_MEDIA = {
         "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-CAERULEUS_tacca-1.jpg"
       ],
       "Flavus": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-05.jpg",
         "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-FLAVUS_tacca.jpg"
       ],
       "Viridis": [
         "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-VIRIDIS_tacca.jpg"
       ],
       "Lapis": [
+        "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-06.jpg",
         "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-LAPIS_tacca.jpg"
       ],
       "Nox": [
@@ -515,41 +650,62 @@ window.ELIOS_COLOR_MEDIA = {
     },
     "venere": {
       "Perla": [
+        "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_BAGNO_ATLANTE_PERLA-MATERICA.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_NUOVO-BAGNO_PERLA.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_BAGNO_ATLANTE_PERLA-MATERICA-1.jpg",
         "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_PERLA_Z.jpg"
       ],
       "Aura": [
+        "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_BAGNO_AURA_AURA-MATERICA.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_COMMERCIALE-FLORA_RUGIADA-MATERICA_AURA-DORICA.jpg",
         "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_AURA_Z.jpg"
       ],
       "Seta": [
+        "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_NUOVO-BAGNO-SETA.jpg",
         "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_SETA_Z.jpg"
       ],
       "Zefiro": [
+        "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_BAGNO-ZEFIRO_DORICA-ZEFIRO.jpg",
         "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_ZEFIRO_Z.jpg"
       ],
       "Rugiada": [
+        "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_COMMERCIALE-FLORA_RUGIADA-MATERICA_AURA-DORICA.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_COMMERCIALE-FLORA_RUGIADA-MATERICA_AURA-DORICA-1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_BAGNO_RUGIADA_RUGIADA-MATERICA.jpg",
         "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_RUGIADA_Z.jpg"
       ],
       "Mare": [
+        "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_NUOVO-BAGNO-MARE.jpg",
         "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_MARE_Z.jpg"
       ]
     },
     "mysterium": {
       "Acqua": [
+        "https://eliosceramica.com/wp-content/uploads/2023/10/ELIOS_MYSTERIUM_ACQUA_LIVING.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_2-1.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_acqua_tacca_z.jpg"
       ],
       "White": [
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Mysterium_White_amb3.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_white_tacca_z.jpg"
       ],
       "Amber": [
+        "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_3-1.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amber_tacca_z.jpg"
       ],
       "Ocean": [
+        "https://eliosceramica.com/wp-content/uploads/2023/10/ELIOS_MYSTERIUM_OCEAN_BAGNO.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_3-1.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_ocean_tacca_z.jpg"
       ],
       "Pearl": [
+        "https://eliosceramica.com/wp-content/uploads/2023/10/ELIOS_MYSTERIUM_PEARL_COMMERCIALE.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Mysterium_Pearl_amb2.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Mysterium_Pearl_amb1.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_pearl_tacca_z.jpg"
       ],
       "Black": [
+        "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_2-1.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_black_tacca_z.jpg"
       ]
     },
@@ -672,6 +828,7 @@ window.ELIOS_COLOR_MEDIA = {
     },
     "loveanddecors-creative": {
       "Equatorial": [
+        "https://eliosceramica.com/wp-content/uploads/2021/05/LoveDecors_Equatorial_3.jpg",
         "assets/img/elios-colors-20261101/loveanddecors-creative/equatorial-catalogue-native.webp"
       ],
       "Flora": [
@@ -707,6 +864,7 @@ window.ELIOS_COLOR_MEDIA = {
     },
     "lithos": {
       "Ivory": [
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Lithos_Ivory_amb2.jpg",
         "assets/img/elios-colors-20261101/lithos/ivory-catalogue-native.webp"
       ],
       "Sand": [
@@ -718,6 +876,7 @@ window.ELIOS_COLOR_MEDIA = {
     },
     "manhattan": {
       "Pearl": [
+        "https://eliosceramica.com/wp-content/uploads/2023/10/Manhattan_Pearl_amb2.jpg",
         "assets/img/elios-colors-20261101/manhattan/pearl-catalogue-native.webp"
       ],
       "Ash": [
@@ -738,6 +897,7 @@ window.ELIOS_COLOR_MEDIA = {
         "assets/img/elios-colors-20261101/horizon/calce-catalogue-native.webp"
       ],
       "Carbone": [
+        "https://id-sol.fr/cdn/shop/files/Elios_Horizon_Carbone_1-scaled.jpg?v=1751116328",
         "assets/img/elios-colors-20261101/horizon/carbone-catalogue-native.webp"
       ]
     },
@@ -755,6 +915,7 @@ window.ELIOS_COLOR_MEDIA = {
         "assets/img/elios-colors-20261101/tropical/ocra-catalogue-native.webp"
       ],
       "Salvia": [
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Tropical_Salvia_1.jpg",
         "assets/img/elios-colors-20261101/tropical/salvia-catalogue-native.webp"
       ],
       "Petrolio": [
@@ -3789,9 +3950,9 @@ window.ELIOS_COLOR_MEDIA = {
           277.08721923828125
         ],
         "fillSRGB": [
-          1.0,
-          1.0,
-          1.0
+          1,
+          1,
+          1
         ],
         "strokeSRGB": [
           0.13669031858444214,

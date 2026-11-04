@@ -1,0 +1,5547 @@
+{
+  "checkedAt": "2026-11-04T12:05:08.206847+00:00",
+  "sourceCommit": "0495513920b3c8a39bc3e00f2d1235ba5025dce9",
+  "scope": {
+    "collections": 52,
+    "declaredColors": 291,
+    "gallerySourcesBefore": 504,
+    "uniqueSourcesMeasured": 744
+  },
+  "policy": {
+    "photoDisplay": "Preserve aspect ratio; never enlarge beyond intrinsic definition",
+    "colourIdentity": "Only existing exact verified colour mappings; samples retained at native definition",
+    "qualityCheck": "Native pixel dimensions, format signatures and targeted visual review; not a claim that every source is HD"
+  },
+  "removedSmallGallerySources": [
+    {
+      "collection": "quercia",
+      "source": "embedded:056e7e3ac6ee11245545",
+      "width": 260,
+      "height": 187,
+      "format": "WEBP",
+      "bytesRead": 3982
+    },
+    {
+      "collection": "quercia",
+      "source": "embedded:af37da1d4da8e12bde88",
+      "width": 146,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 2984
+    },
+    {
+      "collection": "yosemite",
+      "source": "embedded:7fd0ef6016fe6f22cbd6",
+      "width": 146,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 2440
+    },
+    {
+      "collection": "yosemite",
+      "source": "embedded:2fef3547097f18b33b47",
+      "width": 192,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 1868
+    },
+    {
+      "collection": "bavaria-stone",
+      "source": "embedded:4728349419fd4409e89b",
+      "width": 146,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 2370
+    },
+    {
+      "collection": "bavaria-stone",
+      "source": "embedded:abc6854cddd3faa2f630",
+      "width": 146,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 1140
+    },
+    {
+      "collection": "dolomiti",
+      "source": "embedded:54e7a6cdf9b0e3ccc07b",
+      "width": 146,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 844
+    },
+    {
+      "collection": "dolomiti",
+      "source": "embedded:d91a7f53a27a2f81f58f",
+      "width": 190,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 964
+    },
+    {
+      "collection": "roma",
+      "source": "embedded:8fe76875921af6a86a2a",
+      "width": 146,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 1614
+    },
+    {
+      "collection": "roma",
+      "source": "embedded:177f261a2cab9b9014b8",
+      "width": 175,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 3748
+    },
+    {
+      "collection": "montreal",
+      "source": "embedded:8b4e7424004d0d72d6f1",
+      "width": 230,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 3436
+    },
+    {
+      "collection": "pool-pacific",
+      "source": "assets/img/elios/selection-20261028/pool-pacific/color-mex.jpeg",
+      "width": 307,
+      "height": 271,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    {
+      "collection": "pool-pacific",
+      "source": "assets/img/elios/selection-20261028/pool-pacific/color-australia.jpeg",
+      "width": 306,
+      "height": 269,
+      "format": "JPEG",
+      "bytesRead": 16384
+    }
+  ],
+  "restoredExactColorPhotographs": [
+    {
+      "collection": "yosemite",
+      "color": "Natural",
+      "photos": 3
+    },
+    {
+      "collection": "yosemite",
+      "color": "Honey",
+      "photos": 3
+    },
+    {
+      "collection": "yosemite",
+      "color": "White",
+      "photos": 3
+    },
+    {
+      "collection": "yosemite",
+      "color": "Amber",
+      "photos": 3
+    },
+    {
+      "collection": "dolomiti",
+      "color": "Bianco",
+      "photos": 1
+    },
+    {
+      "collection": "dolomiti",
+      "color": "Grigio",
+      "photos": 4
+    },
+    {
+      "collection": "dolomiti",
+      "color": "Beige",
+      "photos": 4
+    },
+    {
+      "collection": "dolomiti",
+      "color": "Antracite",
+      "photos": 2
+    },
+    {
+      "collection": "dolomiti",
+      "color": "Greige",
+      "photos": 4
+    },
+    {
+      "collection": "grand-place",
+      "color": "Bruxelles",
+      "photos": 4
+    },
+    {
+      "collection": "grand-place",
+      "color": "Namur",
+      "photos": 4
+    },
+    {
+      "collection": "grand-place",
+      "color": "Antwerpen",
+      "photos": 8
+    },
+    {
+      "collection": "roma",
+      "color": "Aventino",
+      "photos": 1
+    },
+    {
+      "collection": "slate",
+      "color": "River",
+      "photos": 2
+    },
+    {
+      "collection": "slate",
+      "color": "Dark",
+      "photos": 2
+    },
+    {
+      "collection": "slate",
+      "color": "Flame",
+      "photos": 1
+    },
+    {
+      "collection": "slate",
+      "color": "Natural",
+      "photos": 2
+    },
+    {
+      "collection": "slate",
+      "color": "Gold",
+      "photos": 1
+    },
+    {
+      "collection": "brooklyn",
+      "color": "White",
+      "photos": 1
+    },
+    {
+      "collection": "brooklyn",
+      "color": "Grey",
+      "photos": 1
+    },
+    {
+      "collection": "brooklyn",
+      "color": "Beige",
+      "photos": 4
+    },
+    {
+      "collection": "brooklyn",
+      "color": "Taupe",
+      "photos": 2
+    },
+    {
+      "collection": "brooklyn",
+      "color": "Dark",
+      "photos": 1
+    },
+    {
+      "collection": "clay",
+      "color": "Emerald",
+      "photos": 1
+    },
+    {
+      "collection": "clay",
+      "color": "Linen",
+      "photos": 1
+    },
+    {
+      "collection": "clay",
+      "color": "Ocean",
+      "photos": 2
+    },
+    {
+      "collection": "clay",
+      "color": "Bouquet",
+      "photos": 3
+    },
+    {
+      "collection": "clay",
+      "color": "Silk",
+      "photos": 1
+    },
+    {
+      "collection": "clay",
+      "color": "Mustard",
+      "photos": 1
+    },
+    {
+      "collection": "clay",
+      "color": "Cotton",
+      "photos": 2
+    },
+    {
+      "collection": "hexagon",
+      "color": "Sky",
+      "photos": 1
+    },
+    {
+      "collection": "hexagon",
+      "color": "Teal",
+      "photos": 1
+    },
+    {
+      "collection": "hexagon",
+      "color": "Grey",
+      "photos": 2
+    },
+    {
+      "collection": "marechiaro",
+      "color": "Mix",
+      "photos": 8
+    },
+    {
+      "collection": "marechiaro",
+      "color": "Positano",
+      "photos": 4
+    },
+    {
+      "collection": "marechiaro",
+      "color": "Sorrento",
+      "photos": 5
+    },
+    {
+      "collection": "marechiaro",
+      "color": "Vietri",
+      "photos": 4
+    },
+    {
+      "collection": "dust",
+      "color": "Niagara",
+      "photos": 5
+    },
+    {
+      "collection": "dust",
+      "color": "Ink",
+      "photos": 4
+    },
+    {
+      "collection": "dust",
+      "color": "Terrae",
+      "photos": 4
+    },
+    {
+      "collection": "dust",
+      "color": "Blush",
+      "photos": 5
+    },
+    {
+      "collection": "dust",
+      "color": "Dove",
+      "photos": 4
+    },
+    {
+      "collection": "dust",
+      "color": "Ice",
+      "photos": 4
+    },
+    {
+      "collection": "dust",
+      "color": "Sage",
+      "photos": 4
+    },
+    {
+      "collection": "dust",
+      "color": "Pine",
+      "photos": 4
+    },
+    {
+      "collection": "segmento",
+      "color": "Albus",
+      "photos": 1
+    },
+    {
+      "collection": "segmento",
+      "color": "Nigrum",
+      "photos": 1
+    },
+    {
+      "collection": "segmento",
+      "color": "Flavus",
+      "photos": 1
+    },
+    {
+      "collection": "segmento",
+      "color": "Lapis",
+      "photos": 1
+    },
+    {
+      "collection": "venere",
+      "color": "Perla",
+      "photos": 3
+    },
+    {
+      "collection": "venere",
+      "color": "Aura",
+      "photos": 2
+    },
+    {
+      "collection": "venere",
+      "color": "Seta",
+      "photos": 1
+    },
+    {
+      "collection": "venere",
+      "color": "Zefiro",
+      "photos": 1
+    },
+    {
+      "collection": "venere",
+      "color": "Rugiada",
+      "photos": 3
+    },
+    {
+      "collection": "venere",
+      "color": "Mare",
+      "photos": 1
+    },
+    {
+      "collection": "mysterium",
+      "color": "Acqua",
+      "photos": 2
+    },
+    {
+      "collection": "mysterium",
+      "color": "White",
+      "photos": 1
+    },
+    {
+      "collection": "mysterium",
+      "color": "Amber",
+      "photos": 1
+    },
+    {
+      "collection": "mysterium",
+      "color": "Ocean",
+      "photos": 2
+    },
+    {
+      "collection": "mysterium",
+      "color": "Pearl",
+      "photos": 3
+    },
+    {
+      "collection": "mysterium",
+      "color": "Black",
+      "photos": 1
+    },
+    {
+      "collection": "loveanddecors-creative",
+      "color": "Equatorial",
+      "photos": 1
+    },
+    {
+      "collection": "lithos",
+      "color": "Ivory",
+      "photos": 1
+    },
+    {
+      "collection": "manhattan",
+      "color": "Pearl",
+      "photos": 1
+    },
+    {
+      "collection": "horizon",
+      "color": "Carbone",
+      "photos": 1
+    },
+    {
+      "collection": "tropical",
+      "color": "Salvia",
+      "photos": 1
+    }
+  ],
+  "manufacturerSources": {
+    "yosemite": {
+      "page": "https://eliosceramica.com/collezione/yosemite/",
+      "originals": [
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amb4.jpg",
+          "width": 1280,
+          "height": 905,
+          "measured": {
+            "width": 1280,
+            "height": 905,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amb5.jpg",
+          "width": 905,
+          "height": 1280,
+          "measured": {
+            "width": 905,
+            "height": 1280,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/yosemite_honey_amb1.jpg",
+          "width": 1280,
+          "height": 1280,
+          "measured": {
+            "width": 1280,
+            "height": 1280,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amb3.jpg",
+          "width": 902,
+          "height": 1280,
+          "measured": {
+            "width": 902,
+            "height": 1280,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/yosemite_netural_amb2.jpg",
+          "width": 1280,
+          "height": 1810,
+          "measured": {
+            "width": 1280,
+            "height": 1810,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amb7.jpg",
+          "width": 2115,
+          "height": 1059,
+          "measured": {
+            "width": 2115,
+            "height": 1059,
+            "format": "JPEG"
+          }
+        }
+      ]
+    },
+    "roma": {
+      "page": "https://eliosceramica.com/collezione/roma/",
+      "originals": [
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Aventino_pav.jpg",
+          "width": 1920,
+          "height": 1451,
+          "measured": {
+            "width": 1920,
+            "height": 1451,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Aventino_2.jpg",
+          "width": 1920,
+          "height": 1440,
+          "measured": {
+            "width": 1920,
+            "height": 1440,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/ROMA_PALATINO_amb.jpg",
+          "width": 1190,
+          "height": 842,
+          "measured": {
+            "width": 1190,
+            "height": 842,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_CELIO-1.jpg",
+          "width": 1836,
+          "height": 1225,
+          "measured": {
+            "width": 1836,
+            "height": 1225,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Celio_pav_Cop.jpg",
+          "width": 1920,
+          "height": 1229,
+          "measured": {
+            "width": 1920,
+            "height": 1229,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Viminale_cucina.jpg",
+          "width": 1920,
+          "height": 2492,
+          "measured": {
+            "width": 1920,
+            "height": 2492,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_viminale-1.jpg",
+          "width": 1920,
+          "height": 1295,
+          "measured": {
+            "width": 1920,
+            "height": 1295,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_1.jpg",
+          "width": 1920,
+          "height": 1920,
+          "measured": {
+            "width": 1920,
+            "height": 1920,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_2.jpg",
+          "width": 1920,
+          "height": 1440,
+          "measured": {
+            "width": 1920,
+            "height": 1440,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_3.jpg",
+          "width": 1920,
+          "height": 1440,
+          "measured": {
+            "width": 1920,
+            "height": 1440,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_palatino_esterno2.jpg",
+          "width": 1920,
+          "height": 1193,
+          "measured": {
+            "width": 1920,
+            "height": 1193,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_PART.jpg",
+          "width": 1920,
+          "height": 2182,
+          "measured": {
+            "width": 1920,
+            "height": 2182,
+            "format": "JPEG"
+          }
+        },
+        {
+          "url": "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_riv.jpg",
+          "width": 1920,
+          "height": 1468,
+          "measured": {
+            "width": 1920,
+            "height": 1468,
+            "format": "JPEG"
+          }
+        }
+      ]
+    }
+  },
+  "collections": [
+    {
+      "slug": "lithos",
+      "name": "Lithos",
+      "gallerySources": 3,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 1,
+      "remainingLimitedManufacturerSamples": 2
+    },
+    {
+      "slug": "loveanddecors",
+      "name": "Love&Decors — Magnus",
+      "gallerySources": 4,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 1
+    },
+    {
+      "slug": "manhattan",
+      "name": "Manhattan",
+      "gallerySources": 3,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 1,
+      "remainingLimitedManufacturerSamples": 2
+    },
+    {
+      "slug": "mysterium",
+      "name": "Mysterium",
+      "gallerySources": 8,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 6,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "quercia",
+      "name": "Quercia",
+      "gallerySources": 13,
+      "removedSmallImages": 2,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "yosemite",
+      "name": "Yosemite",
+      "gallerySources": 15,
+      "removedSmallImages": 2,
+      "restoredColorGalleries": 4,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "bavaria-stone",
+      "name": "Bavaria Stone",
+      "gallerySources": 6,
+      "removedSmallImages": 2,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "dolomiti",
+      "name": "Dolomiti",
+      "gallerySources": 15,
+      "removedSmallImages": 2,
+      "restoredColorGalleries": 5,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "grand-place",
+      "name": "Grand Place",
+      "gallerySources": 16,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 3,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "harmony",
+      "name": "Harmony",
+      "gallerySources": 40,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "millennium-quartz",
+      "name": "Millennium Quartz",
+      "gallerySources": 5,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 5
+    },
+    {
+      "slug": "roma",
+      "name": "Roma",
+      "gallerySources": 13,
+      "removedSmallImages": 2,
+      "restoredColorGalleries": 1,
+      "remainingLimitedManufacturerSamples": 3
+    },
+    {
+      "slug": "sedimenti",
+      "name": "Sedimenti",
+      "gallerySources": 12,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "slate",
+      "name": "Slate",
+      "gallerySources": 10,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 5,
+      "remainingLimitedManufacturerSamples": 1
+    },
+    {
+      "slug": "brooklyn",
+      "name": "Brooklyn",
+      "gallerySources": 12,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 5,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "clay",
+      "name": "Clay",
+      "gallerySources": 7,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 7,
+      "remainingLimitedManufacturerSamples": 1
+    },
+    {
+      "slug": "creta",
+      "name": "Creta",
+      "gallerySources": 9,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 1
+    },
+    {
+      "slug": "deco",
+      "name": "Deco",
+      "gallerySources": 14,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 1
+    },
+    {
+      "slug": "d-esign-evo",
+      "name": "D_esign Evo",
+      "gallerySources": 16,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "domus",
+      "name": "Domus",
+      "gallerySources": 7,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "glow",
+      "name": "Glow",
+      "gallerySources": 5,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "golden-hour",
+      "name": "Golden Hour",
+      "gallerySources": 9,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "hexagon",
+      "name": "Hexagon",
+      "gallerySources": 12,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 3,
+      "remainingLimitedManufacturerSamples": 5
+    },
+    {
+      "slug": "horizon",
+      "name": "Horizon",
+      "gallerySources": 3,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 1,
+      "remainingLimitedManufacturerSamples": 3
+    },
+    {
+      "slug": "marechiaro",
+      "name": "Marechiaro",
+      "gallerySources": 29,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 4,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "montreal",
+      "name": "Montreal",
+      "gallerySources": 6,
+      "removedSmallImages": 1,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "shell",
+      "name": "Shell",
+      "gallerySources": 10,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "terre-etrusche",
+      "name": "Terre Etrusche",
+      "gallerySources": 22,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "allure",
+      "name": "Allure",
+      "gallerySources": 11,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "dust",
+      "name": "Dust",
+      "gallerySources": 35,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 8,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "loveanddecors-creative",
+      "name": "Love&Decors — Creative",
+      "gallerySources": 2,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 1,
+      "remainingLimitedManufacturerSamples": 10
+    },
+    {
+      "slug": "segmento",
+      "name": "Segmento",
+      "gallerySources": 9,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 4,
+      "remainingLimitedManufacturerSamples": 7
+    },
+    {
+      "slug": "tropical",
+      "name": "Tropical",
+      "gallerySources": 3,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 1,
+      "remainingLimitedManufacturerSamples": 7
+    },
+    {
+      "slug": "twist",
+      "name": "Twist",
+      "gallerySources": 5,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 5
+    },
+    {
+      "slug": "venere",
+      "name": "Venere",
+      "gallerySources": 11,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 6,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "azuli-mood",
+      "name": "Azuli Mood",
+      "gallerySources": 22,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "dynasty",
+      "name": "Dynasty",
+      "gallerySources": 8,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "montblanc",
+      "name": "Montblanc",
+      "gallerySources": 6,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "stone-icon",
+      "name": "Stone Icon",
+      "gallerySources": 7,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "terraforma",
+      "name": "Terraforma",
+      "gallerySources": 6,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 8
+    },
+    {
+      "slug": "pool-abyss",
+      "name": "Pool Surfaces — Abyss",
+      "gallerySources": 6,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "pool-acqua",
+      "name": "Pool Surfaces — Acqua",
+      "gallerySources": 6,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "pool-greek-isles",
+      "name": "Pool Surfaces — Greek Isles",
+      "gallerySources": 3,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "pool-italian-slate",
+      "name": "Pool Surfaces — Italian Slate",
+      "gallerySources": 4,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "pool-lakes",
+      "name": "Pool Surfaces — Lakes",
+      "gallerySources": 4,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "pool-mare",
+      "name": "Pool Surfaces — Mare",
+      "gallerySources": 5,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "pool-nevada",
+      "name": "Pool Surfaces — Nevada",
+      "gallerySources": 6,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "pool-pacific",
+      "name": "Pool Surfaces — Pacific",
+      "gallerySources": 3,
+      "removedSmallImages": 2,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "pool-quantum",
+      "name": "Pool Surfaces — Quantum",
+      "gallerySources": 4,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "pool-sea-breeze",
+      "name": "Pool Surfaces — Sea Breeze",
+      "gallerySources": 4,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "pool-seychelles",
+      "name": "Pool Surfaces — Seychelles",
+      "gallerySources": 7,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    },
+    {
+      "slug": "pool-twelfth-night",
+      "name": "Pool Surfaces — Twelfth Night",
+      "gallerySources": 4,
+      "removedSmallImages": 0,
+      "restoredColorGalleries": 0,
+      "remainingLimitedManufacturerSamples": 0
+    }
+  ],
+  "measurements": {
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-white-03.jpg": {
+      "width": 1098,
+      "height": 1418,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/bone-02.jpg": {
+      "width": 1049,
+      "height": 1364,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/thyme-green-02.jpg": {
+      "width": 1219,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/dynasty/ambiance-04.jpeg": {
+      "width": 2442,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-abyss/ambiance-1.jpeg": {
+      "width": 1281,
+      "height": 1669,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_mix_amb_3.jpg": {
+      "width": 1280,
+      "height": 914,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Cream_3.jpg": {
+      "width": 1920,
+      "height": 1341,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_acqua_tacca_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_teal_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Aqua_macro.jpg": {
+      "width": 416,
+      "height": 207,
+      "format": "JPEG",
+      "bytesRead": 13605
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/creta_MATCHA_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Greige_Grigio_Esterno_Dett.jpg": {
+      "width": 982,
+      "height": 1200,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/siena-1.webp": {
+      "width": 131,
+      "height": 131,
+      "format": "WEBP",
+      "bytesRead": 6538
+    },
+    "assets/img/elios/selection-20261028/pool-seychelles/color-original.jpeg": {
+      "width": 638,
+      "height": 337,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_amb_5-scaled.jpg": {
+      "width": 2560,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-white-01.jpg": {
+      "width": 729,
+      "height": 948,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_natural_zoom.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Mysterium_White_amb3.jpg": {
+      "width": 1280,
+      "height": 1688,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/creta/lot1-08.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_OREGON_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_Nordic_Green_z.jpeg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-09.jpg": {
+      "width": 1811,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_pearl_tacca_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_honey_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_amb_6-scaled.jpg": {
+      "width": 1810,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_BAGNO_RUGIADA_RUGIADA-MATERICA.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Toscana_1-scaled.jpg": {
+      "width": 1684,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-amber-02.jpg": {
+      "width": 1697,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/creta/lot1-02.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-white-01.jpg": {
+      "width": 1093,
+      "height": 1423,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/thyme-green-01.jpg": {
+      "width": 1221,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/domus/lot1-03.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/stone-icon/ambiance-05.jpeg": {
+      "width": 1105,
+      "height": 1422,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/domus_FOREST-GREEN_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_BEIGE_taccaZ.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_juniper_zoom.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/GREY-SELECTED_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_TerreEtrusche_Umbria_2.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://www.fliesengigant.de/out/pictures/master/product/3/03f60602.jpg": {
+      "width": 1200,
+      "height": 1200,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-honey-01.jpg": {
+      "width": 729,
+      "height": 947,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/sage-02.jpg": {
+      "width": 850,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ice-02.jpg": {
+      "width": 1500,
+      "height": 811,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_GLOW_ARIZONA_CUCINA.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_CRETA_BISCOTTO_CLOE-AVENA_BAGNO.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_GOLDEN-HOUR_MARGARITA_CAMERA.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2016/09/roma_viminale_z-e1613149529947.jpg": {
+      "width": 415,
+      "height": 242,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_6-scaled.jpg": {
+      "width": 1811,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_washinton_tacca_z-1.jpg": {
+      "width": 1349,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/dynasty/bianco-aurora.webp": {
+      "width": 512,
+      "height": 299,
+      "format": "WEBP",
+      "bytesRead": 3990
+    },
+    "assets/img/elios/selection-20261028/pool-seychelles/color-blue.jpeg": {
+      "width": 638,
+      "height": 337,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/montblanc/ambiance-01.jpeg": {
+      "width": 1169,
+      "height": 1521,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_white_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_NUOVO-BAGNO-MARE.jpg": {
+      "width": 1280,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2020/10/TerreEtrusche_Toscana-e1613569790377.jpg": {
+      "width": 600,
+      "height": 350,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2020/10/TerreEtrusche_Marche-e1613569796860.jpg": {
+      "width": 600,
+      "height": 350,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/sage-04.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/allure/lot1-10.jpg": {
+      "width": 905,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-flora.webp": {
+      "width": 222,
+      "height": 222,
+      "format": "WEBP",
+      "bytesRead": 26720
+    },
+    "assets/img/elios-colors-20261101/allure/safari-panel-native.webp": {
+      "width": 417,
+      "height": 837,
+      "format": "WEBP",
+      "bytesRead": 470416
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_AURA_Z.jpg": {
+      "width": 600,
+      "height": 300,
+      "format": "JPEG",
+      "bytesRead": 10795
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/SAND-SELECTED_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Bavaria_Stone_DETTAGLIO.jpg": {
+      "width": 1252,
+      "height": 1257,
+      "format": "JPEG",
+      "bytesRead": 49152
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_amb_2-scaled.jpg": {
+      "width": 2560,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_pine_zoom-1.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 14685
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_bianco_macro.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 12897
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/allure/lot1-09.jpg": {
+      "width": 1280,
+      "height": 1365,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-04.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/tropical/ocra-catalogue-native.webp": {
+      "width": 102,
+      "height": 102,
+      "format": "WEBP",
+      "bytesRead": 5190
+    },
+    "assets/img/elios/selection-20261028/pool-italian-slate/color-naples.jpeg": {
+      "width": 644,
+      "height": 835,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_BAGNO_AURA_AURA-MATERICA.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_TerreEtrusche_Lazio_1.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-VIRIDIS_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_GOLDEN-HOUR_BAGNO_WHITE-LADY.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_7-scaled.jpg": {
+      "width": 1361,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://id-sol.fr/cdn/shop/files/Elios_Horizon_Carbone_1-scaled.jpg?v=1751116328": {
+      "width": 1824,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/loveanddecors-creative/paradise-catalogue-native.webp": {
+      "width": 262,
+      "height": 263,
+      "format": "WEBP",
+      "bytesRead": 101536
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Umbria_1-scaled.jpg": {
+      "width": 1633,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_7-scaled.jpg": {
+      "width": 1387,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_palazzo_ducale_BW_Z.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "embedded:8fe76875921af6a86a2a": {
+      "width": 146,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 1614
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-natural-01.jpg": {
+      "width": 729,
+      "height": 948,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-white-03.jpg": {
+      "width": 732,
+      "height": 945,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Umbria_2.jpg": {
+      "width": 1920,
+      "height": 2501,
+      "format": "JPEG",
+      "bytesRead": 196608
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_mix_amb_4.jpg": {
+      "width": 1280,
+      "height": 914,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2020/10/TerreEtrusche_Umbria-e1613569782337.jpg": {
+      "width": 600,
+      "height": 350,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_CALIFORNIA_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/stone-icon/campaspero.webp": {
+      "width": 512,
+      "height": 341,
+      "format": "WEBP",
+      "bytesRead": 14858
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/terrae-04.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/blue-01.jpg": {
+      "width": 1219,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_BAGNO_LINEN.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_HAWAIAN_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Bavaria_Stone_2.jpg": {
+      "width": 1920,
+      "height": 1491,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_4.jpg": {
+      "width": 1920,
+      "height": 1248,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "embedded:4728349419fd4409e89b": {
+      "width": 146,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 2370
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_DOMUS_MOONWHITE_OCEANBLUE_COMMERCIALE.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_white_tacca_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 12433
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_antracite_macro.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 14304
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_mix_amb_1.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_amb_4.jpg": {
+      "width": 1280,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_palazzo_ducale_C-scaled.jpg": {
+      "width": 1600,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_4.jpg": {
+      "width": 1920,
+      "height": 1210,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Marche_2.jpg": {
+      "width": 1920,
+      "height": 1338,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/terrae-01.jpg": {
+      "width": 1696,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/niagara-01.jpg": {
+      "width": 1500,
+      "height": 811,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ink-01.jpg": {
+      "width": 1500,
+      "height": 811,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://peintner.shop/media/image/variation/24835/md/montreal-boden-und-wandfliesen-85mm_farbe_dark.jpg": {
+      "width": 600,
+      "height": 600,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-abyss/color-port-royal.jpeg": {
+      "width": 643,
+      "height": 420,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://id-sol.fr/cdn/shop/files/slate_amb_7-scaled_1024x1024.jpg?v=1751123554": {
+      "width": 1024,
+      "height": 724,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/chalk-01.jpg": {
+      "width": 1220,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/dove-04.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Bianco_z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Verde_Inglese_z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_3-1.jpg": {
+      "width": 1280,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_dove_zoom-1.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_amb_kitchen.jpg": {
+      "width": 905,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_positano_amb_1.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_8.jpg": {
+      "width": 1920,
+      "height": 1311,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_palazzo_ducale_A.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/twist/sky-catalogue-vector-swatch.svg": {
+      "format": "SVG",
+      "width": 118.34722900390625,
+      "height": 118.34716796875,
+      "vector": true
+    },
+    "assets/img/elios/selection-20261028/pool-mare/color-caeles.jpeg": {
+      "width": 639,
+      "height": 526,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/loveanddecors-creative/equatorial-catalogue-native.webp": {
+      "width": 260,
+      "height": 261,
+      "format": "WEBP",
+      "bytesRead": 110346
+    },
+    "assets/img/elios/selection-20261028/pool-italian-slate/ambiance-2.jpeg": {
+      "width": 732,
+      "height": 1668,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_MARE_Z.jpg": {
+      "width": 600,
+      "height": 300,
+      "format": "JPEG",
+      "bytesRead": 10919
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_3-scaled.jpg": {
+      "width": 1403,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Beige_Ristorante_Interno_Esterno.jpg": {
+      "width": 1200,
+      "height": 849,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2020/06/Bavaria_Stone_pan.jpg": {
+      "width": 1200,
+      "height": 720,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_VIRGINIA_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_palazzo_ducale_BW_D.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/montblanc/art-reserve.webp": {
+      "width": 259,
+      "height": 512,
+      "format": "WEBP",
+      "bytesRead": 18678
+    },
+    "assets/img/elios-colors-20261101/dynasty/kingdom-red.webp": {
+      "width": 512,
+      "height": 512,
+      "format": "WEBP",
+      "bytesRead": 76420
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-14.jpg": {
+      "width": 1920,
+      "height": 1531,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/creta/lot1-05.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-RUBENS_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_blueberry_zoom.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Brooklyn_Grey_PubblicoZenitale.jpg": {
+      "width": 1200,
+      "height": 849,
+      "format": "JPEG",
+      "bytesRead": 65536
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_amb_3.jpg": {
+      "width": 905,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_evo_Senape_mix_1.jpg": {
+      "width": 1920,
+      "height": 1592,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TERRE_ETRUSCHE_outdoor.jpg": {
+      "width": 1348,
+      "height": 899,
+      "format": "JPEG",
+      "bytesRead": 196608
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_1-scaled.jpg": {
+      "width": 1812,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://www.tilelook.com/system/tile_picture/resource/27518827/d3d_default_04I1510_1.jpg": {
+      "width": 529,
+      "height": 529,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/tropical/azzurro-catalogue-native.webp": {
+      "width": 102,
+      "height": 102,
+      "format": "WEBP",
+      "bytesRead": 5056
+    },
+    "assets/img/elios-colors-20261101/loveanddecors-creative/autumn-catalogue-native.webp": {
+      "width": 260,
+      "height": 261,
+      "format": "WEBP",
+      "bytesRead": 75608
+    },
+    "assets/img/elios-colors-20261101/loveanddecors-creative/lagoon-catalogue-native.webp": {
+      "width": 264,
+      "height": 261,
+      "format": "WEBP",
+      "bytesRead": 78278
+    },
+    "assets/img/elios/selection-20261028/pool-pacific/color-mex.jpeg": {
+      "width": 307,
+      "height": 271,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "embedded:d91a7f53a27a2f81f58f": {
+      "width": 190,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 964
+    },
+    "assets/img/elios-colors-20261101/montblanc/art-eclipse.webp": {
+      "width": 259,
+      "height": 512,
+      "format": "WEBP",
+      "bytesRead": 29084
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/allure/lot1-02.jpg": {
+      "width": 1280,
+      "height": 754,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Ciano_z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/slate_dark_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-CAERULEUS_tacca-1.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Cream_1.jpg": {
+      "width": 1920,
+      "height": 1359,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Pietra.jpg": {
+      "width": 1438,
+      "height": 960,
+      "format": "JPEG",
+      "bytesRead": 49152
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-F_tacca.jpg": {
+      "width": 535,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/horizon/carbone-catalogue-native.webp": {
+      "width": 162,
+      "height": 212,
+      "format": "WEBP",
+      "bytesRead": 13304
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-03.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/turquoise-01.jpg": {
+      "width": 1222,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/allure/lot1-07.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/creta/lot1-01.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_amb_5.jpg": {
+      "width": 1280,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_SEDIMENTI_TAGLI_CUCINA_white_grey.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_evo_senape_A.jpg": {
+      "width": 1920,
+      "height": 2530,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_beige_macro.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 12492
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_GOLDEN-HOUR_BELLINI_RISTORANTE-1.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-seychelles/color-cobalt.jpeg": {
+      "width": 638,
+      "height": 337,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-seychelles/color-pearl.jpeg": {
+      "width": 639,
+      "height": 337,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/loveanddecors-creative/peony-catalogue-native.webp": {
+      "width": 260,
+      "height": 262,
+      "format": "WEBP",
+      "bytesRead": 82706
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_Black_z.jpeg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/SEDIMENTI-MODULO-BEIGE-TUMBLED-1.jpg": {
+      "width": 1280,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Lazio_3.jpg": {
+      "width": 1920,
+      "height": 1340,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_mix_blu_amb_1.jpg": {
+      "width": 1280,
+      "height": 896,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_GOLDEN-HOUR_BLUE-LAGOON_SHELL_GREY-3D-SATEN_GREY-3D.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/sage-03.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/domus/lot1-01.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/loveanddecors-creative/ambiance-1.jpeg": {
+      "width": 935,
+      "height": 796,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-twelfth-night/ambiance-1.jpeg": {
+      "width": 1280,
+      "height": 1669,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-nevada/ambiance-1.jpeg": {
+      "width": 1280,
+      "height": 1668,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Cream_4-scaled.jpg": {
+      "width": 1811,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/shell_grey_light_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_2-scaled.jpg": {
+      "width": 1687,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Lazio_4-scaled.jpg": {
+      "width": 1745,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_4.jpg": {
+      "width": 1920,
+      "height": 1763,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Amalfi_amb_3.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_GOLDEN-HOUR_ESTERNO-MOJITO_CAIPIRINHA.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-02.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/bottle-green-01.jpg": {
+      "width": 1224,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/creta_pepe_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_white_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_BAGNO_ATLANTE_PERLA-MATERICA-1.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_SEDIMENTI_TAGLI_CAMERA_sand_white.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_4-scaled.jpg": {
+      "width": 1384,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_WHITE-LADY_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/horizon/calce-catalogue-native.webp": {
+      "width": 147,
+      "height": 150,
+      "format": "WEBP",
+      "bytesRead": 1542
+    },
+    "assets/img/elios/cersaie-2026/stone-icon/ambiance-01.jpeg": {
+      "width": 998,
+      "height": 1293,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-sea-breeze/ambiance-2.jpeg": {
+      "width": 732,
+      "height": 988,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/dynasty/alpi.webp": {
+      "width": 512,
+      "height": 299,
+      "format": "WEBP",
+      "bytesRead": 66534
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amber_tacca_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_GOLDEN-HOUR_BLUE-LAGOON-BAGNO.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/stone-icon/ambiance-04.jpeg": {
+      "width": 2442,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/grand_place_namur_z.jpg": {
+      "width": 415,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_SHELL_GREY-3D-SATEN_GREY-3D.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-natural-01.jpg": {
+      "width": 1098,
+      "height": 1418,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-06.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/creta/lot1-04.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-mare/color-altum.jpeg": {
+      "width": 638,
+      "height": 592,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_5-scaled.jpg": {
+      "width": 1361,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/SEDIMENTI-MODULO-SAND-TUMBLED.jpg": {
+      "width": 1280,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_SHELL_BEIGE-3D-MATT_CAMERA-1.jpg": {
+      "width": 1280,
+      "height": 1022,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_6.jpg": {
+      "width": 1920,
+      "height": 1275,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/GrandPlace_namur_DecWarm_Esterno.jpg": {
+      "width": 1200,
+      "height": 849,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/allure/lot1-01.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/creta/lot1-06.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/pine-01.jpg": {
+      "width": 1500,
+      "height": 811,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/creta/lot1-03.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-acqua/color-deep.jpeg": {
+      "width": 639,
+      "height": 639,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-mare/ambiance-2.jpeg": {
+      "width": 537,
+      "height": 805,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-pacific/color-australia.jpeg": {
+      "width": 306,
+      "height": 269,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Beige_Ristorante_Dett_Esterno.jpg": {
+      "width": 869,
+      "height": 1200,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_scoglio_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_5.jpg": {
+      "width": 1920,
+      "height": 1763,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "embedded:2fef3547097f18b33b47": {
+      "width": 192,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 1868
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_ice_zoom-1.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 5536
+    },
+    "https://eliosceramica.com/wp-content/uploads/2016/09/roma_aventino_z-e1613149566773.jpg": {
+      "width": 415,
+      "height": 242,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_sorrento_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_MONTANA_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-LAPIS_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amber_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Umbria_3-scaled.jpg": {
+      "width": 1743,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/allure_eden_tacca_z.jpg": {
+      "width": 1200,
+      "height": 600,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-nevada/color-vegas.jpeg": {
+      "width": 639,
+      "height": 420,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/dynasty/monet.webp": {
+      "width": 512,
+      "height": 299,
+      "format": "WEBP",
+      "bytesRead": 15782
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_SHELL_IVORY-3D-SATEN_BAGNO-2.jpg": {
+      "width": 1280,
+      "height": 840,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/WHITE-SELECTED_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/brooklin_ALMOND_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_GREY_taccaZ.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "embedded:af37da1d4da8e12bde88": {
+      "width": 146,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 2984
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_amb_3.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_NUOVO-BAGNO_PERLA.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/allure/lot1-04.jpg": {
+      "width": 905,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/tropical/petrolio-catalogue-native.webp": {
+      "width": 102,
+      "height": 102,
+      "format": "WEBP",
+      "bytesRead": 4546
+    },
+    "assets/img/elios/selection-20261028/pool-acqua/ambiance-2.jpeg": {
+      "width": 708,
+      "height": 917,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_PERLA_Z.jpg": {
+      "width": 600,
+      "height": 300,
+      "format": "JPEG",
+      "bytesRead": 4485
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/slate_gold_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_BROOKLYN_GOLD_BAGNO.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Grey_1.jpg": {
+      "width": 1920,
+      "height": 1282,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amb4.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_5.jpg": {
+      "width": 1920,
+      "height": 1275,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-05.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/dove-02.jpg": {
+      "width": 1500,
+      "height": 811,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/horizon/polvere-catalogue-native.webp": {
+      "width": 164,
+      "height": 320,
+      "format": "WEBP",
+      "bytesRead": 4248
+    },
+    "assets/img/elios/cersaie-2026/montblanc/ambiance-05.jpeg": {
+      "width": 807,
+      "height": 1179,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/dynasty/ambiance-07.jpeg": {
+      "width": 1105,
+      "height": 1422,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-twelfth-night/ambiance-2.jpeg": {
+      "width": 534,
+      "height": 801,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-nevada/color-mohave.jpeg": {
+      "width": 639,
+      "height": 421,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Aventino_pav.jpg": {
+      "width": 1920,
+      "height": 1451,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_evo_ciano_A-scaled.jpg": {
+      "width": 1326,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/01/twist_amb_3.jpg": {
+      "width": 1280,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Bruxelles_3.jpg": {
+      "width": 1920,
+      "height": 1281,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/02/Marechiaro_positano_blu_amb_1.jpg": {
+      "width": 1280,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/terrae-02.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/dynasty/lepanto.webp": {
+      "width": 512,
+      "height": 299,
+      "format": "WEBP",
+      "bytesRead": 53624
+    },
+    "assets/img/elios-colors-20261101/montblanc/art-prestige.webp": {
+      "width": 259,
+      "height": 512,
+      "format": "WEBP",
+      "bytesRead": 27718
+    },
+    "assets/img/elios-colors-20261101/dynasty/saint-laurent.webp": {
+      "width": 512,
+      "height": 299,
+      "format": "WEBP",
+      "bytesRead": 20464
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-07.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/creta_AVENA_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-D_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Tortora_z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_amb_8-scaled.jpg": {
+      "width": 1810,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/montblanc/ambiance-03.jpeg": {
+      "width": 2442,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-twelfth-night/color-orsino.jpeg": {
+      "width": 643,
+      "height": 834,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://www.tilelook.com/system/tile_picture/resource/23680891/d3d_default_Rainforest2.png": {
+      "width": 438,
+      "height": 1000,
+      "format": "PNG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Sorrento_amb_4.jpg": {
+      "width": 1280,
+      "height": 1783,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Cream_1.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_SEDIMENTI_WHITE_GREY_IN_OUT.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_6.jpg": {
+      "width": 1920,
+      "height": 1311,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-AMARYLLIS_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-02.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/dove-03.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/shell_ivory_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/creta_GINEPRO_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_SHELL_COMMERCIALE-IVORY-LIGHT.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/domus_SUNSET-ROSE_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Grigio_In_Out_Dett.jpg": {
+      "width": 948,
+      "height": 1200,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Cream_3.jpg": {
+      "width": 1920,
+      "height": 1763,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/montblanc/imperial.webp": {
+      "width": 512,
+      "height": 299,
+      "format": "WEBP",
+      "bytesRead": 3146
+    },
+    "assets/img/elios-colors-20261101/twist/black-catalogue-vector-swatch.svg": {
+      "format": "SVG",
+      "width": 118.34716796875,
+      "height": 118.34722900390625,
+      "vector": true
+    },
+    "assets/img/elios/selection-20261028/pool-abyss/ambiance-2.jpeg": {
+      "width": 663,
+      "height": 995,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/manhattan/ambiance-1.jpeg": {
+      "width": 1148,
+      "height": 831,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Cream_2.jpg": {
+      "width": 1920,
+      "height": 1282,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Burro_z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_CAMERA_beige.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_vietri_amb_1.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_positano_blu_amb_1.jpg": {
+      "width": 1280,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_CUCINA_SILK.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-08.jpg": {
+      "width": 1920,
+      "height": 2150,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/dawn-01.jpg": {
+      "width": 1223,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/lithos/ambiance-1.jpeg": {
+      "width": 655,
+      "height": 854,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-greek-isles/ambiance-1.jpeg": {
+      "width": 1283,
+      "height": 1669,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/loveanddecors-creative/flora-catalogue-native.webp": {
+      "width": 258,
+      "height": 260,
+      "format": "WEBP",
+      "bytesRead": 95428
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/02/Marechiaro_vietri_bianco_amb_1.jpg": {
+      "width": 1280,
+      "height": 1792,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_grey_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_bouquet_amb.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_grigio_macro.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 12869
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_roccia_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-FLAVUS_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/burgundy-01.jpg": {
+      "width": 260,
+      "height": 760,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/terrae-03.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-nevada/color-reno.jpeg": {
+      "width": 639,
+      "height": 420,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/manhattan/pearl-catalogue-native.webp": {
+      "width": 147,
+      "height": 297,
+      "format": "WEBP",
+      "bytesRead": 5888
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_vietri_amb_2.jpg": {
+      "width": 1280,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/02/Marechiaro_mix_bianco_amb_1.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Lazio_2-scaled.jpg": {
+      "width": 1743,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_TerreEtrusche_Umbria_3.jpg": {
+      "width": 1920,
+      "height": 2507,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_deserto_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "embedded:056e7e3ac6ee11245545": {
+      "width": 260,
+      "height": 187,
+      "format": "WEBP",
+      "bytesRead": 3982
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Brooklyn_Beige_Vassoio.jpg": {
+      "width": 976,
+      "height": 1420,
+      "format": "JPEG",
+      "bytesRead": 81920
+    },
+    "assets/img/elios-colors-20261101/twist/green-catalogue-vector-swatch.svg": {
+      "format": "SVG",
+      "width": 118.343994140625,
+      "height": 118.34722900390625,
+      "vector": true
+    },
+    "assets/img/elios/selection-20261028/pool-acqua/ambiance-1.jpeg": {
+      "width": 1280,
+      "height": 1669,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/dynasty/calacatta-viola.webp": {
+      "width": 512,
+      "height": 299,
+      "format": "WEBP",
+      "bytesRead": 20028
+    },
+    "assets/img/elios/selection-20261028/pool-quantum/color-vector.jpeg": {
+      "width": 560,
+      "height": 643,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/limo-1.webp": {
+      "width": 126,
+      "height": 126,
+      "format": "WEBP",
+      "bytesRead": 3260
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ink-04.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_SEDIMENTI_WHITE_SAND_BAGNO.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/ELIOS_MYSTERIUM_ACQUA_LIVING.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_6.jpg": {
+      "width": 1920,
+      "height": 1311,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_CAMERA_BOUQUET.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/BEIGE-SELECTED_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Namur_1.jpg": {
+      "width": 1920,
+      "height": 1290,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_dark_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-natural-02.jpg": {
+      "width": 1697,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-honey-03.jpg": {
+      "width": 1697,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-01.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/creta/coccio-catalogue-native.webp": {
+      "width": 117,
+      "height": 118,
+      "format": "WEBP",
+      "bytesRead": 17902
+    },
+    "assets/img/elios/cersaie-2026/dynasty/ambiance-02.jpeg": {
+      "width": 1105,
+      "height": 1422,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Greige_Sgabello.jpg": {
+      "width": 1397,
+      "height": 954,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2016/09/roma_palatino_z-e1613149542456.jpg": {
+      "width": 415,
+      "height": 242,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_BAGNO_ATLANTE_PERLA-MATERICA.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_black_tacca_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_vietri_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_mix_bianco_amb_1.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Namur_2.jpg": {
+      "width": 1920,
+      "height": 1272,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://www.fliesengigant.de/out/pictures/generated/product/4/1000_1000_75/stilllife_slate_gold60x120_30x60%281%29.jpg": {
+      "width": 667,
+      "height": 1000,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/tropical/ambiance-2.jpeg": {
+      "width": 763,
+      "height": 995,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-twelfth-night/color-viola.jpeg": {
+      "width": 643,
+      "height": 835,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-natural-03.jpg": {
+      "width": 729,
+      "height": 949,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/harmony_taupe.jpg": {
+      "width": 1261,
+      "height": 1783,
+      "format": "JPEG",
+      "bytesRead": 49152
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Marche_4-scaled.jpg": {
+      "width": 1840,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/bone-01.jpg": {
+      "width": 1223,
+      "height": 1592,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLYN_CAMERA_beige.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Tropical_Salvia_1.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_FLORIDA_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://www.fliesengigant.de/out/pictures/generated/product/1/1000_1000_75/03f60903.jpg": {
+      "width": 999,
+      "height": 1000,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/lithos/ambiance-2.jpeg": {
+      "width": 1148,
+      "height": 831,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-lakes/ambiance-2.jpeg": {
+      "width": 747,
+      "height": 1000,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/blush-05.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_ink_zoom-1.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_BROOKLYN_ALMOND_LIVING.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Terra_di_Siena_z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_TerreEtrusche_Toscana_1.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/shell_beige_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/slate_grey_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-pacific/color-japan.jpeg": {
+      "width": 639,
+      "height": 559,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/loveanddecors/ambiance-2.jpeg": {
+      "width": 763,
+      "height": 995,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-quantum/ambiance-1.jpeg": {
+      "width": 1131,
+      "height": 1518,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/terraforma/ambiance-04.jpeg": {
+      "width": 2442,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_evo_senape_B-scaled.jpg": {
+      "width": 1452,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Taupe_2.jpg": {
+      "width": 1920,
+      "height": 1282,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_DAKOTA_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/shell_ivory_light_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Bruxelles_1.jpg": {
+      "width": 1920,
+      "height": 1495,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Mysterium_Pearl_amb1.jpg": {
+      "width": 1280,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_BELLINI_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Linen_macro.jpg": {
+      "width": 416,
+      "height": 207,
+      "format": "JPEG",
+      "bytesRead": 10463
+    },
+    "assets/img/elios/selection-20261028/pool-quantum/color-prism.jpeg": {
+      "width": 559,
+      "height": 643,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-05.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_SCORCIO-OPTICA-ROSA_FLORA.jpg": {
+      "width": 1280,
+      "height": 1811,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_MARGARITA_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://www.fliesengigant.de/out/pictures/master/product/4/slate_flame_cortile_04_1copia.jpg": {
+      "width": 2893,
+      "height": 4092,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_amb_2-1.jpg": {
+      "width": 905,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Bruxelles_4.jpg": {
+      "width": 1920,
+      "height": 1278,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_greige_macro.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 15894
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_BAGNO-ZEFIRO_DORICA-ZEFIRO.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_CUCINA_antracite.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/dynasty/victoria-green.webp": {
+      "width": 511,
+      "height": 512,
+      "format": "WEBP",
+      "bytesRead": 75026
+    },
+    "assets/img/elios/cersaie-2026/montblanc/ambiance-04.jpeg": {
+      "width": 1220,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-greek-isles/ambiance-2.jpeg": {
+      "width": 537,
+      "height": 805,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Emerald_macro.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 12290
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/SEDIMENTI-MODULO-GREY-TUMBLED.jpg": {
+      "width": 1280,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/HARMONY_GRAY.jpg": {
+      "width": 1190,
+      "height": 841,
+      "format": "JPEG",
+      "bytesRead": 49152
+    },
+    "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_white_zoom.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_GOLDEN-HOUR_COMMERCIALE_GIN-TONIC.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Brooklyn_Beige_Interno_Esterno.jpg": {
+      "width": 1200,
+      "height": 1200,
+      "format": "JPEG",
+      "bytesRead": 81920
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_3.jpg": {
+      "width": 1920,
+      "height": 1370,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-07.jpg": {
+      "width": 1709,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/coffee-bean-01.jpg": {
+      "width": 1220,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/manhattan/sand-catalogue-native.webp": {
+      "width": 147,
+      "height": 298,
+      "format": "WEBP",
+      "bytesRead": 5774
+    },
+    "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Antracite_z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Beige_Ristorante_Dett_Interno.jpg": {
+      "width": 869,
+      "height": 1200,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Lazio_1-scaled.jpg": {
+      "width": 1744,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_1.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_LIVING_bianco_greige.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLYN_LVING_white.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Cotton_macro.jpg": {
+      "width": 416,
+      "height": 207,
+      "format": "JPEG",
+      "bytesRead": 8771
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_evo_ciano_mix_2-scaled.jpg": {
+      "width": 1913,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/chalk-02.jpg": {
+      "width": 1050,
+      "height": 1365,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://peintner.shop/media/image/variation/24832/md/montreal-boden-und-wandfliesen-85mm_farbe_grey.jpg": {
+      "width": 600,
+      "height": 600,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-seychelles/color-light.jpeg": {
+      "width": 639,
+      "height": 337,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-lakes/color-shasta.jpeg": {
+      "width": 641,
+      "height": 834,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_White_z.jpeg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/hexagon_lily_grey_amb.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_INDIANA_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_SHELL-BEIGE-copia.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Namur_3.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/HARMONY_CREAM.jpg": {
+      "width": 1190,
+      "height": 841,
+      "format": "JPEG",
+      "bytesRead": 49152
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/burgundy-02.jpg": {
+      "width": 2269,
+      "height": 1365,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-honey-01.jpg": {
+      "width": 1098,
+      "height": 1418,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-06.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/pine-04.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_evo_senape_A_dett.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/brooklin_GOLD_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/tropical/nero-catalogue-native.webp": {
+      "width": 102,
+      "height": 103,
+      "format": "WEBP",
+      "bytesRead": 6912
+    },
+    "assets/img/elios-colors-20261101/lithos/ivory-catalogue-native.webp": {
+      "width": 147,
+      "height": 297,
+      "format": "WEBP",
+      "bytesRead": 9512
+    },
+    "assets/img/elios-colors-20261101/loveanddecors-creative/paint-catalogue-native.webp": {
+      "width": 260,
+      "height": 263,
+      "format": "WEBP",
+      "bytesRead": 106806
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Amalfi_amb_2.jpg": {
+      "width": 1280,
+      "height": 1712,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/montblanc/ambiance-06.jpeg": {
+      "width": 2442,
+      "height": 1592,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_vietri_bianco_amb_1.jpg": {
+      "width": 1280,
+      "height": 1792,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-ALBUS_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 11995
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/02/Marechiaro_blu_amb_1.jpg": {
+      "width": 1280,
+      "height": 1792,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Mustard_macro.jpg": {
+      "width": 416,
+      "height": 207,
+      "format": "JPEG",
+      "bytesRead": 15199
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Marche_1.jpg": {
+      "width": 1920,
+      "height": 1307,
+      "format": "JPEG",
+      "bytesRead": 196608
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Sorrento_amb_2.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/dusk-01.jpg": {
+      "width": 510,
+      "height": 661,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-amber-02.jpg": {
+      "width": 2544,
+      "height": 1659,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/stone-icon/ambiance-03.jpeg": {
+      "width": 807,
+      "height": 1183,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/lithos/sand-catalogue-native.webp": {
+      "width": 147,
+      "height": 299,
+      "format": "WEBP",
+      "bytesRead": 10328
+    },
+    "assets/img/elios-colors-20261101/stone-icon/francese.webp": {
+      "width": 512,
+      "height": 341,
+      "format": "WEBP",
+      "bytesRead": 24908
+    },
+    "assets/img/elios/selection-20261028/pool-sea-breeze/color-teal.jpeg": {
+      "width": 643,
+      "height": 834,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_amb_4.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/domus/lot1-06.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_SEDIMENTI_TAGLI_INGRESSO_beige_white.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-04.jpg": {
+      "width": 1920,
+      "height": 2165,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_TerreEtrusche_Umbria_1.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/05/domus_Canyon_Rust_600.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/BAVARIA_STONE_OUTDOOR.jpg": {
+      "width": 1190,
+      "height": 842,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "assets/img/elios/selection-20261028/pool-abyss/color-tikal.jpeg": {
+      "width": 639,
+      "height": 420,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-marna.webp": {
+      "width": 222,
+      "height": 222,
+      "format": "WEBP",
+      "bytesRead": 15998
+    },
+    "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-petra.webp": {
+      "width": 222,
+      "height": 222,
+      "format": "WEBP",
+      "bytesRead": 35312
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_blossom_zoom.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLYN_LIVING_taupe.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_GLOW_DAKOTA_LIVING.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/02/marechiaro_blu_tacca_z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/domus_OCEAN-BLUE_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/pine-02.jpg": {
+      "width": 850,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/sage-01.jpg": {
+      "width": 1500,
+      "height": 811,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/sand-02.jpg": {
+      "width": 456,
+      "height": 298,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/allure/lot1-05.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ice-04.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_LIVING_greige.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_GLOW_INDIANAVIRGINIA_COMMERCIALE.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/slate_amb_2-scaled.jpg": {
+      "width": 1810,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://fliseshoppen.dk/wp-content/uploads/2022/06/Slate-Grey-60x60-2.jpg": {
+      "width": 600,
+      "height": 600,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/dynasty/ambiance-05.jpeg": {
+      "width": 1220,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/dynasty/kingdom-white.webp": {
+      "width": 512,
+      "height": 512,
+      "format": "WEBP",
+      "bytesRead": 14298
+    },
+    "assets/img/elios/cersaie-2026/dynasty/ambiance-08.jpeg": {
+      "width": 806,
+      "height": 1179,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/stone-icon/ambiance-07.jpeg": {
+      "width": 1221,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/loveanddecors-creative/ibis-catalogue-native.webp": {
+      "width": 260,
+      "height": 262,
+      "format": "WEBP",
+      "bytesRead": 90540
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_mix_amb_2.jpg": {
+      "width": 1280,
+      "height": 1535,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Toscana_3.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 163840
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_amb_1.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_snow_zoom.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_Grey_z.jpeg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/05/LoveDecors_Equatorial_3.jpg": {
+      "width": 1920,
+      "height": 1359,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "assets/img/elios-colors-20261101/tropical/salvia-catalogue-native.webp": {
+      "width": 102,
+      "height": 102,
+      "format": "WEBP",
+      "bytesRead": 3960
+    },
+    "assets/img/elios/selection-20261028/pool-pacific/ambiance-1.jpeg": {
+      "width": 1280,
+      "height": 1668,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/manhattan/ambiance-2.jpeg": {
+      "width": 655,
+      "height": 832,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-italian-slate/color-firenze.jpeg": {
+      "width": 644,
+      "height": 834,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/montblanc/prestige.webp": {
+      "width": 512,
+      "height": 341,
+      "format": "WEBP",
+      "bytesRead": 17738
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_COMMERCIALE-FLORA_RUGIADA-MATERICA_AURA-DORICA.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Amalfi_amb_1.jpg": {
+      "width": 1280,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/domus/lot1-04.jpg": {
+      "width": 1280,
+      "height": 1809,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/turquoise-02.jpg": {
+      "width": 2271,
+      "height": 1333,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/blush-03.jpg": {
+      "width": 850,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_evo_Senape_mix_2.jpg": {
+      "width": 1920,
+      "height": 2039,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-seychelles/ambiance-2.jpeg": {
+      "width": 777,
+      "height": 1668,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-quantum/color-nova.jpeg": {
+      "width": 559,
+      "height": 643,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/loveanddecors-creative/flamingo-catalogue-native.webp": {
+      "width": 130,
+      "height": 262,
+      "format": "WEBP",
+      "bytesRead": 45290
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-amber-03.jpg": {
+      "width": 1275,
+      "height": 1659,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_1.jpg": {
+      "width": 1920,
+      "height": 1357,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_LightBlue_z.jpeg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/ALLURE_oyster_zoom.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_amb_2.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_TerreEtrusche_Lazio_2.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_2.jpg": {
+      "width": 1920,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/montblanc/art-imperial.webp": {
+      "width": 259,
+      "height": 512,
+      "format": "WEBP",
+      "bytesRead": 9616
+    },
+    "assets/img/elios-colors-20261101/twist/white-catalogue-vector-swatch.svg": {
+      "format": "SVG",
+      "width": 118.34716796875,
+      "height": 118.34722900390625,
+      "vector": true
+    },
+    "assets/img/elios/selection-20261028/pool-acqua/color-light.jpeg": {
+      "width": 639,
+      "height": 515,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/01/twist_amb_2.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_antracite_amb.jpg": {
+      "width": 1280,
+      "height": 1951,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_-CUCINA_SHELL_BEIGE-LIGHT.jpg": {
+      "width": 1280,
+      "height": 711,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-08.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-natural-03.jpg": {
+      "width": 1097,
+      "height": 1417,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ink-03.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_4.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_amb_7-scaled.jpg": {
+      "width": 2560,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/tropical/grigio-catalogue-native.webp": {
+      "width": 102,
+      "height": 102,
+      "format": "WEBP",
+      "bytesRead": 4910
+    },
+    "assets/img/elios/cersaie-2026/stone-icon/ambiance-06.jpeg": {
+      "width": 807,
+      "height": 1179,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-greek-isles/color-crete.jpeg": {
+      "width": 644,
+      "height": 1669,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/niagara-04.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2016/09/roma_celio_z-e1613149555384.jpg": {
+      "width": 415,
+      "height": 242,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/grand_place_bruxelles_z.jpg": {
+      "width": 415,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Marche_3-scaled.jpg": {
+      "width": 1767,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/BAVARIA_ESTERNO.jpg": {
+      "width": 595,
+      "height": 421,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/slate_river_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Cream_5-scaled.jpg": {
+      "width": 1387,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-pacific/ambiance-2.jpeg": {
+      "width": 743,
+      "height": 1002,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/02/Marechiaro_mix_blu_amb_1.jpg": {
+      "width": 1280,
+      "height": 896,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_MOJITO_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-COELESTIS_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://peintner.shop/media/image/product/38853/md/montreal-boden-und-wandfliesen-85mm.jpg": {
+      "width": 600,
+      "height": 600,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-white-02.jpg": {
+      "width": 1696,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/niagara-03.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/dusk-02.jpg": {
+      "width": 596,
+      "height": 359,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-amber-01.jpg": {
+      "width": 1100,
+      "height": 1418,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-10.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_blush_zoom-1.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 13249
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_SHELL_BEIGE-3D-MATT_LIVING-1.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Bavaria_Stone_3-1-scaled.jpg": {
+      "width": 1802,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Grigio_z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_TerreEtrusche_Marche_1.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_amb_2.jpg": {
+      "width": 905,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_3.jpg": {
+      "width": 1920,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/sabbia-1.webp": {
+      "width": 131,
+      "height": 131,
+      "format": "WEBP",
+      "bytesRead": 4560
+    },
+    "assets/img/elios-colors-20261101/loveanddecors-creative/leaf-catalogue-native.webp": {
+      "width": 260,
+      "height": 260,
+      "format": "WEBP",
+      "bytesRead": 80290
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_niagara_zoom-1.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 14463
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_ARIZONA_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/01/twist_amb_1.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLYN_BAR_dark_grey-scaled.jpg": {
+      "width": 1810,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/blue-02.jpg": {
+      "width": 2268,
+      "height": 1332,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/dawn-02.jpg": {
+      "width": 1221,
+      "height": 1592,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_7-scaled.jpg": {
+      "width": 1704,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/deco-duna.webp": {
+      "width": 222,
+      "height": 222,
+      "format": "WEBP",
+      "bytesRead": 31900
+    },
+    "assets/img/elios-colors-20261101/lithos/grey-catalogue-native.webp": {
+      "width": 147,
+      "height": 297,
+      "format": "WEBP",
+      "bytesRead": 15286
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/hexagon_cube_sky_amb.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/creta_BISCOTTO_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_ZEFIRO_Z.jpg": {
+      "width": 600,
+      "height": 300,
+      "format": "JPEG",
+      "bytesRead": 6574
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_evo_ciano_mix_1.jpg": {
+      "width": 1920,
+      "height": 1278,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_WHITE_taccaZ.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_decori_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/hexagon_frame_grey_amb.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/horizon/cava-catalogue-native.webp": {
+      "width": 147,
+      "height": 147,
+      "format": "WEBP",
+      "bytesRead": 3714
+    },
+    "assets/img/elios/cersaie-2026/terraforma/ambiance-02.jpeg": {
+      "width": 1220,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-lakes/color-tahoe.jpeg": {
+      "width": 641,
+      "height": 834,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-sea-breeze/color-sky.jpeg": {
+      "width": 644,
+      "height": 834,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-honey-03.jpg": {
+      "width": 1275,
+      "height": 1658,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/EL_SEDIMENTI_BEIGE_LIRERIA.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_palazzo_ducale_BW_X.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Bavaria_Stone_1.jpg": {
+      "width": 1920,
+      "height": 1621,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_mint_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_1-scaled.jpg": {
+      "width": 1811,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Lithos_Ivory_amb2.jpg": {
+      "width": 1280,
+      "height": 1687,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/manhattan/ash-catalogue-native.webp": {
+      "width": 147,
+      "height": 298,
+      "format": "WEBP",
+      "bytesRead": 11650
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-01.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-amber-01.jpg": {
+      "width": 733,
+      "height": 945,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-natural-02.jpg": {
+      "width": 1214,
+      "height": 793,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ink-02.jpg": {
+      "width": 849,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/dove-01.jpg": {
+      "width": 1696,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/terraforma/ambiance-01.jpeg": {
+      "width": 1223,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-acqua/color-cobalt.jpeg": {
+      "width": 639,
+      "height": 515,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_terrae_zoom-1.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 14367
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/02/marechiaro_bianco_tacca_z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/slate_flame_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_amb_1.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://cdn.dimora-shop.com/brands/6c148096c1e5aef97323b65ab5990523/products/f1f75f38a845f6a8e59bb8062dc46ee2/images/d7ad5d71917d41d5dd2394a9e8d15ab4.webp": {
+      "width": 3840,
+      "height": 2715,
+      "format": "WEBP",
+      "bytesRead": 3967932
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_DARK_taccaZ.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/domus/lot1-02.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_2.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_mix_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_positano_amb_2.jpg": {
+      "width": 1280,
+      "height": 853,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/creta_CARAMELLO_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_beige_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/montblanc/ambiance-02.jpeg": {
+      "width": 2324,
+      "height": 1424,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/dynasty/ambiance-06.jpeg": {
+      "width": 807,
+      "height": 1181,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "embedded:abc6854cddd3faa2f630": {
+      "width": 146,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 1140
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-03.jpg": {
+      "width": 1867,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/bottle-green-02.jpg": {
+      "width": 2442,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/niagara-02.jpg": {
+      "width": 849,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_evo_ciano_B.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/ELIOS_MYSTERIUM_OCEAN_BAGNO.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-E_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Silk_macro.jpg": {
+      "width": 416,
+      "height": 207,
+      "format": "JPEG",
+      "bytesRead": 13099
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_natural_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_NUOVO-BAGNO-SETA.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/sand-01.jpg": {
+      "width": 1053,
+      "height": 1362,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "embedded:177f261a2cab9b9014b8": {
+      "width": 175,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 3748
+    },
+    "assets/img/elios/selection-20261028/pool-mare/ambiance-1.jpeg": {
+      "width": 1131,
+      "height": 1518,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/montblanc/eclipse.webp": {
+      "width": 512,
+      "height": 299,
+      "format": "WEBP",
+      "bytesRead": 40962
+    },
+    "assets/img/elios-colors-20261101/dynasty/noble-red.webp": {
+      "width": 512,
+      "height": 512,
+      "format": "WEBP",
+      "bytesRead": 64658
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/Glow_TEXAS_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/ELIOS_MYSTERIUM_PEARL_COMMERCIALE.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Bouquet_macro.jpg": {
+      "width": 416,
+      "height": 207,
+      "format": "JPEG",
+      "bytesRead": 13213
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_5-scaled.jpg": {
+      "width": 1811,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_terra_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_3.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_1.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-seychelles/ambiance-1.jpeg": {
+      "width": 1126,
+      "height": 1518,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/pine-03.jpg": {
+      "width": 849,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-white-02.jpg": {
+      "width": 2545,
+      "height": 1658,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/domus/lot1-05.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Sorrento_amb_5.jpg": {
+      "width": 1280,
+      "height": 853,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_BROOKLYN_GOLD_IN_OUT.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_CAIPIRINHA_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_BAR_COTTON_EMERALD.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_sage_zoom-1.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_palazzo_ducale_BW_B_1.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_RUGIADA_Z.jpg": {
+      "width": 600,
+      "height": 300,
+      "format": "JPEG",
+      "bytesRead": 8517
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Black_3.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_BAGNO_grigio.jpg": {
+      "width": 1920,
+      "height": 1358,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/terraforma/ambiance-03.jpeg": {
+      "width": 935,
+      "height": 1183,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/tropical/ambiance-1.jpeg": {
+      "width": 1151,
+      "height": 829,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Deco_Taupe_z.jpeg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_sky_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_dettaglio.jpg": {
+      "width": 907,
+      "height": 1382,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "embedded:8b4e7424004d0d72d6f1": {
+      "width": 230,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 3436
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/Dust_terrae_amb_2.jpg": {
+      "width": 1280,
+      "height": 844,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/terraforma/ambiance-06.jpeg": {
+      "width": 1221,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/cersaie-2026/dynasty/ambiance-03.jpeg": {
+      "width": 807,
+      "height": 1179,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/allure/eden-panel-native.webp": {
+      "width": 421,
+      "height": 843,
+      "format": "WEBP",
+      "bytesRead": 475748
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_6-scaled.jpg": {
+      "width": 1387,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Ocean_macro.jpg": {
+      "width": 416,
+      "height": 207,
+      "format": "JPEG",
+      "bytesRead": 14859
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_ocean_tacca_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Harmony_Taupe_1.jpg": {
+      "width": 1921,
+      "height": 1273,
+      "format": "JPEG",
+      "bytesRead": 49152
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_COMMERCIALE-FLORA_RUGIADA-MATERICA_AURA-DORICA-1.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "embedded:54e7a6cdf9b0e3ccc07b": {
+      "width": 146,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 844
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/hexagon_lily_teal_amb.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Antwerpen_8.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_greige_Grigio_Esterno.jpg": {
+      "width": 1200,
+      "height": 1200,
+      "format": "JPEG",
+      "bytesRead": 49152
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Grey_5-scaled.jpg": {
+      "width": 1361,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_honey_zoom.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_GOLDEN-HOUR_BAGNO_HAWAIAN_SHELL_GREY-LIGHT-copia.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_GOLDEN_HOUR_CAIPIRINHA_CUCINA.jpg": {
+      "width": 1280,
+      "height": 1811,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-honey-02.jpg": {
+      "width": 1261,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-13.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/tropical/bianco-catalogue-native.webp": {
+      "width": 102,
+      "height": 102,
+      "format": "WEBP",
+      "bytesRead": 1744
+    },
+    "assets/img/elios-colors-20261101/montblanc/reserve.webp": {
+      "width": 512,
+      "height": 299,
+      "format": "WEBP",
+      "bytesRead": 1716
+    },
+    "assets/img/elios-colors-20261101/stone-icon/leccese.webp": {
+      "width": 512,
+      "height": 341,
+      "format": "WEBP",
+      "bytesRead": 15522
+    },
+    "assets/img/elios/selection-20261028/horizon/ambiance-2.jpeg": {
+      "width": 933,
+      "height": 831,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2020/03/Deco_decori_z.jpg": {
+      "width": 415,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2017/03/Design_Evo_col_Brown_z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Brooklyn_Taupe_Esterno.jpg": {
+      "width": 1200,
+      "height": 848,
+      "format": "JPEG",
+      "bytesRead": 81920
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/01/twist_amb_5.jpg": {
+      "width": 1280,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_Taupe_2.jpg": {
+      "width": 1920,
+      "height": 1359,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/lrf-plan-pose/faces/elios-20261024/terraforma/mattone-1.webp": {
+      "width": 131,
+      "height": 131,
+      "format": "WEBP",
+      "bytesRead": 7348
+    },
+    "assets/img/elios/selection-20261028/loveanddecors/ambiance-3.jpeg": {
+      "width": 655,
+      "height": 832,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-11.jpg": {
+      "width": 1920,
+      "height": 1997,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/creta/lot1-07.png": {
+      "width": 1024,
+      "height": 768,
+      "format": "PNG",
+      "bytesRead": 6241
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-C_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2020/10/TerreEtrusche_Lazio-e1613569803536.jpg": {
+      "width": 600,
+      "height": 350,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_SEDIMENTI_STICKS_BAGNO_sand.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/SEDIMENTI-MODULO-BEIGE-TUMBLED.jpg": {
+      "width": 1280,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-NOX_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_amb_1-scaled.jpg": {
+      "width": 1810,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://www.fliesengigant.de/out/pictures/master/product/4/ambiente3_dark.jpeg": {
+      "width": 3536,
+      "height": 5000,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://www.fliesengigant.de/out/pictures/master/product/1/03f60606.jpg": {
+      "width": 1200,
+      "height": 1200,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/twist/brick-catalogue-vector-swatch.svg": {
+      "format": "SVG",
+      "width": 118.34722900390625,
+      "height": 118.34722900390625,
+      "vector": true
+    },
+    "assets/img/elios/cersaie-2026/stone-icon/ambiance-02.jpeg": {
+      "width": 1220,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-italian-slate/ambiance-1.jpeg": {
+      "width": 1127,
+      "height": 1517,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/millenium_quartz_vulcano_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/domus_MOON-WHITE_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-A_tacca.jpg": {
+      "width": 535,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Brooklyn_beige_amb.jpg": {
+      "width": 1280,
+      "height": 922,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_SEDIMENTI_BEIGE_COMMERCIALE.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Ocean_Bouquet_Cotton.jpg": {
+      "width": 856,
+      "height": 1147,
+      "format": "JPEG",
+      "bytesRead": 229376
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/blush-02.jpg": {
+      "width": 1500,
+      "height": 811,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "embedded:7fd0ef6016fe6f22cbd6": {
+      "width": 146,
+      "height": 190,
+      "format": "WEBP",
+      "bytesRead": 2440
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/azuli-mood/coffee-bean-02.jpg": {
+      "width": 2442,
+      "height": 1591,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/deco/lot1-12.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/tropical/blu-catalogue-native.webp": {
+      "width": 102,
+      "height": 102,
+      "format": "WEBP",
+      "bytesRead": 8262
+    },
+    "assets/img/elios/selection-20261028/pool-abyss/color-thonis.jpeg": {
+      "width": 643,
+      "height": 420,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/loveanddecors-creative/natura-catalogue-native.webp": {
+      "width": 263,
+      "height": 262,
+      "format": "WEBP",
+      "bytesRead": 80268
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_amb_3-scaled.jpg": {
+      "width": 2560,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/shell.jpg": {
+      "width": 1920,
+      "height": 1074,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Sorrento_amb_3.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_GIN-TONIC_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/domus_SANDSTONE-BEIGE_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/grand_place_antwerpen_z.jpg": {
+      "width": 415,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "assets/img/elios/selection-20261028/pool-abyss/color-atlantis.jpeg": {
+      "width": 643,
+      "height": 420,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-nevada/ambiance-2.jpeg": {
+      "width": 794,
+      "height": 1668,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-lakes/ambiance-1.jpeg": {
+      "width": 1280,
+      "height": 1669,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-nevada/color-carson.jpeg": {
+      "width": 639,
+      "height": 420,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/loveanddecors/garden-catalogue-native.webp": {
+      "width": 316,
+      "height": 362,
+      "format": "WEBP",
+      "bytesRead": 66488
+    },
+    "assets/img/elios-colors-20261101/allure/fenix-blueberry-panel-native.webp": {
+      "width": 419,
+      "height": 837,
+      "format": "WEBP",
+      "bytesRead": 371844
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-amber-03.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/blush-01.jpg": {
+      "width": 1696,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/allure/lot1-06.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/allure/lot1-08.jpg": {
+      "width": 1280,
+      "height": 905,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_SETA_Z.jpg": {
+      "width": 600,
+      "height": 300,
+      "format": "JPEG",
+      "bytesRead": 4065
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/slate_natural_zoom.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLIN_TAUPE_taccaZ.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/dynasty/prestige-black.webp": {
+      "width": 512,
+      "height": 512,
+      "format": "WEBP",
+      "bytesRead": 53152
+    },
+    "assets/img/elios/selection-20261028/pool-sea-breeze/ambiance-1.jpeg": {
+      "width": 1280,
+      "height": 1668,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/dynasty/imperial-black.webp": {
+      "width": 512,
+      "height": 512,
+      "format": "WEBP",
+      "bytesRead": 83782
+    },
+    "assets/img/elios/selection-20261028/loveanddecors/ambiance-1.jpeg": {
+      "width": 1150,
+      "height": 831,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-acqua/color-river.jpeg": {
+      "width": 617,
+      "height": 619,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/blush-04.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-honey-02.jpg": {
+      "width": 2544,
+      "height": 1659,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ice-03.jpg": {
+      "width": 850,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://peintner.shop/media/image/variation/24831/md/montreal-boden-und-wandfliesen-85mm_farbe_white.jpg": {
+      "width": 600,
+      "height": 600,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_RISTORANTE_OCEAN_MUSTARD-scaled.jpg": {
+      "width": 1810,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/TerreEtrusche_Toscana_2-scaled.jpg": {
+      "width": 1757,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_SHELL_OUTDOOR_BEIGE-LIGHT.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/creta_malto_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_DesignEvo_palazzo_ducale_BW_B.jpg": {
+      "width": 1920,
+      "height": 1920,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_positano_z.jpg": {
+      "width": 416,
+      "height": 208,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/ice-01.jpg": {
+      "width": 1711,
+      "height": 1128,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://www.fliesengigant.de/out/pictures/generated/product/4/1000_1000_75/03f36004.jpg": {
+      "width": 501,
+      "height": 1000,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://peintner.shop/media/image/variation/24833/md/montreal-boden-und-wandfliesen-85mm_farbe_beige.jpg": {
+      "width": 600,
+      "height": 600,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/dynasty/marfil.webp": {
+      "width": 512,
+      "height": 299,
+      "format": "WEBP",
+      "bytesRead": 7596
+    },
+    "assets/img/elios/cersaie-2026/terraforma/ambiance-05.jpeg": {
+      "width": 2324,
+      "height": 1424,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/dynasty/crown-green.webp": {
+      "width": 512,
+      "height": 512,
+      "format": "WEBP",
+      "bytesRead": 129650
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Manhattan_Pearl_amb2.jpg": {
+      "width": 1280,
+      "height": 1687,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/Golden_Hour_BLUE-LAGOON_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Harmony_White_2.jpg": {
+      "width": 1920,
+      "height": 1357,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_amber_zoom.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_GLOW_CALIFORNIA_BAGNO.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_amb_4-scaled.jpg": {
+      "width": 1810,
+      "height": 2560,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/pool-mare/color-viridus.jpeg": {
+      "width": 639,
+      "height": 558,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/01/twist_amb_4.jpg": {
+      "width": 1280,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios/selection-20261028/horizon/ambiance-1.jpeg": {
+      "width": 1013,
+      "height": 852,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/shell_beige_light_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/ELIOS_GLOW_MONTANA_INGRESSO.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-NIGRUM_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/domus_CLAY-RED_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Sorrento_amb_1.jpg": {
+      "width": 1280,
+      "height": 1810,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/Mysterium_Pearl_amb2.jpg": {
+      "width": 1280,
+      "height": 1687,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/shell_grey_tacca_Z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2024/10/creta_ZUCCHERO_tacca_z.jpg": {
+      "width": 1400,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_BAGNO_SHELL_GREY-LIGHT.jpg": {
+      "width": 1280,
+      "height": 876,
+      "format": "JPEG",
+      "bytesRead": 32768
+    },
+    "https://peintner.shop/media/image/variation/24834/md/montreal-boden-und-wandfliesen-85mm_farbe_taupe.jpg": {
+      "width": 600,
+      "height": 600,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/allure/lot1-03.jpg": {
+      "width": 1810,
+      "height": 1280,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/niagara-05.jpg": {
+      "width": 848,
+      "height": 1106,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "assets/img/elios-colors-20261101/allure/fenix-juniper-panel-native.webp": {
+      "width": 417,
+      "height": 837,
+      "format": "WEBP",
+      "bytesRead": 340002
+    },
+    "assets/img/elios/cersaie-2026/dynasty/ambiance-01.jpeg": {
+      "width": 1221,
+      "height": 1592,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Bruxelles_5.jpg": {
+      "width": 1920,
+      "height": 1370,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2023/10/marechiaro_amalfi_tacca_z.jpg": {
+      "width": 1200,
+      "height": 700,
+      "format": "JPEG",
+      "bytesRead": 16384
+    },
+    "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-B_tacca.jpg": {
+      "width": 529,
+      "height": 309,
+      "format": "JPEG",
+      "bytesRead": 16384
+    }
+  },
+  "summary": {
+    "smallGalleryImagesRemoved": 13,
+    "collectionsCleaned": 7,
+    "restoredColorGalleries": 66,
+    "collectionsWithRestoredColorPhotographs": 18,
+    "gallerySourcesAfter": 505,
+    "retainedColors": 291
+  }
+}

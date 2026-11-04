@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-01",
+  "updated": "2026-11-04",
   "sources": [
     "assets/js/elios-images/elios-images-1.js",
     "assets/js/elios-images/elios-images-2.js",
@@ -62,7 +62,7 @@
     {
       "slug": "bavaria-stone",
       "page": "elios-bavaria-stone.html",
-      "images": 9,
+      "images": 7,
       "formats": [
         "100x100 · 20 mm R11",
         "50x100 · 20 mm R11",
@@ -158,7 +158,7 @@
     {
       "slug": "dolomiti",
       "page": "elios-dolomiti.html",
-      "images": 22,
+      "images": 20,
       "formats": [
         "60x120",
         "60x60",
@@ -274,7 +274,7 @@
     {
       "slug": "horizon",
       "page": "elios-horizon.html",
-      "images": 6,
+      "images": 7,
       "formats": [
         "100x100",
         "60x120",
@@ -384,7 +384,7 @@
     {
       "slug": "montreal",
       "page": "elios-montreal.html",
-      "images": 1,
+      "images": 6,
       "formats": [
         "100x100",
         "60x120",
@@ -548,7 +548,7 @@
     {
       "slug": "quercia",
       "page": "elios-quercia.html",
-      "images": 19,
+      "images": 17,
       "formats": [
         "24x120 · 8,5 mm",
         "23,4x119,5 · 8,5 mm",
@@ -564,7 +564,7 @@
     {
       "slug": "roma",
       "page": "elios-roma.html",
-      "images": 7,
+      "images": 17,
       "formats": [
         "60x120 · 20 mm R11",
         "61x61",
@@ -643,7 +643,7 @@
     {
       "slug": "slate",
       "page": "elios-slate.html",
-      "images": 7,
+      "images": 15,
       "formats": [
         "60x120 · 20 mm R11",
         "60x120 · 8,5 mm",
@@ -842,11 +842,9 @@
         "https://eliosceramica.com/wp-content/uploads/2021/02/BAVARIA_ESTERNO.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/02/BAVARIA_STONE_OUTDOOR.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/02/Bavaria_Stone_DETTAGLIO.jpg",
-        "https://leroyfactory.fr/assets/img/elios-seo/elios-bavaria-stone-visuel-b559860d40a4bab1.webp",
-        "https://leroyfactory.fr/assets/img/elios-seo/elios-bavaria-stone-visuel-3177df7615277881.webp",
         "https://eliosceramica.com/wp-content/uploads/2020/06/Bavaria_Stone_pan.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-brooklyn.html",
@@ -871,7 +869,7 @@
         "https://eliosceramica.com/wp-content/uploads/2024/10/brooklin_ALMOND_tacca_z.jpg",
         "https://eliosceramica.com/wp-content/uploads/2024/10/brooklin_GOLD_tacca_z.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-clay.html",
@@ -892,7 +890,7 @@
         "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Silk_macro.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Clay_Aqua_macro.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-creta.html",
@@ -994,15 +992,13 @@
         "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_Grigio_In_Out_Dett.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_CUCINA_antracite.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_antracite_amb.jpg",
-        "https://leroyfactory.fr/assets/img/elios-seo/elios-dolomiti-visuel-20a314fabb0ba456.webp",
-        "https://leroyfactory.fr/assets/img/elios-seo/elios-dolomiti-visuel-e10ea9e0acedc1ca.webp",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_bianco_macro.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_beige_macro.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_greige_macro.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_grigio_macro.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_antracite_macro.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-domus.html",
@@ -1071,7 +1067,7 @@
         "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_niagara_zoom-1.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/DUST_ink_zoom-1.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-dynasty.html",
@@ -1168,7 +1164,7 @@
         "https://eliosceramica.com/wp-content/uploads/2021/01/grand_place_antwerpen_z.jpg",
         "https://eliosceramica.com/wp-content/uploads/2021/01/grand_place_namur_z.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-harmony.html",
@@ -1240,11 +1236,12 @@
         "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_beige_zoom.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/HEXAGON_decori_zoom.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-horizon.html",
       "images": [
+        "https://id-sol.fr/cdn/shop/files/Elios_Horizon_Carbone_1-scaled.jpg?v=1751116328",
         "https://leroyfactory.fr/assets/img/elios/selection-20261028/horizon/ambiance-1.jpeg",
         "https://leroyfactory.fr/assets/img/elios/selection-20261028/horizon/ambiance-2.jpeg",
         "https://leroyfactory.fr/assets/img/elios-colors-20261101/horizon/carbone-catalogue-native.webp",
@@ -1252,7 +1249,7 @@
         "https://leroyfactory.fr/assets/img/elios-colors-20261101/horizon/cava-catalogue-native.webp",
         "https://leroyfactory.fr/assets/img/elios-colors-20261101/horizon/calce-catalogue-native.webp"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-lithos.html",
@@ -1264,7 +1261,7 @@
         "https://leroyfactory.fr/assets/img/elios-colors-20261101/lithos/sand-catalogue-native.webp",
         "https://leroyfactory.fr/assets/img/elios-colors-20261101/lithos/grey-catalogue-native.webp"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-loveanddecors-creative.html",
@@ -1283,7 +1280,7 @@
         "https://leroyfactory.fr/assets/img/elios-colors-20261101/loveanddecors-creative/autumn-catalogue-native.webp",
         "https://leroyfactory.fr/assets/img/elios-colors-20261101/loveanddecors-creative/flamingo-catalogue-native.webp"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-loveanddecors.html",
@@ -1305,7 +1302,7 @@
         "https://leroyfactory.fr/assets/img/elios-colors-20261101/manhattan/ash-catalogue-native.webp",
         "https://leroyfactory.fr/assets/img/elios-colors-20261101/manhattan/sand-catalogue-native.webp"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-marechiaro.html",
@@ -1347,7 +1344,7 @@
         "https://eliosceramica.com/wp-content/uploads/2024/02/marechiaro_blu_tacca_z.jpg",
         "https://eliosceramica.com/wp-content/uploads/2024/02/marechiaro_bianco_tacca_z.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-millennium-quartz.html",
@@ -1388,9 +1385,14 @@
     {
       "file": "elios-montreal.html",
       "images": [
-        "https://leroyfactory.fr/assets/img/elios-seo/elios-montreal-visuel-d46f1230d3e1b024.webp"
+        "https://peintner.shop/media/image/product/38853/md/montreal-boden-und-wandfliesen-85mm.jpg",
+        "https://peintner.shop/media/image/variation/24831/md/montreal-boden-und-wandfliesen-85mm_farbe_white.jpg",
+        "https://peintner.shop/media/image/variation/24832/md/montreal-boden-und-wandfliesen-85mm_farbe_grey.jpg",
+        "https://peintner.shop/media/image/variation/24833/md/montreal-boden-und-wandfliesen-85mm_farbe_beige.jpg",
+        "https://peintner.shop/media/image/variation/24834/md/montreal-boden-und-wandfliesen-85mm_farbe_taupe.jpg",
+        "https://peintner.shop/media/image/variation/24835/md/montreal-boden-und-wandfliesen-85mm_farbe_dark.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-mysterium.html",
@@ -1410,7 +1412,7 @@
         "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_pearl_tacca_z.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/10/mysterium_black_tacca_z.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-pool-abyss.html",
@@ -1558,27 +1560,35 @@
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-amber-01.jpg",
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-amber-02.jpg",
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-amber-03.jpg",
-        "https://leroyfactory.fr/assets/img/elios-seo/elios-quercia-visuel-582253f0235a6aaf.webp",
-        "https://leroyfactory.fr/assets/img/elios-seo/elios-quercia-visuel-633335d607842b17.webp",
         "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_honey_zoom.jpg",
         "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_amber_zoom.jpg",
         "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_natural_zoom.jpg",
         "https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_white_zoom.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-roma.html",
       "images": [
         "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Aventino_pav.jpg",
-        "https://leroyfactory.fr/assets/img/elios-seo/elios-roma-visuel-da7bf0b0eaa0fc8a.webp",
-        "https://leroyfactory.fr/assets/img/elios-seo/elios-roma-visuel-ea796fa1ce4afd31.webp",
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Aventino_2.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/02/ROMA_PALATINO_amb.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_CELIO-1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Celio_pav_Cop.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Viminale_cucina.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_viminale-1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_1.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_2.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_3.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_palatino_esterno2.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_PART.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_riv.jpg",
         "https://eliosceramica.com/wp-content/uploads/2016/09/roma_aventino_z-e1613149566773.jpg",
         "https://eliosceramica.com/wp-content/uploads/2016/09/roma_celio_z-e1613149555384.jpg",
         "https://eliosceramica.com/wp-content/uploads/2016/09/roma_viminale_z-e1613149529947.jpg",
         "https://eliosceramica.com/wp-content/uploads/2016/09/roma_palatino_z-e1613149542456.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-sedimenti.html",
@@ -1630,7 +1640,7 @@
         "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-E_tacca.jpg",
         "https://eliosceramica.com/wp-content/uploads/2026/02/SEGMENTO-DUPLEX-F_tacca.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-shell.html",
@@ -1658,6 +1668,14 @@
       "file": "elios-slate.html",
       "images": [
         "https://eliosceramica.com/wp-content/uploads/2023/05/slate_amb_2-scaled.jpg",
+        "https://www.fliesengigant.de/out/pictures/master/product/1/03f60606.jpg",
+        "https://www.fliesengigant.de/out/pictures/master/product/4/ambiente3_dark.jpeg",
+        "https://www.fliesengigant.de/out/pictures/master/product/4/slate_flame_cortile_04_1copia.jpg",
+        "https://id-sol.fr/cdn/shop/files/slate_amb_7-scaled_1024x1024.jpg?v=1751123554",
+        "https://www.fliesengigant.de/out/pictures/generated/product/4/1000_1000_75/stilllife_slate_gold60x120_30x60%281%29.jpg",
+        "https://www.fliesengigant.de/out/pictures/master/product/3/03f60602.jpg",
+        "https://www.fliesengigant.de/out/pictures/generated/product/1/1000_1000_75/03f60903.jpg",
+        "https://www.fliesengigant.de/out/pictures/generated/product/4/1000_1000_75/03f36004.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/slate_river_zoom.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/slate_dark_zoom.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/slate_flame_zoom.jpg",
@@ -1665,7 +1683,7 @@
         "https://eliosceramica.com/wp-content/uploads/2023/05/slate_gold_zoom.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/slate_grey_zoom.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-stone-icon.html",
@@ -1750,7 +1768,7 @@
         "https://leroyfactory.fr/assets/img/elios-colors-20261101/tropical/azzurro-catalogue-native.webp",
         "https://leroyfactory.fr/assets/img/elios-colors-20261101/tropical/blu-catalogue-native.webp"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-twist.html",
@@ -1789,7 +1807,7 @@
         "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_ZEFIRO_Z.jpg",
         "https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_MARE_Z.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-yosemite.html",
@@ -1807,24 +1825,24 @@
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-amber-01.jpg",
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-amber-02.jpg",
         "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-amber-03.jpg",
-        "https://leroyfactory.fr/assets/img/elios-seo/elios-yosemite-visuel-7614fa3be0854f4d.webp",
-        "https://leroyfactory.fr/assets/img/elios-seo/elios-yosemite-visuel-1b812c3204d849d0.webp",
+        "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amb3.jpg",
+        "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amb7.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_honey_zoom.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amber_zoom.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_natural_zoom.jpg",
         "https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_white_zoom.jpg"
       ],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-100x100.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-10x10.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-120x120.html",
@@ -1834,32 +1852,32 @@
     {
       "file": "elios-format-120x278.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-15x15.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-15x60.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-20x20.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-20x40.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-22x25.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-24x120.html",
@@ -1874,7 +1892,7 @@
     {
       "file": "elios-format-30x60.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-4.8x45.html",
@@ -1884,12 +1902,12 @@
     {
       "file": "elios-format-40x40.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-40x60.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-50x100.html",
@@ -1899,12 +1917,12 @@
     {
       "file": "elios-format-60x120.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-60x60.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-format-7.5x30.html",
@@ -1914,7 +1932,7 @@
     {
       "file": "elios-imitation-travertin.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-imitation-bois.html",
@@ -1924,17 +1942,17 @@
     {
       "file": "elios-pierre-marbre.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-poli.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-brillant.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     },
     {
       "file": "elios-piscine.html",
@@ -1944,7 +1962,7 @@
     {
       "file": "carrelage-elios.html",
       "images": [],
-      "updated": "2026-11-01"
+      "updated": "2026-11-04"
     }
   ]
 }

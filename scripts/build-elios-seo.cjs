@@ -8,7 +8,7 @@ const base='https://leroyfactory.fr/';const output=[];const imageDirectory='asse
 const manifestPath=path.join(root,'assets/data/elios-seo-pages.json');
 const previousManifest=fs.existsSync(manifestPath)?JSON.parse(fs.readFileSync(manifestPath,'utf8')):{};
 const previousDates=new Map((previousManifest.pages||[]).map(p=>[p.file,p.updated||previousManifest.updated]));
-const releaseDate='2026-11-01';
+const releaseDate='2026-11-04';
 fs.mkdirSync(path.join(root,imageDirectory),{recursive:true});fs.mkdirSync(path.join(root,'assets/data'),{recursive:true});
 const reviews={
  roma:{effect:'Imitation travertin',description:'Roma interprète le travertin à travers quatre couleurs et plusieurs formats modulaires. Les formats de la série permettent de préparer une composition à partir de carreaux carrés et rectangulaires ; les versions extérieures sont à choisir selon la référence précise.',source:'https://eliosceramica.com/news/outdoor-design-gres-porcellanato-terrazzi-giardini/'},
@@ -21,7 +21,7 @@ function publicImage(src,slug,index){
  if(src.startsWith('assets/'))return '/'+src;
  if(src.startsWith('/assets/'))return src;
  if(src.startsWith(base+'assets/'))return src;
- if(/^https:\/\/(?:eliosceramica\.com|(?:www\.)?eliosceramica\.com|storage\.googleapis\.com|firebasestorage\.googleapis\.com)\//.test(src)&&!src.includes('/assets/img/03.png'))return src;
+ if(/^https:\/\/(?:eliosceramica\.com|(?:www\.)?eliosceramica\.com|storage\.googleapis\.com|firebasestorage\.googleapis\.com|peintner\.shop|www\.fliesengigant\.de|id-sol\.fr)\//.test(src)&&!src.includes('/assets/img/03.png'))return src;
  return null;
 }
 const records=w.ELIOS_CATALOGUE.map(p=>{

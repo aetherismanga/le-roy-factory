@@ -31,8 +31,13 @@
       "colorOptions": 291,
       "verifiedColorVisuals": 291,
       "initiallyMissingColorVisuals": 112,
-      "mediaAuditDate": "2026-11-01",
-      "exactColorMapping": true
+      "mediaAuditDate": "2026-11-04",
+      "exactColorMapping": true,
+      "imageQualityRelease": "20261104-elios-quality1",
+      "smallGalleryImagesRemoved": 13,
+      "restoredColorGalleries": 66,
+      "nativeImageSize": true,
+      "publicVisuals": 743
     },
     "laFenice": {
       "collections": 82,
