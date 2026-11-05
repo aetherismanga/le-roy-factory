@@ -358,10 +358,11 @@
     "negativeGridAndClipping": true
   },
   "crmMap": {
-    "releaseId": "20261105-map-prospects1",
+    "releaseId": "20261105-map-prospects2",
     "geocodingVersion": 2,
     "unvisitedColor": "red",
     "unvisitedWithoutLrfCode": true,
+    "prospectCollection": "crm_map_prospects",
     "territoryDepartments": [
       "11",
       "30",

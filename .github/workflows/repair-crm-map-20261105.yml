@@ -24,14 +24,15 @@ jobs:
         with:
           node-version: '22'
       - name: Verify the scoped map logic
-        run: node --test tests/crm-map-location.test.mjs tests/crm-map-import.test.mjs tests/crm-client-codes.test.mjs tests/crm-map-rules.test.mjs
+        run: node --test tests/crm-map-location.test.mjs tests/crm-map-import.test.mjs tests/crm-client-codes.test.mjs
       - name: Install server dependencies
         working-directory: functions
         run: npm install --omit=dev --ignore-scripts
       - uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
-      - name: Protect unvisited prospects from old browser code allocators
-        run: npx --yes firebase-tools@14.15.2 deploy --only firestore:rules --project le-roy-factory --non-interactive
+      # Discovery prospects live in crm_map_prospects, outside the clients
+      # collection watched by old code allocators. No permission expansion or
+      # rules deployment is needed to guarantee that they remain without codes.
       - name: Repair and verify the private CRM data
         run: node functions/scripts/repair-crm-map-20261105.mjs

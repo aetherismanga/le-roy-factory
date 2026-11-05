@@ -9,6 +9,7 @@ admin.initializeApp({projectId:'le-roy-factory'});
 const db=admin.firestore(), runId='map-repair-20261105-v1';
 const directory=JSON.parse(readFileSync(new URL('../data/crm-prospect-directory-20261105.json',import.meta.url),'utf8'));
 const corrections=JSON.parse(readFileSync(new URL('../data/crm-address-corrections-20261105.json',import.meta.url),'utf8'));
+const prospectCollection='crm_map_prospects';
 const report={runId,existing:0,correctedAddresses:0,geocoded:0,approximate:0,pending:0,matchedExisting:0,duplicateCandidates:0,imported:0,importPending:0,concurrentSkipped:0,verifiedNoCode:0,byDepartment:{}};
 let lastRequest=0;
 async function search(c,query) {
@@ -86,10 +87,12 @@ for(const row of rows.filter(active)) {
   if(correction)report.correctedAddresses++;
   if(position){report.geocoded++;if(position.precision==='municipality')report.approximate++;}
   else report.pending++;
+  if(report.existing%25===0)console.log('CRM_MAP_REPAIR_PROGRESS '+JSON.stringify({processed:report.existing,geocoded:report.geocoded,pending:report.pending}));
 }
 // Refresh after the repair and immediately before every create. Imports never
 // overwrite an existing client's status, codes, visits, commercial data or files.
 rows=(await db.collection('clients').get()).docs.map(d=>({...d.data(),id:d.id}));
+rows.push(...(await db.collection(prospectCollection).get()).docs.map(d=>({...d.data(),id:d.id})));
 const importedIds=[];
 for(const candidate of directory.records) {
   const matches=matchingBusinesses(candidate,rows);
@@ -97,10 +100,12 @@ for(const candidate of directory.records) {
   const sameSource=rows.some(r=>r.prospectionIdentity===addressKey(candidate)+'|'+norm(candidate.societe));
   if(sameSource){report.duplicateCandidates++;continue;}
   const hash=createHash('sha256').update(addressKey(candidate)+'|'+norm(candidate.societe)).digest('hex').slice(0,32);
-  const ref=db.collection('clients').doc('prospect_map_'+hash);
+  // A separate private collection keeps discovery prospects outside every
+  // historical client-code allocator, including tabs that have not reloaded.
+  const ref=db.collection(prospectCollection).doc('prospect_map_'+hash);
   const formNorm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
   const identityKey=createHash('sha256').update([candidate.societe,candidate.codePostal,candidate.adresse||candidate.ville].map(formNorm).join('|')).digest('hex');
-  const identityRef=db.collection('crmClientIdentities').doc(identityKey);
+  const identityRef=db.collection('crmMapProspectIdentities').doc(identityKey);
   const position=candidate.verifiedLocation?.addressKey===addressKey(candidate)?candidate.verifiedLocation:await locate(candidate);
   const now=new Date().toISOString(), payload={...unvisitedPayload(candidate,now),...positionPatch(candidate,position),prospectionIdentity:addressKey(candidate)+'|'+norm(candidate.societe)};
   const created=await db.runTransaction(async tx=>{
@@ -118,12 +123,13 @@ for(const candidate of directory.records) {
   report.byDepartment[dep]=(report.byDepartment[dep]||0)+1;
 }
 for(const id of importedIds) {
-  const data=(await db.collection('clients').doc(id).get()).data();
+  const data=(await db.collection(prospectCollection).doc(id).get()).data();
   if([data.codeClient,data.codeLRF,data.codeLrf,data.code_lrf,...(data.codesLRF||[])].some(v=>clean(v)))throw Error('Imported prospect received an unexpected code');
   if(data.type!=='prospect'||data.visiteStatus!=='non_visite'||data.autoAssignLrfCode!==false)throw Error('Imported prospect state mismatch');
   report.verifiedNoCode++;
 }
 const finalRows=(await db.collection('clients').get()).docs.map(d=>({...d.data(),id:d.id})).filter(active);
+finalRows.push(...(await db.collection(prospectCollection).get()).docs.map(d=>({...d.data(),id:d.id})).filter(active));
 report.finalActive=finalRows.length;report.finalLocated=finalRows.filter(validateStoredLocation).length;
 report.finalPending=finalRows.length-report.finalLocated;
 await db.collection('crm_map_repairs').doc(runId).set({...report,completedAt:new Date().toISOString()},{merge:true});

@@ -30,7 +30,7 @@ export function getAgentProfile(user = auth.currentUser) {
 }
 
 const CRM_PAGES = new Set([
-  "dashboard.html", "clients.html", "agenda.html", "tournees.html", "comptes-rendus.html",
+  "dashboard.html", "clients.html", "prospects-carte.html", "agenda.html", "tournees.html", "comptes-rendus.html",
   "mails-groupes.html", "carte.html", "statistiques.html", "demandes-clients.html",
   "nouveau-compte-rendu.html", "contacts-partenaires.html", "analyse-clients-lrf.html",
   "parametres.html", "contrats-usine-jerome.html", "merchandising-usines.html", "expo-clients.html",

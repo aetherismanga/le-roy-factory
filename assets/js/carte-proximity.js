@@ -64,7 +64,7 @@ if(isCartePage){
       const layer=x.layer;
       const id=String(layer.__lrfClientId||'');
       if(!id)continue;
-      out.push({id,name:layer.__lrfClientName||'Client / prospect',town:layer.__lrfClientTown||'',lat:x.ll.lat,lng:x.ll.lng,d:hav(userPos,x.ll),type:x.type});
+      out.push({id,name:layer.__lrfClientName||'Client / prospect',town:layer.__lrfClientTown||'',lat:x.ll.lat,lng:x.ll.lng,d:hav(userPos,x.ll),type:x.type,mapProspect:layer.__lrfMapProspect===true});
     }
     return out.sort((a,b)=>a.d-b.d).slice(0,limit);
   }
@@ -98,10 +98,10 @@ if(isCartePage){
     }else{
       const rows=nearestItems(30);
       box.innerHTML=rows.length?rows.map(x=>
-        '<div class="lrf-near-row"><input type="checkbox" class="lrf-near-select" aria-label="Choisir '+esc(x.name)+'" value="'+esc(x.id)+'" '+(nearbySelection.has(x.id)?'checked':'')+'>'+
+        '<div class="lrf-near-row">'+(x.mapProspect?'<span aria-hidden="true"></span>':'<input type="checkbox" class="lrf-near-select" aria-label="Choisir '+esc(x.name)+'" value="'+esc(x.id)+'" '+(nearbySelection.has(x.id)?'checked':'')+'>')+
         '<div><b><i class="lrf-dot '+(x.type==='client'?'crm':x.type==='unvisited'?'unvisited':'prospect')+'"></i>'+esc(x.name)+'</b>'+
         '<small class="lrf-near-meta">'+esc(x.town)+' · '+distanceLabel(x.d)+' à vol d’oiseau</small></div>'+
-        '<div class="lrf-near-actions"><a class="lrf-go" href="clients.html?edit='+encodeURIComponent(x.id)+'">Fiche</a>'+
+        '<div class="lrf-near-actions"><a class="lrf-go" href="'+(x.mapProspect?'prospects-carte.html':'clients.html')+'?edit='+encodeURIComponent(x.id)+'">Fiche</a>'+
         '<a class="lrf-go" target="_blank" rel="noopener" href="'+route(x.lat,x.lng)+'">Y aller</a></div></div>'
       ).join(''):'<p>Aucun client géolocalisé visible dans les filtres actuels.</p>';
       box.querySelectorAll('.lrf-near-select').forEach(input=>input.onchange=()=>{

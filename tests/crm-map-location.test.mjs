@@ -65,7 +65,7 @@ test('map renders validated unvisited shops in red and lists untrusted addresses
    if(!fields.has(id))fields.set(id,{textContent:'',innerHTML:'',style:{},value:'',classList:{add(){},remove(){},toggle(){},contains(){return false}},addEventListener(){}});
    return fields.get(id);
  };
- const layers=[];let onClients;const ready=[];const listeners=new Map();
+ const layers=[],subscriptions=new Map();const ready=[];const listeners=new Map();
  const map={setView(){return this},invalidateSize(){},fitBounds(){}};
  const context=vm.createContext({
    document:{addEventListener:(event,callback)=>{if(event==='DOMContentLoaded')ready.push(callback)},getElementById:element,querySelectorAll:()=>[]},
@@ -73,15 +73,20 @@ test('map renders validated unvisited shops in red and lists untrusted addresses
    localStorage:{getItem:key=>key==='agentLoggedIn'?'true':'Jérôme'},
    L:{map:()=>map,tileLayer:()=>({addTo(){}}),layerGroup:()=>({addTo(){return this},clearLayers(){layers.length=0},addLayer(marker){layers.push(marker)}}),divIcon:options=>options,marker:(coords,options)=>({coords,options,bindPopup(html){this.popup=html}})},
    normalizeAddress,addressKey,department,geocodeCandidate,communeCandidate,validateStoredLocation,isUnvisitedProspect,
-   activeMapClient,mapText,mapPhone,db:{},collection:()=>({}),onSnapshot:(_collection,callback)=>{onClients=callback},
+   activeMapClient,mapText,mapPhone,db:{},collection:(_db,name)=>name,onSnapshot:(name,callback)=>{subscriptions.set(name,callback)},
    setInterval(){},setTimeout(){},requestAnimationFrame(){},console,URL,Date,encodeURIComponent
  });
  vm.runInContext(source,context);ready[0]();
  const red={...validated(),societe:'Négoce <test>',type:'prospect',nonVisite:true,visiteStatus:'non_visite',telephone:'04 00 00 00 00',website:'javascript:alert(1)',sources:['https://example.com/contact']};
  const legacy={...address,societe:'Ancienne adresse',type:'client',lat:48.8,lon:2.3,geoStatus:'needs_review'};
- onClients({forEach:callback=>[red,legacy].forEach((data,i)=>callback({id:String(i),data:()=>data}))});
+ subscriptions.get('clients')({forEach:callback=>callback({id:'legacy',data:()=>legacy})});
+ subscriptions.get('crm_map_prospects')({forEach:callback=>callback({id:'public-shop',data:()=>red})});
  assert.equal(layers.length,1);assert.equal(layers[0].options.icon.className,'custom-pin-red');
  assert.equal(layers[0].__lrfClientType,'unvisited');
+ assert.equal(layers[0].__lrfMapProspect,true);
+ assert.match(layers[0].popup,/prospects-carte\.html\?edit=public-shop/);
+ assert.doesNotMatch(layers[0].popup,/lrf-add-tour-map/);
+ assert.match(layers[0].popup,/data-map-prospect="1"/);
  assert.match(layers[0].popup,/Non visité · sans code LRF/);assert.match(layers[0].popup,/Négoce &lt;test&gt;/);
  assert.doesNotMatch(layers[0].popup,/javascript:/);assert.match(layers[0].popup,/tel:0400000000/);
  assert.equal(element('map-address-review').style.display,'block');
@@ -138,7 +143,7 @@ test('marking a shop as visited changes only visit flags after reading the curre
  const {readFileSync}=await import('node:fs');const vm=await import('node:vm');
  const {activeMapClient}=await import('../assets/js/crm-map-core.mjs');
  const html=readFileSync(new URL('../carte.html',import.meta.url),'utf8');
- const start=html.indexOf('      async function markClientVisited(clientId)');
+ const start=html.indexOf('      async function markClientVisited(clientId,mapProspect=false)');
  const source=html.slice(start,html.indexOf("      document.addEventListener('click',async event=>{",start));
  const original={societe:'Négoce',type:'prospect',nonVisite:true,visiteStatus:'non_visite',autoAssignLrfCode:false,codeClient:'',codeLRF:'',comptes_rendus:[]};
  for(const current of [original,{...original,archived:true},{...original,codeClient:'LRF-00123'},{...original,nonVisite:false,visiteStatus:'visite'},null]){
@@ -154,5 +159,8 @@ test('marking a shop as visited changes only visit flags after reading the curre
   assert.ok(Number.isFinite(Date.parse(writes[0].patch.visitedAt)));
   assert.equal(isUnvisitedProspect({...original,...writes[0].patch}),false);
   assert.equal(original.comptes_rendus.length,0);assert.equal(original.codeClient,'');
+  assert.equal(writes[0].ref.name,'clients');
+  assert.equal(await vm.runInContext("markClientVisited('shop-1',true)",context),true);
+  assert.equal(writes[1].ref.name,'crm_map_prospects');
  }
 });
