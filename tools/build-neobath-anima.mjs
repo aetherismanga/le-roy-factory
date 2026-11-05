@@ -6,6 +6,7 @@ import {createHash} from 'node:crypto';
 import {gzipSync} from 'node:zlib';
 import {transformCommonStudioSource,transformSharedStudioSource,studioBody,brandCSS} from '../functions/neobath-anima/studio-adapter/studio-source-transform.mjs';
 import {transformOriginalModel} from '../functions/neobath-anima/studio-adapter/model-transform.mjs';
+import {ANIMA_STUDIO_RELEASE_ID} from '../functions/neobath-anima/studio-adapter/release.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const studio=join(root,'studio-one/src'),adapter=join(root,'functions/neobath-anima/studio-adapter'),output=join(root,'functions/neobath-anima/studio-dist');
@@ -57,6 +58,6 @@ writeFileSync(join(output,'visuals.json'),readFileSync(join(root,'assets/data/ne
 const assets={};for(const name of ['accueil.html','accueil.css','accueil.js','atelier.html','atelier.css','app.js','catalogue.json','visuals.json'])assets[name]=sha(readFileSync(join(output,name)));
 for(const name of ['accueil.js','app.js'])writeFileSync(join(output,name+'.gz'),gzipSync(readFileSync(join(output,name)),{level:9,mtime:0}));
 writeFileSync(join(output,'.gitignore'),'/app.js\n/accueil.js\n');
-const release={id:'20261105-neobath-anima-studio-one-four-tile-decors-17',engine:'studio-one',assets,provenance:{entries:['studio-one/src/commerce/home.js','studio-one/src/app.js'],sourceHashes:metadata,originalInterface:true,originalRenderer:true}};
+const release={id:ANIMA_STUDIO_RELEASE_ID,engine:'studio-one',assets,provenance:{entries:['studio-one/src/commerce/home.js','studio-one/src/app.js'],sourceHashes:metadata,originalInterface:true,originalRenderer:true}};
 writeFileSync(join(output,'release.json'),JSON.stringify(release,null,2)+'\n');
 console.log(JSON.stringify({engine:'studio-one',privateOutput:relative(root,output),assets:Object.keys(assets).length,originalSourceModules:Object.keys(metadata).length,bundledInputs:builds.map(b=>Object.keys(b.metafile.inputs).length)}));

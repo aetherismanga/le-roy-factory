@@ -121,6 +121,15 @@ jobs:
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('group_mail_backfill='+str(not mail_consolidation and mail_only and (mail_verify_only or 'functions/scripts/backfill-group-mail-reports.cjs' in changed)).lower()+'\n')
           PYTHON
 
+      # Keep freshly compiled private Anima application bytes out of the public
+      # source update. Build them in the existing authenticated deployment job.
+      - name: Build and verify the private Anima release before delivery
+        if: contains(steps.targets.outputs.only, 'functions:neobathAnimaApplication')
+        run: |
+          npm ci --ignore-scripts --include=dev --no-audit --no-fund
+          node tools/build-neobath-anima.mjs
+          node --test tests/neobath-anima-studio-*.test.mjs tests/neobath-anima-continuous-ui.test.mjs functions/test/neobath-anima-*.test.cjs
+
       - name: Deploy secured tariff, session, analytics, ELIOS, BILT, CRM file and site control functions
         if: steps.targets.outputs.mail_verify_only != 'true'
         run: >-

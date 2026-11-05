@@ -41,7 +41,7 @@ for(const app of ['studio-one','randal-general'])test(app+': resized and moved r
  rug={...rug,width:160,height:90,x:-30,y:-220};assert.equal(validateZones(floor,[rug]),'');renderZones(floor,[rug],material,layout);face=floor.decorativeZones[0];
  assert(Math.abs(area()-20.25)<1e-8);assert(Math.abs(quantityForSurface(face,rug,layout(rug),0).area-1.44)<1e-8);
  center=face.group.localToWorld(new T.Vector3(.8,.45,0));assert.equal(pickSelection(scene,camera,center.project(camera)).editTarget,'zone:rug');
- assert(validateZones(floor,[{...rug,x:500}]).includes('surface'));assert(validateZones(floor,[rug,{...rug,id:'overlap'}]).includes('superposer'));
+ assert(validateZones(floor,[{...rug,x:500}]).includes('surface'));assert.equal(validateZones(floor,[rug,{...rug,id:'overlap'}]),'');
  const {encodeProject,decodeProject}=await import('../../'+app+'/src/projects.js');
  const saved={version:2,room:structuredClone(DEFAULT_ROOM),items:[],floor:{...finish,zones:[{...rug,positionUnlocked:true}]},walls:[],renovation:{locked:true}};
  const restored=decodeProject(encodeProject(saved));assert.deepEqual(restored.floor.zones,saved.floor.zones);assert.equal(restored.floor.zones[0].reference,finish.reference);room.dispose();

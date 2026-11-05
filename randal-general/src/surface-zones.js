@@ -3,23 +3,11 @@ import {inside} from './room.js';
 import {renderSurfaceZones} from '../../shared/lrf-3d/zone-rendering.js';
 import {disposeObject} from './composition.js';
 
-export const zonePolygon=z=>[[z.x/100,z.y/100],[(z.x+z.width)/100,z.y/100],[(z.x+z.width)/100,(z.y+z.height)/100],[z.x/100,(z.y+z.height)/100]];
-const cross=(a,b,c)=>(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);
-const crosses=(a,b,c,d)=>cross(a,b,c)*cross(a,b,d)<-1e-10&&cross(c,d,a)*cross(c,d,b)<-1e-10;
-export function validateZones(surface,zones=[]){
- if(!Array.isArray(zones)||zones.length>16)return 'Maximum 16 zones par surface.';
- for(const z of zones){if(!z||!['x','y','width','height'].every(k=>Number.isFinite(z[k]))||z.width<5||z.height<5||z.width>1000||z.height>1000)return 'Dimensions de zone invalides.';
-  if(zonePolygon(z).some(p=>!inside(p,surface.polygon))||surface.polygon.some(p=>p[0]>z.x/100+.00001&&p[0]<(z.x+z.width)/100-.00001&&p[1]>z.y/100+.00001&&p[1]<(z.y+z.height)/100-.00001))return 'La zone doit rester dans la surface.';
-  for(const other of zones){if(other===z)continue;if(z.x<other.x+other.width-.01&&other.x<z.x+z.width-.01&&z.y<other.y+other.height-.01&&other.y<z.y+z.height-.01)return 'Les zones de carrelage ne peuvent pas se superposer.';}
-  for(const o of surface.openings||[]){if(z.x/100<o.right&&o.left<(z.x+z.width)/100&&z.y/100<o.top&&o.bottom<(z.y+z.height)/100)return 'Placez la zone entre les ouvertures, ou divisez-la en plusieurs zones.';}
-  for(const n of surface.niches||[]){if(z.x<n.u+n.width/2&&n.u-n.width/2<z.x+z.width&&z.y<n.bottom+n.height&&n.bottom<z.y+z.height)return 'Divisez la zone pour conserver le creux de la niche.';}
-  for(const hole of surface.baseHoles||[]){if(zonePolygon(z).some(p=>inside(p,hole))||hole.some(p=>inside(p,zonePolygon(z)))||hole.some((a,i)=>zonePolygon(z).some((b,j,p)=>crosses(a,hole[(i+1)%hole.length],b,p[(j+1)%p.length]))))return 'Cette zone empiète sur une cloison.';}
- }
- return '';
-}
+import {zonePolygon} from '../../shared/lrf-3d/zone-validation.js';
+export {zonePolygon,validateZones,zoneProfileSegments} from '../../shared/lrf-3d/zone-validation.js';
 // Keep the local furniture-disposal adapter while sharing zone rendering.
 export const renderZones=(surface,zones,material,layoutFor)=>renderSurfaceZones(surface,zones,material,layoutFor,disposeObject,zonePolygon);
-export function zoneProfileSegments(surface,zones){const output=[];for(const z of zones){if(!z.profile)continue;const p=zonePolygon(z);for(let i=0;i<4;i++){const u=p[i],v=p[(i+1)%4],dx=v[0]-u[0],dy=v[1]-u[1],length=Math.hypot(dx,dy),outside=[(u[0]+v[0])/2+dy/length*.001,(u[1]+v[1])/2-dx/length*.001];if(!inside(outside,surface.polygon)||(surface.baseHoles||[]).some(h=>inside(outside,h)))continue;const a=new T.Vector3(...u,.006),b=new T.Vector3(...v,.006);output.push({id:z.id+'-'+i,a,b,color:z.profileColor||'Argent'});}}return output;}
+
 
 // Clip joint profiles to the real face, leaving doorways, niches and zones clear.
 export function jointProfileSegments(surface,profile){

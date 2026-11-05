@@ -1,3 +1,4 @@
+import {nicheWallFinish} from '../../shared/lrf-3d/niches.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -23,7 +24,7 @@ function fixture({legacy=false,emptyEdges=false,removed=false,profileSettings={}
  if(legacy){delete base.profileEnabled;delete base.profileFinish;delete base.profileEdges;if(emptyEdges)base.profileEdges={};}
  if(removed){base.profileEnabled=false;base.profileEdges={left:'none',right:'none',top:'none',bottom:'none'};}
  const config={niches:[base]},wall={key:'boundary-0',length:4.5,height:2.6};
- const context={NICHE_PROFILE_FINISHES,nicheProfileEdges,nicheProfilesEnabled,nicheMetalFinish,withDefaultNicheProfiles,nicheNeedsProfileDefaults,nichePerimeterFinish,withNichePerimeterProfiles,
+ const context={nicheWallFinish,NICHE_PROFILE_FINISHES,nicheProfileEdges,nicheProfilesEnabled,nicheMetalFinish,withDefaultNicheProfiles,nicheNeedsProfileDefaults,nichePerimeterFinish,withNichePerimeterProfiles,
   api:{getProfileSettings:()=>profileSettings,getRoomConfig:()=>config,getSelectedWall:()=>0,getWallFinish:()=>({}),readonly:()=>false,getNicheMetalFinish({wallKey,niche}){requests.push({wallKey,niche:{...niche}});return [...taps].sort((a,b)=>Math.abs(a.u-niche.u)-Math.abs(b.u-niche.u))[0].finish;}},
   room:()=>({walls:[wall]}),comp:()=>({locked:false}),isItemPositionLocked:()=>false,modal:()=>({dialog,status}),document:{createElement:()=>new Element()},finishEditor:()=>({value:()=>({collection:'Creta',color:'avena',format:'60x120'})}),
   field(parent,label,value,type,name){const control={value:String(value)};controls.set(name,control);return control;},

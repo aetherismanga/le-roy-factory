@@ -1,7 +1,7 @@
 {
   "schema": "lrf-suite-release",
   "version": 1,
-  "releaseId": "20261029-niches-colonnes-1",
+  "releaseId": "20261105-niches-tapis-tabliers-1",
   "baselineMain": "8571318620b70a7d7c0c9a0580b1d65bdc32db5e",
   "baselineStudio": "4668cd99df55734a46fcd3bd330acb60da53d3f5",
   "applications": [
@@ -293,7 +293,7 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261105-neobath-anima-studio-one-four-tile-decors-17",
+      "releaseId": "20261105-neobath-anima-studio-one-niches-rugs-apron-faces-18",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true
@@ -376,5 +376,27 @@
       "83",
       "84"
     ]
+  },
+  "surfaceInteractions": {
+    "releaseId": "20261105-niches-tapis-tabliers-1",
+    "applications": [
+      "studio-one",
+      "randal-general",
+      "neobath-anima"
+    ],
+    "nicheInTiledColumn": true,
+    "overlappingFloorRugs": true,
+    "rugOrder": "last-added-on-top",
+    "independentBathApronFaces": [
+      "front",
+      "left",
+      "right"
+    ],
+    "visibleAreaQuantities": true,
+    "projectRoundTrip": true,
+    "webglVisualVerification": false,
+    "studioAppSha256": "2b6ec38ccee9bf8b4a4298a528e57dc4525bc14982d15289b220723218d4159c",
+    "generalAppSha256": "5de5dd4018fbc77e089c731a051932d0a43642216c0aa59b049a830c0a0421f7",
+    "animaAppSha256": "884c72a5e677af8a18f0c7300e2b9d956b27d77913b2095f654dda9141a73ad0"
   }
 }

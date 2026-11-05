@@ -2,7 +2,7 @@ import {openElementPanel,closeElementPanel} from './element-panels.js';
 import {isItemPositionLocked,setItemPositionLock,setCompositionPositionLock} from './position-lock.js';
 import {surfaceSeries,availableColors,renderSurfacePicker} from './surface-picker.js';
 import {surfaceAssetURL} from './texture-loader.js';
-import {nicheSurfaceFinish,validateNiches} from './niches.js';
+import {nicheSurfaceFinish,nicheWallFinish,validateNiches} from './niches.js';
 import {sameNichePosition} from './niche-editing.js';
 import {NICHE_PROFILE_FINISHES,nicheProfileEdges,nicheProfilesEnabled,nicheMetalFinish,withDefaultNicheProfiles,nicheNeedsProfileDefaults,nichePerimeterFinish,withNichePerimeterProfiles} from './niche-profile-options.js';
 import * as T from 'three';
@@ -139,8 +139,7 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
   const choicesY=new Set([goalY,clamp(bottom,bottom,top),clamp(top,bottom,top)]);
   const obstacles=[
    ...(surface.openings||[]).map(o=>({left:o.left*100,right:o.right*100,bottom:o.bottom*100,top:o.top*100})),
-   ...(surface.niches||[]).map(n=>({left:n.u-n.width/2,right:n.u+n.width/2,bottom:n.bottom,top:n.bottom+n.height})),
-   ...zones.filter(o=>o.id!==zone.id).map(o=>({left:o.x,right:o.x+o.width,bottom:o.y,top:o.y+o.height})),
+   ...(kind==='floor'?[]:zones.filter(o=>o.id!==zone.id)).map(o=>({left:o.x,right:o.x+o.width,bottom:o.y,top:o.y+o.height})),
    ...(surface.baseHoles||[]).map(p=>({left:Math.min(...p.map(a=>a[0]))*100,right:Math.max(...p.map(a=>a[0]))*100,bottom:Math.min(...p.map(a=>a[1]))*100,top:Math.max(...p.map(a=>a[1]))*100}))
   ];
   for(const o of obstacles){choicesX.add(clamp(o.left-zone.width,left,right));choicesX.add(clamp(o.right,left,right));choicesY.add(clamp(o.bottom-zone.height,bottom,top));choicesY.add(clamp(o.top,bottom,top));}
@@ -201,7 +200,7 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
   brand.onchange=()=>{const entries=seriesValues(brand.value);collection.replaceChildren(...entries.map(v=>new Option(v.name,v.id)));collection.value=entries[0]?.id||'';reloadColors(null,null);reloadPatterns();live();};
   collection.onchange=()=>{reloadColors(null,null);reloadPatterns();live();};color.onchange=()=>{reloadFormats(format.value);reloadPatterns();live();};format.onchange=()=>{reloadPatterns();live();};direction.onchange=live;pattern.onchange=live;
   profile.onchange=()=>{for(const control of Object.values(profileEdges))control.value=profile.value;live();};for(const control of Object.values(profileEdges))control.onchange=live;
-  const hint=document.createElement('p');hint.className='start-project-note';hint.textContent=kind==='floor'?'Le tapis est créé au centre du sol. Glissez-le avec la souris ; sur téléphone, maintenez le doigt puis glissez. Largeur et profondeur se modifient ici.':desktop?'Modifications visibles immédiatement. Maintenez le clic gauche sur la colonne pour la déplacer.':'Glissez la bande dans la vue 3D, ou indiquez ses dimensions et sa position.';d.append(hint);
+  const hint=document.createElement('p');hint.className='start-project-note';hint.textContent=kind==='floor'?'Le tapis est créé au centre du sol. Glissez-le avec la souris ; sur téléphone, maintenez le doigt puis glissez. Largeur et profondeur se modifient ici. Le dernier tapis ajouté apparaît au-dessus des précédents.':desktop?'Modifications visibles immédiatement. Maintenez le clic gauche sur la colonne pour la déplacer.':'Glissez la bande dans la vue 3D, ou indiquez ses dimensions et sa position.';d.append(hint);
   const actions=document.createElement('div');actions.className='renovation-actions';d.append(actions);const positionActions=compact?document.createElement('div'):actions;if(compact){positionActions.className='renovation-actions zone-panel-full';advanced.append(positionActions);}
   const positionTo=(requestedX,requestedY)=>{const next=nearestZonePosition({...current(),width:Number(width.value),height:Number(height.value)},kind,index,requestedX,requestedY);if(!next){status.textContent='Pas d’emplacement libre pour cette bande.';return;}x.value=next.x;y.value=next.y;live();};
   button(positionActions,'← 5 cm',()=>positionTo(Number(x.value)-5,Number(y.value)),'zone-left');button(positionActions,'5 cm →',()=>positionTo(Number(x.value)+5,Number(y.value)),'zone-right');
@@ -229,7 +228,6 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
   for(const finish of value.covering?.mode==='split'?[value.covering.back,value.covering.reveal]:value.covering?.mode==='all'?[value.covering.back]:[]){const preserved=[prior?.covering?.back,prior?.covering?.reveal].some(f=>f&&f.collection===finish?.collection&&f.color===finish?.color&&f.format===finish?.format);if(!finish||!preserved&&!availableColors(finish.collection).some(c=>c.id===finish.color)||!formatsForColor(finish.collection,finish.color).some(f=>f.id===finish.format))throw Error('Choisissez un carrelage et un format fabricant disponibles pour la niche.');}
   const w=room().walls.find(w=>w.key===value.wallKey),a={x:(value.u-value.width/2)/100,y:value.bottom/100,width:value.width/100,height:value.height/100};
   for(const o of w?.openings||[])if(a.x<o.right&&o.left<a.x+a.width&&a.y<o.top&&o.bottom<a.y+a.height)throw Error('La niche ne peut pas croiser une porte ou une fenêtre.');
-  const indexWall=room().walls.indexOf(w);for(const z of api.getWallFinish(indexWall)?.zones||[])if(a.x<(z.x+z.width)/100&&z.x/100<a.x+a.width&&a.y<(z.y+z.height)/100&&z.y/100<a.y+a.height)throw Error('Déplacez la bande de carrelage avant de creuser une niche à cet endroit.');
   if(index>=0)list[index]=value;else list.push(value);config.niches=list;const geometryError=validateNiches(config);if(geometryError)throw Error(geometryError);
   if(!api.applyRoom(config,false,null,prior?value.id:null))throw Error('Cette niche ne convient pas au mur : vérifiez sa profondeur et ses dimensions.');setNicheEditing(null);touch();return value;
  }
@@ -247,7 +245,7 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
   const draft=prior||{id:'niche-'+crypto.randomUUID(),wallKey:w.key,u:w.length*50,bottom:Math.max(0,Math.min(100,Math.round(w.height*100)-40)),width:60,height:30,depth:Math.min(10,(w.totalThickness||.1)*100-2)},profileSettings=api.getProfileSettings?.(),automaticProfiles=nicheNeedsProfileDefaults(draft,profileSettings),n=withDefaultNicheProfiles(draft,api.getNicheMetalFinish?.({wallKey:w.key,niche:draft}),prior,profileSettings),{dialog:d,status}=modal('Niche intégrée au mur'),fields=document.createElement('div');fields.className='renovation-fields';d.append(fields);
   const u=field(fields,'Centre depuis le début du mur (cm)',n.u,'number','u'),bottom=field(fields,'Hauteur sous la niche (cm)',n.bottom,'number','bottom'),width=field(fields,'Largeur (cm)',n.width,'number','width'),height=field(fields,'Hauteur (cm)',n.height,'number','height'),depth=field(fields,'Profondeur (cm)',n.depth,'number','depth');
   const mode=select(fields,'Revêtement de la niche',[{id:'inherit',name:'Assorti au mur'},{id:'all',name:'Même carrelage partout'},{id:'split',name:'Fond et contours différents'}],n.covering?.mode||'inherit','niche-covering-mode');
-  const wallFinish=api.getWallFinish(room().walls.indexOf(w)),backHost=document.createElement('section'),revealHost=document.createElement('section');d.append(backHost,revealHost);const back=finishEditor(backHost,'Carrelage du fond / de toute la niche',n.covering?.back,wallFinish),reveal=finishEditor(revealHost,'Carrelage des contours intérieurs',n.covering?.reveal,wallFinish);
+  const wallFinish=nicheWallFinish(n,api.getWallFinish(room().walls.indexOf(w))),backHost=document.createElement('section'),revealHost=document.createElement('section');d.append(backHost,revealHost);const back=finishEditor(backHost,'Carrelage du fond / de toute la niche',n.covering?.back,wallFinish),reveal=finishEditor(revealHost,'Carrelage des contours intérieurs',n.covering?.reveal,wallFinish);
   const updateMode=()=>{backHost.hidden=mode.value==='inherit';revealHost.hidden=mode.value!=='split';};mode.onchange=updateMode;updateMode();
   const profileTitle=document.createElement('h3');profileTitle.textContent='Profilés de la niche';d.append(profileTitle);const options=document.createElement('div');options.className='renovation-fields';d.append(options);
   const installed=select(options,'Poser les profilés',[{id:'on',name:'Oui · quatre côtés'},{id:'off',name:'Non'}],nicheProfilesEnabled(n)?'on':'off','niche-profiles-enabled');
@@ -306,7 +304,7 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
 
  function paintNicheSurfaces(wall,index){
   for(const face of wall.nicheSurfaces||[]){
-   const finish=nicheSurfaceFinish(face.niche,face.nichePart,api.getWallFinish(index)),format=finish.format||tileFormat(finish.collection)?.id;
+   const finish=nicheSurfaceFinish(face.niche,face.nichePart,nicheWallFinish(face.niche,api.getWallFinish(index))),format=finish.format||tileFormat(finish.collection)?.id;
    face.nicheFinish=finish;const paint=()=>{api.applySurface(face,finish.collection,finish.color,finish);const grouts={Blanc:'#f7f5ed','Gris clair':'#c5c5c2',Gris:'#858585',Anthracite:'#343638',Beige:'#c6ad89',Ivoire:'#e8dbc0'};face.grout.material.color.set(grouts[finish.groutColor]||(/^#[a-f0-9]{6}$/i.test(finish.groutColor||'')?finish.groutColor:grouts.Ivoire));};
    face.refreshTileColors=null;try{face.setLayout(normalizeLayout({...wall.layout,...tileFormat(finish.collection,format),groutWidth:finish.groutWidth||wall.layout.groutWidth},finish.collection,format,finish.color));}finally{face.refreshTileColors=paint;}paint();
   }

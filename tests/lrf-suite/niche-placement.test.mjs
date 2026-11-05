@@ -24,10 +24,10 @@ test('Every partition face uses its actual thickness',()=>{
   const result=nichePlacement(config,'partition-test-'+side,100,80);assert.equal(result.error,'');assert.equal(result.niche.depth,Math.min(10,thickness-2));assert.equal(validateNiches({...config,niches:[result.niche]}),'');
  }
 });
-test('Reject overlap with doors, windows and tiled columns before modifying the project',()=>{
+test('Reject openings but allow placement within tiled columns without modifying the project',()=>{
  const before=JSON.stringify(room);
  assert.match(nichePlacement(room,'boundary-0',125,140,{openings:[{left:1,right:2,bottom:0,top:2}]}).error,/porte ou une fenêtre/);
- assert.match(nichePlacement(room,'boundary-0',125,140,{zones:[{x:100,y:0,width:100,height:260}]}).error,/colonne/);
+ assert.equal(nichePlacement(room,'boundary-0',125,140,{zones:[{x:100,y:0,width:100,height:260}]}).error,'');
  assert.equal(JSON.stringify(room),before);
 });
 test('Reject overlap with an existing niche and keep all original data',()=>{

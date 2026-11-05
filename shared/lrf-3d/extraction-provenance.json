@@ -226,13 +226,13 @@
       "bytes": 2149,
       "originalsIdentical": true,
       "current": {
-        "sha256": "aaf3e04a5296e5566221f4fc2bba492e2518b7c43294ac7323692d4b05a2e0bd",
-        "bytes": 3855,
-        "changeType": "functional-update-20261102",
-        "reason": "Validate the explicit removable niche trim state and actual metal finish identities without reinterpreting older niches or altering room opening and covering constraints.",
+        "sha256": "cef4f1374abe1261fc4d9b8a7a8edb775c8fb0e12c43e8c355d0cf68deba9e0a",
+        "bytes": 4207,
+        "changeType": "functional-update-20261105",
+        "reason": "Allow niches inside existing tiled columns and overlapping floor rugs with exact boolean cuts, independent bathtub face finishes and quantity totals that count each visible material only once.",
         "validation": [
-          "tests/lrf-suite/niche-profile-defaults.test.mjs",
-          "tests/lrf-suite/niche-form-match.test.mjs",
+          "tests/lrf-suite/stacked-surfaces.test.mjs",
+          "tests/lrf-suite/floor-rug.test.mjs",
           "shared/lrf-3d/qa/niche-editing-check.mjs"
         ]
       },
@@ -246,6 +246,17 @@
             "tests/lrf-suite/niche-openings.test.mjs",
             "shared/lrf-3d/qa/niche-editing-check.mjs",
             "shared/lrf-3d/qa/room-interaction-check.mjs"
+          ]
+        },
+        {
+          "sha256": "aaf3e04a5296e5566221f4fc2bba492e2518b7c43294ac7323692d4b05a2e0bd",
+          "bytes": 3855,
+          "changeType": "functional-update-20261102",
+          "reason": "Validate the explicit removable niche trim state and actual metal finish identities without reinterpreting older niches or altering room opening and covering constraints.",
+          "validation": [
+            "tests/lrf-suite/niche-profile-defaults.test.mjs",
+            "tests/lrf-suite/niche-form-match.test.mjs",
+            "shared/lrf-3d/qa/niche-editing-check.mjs"
           ]
         }
       ]

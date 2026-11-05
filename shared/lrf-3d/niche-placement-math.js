@@ -14,6 +14,5 @@ export function nichePlacement(config,wallKey,x,y,{id='niche-preview',openings=[
  const a={left:niche.u-width/2,right:niche.u+width/2,bottom:niche.bottom,top:niche.bottom+height};
  const overlaps=b=>a.left<b.right&&b.left<a.right&&a.bottom<b.top&&b.bottom<a.top;
  if(openings.some(o=>overlaps({left:o.left*100,right:o.right*100,bottom:o.bottom*100,top:o.top*100})))return {niche,error:'La niche ne peut pas croiser une porte ou une fenêtre.'};
- if(zones.some(z=>overlaps({left:z.x,right:z.x+z.width,bottom:z.y,top:z.y+z.height})))return {niche,error:'Déplacez la colonne carrelée avant de poser la niche à cet endroit.'};
  return {niche,error:''};
 }

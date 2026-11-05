@@ -31,3 +31,9 @@ export function nicheSurfaceFinish(niche,part,wallFinish={}){
 export function collectNicheFinishes(config){
  return (config?.niches||[]).flatMap(n=>n.covering?.mode==='all'?[n.covering.back]:n.covering?.mode==='split'?[n.covering.back,n.covering.reveal]:[]).filter(Boolean);
 }
+
+// An inherited niche follows the tiled column at its centre, when present.
+export function nicheWallFinish(niche,wallFinish={}){
+ const zone=(wallFinish.zones||[]).findLast(z=>niche.u>=z.x&&niche.u<=z.x+z.width&&niche.bottom+niche.height/2>=z.y&&niche.bottom+niche.height/2<=z.y+z.height);
+ return zone?{...wallFinish,...zone,tiles:{}}:wallFinish;
+}

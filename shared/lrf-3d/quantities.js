@@ -1,5 +1,5 @@
 import {COLLECTIONS,tileFormat} from './surface-catalog.js';
-import {polygonArea} from './surface-geometry.mjs';
+import {surfaceRegions,regionsArea} from './surface-cuts.js';
 import commercialSurfaces from './commercial-surfaces.json' with {type:'json'};
 import {commercialSurfaceProduct} from './surface-identity.mjs';
 export const packagingKey=(finish,format)=>[finish.collection,finish.color,format].join('|');
@@ -7,7 +7,8 @@ export function packagingFor(finish,formatId){const f=tileFormat(finish.collecti
 export function quantityForSurface(surface,finish,layout={},loss=10,label=''){
  const c=COLLECTIONS[finish.collection],format=tileFormat(finish.collection,finish.format),polygon=surface.polygon;
  const cuts=[...(surface.openings||[]),...(surface.niches||[]).map(n=>({left:(n.u-n.width/2)/100,right:(n.u+n.width/2)/100,bottom:n.bottom/100,top:(n.bottom+n.height)/100})),...(surface.zoneCuts||[])];
- const geometric=surface.length!==undefined?surface.length*surface.height-cuts.reduce((n,o)=>n+(o.right-o.left)*(o.top-o.bottom),0):Math.abs(polygonArea(polygon))-(surface.holes||[]).reduce((n,h)=>n+Math.abs(polygonArea(h)),0),area=Math.max(0,surface.quantityAreaOverride??geometric);
+ const outline=polygon||(surface.length!==undefined?[[0,0],[surface.length,0],[surface.length,surface.height],[0,surface.height]]:null);
+ const geometric=outline?regionsArea(surfaceRegions(outline,[...(surface.holes||[]),...cuts.map(o=>[[o.left,o.bottom],[o.right,o.bottom],[o.right,o.top],[o.left,o.top]])])):0,area=Math.max(0,surface.quantityAreaOverride??geometric);
  if(!c||!format||finish.collection==='Peinture')return {label,collection:finish.collection,color:finish.color,area,paint:true,boxes:0};
  const cells=surface.tiles.geometry.userData.cells||[],tileCount=cells.length,full=cells.filter(v=>v.area>=(v.faceArea??((format.width-.002)*(format.height-.002)))-.00001).length,cut=tileCount-full,layoutArea=cells.reduce((n,v)=>n+(v.nominalArea??format.width*format.height),0),withLoss=area*(1+Math.max(0,Math.min(30,loss))/100),needed=Math.max(layoutArea,withLoss),pack=packagingFor(finish,format.id),packVerified=Number(pack.m2Box)>0&&Number.isInteger(Number(pack.pcsBox))&&Number(pack.pcsBox)>0,boxes=packVerified?Math.ceil((needed-1e-8)/Number(pack.m2Box)):null;
  const row={label,catalogueKey:finish.catalogueKey,reference:finish.reference,finish:finish.finish,customPack:Boolean(finish.packs?.[packagingKey(finish,format.id)]||finish.pack?.format===format.id),brand:c.brand,collection:finish.collection,color:finish.color,format:format.id,area,tileCount,full,cut,layoutArea,cutWaste:Math.max(0,layoutArea-area),loss,withLoss,needed,pcsBox:packVerified?Number(pack.pcsBox):null,m2Box:packVerified?Number(pack.m2Box):null,packVerified,boxes,orderArea:packVerified?boxes*Number(pack.m2Box):null,orderPieces:packVerified?boxes*Number(pack.pcsBox):Math.ceil(tileCount*(1+Math.max(0,loss)/100)),source:pack.source||format.source||c.source||'Conditionnement fabricant à confirmer'};

@@ -1,8 +1,7 @@
+import {createBathAprons,apronFacesError} from '../../shared/lrf-3d/bath-apron.js';
 import {isTiledShowerTray,tiledShowerTrayDimensions,tiledShowerTrayError,makeTiledShowerTray} from '../../shared/lrf-3d/tiled-shower-tray.js';
 import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
-import {tiledPolygonGeometry} from './room.js';
-import {tileFormat} from './surface-catalog.js';
 import {makeTap,tapProduct,metalMaterial} from './taps.js';
 export const isFixture=t=>t==='bath'||t==='shower';
 export const BATH_LENGTHS=[140,150,160,170],SCREEN_WIDTHS=[80,90,100,110,120,140];
@@ -10,7 +9,7 @@ export const TRAY_COLORS=[{id:'white',name:'Blanc',hex:'#e9e7e1'},{id:'grey',nam
 let bathData=null;export function setBathData(data){bathData=data;}
 export async function preloadBaths(){const r=await fetch('https://studio-one-beta-test-v2.vercel.app/assets/bathroom/baths.json');if(!r.ok)throw new Error('Baignoires indisponibles');setBathData(await r.json());}
 export function fixtureDimensions(type,s){if(type==='shower'&&isTiledShowerTray(s))return tiledShowerTrayDimensions(s);return {width:s.width/100,depth:s.depth/100,height:type==='bath'?(s.kind==='island'?.62:.57):.035,base:0};}
-export function fixtureError(type,s){if(type==='shower'&&isTiledShowerTray(s))return tiledShowerTrayError(s);if(!Number.isInteger(s.width)||!Number.isInteger(s.depth))return 'Saisissez des dimensions entières.';if(type==='bath'&&!BATH_LENGTHS.includes(s.width))return 'Baignoire : 140, 150, 160 ou 170 cm.';if(type==='shower'&&(s.width<80||s.width>200||s.depth<80||s.depth>200))return 'Douche : dimensions entre 80 et 200 cm.';if(type==='bath'&&!['rect','round','island'].includes(s.kind))return 'Modèle de baignoire inconnu.';if(s.depth<65||s.depth>200)return 'Profondeur incompatible.';return '';}
+export function fixtureError(type,s){if(type==='bath'&&apronFacesError(s))return apronFacesError(s);if(type==='shower'&&isTiledShowerTray(s))return tiledShowerTrayError(s);if(!Number.isInteger(s.width)||!Number.isInteger(s.depth))return 'Saisissez des dimensions entières.';if(type==='bath'&&!BATH_LENGTHS.includes(s.width))return 'Baignoire : 140, 150, 160 ou 170 cm.';if(type==='shower'&&(s.width<80||s.width>200||s.depth<80||s.depth>200))return 'Douche : dimensions entre 80 et 200 cm.';if(type==='bath'&&!['rect','round','island'].includes(s.kind))return 'Modèle de baignoire inconnu.';if(s.depth<65||s.depth>200)return 'Profondeur incompatible.';return '';}
 export function makeFixture(type,s){if(type==='shower'&&isTiledShowerTray(s))return makeTiledShowerTray(s);const error=fixtureError(type,s);if(error)throw new Error(error);const root=new T.Group();root.userData.editTarget=type;root.name=type==='bath'?'Baignoire_'+s.kind:'Douche_italienne';const w=s.width/100,d=s.depth/100;
  const white=new T.MeshPhysicalMaterial({color:'#f1f0e9',roughness:.18,clearcoat:.75,ior:1.5}),metal=metalMaterial(s.metal||'Chrome brillant');
  const box=(ww,hh,dd,m,x,y,z,name)=>{const o=new T.Mesh(new RoundedBoxGeometry(ww,hh,dd,2,Math.min(.004,hh/4)),m);o.position.set(x,y,z);o.name=name;o.castShadow=o.receiveShadow=true;root.add(o);return o;};const apron=[];
@@ -27,6 +26,6 @@ export function makeFixture(type,s){if(type==='shower'&&isTiledShowerTray(s))ret
   const recess=new T.MeshStandardMaterial({color:'#14191c',roughness:.66,metalness:.3});box(.044,.003,length+.016,recess,x,.025,z,'Caniveau_fond_encastre');const cover=box(.028,.002,length,metal,x,.033,z,'Grille_evacuation');cover.material.roughness=.27;
 
  }
- const tileAprons=[];if(type==='bath'&&s.kind!=='island')for(let index=0;index<3;index++){const width=index===0?w:d,mat=white.clone(),back=new T.Mesh(new T.PlaneGeometry(width,.558),new T.MeshStandardMaterial({color:'#ded8c8',roughness:.96})),tiles=new T.Mesh(tiledPolygonGeometry([[0,0],[width,0],[width,.558],[0,.558]],tileFormat(s.apronCollection||'Creta',s.apronFormat)),mat),group=new T.Group();group.name='Tablier_carrelage_'+tileFormat(s.apronCollection||'Creta',s.apronFormat).id;group.add(back,tiles);back.position.set(width/2,.279,-.0012);tiles.receiveShadow=true;if(index===0)group.position.set(-w/2,0,-.23+d+.002);else if(index===1){group.position.set(w/2+.002,0,-.23+d);group.rotation.y=Math.PI/2;}else{group.position.set(-w/2-.002,0,-.23);group.rotation.y=-Math.PI/2;}root.add(group);tileAprons.push({group,mat,tiles});}
+ const tileAprons=type==='bath'&&s.kind!=='island'?createBathAprons(root,s,w,d,apron):[];
  root.traverse(o=>{if(o.material?.userData.architecturalGlass)o.castShadow=false;});return {root,apron,tileAprons,white,setApron(surface){for(const a of tileAprons){a.group.visible=s.apron==='tile';a.mat.color.copy(surface?.material.color||new T.Color('#fff'));a.mat.clearcoat=surface?.material.clearcoat||0;a.mat.map=surface?.material.map||null;a.mat.bumpMap=surface?.material.bumpMap||null;a.mat.bumpScale=.0005;a.mat.roughness=surface?.material.roughness||.65;a.mat.needsUpdate=true;}for(const o of apron){const m=o.material;m.map=m.bumpMap=null;m.color.set(s.apron==='tile'?'#ded8c8':'#f1f0e9');m.roughness=s.apron==='tile'?.96:.18;m.clearcoat=s.apron==='tile'?0:.75;m.needsUpdate=true;}}};
 }
