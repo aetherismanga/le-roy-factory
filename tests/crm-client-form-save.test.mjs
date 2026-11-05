@@ -61,6 +61,9 @@ test('real existing-client save refuses a conflicting edit and keeps the editor 
   assert.equal(e.events.includes('closed'),false);
 });
 test('verified facade requires the actual company and town, with address guard for two La Garde shops',()=>{
+  assert.ok(verifiedFacade({societe:'BONIFAY flassant',codePostal:'83340',ville:'Flassans sur issole'}));
+  assert.ok(verifiedFacade({societe:'BONIFAY sanary',codePostal:'83110',ville:'Sanary sur mer'}));
+  assert.equal(verifiedFacade({societe:'BONIFAY sanary',codePostal:'83170',ville:'Tourves'}),null);
   assert.ok(verifiedFacade({societe:'Mondial Carrelages',codePostal:'34740',ville:'Vendargues'}));
   assert.equal(verifiedFacade({societe:'Mondial Carrelages',codePostal:'13240',ville:'Septèmes-les-Vallons'}),null);
   assert.equal(verifiedFacade({societe:'BONIFAY la garde',codePostal:'83130',ville:'La garde'}),null);

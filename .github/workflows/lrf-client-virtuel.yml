@@ -129,6 +129,12 @@ jobs:
           LRF_INTENSITY: ${{ steps.control.outputs.intensity }}
         run: npm run test:e2e
 
+      - name: Verifier les photos CRM avec le moteur Safari sur ordinateur
+        if: always() && steps.gate.outputs.run == 'true'
+        env:
+          LRF_DEVICES: desktop-webkit
+        run: npm run test:e2e -- tests/crm-facade.spec.cjs
+
       - name: Memoriser le controle programme
         if: always() && steps.gate.outputs.run == 'true' && github.event_name == 'schedule'
         uses: actions/cache/save@v4

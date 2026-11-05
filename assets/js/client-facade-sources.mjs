@@ -1,6 +1,26 @@
 // Only exterior photographs checked against each official shop/location.
 const photos = [
   {
+    "societe": "BONIFAY flassant",
+    "ville": "Flassans sur issole",
+    "codePostal": "83340",
+    "sourceUrl": "https://www.bonifay.fr/agence-de-flassans",
+    "verifiedAt": "2026-11-05",
+    "url": "https://leroyfactory.fr/assets/img/client-facades/bonifay-flassans.jpg",
+    "originalUrl": "https://www.bonifay.fr/sites/default/files/styles/image_agence_400x300/public/2022-06/FLASSANS-02.jpg?itok=0vSuRRd_",
+    "source": "site-officiel"
+  },
+  {
+    "societe": "BONIFAY sanary",
+    "ville": "Sanary sur mer",
+    "codePostal": "83110",
+    "sourceUrl": "https://www.bonifay.fr/agence-de-sanary",
+    "verifiedAt": "2026-11-05",
+    "url": "https://leroyfactory.fr/assets/img/client-facades/bonifay-sanary.jpg",
+    "originalUrl": "https://www.bonifay.fr/sites/default/files/styles/image_agence_400x300/public/2018-06/SANARY.jpg?itok=EJHYXllA",
+    "source": "site-officiel"
+  },
+  {
     "societe": "MONDIAL CARRELAGES",
     "ville": "Vendargues",
     "codePostal": "34740",

@@ -228,7 +228,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
   <div id="agent-avatar-modal" class="agent-avatar-modal" aria-hidden="true">
     <div class="agent-avatar-dialog" role="dialog" aria-modal="true" aria-labelledby="agent-avatar-caption">
       <button type="button" class="agent-avatar-close" aria-label="Fermer l'image">×</button>
-      <img id="agent-avatar-large" class="agent-avatar-large" src="" alt="" loading="lazy" decoding="async">
+      <img id="agent-avatar-large" class="agent-avatar-large" alt="" loading="lazy" decoding="async">
       <div id="agent-avatar-caption" class="agent-avatar-caption"></div>
     </div>
   </div>
@@ -291,7 +291,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
       avatarModal.classList.remove('open');
       avatarModal.setAttribute('aria-hidden','true');
       document.body.classList.remove('avatar-modal-open');
-      avatarLarge.src='';
+      avatarLarge.removeAttribute('src');
       if(avatarLastTrigger) avatarLastTrigger.focus({preventScroll:true});
     }
 

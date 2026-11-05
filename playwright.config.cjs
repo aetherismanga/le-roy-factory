@@ -2,11 +2,13 @@ const { defineConfig, devices } = require('@playwright/test');
 
 const availableProjects = {
   'desktop-chrome': { name: 'desktop-chrome', use: { ...devices['Desktop Chrome'] } },
+  'desktop-webkit': { name: 'desktop-webkit', use: { ...devices['Desktop Safari'] } },
   'iphone-webkit': { name: 'iphone-webkit', use: { ...devices['iPhone 13'] } },
   'android-chrome': { name: 'android-chrome', use: { ...devices['Pixel 5'] } }
 };
 
-const requestedDevices = String(process.env.LRF_DEVICES || Object.keys(availableProjects).join(','))
+const defaultProjects = ['desktop-chrome', 'iphone-webkit', 'android-chrome'];
+const requestedDevices = String(process.env.LRF_DEVICES || defaultProjects.join(','))
   .split(',')
   .map((value) => value.trim())
   .filter((value) => availableProjects[value]);
@@ -37,6 +39,6 @@ module.exports = defineConfig({
     trace: 'retain-on-failure',
     video: 'retain-on-failure'
   },
-  projects: (requestedDevices.length ? requestedDevices : Object.keys(availableProjects))
+  projects: (requestedDevices.length ? requestedDevices : defaultProjects)
     .map((name) => availableProjects[name])
 });

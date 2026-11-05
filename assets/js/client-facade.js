@@ -1,5 +1,5 @@
 import { auth } from './firebase.js';
-import { verifiedFacade } from './client-facade-sources.mjs?v=20261105-audit1';
+import { verifiedFacade } from './client-facade-sources.mjs?v=20261105-audit2';
 import {
   FACADE_MAX_BYTES, facadeDimensions, validateFacadeFile, safeFacadeUrl, createFacadeDraft
 } from './client-facade-core.mjs';
