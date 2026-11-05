@@ -448,7 +448,12 @@
       directoryDept.addEventListener('change',()=>{document.getElementById('dept-select').value=directoryDept.value;document.getElementById('dept-select').dispatchEvent(new Event('change'));});
       document.getElementById('directory-color').addEventListener('change',event=>{
         directoryColor=event.target.value;
-        window.__lrfCarteLayerVisibility={clients:!directoryColor||directoryColor==='client',prospects:!directoryColor||directoryColor==='prospect',unvisited:!directoryColor||directoryColor==='unvisited'};
+        const wanted={clients:!directoryColor||directoryColor==='client',prospects:!directoryColor||directoryColor==='prospect',unvisited:!directoryColor||directoryColor==='unvisited'};
+        for(const [key,id] of [['clients','lrf-toggle-clients'],['prospects','lrf-toggle-prospects'],['unvisited','lrf-toggle-unvisited']]){
+          const button=document.getElementById(id);
+          if(button&&button.getAttribute('aria-pressed')!==String(wanted[key]))button.click();
+        }
+        window.__lrfCarteLayerVisibility=wanted;
         renderMarkers(true);
       });
       function renderDirectory(){
