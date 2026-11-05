@@ -5,18 +5,24 @@
   const esc = value => String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const safe = value => /^(https:\/\/|\/(?!\/)|assets\/)/i.test(String(value || '')) ? String(value) : '';
   const norm = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
-  const products = () => window.BULBO_CATALOGUE || [];
-  let pending, failed=false, group='all', chrome, dialog, lightbox, active, photos=[], photoIndex=0, trigger, overflow='';
+  const allProducts = () => window.BULBO_CATALOGUE || [];
+  const products = () => allProducts().filter(product=>category!=='meubles' || isFurniture(product));
+  let pending, failed=false, category='exception', group='all', chrome, dialog, lightbox, active, photos=[], photoIndex=0, trigger, overflow='';
   const galleries = product => (product.images || []).map(image=>typeof image === 'string' ? {url:image,label:product.name} : image).filter(image=>safe(image.url));
   const isBulbo = () => norm($('#workspace-title')?.textContent) === 'bulbo';
   const isFurniture = product => product.productType === 'furniture';
+  function setCategory(selected) {
+    const next=selected==='meubles'?'meubles':'exception';
+    if(next===category)return false;
+    close();category=next;group='all';return true;
+  }
   function normaliseProducts() {
     return products().map(product=>({...product,category:isFurniture(product)?'Meubles & vasques':'Décors & surfaces',
       effect:product.family || (isFurniture(product)?'AQUERELLE':'Décors & surfaces'),colorFamilies:product.colors || [],
       keywords:[product.family,isFurniture(product)?'meuble vasque mobilier salle de bain aquerelle aquarelle':'carrelage revetement dalle decor mural',...(product.thicknesses || []),...(product.formats || []).map(format=>format.replace(/×/g,'x'))].join(' ')}));
   }
   async function load() {
-    if (products().length) return products();
+    if (allProducts().length) return products();
     if (pending) return pending;
     failed=false;
     pending=(async()=>{
@@ -34,7 +40,7 @@
     })();return pending;
   }
   function matches(product) {
-    return group==='all' || group==='furniture' && isFurniture(product) || group==='surface' && !isFurniture(product) || group==='new' && !!product.badge;
+    return (category!=='meubles' || isFurniture(product)) && (group==='all' || group==='furniture' && isFurniture(product) || group==='surface' && !isFurniture(product) || group==='new' && !!product.badge);
   }
   function renderCards(found) {
     if (!products().length) return `<div class="bulbo-empty" role="${failed?'alert':'status'}"><p>${failed?'Le catalogue BULBO n’a pas pu être chargé.':'Chargement des collections BULBO…'}</p>${failed?'<button type="button" data-bulbo-retry>Réessayer</button>':''}</div>`;
@@ -62,9 +68,16 @@
     chrome.hidden=!current;
     if(!current){if(dialog?.open)close();return;}
     if(!products().length)load().catch(()=>{});
-    $('#workspace-sub').textContent='Carrelage d’exception · Décors & mobilier italiens';
-    $('#v2-search').placeholder='Collection, décor, couleur, meuble…';
-    $('#v2-search').setAttribute('aria-label','Rechercher parmi les collections BULBO');
+    const furniture=category==='meubles';
+    chrome.dataset.category=category;
+    $('.bulbo-introduction h3',chrome).innerHTML=furniture?'AQUERELLE.<br>Le mobilier selon BULBO.':'Des surfaces singulières.<br>Un intérieur qui vous ressemble.';
+    $('.bulbo-introduction p',chrome).textContent=furniture?'Découvrez tous les meubles BULBO : Bulbino, Mivar, Monolith et Twix. Choisissez les dimensions, le plan et le décor de façade pour préparer votre projet.':'Décors grand format, matières et mobilier coordonné. Explorez chaque collection, découvrez ses nuances et préparez votre projet avec notre agence.';
+    $('.bulbo-intro-detail > span',chrome).textContent=furniture?'AQUERELLE · SALLE DE BAIN':'SUPERFICI MAGNIFICHE';
+    const tabs=$('.bulbo-tabs',chrome);tabs.hidden=furniture;tabs.style.display=furniture?'none':'';
+    const collectionLink=$('[data-bulbo-collection-link]',chrome);collectionLink.hidden=furniture;collectionLink.style.display=furniture?'none':'';
+    $('#workspace-sub').textContent=furniture?'Meubles de salle de bain · AQUERELLE · Design italien':'Carrelage d’exception · Décors & mobilier italiens';
+    $('#v2-search').placeholder=furniture?'Meuble, dimension, couleur, finition…':'Collection, décor, couleur, meuble…';
+    $('#v2-search').setAttribute('aria-label',furniture?'Rechercher parmi les meubles BULBO':'Rechercher parmi les collections BULBO');
     const allowed=window.LRF_BULBO_ACCESS?.canAccess?.()===true;
     const badge=$('#workspace-pro-badge');badge.textContent=allowed?'Tarifs BULBO accessibles':'Tarifs réservés aux comptes autorisés';
     badge.className='pro-badge'+(allowed?' allowed':'');
@@ -74,7 +87,7 @@
     $('#v2-color')?.setAttribute('aria-label','Filtrer les couleurs BULBO');
     $('#v2-finish')?.setAttribute('aria-label','Filtrer les finitions BULBO');
     chrome.querySelectorAll('[data-bulbo-group]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.bulboGroup===group)));
-    const signature=products().map(p=>p.id).join('|');
+    const signature=category+':'+products().map(p=>p.id).join('|');
     if(chrome.dataset.signature!==signature){
       chrome.dataset.signature=signature;
       $('#bulbo-jump',chrome).innerHTML='<option value="">Choisir une collection…</option>'+products().slice().sort((a,b)=>a.name.localeCompare(b.name,'fr')).map(p=>`<option value="${esc(p.id)}">${esc(p.name)}${isFurniture(p)?' · Meuble':''}</option>`).join('');
@@ -146,5 +159,5 @@
   window.addEventListener('lrf-bulbo-access-changed',()=>{if(dialog?.open)close();refreshChrome();});
   if(typeof MutationObserver!=='undefined' && $('#workspace-title'))new MutationObserver(()=>{if(chrome)refreshChrome();}).observe($('#workspace-title'),{childList:true,characterData:true,subtree:true});
   window.LRF_BULBO_LOAD=load;
-  window.LRF_BULBO_SELECTION=Object.freeze({normaliseProducts,matches,renderCards,refreshChrome,openCollection});
+  window.LRF_BULBO_SELECTION=Object.freeze({setCategory,normaliseProducts,matches,renderCards,refreshChrome,openCollection});
 })();

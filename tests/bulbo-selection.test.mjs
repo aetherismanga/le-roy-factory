@@ -77,6 +77,28 @@ test('BULBO cards escape supplier content, preserve exact choices and never choo
   assert.doesNotMatch(card,/€|prix|achat|selectedColor/);
 });
 
+test('BULBO furniture scope contains every model and rejects surface details across category changes',()=>{
+  const data=catalogue().collections;
+  const window={BULBO_CATALOGUE:data,addEventListener(){}};
+  vm.runInNewContext(source,{window,document:{addEventListener(){}}});
+  const api=window.LRF_BULBO_SELECTION;
+  const surface=data.find(product=>product.productType==='surface');
+  assert.equal(api.normaliseProducts().length,data.length,'existing exception selection stays complete');
+  assert.equal(api.setCategory('meubles'),true);
+  assert.deepEqual(Array.from(api.normaliseProducts(),product=>product.slug).sort(),['bulbino','mivar','monolith','twix']);
+  assert.equal(api.matches(surface),false,'a surface cannot pass the furniture filter');
+  assert.equal(api.openCollection(surface.id),false,'surface ID cannot bypass the furniture scope');
+  assert.equal(api.openCollection(surface.slug),false,'surface deep link cannot bypass the furniture scope');
+  for(const product of data.filter(product=>product.productType==='furniture'))assert.equal(api.matches(product),true,product.slug);
+  assert.equal(api.setCategory('meubles'),false,'session refresh keeps the current scope');
+  assert.equal(api.normaliseProducts().length,4);
+  api.setCategory('exception');
+  assert.equal(api.normaliseProducts().length,data.length,'returning to exception restores its surfaces and furniture');
+  assert.equal(api.matches(surface),true);
+  api.setCategory('meubles');
+  assert.equal(api.normaliseProducts().length,4,'returning to furniture cannot retain surfaces');
+});
+
 test('desktop and iOS selections load BULBO before the shared selection controller',()=>{
   for(const page of ['univers.html','univers-ios.html']){
     const html=readFileSync(new URL(page,root),'utf8');

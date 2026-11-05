@@ -4,7 +4,7 @@
     {id:'exception',label:"Carrelage d'exception",icon:'✦',partners:["Petracer's",'Pecchioli Firenze','Bulbo']},
     {id:'mosaique',label:'Mosaïque',icon:'◈',partners:['Reviglass']},
     {id:'parement',label:'Pierre',icon:'▤',partners:['Biopietra']},
-    {id:'meubles',label:'Meubles',icon:'▥',partners:['Randal Pro','Neobath',"Petracer's"]},
+    {id:'meubles',label:'Meubles',icon:'▥',partners:['Randal Pro','Neobath',"Petracer's",'Bulbo']},
     {id:'robinetterie',label:'Robinetterie & miroir',icon:'◉',partners:['Aquahome','Opal','Reitano Rubinetterie',"Petracer's"]},
     {id:'sanitaire',label:'Sanitaire',icon:'○',partners:["Petracer's",'UPTREND']},
     {id:'outillages',label:'Outillages / divers',icon:'⚒',partners:['Bilt']}
@@ -148,7 +148,7 @@
       return;
     }
     if(state.partner==='Bulbo'){
-      count.textContent=data.length?`${found.length} collection${found.length>1?'s':''} BULBO`:'Collections BULBO';
+      count.textContent=data.length?`${found.length} ${state.category==='meubles'?'meuble':'collection'}${found.length>1?'s':''} BULBO`:'Collections BULBO';
       productGrid.innerHTML=window.LRF_BULBO_SELECTION?.renderCards(found)||'';
       return;
     }
@@ -186,12 +186,12 @@
     const groupHeader=state.poolGroup?'<div class="pool-group-header"><button type="button" data-pool-back>← Toutes les collections Elios</button><h3>Pool Surfaces</h3><p>Choisissez une collection pour découvrir ses photos et ses coloris.</p></div>':'';
     productGrid.innerHTML=groupHeader+(found.length?found.map(p=>`<article class="product-card-v2" data-id="${esc(p.id)}"><img src="${esc(imageOf(p))}" alt="${esc(state.partner==='Elios Ceramica'?`${p.name} — Elios Ceramica — ${window.LRF_ELIOS_SEARCH_META?.[p.slug]?.effect||p.effect||p.category}`:p.name)}" loading="lazy" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'"><div class="body"><span class="eyebrow">${esc(state.partner)} · ${esc(p.effect||p.category||'Produit')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'')}</p><div class="chips">${[...(p.colorFamilies||[]).slice(0,2),...(p.formats||[]).slice(0,2)].map(x=>`<span>${esc(x)}</span>`).join('')}</div>${p.groupSize?`<span class="pool-group-open">Découvrir les ${p.groupSize} collections →</span>`:''}</div></article>`).join(''):`<div class="empty-partner"><strong>Aucun produit avec ces filtres.</strong><p>Modifiez la recherche, le format, la couleur, l'effet ou la finition.</p></div>`);
   }
-  function renderWorkspace(){if(state.partner==="Petracer's")window.LRF_PETRACER_SELECTION?.setCategory?.(state.category);workspace.dataset.category=state.category;workspace.dataset.partner=state.partner;const p=PARTNERS[state.partner];if(!p){workspace.classList.remove('open');return}workspace.classList.add('open');$('#workspace-logo').src=p.logo;$('#workspace-title').textContent=state.partner;$('#workspace-sub').textContent=state.partner==='Bilt'?'Outillage & systèmes de pose · espace produits dédié':state.poolGroup?'Pool Surfaces · collections piscine':`${p.country} · espace produits dédié`;const allowed=hasAccess(p.slug),isBio=state.partner==='Biopietra';const badge=$('#workspace-pro-badge');badge.style.display='';badge.textContent=allowed?'✓ Tarif PRO accessible':'🔒 Tarif PRO non associé à ce compte';badge.className=`pro-badge${allowed?' allowed':''}`;const link=$('#workspace-pro-link');link.hidden=!allowed;link.style.display=allowed?'inline-flex':'none';link.href=state.partner==='Bilt'&&allowed?'commande-bilt.html':'tarifs-pro.html';link.textContent=state.partner==='Bilt'&&allowed?'Commander BILT':`Voir tarif PRO ${state.partner}`;
+  function renderWorkspace(){if(state.partner==="Petracer's")window.LRF_PETRACER_SELECTION?.setCategory?.(state.category);if(state.partner==='Bulbo')window.LRF_BULBO_SELECTION?.setCategory?.(state.category);workspace.dataset.category=state.category;workspace.dataset.partner=state.partner;const p=PARTNERS[state.partner];if(!p){workspace.classList.remove('open');return}workspace.classList.add('open');$('#workspace-logo').src=p.logo;$('#workspace-title').textContent=state.partner;$('#workspace-sub').textContent=state.partner==='Bilt'?'Outillage & systèmes de pose · espace produits dédié':state.poolGroup?'Pool Surfaces · collections piscine':`${p.country} · espace produits dédié`;const allowed=hasAccess(p.slug),isBio=state.partner==='Biopietra';const badge=$('#workspace-pro-badge');badge.style.display='';badge.textContent=allowed?'✓ Tarif PRO accessible':'🔒 Tarif PRO non associé à ce compte';badge.className=`pro-badge${allowed?' allowed':''}`;const link=$('#workspace-pro-link');link.hidden=!allowed;link.style.display=allowed?'inline-flex':'none';link.href=state.partner==='Bilt'&&allowed?'commande-bilt.html':'tarifs-pro.html';link.textContent=state.partner==='Bilt'&&allowed?'Commander BILT':`Voir tarif PRO ${state.partner}`;
     const isRandal=state.partner==='Randal Pro';
     const filters=$('#v2-filters');
     if(filters){
       // RANDAL est du mobilier : les filtres de carreaux et le lexique n'ont rien à faire ici.
-      filters.style.display=state.category==='outillages'||state.category==='meubles'&&state.partner!=="Petracer's"?'none':'';
+      filters.style.display=state.category==='outillages'||state.category==='meubles'&&!["Petracer's",'Bulbo'].includes(state.partner)?'none':'';
       filters.classList.remove('mobile-open');
     }
     const productHint=count?.parentElement?.querySelector('span');
@@ -270,7 +270,7 @@
   productGrid.addEventListener('click',event=>{if(event.target.closest('[data-biopietra-retry]'))window.LRF_BIOPIETRA_LOAD?.().catch(()=>{});});
   if(/fenice/i.test(new URLSearchParams(location.search).get('partner')||''))state.partner='La Fenice';
   if(/biopietra/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category='parement';state.partner='Biopietra';}
-  if(/^bulbo$/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category='exception';state.partner='Bulbo';}
+  if(/^bulbo$/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category=new URLSearchParams(location.search).get('category')==='meubles'?'meubles':'exception';state.partner='Bulbo';}
   if(/^pecchioli(?:-firenze)?$/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category='exception';state.partner='Pecchioli Firenze';}
   if(/^petracers?$/.test(norm(new URLSearchParams(location.search).get('partner')||''))){const category=new URLSearchParams(location.search).get('category');state.category=['meubles','sanitaire','robinetterie'].includes(category)?category:'exception';state.partner="Petracer's";}
   const requestedParams=new URLSearchParams(location.search);

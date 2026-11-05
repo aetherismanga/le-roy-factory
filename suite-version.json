@@ -89,7 +89,16 @@
       "catalogues": 3,
       "protectedTariffDate": "2026-10-01",
       "singleLatestCatalogue": true,
-      "requestForm": "bulbo-projet.html"
+      "requestForm": "bulbo-projet.html",
+      "furnitureSelectionVersion": "20261105-bulbo-meubles1",
+      "furnitureCategory": "meubles",
+      "furniturePhotographs": 34,
+      "furnitureModelsList": [
+        "Bulbino",
+        "Mivar",
+        "Monolith",
+        "Twix"
+      ]
     },
     "photoNavigation": {
       "version": "20261101-swipe1",

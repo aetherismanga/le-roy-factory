@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 
-function selection(search = '') {
+function selection(search = '', {bulbo = false} = {}) {
   const nodes = new Map(), events = new Map();
+  const openedBulbo=[];
   let session = null;
   function node(selector) {
     if (nodes.has(selector)) return nodes.get(selector);
@@ -31,13 +32,27 @@ function selection(search = '') {
     addEventListener(type, handler){if(!events.has(type))events.set(type,[]);events.get(type).push(handler);}
   };
   node('#partner-count').parentElement = {querySelector:()=>node('hint')};
-  const document = {querySelector:node,getElementById:id=>node('#'+id),body:{style:{}}};
-  vm.runInNewContext(readFileSync(new URL('../assets/js/inspirations-v2.js',import.meta.url),'utf8'), {
+  const document = {querySelector:node,getElementById:id=>node('#'+id),body:{style:{}},addEventListener(){}};
+  const context={
     window,document,location:{search},sessionStorage:{getItem:()=>null},URLSearchParams
-  });
+  };
+  if(bulbo){
+    window.BULBO_CATALOGUE=JSON.parse(readFileSync(new URL('../assets/data/bulbo-catalogue.json',import.meta.url),'utf8')).collections;
+    // Exercise real catalogue scoping and cards; this harness isolates the
+    // controller's event handling from the module's separate DOM chrome.
+    const listen=window.addEventListener;window.addEventListener=()=>{};
+    vm.runInNewContext(readFileSync(new URL('../assets/js/inspirations-bulbo.js',import.meta.url),'utf8'),context);
+    window.addEventListener=listen;
+    const api=window.LRF_BULBO_SELECTION;
+    window.LRF_BULBO_SELECTION={...api,refreshChrome(){},openCollection(id){
+      const found=api.normaliseProducts().some(product=>product.id===id||product.slug===id);
+      openedBulbo.push({id,found,category:node('#partner-workspace').dataset.category});return found;
+    }};
+  }
+  vm.runInNewContext(readFileSync(new URL('../assets/js/inspirations-v2.js',import.meta.url),'utf8'),context);
   return {node, choose:id=>node('#insp-categories').clickAs('data-cat',id),
     partner:name=>node('#partner-grid').clickAs('data-partner',name),
-    event:type=>events.get(type)?.forEach(handler=>handler({})), setSession:s=>{session=s;}};
+    event:type=>events.get(type)?.forEach(handler=>handler({})), setSession:s=>{session=s;},openedBulbo};
 }
 
 test('outillage stays Bilt after late stone, tariff and session updates', () => {
@@ -97,4 +112,35 @@ test('old pool links open inside Elios without a main universe button',()=>{
   assert.equal(h.node('#elios-pool-nav').hidden,false);
   assert.match(h.node('#partner-products').innerHTML,/pool-abyss/);
   assert.doesNotMatch(h.node('#insp-categories').innerHTML,/data-cat="piscine"/);
+});
+
+test('BULBO furniture links, late data and session refresh keep all four furniture models',()=>{
+  const h=selection('?partner=bulbo&category=meubles&collection=mivar',{bulbo:true});
+  const verify=()=>{
+    assert.equal(h.node('#partner-workspace').dataset.category,'meubles');
+    assert.equal(h.node('#workspace-title').textContent,'Bulbo');
+    assert.equal(h.node('#partner-count').textContent,'4 meubles BULBO');
+    assert.equal(h.node('#v2-filters').style.display,'','furniture dimensions remain filterable');
+    for(const slug of ['bulbino','mivar','monolith','twix'])assert.ok(h.node('#partner-products').innerHTML.includes('data-id="bulbo-'+slug+'"'),slug);
+    assert.doesNotMatch(h.node('#partner-products').innerHTML,/data-id="bulbo-bamboom"/);
+  };
+  verify();
+  assert.match(h.node('#partner-grid').innerHTML,/data-partner="Bulbo"/);
+  assert.deepEqual(h.openedBulbo,[{id:'mivar',found:true,category:'meubles'}],'requested collection opens after the controller sets furniture scope');
+  h.setSession({isAdmin:true});
+  for(const event of ['lrf-bulbo-data-ready','lrf-agent-tariffs-ready','lrf-pro-session-changed','pageshow']){h.event(event);verify();}
+  assert.equal(h.openedBulbo.length,1,'late events do not repeatedly open the product');
+  h.choose('exception');h.partner('Bulbo');
+  assert.equal(h.node('#partner-workspace').dataset.category,'exception');
+  assert.match(h.node('#partner-products').innerHTML,/data-id="bulbo-bamboom"/,'existing surface selection remains available');
+  h.choose('meubles');h.partner('Bulbo');verify();
+});
+
+test('existing BULBO links keep exception while furniture surface deep links are refused',()=>{
+  const legacy=selection('?partner=bulbo',{bulbo:true});
+  assert.equal(legacy.node('#partner-workspace').dataset.category,'exception');
+  assert.match(legacy.node('#partner-products').innerHTML,/data-id="bulbo-bamboom"/);
+  const scoped=selection('?partner=bulbo&category=meubles&collection=bamboom',{bulbo:true});
+  assert.deepEqual(scoped.openedBulbo,[{id:'bamboom',found:false,category:'meubles'}]);
+  assert.equal(scoped.node('#partner-count').textContent,'4 meubles BULBO');
 });
