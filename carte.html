@@ -461,7 +461,7 @@
         directoryDept.value=selectedDept;
         const shown=[['client',visibility.clients],['prospect',visibility.prospects],['unvisited',visibility.unvisited]].filter(entry=>entry[1]);
         document.getElementById('directory-color').value=shown.length===3?'':shown.length===1?shown[0][0]:'custom';
-        const rows=allClientData.filter(matchesSector).filter(item=>{
+        const rows=allClientData.filter(item=>Number.isFinite(item.lat)&&Number.isFinite(item.lon)).filter(matchesSector).filter(item=>{
           const kind=item.unvisited?'unvisited':item.type==='client'?'client':'prospect';
           return kind==='client'?visibility.clients:kind==='prospect'?visibility.prospects:visibility.unvisited;
         }).sort((a,b)=>department(a.cp,a.ville).localeCompare(department(b.cp,b.ville))||a.societe.localeCompare(b.societe,'fr'));
