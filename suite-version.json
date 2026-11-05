@@ -154,7 +154,7 @@
       "privateApplicationEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication"
     },
     "neobathAnima": {
-      "releaseId": "20261104-neobath-anima-studio-one-navigation-decors-16",
+      "releaseId": "20261105-neobath-anima-studio-one-four-tile-decors-17",
       "page": "neobath-anima-configurateur.html",
       "access": "agents-only",
       "modules": 42,
@@ -163,7 +163,7 @@
       "products": 257,
       "compositions": 16,
       "projectSync": "shared-agent-private-api",
-      "appSha256": "64eb7d9719222708188497d9ae4d1311f9e04efe57f9801ad42eac9cb25b5f2b",
+      "appSha256": "3a3a9495711791e26318e267390af8a1cdec81229389989a20bcf5ee96b5ae09",
       "engine": "studio-one",
       "homeSha256": "8ebf870a7ce0d9ceabc140d6d4f52df8557de6ab0240c7c9abc1705033730d60",
       "photographs": 155,
@@ -293,14 +293,14 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261104-neobath-anima-crisp-office-13",
+      "releaseId": "20261105-neobath-anima-studio-one-four-tile-decors-17",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true
     }
   },
   "rendering": {
-    "releaseId": "20261104-navigation-decors-1",
+    "releaseId": "20261105-deco-four-tile-1",
     "applications": [
       "studio-one",
       "randal-general",
@@ -312,9 +312,9 @@
     "autoUltra": false,
     "settledRefinementMs": 180,
     "hdCaptureIndependent": true,
-    "studioAppSha256": "63874d46d2487476d8ff91066f5fd43f2a84d400bf2082d05c388011338fdff3",
-    "generalAppSha256": "68fd4d1348079e4bcc2614f4b00522dc9687cc0fecf99d3f92ccc555570518ac",
-    "animaAppSha256": "64eb7d9719222708188497d9ae4d1311f9e04efe57f9801ad42eac9cb25b5f2b",
+    "studioAppSha256": "fecfa6c62d25b8627fc4bce68f1846a3a00a2527f995e1932b2d5b97e3e9a420",
+    "generalAppSha256": "42f42a3634bc4072195d139212c4539b4e442a447c4c93d169616cc9f141ba05",
+    "animaAppSha256": "3a3a9495711791e26318e267390af8a1cdec81229389989a20bcf5ee96b5ae09",
     "motionLightingStable": true,
     "cachedCameraShadows": true,
     "stableTransmissionBuffers": true,
@@ -342,5 +342,19 @@
     "decoDecorReferences": 17,
     "designEvoDecorReferences": 19,
     "proHdAuthentication": "not-completed"
+  },
+  "decorativeTileLayout": {
+    "releaseId": "20261105-deco-four-tile-1",
+    "applications": [
+      "studio-one",
+      "randal-general",
+      "neobath-anima"
+    ],
+    "collection": "Deco",
+    "originalC": "2x2 quarter-turn rosette",
+    "geo": "2x2 quarter-turn diamond",
+    "originalBAndD": "manufacturer single-tile motif preserved",
+    "source": "https://eliosceramica.com/wp-content/uploads/2021/03/Deco.pdf",
+    "negativeGridAndClipping": true
   }
 }

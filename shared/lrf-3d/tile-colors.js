@@ -2,6 +2,12 @@ import {COLLECTIONS} from './surface-catalog.js';
 import {quantityForSurface} from './quantities.js';
 import {resolveSurfaceTexture,finishForSurface} from './surface-texture-selection.js';
 export function validTileColors(surface,finish){const keys=new Set(surface.tiles.geometry.userData.cells.map(c=>c.key)),colors=new Set(COLLECTIONS[finish.collection]?.colors.map(c=>c.id)||[]);return Object.fromEntries(Object.entries(finish.tiles||{}).slice(0,12000).filter(([key,color])=>keys.has(key)&&colors.has(color)&&color!==finish.color));}
+const positiveModulo=(value,period)=>((value%period)+period)%period;
+const decorDimension=value=>Number.isInteger(value)&&value>0&&value<=64?value:1;
+function decorQuarterTurn(definition,col,row){
+ const rotations=definition?.decorRotations,columns=decorDimension(rotations?.columns),rows=decorDimension(rotations?.rows),turn=rotations?.quarterTurns?.[positiveModulo(row,rows)*columns+positiveModulo(col,columns)];
+ return Number.isInteger(turn)?positiveModulo(turn,4):0;
+}
 function orientContinuousDecor(surface,finish){
  if(!surface.tiles.geometry.userData.originalTileUV&&!COLLECTIONS[finish.collection]?.colors.some(c=>c.continuousDecor)){surface.tiles.geometry.userData.continuousDecor=false;return;}
  const definitions=(COLLECTIONS[finish.collection]?.colors||[]).filter(c=>c.continuousDecor),continuous=new Map(definitions.map(c=>[c.id,c])),colors=validTileColors(surface,finish),enabled=[finish.color,...Object.values(colors)].some(id=>continuous.has(id));
@@ -10,7 +16,7 @@ function orientContinuousDecor(surface,finish){
  if(enabled&&surface.layout?.pattern&&surface.layout.pattern!=='straight'&&surface.setLayout){surface.setLayout({...surface.layout,pattern:'straight'});return orientContinuousDecor(surface,finish);}
  const g=surface.tiles.geometry,data=g.userData,uv=g.attributes.uv;data.continuousDecor=enabled;
  if(!uv||!enabled&&!data.originalTileUV)return;
- const signature=JSON.stringify([finish.collection,finish.color,colors,definitions.map(c=>[c.id,c.decorRepeat])]);if(data.tileOrientationKey===signature)return;
+ const signature=JSON.stringify([finish.collection,finish.color,colors,definitions.map(c=>[c.id,c.decorRepeat,c.decorRotations])]);if(data.tileOrientationKey===signature)return;
  const original=data.originalTileUV??=uv.array.slice(),source=data.sourceFaceCells||data.faceCells||[];
  // Tile geometry keeps natural materials varied by turning alternate slabs.
  // Restore the unturned UVs only for the selected continuous decor, including
@@ -21,8 +27,13 @@ function orientContinuousDecor(surface,finish){
   // each physical tile's matching quadrant instead of shrinking all four
   // tiles into every cell. A positive modulo preserves the panel phase when
   // a drawing starts before the origin or is clipped by a door/window.
-  const dimension=value=>Number.isInteger(value)&&value>0&&value<=64?value:1,columns=dimension(definition?.decorRepeat?.columns),rows=dimension(definition?.decorRepeat?.rows),phaseX=((col%columns)+columns)%columns,phaseY=((row%rows)+rows)%rows;
-  for(let i=face*6;i<face*6+6;i+=2){const u=unturn?1-original[i]:original[i],v=unturn?1-original[i+1]:original[i+1];uv.array[i]=definition?(phaseX+u)/columns:original[i];uv.array[i+1]=definition?(phaseY+v)/rows:original[i+1];}
+  const columns=decorDimension(definition?.decorRepeat?.columns),rows=decorDimension(definition?.decorRepeat?.rows),phaseX=positiveModulo(col,columns),phaseY=positiveModulo(row,rows),turn=decorQuarterTurn(definition,col,row);
+  // A single quarter-motif picture is different from a full-panel atlas:
+  // keep its whole face on each tile, rotating the samples by the documented
+  // quarter turns. The table is bottom-row-first in the physical UV grid;
+  // one turn samples [1-v,u]. Never rotate a clipped fragment around its own
+  // bounds: use its original full-tile UVs so openings retain the same phase.
+  for(let i=face*6;i<face*6+6;i+=2){let u=unturn?1-original[i]:original[i],v=unturn?1-original[i+1]:original[i+1];if(turn===1)[u,v]=[1-v,u];else if(turn===2)[u,v]=[1-u,1-v];else if(turn===3)[u,v]=[v,1-u];uv.array[i]=definition?(phaseX+u)/columns:original[i];uv.array[i+1]=definition?(phaseY+v)/rows:original[i+1];}
  }
  data.tileOrientationKey=signature;uv.needsUpdate=true;
 }

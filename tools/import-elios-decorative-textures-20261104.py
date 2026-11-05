@@ -59,9 +59,18 @@ evo += [('palazzo-ducale-mix','Palazzo Ducale Mix','design-evo-decoro-palazzo-du
 for collection,family,rows,pdf in [('Deco','deco',[(*r,None) for r in deco],'https://eliosceramica.com/wp-content/uploads/2021/03/Deco.pdf'),('D_esign Evo','design-evo',evo,'https://eliosceramica.com/wp-content/uploads/2021/03/DEsigEvo.pdf')]:
  target=collections[collection];ids={r[0] for r in rows};target['colors']=[c for c in target['colors'] if c['id'] not in ids]
  for id,name,slug,ref,mix in rows:
-  co=color(family,id,name,slug,ref,mix);target['colors'].append(co)
+  co=color(family,id,name,slug,ref,mix)
+  # The official placement schemas use whole20cm tiles, with a four-tile
+  # rosette for Original C and diamonds for Geo. Original B/D are already
+  # symmetric single-tile motifs: never crop those as if they were panels.
+  if collection=='Deco' and (id.startswith('original-c-') or id.startswith('geo-')):
+   co['decorRotations']={'columns':2,'rows':2,'quarterTurns':[0,3,1,2] if id.startswith('original-c-') else [1,0,2,3]}
+   co['decorLayoutSource']=pdf+('#page=6' if id.startswith('original-c-') else '#page=5')
+  target['colors'].append(co)
   commercial['products']=[p for p in commercial['products'] if p.get('key')!='ELIOS|'+ref]
-  commercial['products'].append(product(collection,co,ref,pdf))
+  row=product(collection,co,ref,pdf)
+  if co.get('decorRotations'):row['decorRotations']=co['decorRotations']
+  commercial['products'].append(row)
  # Base stock colors only exist as20×20 in this manufacturer collection.
  if collection=='D_esign Evo':
   target['source']='https://eliosceramica.com/collezione/design-evo/'
