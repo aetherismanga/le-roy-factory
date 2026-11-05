@@ -284,6 +284,14 @@
         <div id="map-address-review-list" style="max-height:240px;overflow:auto;"></div>
       </details>
       <div id="map"></div>
+      <section id="shop-directory" style="margin-top:24px">
+        <h2 style="font-size:1.15rem">Magasins par département</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+          <label>Couleur <select id="directory-color" class="select-dept"><option value="">Toutes les couleurs</option><option value="unvisited">🔴 Non visités</option><option value="client">🟢 Clients</option><option value="prospect">🟡 Prospects</option></select></label>
+          <label>Département <select id="directory-dept" class="select-dept"></select></label>
+        </div>
+        <p id="directory-count" role="status"></p><div id="directory-rows"></div>
+      </section>
     </div>
   </main>
 
@@ -432,6 +440,43 @@
       }
       window.addEventListener('lrf-map-layer-filter',()=>renderMarkers());
 
+      let directoryColor='';
+      const directoryDept=document.getElementById('directory-dept');
+      directoryDept.innerHTML=document.getElementById('dept-select').innerHTML;
+      if(directoryDept.options?.[0])directoryDept.options[0].textContent='Tous les départements';
+      directoryDept.addEventListener('change',()=>{document.getElementById('dept-select').value=directoryDept.value;document.getElementById('dept-select').dispatchEvent(new Event('change'));});
+      document.getElementById('directory-color').addEventListener('change',event=>{
+        directoryColor=event.target.value;
+        window.__lrfCarteLayerVisibility={clients:!directoryColor||directoryColor==='client',prospects:!directoryColor||directoryColor==='prospect',unvisited:!directoryColor||directoryColor==='unvisited'};
+        renderMarkers(true);
+      });
+      function renderDirectory(){
+        const visibility=window.__lrfCarteLayerVisibility||{clients:true,prospects:true,unvisited:true};
+        directoryDept.value=selectedDept;
+        const rows=allClientData.filter(matchesSector).filter(item=>{
+          const kind=item.unvisited?'unvisited':item.type==='client'?'client':'prospect';
+          return kind==='client'?visibility.clients:kind==='prospect'?visibility.prospects:visibility.unvisited;
+        }).sort((a,b)=>department(a.cp,a.ville).localeCompare(department(b.cp,b.ville))||a.societe.localeCompare(b.societe,'fr'));
+        document.getElementById('directory-count').textContent=rows.length+' magasin(s)';
+        let previous='';
+        document.getElementById('directory-rows').innerHTML=rows.map(item=>{
+          const dept=department(item.cp,item.ville)||'À préciser';
+          const heading=dept!==previous?'<h3 style="margin:20px 0 10px">Département '+mapText(dept)+'</h3>':'';previous=dept;
+          const visited=item.visiteStatus==='visite'||item.nonVisite===false;
+          const color=item.unvisited?'🔴':item.type==='client'?'🟢':'🟡';
+          return heading+'<article style="padding:14px 0;border-bottom:1px solid #e5dfd2;overflow-wrap:anywhere"><a style="font-weight:800;color:#202320" href="'+(item._mapProspect?'prospects-carte.html':'clients.html')+'?edit='+encodeURIComponent(item.id)+'">'+color+' '+mapText(item.societe)+'</a><div style="margin:5px 0;color:#666">'+mapText([item.adresse,item.cp,item.ville].filter(Boolean).join(' '))+'</div>'+(item.telephone?'<a href="tel:'+mapPhone(item.telephone)+'">📞 '+mapText(item.telephone)+'</a>':'')+'<label style="display:flex;gap:10px;align-items:center;min-height:48px;margin-top:6px"><input style="width:22px;height:22px;accent-color:#047857" type="checkbox" class="directory-visited" data-id="'+encodeURIComponent(item.id)+'" data-prospect="'+(item._mapProspect?'1':'0')+'" '+(visited?'checked':'')+'> Visité</label></article>';
+        }).join('')||'<p>Aucun magasin pour ces filtres.</p>';
+      }
+      document.getElementById('directory-rows').addEventListener('change',async event=>{
+        const box=event.target.closest('.directory-visited');if(!box)return;
+        const checked=box.checked;box.disabled=true;
+        try{await runTransaction(db,async transaction=>{
+          const ref=doc(db,box.dataset.prospect==='1'?'crm_map_prospects':'clients',decodeURIComponent(box.dataset.id));
+          const snapshot=await transaction.get(ref);if(!snapshot.exists()||!activeMapClient(snapshot.data(),snapshot.id))throw Error('Fiche indisponible');
+          transaction.update(ref,{visiteStatus:checked?'visite':'non_visite',nonVisite:!checked,visitedAt:checked?new Date().toISOString():null});
+        });}catch(error){box.checked=!checked;alert('Visite non enregistrée. Réessaie après vérification de la connexion.');}finally{box.disabled=false;}
+      });
+
       // Rendu instantané des marqueurs
       function renderMarkers(fitView = false) {
         markersLayer.clearLayers();
@@ -501,6 +546,7 @@
           document.getElementById('map-address-review-title').textContent='Adresses à vérifier ('+pendingAddresses.length+')';
           document.getElementById('map-address-review-list').innerHTML=pendingAddresses.map(item=>'<p style="margin:8px 0;font-size:.85rem;"><a href="'+(item._mapProspect?'prospects-carte.html':'clients.html')+'?edit='+encodeURIComponent(item.id)+'">'+mapText(item.societe)+'</a><br><small>'+mapText([item.adresse,item.cp,item.ville].filter(Boolean).join(' '))+'</small></p>').join('');
         }
+        renderDirectory();
         // Cadrage initial et après un changement de filtre, y compris sur mobile.
         if (visiblePoints.length && (fitView || !initialMapFramed)) {
           initialMapFramed = true;
