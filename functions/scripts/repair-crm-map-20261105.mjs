@@ -3,7 +3,7 @@ import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
 import {addressKey,normalizeAddress,department,geocodeCandidate,communeCandidate,validateStoredLocation} from '../../assets/js/crm-map-location.mjs';
-import {active,norm,clean,matchingBusinesses,unvisitedPayload} from './crm-map-import-core.mjs';
+import {active,norm,clean,matchingBusinesses,matchingCorrection,unvisitedPayload} from './crm-map-import-core.mjs';
 const require=createRequire(import.meta.url), admin=require('firebase-admin');
 admin.initializeApp({projectId:'le-roy-factory'});
 const db=admin.firestore(), runId='map-repair-20261105-v1';
@@ -52,8 +52,7 @@ let rows=snapshot.docs.map(d=>({...d.data(),id:d.id}));
 for(const row of rows.filter(active)) {
   report.existing++;
   const originalKey=addressKey(row), a=normalizeAddress(row), patch={};
-  const correction=corrections.find(c=>c.aliases.some(alias=>norm(alias)===norm(row.societe))
-    && rows.filter(active).filter(r=>c.aliases.some(alias=>norm(alias)===norm(r.societe))).length===1);
+  const correction=corrections.find(c=>matchingCorrection(row,c,rows));
   if(correction) {
     for(const key of ['adresse','codePostal','ville','departement'])patch[key]=correction[key];
     patch.geoAddressSources=[...new Set([...(row.geoAddressSources||[]),correction.source])];
@@ -72,7 +71,7 @@ for(const row of rows.filter(active)) {
   }
   const proposed={...row,...patch};
   if(validateStoredLocation(proposed))continue;
-  const position=await locate(proposed);
+  const position=correction?.verifiedLocation?.addressKey===addressKey(proposed)?correction.verifiedLocation:await locate(proposed);
   Object.assign(patch,positionPatch(proposed,position));
   const changed=await db.runTransaction(async tx=>{
     const ref=db.collection('clients').doc(row.id),fresh=await tx.get(ref);
@@ -122,14 +121,16 @@ for(const candidate of directory.records) {
   const dep=department(candidate.codePostal,candidate.ville);
   report.byDepartment[dep]=(report.byDepartment[dep]||0)+1;
 }
-for(const id of importedIds) {
-  const data=(await db.collection(prospectCollection).doc(id).get()).data();
+const allProspects=(await db.collection(prospectCollection).get()).docs;
+for(const snapshot of allProspects) {
+  const id=snapshot.id,data=snapshot.data();
+  if(data.prospectionSource!=='recherche-publique-2026-11-05')continue;
   if([data.codeClient,data.codeLRF,data.codeLrf,data.code_lrf,...(data.codesLRF||[])].some(v=>clean(v)))throw Error('Imported prospect received an unexpected code');
-  if(data.type!=='prospect'||data.visiteStatus!=='non_visite'||data.autoAssignLrfCode!==false)throw Error('Imported prospect state mismatch');
+  if(importedIds.includes(id)&&(data.type!=='prospect'||data.visiteStatus!=='non_visite'||data.autoAssignLrfCode!==false))throw Error('Imported prospect state mismatch');
   report.verifiedNoCode++;
 }
 const finalRows=(await db.collection('clients').get()).docs.map(d=>({...d.data(),id:d.id})).filter(active);
-finalRows.push(...(await db.collection(prospectCollection).get()).docs.map(d=>({...d.data(),id:d.id})).filter(active));
+finalRows.push(...allProspects.map(d=>({...d.data(),id:d.id})).filter(active));
 report.finalActive=finalRows.length;report.finalLocated=finalRows.filter(validateStoredLocation).length;
 report.finalPending=finalRows.length-report.finalLocated;
 await db.collection('crm_map_repairs').doc(runId).set({...report,completedAt:new Date().toISOString()},{merge:true});

@@ -7,6 +7,17 @@ export function businessPhones(row) {
   return [...new Set([row.telephone,row.mobile,row.fixe,...(Array.isArray(row.telephones)?row.telephones:[]),...(Array.isArray(row.contacts)?row.contacts:[]).flatMap(c=>[c?.telephone,c?.mobile,c?.fixe])].map(phone).filter(v=>v.length>=9))];
 }
 export function active(row) { return row.archived!==true && row.archive!==true && (!row.duplicateOf||row.duplicateOf===row.id) && (!row.canonicalClientId||row.canonicalClientId===row.id); }
+export function matchingCorrection(row, correction, rows) {
+  const named=record=>correction.aliases.some(alias=>norm(alias)===norm(record.societe));
+  if(!named(row))return false;
+  const sameName=rows.filter(active).filter(named);
+  if(sameName.length===1||correction.branchSpecific===true)return true;
+  if(correction.telephone&&businessPhones(row).includes(phone(correction.telephone)))return true;
+  const address=norm(row.adresse);
+  if((correction.matchAddressFragments||[]).some(fragment=>norm(fragment).length>=8&&address.includes(norm(fragment))))return true;
+  if(correction.confirmedRelocation===true&&!clean(row.codePostal||row.code_postal)&&!clean(row.ville))return true;
+  return false;
+}
 export function matchingBusinesses(candidate, rows) {
   const postal=v=>/^\d{4}$/.test(clean(v))?clean(v).padStart(5,'0'):clean(v);
   const townKey=v=>norm(clean(v).replace(/\bcedex\s*\d*\b/ig,'').replace(/\bst\b/ig,'saint').replace(/\bste\b/ig,'sainte'));
