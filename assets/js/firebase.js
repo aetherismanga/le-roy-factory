@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import "./carte-mobile-enhancements.js?v=20261022-mapgps1";
-import "./carte-proximity.js?v=20261022-mapgps1";
+import "./carte-proximity.js?v=20261105-map2";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is",
@@ -118,7 +118,7 @@ if (currentPage === "clients.html") {
   import("./crm-ui-modern.js?v=20261104-client-shell1").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
   import("./clients-tournee-ui.js?v=20260903-1").catch(err => console.error("Erreur chargement accès tournées :", err));
   import("./clients-operations.js?v=20261105-audit1").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
-  import("./client-codes.js?v=20261105-audit1").catch(err => console.error("Erreur chargement codes clients LRF :", err));
+  import("./client-codes.js?v=20261105-map2").catch(err => console.error("Erreur chargement codes clients LRF :", err));
   import("./clients-export.js?v=20261105-audit1").catch(err => console.error("Erreur chargement impression/export clients :", err));
   import("./account-form-send.js?v=20261105-audit1").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
   import("./client-contact-import.js?v=20260904-iphone2").catch(err => console.error("Erreur import contact téléphone :", err));

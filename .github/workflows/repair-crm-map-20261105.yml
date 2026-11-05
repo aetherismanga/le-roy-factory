@@ -1,0 +1,37 @@
+name: Repair CRM map and import verified unvisited prospects
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/repair-crm-map-20261105.yml'
+      - 'functions/data/crm-prospect-directory-20261105.json'
+      - 'functions/scripts/repair-crm-map-20261105.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: crm-map-repair-20261105
+  cancel-in-progress: false
+jobs:
+  repair:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify the scoped map logic
+        run: node --test tests/crm-map-location.test.mjs tests/crm-map-import.test.mjs tests/crm-client-codes.test.mjs tests/crm-map-rules.test.mjs
+      - name: Install server dependencies
+        working-directory: functions
+        run: npm install --omit=dev --ignore-scripts
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
+      - name: Protect unvisited prospects from old browser code allocators
+        run: npx --yes firebase-tools@14.15.2 deploy --only firestore:rules --project le-roy-factory --non-interactive
+      - name: Repair and verify the private CRM data
+        run: node functions/scripts/repair-crm-map-20261105.mjs
