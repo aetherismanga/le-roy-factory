@@ -15,6 +15,8 @@ export function matchingCorrection(row, correction, rows) {
   if(correction.telephone&&businessPhones(row).includes(phone(correction.telephone)))return true;
   const address=norm(row.adresse);
   if((correction.matchAddressFragments||[]).some(fragment=>norm(fragment).length>=8&&address.includes(norm(fragment))))return true;
+  if(correction.singleActiveEstablishment===true&&!clean(row.codePostal||row.code_postal)&&!clean(row.ville)
+    && (correction.matchAddressFragments||[]).some(fragment=>norm(fragment)===address))return true;
   if(correction.confirmedRelocation===true&&!clean(row.codePostal||row.code_postal)&&!clean(row.ville))return true;
   return false;
 }

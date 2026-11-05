@@ -687,7 +687,15 @@
       "source": "IGN",
       "addressKey": "6rueduguazisud|34880|laverune",
       "checkedAt": "2026-11-05T03:39:12.258Z"
-    }
+    },
+    "singleActiveEstablishment": true,
+    "companyRegistrationId": "468801014",
+    "sources": [
+      "https://www.richard-carrelages.com/contact-page/",
+      "https://annuaire-entreprises.data.gouv.fr/entreprise/soc-richard-ceramique-elite-468801014",
+      "https://www.pagesjaunes.fr/pros/03305148"
+    ],
+    "notesVerification": "Établissement actif unique SIRET 46880101400019 confirmé au registre public. Cible au nom exact et fragment ZI Sud, sans CP ni ville ; conserver codes et fiches distinctes."
   },
   {
     "aliases": [
