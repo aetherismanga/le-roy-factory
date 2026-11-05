@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="assets/css/clients.css">
 
   <style>
+    .map-card.fullscreen #shop-directory{display:none}
     body.crm-body {
       background-color: #FBF9F5 !important;
       background-image: none !important;
@@ -287,7 +288,7 @@
       <section id="shop-directory" style="margin-top:24px">
         <h2 style="font-size:1.15rem">Magasins par département</h2>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
-          <label>Couleur <select id="directory-color" class="select-dept"><option value="">Toutes les couleurs</option><option value="unvisited">🔴 Non visités</option><option value="client">🟢 Clients</option><option value="prospect">🟡 Prospects</option></select></label>
+          <label>Couleur <select id="directory-color" class="select-dept"><option value="">Toutes les couleurs</option><option value="custom" disabled>Sélection de la carte</option><option value="unvisited">🔴 Non visités</option><option value="client">🟢 Clients</option><option value="prospect">🟡 Prospects</option></select></label>
           <label>Département <select id="directory-dept" class="select-dept"></select></label>
         </div>
         <p id="directory-count" role="status"></p><div id="directory-rows"></div>
@@ -453,6 +454,8 @@
       function renderDirectory(){
         const visibility=window.__lrfCarteLayerVisibility||{clients:true,prospects:true,unvisited:true};
         directoryDept.value=selectedDept;
+        const shown=[['client',visibility.clients],['prospect',visibility.prospects],['unvisited',visibility.unvisited]].filter(entry=>entry[1]);
+        document.getElementById('directory-color').value=shown.length===3?'':shown.length===1?shown[0][0]:'custom';
         const rows=allClientData.filter(matchesSector).filter(item=>{
           const kind=item.unvisited?'unvisited':item.type==='client'?'client':'prospect';
           return kind==='client'?visibility.clients:kind==='prospect'?visibility.prospects:visibility.unvisited;
