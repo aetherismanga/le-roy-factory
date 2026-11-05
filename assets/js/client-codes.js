@@ -9,6 +9,12 @@ const norm=v=>String(v||"").trim().toLowerCase().normalize("NFD").replace(/[\u03
 const esc=v=>String(v||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const codeNumber=v=>{const m=String(v||"").match(/^LRF-(\d{5})$/i);return m?Number(m[1]):0};
 const formatCode=n=>`LRF-${String(n).padStart(5,"0")}`;
+// Public prospecting records must stay outside the client-code sequence until
+// their visit is explicitly recorded and automatic allocation is enabled.
+function blocksAutomaticCode(c){
+  const visitStatus=norm(c?.visiteStatus).replace(/[\s-]+/g,"_");
+  return c?.autoAssignLrfCode===false||c?.nonVisite===true||visitStatus==="non_visite";
+}
 
 function departmentFromPostal(cp){
   const s=String(cp||"").replace(/\s/g,"");
@@ -31,6 +37,7 @@ async function assignCode(clientId){
     const data=clientSnap.data();
     // The list may have changed since this allocation was queued.
     if(data.archived===true||data.archive===true||data.duplicateOf)return null;
+    if(blocksAutomaticCode(data))return data.codeClient||null;
     if(/^LRF-\d{5}$/i.test(String(data.codeClient||"")))return data.codeClient;
     const counterSnap=await tx.get(counterRef);
     const last=Number(counterSnap.exists()?counterSnap.data().lastNumber:0)||0;
@@ -59,8 +66,9 @@ async function assignMissingCodes(){
   if(assigning)return;
   assigning=true;
   try{
+    const missing=clients.filter(c=>c.archived!==true&&c.archive!==true&&!c.duplicateOf&&!blocksAutomaticCode(c)&&!/^LRF-\d{5}$/i.test(String(c.codeClient||""))).sort((a,b)=>String(a.societe||"").localeCompare(String(b.societe||""),"fr"));
+    if(!missing.length)return;
     await ensureCounterAtLeastExisting();
-    const missing=clients.filter(c=>c.archived!==true&&c.archive!==true&&!c.duplicateOf&&!/^LRF-\d{5}$/i.test(String(c.codeClient||""))).sort((a,b)=>String(a.societe||"").localeCompare(String(b.societe||""),"fr"));
     for(const c of missing){
       try{await assignCode(c.id)}catch(e){console.error("Attribution code LRF",c.societe,e)}
     }
@@ -114,7 +122,7 @@ function decorateRows(){
     const c=findClientForRow(row);if(!c)return;row.dataset.clientId=c.id;
     let wrap=cells[1].querySelector(".lrf-identifiers");
     if(!wrap){wrap=document.createElement("div");wrap.className="lrf-identifiers";cells[1].appendChild(wrap)}
-    const dep=clientDepartment(c);wrap.innerHTML=`${c.codeClient?`<span class="lrf-code-badge">${esc(c.codeClient)}</span>`:"<span class=\"lrf-code-badge\">Attribution…</span>"}${dep?`<span class="lrf-dept-badge">Dép. ${esc(dep)}</span>`:""}`;
+    const dep=clientDepartment(c);wrap.innerHTML=`${c.codeClient?`<span class="lrf-code-badge">${esc(c.codeClient)}</span>`:`<span class="lrf-code-badge">${blocksAutomaticCode(c)?"Sans code LRF":"Attribution…"}</span>`}${dep?`<span class="lrf-dept-badge">Dép. ${esc(dep)}</span>`:""}`;
   });
   applyCodeSearch();
 }
@@ -126,7 +134,7 @@ function fillModal(){
   let c=exactId?clients.find(x=>x.id===exactId):null;
   if(!c&&!exactId){const title=document.getElementById("modal-title")?.textContent||"";if(/^Édition\s*:/i.test(title)){const name=title.replace(/^Édition\s*:\s*/i,"").trim();const candidates=clients.filter(x=>x.archived!==true&&x.archive!==true&&norm(x.societe)===norm(name));if(candidates.length===1)c=candidates[0];}}
   const code=document.getElementById("edit-code-client"),dep=document.getElementById("edit-departement");
-  if(code)code.value=c?.codeClient||"";
+  if(code){code.value=c?.codeClient||"";code.placeholder=c&&blocksAutomaticCode(c)?"Sans code LRF":"Attribué après enregistrement";}
   if(dep)dep.value=c?clientDepartment(c):departmentFromPostal(document.getElementById("edit-code-postal")?.value||"");
 }
 

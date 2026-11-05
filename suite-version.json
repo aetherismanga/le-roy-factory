@@ -356,5 +356,24 @@
     "originalBAndD": "manufacturer single-tile motif preserved",
     "source": "https://eliosceramica.com/wp-content/uploads/2021/03/Deco.pdf",
     "negativeGridAndClipping": true
+  },
+  "crmMap": {
+    "releaseId": "20261105-map-prospects1",
+    "geocodingVersion": 2,
+    "unvisitedColor": "red",
+    "unvisitedWithoutLrfCode": true,
+    "territoryDepartments": [
+      "11",
+      "30",
+      "34",
+      "48",
+      "66",
+      "04",
+      "05",
+      "06",
+      "13",
+      "83",
+      "84"
+    ]
   }
 }
