@@ -9,6 +9,10 @@ test('duplicate company names require branch or address corroboration before cor
  assert.equal(matchingCorrection(rows[1],correction,rows),false);
  assert.equal(matchingCorrection(rows[1],{aliases:['Marque']},rows),false);
  assert.equal(matchingCorrection(rows[1],{aliases:['Marque'],branchSpecific:true},rows),true);
+ const shortRows=[{societe:'Marque',adresse:'ZI Sud'},{societe:'Marque',adresse:'Autre magasin'}];
+ assert.equal(matchingCorrection(shortRows[0],{aliases:['Marque'],matchAddressFragments:['ZI Sud']},shortRows),false);
+ assert.equal(matchingCorrection(shortRows[0],{aliases:['Marque'],matchAddressFragments:['ZI Sud'],singleActiveEstablishment:true},shortRows),true);
+ assert.equal(matchingCorrection({...shortRows[0],ville:'Autre ville'},{aliases:['Marque'],matchAddressFragments:['ZI Sud'],singleActiveEstablishment:true},shortRows),false);
 });
 test('same store is held when its phone, trading name or address already exists',()=>{
   assert.equal(matchingBusinesses(store,[{...store,societe:'Carrelages méridionaux SARL'}]).length,1);
