@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/repair-crm-map-20261105.yml'
       - 'functions/data/crm-prospect-directory-20261105.json'
+      - 'functions/data/crm-address-corrections-20261105.json'
       - 'functions/scripts/repair-crm-map-20261105.mjs'
   workflow_dispatch:
 permissions:

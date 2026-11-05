@@ -1,7 +1,905 @@
 [
-  {"aliases":["LE COMPTOIR DE CERAM","LE COMPTOIR DE CERAM JACOU"],"adresse":"4 rue Louis Bréguet","codePostal":"34830","ville":"Jacou","departement":"34","source":"https://lecomptoirdeceram.fr/carrelage-montpellier"},
-  {"aliases":["SUNSHINE SERVICES"],"adresse":"RN9 Saint Pierre","codePostal":"34800","ville":"Ceyras","departement":"34","source":"https://www.mamaison-online.com/contactez-nous/"},
-  {"aliases":["COSTAMAGNA CAGNES","COSTAMAGNA CAGNES SUR MER"],"adresse":"Chemin des Travails","codePostal":"06800","ville":"Cagnes-sur-Mer","departement":"06","source":"https://www.costamagna.com/fr/points-de-vente/Cagnes-sur-mer"},
-  {"aliases":["CIFFREO BONA SAINT MAXIME","CIFFREO BONA SAINTE MAXIME"],"adresse":"Route du Plan de la Tour, quartier Camp Ferrat","codePostal":"83120","ville":"Sainte-Maxime","departement":"83","source":"https://www.ciffreobona.fr/depots/depot-var-2343400.html"},
-  {"aliases":["CARRELAGES MERIDIONAUX"],"adresse":"55 avenue de Farciennes, Le Belvédère","codePostal":"30300","ville":"Beaucaire","departement":"30","source":"https://www.carrelages-meridionaux.fr/"}
+  {
+    "aliases": [
+      "LE COMPTOIR DE CERAM",
+      "LE COMPTOIR DE CERAM JACOU"
+    ],
+    "adresse": "4 rue Louis Bréguet",
+    "codePostal": "34830",
+    "ville": "Jacou",
+    "departement": "34",
+    "source": "https://lecomptoirdeceram.fr/carrelage-montpellier",
+    "telephone": "0499627110",
+    "matchAddressFragments": [
+      "Louis Breguet"
+    ],
+    "verifiedLocation": {
+      "lat": 43.658389,
+      "lon": 3.901625,
+      "department": "34",
+      "precision": "housenumber",
+      "label": "4 Rue Louis Breguet 34830 Jacou",
+      "source": "IGN",
+      "addressKey": "4ruelouisbreguet|34830|jacou",
+      "checkedAt": "2026-11-05T03:38:58.796Z"
+    }
+  },
+  {
+    "aliases": [
+      "SUNSHINE SERVICES"
+    ],
+    "adresse": "RN9 Saint Pierre",
+    "codePostal": "34800",
+    "ville": "Ceyras",
+    "departement": "34",
+    "source": "https://www.mamaison-online.com/contactez-nous/",
+    "telephone": "0467446705",
+    "matchAddressFragments": [
+      "Saint Pierre"
+    ],
+    "verifiedLocation": {
+      "lat": 43.659238,
+      "lon": 3.443616,
+      "department": "34",
+      "precision": "municipality",
+      "label": "Ceyras",
+      "source": "IGN",
+      "addressKey": "rn9saintpierre|34800|ceyras",
+      "checkedAt": "2026-11-05T03:38:59.644Z"
+    }
+  },
+  {
+    "aliases": [
+      "COSTAMAGNA CAGNES",
+      "COSTAMAGNA CAGNES SUR MER"
+    ],
+    "adresse": "Chemin des Travails",
+    "codePostal": "06800",
+    "ville": "Cagnes-sur-Mer",
+    "departement": "06",
+    "source": "https://www.costamagna.com/fr/points-de-vente/Cagnes-sur-mer",
+    "branchSpecific": true,
+    "verifiedLocation": {
+      "lat": 43.668455,
+      "lon": 7.137159,
+      "department": "06",
+      "precision": "street",
+      "label": "Chemin des Travails 06800 Cagnes-sur-Mer",
+      "source": "IGN",
+      "addressKey": "chemindestravails|06800|cagnessurmer",
+      "checkedAt": "2026-11-05T03:38:58.787Z"
+    }
+  },
+  {
+    "aliases": [
+      "CIFFREO BONA SAINT MAXIME",
+      "CIFFREO BONA SAINTE MAXIME"
+    ],
+    "adresse": "Route du Plan de la Tour, quartier Camp Ferrat",
+    "codePostal": "83120",
+    "ville": "Sainte-Maxime",
+    "departement": "83",
+    "source": "https://www.ciffreobona.fr/depots/depot-var-2343400.html",
+    "branchSpecific": true,
+    "verifiedLocation": {
+      "lat": 43.31927,
+      "lon": 6.635289,
+      "department": "83",
+      "precision": "municipality",
+      "label": "Sainte-Maxime",
+      "source": "IGN",
+      "addressKey": "routeduplandelatourquartiercampferrat|83120|saintemaxime",
+      "checkedAt": "2026-11-05T03:39:00.028Z"
+    }
+  },
+  {
+    "aliases": [
+      "CARRELAGES MERIDIONAUX"
+    ],
+    "adresse": "55 avenue de Farciennes, Le Belvédère",
+    "codePostal": "30300",
+    "ville": "Beaucaire",
+    "departement": "30",
+    "source": "https://www.carrelages-meridionaux.fr/",
+    "matchAddressFragments": [
+      "Le Belvedere"
+    ],
+    "telephone": "0466592433",
+    "verifiedLocation": {
+      "lat": 43.786319,
+      "lon": 4.601599,
+      "department": "30",
+      "precision": "municipality",
+      "label": "Beaucaire",
+      "source": "IGN",
+      "addressKey": "55avenuedefarcienneslebelvedere|30300|beaucaire",
+      "checkedAt": "2026-11-05T03:39:00.374Z"
+    }
+  },
+  {
+    "aliases": [
+      "BONIFAY la garde"
+    ],
+    "adresse": "873 chemin des Plantades, RD98",
+    "codePostal": "83130",
+    "ville": "La Garde",
+    "departement": "83",
+    "telephone": "0494752286",
+    "source": "https://www.bonifay.fr/agence-la-garde",
+    "matchAddressFragments": [
+      "873 Chemin Des Plantades"
+    ],
+    "branchSpecific": true,
+    "verifiedLocation": {
+      "lat": 43.142473,
+      "lon": 6.021431,
+      "department": "83",
+      "precision": "housenumber",
+      "label": "873 Chemin des Plantades 83130 La Garde",
+      "source": "IGN",
+      "addressKey": "873chemindesplantadesrd98|83130|lagarde",
+      "checkedAt": "2026-11-05T03:38:59.279Z"
+    }
+  },
+  {
+    "aliases": [
+      "BONIFAY tourves"
+    ],
+    "adresse": "Route départementale 7, ZAE Les Ferrages",
+    "codePostal": "83170",
+    "ville": "Tourves",
+    "departement": "83",
+    "telephone": "0494785170",
+    "source": "https://www.bonifay.fr/agence-de-tourves",
+    "matchAddressFragments": [
+      "Route Departementale7",
+      "Route Departementale 7"
+    ],
+    "branchSpecific": true,
+    "verifiedLocation": {
+      "lat": 43.415752,
+      "lon": 5.928692,
+      "department": "83",
+      "precision": "municipality",
+      "label": "Tourves",
+      "source": "IGN",
+      "addressKey": "routedepartementale7zaelesferrages|83170|tourves",
+      "checkedAt": "2026-11-05T03:39:02.094Z"
+    }
+  },
+  {
+    "aliases": [
+      "CASA CERAM CONCEPT"
+    ],
+    "adresse": "1870 avenue Robert Brun, quartier du Camp Laurent",
+    "codePostal": "83500",
+    "ville": "La Seyne-sur-Mer",
+    "departement": "83",
+    "telephone": "0658823797",
+    "source": "https://www.casaceramconcept.fr/contact",
+    "matchAddressFragments": [
+      "Quartier Dit du"
+    ],
+    "branchSpecific": false,
+    "verifiedLocation": {
+      "lat": 43.093325,
+      "lon": 5.879651,
+      "department": "83",
+      "precision": "municipality",
+      "label": "La Seyne-sur-Mer",
+      "source": "IGN",
+      "addressKey": "1870avenuerobertbrunquartierducamplaurent|83500|laseynesurmer",
+      "checkedAt": "2026-11-05T03:39:02.451Z"
+    }
+  },
+  {
+    "aliases": [
+      "Ciffreo Bona sanary"
+    ],
+    "adresse": "773 avenue des Lavandières, ZI Le Baou",
+    "codePostal": "83110",
+    "ville": "Sanary-sur-Mer",
+    "departement": "83",
+    "telephone": "0494742600",
+    "source": "https://www.pagesjaunes.fr/pros/55506777",
+    "sources": [
+      "https://www.pagesjaunes.fr/pros/55506777",
+      "https://www.ciffreobona.fr/depots/depot-var-2575700.html",
+      "https://www.sanary-tourisme.com/je-suis-sur-place/commerces-2/bricolage/4927455_ciffreo-bona/"
+    ],
+    "matchAddressFragments": [
+      "773 Avenue desLavandieres",
+      "773 Avenue des Lavandieres"
+    ],
+    "branchSpecific": true,
+    "notes": "Le CP 83310 était incohérent : adresse Sanary confirmée 83110. Ne pas diriger vers Grimaud.",
+    "verifiedLocation": {
+      "lat": 43.125233,
+      "lon": 5.821113,
+      "department": "83",
+      "precision": "housenumber",
+      "label": "773 Avenue des Lavandières 83110 Sanary-sur-Mer",
+      "source": "IGN",
+      "addressKey": "773avenuedeslavandiereszilebaou|83110|sanarysurmer",
+      "checkedAt": "2026-11-05T03:39:01.383Z"
+    }
+  },
+  {
+    "aliases": [
+      "CAROMAG"
+    ],
+    "adresse": "850 chemin du Plan d'Aillane",
+    "codePostal": "13290",
+    "ville": "Aix-en-Provence",
+    "departement": "13",
+    "telephone": "0660623246",
+    "source": "https://www.caromag.fr/contact/",
+    "matchAddressFragments": [
+      "850 Chemin duPlan d'Aillane",
+      "850 Chemin du Plan d'Aillane",
+      "850 chemin Plan"
+    ],
+    "branchSpecific": false,
+    "verifiedAt": "2026-11-05",
+    "notes": "Adresse showroom officielle confirmée. Mentions légales contient un ancien numéro 50 dans le corps, ne pas reprendre : page contact et en-tête indiquent 850.",
+    "verifiedLocation": {
+      "lat": 43.494298,
+      "lon": 5.37273,
+      "department": "13",
+      "precision": "housenumber",
+      "label": "850 Chemin du Plan d'Aillane 13290 Aix-en-Provence",
+      "source": "IGN",
+      "addressKey": "850cheminduplandaillane|13290|aixenprovence",
+      "checkedAt": "2026-11-05T03:39:01.732Z"
+    }
+  },
+  {
+    "aliases": [
+      "DECOR’HOME AIX",
+      "DECOR'HOME AIX",
+      "DECOR HOME AIX"
+    ],
+    "adresse": "410 chemin du Plan d'Aillane",
+    "codePostal": "13290",
+    "ville": "Aix-en-Provence",
+    "departement": "13",
+    "telephone": "0952976920",
+    "source": "https://decorhomeaix.fr/",
+    "matchAddressFragments": [
+      "410 cheminPlan d'Aillane",
+      "410 chemin Plan d'Aillane",
+      "410 Plan d'Aillane"
+    ],
+    "branchSpecific": true,
+    "verifiedAt": "2026-11-05",
+    "notes": "Adresse et CP 13290 publiés sur accueil officiel. Mentions légales porte CP 13080 contradictoire; accueil et annuaires locaux concordent sur 13290. Téléphone officiel https://decorhomeaix.fr/mentions-legales/.",
+    "verifiedLocation": {
+      "lat": 43.497031,
+      "lon": 5.376963,
+      "department": "13",
+      "precision": "housenumber",
+      "label": "410 Chemin du Plan d'Aillane 13290 Aix-en-Provence",
+      "source": "IGN",
+      "addressKey": "410cheminduplandaillane|13290|aixenprovence",
+      "checkedAt": "2026-11-05T03:39:02.779Z"
+    }
+  },
+  {
+    "aliases": [
+      "CLAIRAZUR SPA aix en provence",
+      "CLAIRAZUR SPA AIX EN PROVENCE",
+      "Clairazur Spa Aix-en-Provence"
+    ],
+    "adresse": "400 avenue du Camp de Menthe",
+    "codePostal": "13090",
+    "ville": "Aix-en-Provence",
+    "departement": "13",
+    "telephone": "0442205460",
+    "source": "https://clairazur.com/localisez-votre-magasin/magasin-spa-provence/",
+    "matchAddressFragments": [
+      "400 Av duCampdeMenthe",
+      "400 Av du Camp de Menthe",
+      "400 avenue Camp de Menthe"
+    ],
+    "branchSpecific": true,
+    "verifiedAt": "2026-11-05",
+    "notes": "CP CRM 13900 à corriger en 13090. Showroom officiel sur rendez-vous uniquement, confirmé PagesJaunes https://www.pagesjaunes.fr/pros/09274358.",
+    "verifiedLocation": {
+      "lat": 43.511129,
+      "lon": 5.415807,
+      "department": "13",
+      "precision": "street",
+      "label": "Avenue du Camp de menthe 13090 Aix-en-Provence",
+      "source": "IGN",
+      "addressKey": "400avenueducampdementhe|13090|aixenprovence",
+      "checkedAt": "2026-11-05T03:39:03.142Z"
+    }
+  },
+  {
+    "aliases": [
+      "EUROCARO"
+    ],
+    "adresse": "Chemin départemental 6, Plan de Campagne",
+    "codePostal": "13170",
+    "ville": "Les Pennes-Mirabeau",
+    "departement": "13",
+    "telephone": "0442021071",
+    "source": "https://www.eurocaro13.fr/contact/",
+    "matchAddressFragments": [
+      "Plan deCampagne",
+      "Plan de Campagne",
+      "Départemental 6",
+      "CD 6"
+    ],
+    "branchSpecific": false,
+    "verifiedAt": "2026-11-05",
+    "notes": "Branche Plan de Campagne entre Castorama et Babou, contre-allée; ne pas confondre avec autre showroom 27 avenue Jean Monnet (tél 0442025878). Commune administrative Les Pennes-Mirabeau confirmée https://www.pappers.fr/entreprise/eurocaro-394733190, le site officiel libelle Plan de Campagne.",
+    "verifiedLocation": {
+      "lat": 43.39829,
+      "lon": 5.326859,
+      "department": "13",
+      "precision": "municipality",
+      "label": "Les Pennes-Mirabeau",
+      "source": "IGN",
+      "addressKey": "chemindepartemental6plandecampagne|13170|lespennesmirabeau",
+      "checkedAt": "2026-11-05T03:39:04.901Z"
+    }
+  },
+  {
+    "aliases": [
+      "CERAMSTONE"
+    ],
+    "adresse": "571 route de Saint-Rémy - RD 571, chemin des Cailloux Ouest",
+    "codePostal": "13630",
+    "ville": "Eyragues",
+    "departement": "13",
+    "telephone": "0488543813",
+    "source": "https://www.pagesjaunes.fr/pros/61586818",
+    "sources": [
+      "https://www.pagesjaunes.fr/pros/61586818",
+      "https://www.societe.com/societe/word-stone-900552860.html",
+      "https://www.bricoman.fr/pub/media/catalog/product/a/6/0/c/decapant_l_pour_pierre_naturelle_1420125_securitylabel.pdf"
+    ],
+    "matchAddressFragments": [
+      "13630 Chem.desCailloux O",
+      "13630 Chem. des Cailloux O",
+      "Cailloux",
+      "Caillaux"
+    ],
+    "branchSpecific": false,
+    "notes": "Le 13630 initial est le code postal, pas un numéro de voie. Adresse actuelle PagesJaunes/RNE recoupée : 571 route de Saint-Rémy, RD571 chemin des Caillaux. Téléphone confirmé par fiche de sécurité du fabricant diffusée par Bricoman. Ancien siège Saint-Rémy transféré à Eyragues le 01/04/2025. Opposition marketing direct affichée PagesJaunes ; conserver pour correction client mais ne pas ajouter aux prospects à démarcher.",
+    "verifiedLocation": {
+      "lat": 43.8431,
+      "lon": 4.844434,
+      "department": "13",
+      "precision": "municipality",
+      "label": "Eyragues",
+      "source": "IGN",
+      "addressKey": "571routedesaintremyrd571chemindescaillouxouest|13630|eyragues",
+      "checkedAt": "2026-11-05T03:39:05.244Z"
+    }
+  },
+  {
+    "aliases": [
+      "CASH CARRELAGE ccl distribution"
+    ],
+    "adresse": "707 boulevard de Léry - ZA Les Playes",
+    "codePostal": "83140",
+    "ville": "Six-Fours-les-Plages",
+    "departement": "83",
+    "telephone": "0494302694",
+    "source": "https://www.pagesjaunes.fr/siret/84232179600018",
+    "sources": [
+      "https://www.pagesjaunes.fr/siret/84232179600018",
+      "https://www.pagesjaunes.fr/annuaire/six-fours-les-plages-83/negoce-de-carrelages-dallages",
+      "https://www.societe.com/societe/ccl-distributions-842321796.html",
+      "https://www.rk2cformation.fr/lien-vente%2Bde%2Bcarrelage%2Bimitation%2Bparquet%2Bgrand%2Bformat%2Bsix%2Bfours%2Bles%2Bplages%2Bcash%2Bcarrelage-27"
+    ],
+    "matchAddressFragments": [
+      "ZaLesPlayes",
+      "Les Playes",
+      "707 boulevard de Lery",
+      "707 boulevard de Léry"
+    ],
+    "branchSpecific": false,
+    "needsBusinessStatusReview": true,
+    "notes": "Adresse certaine commune/département, société CCL DISTRIBUTIONS SIREN842321796 et Cash Carrelage/SOVACA identifiés au707 bd Léry. Liquidation judiciaire étendue à CCL le15/10/2024 d’après publication BODACC reproduite par Societe.com. Ne pas supprimer fiche ni déplacer vers un autre Cash Carrelage. Numéro historique recoupé annuaires/partenaire, activité et numéro opérationnels à confirmer. Le site cashcarrelage.fr n’est plus accessible ; cash-carrelage.fr (avec tiret) ne liste que Draguignan/La Valette/Brignoles, pas preuve du déménagement de Six-Fours.",
+    "verifiedLocation": {
+      "lat": 43.091706,
+      "lon": 5.8176,
+      "department": "83",
+      "precision": "municipality",
+      "label": "Six-Fours-les-Plages",
+      "source": "IGN",
+      "addressKey": "707boulevarddeleryzalesplayes|83140|sixfourslesplages",
+      "checkedAt": "2026-11-05T03:39:05.615Z"
+    }
+  },
+  {
+    "aliases": [
+      "CARRELAGE DESIGN 34"
+    ],
+    "adresse": "33 avenue Ricardo Mazza, PAE La Crouzette",
+    "codePostal": "34630",
+    "ville": "Saint-Thibéry",
+    "departement": "34",
+    "telephone": "0625035611",
+    "source": "https://www.carrelagedesign34.fr/",
+    "sources": [
+      "https://www.carrelagedesign34.fr/",
+      "https://www.cylex-locale.fr/entreprises/carrelage-design-34-13528904.html"
+    ],
+    "matchAddressFragments": [
+      "ZAC",
+      "7 Fonts",
+      "Victor de",
+      "Ricardo Mazza"
+    ],
+    "branchSpecific": false,
+    "notesVerification": "Déménagement Agde vers Saint-Thibéry confirmé par site officiel lu le 05/11/2026 (page désormais renvoie 404), recoupé Cylex mis à jour août 2026. Ancien fixe 0499478864 ne localise plus Agde.",
+    "confirmedRelocation": true,
+    "verifiedLocation": {
+      "lat": 43.394328,
+      "lon": 3.413962,
+      "department": "34",
+      "precision": "municipality",
+      "label": "Saint-Thibéry",
+      "source": "IGN",
+      "addressKey": "33avenuericardomazzapaelacrouzette|34630|saintthibery",
+      "checkedAt": "2026-11-05T03:39:05.957Z"
+    }
+  },
+  {
+    "aliases": [
+      "CARRENOVE CONCEPTION"
+    ],
+    "adresse": "105 chemin du Clapier, bâtiment Empire, ZAC Intermarché Aubépine",
+    "codePostal": "30540",
+    "ville": "Milhaud",
+    "departement": "30",
+    "telephone": "0986797480",
+    "source": "https://www.pagesjaunes.fr/pros/59152527",
+    "sources": [
+      "https://www.pagesjaunes.fr/pros/59152527",
+      "https://www.monbeauvillage.fr/30/30540/milhaud/google-map"
+    ],
+    "matchAddressFragments": [
+      "Empire",
+      "Aubepine",
+      "Aubépine",
+      "Intermarche",
+      "Intermarché"
+    ],
+    "branchSpecific": false,
+    "oppositionMarketing": true,
+    "notesVerification": "Adresse et téléphone PagesJaunes, mise à jour professionnel juillet 2026. PagesJaunes mentionne opposition au marketing direct ; correction d’une fiche existante uniquement.",
+    "verifiedLocation": {
+      "lat": 43.78904,
+      "lon": 4.314801,
+      "department": "30",
+      "precision": "municipality",
+      "label": "Milhaud",
+      "source": "IGN",
+      "addressKey": "105cheminduclapierbatimentempirezacintermarcheaubepine|30540|milhaud",
+      "checkedAt": "2026-11-05T03:39:07.700Z"
+    }
+  },
+  {
+    "aliases": [
+      "COMTAT & ALLARDET aubade"
+    ],
+    "adresse": "640 avenue Joliot Curie, ZI Saint-Césaire",
+    "codePostal": "30900",
+    "ville": "Nîmes",
+    "departement": "30",
+    "telephone": "0466637979",
+    "source": "https://www.espace-aubade.fr/magasins/nimes-70.html",
+    "sources": [
+      "https://www.espace-aubade.fr/magasins/nimes-70.html",
+      "https://www.pappers.fr/entreprise/comtat-allardet-servent-590200432",
+      "https://www.zi-st-cesaire.org/entreprise_comtat--allardet_8.html"
+    ],
+    "matchAddressFragments": [
+      "Saint Cesaire",
+      "SaintCesaire",
+      "Saint-Césaire",
+      "Saint Césaire",
+      "Joliot"
+    ],
+    "branchSpecific": false,
+    "notesVerification": "Rue et téléphone officiels Espace Aubade. CP géographique 30900 confirmé registre société ; Espace Aubade affiche 30000 et association ZI le CEDEX30932. Même adresse 640 avenue Joliot Curie.",
+    "verifiedLocation": {
+      "lat": 43.8322,
+      "lon": 4.3429,
+      "department": "30",
+      "precision": "municipality",
+      "label": "Nîmes",
+      "source": "geo.api.gouv.fr",
+      "addressKey": "640avenuejoliotcuriezisaintcesaire|30900|nimes",
+      "checkedAt": "2026-11-05T03:39:12.904Z"
+    }
+  },
+  {
+    "aliases": [
+      "CONCEPT MOSAIQUE"
+    ],
+    "adresse": "ZAC La Salamane, route de Canet",
+    "codePostal": "34800",
+    "ville": "Clermont-l'Hérault",
+    "departement": "34",
+    "telephone": "0467969799",
+    "source": "https://www.concept-mosaique.com/nous-contacter",
+    "matchAddressFragments": [
+      "Salamane",
+      "la salamane"
+    ],
+    "branchSpecific": false,
+    "verifiedLocation": {
+      "lat": 43.624882,
+      "lon": 3.434616,
+      "department": "34",
+      "precision": "municipality",
+      "label": "Clermont-l'Hérault",
+      "source": "IGN",
+      "addressKey": "zaclasalamaneroutedecanet|34800|clermontlherault",
+      "checkedAt": "2026-11-05T03:39:08.408Z"
+    }
+  },
+  {
+    "aliases": [
+      "DAVID ET FILS tout faire"
+    ],
+    "adresse": "10 rue des Métiers, Village ERO, route d'Orange",
+    "codePostal": "84700",
+    "ville": "Sorgues",
+    "departement": "84",
+    "telephone": "0490396419",
+    "source": "https://www.toutfaire.fr/provence-alpes-cote-d-azur/vaucluse/david-et-fils-sorgues-tout-faire.html",
+    "sources": [
+      "https://www.toutfaire.fr/provence-alpes-cote-d-azur/vaucluse/david-et-fils-sorgues-tout-faire.html",
+      "https://www.davidetfils.fr/"
+    ],
+    "matchAddressFragments": [
+      "VILLAGE ERO",
+      "Village ERO"
+    ],
+    "branchSpecific": false,
+    "verifiedLocation": {
+      "lat": 44.009794,
+      "lon": 4.877015,
+      "department": "84",
+      "precision": "municipality",
+      "label": "Sorgues",
+      "source": "IGN",
+      "addressKey": "10ruedesmetiersvillageeroroutedorange|84700|sorgues",
+      "checkedAt": "2026-11-05T03:39:08.769Z"
+    }
+  },
+  {
+    "aliases": [
+      "DIFFUSION CERAMIQUE"
+    ],
+    "adresse": "35 rue de la Création, ZAC Nicopolis",
+    "codePostal": "83170",
+    "ville": "Brignoles",
+    "departement": "83",
+    "telephone": "0494591422",
+    "source": "https://www.diffusionceramique.com/contact",
+    "matchAddressFragments": [
+      "35 Rue Creation",
+      "35 Rue Création",
+      "35 rue de la Création",
+      "35RueCreation"
+    ],
+    "branchSpecific": false,
+    "verifiedLocation": {
+      "lat": 43.405995,
+      "lon": 6.073657,
+      "department": "83",
+      "precision": "municipality",
+      "label": "Brignoles",
+      "source": "IGN",
+      "addressKey": "35ruedelacreationzacnicopolis|83170|brignoles",
+      "checkedAt": "2026-11-05T03:39:10.157Z"
+    }
+  },
+  {
+    "aliases": [
+      "MERCIER CARRELAGES"
+    ],
+    "adresse": "56 chemin de Saint-Étienne d'Alensac, Rocade Est",
+    "codePostal": "30100",
+    "ville": "Alès",
+    "departement": "30",
+    "telephone": "0466867578",
+    "source": "https://merciercarrelages.fr/content/4-boutique",
+    "matchAddressFragments": [
+      "rocade est",
+      "rocadeest",
+      "Alensac"
+    ],
+    "branchSpecific": false,
+    "verifiedLocation": {
+      "lat": 44.125356,
+      "lon": 4.089242,
+      "department": "30",
+      "precision": "municipality",
+      "label": "Alès",
+      "source": "IGN",
+      "addressKey": "56chemindesaintetiennedalensacrocadeest|30100|ales",
+      "checkedAt": "2026-11-05T03:39:10.513Z"
+    }
+  },
+  {
+    "aliases": [
+      "PEREZ CARRELAGES"
+    ],
+    "adresse": "Aire Ventouse, avenue des Amandiers",
+    "codePostal": "34420",
+    "ville": "Villeneuve-lès-Béziers",
+    "departement": "34",
+    "telephone": "0467399239",
+    "source": "https://www.perezcarrelage.com/nous-contacter",
+    "sources": [
+      "https://www.perezcarrelage.com/nous-contacter",
+      "https://www.perezcarrelage.com/content/7-contact",
+      "https://www.alsaflooring.com/revendeurs/"
+    ],
+    "matchAddressFragments": [
+      "Aire Ventouse",
+      "AireVentouse",
+      "Amandiers"
+    ],
+    "branchSpecific": false,
+    "verifiedLocation": {
+      "lat": 43.324569,
+      "lon": 3.280901,
+      "department": "34",
+      "precision": "municipality",
+      "label": "Villeneuve-lès-Béziers",
+      "source": "IGN",
+      "addressKey": "aireventouseavenuedesamandiers|34420|villeneuvelesbeziers",
+      "checkedAt": "2026-11-05T03:39:10.849Z"
+    }
+  },
+  {
+    "aliases": [
+      "RICHARD CARRELAGES"
+    ],
+    "adresse": "6 rue du Gua, ZI Sud",
+    "codePostal": "34880",
+    "ville": "Lavérune",
+    "departement": "34",
+    "telephone": "0467274744",
+    "source": "https://www.richard-carrelages.com/contact-page/",
+    "matchAddressFragments": [
+      "ZI Sud",
+      "ZISud",
+      "Gua"
+    ],
+    "branchSpecific": false,
+    "verifiedLocation": {
+      "lat": 43.586196,
+      "lon": 3.804882,
+      "department": "34",
+      "precision": "municipality",
+      "label": "Lavérune",
+      "source": "IGN",
+      "addressKey": "6rueduguazisud|34880|laverune",
+      "checkedAt": "2026-11-05T03:39:12.258Z"
+    }
+  },
+  {
+    "aliases": [
+      "UNION MATÉRIAUX MONTPELLIER"
+    ],
+    "adresse": "287 avenue de Boirargues",
+    "codePostal": "34000",
+    "ville": "Montpellier",
+    "departement": "34",
+    "telephone": "0467208020",
+    "source": "https://union-materiaux.fr/agences/union-materiaux-montpellier-carrelage/",
+    "sources": [
+      "https://union-materiaux.fr/agences/union-materiaux-montpellier-carrelage/",
+      "https://www.guardindustrie.com/nos-distributeurs-pro/"
+    ],
+    "matchAddressFragments": [
+      "Boirargues",
+      "CS19001",
+      "CS 19001",
+      "287"
+    ],
+    "branchSpecific": true,
+    "notesVerification": "34965 Montpellier CEDEX2/CS19001 est l'adresse postale. Même lieu géographique 287 avenue de Boirargues 34000 Montpellier. Téléphone standard 0467208020 d’après fournisseur officiel Guard Industrie, téléphone carrelage 0467208036 ; ne pas substituer le service showroom au standard existant.",
+    "verifiedLocation": {
+      "lat": 43.603274,
+      "lon": 3.90053,
+      "department": "34",
+      "precision": "housenumber",
+      "label": "287 Avenue de Boirargues 34000 Montpellier",
+      "source": "IGN",
+      "addressKey": "287avenuedeboirargues|34000|montpellier",
+      "checkedAt": "2026-11-05T03:39:11.536Z"
+    }
+  },
+  {
+    "aliases": [
+      "IN'D&CO"
+    ],
+    "adresse": "4 rue de Courtine, ZAC des Étangs",
+    "codePostal": "13920",
+    "ville": "Saint-Mitre-les-Remparts",
+    "departement": "13",
+    "telephone": "0980314211",
+    "source": "https://indecocarrelage.fr/contact/",
+    "matchAddressFragments": [
+      "4 Rue Courtine",
+      "Courtine"
+    ],
+    "branchSpecific": false,
+    "verifiedAt": "2026-11-05",
+    "verifiedLocation": {
+      "lat": 43.453126,
+      "lon": 5.018587,
+      "department": "13",
+      "precision": "municipality",
+      "label": "Saint-Mitre-les-Remparts",
+      "source": "IGN",
+      "addressKey": "4ruedecourtinezacdesetangs|13920|saintmitrelesremparts",
+      "checkedAt": "2026-11-05T03:39:12.952Z"
+    }
+  },
+  {
+    "aliases": [
+      "LE SHOWROMM CARRELAGE la ciotat",
+      "LE SHOWROOM CARRELAGE la ciotat"
+    ],
+    "adresse": "67 avenue du Jujubier, ZI Athélia IV, Le Parc des Falaises",
+    "codePostal": "13600",
+    "ville": "La Ciotat",
+    "departement": "13",
+    "telephone": "0488422586",
+    "source": "https://www.leshowroomcarrelage-laciotat.com/contact",
+    "additionalSources": [
+      "https://www.leshowroom-carrelage.com/contact.html",
+      "https://laciotatentreprendre.fr/directory/le-showroom-carrelage/"
+    ],
+    "matchAddressFragments": [
+      "Athelia",
+      "Athélia",
+      "Zi Athelia 4"
+    ],
+    "branchSpecific": true,
+    "verifiedAt": "2026-11-05",
+    "verifiedLocation": {
+      "lat": 43.189161,
+      "lon": 5.626161,
+      "department": "13",
+      "precision": "municipality",
+      "label": "La Ciotat",
+      "source": "IGN",
+      "addressKey": "67avenuedujujubierziatheliaivleparcdesfalaises|13600|laciotat",
+      "checkedAt": "2026-11-05T03:39:13.658Z"
+    }
+  },
+  {
+    "aliases": [
+      "LE SHOWROOM CARRELAGE"
+    ],
+    "adresse": "Les Terrasses du Careï, 20 route de Sospel",
+    "codePostal": "06500",
+    "ville": "Menton",
+    "departement": "06",
+    "telephone": "0493964968",
+    "source": "https://www.trustup.fr/fr/entreprise/le-showroom-carrelage",
+    "additionalSources": [
+      "https://www.societe.com/societe/outlet-co-890110521.html"
+    ],
+    "matchAddressFragments": [
+      "Les Terrasses du Carei",
+      "Carei",
+      "Careï"
+    ],
+    "branchSpecific": false,
+    "notes": "Adresse et téléphone annuaire concordants avec établissement OUTLET & CO / LE SHOWROOM CARRELAGE. Ne pas confondre avec société homonyme de La Ciotat.",
+    "verifiedAt": "2026-11-05",
+    "verifiedLocation": {
+      "lat": 43.791521,
+      "lon": 7.500604,
+      "department": "06",
+      "precision": "municipality",
+      "label": "Menton",
+      "source": "IGN",
+      "addressKey": "lesterrassesducarei20routedesospel|06500|menton",
+      "checkedAt": "2026-11-05T03:39:14.762Z"
+    }
+  },
+  {
+    "aliases": [
+      "MR BRICOLAGE APT"
+    ],
+    "adresse": "151 avenue de la Gare, RN 100",
+    "codePostal": "84400",
+    "ville": "Apt",
+    "departement": "84",
+    "telephone": "0490048059",
+    "source": "https://magasin.mr-bricolage.fr/15-mr-bricolage-apt",
+    "additionalSources": [
+      "https://www.pays-apt-luberon.fr/commerce/mrbricolage"
+    ],
+    "matchAddressFragments": [
+      "151",
+      "Gare"
+    ],
+    "branchSpecific": true,
+    "notes": "Adresse du localisateur officiel Mr.Bricolage conservée. Aptapro et groupement commerçants utilisent 151 avenue de Lançon pour ce même magasin.",
+    "verifiedAt": "2026-11-05",
+    "verifiedLocation": {
+      "lat": 43.878798,
+      "lon": 5.376042,
+      "department": "84",
+      "precision": "municipality",
+      "label": "Apt",
+      "source": "IGN",
+      "addressKey": "151avenuedelagarern100|84400|apt",
+      "checkedAt": "2026-11-05T03:39:15.413Z"
+    }
+  },
+  {
+    "aliases": [
+      "PISANO MATERIAUX tout faire"
+    ],
+    "adresse": "572 avenue des Palmiers, Le Brusc",
+    "codePostal": "83140",
+    "ville": "Six-Fours-les-Plages",
+    "departement": "83",
+    "telephone": "0494106537",
+    "source": "https://www.toutfairepisano.fr/contact",
+    "additionalSources": [
+      "https://www.pagesjaunes.fr/pros/51650382"
+    ],
+    "matchAddressFragments": [
+      "572",
+      "Palmiers"
+    ],
+    "branchSpecific": false,
+    "verifiedAt": "2026-11-05",
+    "verifiedLocation": {
+      "lat": 43.07754,
+      "lon": 5.808436,
+      "department": "83",
+      "precision": "housenumber",
+      "label": "572 Avenue des Palmiers 83140 Six-Fours-les-Plages",
+      "source": "IGN",
+      "addressKey": "572avenuedespalmierslebrusc|83140|sixfourslesplages",
+      "checkedAt": "2026-11-05T03:39:14.351Z"
+    }
+  },
+  {
+    "aliases": [
+      "SYLVESTRE MATERIAUX l'isle sur la sorgue"
+    ],
+    "adresse": "120 chemin de Cheval Blanc, route de Carpentras",
+    "codePostal": "84800",
+    "ville": "L'Isle-sur-la-Sorgue",
+    "departement": "84",
+    "telephone": "0490382809",
+    "source": "https://sylvestremateriaux.com/content/16-sylvestre-sorgue",
+    "matchAddressFragments": [
+      "120",
+      "Cheval Blanc"
+    ],
+    "branchSpecific": true,
+    "verifiedAt": "2026-11-05",
+    "verifiedLocation": {
+      "lat": 43.91503,
+      "lon": 5.058675,
+      "department": "84",
+      "precision": "municipality",
+      "label": "L'Isle-sur-la-Sorgue",
+      "source": "IGN",
+      "addressKey": "120chemindechevalblancroutedecarpentras|84800|lislesurlasorgue",
+      "checkedAt": "2026-11-05T03:39:15.770Z"
+    }
+  }
 ]
