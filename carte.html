@@ -387,6 +387,8 @@
       let currentFilter = "all";
       let selectedDept = "";
       let allClientData = [];
+      let portfolioClientData = [];
+      let mapProspectData = [];
       let initialMapFramed = false;
       const geocodingPending = new Set();
       const geocodingFailed = new Set();
@@ -452,6 +454,7 @@
             marker.__lrfClientName = item.societe;
             marker.__lrfClientTown = `${item.cp} ${item.ville}`.trim();
             marker.__lrfClientType = kind;
+            marker.__lrfMapProspect = item._mapProspect === true;
 
             const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${item.lat},${item.lon}`;
             const wazeUrl = `https://waze.com/ul?ll=${item.lat},${item.lon}&navigate=yes`;
@@ -472,9 +475,9 @@
                   ${source?'<br><small><a href="'+mapText(source)+'" target="_blank" rel="noopener">Source des coordonnées</a>'+(item.sourceVerifiedAt?' · vérifiée le '+mapText(String(item.sourceVerifiedAt).slice(0,10)):'')+'</small>':''}
                 </div>
                 <div class="popup-actions">
-                  <a href="clients.html?edit=${encodeURIComponent(item.id)}" class="popup-btn btn-fiche">✏️ Fiche ${item.type==='client'?'client':'prospect'}</a>
-                  <button type="button" class="popup-btn btn-fiche lrf-add-tour-map" data-client-id="${encodeURIComponent(item.id)}">➕ Tournée</button>
-                  ${item.unvisited?'<button type="button" class="popup-btn btn-fiche lrf-mark-visited" data-client-id="'+encodeURIComponent(item.id)+'">✓ Marquer comme visité</button>':''}
+                  <a href="${item._mapProspect?'prospects-carte.html':'clients.html'}?edit=${encodeURIComponent(item.id)}" class="popup-btn btn-fiche">✏️ Fiche ${item.type==='client'?'client':'prospect'}</a>
+                  ${item._mapProspect?'':'<button type="button" class="popup-btn btn-fiche lrf-add-tour-map" data-client-id="'+encodeURIComponent(item.id)+'">➕ Tournée</button>'}
+                  ${item.unvisited?'<button type="button" class="popup-btn btn-fiche lrf-mark-visited" data-client-id="'+encodeURIComponent(item.id)+'" data-map-prospect="'+(item._mapProspect?'1':'0')+'">✓ Marquer comme visité</button>':''}
                   <a href="${googleMapsUrl}" target="_blank" rel="noopener" class="popup-btn btn-gps">🧭 Google Maps</a>
                   <a href="${wazeUrl}" target="_blank" rel="noopener" class="popup-btn btn-waze">🚗 Waze</a>
                 </div>
@@ -496,7 +499,7 @@
         if(review){
           review.style.display=pendingAddresses.length?'block':'none';
           document.getElementById('map-address-review-title').textContent='Adresses à vérifier ('+pendingAddresses.length+')';
-          document.getElementById('map-address-review-list').innerHTML=pendingAddresses.map(item=>'<p style="margin:8px 0;font-size:.85rem;"><a href="clients.html?edit='+encodeURIComponent(item.id)+'">'+mapText(item.societe)+'</a><br><small>'+mapText([item.adresse,item.cp,item.ville].filter(Boolean).join(' '))+'</small></p>').join('');
+          document.getElementById('map-address-review-list').innerHTML=pendingAddresses.map(item=>'<p style="margin:8px 0;font-size:.85rem;"><a href="'+(item._mapProspect?'prospects-carte.html':'clients.html')+'?edit='+encodeURIComponent(item.id)+'">'+mapText(item.societe)+'</a><br><small>'+mapText([item.adresse,item.cp,item.ville].filter(Boolean).join(' '))+'</small></p>').join('');
         }
         // Cadrage initial et après un changement de filtre, y compris sur mobile.
         if (visiblePoints.length && (fitView || !initialMapFramed)) {
@@ -510,8 +513,8 @@
       }
 
       // 5. Chargement instantané + Géocodage asynchrone en arrière-plan
-      onSnapshot(collection(db, "clients"), (querySnapshot) => {
-        allClientData = [];
+      function receiveMapSnapshot(querySnapshot,mapProspect=false) {
+        const rows = [];
         const clientsToGeocode = [];
 
         querySnapshot.forEach((docSnap) => {
@@ -521,16 +524,18 @@
 
           const {adresse,cp,ville}=normalizeAddress(data);
           const coords=validateStoredLocation(data);
-          const clientObj={...data,id:docId,societe:data.societe||"Entreprise sans nom",adresse,cp,codePostal:cp,ville,
+          const clientObj={...data,id:docId,_mapProspect:mapProspect,societe:data.societe||"Entreprise sans nom",adresse,cp,codePostal:cp,ville,
             type:String(data.type||'prospect').toLowerCase(),telephone:data.telephone||'',
             lat:coords?.lat??null,lon:coords?.lon??null,unvisited:isUnvisitedProspect(data)};
-          allClientData.push(clientObj);
+          rows.push(clientObj);
           // A repair marked as unresolved is left for review, not retried on every
           // snapshot. A subsequent address change invalidates its old signature.
           const changedAddress=data.geoValidation?.addressKey&&data.geoValidation.addressKey!==addressKey(data);
           if(!coords&&(!data.geoStatus||changedAddress)&&/^\d{5}$/.test(cp)&&ville)clientsToGeocode.push(clientObj);
         });
 
+        if(mapProspect)mapProspectData=rows;else portfolioClientData=rows;
+        allClientData=[...portfolioClientData,...mapProspectData];
         // AFFICHAGE IMMÉDIAT
         renderMarkers();
 
@@ -538,14 +543,19 @@
         if (clientsToGeocode.length > 0) {
           geocodeInBackground(clientsToGeocode);
         }
-      }, error => {
-        console.error("Carte CRM : chargement des clients impossible", error);
-        if (counterEl) counterEl.textContent = "Impossible de charger les clients. Vérifiez la connexion au CRM et actualisez la page.";
+      }
+      onSnapshot(collection(db,'clients'),snapshot=>receiveMapSnapshot(snapshot,false),error=>{
+        console.error('Carte CRM : chargement des clients impossible',error);
+        if(counterEl)counterEl.textContent='Impossible de charger les clients. Vérifiez la connexion au CRM et actualisez la page.';
+      });
+      onSnapshot(collection(db,'crm_map_prospects'),snapshot=>receiveMapSnapshot(snapshot,true),error=>{
+        console.error('Carte CRM : chargement des prospects impossible',error);
+        if(counterEl)counterEl.textContent='Impossible de charger les prospects. Vérifiez la connexion au CRM et actualisez la page.';
       });
 
-      async function markClientVisited(clientId) {
+      async function markClientVisited(clientId,mapProspect=false) {
         return runTransaction(db,async transaction=>{
-          const ref=doc(db,'clients',clientId),snapshot=await transaction.get(ref);
+          const ref=doc(db,mapProspect?'crm_map_prospects':'clients',clientId),snapshot=await transaction.get(ref);
           if(!snapshot.exists())return false;
           const current=snapshot.data();
           if(!activeMapClient(current,clientId)||!isUnvisitedProspect(current))return false;
@@ -563,7 +573,7 @@
         try{
           const clientId=decodeURIComponent(button.dataset.clientId||'');
           if(!clientId)throw new Error('Fiche manquante');
-          const changed=await markClientVisited(clientId);
+          const changed=await markClientVisited(clientId,button.dataset.mapProspect==='1');
           button.textContent=changed?'✓ Visite enregistrée':'Déjà mis à jour';
         }catch(error){
           console.warn('Carte : visite non enregistrée',error);
@@ -601,7 +611,7 @@
       }
       function geocodeInBackground(list) {
         for(const item of list){
-          const key=item.id+'|'+addressKey(item);
+          const key=(item._mapProspect?'crm_map_prospects':'clients')+'|'+item.id+'|'+addressKey(item);
           if(geocodingPending.has(key)||geocodingFailed.has(key))continue;
           geocodingPending.add(key);
           geocodeQueue=geocodeQueue.then(async()=>{
@@ -614,7 +624,7 @@
               if(!result)result=await searchOfficialCommune(item);
               if(!result){geocodingFailed.add(key);return;}
               await runTransaction(db,async transaction=>{
-                const ref=doc(db,'clients',item.id),snapshot=await transaction.get(ref);
+                const ref=doc(db,item._mapProspect?'crm_map_prospects':'clients',item.id),snapshot=await transaction.get(ref);
                 if(!snapshot.exists())return;
                 const current=snapshot.data();
                 if(!activeMapClient(current,item.id))return;

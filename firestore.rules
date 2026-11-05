@@ -11,48 +11,11 @@ service cloud.firestore {
         ];
     }
 
-    function blocksAutomaticLrfCode(data) {
-      return data.get('autoAssignLrfCode', true) == false
-        || data.get('nonVisite', false) == true
-        || data.get('visiteStatus', '') == 'non_visite';
-    }
-
-    function hasNoLrfCode(data) {
-      return data.get('codeClient', null) in [null, '']
-        && data.get('codeLRF', null) in [null, '']
-        && data.get('codeLrf', null) in [null, '']
-        && data.get('code_lrf', null) in [null, '']
-        && (data.get('codesLRF', null) == null
-          || (data.get('codesLRF', null) is list
-            && data.get('codesLRF', []).size() == 0));
-    }
-
     // CRM LE ROY FACTORY : aucune donnée Firestore n'est exposée publiquement.
-    // Un ancien onglet ne doit pas attribuer de code aux prospects non visités.
-    // Les éventuels codes historiques restent inchangés, même lors de leur protection.
-    match /clients/{clientId} {
-      allow read, delete: if isAgent();
-      allow create: if isAgent()
-        && (!blocksAutomaticLrfCode(request.resource.data)
-          || hasNoLrfCode(request.resource.data));
-      allow update: if isAgent()
-        && (!(blocksAutomaticLrfCode(resource.data)
-            || blocksAutomaticLrfCode(request.resource.data))
-          || !request.resource.data.diff(resource.data).affectedKeys()
-            .hasAny(['codeClient', 'codeLRF', 'codeLrf', 'code_lrf', 'codesLRF']));
-    }
-
-    // La sous-collection obligatoire évite que le wildcard récursif v2 (zéro
-    // segment possible) ne contourne la protection du document client lui-même.
-    match /clients/{clientId}/{subcollection}/{document=**} {
+    // Les deux agents authentifiés peuvent lire et modifier les données CRM.
+    // Les Cloud Functions utilisant l'Admin SDK ne sont pas bloquées par ces règles.
+    match /{document=**} {
       allow read, write: if isAgent();
-    }
-
-    // Les règles qui se chevauchent sont combinées par OU : exclure clients
-    // du droit générique, sans changer les droits des autres collections CRM.
-    // Les Cloud Functions utilisant l'Admin SDK restent hors de ces règles.
-    match /{collection}/{document=**} {
-      allow read, write: if isAgent() && collection != 'clients';
     }
   }
 }
