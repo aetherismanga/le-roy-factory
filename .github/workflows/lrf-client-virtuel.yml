@@ -116,6 +116,10 @@ jobs:
         if: steps.gate.outputs.run == 'true' && github.event_name == 'push'
         run: sleep 45
 
+      - name: Verifier les regressions du CRM
+        if: steps.gate.outputs.run == 'true'
+        run: npm run test:crm
+
       - name: Faire naviguer le client virtuel
         if: steps.gate.outputs.run == 'true'
         env:

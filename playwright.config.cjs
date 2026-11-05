@@ -15,6 +15,8 @@ const repeatEach = Math.min(20, Math.max(1, Number.parseInt(process.env.LRF_RUNS
 
 module.exports = defineConfig({
   testDir: './tests',
+  // Node's .test files have their own runner and must not execute at collection time.
+  testMatch: '**/*.spec.{js,cjs,mjs,ts}',
   timeout: 90_000,
   expect: { timeout: 10_000 },
   fullyParallel: false,

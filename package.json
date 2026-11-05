@@ -4,6 +4,7 @@
   "private": true,
   "description": "Tests Playwright du client virtuel LE ROY FACTORY",
   "scripts": {
+    "test:crm": "node --test tests/client-facade.test.mjs tests/client-form-core.test.mjs tests/crm-*.test.mjs",
     "test:e2e": "playwright test",
     "test:e2e:desktop": "playwright test --project=desktop-chrome",
     "test:e2e:mobile": "playwright test --project=iphone-webkit --project=android-chrome",
