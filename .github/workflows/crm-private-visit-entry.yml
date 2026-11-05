@@ -1,0 +1,23 @@
+name: CRM private visit entry
+on:
+  push:
+    branches: ['ops/crm-report-20261105-apt']
+    paths: ['.github/workflows/crm-private-visit-entry.yml']
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - name: Prepare existing service account public encryption key
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}
+        run: |
+          node <<'NODE'
+          const crypto = require('node:crypto');
+          const sa = JSON.parse(process.env.SERVICE_ACCOUNT);
+          if (sa.project_id !== 'le-roy-factory') throw new Error('Unexpected project');
+          const publicKey = crypto.createPublicKey(sa.private_key).export({type:'spki',format:'pem'});
+          console.log('PUBLIC_ENCRYPTION_KEY=' + Buffer.from(publicKey).toString('base64'));
+          NODE
