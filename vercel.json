@@ -9,7 +9,7 @@
       "destination": "https://eliosceramica.com/:path*"
     }
   ],
-  "buildCommand": "npm run build:site",
+  "buildCommand": "node scripts/build-photo-studio-site.mjs",
   "outputDirectory": "public-site",
   "headers": [
     {

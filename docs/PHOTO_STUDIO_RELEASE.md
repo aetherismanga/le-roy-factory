@@ -12,7 +12,7 @@ node scripts/build-photo-studio-site.mjs
 
 Le catalogue et les 329 fichiers de textures sont dérivés et versionnés, sans aucun prix. Pour actualiser leurs sources, voir `PHOTO_STUDIO_CATALOGUE.md`. Les poids ONNX et le binaire WASM (66 Mo) sont des dépendances de build, téléchargées aux URL verrouillées dans `assets/vendor/lrf-photo-studio/manifest.json` et vérifiées en taille et SHA-256. Ils ne sont pas poussés dans Git ; les fichiers JavaScript, configurations, licences et manifeste sont versionnés. La commande dédiée les prépare avant d’appeler le build public existant. Aucun téléchargement de photo vers un serveur, aucune nouvelle infrastructure.
 
-La commande de prévisualisation Vercel doit remplacer le build pour ce seul déploiement par `node scripts/build-photo-studio-site.mjs`, avec sortie `public-site`. Ne pas modifier les paramètres persistants du projet, son domaine ni sa branche de production. Le navigateur reçoit ensuite modèle, runtime et textures depuis la même origine. Le modèle est chargé seulement après l’import d’une photo.
+Sur cette branche, `vercel.json` appelle `node scripts/build-photo-studio-site.mjs`, avec sortie `public-site`. La configuration du dépôt a priorité sur le paramètre de build ponctuel de l’API Vercel ; ce changement est donc nécessaire au lot. Les paramètres persistants du projet, son domaine et la branche de production restent inchangés. Le navigateur reçoit ensuite modèle, runtime et textures depuis la même origine. Le modèle est chargé seulement après l’import d’une photo.
 
 ## Porte de réception
 
