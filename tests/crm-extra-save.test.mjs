@@ -127,6 +127,6 @@ test('direct mail uses the authenticated token and server history once without s
   assert.equal(data.requests[0].headers.Authorization,'Bearer test-token');
   assert.deepEqual(data.requests[0].body.clientIds,['client-exact']);
   assert.equal(data.notices.length,1);
-  assert.match(data.notices[0],/succès/);
+  assert.match(data.notices[0],/pris en charge/);
   assert.equal(data.busy,false);
 });

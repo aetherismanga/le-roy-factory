@@ -178,7 +178,7 @@
 
   <div id="client-modal" class="crm-modal" style="display: none;">
     <div class="modal-content">
-      <button class="modal-close" id="btn-close-modal">&times;</button>
+      <button type="button" class="modal-close" id="btn-close-modal" aria-label="Fermer la fiche">&times;</button>
       <div class="modal-header">
         <h2 id="modal-title">Fiche Client / Prospect</h2>
         <span id="modal-status-badge" class="badge badge-client">Client</span>
@@ -274,22 +274,22 @@
           <ul id="documents-list" class="documents-list"></ul>
         </div>
 
+      </form>
         <div class="modal-footer">
           <button type="button" id="btn-delete-client" style="display:none; margin-right:auto; padding:0.65rem 1rem; border:1px solid #DC2626; border-radius:6px; background:#FEF2F2; color:#B91C1C; font-weight:700; cursor:pointer;">🗑️ Supprimer le client</button>
           <button type="button" id="btn-cancel-modal" class="filter-btn">Annuler</button>
-          <button type="submit" class="btn-primary-gold">💾 Enregistrer la fiche</button>
+          <button type="submit" form="client-form" id="btn-save-client" class="btn-primary-gold">💾 Enregistrer la fiche</button>
         </div>
-      </form>
     </div>
   </div>
 
   <script type="module">
     import { db, auth, getAgentProfile } from "./assets/js/firebase.js";
     import "./assets/js/client-facade.js?v=20261105-audit2";
-    import "./assets/js/crm-moovago.js?v=20261105-audit1";
+    import "./assets/js/crm-moovago.js?v=20261106-crm-unified2";
     import "./assets/js/crm-client-enhancements.js?v=20261105-audit1";
-    import "./assets/js/client-direct-email.js?v=20261105-audit1";
-    import "./assets/js/crm-client-partner-access.js?v=20261105-audit1";
+    import "./assets/js/client-direct-email.js?v=20261106-crm-unified2";
+    import "./assets/js/crm-client-partner-access.js?v=20261106-crm-unified2";
     import { fingerprint, changedFields, assertUnchanged, reconcileList, sameValue, safeDocumentUrl, localDate, matchesClientSearch } from "./assets/js/client-form-core.mjs?v=20261105-audit1";
     import { ready as integrityReady, canonicalId } from "./assets/js/crm-client-integrity.js?v=20261105-audit1";
     import { cloneExtra } from "./assets/js/crm-extra-save-core.mjs";
@@ -485,6 +485,8 @@
         window.dispatchEvent(new CustomEvent('lrf-client-closed'));
       }
 
+      window.LRFClientEditor = { getClient: () => clone(clientsData.find(c => c.id === currentEditingId) || {}) };
+
       window.addEventListener('lrf-request-open-client', event => {
         const id=String(event.detail?.clientId||'').trim();
         if(id) openModal(id);
@@ -640,9 +642,9 @@
         if (!formData.societe) return;
         if (formData.codePostal && !/^\d{5}$/.test(formData.codePostal)) { alert('Veuillez saisir un code postal à 5 chiffres.'); return; }
         const ref=draftClientRef, clientId=ref.id, wasNew=!currentEditingId;
-        const buttons=[...document.querySelectorAll('#client-form button, #btn-close-modal')];
+        const buttons=[...document.querySelectorAll('#client-modal button')];
         saving=true; buttons.forEach(button=>button.disabled=true);
-        const submit=document.querySelector('#client-form button[type="submit"]'), label=submit.textContent;
+        const submit=document.querySelector('#btn-save-client'), label=submit.textContent;
         submit.textContent='Enregistrement…';
         try {
           if (wasNew) {

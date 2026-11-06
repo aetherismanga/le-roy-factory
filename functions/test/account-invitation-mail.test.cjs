@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { sendAccountInvitation, archiveSent } = require('../account-invitation-mail.cjs');
+const { sendAccountInvitation, sendClientMail, archiveSent } = require('../account-invitation-mail.cjs');
 const config = { smtpUser: 'jerome@example.test', smtpPass: 'synthetic-only', fromHeader: 'Jérôme <jerome@example.test>', replyToHeader: 'jerome@example.test' };
 const payload = { bccRecipients: ['client@example.test'], subject: 'Ouverture de compte', textContent: 'Bonjour, voici votre formulaire.', htmlContent: '<p>Bonjour, voici votre formulaire.</p>' };
 
@@ -64,4 +64,14 @@ test('Sent folder is discovered, APPEND is confirmed, TLS and private logging pr
   assert.equal(result.folder, 'INBOX.Envoyés'); assert.equal(closed, true);
   FakeImap.prototype.append = async () => false;
   await assert.rejects(archiveSent(raw, config, FakeImap), /non confirmée/);
+});
+
+test('direct client mail preserves its PDF and records partial recipient acceptance without resending',async()=>{
+  let calls=0,raw;
+  const result=await sendClientMail({...payload,bccRecipients:['client@example.test','refused@example.test'],attachments:[{filename:'devis.pdf',content:Buffer.from('PDF-test').toString('base64'),contentType:'application/pdf'}]},config,{sendMail:async message=>{
+    calls++;raw=message.raw.toString();return{messageId:'partial-message',accepted:['client@example.test'],rejected:['refused@example.test']};
+  }},async()=>({status:'saved',mailbox:config.smtpUser}));
+  assert.equal(calls,1);assert.match(raw,/filename=devis.pdf/);assert.match(raw,/application\/pdf/);
+  assert.equal(result.deliveryStatus,'partial');assert.deepEqual(result.rejected,['refused@example.test']);
+  assert.equal(result.sentCopy.status,'saved');
 });

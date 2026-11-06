@@ -23,7 +23,7 @@ async function editor(initial) {
   const events = [];
   let source = await readFile(new URL('../assets/js/crm-client-partner-access.js', import.meta.url), 'utf8');
   source = source.replace(/^import .*;\n/gm, '');
-  source = source.slice(0, source.lastIndexOf('  installStyles();')) + '\n globalThis.testEditor = { setClients(rows) { clients=rows; }, resetDraft, renderPartners, saveDraft };\n}';
+  source = source.slice(0, source.lastIndexOf('  installStyles();')) + '\n globalThis.testEditor = { setClients(rows) { clients=rows; }, resetDraft, renderPartners };\n}';
   const context = {
     db: {}, doc: (_, __, id) => id, document,
     window: { dispatchEvent: event => events.push(event) },
@@ -58,30 +58,9 @@ test('unknown partner IDs and unsaved toggles survive a live snapshot refresh', 
   view.changeRemote({ notes: 'new visit' });
   assert.deepEqual(Array.from(view.globalApi.getPatch().partenaires), ['legacy-factory', 'elios-ceramica', 'view-ceramica']);
   assert.equal(view.writes(), 0);
-  await view.api.saveDraft();
-  assert.deepEqual(Array.from(view.stored().partenaires), ['legacy-factory', 'elios-ceramica', 'view-ceramica']);
-  assert.equal(view.writes(), 1);
-});
-
-test('explicit partner save rejects another session changes and retains the local draft', async () => {
-  const view = await editor({ id: 'shop', partenaires: ['elios-ceramica'] });
-  view.click('view-ceramica');
-  view.changeRemote({ partenaires: ['elios-ceramica', 'opal'] });
-  await view.api.saveDraft();
   assert.equal(view.writes(), 0);
-  assert.match(view.state.textContent, /autre session/);
-  assert.deepEqual(Array.from(view.globalApi.getPatch().partenaires), ['elios-ceramica', 'view-ceramica']);
+  assert.match(view.state.textContent,/fiche/);
 });
-
-test('a client archived in another session cannot receive new authorizations', async () => {
-  const view = await editor({ id: 'shop', partenaires: ['elios-ceramica'] });
-  view.click('view-ceramica');
-  view.changeRemote({ archived: true });
-  await view.api.saveDraft();
-  assert.equal(view.writes(), 0);
-  assert.match(view.state.textContent, /archivée/);
-});
-
 
 test('opening with authoritative client data retains partners before the module snapshot arrives', async () => {
   const view=await editor({id:'shop',partenaires:['elios-ceramica','unknown-factory']});

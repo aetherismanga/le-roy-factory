@@ -103,24 +103,24 @@ document.addEventListener("click", e => {
   }
 }, true);
 
-import("./account-requests-nav.js?v=20261009-avc1").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
+import("./account-requests-nav.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
 import("./crm-settings-nav.js?v=20260904-1").catch(err => console.error("Erreur chargement sous-menu Paramètres :", err));
 if (currentPage === "clients.html" || currentPage === "comptes-rendus.html") {
   import("./cmr-unified.js?v=20261105-audit1").catch(err => console.error("Erreur chargement CMR unifié :", err));
 }
 if (currentPage === "clients.html") {
-  import("./crm-smart-search.js?v=20261105-audit1").catch(err => console.error("Recherche clients :", err));
+  import("./crm-smart-search.js?v=20261106-crm-unified2").catch(err => console.error("Recherche clients :", err));
   import("./crm-client-dedupe-hotfix.js?v=20261105-audit1").catch(err => console.error("Erreur contrôle doublons clients :", err));
   import("./seed-bilt-annexe-clients.js?v=20260901").catch(err => console.error("Erreur chargement clients Annexe 1 BILT :", err));
-  import("./client-direct-email.js?v=20261105-audit1").catch(err => console.error("Erreur chargement module e-mail client :", err));
-  import("./crm-moovago.js?v=20261105-audit1").catch(err => console.error("Erreur chargement enrichissement CRM :", err));
+  import("./client-direct-email.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement module e-mail client :", err));
+  import("./crm-moovago.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement enrichissement CRM :", err));
   import("./crm-client-enhancements.js?v=20261105-audit1").catch(err => console.error("Erreur chargement améliorations Clients :", err));
-  import("./crm-ui-modern.js?v=20261104-client-shell1").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
+  import("./crm-ui-modern.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
   import("./clients-tournee-ui.js?v=20260903-1").catch(err => console.error("Erreur chargement accès tournées :", err));
-  import("./clients-operations.js?v=20261105-audit1").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
+  import("./clients-operations.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
   import("./client-codes.js?v=20261105-map2").catch(err => console.error("Erreur chargement codes clients LRF :", err));
   import("./clients-export.js?v=20261105-audit1").catch(err => console.error("Erreur chargement impression/export clients :", err));
-  import("./account-form-send.js?v=20261106-sent-copy1").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
+  import("./account-form-send.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
   import("./client-contact-import.js?v=20260904-iphone2").catch(err => console.error("Erreur import contact téléphone :", err));
 }
 if (currentPage === "dashboard.html") {
@@ -128,7 +128,7 @@ if (currentPage === "dashboard.html") {
     .then(() => import("./dashboard-weather-geofix.js?v=20260904-geofix1"))
     .then(() => import("./dashboard-weather-daily.js?v=20260904-weather2"))
     .catch(err => console.error("Erreur chargement horloge / météo dashboard :", err));
-  import("./dashboard-commercial.js?v=20261105-audit1").catch(err => console.error("Erreur chargement dashboard commercial :", err));
+  import("./dashboard-commercial.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement dashboard commercial :", err));
 }
 if (currentPage === "mails-groupes.html") {
   import("./mails-groupes-programmation.js?v=20261105-audit1").catch(err => console.error("Erreur chargement mails programmés :", err));

@@ -1,13 +1,13 @@
 /* LE ROY FACTORY CRM — fiche client mobile : contenu totalement accessible */
 @media (max-width: 900px) {
-  /* La modale devient une vraie page défilable, sans moitié haute figée. */
+  /* Un seul défilement dans le formulaire, actions toujours accessibles. */
   body.crm-body #client-modal.crm-modal {
-    align-items: flex-start !important;
+    align-items: center !important;
     justify-content: center !important;
-    overflow-y: auto !important;
+    overflow-y: hidden !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
-    padding: 6px 6px calc(18px + env(safe-area-inset-bottom)) !important;
+    padding: 6px !important;
     box-sizing: border-box !important;
   }
 
@@ -20,21 +20,22 @@
     width: 100% !important;
     max-width: 100% !important;
     min-height: 0 !important;
-    height: auto !important;
-    max-height: none !important;
+    height: calc(100dvh - 12px) !important;
+    max-height: calc(100dvh - 12px) !important;
+    display: flex !important;
+    flex-direction: column !important;
     margin: 0 !important;
-    padding: 0.9rem 0.9rem calc(1.5rem + env(safe-area-inset-bottom)) !important;
-    overflow: visible !important;
+    padding: 0 !important;
+    overflow: hidden !important;
     transform: none !important;
     border-radius: 16px !important;
   }
 
-  /* Aucun sous-bloc de tête ne doit rester sticky/fixed dans la fiche. */
+  /* Les blocs du formulaire restent dans le flux. */
   body.crm-body #client-modal .modal-header,
   body.crm-body #client-modal .client-detail-header,
   body.crm-body #client-modal .client-summary,
   body.crm-body #client-modal .client-hero,
-  body.crm-body #client-modal form,
   body.crm-body #client-modal .modal-grid-edit {
     position: static !important;
     top: auto !important;
@@ -53,7 +54,7 @@
 
   body.crm-body #client-modal .modal-header h2,
   body.crm-body #client-modal #modal-title {
-    font-size: clamp(1.2rem, 6vw, 1.55rem) !important;
+    font-size: 1.08rem !important;
     line-height: 1.12 !important;
     margin: 0 !important;
     max-width: 100% !important;
@@ -207,16 +208,29 @@
   }
 
   body.crm-body #client-modal .modal-footer {
-    position: static !important;
+    position: relative !important;
+    flex: 0 0 auto !important;
     display: flex !important;
     flex-wrap: wrap !important;
-    gap: 0.65rem !important;
-    margin: 1rem 0 0 !important;
-    padding: 1rem 0 0 !important;
-    background: transparent !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom)) !important;
+    background: #fffdf8 !important;
   }
 
   body.crm-body #client-modal .modal-footer > * {
     min-height: 46px !important;
   }
+}
+
+@media(max-width:900px){
+  body.crm-body #client-modal #client-form{position:relative!important;flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding:0 12px 16px!important;overscroll-behavior:contain}
+  body.crm-body #client-modal.lrf-client-ready .modal-grid-edit.lrf-tab-pane:not(.active){display:none!important}
+  body.crm-body #client-modal .lrf-client-summary{margin:6px 12px 0;grid-template-columns:minmax(0,1fr);gap:5px;flex:0 0 auto}
+  body.crm-body #client-modal .lrf-summary-main{min-height:0;padding:8px 10px;grid-column:auto}
+  body.crm-body #client-modal .lrf-summary-card:not(:last-child){display:none}
+  body.crm-body #client-modal .lrf-summary-card:last-child{min-height:0;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  body.crm-body #client-modal .lrf-summary-card small{margin:0}
+  body.crm-body #client-modal .lrf-tabs{margin:8px 12px 0;flex:0 0 auto}
+  body.crm-body #client-modal .modal-footer #btn-save-client{flex:1;min-height:46px}
 }

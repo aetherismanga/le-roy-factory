@@ -189,11 +189,11 @@ function injectImportUI(){
 
 function injectClientExtras(){
   const form=document.getElementById("client-form"); if(!form||document.getElementById("crm-extra-contacts"))return;
-  const footer=form.querySelector(".modal-footer"); if(!footer)return;
+  const footer=form.querySelector(".modal-footer");
   const wrap=document.createElement("div"); wrap.innerHTML=`
   <div id="crm-extra-contacts" class="crm-extra-section"><div style="display:flex;justify-content:space-between;align-items:center"><h3 class="crm-extra-title">👤 Interlocuteurs</h3><button id="btn-add-contact-crm" type="button" class="btn-add-phone-link">+ Ajouter un interlocuteur</button></div><div id="crm-contacts-list"></div></div>
   <div id="crm-extra-history" class="crm-extra-section"><h3 class="crm-extra-title">🕘 Historique commercial Moovago / CRM</h3><div id="crm-history-list"></div></div>`;
-  footer.insertAdjacentElement("beforebegin",wrap);
+  if(footer)footer.insertAdjacentElement("beforebegin",wrap);else form.appendChild(wrap);
   document.getElementById("btn-add-contact-crm").onclick=()=>{contactDraft.push({prenom:"",nom:"",fonction:"",mobile:"",fixe:"",email:""});renderContacts()};
 }
 function renderContacts(){

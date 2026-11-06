@@ -48,8 +48,8 @@ if(lrfCurrentPage==='clients.html'){
 
 if(lrfCurrentPage==='demandes-clients.html'){import('./elios-order-crm.js?v=20260907-order1').catch(err=>console.error('Erreur commandes ELIOS CRM :',err));}
 if(lrfCurrentPage==='comptes-rendus.html'){import('./comptes-rendus-simple.js?v=20260904-1').catch(err=>console.error('Erreur saisie simple compte-rendu :',err));}
-if(lrfCurrentPage==='nouveau-compte-rendu.html'){import('./nouveau-cr-client-mail.js?v=20260904-1').catch(err=>console.error('Erreur nouveau compte-rendu client/mail :',err));}
-if(new Set(['clients.html','mails-groupes.html']).has(lrfCurrentPage)){import('./mail-archive-enhancer.js?v=20260903-1').catch(err=>console.error('Erreur archivage détaillé des mails :',err));}
+if(lrfCurrentPage==='nouveau-compte-rendu.html'){import('./nouveau-cr-client-mail.js?v=20261106-crm-unified2').catch(err=>console.error('Erreur nouveau compte-rendu client/mail :',err));}
+if(new Set(['clients.html','mails-groupes.html']).has(lrfCurrentPage)){import('./mail-archive-enhancer.js?v=20261106-crm-unified2').catch(err=>console.error('Erreur archivage détaillé des mails :',err));}
 if(lrfCurrentPage==='dashboard.html'){
   import('./dashboard-ui-fixes.js?v=20260903-1').catch(err=>console.error('Erreur correctifs dashboard :',err));
   import('./dashboard-agent-avatar.js?v=20260904-avatar3&media=20261018').catch(err=>console.error('Erreur avatar agent dashboard :',err));
@@ -64,6 +64,6 @@ if(lrfClockPages.has(lrfCurrentPage)){
   }).catch(err=>console.error('Erreur chargement outils horloge du CRM :',err));
 }
 if(new Set(['dashboard.html','clients.html','comptes-rendus.html']).has(lrfCurrentPage)){
-  const loadSmart=()=>import('./crm-smart-search.js?v=20260909-smart4').catch(err=>console.error('Erreur recherche intelligente CRM :',err));
+  const loadSmart=()=>import('./crm-smart-search.js?v=20261106-crm-unified2').catch(err=>console.error('Erreur recherche intelligente CRM :',err));
   if(lrfCurrentPage==='clients.html')lrfClientIntegrityReady.then(loadSmart);else loadSmart();
 }

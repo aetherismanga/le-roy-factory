@@ -1,4 +1,4 @@
-import './mails-groupes-reliability.js?v=20260818-1445';
+import './mails-groupes-reliability.js?v=20261106-crm-unified2';
 
 // Correctif isolé pour l'éditeur des mails groupés :
 // - affiche réellement les images collées dans le navigateur ;

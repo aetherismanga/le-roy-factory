@@ -1,13 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
+import { clientActivity } from '../assets/js/client-activity-core.mjs';
 import { readFile } from 'node:fs/promises';
 
 async function dashboardSandbox(){
   const source=(await readFile(new URL('../assets/js/dashboard-commercial.js',import.meta.url),'utf8'))
     .replace(/^import .*;\s*$/gm,'')
     .replace(/^if\(document\.readyState[\s\S]*$/m,'');
-  const context=vm.createContext({setTimeout,clearTimeout,console:{error(){},warn(){}}});
+  const context=vm.createContext({clientActivity,setTimeout,clearTimeout,console:{error(){},warn(){}}});
   vm.runInContext(`
     const auth={currentUser:null};
     const db={};const PARTNER_CONTACTS={};
