@@ -428,5 +428,15 @@
     "studioAppSha256": "2b6ec38ccee9bf8b4a4298a528e57dc4525bc14982d15289b220723218d4159c",
     "generalAppSha256": "5de5dd4018fbc77e089c731a051932d0a43642216c0aa59b049a830c0a0421f7",
     "animaAppSha256": "884c72a5e677af8a18f0c7300e2b9d956b27d77913b2095f654dda9141a73ad0"
+  },
+  "site": {
+    "opal": {
+      "releaseId": "20261106-opal-cerastone1",
+      "models": 22,
+      "references": 53,
+      "catalogue": "opal-catalogue-interactif.html",
+      "designSource": "Cera Stone OPAL Home",
+      "publicPrices": "TTC"
+    }
   }
 }

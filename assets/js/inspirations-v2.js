@@ -21,7 +21,7 @@
     'Neobath':{slug:'neobath',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/neobath.png',country:'Italie',data:'neobath'},
     'Randal Pro':{slug:'randal-pro',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal.png',country:'Espagne'},
     'Aquahome':{slug:'aquahome',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/aquahome.png',country:'Espagne'},
-    'Opal':{slug:'opal',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/opal.png',country:'Espagne'},
+    'Opal':{slug:'opal',logo:'assets/img/opal-catalogue-2026/opal-wordmark.svg',country:'Espagne'},
     'Bilt':{slug:'bilt',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bilt.png',country:'International'},
     'UPTREND':{slug:'uptrend',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/uptrend.svg',country:'International'},
     'Reitano Rubinetterie':{slug:'reitano-rubinetterie',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/reitano.svg',country:'Italie'}
@@ -135,6 +135,14 @@
     return true;
   }
   function renderProducts(){
+    if(state.partner==='Opal'){
+      count.textContent='Catalogue interactif OPAL Home';
+      productGrid.innerHTML='<section class="opal-selection-catalogue"><a class="opal-full-link" href="opal-catalogue-interactif.html">Ouvrir le catalogue en pleine page ↗</a><div data-opal-catalogue-content></div></section>';
+      const target=productGrid.querySelector('[data-opal-catalogue-content]');
+      import('./opal-catalogue.js?v=20261106-opal-cerastone1').then(module=>{if(target.isConnected)module.renderOpalCatalogue(target);}).catch(()=>{if(target.isConnected)target.innerHTML='<p>Le catalogue ne se charge pas. <a href="opal-catalogue-interactif.html">Réessayer en pleine page</a>.</p>';});
+      return;
+    }
+
     const data=products();const matched=data.filter(match);const visible=state.partner==='Elios Ceramica'&&!state.poolGroup?window.LRF_ELIOS_SELECTION_MODEL.groupPools(matched):matched;const found=visible.slice().sort((a,b)=>String(a.name||a.collection||'').localeCompare(String(b.name||b.collection||''),'fr',{numeric:true,sensitivity:'base'}));
     count.textContent=data.length?`${found.length} ${state.poolGroup?('collection'+(found.length>1?'s':'')+' Pool Surfaces'):state.partner==='Elios Ceramica'?('sélection'+(found.length>1?'s':'')):('produit'+(found.length>1?'s':''))}`:'Catalogue produits à intégrer';
     if(state.partner==="Petracer's"){
@@ -187,6 +195,7 @@
     productGrid.innerHTML=groupHeader+(found.length?found.map(p=>`<article class="product-card-v2" data-id="${esc(p.id)}"><img src="${esc(imageOf(p))}" alt="${esc(state.partner==='Elios Ceramica'?`${p.name} — Elios Ceramica — ${window.LRF_ELIOS_SEARCH_META?.[p.slug]?.effect||p.effect||p.category}`:p.name)}" loading="lazy" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'"><div class="body"><span class="eyebrow">${esc(state.partner)} · ${esc(p.effect||p.category||'Produit')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'')}</p><div class="chips">${[...(p.colorFamilies||[]).slice(0,2),...(p.formats||[]).slice(0,2)].map(x=>`<span>${esc(x)}</span>`).join('')}</div>${p.groupSize?`<span class="pool-group-open">Découvrir les ${p.groupSize} collections →</span>`:''}</div></article>`).join(''):`<div class="empty-partner"><strong>Aucun produit avec ces filtres.</strong><p>Modifiez la recherche, le format, la couleur, l'effet ou la finition.</p></div>`);
   }
   function renderWorkspace(){if(state.partner==="Petracer's")window.LRF_PETRACER_SELECTION?.setCategory?.(state.category);if(state.partner==='Bulbo')window.LRF_BULBO_SELECTION?.setCategory?.(state.category);workspace.dataset.category=state.category;workspace.dataset.partner=state.partner;const p=PARTNERS[state.partner];if(!p){workspace.classList.remove('open');return}workspace.classList.add('open');$('#workspace-logo').src=p.logo;$('#workspace-title').textContent=state.partner;$('#workspace-sub').textContent=state.partner==='Bilt'?'Outillage & systèmes de pose · espace produits dédié':state.poolGroup?'Pool Surfaces · collections piscine':`${p.country} · espace produits dédié`;const allowed=hasAccess(p.slug),isBio=state.partner==='Biopietra';const badge=$('#workspace-pro-badge');badge.style.display='';badge.textContent=allowed?'✓ Tarif PRO accessible':'🔒 Tarif PRO non associé à ce compte';badge.className=`pro-badge${allowed?' allowed':''}`;const link=$('#workspace-pro-link');link.hidden=!allowed;link.style.display=allowed?'inline-flex':'none';link.href=state.partner==='Bilt'&&allowed?'commande-bilt.html':'tarifs-pro.html';link.textContent=state.partner==='Bilt'&&allowed?'Commander BILT':`Voir tarif PRO ${state.partner}`;
+    if(state.partner==='Opal'){badge.textContent='Catalogue · prix publics TTC';badge.className='pro-badge';}
     const isRandal=state.partner==='Randal Pro';
     const filters=$('#v2-filters');
     if(filters){
@@ -195,7 +204,7 @@
       filters.classList.remove('mobile-open');
     }
     const productHint=count?.parentElement?.querySelector('span');
-    if(productHint)productHint.textContent=isRandal?'Choisissez votre meuble et préparez votre commande':'Cliquez sur un produit pour les détails et tarifs PRO';
+    if(productHint)productHint.textContent=state.partner==='Opal'?'Choisissez un modèle et son format':isRandal?'Choisissez votre meuble et préparez votre commande':'Cliquez sur un produit pour les détails et tarifs PRO';
     for(const[id,label]of [['v2-search','Rechercher dans cette sélection'],['v2-format','Filtrer les formats'],['v2-color','Filtrer les couleurs'],['v2-effect','Filtrer les effets'],['v2-finish','Filtrer les finitions']])document.getElementById(id)?.setAttribute('aria-label',label);
     const poolNav=$('#elios-pool-nav');if(poolNav)poolNav.hidden=state.partner!=='Elios Ceramica';
     $('#elios-all-collections')?.setAttribute('aria-pressed',String(!state.poolGroup));$('#elios-pool-collections')?.setAttribute('aria-pressed',String(state.poolGroup));
@@ -276,6 +285,7 @@
   const requestedParams=new URLSearchParams(location.search);
   if(norm(requestedParams.get('partner'))==='reviglass'||requestedParams.get('category')==='mosaique'){state.category='mosaique';state.partner='Reviglass';}
   if(norm(requestedParams.get('partner'))==='bilt'||requestedParams.get('category')==='outillages'){state.category='outillages';state.partner='Bilt';}
+  if(['opal','opalhome'].includes(norm(requestedParams.get('partner')))){state.category='robinetterie';state.partner='Opal';}
   if(norm(requestedParams.get('partner'))==='uptrend'){state.category='sanitaire';state.partner='UPTREND';}
   if(requestedParams.get('category')==='piscine'){state.category='carrelage';state.partner='Elios Ceramica';state.poolGroup=true;}
   renderCategories();renderPartners();renderWorkspace();openRequestedPetracer();openRequestedPecchioli();openRequestedFenice();openRequestedBiopietra();openRequestedBulbo();
