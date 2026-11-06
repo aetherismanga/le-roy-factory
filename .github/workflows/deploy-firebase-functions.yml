@@ -75,6 +75,7 @@ jobs:
           node --test test/bulbo-tariff.test.cjs
           node --test test/opal-catalog.test.cjs
           node --test test/group-mail-history.test.cjs
+          node --test test/account-invitation-mail.test.cjs
           node --test ../scripts/test-comptes-rendus-snapshots.cjs
           node --test ../tests/lrf-order-analytics-contract.test.mjs ../tests/firebase-analytics-release.test.mjs
           node - <<'JS'
@@ -95,7 +96,8 @@ jobs:
           mail_verify_only=changed==['functions/scripts/verify-group-mail-deployment.cjs']
           mail_only=bool(changed) and all(p in ['functions/index.js','functions/group-mail-history.js','functions/scripts/backfill-group-mail-reports.cjs','functions/scripts/verify-group-mail-deployment.cjs','functions/test/group-mail-history.test.cjs'] for p in changed)
           crm_mail_send_only=False
-          if 'functions/index.js' in changed and all(p in ['functions/index.js','functions/scripts/verify-group-mail-deployment.cjs'] for p in changed):
+          account_mail_files=['functions/index.js','functions/account-invitation-mail.cjs','functions/test/account-invitation-mail.test.cjs','functions/package.json','functions/package-lock.json','functions/scripts/verify-group-mail-deployment.cjs']
+          if 'functions/index.js' in changed and all(p in account_mail_files for p in changed):
               try:
                   def outside_send(source):
                       start=source.index('exports.sendGroupEmail = onRequest(')

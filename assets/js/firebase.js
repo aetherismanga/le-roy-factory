@@ -120,7 +120,7 @@ if (currentPage === "clients.html") {
   import("./clients-operations.js?v=20261105-audit1").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
   import("./client-codes.js?v=20261105-map2").catch(err => console.error("Erreur chargement codes clients LRF :", err));
   import("./clients-export.js?v=20261105-audit1").catch(err => console.error("Erreur chargement impression/export clients :", err));
-  import("./account-form-send.js?v=20261105-audit1").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
+  import("./account-form-send.js?v=20261106-sent-copy1").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
   import("./client-contact-import.js?v=20260904-iphone2").catch(err => console.error("Erreur import contact téléphone :", err));
 }
 if (currentPage === "dashboard.html") {

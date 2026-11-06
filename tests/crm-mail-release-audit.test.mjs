@@ -27,6 +27,12 @@ test('a scheduler change in index.js cannot be mistaken for a send-only source c
   assert.equal(result.only,'functions:sendGroupEmail,functions:scheduleGroupEmail,functions:processScheduledEmails');
 });
 
+test('account invitation fix deploys only immediate sending and no data jobs',()=>{
+  const result=targets({changed:['functions/index.js','functions/account-invitation-mail.cjs','functions/test/account-invitation-mail.test.cjs','functions/package.json','functions/scripts/verify-group-mail-deployment.cjs']});
+  assert.equal(result.only,'functions:sendGroupEmail');
+  assert.equal(result.group_mail_backfill,'false'); assert.equal(result.group_mail_consolidation,'false');
+});
+
 test('manual send-only dispatch never selects a scheduler, backfill or consolidation',()=>{
   const result=targets({group:'send-only',event:'workflow_dispatch',changed:['functions/unrelated.js']});
   assert.equal(result.only,'functions:sendGroupEmail');assert.equal(result.group_mail_backfill,'false');assert.equal(result.group_mail_consolidation,'false');

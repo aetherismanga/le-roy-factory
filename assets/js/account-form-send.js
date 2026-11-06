@@ -77,11 +77,12 @@ async function sendForm(){
     const token=await auth.currentUser?.getIdToken();
     if(!token)throw new Error('Votre session a expiré. Reconnectez-vous au CRM avant d’envoyer le formulaire.');
     const html=`<div style="font-family:Arial,sans-serif;white-space:pre-line;line-height:1.6">${esc(text).replace(/\n/g,'<br>')}</div>`;
-    const r=await fetch(SEND,{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({senderMode:'both',bccRecipients:[email],subject,htmlContent:html,attachments:[],clientIds:client?.id?[client.id]:[]})});
+    const r=await fetch(SEND,{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({mailKind:'account-invitation',senderMode:'both',bccRecipients:[email],subject,textContent:text,htmlContent:html,attachments:[],clientIds:client?.id?[client.id]:[]})});
     const result=await r.json().catch(()=>({}));
     if(r.status===401)throw new Error('Votre session a expiré. Reconnectez-vous au CRM avant d’envoyer le formulaire.');
     if(!r.ok||!result.success)throw new Error(result.error||'Échec de l’envoi');
-    alert('Formulaire envoyé au client.');sendingForm=false;closeDialog();
+    const copy=result.sentCopy?.status==='saved'?'Une copie est enregistrée dans les messages envoyés de '+result.sentCopy.mailbox+' (messagerie OVH).':'La copie dans les messages envoyés n’a pas été confirmée. Ne renvoyez pas le message pour cette seule raison.';
+    alert('Message pris en charge par le serveur pour '+email+'. La réception chez le client n’est pas encore confirmée.\n\n'+copy+'\n\nL’envoi automatique du CRM n’est pas synchronisé avec les messages envoyés Gmail.');sendingForm=false;closeDialog();
   }catch(e){console.error(e);alert(e.message||'Impossible d’envoyer le formulaire.');}
   finally{sendingForm=false;btn.disabled=false;btn.textContent='Envoyer au client';}
 }

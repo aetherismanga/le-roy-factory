@@ -134,10 +134,23 @@ exports.sendGroupEmail = onRequest({
 
   const payload = req.body || {};
   try {
-    const info = await sendPayload(payload);
+    let info;
+    if (payload.mailKind === 'account-invitation') {
+      const config = smtpConfig(payload.senderMode);
+      const transporter = nodemailer.createTransport({
+        host: 'ssl0.ovh.net', port: 465, secure: true,
+        auth: { user: config.smtpUser, pass: config.smtpPass },
+        connectionTimeout: 15000, greetingTimeout: 15000, socketTimeout: 45000
+      });
+      const { sendAccountInvitation } = require('./account-invitation-mail.cjs');
+      info = await sendAccountInvitation(payload, config, transporter);
+    } else {
+      info = await sendPayload(payload);
+    }
     const historyRef = await writeMailHistory(payload, {
       statut: "Succès",
       messageId: info?.messageId || null,
+      ...(info.sentCopy ? { sentCopy: info.sentCopy, deliveryStatus: info.deliveryStatus, mailKind: payload.mailKind } : {}),
       typeEnvoi: "immediat",
       sentAt: admin.firestore.FieldValue.serverTimestamp(),
       authenticatedAgent: agent.email
@@ -154,7 +167,7 @@ exports.sendGroupEmail = onRequest({
       console.warn("Compte-rendu du mail non bloquant:", err.message);
     });
     // success describes SMTP acceptance; historyRecorded describes storage only.
-    res.status(200).json({ success: true, historyId: historyRef?.id || null, historyRecorded: Boolean(historyRef), messageId: info?.messageId || null });
+    res.status(200).json({ success: true, historyId: historyRef?.id || null, historyRecorded: Boolean(historyRef), messageId: info?.messageId || null, ...(info.sentCopy ? { sentCopy: info.sentCopy, deliveryStatus: info.deliveryStatus } : {}) });
   } catch (error) {
     console.error("Erreur d'envoi:", error);
     await writeMailHistory(payload, {
