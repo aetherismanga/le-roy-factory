@@ -47,7 +47,7 @@ async function load() {
       device: 'wasm',
       dtype: 'q8',
       progress_callback: (event) => {
-        if (event.status === 'progress') progress({ stage: 'download', message: 'Téléchargement du modèle local (44,5 Mo, une seule fois)…', progress: event.progress, loaded: event.loaded, total: event.total });
+        if (event.status === 'progress') progress({ stage: 'download', message: 'Téléchargement du modèle local (44,5 Mo au premier chargement)…', progress: event.progress, loaded: event.loaded, total: event.total });
       },
     });
     // The conversion's config uses an obsolete COCO-Stuff label table and leaves

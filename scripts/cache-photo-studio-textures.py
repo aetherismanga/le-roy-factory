@@ -20,6 +20,7 @@ urls=sorted({reverse.get(url,url) for p in products for key in ['textureFaces','
 checks_path=ROOT/'reports/elios-hd/quercia-publication-checks.json'
 checks=json.loads(checks_path.read_text()).get('assets',[]) if checks_path.exists() else []
 expected={item['publishedFilename']:item['expectedSHA256'] for item in checks}
+expected_urls={face['url']:face['sha256'] for p in products for face in p.get('textureProvenance',{}).get('expectedFaces',[])}
 def fetch(url):
     parsed=urlsplit(url)
     if parsed.scheme!='https' or parsed.hostname!='firebasestorage.googleapis.com' or not parsed.path.startswith('/v0/b/le-roy-factory.firebasestorage.app/o/'):
@@ -36,7 +37,7 @@ def fetch(url):
         data=response.read(12_000_001)
         if len(data)>12_000_000:raise ValueError('Texture exceeds file limit')
     digest=hashlib.sha256(data).hexdigest()
-    known=expected.get(Path(object_name).name)
+    known=expected_urls.get(url) or expected.get(Path(object_name).name)
     if known and digest!=known:raise ValueError('Quercia publication SHA256 mismatch')
     with Image.open(io.BytesIO(data)) as im:
         size=list(im.size);im.verify()

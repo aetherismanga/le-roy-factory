@@ -18,7 +18,7 @@ test('at least five existing genuine Elios and View variants, never price fields
  const forbidden=/price|prix|purchase|tariff|cost|tokenSecret/i;
  const walk=value=>{if(value&&typeof value==='object')for(const [key,item]of Object.entries(value)){assert.ok(!forbidden.test(key),key);walk(item);}};
  walk(catalogue.products);
- for(const p of catalogue.products){assert.ok(p.photoStudioEligible);assert.ok(p.usage.includes('floor'));assert.ok(p.widthMm>0&&p.heightMm>0);assert.ok(p.textureFaces.length);assert.ok(['manufacturer-face','reference-verified-manufacturer-face'].includes(p.textureProvenance.kind));assert.equal(p.patternType,'tiles');}
+ for(const p of catalogue.products){assert.ok(p.photoStudioEligible);assert.ok(p.usage.includes('floor'));assert.ok(p.widthMm>0&&p.heightMm>0);assert.ok(p.textureFaces.length);assert.ok(['manufacturer-face','reference-verified-manufacturer-face','manufacturer-catalogue-full-face'].includes(p.textureProvenance.kind));assert.equal(p.patternType,'tiles');}
 });
 test('unknown colors, missing format, reconstructed texture and nonrectangular shapes remain excluded',()=>{
  const c=JSON.parse(input['shared/lrf-3d/manufacturer-surfaces.json']),p=JSON.parse(input['shared/lrf-3d/commercial-surfaces.json']).products.find(p=>p.key==='ELIOS|00Y2C00');
@@ -52,4 +52,13 @@ test('all eligible textures are byte-for-byte same-origin assets and preserve th
  const cache=JSON.parse(input['assets/js/lrf-photo-studio/texture-cache.json']).assets;
  const byPath=new Map(Object.values(cache).map(value=>[value.path,value]));
  for(const p of catalogue.products){assert.equal(p.sameOriginTextures,true,p.id);for(const url of new Set([...p.textureFaces,...p.workingTextureFaces])){assert.ok(url.startsWith('/assets/img/lrf-photo-studio/textures/'));const entry=byPath.get(url);assert.ok(entry,url);const bytes=readFileSync(new URL('../../'+url.slice(1),import.meta.url));assert.equal(bytes.length,entry.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),entry.sha256);let [w,h]=entry.resolution;if(p.textureRotation%180===90)[w,h]=[h,w];assert.ok(Math.abs(Math.log((w/h)/(p.widthMm/p.heightMm)))<.12,p.id);}}
+});
+
+test('audited Slate full catalogue faces admit only their verified 60x120 variants',()=>{
+ const slate=catalogue.products.filter(p=>p.manufacturer==='ELIOS'&&p.collection==='Slate');assert.equal(slate.length,10);assert.equal(new Set(slate.flatMap(p=>p.textureFaces)).size,30);
+ for(const p of slate){assert.equal(p.format,'60x120');assert.ok(p.reference);assert.equal(p.limitedTextureDefinition,true);assert.equal(p.textureProvenance.kind,'manufacturer-catalogue-full-face');assert.equal(p.textureProvenance.expectedFaces.length,5);assert.equal(p.textureRotation,90);assert.ok(p.textureProvenance.pdfXrefs.every(x=>x>0));assert.equal(p.textureProvenance.manufacturer,'Elios Ceramica');}
+ assert.ok(!catalogue.products.some(p=>p.collection==='Slate'&&p.format!=='60x120'));
+ const damaged=JSON.parse(input['tools/configurator-materials/elios-faces.json']);damaged.collections.slate.river[0].xref=0;
+ const blocked=buildCatalogue({...input,'tools/configurator-materials/elios-faces.json':JSON.stringify(damaged)});
+ assert.ok(!blocked.products.some(p=>p.collection==='Slate'&&p.color==='River'));
 });
