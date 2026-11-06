@@ -3,3 +3,56 @@
 @media(max-width:600px){.ps-header{padding:10px 16px;gap:14px;height:78px}.ps-header img{width:84px;height:42px}.ps-header strong{font-size:11px;letter-spacing:.08em}.ps-header span{font-size:12px}.ps-back{font-size:0}.ps-back:after{content:'←';font-size:22px}.ps-shell{padding:0 16px}.ps-steps{gap:24px;padding:18px 0}.ps-steps b{font-size:11px}.ps-steps span{gap:7px;font-size:10px}.ps-notice{font-size:12px;padding:10px 12px;margin:12px 0}.ps-welcome{display:flex;flex-direction:column-reverse;gap:28px;padding:18px 0 32px;align-items:stretch}.ps-intro-art{aspect-ratio:2.2;border-radius:75px 75px 5px 5px;max-height:210px}.ps-intro h1{font-size:39px;line-height:1.12;margin-bottom:16px}.ps-eyebrow{font-size:8px;margin-bottom:14px}.ps-intro>p:not(.ps-eyebrow):not(.ps-help){font-size:14px;line-height:1.5}.ps-import-actions{margin:20px 0 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}.ps-import-actions button{font-size:12px;padding:13px 6px}.ps-help{font-size:11px}.ps-sample{bottom:7%;padding:9px;font-size:6px}.ps-sample i{height:20px;width:20px}.ps-topline{font-size:11px;align-items:flex-start;padding-top:4px}.ps-topline small{font-size:9px}.ps-inline{justify-content:flex-end;gap:2px;max-width:235px}.ps-inline button{font-size:9px;padding:6px;min-height:32px}.ps-toolbar{gap:5px}.ps-toolbar button{font-size:10px;min-height:48px;padding:10px 2px}.ps-zone-bar{display:block}.ps-zone-bar p{margin:0 0 9px;font-size:11px}.ps-zone-bar button{width:100%}.ps-product-summary{font-size:11px;padding:12px 0}.ps-panel{max-height:none;padding:18px 16px 25px}.ps-panel-head h2{font-size:24px}.ps-panel-head{position:static}.ps-filters{grid-template-columns:1fr 1fr;gap:5px 12px}.ps-filters label{margin-bottom:2px}.ps-products{gap:8px}.ps-product strong{font-size:10px}.ps-product span{font-size:9px}.ps-product{padding:6px}.ps-saving{gap:7px}.ps-saving button{font-size:10px}.ps-footer{display:block;font-size:9px;padding:18px 16px}.ps-footer span{display:block;margin:4px 0}.ps-view-scroll{max-height:58dvh}}
 @media(prefers-reduced-motion:no-preference){button{transition:background .12s,border-color .12s}}
 .ps-export-preview{margin:18px 0;padding:16px;background:var(--paper);border:1px solid var(--line);border-radius:10px}.ps-export-preview p{font-size:13px;line-height:1.6}.ps-export-preview a{display:inline-block;color:var(--ink);font-size:13px;margin-right:16px}.ps-export-preview button{font-size:12px}.ps-export-preview img{display:block;width:100%;height:auto;margin-top:16px;border-radius:4px}
+
+/* Photo Studio mobile 2026-11-06: real bottom sheet, thumb-friendly controls and safe areas. */
+.ps-catalogue-view{display:grid;gap:5px;margin:14px 0 8px;padding:10px 12px;background:#f1f3ee;border:1px solid var(--line);border-radius:10px}
+.ps-catalogue-view label{display:flex;align-items:center;gap:8px;margin:0;color:var(--ink);font-weight:700;font-size:12px;min-height:36px;cursor:pointer}
+.ps-catalogue-view input{width:18px;height:18px;accent-color:var(--ink);flex:none}
+.ps-catalogue-view span{font-size:11px;line-height:1.45;color:#657368}
+.ps-product-media{width:100%;aspect-ratio:1.2;overflow:hidden;background:#edeae2;border-radius:7px;display:grid;place-items:center}
+.ps-product-media img{width:100%;height:100%;object-fit:cover;border:0;border-radius:0}
+.ps-no-preview{color:#667166;font-size:11px;padding:10px;text-align:center}
+.ps-product-status{font-size:10px;font-weight:750;color:#345b42;line-height:1.35}
+.ps-product-unavailable{opacity:.9;cursor:default;border-style:dashed;background:#faf9f5}
+.ps-product-unavailable .ps-product-status{color:#7a653e}
+.ps-product-reason{font-size:10px;line-height:1.45;color:#6d7469}
+@media(max-width:950px){
+ .ps-workspace:has(>.ps-panel:not([hidden])){grid-template-columns:minmax(0,1fr)}
+ .ps-panel:not([hidden]){position:fixed;z-index:90;left:0;right:0;top:auto;bottom:0;width:100%;height:min(72dvh,680px);max-height:min(72dvh,680px);overflow-y:auto;overscroll-behavior:contain;border-radius:20px 20px 0 0;background:#fffefa;box-shadow:0 -12px 40px #152c252b;padding:22px max(16px,env(safe-area-inset-right)) calc(24px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));scroll-margin-top:0}
+ .ps-panel.ps-expanded:not([hidden]){height:90dvh;max-height:90dvh}
+ .ps-panel-head{position:sticky;top:-22px;z-index:2;padding:16px 0 12px;background:#fffefa;border-bottom:1px solid var(--line);margin:0 0 12px;touch-action:pan-y}
+ .ps-panel-head::before{content:'';position:absolute;top:0;left:calc(50% - 23px);width:46px;height:5px;border-radius:8px;background:#c2c9c0}
+ .ps-panel-head button{font-size:20px;min-width:44px;min-height:44px}
+ .ps-toolbar{position:sticky;bottom:0;z-index:12;padding:8px 0 calc(8px + env(safe-area-inset-bottom));background:#f6f3ec;border-top:1px solid #d9ded4}
+ .ps-edit-shortcuts:not([hidden]){display:flex;position:sticky;top:0;z-index:11;background:#f6f3ec;padding:6px 0}
+ .ps-products{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .ps-view-scroll{max-height:72dvh}
+}
+@media(max-width:600px){
+ .ps-header{height:64px;gap:10px}
+ .ps-header img{width:77px;height:36px}
+ .ps-header strong{font-size:12px}
+ .ps-header span{font-size:11px}
+ .ps-steps{padding:10px 0;gap:12px;justify-content:space-between}
+ .ps-steps span{gap:4px}
+ .ps-steps b{font-size:10px}
+ .ps-shell{padding:0 12px}
+ .ps-work-main{min-width:0}
+ .ps-topline{align-items:center}
+ .ps-inline button{min-height:40px}
+ .ps-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .ps-product{padding:8px}
+ .ps-product strong{font-size:12px}
+ .ps-product span{font-size:10px}
+ .ps-toolbar{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0 -12px;padding:8px 12px calc(10px + env(safe-area-inset-bottom));}
+ .ps-toolbar button{font-size:12px;min-height:48px;padding:7px 2px}
+ .ps-panel:not([hidden]){height:67dvh;max-height:67dvh}
+ .ps-panel.ps-expanded:not([hidden]){height:90dvh;max-height:90dvh}
+ .ps-view-scroll{max-height:68dvh}
+ .ps-welcome{flex-direction:column;padding-top:12px}
+ .ps-intro-art{order:2;max-height:180px}
+ .ps-intro{order:1}
+ .ps-intro h1{font-size:clamp(29px,8vw,37px);margin-bottom:10px}
+ .ps-import-actions button{font-size:13px;min-height:54px}
+}
+@media(prefers-reduced-motion:no-preference){.ps-panel:not([hidden]){animation:ps-sheet-in .18s ease-out}@keyframes ps-sheet-in{from{transform:translateY(8%);opacity:.94}to{transform:translateY(0);opacity:1}}}

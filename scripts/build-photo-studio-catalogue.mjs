@@ -83,7 +83,17 @@ export function buildCatalogue(input){
  }
  coverage.mirroredAssets=Object.keys(cache).length;
  coverage.sameOriginReady=allProducts.filter(p=>p.photoStudioEligible).every(p=>p.sameOriginTextures);
- return {schema:'lrf-photo-studio-catalogue',version:1,sourceVersion:version,products:allProducts.filter(p=>p.photoStudioEligible),allProducts,coverage};
+ // Keep the full exact commercial catalogue visible without silently treating
+ // manufacturer swatches as verified tile faces. Prices never enter this output.
+ const commercialById=new Map(commercial.map(p=>[p.key,p]));
+ const browseProducts=allProducts.filter(p=>p.manufacturer==='ELIOS'||p.manufacturer==='VIEW').map(p=>({
+  id:p.id,manufacturer:p.manufacturer,collection:p.collection,color:p.color,
+  reference:p.reference,format:p.format,formatLabel:p.formatLabel,finish:p.finish,
+  previewUrl:p.previewUrl||cleanURL(commercialById.get(p.id)?.preview),
+  photoStudioEligible:p.photoStudioEligible,ineligibleCode:p.ineligibleCode,
+  ineligibleReason:p.ineligibleReason
+ }));
+ return {schema:'lrf-photo-studio-catalogue',version:1,sourceVersion:version,products:allProducts.filter(p=>p.photoStudioEligible),browseProducts,allProducts,coverage};
 }
-export function generate({root=ROOT}={}){const input=Object.fromEntries(SOURCES.map(p=>[p,readFileSync(resolve(root,p),'utf8')]));const result=buildCatalogue(input);for(const [path,data]of [['assets/js/lrf-photo-studio/catalogue.json',{schema:result.schema,version:1,sourceVersion:result.sourceVersion,products:result.products,coverage:result.coverage}],['reports/photo-studio/coverage.json',{...result.coverage,products:result.allProducts}]]){mkdirSync(dirname(resolve(root,path)),{recursive:true});writeFileSync(resolve(root,path),JSON.stringify(data)+'\n');}console.log(JSON.stringify({eligible:result.products.length,coverage:result.coverage.manufacturers,sourceVersion:result.sourceVersion}));return result;}
+export function generate({root=ROOT}={}){const input=Object.fromEntries(SOURCES.map(p=>[p,readFileSync(resolve(root,p),'utf8')]));const result=buildCatalogue(input);for(const [path,data]of [['assets/js/lrf-photo-studio/catalogue.json',{schema:result.schema,version:1,sourceVersion:result.sourceVersion,products:result.products,browseProducts:result.browseProducts,coverage:result.coverage}],['reports/photo-studio/coverage.json',{...result.coverage,products:result.allProducts}]]){mkdirSync(dirname(resolve(root,path)),{recursive:true});writeFileSync(resolve(root,path),JSON.stringify(data)+'\n');}console.log(JSON.stringify({eligible:result.products.length,coverage:result.coverage.manufacturers,sourceVersion:result.sourceVersion}));return result;}
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url))generate();
