@@ -1,14 +1,16 @@
 /* LE ROY FACTORY CRM — fiche client mobile : contenu totalement accessible */
 @media (max-width: 900px) {
-  /* Un seul défilement dans le formulaire, actions toujours accessibles. */
+  /* Une fiche entière défile : aucun bandeau ne réduit la zone de lecture. */
   body.crm-body #client-modal.crm-modal {
-    align-items: center !important;
+    align-items: flex-start !important;
     justify-content: center !important;
-    overflow-y: hidden !important;
+    overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
     padding: 6px !important;
     box-sizing: border-box !important;
+    overscroll-behavior-y: contain;
+    scroll-padding-block: 12px;
   }
 
   body.crm-body #client-modal .modal-content {
@@ -19,14 +21,14 @@
     right: auto !important;
     width: 100% !important;
     max-width: 100% !important;
-    min-height: 0 !important;
-    height: calc(100dvh - 12px) !important;
-    max-height: calc(100dvh - 12px) !important;
-    display: flex !important;
-    flex-direction: column !important;
+    min-height: calc(100dvh - 12px) !important;
+    height: auto !important;
+    max-height: none !important;
+    display: block !important;
+    flex: 0 0 auto !important;
     margin: 0 !important;
     padding: 0 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     transform: none !important;
     border-radius: 16px !important;
   }
@@ -104,13 +106,17 @@
     display: none !important;
   }
 
-  /* Burger toujours visible sur smartphone, y compris fiche client ouverte. */
+  /* Le menu reste disponible hors édition ; il ne couvre pas les champs. */
   body.crm-body #crm-mobile-menu-btn {
     display: grid !important;
     position: fixed !important;
     top: 12px !important;
     left: 12px !important;
     z-index: 100040 !important;
+  }
+  body.crm-body:has(#client-modal:not([style*="display: none"])) #crm-mobile-menu-btn,
+  body.crm-body:has(#client-modal:not([style*="display:none"])) #crm-mobile-menu-btn {
+    display: none !important;
   }
 
   /* Le petit logo LRF flottant au milieu n'apporte rien sur smartphone. */
@@ -123,9 +129,9 @@
     display: none !important;
   }
 
-  /* Le titre de fiche laisse la place au burger à gauche et au X à droite. */
+  /* Le titre de fiche laisse la place au X à droite. */
   body.crm-body #client-modal .modal-header {
-    padding-left: 52px !important;
+    padding-left: 14px !important;
   }
 
   /* Barre de recherche / filtres : aucun grand espace vide sur smartphone. */
@@ -202,13 +208,21 @@
     margin: 0 !important;
   }
 
-  /* Sécurité si le navigateur ne gère pas :has() : le contenu garde assez d'espace en bas. */
+  /* Aucun défilement imbriqué : le formulaire grandit avec son contenu. */
   body.crm-body #client-modal #client-form {
-    padding-bottom: 1rem !important;
+    position: static !important;
+    flex: none !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    padding: 0 12px 16px !important;
   }
 
   body.crm-body #client-modal .modal-footer {
-    position: relative !important;
+    position: static !important;
+    top: auto !important;
+    bottom: auto !important;
     flex: 0 0 auto !important;
     display: flex !important;
     flex-wrap: wrap !important;
@@ -216,6 +230,7 @@
     margin: 0 !important;
     padding: 10px 12px calc(10px + env(safe-area-inset-bottom)) !important;
     background: #fffdf8 !important;
+    backdrop-filter: none !important;
   }
 
   body.crm-body #client-modal .modal-footer > * {
@@ -224,7 +239,6 @@
 }
 
 @media(max-width:900px){
-  body.crm-body #client-modal #client-form{position:relative!important;flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding:0 12px 16px!important;overscroll-behavior:contain}
   body.crm-body #client-modal.lrf-client-ready .modal-grid-edit.lrf-tab-pane:not(.active){display:none!important}
   body.crm-body #client-modal .lrf-client-summary{margin:6px 12px 0;grid-template-columns:minmax(0,1fr);gap:5px;flex:0 0 auto}
   body.crm-body #client-modal .lrf-summary-main{min-height:0;padding:8px 10px;grid-column:auto}
