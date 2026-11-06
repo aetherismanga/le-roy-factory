@@ -91,6 +91,13 @@ test('a successful explicit partner save becomes the baseline for the next fiche
   assert.deepEqual(Array.from(e.writes[0].patch.partenaires),['elios','view','opal']);
 });
 
+test('the single fiche save refuses concurrent partner permission changes',async()=>{
+  const baseline={societe:'Magasin',codePostal:'34000',adresse:'1 Rue A',ville:'Montpellier',partenaires:['elios']};
+  const e=await editor({current:{...baseline,partenaires:['elios','opal']},baseline});
+  e.state.window.LRFClientPartnerAccess={getPatch:()=>({partenaires:['elios','view']}),getBaseline:()=>({partenaires:['elios']})};
+  await e.save();assert.equal(e.writes.length,0);assert.match(e.alerts[0],/modifiée ailleurs/);
+});
+
 test('a late direct-link request for the already open client never resets the draft',async()=>{
   const html=await readFile(new URL('../clients.html',import.meta.url),'utf8');
   const start=html.indexOf('function openModal(docId = null)');

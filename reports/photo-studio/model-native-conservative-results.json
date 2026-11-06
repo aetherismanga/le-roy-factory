@@ -1,0 +1,599 @@
+{
+  "modelSha256": "f37d9a5f5c9a3e3b98024ca8617d8435551afd8b7ab4ede935b525547d8f43f4",
+  "modelBytes": 44270443,
+  "runtime": "onnxruntime 1.22.0",
+  "backend": "native CPU, one thread (not browser WASM)",
+  "inputNames": [
+    "pixel_values",
+    "pixel_mask"
+  ],
+  "postprocessor": "exact browser segmentation-mask.mjs through Node.js",
+  "compression": "weight-only-q8-v1; symmetric per-output-channel int8 weights, floating-point activations",
+  "sourceModelSha256": "f41a80cd659d1ae2e4981f2423955d983d28657d747e965ddc980b7768042de1",
+  "limitations": "Native CPU inference, not browser WASM or physical-device performance. Coverage is not annotated accuracy. Explicit high-confidence rug protection removes 9,445 overlapping floor pixels on scene 08, but a residual interior patch still needs manual correction; scenes 09/12/14 have no floor; scene 13 is very partial. Significant disconnected floor components retained without bridging gaps.",
+  "results": [
+    {
+      "image": "01-hard-perspective.jpg",
+      "original": [
+        146,
+        190
+      ],
+      "working": [
+        384,
+        500
+      ],
+      "inferenceMs": 1679,
+      "postprocessMs": 154,
+      "coverage": 0.4329,
+      "confidence": 0.6748,
+      "floorLabelIds": [
+        118
+      ],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 83183,
+        "keptPixels": 83125,
+        "componentCount": 3,
+        "keptComponentCount": 1,
+        "discardedPixels": 58
+      }
+    },
+    {
+      "image": "02-living-seating.jpg",
+      "original": [
+        260,
+        187
+      ],
+      "working": [
+        534,
+        384
+      ],
+      "inferenceMs": 1650,
+      "postprocessMs": 154,
+      "coverage": 0.3183,
+      "confidence": 0.9904,
+      "floorLabelIds": [
+        118
+      ],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 65276,
+        "keptPixels": 65264,
+        "componentCount": 2,
+        "keptComponentCount": 1,
+        "discardedPixels": 12
+      }
+    },
+    {
+      "image": "03-dining-chairs.jpg",
+      "original": [
+        1300,
+        1600
+      ],
+      "working": [
+        384,
+        473
+      ],
+      "inferenceMs": 1443,
+      "postprocessMs": 176,
+      "coverage": 0.0277,
+      "confidence": 0.904,
+      "floorLabelIds": [
+        190
+      ],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 52,
+        "candidatePixels": 5023,
+        "keptPixels": 5023,
+        "componentCount": 1,
+        "keptComponentCount": 1,
+        "discardedPixels": 0
+      }
+    },
+    {
+      "image": "04-dark-dining.jpg",
+      "original": [
+        1600,
+        1143
+      ],
+      "working": [
+        538,
+        384
+      ],
+      "inferenceMs": 1627,
+      "postprocessMs": 158,
+      "coverage": 0.2081,
+      "confidence": 0.994,
+      "floorLabelIds": [
+        190
+      ],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 42993,
+        "keptPixels": 42988,
+        "componentCount": 2,
+        "keptComponentCount": 1,
+        "discardedPixels": 5
+      }
+    },
+    {
+      "image": "05-contrast-pattern.jpg",
+      "original": [
+        1600,
+        1066
+      ],
+      "working": [
+        576,
+        384
+      ],
+      "inferenceMs": 1655,
+      "postprocessMs": 237,
+      "coverage": 0.3696,
+      "confidence": 0.9864,
+      "floorLabelIds": [
+        190
+      ],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 81809,
+        "keptPixels": 81747,
+        "componentCount": 4,
+        "keptComponentCount": 1,
+        "discardedPixels": 62
+      }
+    },
+    {
+      "image": "06-bright-living.jpg",
+      "original": [
+        1600,
+        1131
+      ],
+      "working": [
+        543,
+        384
+      ],
+      "inferenceMs": 1611,
+      "postprocessMs": 245,
+      "coverage": 0.4093,
+      "confidence": 0.9938,
+      "floorLabelIds": [
+        190
+      ],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 85347,
+        "keptPixels": 85347,
+        "componentCount": 1,
+        "keptComponentCount": 1,
+        "discardedPixels": 0
+      }
+    },
+    {
+      "image": "07-no-floor-texture.jpg",
+      "original": [
+        192,
+        190
+      ],
+      "working": [
+        388,
+        384
+      ],
+      "inferenceMs": 1331,
+      "postprocessMs": 137,
+      "coverage": 0,
+      "confidence": 0,
+      "floorLabelIds": [],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 0,
+        "keptPixels": 0,
+        "componentCount": 0,
+        "keptComponentCount": 0,
+        "discardedPixels": 0
+      }
+    },
+    {
+      "image": "08-commons.jpg",
+      "original": [
+        1920,
+        1749
+      ],
+      "working": [
+        422,
+        384
+      ],
+      "inferenceMs": 1424,
+      "postprocessMs": 190,
+      "coverage": 0.224,
+      "confidence": 0.9917,
+      "floorLabelIds": [
+        190
+      ],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 9445,
+        "candidatePixels": 36419,
+        "keptPixels": 36297,
+        "componentCount": 14,
+        "keptComponentCount": 7,
+        "discardedPixels": 122
+      }
+    },
+    {
+      "image": "09-commons.jpg",
+      "original": [
+        1920,
+        1440
+      ],
+      "working": [
+        512,
+        384
+      ],
+      "inferenceMs": 1600,
+      "postprocessMs": 167,
+      "coverage": 0,
+      "confidence": 0,
+      "floorLabelIds": [],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 0,
+        "keptPixels": 0,
+        "componentCount": 0,
+        "keptComponentCount": 0,
+        "discardedPixels": 0
+      }
+    },
+    {
+      "image": "10-commons.jpg",
+      "original": [
+        1920,
+        1453
+      ],
+      "working": [
+        507,
+        384
+      ],
+      "inferenceMs": 1571,
+      "postprocessMs": 160,
+      "coverage": 0.2214,
+      "confidence": 0.9339,
+      "floorLabelIds": [
+        118
+      ],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 43123,
+        "keptPixels": 43103,
+        "componentCount": 3,
+        "keptComponentCount": 2,
+        "discardedPixels": 20
+      }
+    },
+    {
+      "image": "11-commons.jpg",
+      "original": [
+        1920,
+        1277
+      ],
+      "working": [
+        577,
+        384
+      ],
+      "inferenceMs": 1894,
+      "postprocessMs": 179,
+      "coverage": 0.0533,
+      "confidence": 0.9905,
+      "floorLabelIds": [
+        190
+      ],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 40,
+        "candidatePixels": 11812,
+        "keptPixels": 11812,
+        "componentCount": 1,
+        "keptComponentCount": 1,
+        "discardedPixels": 0
+      }
+    },
+    {
+      "image": "12-commons.jpg",
+      "original": [
+        1920,
+        1277
+      ],
+      "working": [
+        577,
+        384
+      ],
+      "inferenceMs": 2296,
+      "postprocessMs": 173,
+      "coverage": 0,
+      "confidence": 0,
+      "floorLabelIds": [],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 0,
+        "keptPixels": 0,
+        "componentCount": 0,
+        "keptComponentCount": 0,
+        "discardedPixels": 0
+      }
+    },
+    {
+      "image": "13-commons.jpg",
+      "original": [
+        1920,
+        1440
+      ],
+      "working": [
+        512,
+        384
+      ],
+      "inferenceMs": 1824,
+      "postprocessMs": 226,
+      "coverage": 0.0074,
+      "confidence": 0.8478,
+      "floorLabelIds": [
+        118
+      ],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 1454,
+        "keptPixels": 1454,
+        "componentCount": 1,
+        "keptComponentCount": 1,
+        "discardedPixels": 0
+      }
+    },
+    {
+      "image": "14-commons.jpg",
+      "original": [
+        1920,
+        1440
+      ],
+      "working": [
+        512,
+        384
+      ],
+      "inferenceMs": 1782,
+      "postprocessMs": 171,
+      "coverage": 0,
+      "confidence": 0,
+      "floorLabelIds": [],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 0,
+        "keptPixels": 0,
+        "componentCount": 0,
+        "keptComponentCount": 0,
+        "discardedPixels": 0
+      }
+    },
+    {
+      "image": "15-commons.jpg",
+      "original": [
+        1920,
+        1440
+      ],
+      "working": [
+        512,
+        384
+      ],
+      "inferenceMs": 1646,
+      "postprocessMs": 116,
+      "coverage": 0.2136,
+      "confidence": 0.9852,
+      "floorLabelIds": [
+        118
+      ],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 41988,
+        "keptPixels": 41988,
+        "componentCount": 1,
+        "keptComponentCount": 1,
+        "discardedPixels": 0
+      }
+    },
+    {
+      "image": "16-no-floor-photo-crop.jpg",
+      "original": [
+        1920,
+        446
+      ],
+      "working": [
+        640,
+        149
+      ],
+      "inferenceMs": 800,
+      "postprocessMs": 88,
+      "coverage": 0,
+      "confidence": 0,
+      "floorLabelIds": [],
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 0,
+        "keptPixels": 0,
+        "componentCount": 0,
+        "keptComponentCount": 0,
+        "discardedPixels": 0
+      }
+    }
+  ],
+  "date": "2026-11-06"
+}

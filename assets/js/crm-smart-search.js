@@ -109,7 +109,7 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
   function rankClients(list, query, limit = 8) {
     const q = String(query || '').trim();
     if (compact(q).length < 2) return [];
-    return list.map(c => {
+    const ranked = list.map(c => {
       const fields = [c.societe, c.codeClient, c.ville, c.codePostal || c.code_postal, c.contact, c.telephone, ...(Array.isArray(c.telephones) ? c.telephones : []), ...(Array.isArray(c.codesLRF) ? c.codesLRF : [])].filter(Boolean);
       let best = 0;
       fields.forEach(v => { best = Math.max(best, score(q, v)); });
@@ -118,6 +118,8 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
     }).filter(x => accepted(q, x.s))
       .sort((a, b) => b.s - a.s || String(a.c.societe || '').localeCompare(String(b.c.societe || ''), 'fr'))
       .slice(0, limit);
+    const precise=ranked.filter(item=>item.s>=.9);
+    return precise.length?precise:ranked;
   }
 
   function installStyles() {
@@ -144,37 +146,10 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
   }
 
   async function enhanceDashboard() {
-    const input = document.getElementById('crm-global-search');
-    const box = document.getElementById('crm-global-results');
-    if (!input || !box || input.dataset.smartSearch === '1') return;
-    input.dataset.smartSearch = '1';
-    const list = await clients();
-
-    const inject = () => {
-      const q = input.value.trim();
-      box.querySelectorAll('[data-lrf-smart-client]').forEach(el => el.remove());
-      if (compact(q).length < 2) return;
-      const hits = rankClients(list, q, 6);
-      if (!hits.length) return;
-      box.querySelectorAll('.dash-search-empty').forEach(el => el.remove());
-      const existing = new Set([...box.querySelectorAll('a[href*="clients.html?edit="]')].map(a => a.getAttribute('href')));
-      const frag = document.createDocumentFragment();
-      hits.slice().reverse().forEach(({c}) => {
-        const href = `clients.html?edit=${encodeURIComponent(c.id)}`;
-        if (existing.has(href)) return;
-        const a = document.createElement('a');
-        a.className = 'dash-search-result';
-        a.dataset.lrfSmartClient = '1';
-        a.href = href;
-        a.innerHTML = `<span class="dash-search-icon">👥</span><span><b>${esc(c.societe || 'Client')}</b><small>${esc([c.codeClient, c.ville, c.codePostal || c.code_postal].filter(Boolean).join(' · '))}</small></span><span class="dash-search-kind">Client</span>`;
-        frag.insertBefore(a, frag.firstChild);
-      });
-      box.insertBefore(frag, box.firstChild);
-      box.classList.add('open');
-    };
-    input.addEventListener('input', () => setTimeout(inject, 0));
-    input.addEventListener('focus', () => setTimeout(inject, 0));
+    window.dispatchEvent(new CustomEvent('lrf-crm-search-ready'));
   }
+
+  window.LRFCRMSearch = { rankClients };
 
   async function enhanceClientsPage() {
     const input = document.getElementById('search-input');
@@ -194,7 +169,7 @@ if (!window.__LRF_CRM_SMART_SEARCH__) {
       const q = input.value.trim();
       if (compact(q).length < 2) { box.classList.remove('open'); box.innerHTML = ''; return; }
       const hits = rankClients(list, q, 8);
-      box.innerHTML = hits.length ? hits.map(({c}) => `<button type="button" class="lrf-smart-result" data-client-id="${esc(c.id)}"><span><strong>${esc(c.societe || 'Client')}</strong><small>${esc([c.codeClient, c.ville, c.codePostal || c.code_postal].filter(Boolean).join(' · '))}</small></span><span class="lrf-smart-badge">Trouvé</span></button>`).join('') : '';
+      box.innerHTML = hits.length ? hits.map(({c}) => `<button type="button" class="lrf-smart-result" data-client-id="${esc(c.id)}"><span><strong>${esc(c.societe || 'Client')}</strong><small>${esc([c.codeClient, c.ville, c.codePostal || c.code_postal].filter(Boolean).join(' · '))}</small></span><span class="lrf-smart-badge">${String(c.type||'').toLowerCase()==='prospect'?'Prospect':'Client'}</span></button>`).join('') : '';
       box.classList.toggle('open', hits.length > 0);
     };
 

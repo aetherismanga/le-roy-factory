@@ -1,31 +1,34 @@
 {
   "schema": "lrf-photo-studio-model-assets",
-  "version": 1,
+  "version": 2,
   "model": "Xenova/detr-resnet-50-panoptic",
   "revision": "ea24b2d4e0bfae31f0a1299ba3fb892a2df064de",
   "runtime": "@huggingface/transformers@3.8.1",
-  "totalBytes": 67048156,
+  "totalBytes": 66835192,
   "files": [
     {
-      "path": "models/detr-resnet-50-panoptic-ea24b2d/DETR-APACHE-2.0.txt",
+      "path": "models/detr-resnet-50-panoptic-ea24b2d-woq8-v1/DETR-APACHE-2.0.txt",
       "bytes": 11354,
       "sha256": "b208c52b00a2df2c8f4c3298c34407bf2bfe409968213372251c91fcc737a1a5",
       "source": "https://raw.githubusercontent.com/facebookresearch/detr/main/LICENSE"
     },
     {
-      "path": "models/detr-resnet-50-panoptic-ea24b2d/config.json",
+      "path": "models/detr-resnet-50-panoptic-ea24b2d-woq8-v1/config.json",
       "bytes": 11834,
       "sha256": "10f5c1551ee51cce4f18025b364a068784def077f1d29fefab3359c7c0fe909e",
       "source": "https://huggingface.co/Xenova/detr-resnet-50-panoptic/resolve/ea24b2d4e0bfae31f0a1299ba3fb892a2df064de/config.json"
     },
     {
-      "path": "models/detr-resnet-50-panoptic-ea24b2d/onnx/model_quantized.onnx",
-      "bytes": 44483407,
-      "sha256": "93abfec8b8abd77329f203726b231ee5e5d4c2d52c881a74ab1c1134d888c41d",
-      "source": "https://huggingface.co/Xenova/detr-resnet-50-panoptic/resolve/ea24b2d4e0bfae31f0a1299ba3fb892a2df064de/onnx/model_quantized.onnx"
+      "path": "models/detr-resnet-50-panoptic-ea24b2d-woq8-v1/onnx/model_quantized.onnx",
+      "bytes": 44270443,
+      "sha256": "f37d9a5f5c9a3e3b98024ca8617d8435551afd8b7ab4ede935b525547d8f43f4",
+      "source": "https://huggingface.co/Xenova/detr-resnet-50-panoptic/resolve/ea24b2d4e0bfae31f0a1299ba3fb892a2df064de/onnx/model.onnx",
+      "transform": "weight-only-q8-v1",
+      "sourceBytes": 172282717,
+      "sourceSha256": "f41a80cd659d1ae2e4981f2423955d983d28657d747e965ddc980b7768042de1"
     },
     {
-      "path": "models/detr-resnet-50-panoptic-ea24b2d/preprocessor_config.json",
+      "path": "models/detr-resnet-50-panoptic-ea24b2d-woq8-v1/preprocessor_config.json",
       "bytes": 454,
       "sha256": "f40c5d0478854be4a19a29f58a80558b43d3055b42b8288742933d130937c55d",
       "source": "https://huggingface.co/Xenova/detr-resnet-50-panoptic/resolve/ea24b2d4e0bfae31f0a1299ba3fb892a2df064de/preprocessor_config.json"
@@ -60,5 +63,6 @@
       "sha256": "aa5002b70e789798da263f5f99c62bd3e8fcd0c119258a493c40c180648365fa",
       "source": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/dist/transformers.min.js"
     }
-  ]
+  ],
+  "compression": "weight-only-q8-v1; floating-point activations"
 }

@@ -4,8 +4,8 @@ import vm from 'node:vm';
 import { readFileSync } from 'node:fs';
 
 function server({ historyFails=false, smtpFails=false, authorized=true }={}) {
-  const histories=[],smtp=[],logs=[],reports=[],clientUpdates=[];
-  const db={collection:()=>({add:async data=>{histories.push(data);if(historyFails)throw new Error('History offline');return{id:'history-A'};},doc:id=>({id})}),batch:()=>({update:(ref,data)=>clientUpdates.push({ref,data}),commit:async()=>{}})};
+  const histories=[],contents=[],smtp=[],logs=[],reports=[],clientUpdates=[];
+  const db={collection:name=>({add:async data=>{if(name==='historique_mail_content'){contents.push(data);return{id:'content-A'}}histories.push(data);if(historyFails)throw new Error('History offline');return{id:'history-A'};},doc:id=>({id})}),batch:()=>({update:(ref,data)=>clientUpdates.push({ref,data}),commit:async()=>{}})};
   const firestore=()=>db;
   firestore.FieldValue={serverTimestamp:()=>42,arrayUnion:value=>value};
   const modules={
@@ -21,7 +21,7 @@ function server({ historyFails=false, smtpFails=false, authorized=true }={}) {
   vm.runInContext(readFileSync(new URL('../functions/index.js',import.meta.url),'utf8'),context);
   const response={code:0,body:null,set(){},status(code){this.code=code;return this;},json(body){this.body=body;return this;}};
   const request={method:'POST',body:{senderMode:'jerome',bccRecipients:['client@example.test'],subject:'Nouveauté',htmlContent:'<p>Bonjour</p>',attachments:[],clientIds:['client-A']}};
-  return{run:()=>context.exports.sendGroupEmail(request,response),response,histories,smtp,logs,reports,clientUpdates};
+  return{run:()=>context.exports.sendGroupEmail(request,response),response,histories,contents,smtp,logs,reports,clientUpdates};
 }
 
 test('SMTP acceptance remains successful if only its global history write fails',async()=>{
@@ -38,6 +38,8 @@ test('successful mail records exactly one global and one per-client history',asy
   assert.equal(h.smtp.length,1);assert.equal(h.histories.length,1);assert.equal(h.histories[0].statut,'Succès');
   assert.equal(h.response.code,200);assert.equal(h.response.body.historyRecorded,true);assert.equal(h.response.body.historyId,'history-A');
   assert.equal(h.clientUpdates.length,1);assert.equal(h.reports.length,1);
+  assert.equal(h.contents.length,1);assert.equal(h.contents[0].htmlContent,'<p>Bonjour</p>');
+  assert.equal(h.response.body.contentRecorded,true);
 });
 
 test('a real SMTP failure stays an explicit error and writes no success report',async()=>{

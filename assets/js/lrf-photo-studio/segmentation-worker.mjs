@@ -1,11 +1,11 @@
+import { conservativeFloorMask } from './segmentation-mask.mjs?v=20261106-precise-floor-4';
 // Runtime and model are versioned, same-origin assets. No image leaves this device.
-self.postMessage({ type: 'boot', version: '20261106-sameorigin-cachefix-2', moduleUrl: import.meta.url });
+self.postMessage({ type: 'boot', version: '20261106-precise-floor-4', moduleUrl: import.meta.url });
 const VENDOR = new URL('../../vendor/lrf-photo-studio/', import.meta.url);
 const RUNTIME = new URL('runtime-3.8.1/transformers.min.js', VENDOR).href;
-const MODEL_ID = 'detr-resnet-50-panoptic-ea24b2d';
+const MODEL_ID = 'detr-resnet-50-panoptic-ea24b2d-woq8-v1';
 const REVISION = 'ea24b2d4e0bfae31f0a1299ba3fb892a2df064de';
 const FLOOR_IDS = [118, 190];
-const FLOOR_LABELS = new Set(['floor-wood', 'floor-other-merged']);
 let library;
 let segmenter;
 let currentId;
@@ -36,7 +36,8 @@ async function load() {
     // ordinary HTTP caching and the in-memory pipeline still avoid repeat work.
     library.env.useBrowserCache = false;
     // A single WASM thread works without cross-origin isolation, including Safari.
-    // DETR's quantized ConvInteger operators use WASM; WebGPU is not required.
+    // Weight-only compression retains float activations and original operators.
+    // WASM is a consistent fallback across browsers; WebGPU is not required.
     library.env.backends.onnx.wasm.numThreads = 1;
     library.env.backends.onnx.wasm.proxy = false;
     library.env.backends.onnx.wasm.wasmPaths = new URL('runtime-3.8.1/', VENDOR).href;
@@ -47,7 +48,7 @@ async function load() {
       device: 'wasm',
       dtype: 'q8',
       progress_callback: (event) => {
-        if (event.status === 'progress') progress({ stage: 'download', message: 'Téléchargement du modèle local (44,5 Mo au premier chargement)…', progress: event.progress, loaded: event.loaded, total: event.total });
+        if (event.status === 'progress') progress({ stage: 'download', message: 'Téléchargement du modèle local (44,3 Mo au premier chargement)…', progress: event.progress, loaded: event.loaded, total: event.total });
       },
     });
     // The conversion's config uses an obsolete COCO-Stuff label table and leaves
@@ -94,42 +95,30 @@ self.onmessage = async ({ data: job }) => {
     const small = smallImage(new Uint8ClampedArray(job.data), job.width, job.height);
     progress({ stage: 'inference', message: 'Analyse du sol sur cet appareil…', progress: null });
     const started = performance.now();
-    // Panoptic post-processing assigns each pixel to a single class/instance.
-    // Recognized furniture/rugs/walls are excluded. Semantic mistakes still need
-    // the editor's confirmation and correction tools.
+    // One model inference. Preserve all-class panoptic competition, then reject
+    // almost-zero floor probabilities and tiny isolated predictions.
+    // Significant floor islands survive furniture gaps; users can still correct.
     const image = new library.RawImage(small.data, small.width, small.height, 4);
-    const segments = await segmenter(image, {
-      threshold: .6,
-      mask_threshold: .5,
-      overlap_mask_area_threshold: .5,
-      label_ids_to_fuse: FLOOR_IDS,
-      target_sizes: [[small.height, small.width]],
+    const inputs = await segmenter.processor([image]);
+    const outputs = await segmenter.model(inputs);
+    const proposal = conservativeFloorMask({
+      logits: outputs.logits,
+      masks: outputs.pred_masks,
+      width: small.width,
+      height: small.height,
+      floorIds: FLOOR_IDS,
     });
-    const smallMask = new Uint8ClampedArray(small.width * small.height);
-    let scoreSum = 0;
-    let floorPixels = 0;
-    const labels = [];
-    for (const segment of segments) {
-      if (!FLOOR_LABELS.has(segment.label)) continue;
-      labels.push(segment.label);
-      const values = segment.mask.data;
-      for (let i = 0; i < values.length; i++) if (values[i] && !smallMask[i]) {
-        smallMask[i] = 255;
-        scoreSum += segment.score ?? 0;
-        floorPixels++;
-      }
-    }
-    const coverage = floorPixels / smallMask.length;
-    const confidence = floorPixels ? scoreSum / floorPixels : 0;
+    const { mask: smallMask, coverage, confidence, postprocess } = proposal;
+    const labels = proposal.labelIds.map(id => segmenter.model.config.id2label[id]);
     const warning = coverage < .005
       ? 'Aucun sol suffisamment visible n’a été reconnu. Tracez la zone manuellement.'
       : confidence < .75 || coverage < .025
         ? 'Le sol est peu visible ou incertain. Vérifiez et corrigez la zone proposée.'
-        : 'Vérifiez la zone proposée, notamment autour des pieds de meubles et des tapis.';
+        : 'La zone principale du sol est proposée. Ajoutez les parties manquantes et retirez les débordements sur les meubles ou tapis.';
     const mask = upscaleMask(smallMask, small.width, small.height, job.width, job.height);
     const inferenceMs = performance.now() - started;
     self.postMessage({ type: 'result', id: job.id, result: {
-      mask: mask.buffer, width: job.width, height: job.height, coverage, confidence, warning, labels,
+      mask: mask.buffer, width: job.width, height: job.height, coverage, confidence, warning, labels, postprocess,
       timings: { downloadMs: Math.round(downloadMs), inferenceMs: Math.round(inferenceMs), workingWidth: small.width, workingHeight: small.height, backend: 'wasm', threads: 1 },
     } }, [mask.buffer]);
   } catch (error) {

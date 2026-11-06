@@ -3,8 +3,10 @@ export const FLOOR_MODEL = Object.freeze({
   id: 'Xenova/detr-resnet-50-panoptic',
   revision: 'ea24b2d4e0bfae31f0a1299ba3fb892a2df064de',
   license: 'Apache-2.0',
-  bytes: 44483407,
+  bytes: 44270443,
   runtime: '@huggingface/transformers@3.8.1',
+  compression: 'weight-only-q8-v1; floating-point activations',
+  sha256: 'f37d9a5f5c9a3e3b98024ca8617d8435551afd8b7ab4ede935b525547d8f43f4',
   floorLabels: ['floor-wood', 'floor-other-merged'],
 });
 
@@ -13,7 +15,7 @@ let active;
 let sequence = 0;
 // Version the worker entry independently from photo/project URLs. A cached 404
 // during a preview rebuild must not pin subsequent analyses to a broken entry.
-const WORKER_VERSION = '20261106-sameorigin-cachefix-2';
+const WORKER_VERSION = '20261106-precise-floor-4';
 const abortError = () => new DOMException('Analyse annulée.', 'AbortError');
 const diagnosticsEnabled = () => typeof location !== 'undefined' && new URLSearchParams(location.search).has('ps-diagnostic');
 function analysisError(message, detail) {

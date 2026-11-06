@@ -31,6 +31,7 @@ function injectStyles(){
     .lrf-client-selected.show{display:flex;align-items:center;justify-content:space-between;gap:10px}
     .lrf-client-clear{border:0;background:transparent;color:#8a6611;font-weight:900;cursor:pointer;font-size:.8rem}
     #select-client.lrf-hidden-native{position:absolute!important;opacity:0!important;pointer-events:none!important;width:1px!important;height:1px!important}
+    #lrf-report-recipients[hidden]{display:none!important}
     .lrf-mail-card{margin-top:22px;padding:18px;border:1px solid rgba(194,147,31,.4);border-radius:18px;background:linear-gradient(180deg,#fffdf7,#fbf6e9);box-shadow:0 8px 24px rgba(70,52,12,.07)}
     .lrf-mail-card h3{margin:0 0 5px;font-size:1.08rem}.lrf-mail-card>p{margin:0 0 14px;color:#6f685a;font-size:.86rem}
     .lrf-mail-grid{display:grid;grid-template-columns:1fr;gap:12px}.lrf-mail-field label{display:block;font-weight:800;font-size:.82rem;margin-bottom:6px;color:#252a30}
@@ -85,11 +86,11 @@ function installMailBlock(){
   const form=$('#cr-form'); if(!form || $('#lrf-cr-mail-card')) return;
   const actions=[...form.querySelectorAll('button[type="submit"]')].at(-1)?.parentElement;
   const card=document.createElement('section');card.id='lrf-cr-mail-card';card.className='lrf-mail-card';
-  card.innerHTML=`<h3>✉️ Envoyer le compte-rendu par mail</h3><p>Choisissez l’usine puis la ou les personnes qui doivent recevoir ce compte-rendu.</p><div class="lrf-mail-grid"><div class="lrf-mail-field"><label for="lrf-partner-select">Usine / partenaire</label><select id="lrf-partner-select"><option value="">— Choisir une usine —</option>${Object.keys(PARTNER_CONTACTS).sort((a,b)=>a.localeCompare(b,'fr')).map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('')}</select></div><div class="lrf-mail-field"><label>Personne(s) destinataire(s)</label><div id="lrf-partner-contacts" class="lrf-contact-list"><div class="lrf-contact-empty">Choisissez d’abord une usine.</div></div></div></div><div class="lrf-send-row"><button id="lrf-save-report" type="button" class="lrf-action-btn lrf-save-only">💾 Enregistrer seulement</button><button id="lrf-save-send-report" type="button" class="lrf-action-btn lrf-save-send">✉️ Enregistrer + envoyer</button></div><div id="lrf-mail-status" class="lrf-mail-status" aria-live="polite"></div>`;
-  if(actions){actions.style.display='none';actions.insertAdjacentElement('beforebegin',card)}else form.appendChild(card);
+  card.innerHTML=`<h3>Enregistrer le compte-rendu</h3><p>Cochez l’option e-mail pour choisir l’usine et les destinataires.</p><label><input id="lrf-send-report-email" type="checkbox"> Envoyer aussi par e-mail</label><div id="lrf-report-recipients" class="lrf-mail-grid" hidden><div class="lrf-mail-field"><label for="lrf-partner-select">Usine / partenaire</label><select id="lrf-partner-select"><option value="">— Choisir une usine —</option>${Object.keys(PARTNER_CONTACTS).sort((a,b)=>a.localeCompare(b,'fr')).map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('')}</select></div><div class="lrf-mail-field"><label>Personne(s) destinataire(s)</label><div id="lrf-partner-contacts" class="lrf-contact-list"><div class="lrf-contact-empty">Choisissez d’abord une usine.</div></div></div></div><div class="lrf-send-row"><button id="lrf-save-send-report" type="button" class="lrf-action-btn lrf-save-send">💾 Enregistrer le compte-rendu</button></div><div id="lrf-mail-status" class="lrf-mail-status" aria-live="polite"></div>`;
+  if(actions){actions.hidden=true;actions.style.setProperty('display','none','important');actions.insertAdjacentElement('beforebegin',card)}else form.appendChild(card);
   $('#lrf-partner-select').onchange=renderPartnerContacts;
-  $('#lrf-save-report').onclick=()=>saveFlow(false);
-  $('#lrf-save-send-report').onclick=()=>saveFlow(true);
+  $('#lrf-send-report-email').onchange=()=>{const checked=$('#lrf-send-report-email').checked;$('#lrf-report-recipients').hidden=!checked;$('#lrf-save-send-report').textContent=checked?'✉️ Enregistrer et envoyer':'💾 Enregistrer le compte-rendu';};
+  $('#lrf-save-send-report').onclick=()=>saveFlow($('#lrf-send-report-email').checked);
 }
 
 function renderPartnerContacts(){
@@ -141,7 +142,7 @@ async function sendReport(cr,context){
 async function saveFlow(withMail){
   if(sending)return;
   let context;try{context=reportContext(withMail);}catch(e){setStatus(`❌ ${esc(e.message)}`,'err');return;}
-  sending=true;const a=$('#lrf-save-report'),b=$('#lrf-save-send-report');a.disabled=b.disabled=true;b.textContent=withMail?'Enregistrement et envoi…':'✉️ Enregistrer + envoyer';a.textContent=withMail?'💾 Enregistrer seulement':'Enregistrement…';
+  sending=true;const a=$('#lrf-save-report'),b=$('#lrf-save-send-report');if(a)a.disabled=true;b.disabled=true;b.textContent=withMail?'Enregistrement et envoi…':'✉️ Enregistrer + envoyer';if(a)a.textContent='Enregistrement…';
   try{
     const cr=await saveReport(context);
     if(withMail){
@@ -150,7 +151,7 @@ async function saveFlow(withMail){
     }else setStatus('✅ <strong>Compte-rendu enregistré.</strong>','ok');
     setTimeout(()=>{location.href='comptes-rendus.html'},withMail?1800:900);
   }catch(e){console.error(e);setStatus(`❌ ${esc(e.message||'Erreur lors de l’enregistrement.')}`,'err');}
-  finally{sending=false;a.disabled=b.disabled=false;a.textContent='💾 Enregistrer seulement';b.textContent='✉️ Enregistrer + envoyer';}
+  finally{sending=false;if(a)a.disabled=false;b.disabled=false;b.textContent=$('#lrf-send-report-email')?.checked?'✉️ Enregistrer et envoyer':'💾 Enregistrer le compte-rendu';}
 }
 
 function loadClients(){
@@ -159,6 +160,6 @@ function loadClients(){
   },err=>{console.error('[Nouveau CR] Chargement clients',err);setStatus('❌ Impossible de charger les clients du CRM.','err')});
 }
 
-function blockLegacySubmit(){const form=$('#cr-form');if(!form)return;form.addEventListener('submit',e=>{e.preventDefault();e.stopImmediatePropagation();saveFlow(false)},true);}
+function blockLegacySubmit(){const form=$('#cr-form');if(!form)return;form.addEventListener('submit',e=>{e.preventDefault();e.stopImmediatePropagation();saveFlow($('#lrf-send-report-email')?.checked===true)},true);}
 function init(){injectStyles();installClientSearch();installMailBlock();blockLegacySubmit();loadClients();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();

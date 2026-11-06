@@ -1,3 +1,4 @@
 # Reproducible model dependencies: fetched and SHA-256 checked by the dedicated build.
-/models/detr-resnet-50-panoptic-ea24b2d/onnx/model_quantized.onnx
 /runtime-3.8.1/ort-wasm-simd-threaded.jsep.wasm
+
+/models/detr-resnet-50-panoptic-ea24b2d-woq8-v1/onnx/model_quantized.onnx

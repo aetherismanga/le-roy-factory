@@ -1,4 +1,5 @@
-// Modernisation visuelle/ergonomique de la page Clients sans modifier la logique métier.
+import { clientActivity } from './client-activity-core.mjs';
+// One client editor and one persistent footer for all entry points.
 
 const esc = v => String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 
@@ -28,11 +29,11 @@ function injectStyles(){
   .modal-grid-edit{gap:14px!important}.modal-grid-edit .form-field{background:#FCFBF9;border:1px solid #EEEAE3;border-radius:10px;padding:10px}.modal-grid-edit .form-field label{font-size:.75rem!important;color:#665f56!important}.modal-grid-edit .form-field input,.modal-grid-edit .form-field select{background:#fff!important;border-radius:8px!important;min-height:42px}
   .crm-extra-title,.documents-title{font-size:1.05rem!important;margin-bottom:12px!important}.contact-card{border-radius:12px!important;background:#FCFBF9!important;padding:10px!important}.partner-card-mini{border-radius:12px!important;min-height:64px!important;transition:.15s}.partner-card-mini:hover{transform:translateY(-1px);border-color:#D4AF37!important}.partner-card-mini.active{box-shadow:0 0 0 2px rgba(212,175,55,.15)}.partner-card-mini img{width:58px!important;height:38px!important}.history-card{border-left:0!important;border:1px solid #ECE7DD!important;border-radius:12px!important;background:#FCFBF9!important;position:relative;padding:12px 14px 12px 20px!important}.history-card:before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:4px;border-radius:4px;background:#D4AF37}
   #crm-extra-history{display:none!important}
-  #client-modal .modal-footer{position:sticky;bottom:0;margin:22px -26px 0!important;padding:14px 26px!important;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--lrf-line);z-index:20;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px}
+  #client-modal .modal-footer{position:relative;flex:0 0 auto;margin:0!important;padding:12px 26px!important;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--lrf-line);z-index:20;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px}
   .lrf-empty-pane{padding:30px;text-align:center;background:#FCFBF9;border:1px dashed #D8D2C7;border-radius:12px;color:#777}
   @media(max-width:1050px){.lrf-client-summary{grid-template-columns:1fr 1fr}.lrf-summary-main{grid-column:1/-1}}
   @media(min-width:901px) and (max-height:820px){#client-modal .modal-header{padding-block:14px!important}.lrf-client-summary{margin-top:10px;grid-template-columns:minmax(0,1.8fr) repeat(4,minmax(0,1fr));gap:8px}.lrf-summary-main{grid-column:auto}.lrf-summary-main,.lrf-summary-card{min-width:0;min-height:58px;padding:9px 10px;box-sizing:border-box}.lrf-summary-card small{font-size:.62rem}.lrf-summary-card strong{font-size:.82rem}.lrf-tabs{margin-top:10px}}
-  @media(max-width:720px){#client-modal .modal-content{width:98vw!important;max-height:97vh!important;border-radius:14px!important}.lrf-client-summary{margin:12px 14px 0;grid-template-columns:1fr 1fr}.lrf-tabs{margin:12px 14px 0}#client-form{padding:0 14px 80px}.modal-grid-edit{grid-template-columns:1fr!important}.modal-grid-edit .form-field.full-width{grid-column:auto!important}.contact-card{grid-template-columns:1fr!important}.lrf-summary-card{min-height:62px}.crm-main-content{padding:1rem!important}.crm-toolbar{align-items:stretch}.search-wrapper{min-width:100%}.select-filters{width:100%}.select-filters>*{flex:1}.crm-table{min-width:960px}}
+  @media(max-width:720px){#client-modal .modal-content{width:98vw!important;max-height:97vh!important;border-radius:14px!important}.lrf-client-summary{margin:12px 14px 0;grid-template-columns:1fr 1fr}.lrf-tabs{margin:12px 14px 0}#client-form{padding:0 14px 16px}#client-modal .modal-footer{padding:10px 14px!important;gap:8px}#client-modal .modal-footer #btn-save-client{flex:1;min-height:44px}#client-modal .modal-footer #btn-delete-client{font-size:.75rem}#client-modal .modal-footer #btn-send-account-form-client{flex-basis:100%!important}.modal-grid-edit{grid-template-columns:1fr!important}.modal-grid-edit .form-field.full-width{grid-column:auto!important}.contact-card{grid-template-columns:1fr!important}.lrf-summary-card{min-height:62px}.crm-main-content{padding:1rem!important}.crm-toolbar{align-items:stretch}.search-wrapper{min-width:100%}.select-filters{width:100%}.select-filters>*{flex:1}.crm-table{min-width:960px}}
   `;
   document.head.appendChild(s);
 }
@@ -49,6 +50,8 @@ function nativeHistoryEntries(){
   return [...document.querySelectorAll("#cr-history-list > div")];
 }
 function countHistory(){
+  const record=window.LRFClientEditor?.getClient?.();
+  if(record?.id || record?.societe)return clientActivity(record).filter(item=>item.kind!=='Contact').length;
   const native=nativeHistoryEntries();
   if(native.length) return native.length;
   return document.querySelectorAll("#crm-history-list .history-card").length;
@@ -56,6 +59,9 @@ function countHistory(){
 function field(id){return (document.getElementById(id)?.value||"").trim()}
 
 function latestHistoryText(){
+  const record=window.LRFClientEditor?.getClient?.();
+  const latest=record&&clientActivity(record)[0];
+  if(latest)return `${latest.kind} ${latest.date.toLocaleDateString('fr-FR')}`;
   const native=nativeHistoryEntries();
   if(native.length){
     const head=native[0].querySelector(":scope > div:first-child");
@@ -154,9 +160,20 @@ function buildShell(){
     tabs.querySelectorAll(".lrf-tab").forEach(btn=>btn.addEventListener("click",()=>activateTab(btn.dataset.tab)));
   }
   classifySections();
+  renderMailActivity();
   activateTab(document.querySelector("#lrf-client-tabs .lrf-tab.active")?.dataset.tab||"infos");
   updateSummary();
   if(!modal.classList.contains("lrf-client-ready"))modal.classList.add("lrf-client-ready");
+}
+
+function renderMailActivity(){
+  const host=document.querySelector('#client-modal [data-lrf-pane="history"]');
+  if(!host)return;
+  let list=document.getElementById('lrf-client-mail-activity');
+  if(!list){list=document.createElement('section');list.id='lrf-client-mail-activity';host.appendChild(list);}
+  const mails=clientActivity(window.LRFClientEditor?.getClient?.()||{}).filter(item=>item.kind==='Mail');
+  const markup=mails.length?`<h3>Mails pris en charge par le serveur</h3><p>La prise en charge ne confirme pas la réception chez le destinataire.</p>${mails.map(item=>`<div class="history-card"><strong>${esc(item.objet||'E-mail')}</strong><div class="history-meta">${esc(item.date.toLocaleDateString('fr-FR'))} · ${esc(item.expediteur||'')}</div></div>`).join('')}`:'';
+  if(list.innerHTML!==markup)list.innerHTML=markup;
 }
 
 function watchModal(){
@@ -176,5 +193,5 @@ function watchModal(){
   modal.addEventListener("change",()=>setTimeout(updateSummary,30));
 }
 
-function init(){injectStyles();watchModal();const modal=document.getElementById("client-modal");if(modal&&getComputedStyle(modal).display!=="none")buildShell();}
+function init(){injectStyles();watchModal();window.addEventListener('lrf-client-opened',()=>{buildShell();activateTab('infos');});const modal=document.getElementById("client-modal");if(modal&&getComputedStyle(modal).display!=="none")buildShell();}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();

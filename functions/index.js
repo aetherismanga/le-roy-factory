@@ -134,10 +134,24 @@ exports.sendGroupEmail = onRequest({
 
   const payload = req.body || {};
   try {
-    const info = await sendPayload(payload);
-    const historyRef = await writeMailHistory(payload, {
+    let info;
+    if (['account-invitation','client-direct'].includes(payload.mailKind)) {
+      const config = smtpConfig(payload.senderMode);
+      const transporter = nodemailer.createTransport({
+        host: 'ssl0.ovh.net', port: 465, secure: true,
+        auth: { user: config.smtpUser, pass: config.smtpPass },
+        connectionTimeout: 15000, greetingTimeout: 15000, socketTimeout: 45000
+      });
+      const { sendAccountInvitation, sendClientMail } = require('./account-invitation-mail.cjs');
+      info = await (payload.mailKind==='account-invitation'?sendAccountInvitation:sendClientMail)(payload, config, transporter);
+    } else {
+      info = await sendPayload(payload);
+    }
+    const acceptedPayload=info.sentCopy?{...payload,bccRecipients:payload.bccRecipients.filter(email=>(info.accepted||[]).some(value=>String(value).toLowerCase()===email.toLowerCase()))}:payload;
+    const historyRef = await writeMailHistory(acceptedPayload, {
       statut: "Succès",
       messageId: info?.messageId || null,
+      ...(info.sentCopy ? { sentCopy: info.sentCopy, deliveryStatus: info.deliveryStatus, mailKind: payload.mailKind, rejected: info.rejected, statut:info.rejected.length?'Prise en charge partielle':'Pris en charge serveur' } : {}),
       typeEnvoi: "immediat",
       sentAt: admin.firestore.FieldValue.serverTimestamp(),
       authenticatedAgent: agent.email
@@ -147,14 +161,21 @@ exports.sendGroupEmail = onRequest({
       console.error("Mail accepté par SMTP, historique global non enregistré:", error);
       return null;
     });
-    await appendClientHistory(payload.clientIds, payload.senderMode, payload.subject, { programme:false }).catch(err => {
+    const contentRef=await db.collection('historique_mail_content').add({
+      date:new Date().toISOString(),expediteur:senderLabels(payload.senderMode).senderEmail,
+      objet:payload.subject,destinataires:acceptedPayload.bccRecipients,htmlContent:String(payload.htmlContent||''),
+      messageId:info.messageId||null,historyId:historyRef?.id||null,source:'serveur',
+      attachments:(Array.isArray(payload.attachments)?payload.attachments:[]).filter(Boolean).map(item=>({filename:item.filename||'',contentType:item.contentType||'',inline:!!item.inline})),
+      ...(info.sentCopy?{sentCopy:info.sentCopy,rejected:info.rejected}:{}),statut:'Pris en charge serveur'
+    }).catch(()=>null);
+    await appendClientHistory(payload.clientIds, payload.senderMode, payload.subject, { programme:false, messageId:info.messageId||null, destinataires:acceptedPayload.bccRecipients, ...(info.sentCopy?{sentCopy:info.sentCopy,rejected:info.rejected}:{} ) }).catch(err => {
       console.warn("Historique client non bloquant:", err);
     });
-    await appendGroupMailReports(db, payload, { messageId: info?.messageId, sentAt: new Date() }).catch(err => {
+    await appendGroupMailReports(db, acceptedPayload, { messageId: info?.messageId, sentAt: new Date() }).catch(err => {
       console.warn("Compte-rendu du mail non bloquant:", err.message);
     });
     // success describes SMTP acceptance; historyRecorded describes storage only.
-    res.status(200).json({ success: true, historyId: historyRef?.id || null, historyRecorded: Boolean(historyRef), messageId: info?.messageId || null });
+    res.status(200).json({ success: true, historyId: historyRef?.id || null, historyRecorded: Boolean(historyRef), contentRecorded:Boolean(contentRef), messageId: info?.messageId || null, ...(info.sentCopy ? { sentCopy: info.sentCopy, deliveryStatus: info.deliveryStatus, accepted:acceptedPayload.bccRecipients, rejected:info.rejected } : {}) });
   } catch (error) {
     console.error("Erreur d'envoi:", error);
     await writeMailHistory(payload, {

@@ -1,3 +1,4 @@
+import { clientActivity } from './client-activity-core.mjs';
 import { db, auth } from "./firebase.js";
 import { collection, doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -144,19 +145,8 @@ function findClientForRow(row) {
 }
 
 function latestExchange(client) {
-  const candidates = [];
-  const crs = client?.comptes_rendus || client?.comptesRendus || [];
-  if (Array.isArray(crs)) crs.forEach(cr => {
-    const d = cr?.date ? new Date(cr.date) : null;
-    if (d && !Number.isNaN(d.getTime())) candidates.push({ date:d, label:`Compte-rendu ${d.toLocaleDateString("fr-FR")}` });
-  });
-  const mails = client?.historiqueMails || [];
-  if (Array.isArray(mails)) mails.forEach(m => {
-    const d = m?.date ? new Date(String(m.date).split("/").reverse().join("-")) : null;
-    if (d && !Number.isNaN(d.getTime())) candidates.push({ date:d, label:`Mail ${m.date}` });
-  });
-  candidates.sort((a,b) => b.date - a.date);
-  return candidates[0]?.label || "Aucun";
+  const latest=clientActivity(client)[0];
+  return latest?`${latest.kind} ${latest.date.toLocaleDateString('fr-FR')}`:'Aucun';
 }
 
 function enhanceRows() {
@@ -271,11 +261,12 @@ async function sendDirectMail() {
     const user=auth.currentUser;
     if(!user)throw new Error("Reconnectez-vous au CRM avant d’envoyer le mail.");
     const token=await user.getIdToken();
-    const response = await fetch(SEND_URL,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${token}`},body:JSON.stringify({senderMode,bccRecipients:recipients,subject,htmlContent,attachments:mailAttachments,clientIds:[mailClient.id]})});
+    const response = await fetch(SEND_URL,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${token}`},body:JSON.stringify({mailKind:'client-direct',senderMode,bccRecipients:recipients,subject,textContent:body,htmlContent,attachments:mailAttachments,clientIds:[mailClient.id]})});
     const result = await response.json();
     if (!response.ok || !result.success) throw new Error(result.error || "Erreur d'envoi");
     // The authenticated server writes mail history and client reports once.
-    alert(`✅ E-mail envoyé avec succès à ${recipients.length} adresse(s).`); closeMailModal();
+    const copy=result.sentCopy?.status==='saved'?`Copie conservée dans les messages envoyés de ${result.sentCopy.mailbox} (OVH).`:'La copie dans les messages envoyés n’a pas été confirmée.';
+    alert(`Message pris en charge pour ${result.accepted?.length??recipients.length} adresse(s). ${result.rejected?.length?'Adresses refusées : '+result.rejected.join(', ')+'. ':''}${copy} La réception chez le destinataire reste à confirmer.`); closeMailModal();
   } catch (err) { console.error(err); alert(`❌ Échec de l'envoi : ${err.message || "Erreur inconnue"}`); }
   finally { sendingMail=false;btn.disabled=false; btn.textContent="✉ Envoyer"; }
 }

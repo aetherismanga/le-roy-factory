@@ -1,7 +1,7 @@
 /** Photo coordinates are normalized [0,1]; plane coordinates are millimetres. */
 const EPS = 1e-9;
 export function validateQuad(quad) {
-  if (!Array.isArray(quad) || quad.length !== 4 || quad.some(p => !Number.isFinite(p.x) || !Number.isFinite(p.y) || p.x < -1 || p.x > 2 || p.y < -1 || p.y > 2)) return false;
+  if (!Array.isArray(quad) || quad.length !== 4 || quad.some(p => !p || !Number.isFinite(p.x) || !Number.isFinite(p.y) || p.x < -1 || p.x > 2 || p.y < -1 || p.y > 2)) return false;
   let sign = 0, area = 0;
   for (let i = 0; i < 4; i++) {
     const a = quad[i], b = quad[(i + 1) % 4], c = quad[(i + 2) % 4];

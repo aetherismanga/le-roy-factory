@@ -1,5 +1,5 @@
 import { db } from './firebase.js';
-import { collection, doc, onSnapshot, runTransaction } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { collection, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
 if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
   window.__LRF_CLIENT_PARTNER_ACCESS__ = true;
@@ -95,10 +95,9 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
         <h3>Partenaires / autorisations tarifs</h3>
         <p>Sélectionnez les fabricants autorisés pour ce client. Les tarifs PRO suivent exactement cette sélection.</p>
         <div id="crm-partner-grid"></div>
-        <div class="lrf-partner-save-row"><span class="lrf-partner-state">Aucune modification.</span><button class="lrf-partner-save" type="button">Enregistrer les autorisations</button></div>`;
+        <div class="lrf-partner-save-row"><span class="lrf-partner-state">Aucune modification.</span><span>À enregistrer avec « Enregistrer la fiche ».</span></div>`;
       const grid = form.querySelector('.modal-grid-edit');
       if (grid) grid.insertAdjacentElement('afterend', section); else form.prepend(section);
-      section.querySelector('.lrf-partner-save').addEventListener('click', saveDraft);
     }
     return section;
   }
@@ -131,38 +130,11 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
       btn.classList.toggle('active', draft.has(id));
       btn.setAttribute('aria-pressed', draft.has(id) ? 'true' : 'false');
       const state = section.querySelector('.lrf-partner-state');
-      if (state) state.textContent = `${draft.size} partenaire${draft.size>1?'s':''} sélectionné${draft.size>1?'s':''} — à enregistrer`;
+      if (state) state.textContent = `${draft.size} partenaire${draft.size>1?'s':''} sélectionné${draft.size>1?'s':''} — à enregistrer avec la fiche`;
     }));
     const state = section.querySelector('.lrf-partner-state');
-    if (state) state.textContent = dirty ? `${draft.size} partenaire${draft.size>1?'s':''} sélectionné${draft.size>1?'s':''} — à enregistrer` : `${draft.size} partenaire${draft.size>1?'s':''} autorisé${draft.size>1?'s':''}`;
+    if (state) state.textContent = dirty ? `${draft.size} partenaire${draft.size>1?'s':''} sélectionné${draft.size>1?'s':''} — à enregistrer avec la fiche` : `${draft.size} partenaire${draft.size>1?'s':''} autorisé${draft.size>1?'s':''}`;
     ensureMobilePartnerButton();
-  }
-
-  async function saveDraft() {
-    const client = currentClient();
-    const state = document.querySelector('#lrf-partner-access-section .lrf-partner-state');
-    if (!client || saving || !dirty) return;
-    saving = true;
-    if (state) state.textContent = 'Enregistrement…';
-    try {
-      const next = [...draft];
-      const expected = [...baseline];
-      await runTransaction(db, async transaction => {
-        const ref = doc(db, 'clients', client.id);
-        const snapshot = await transaction.get(ref);
-        if (!snapshot.exists() || snapshot.data().archived === true || snapshot.data().archive === true) throw new Error('Cette fiche a été archivée ou supprimée.');
-        if (!samePartners(snapshot.data().partenaires, expected)) throw new Error('Les autorisations ont changé dans une autre session. Fermez puis rouvrez la fiche avant de réessayer.');
-        transaction.update(ref, { partenaires: next, partenairesUpdatedAt: new Date().toISOString() });
-      });
-      baseline = [...next];
-      dirty = false;
-      client.partenaires = next;
-      if (state) state.textContent = `✓ ${next.length} partenaire${next.length>1?'s':''} enregistré${next.length>1?'s':''} — accès tarifs mis à jour`;
-      window.dispatchEvent(new CustomEvent('lrf-client-partners-saved',{detail:{clientId:client.id,partenaires:next}}));
-    } catch (error) {
-      console.error('Enregistrement partenaires', error);
-      if (state) state.textContent = error.message || 'Erreur lors de l’enregistrement.';
-    } finally { saving = false; }
   }
 
   function ensureMobilePartnerButton() {

@@ -56,7 +56,7 @@ for(const route of routes){
     if(route.attachment){assert.deepEqual(payload.attachments,[attachment,inline]);assert.match(payload.htmlContent,/<p>Bonjour<\/p>/);assert.match(payload.htmlContent,/cid:photo@lrf/);}else assert.deepEqual(payload.attachments,[]);
     if(route.clientIds)assert.deepEqual(payload.clientIds,['A','B']);
     if(route.schedule)assert.equal(payload.scheduledAt,new Date('2999-11-05T09:00').toISOString());
-    assert.equal(h.history.length,0,'server owns sent-email history');assert.equal(h.elements.get(route.button).disabled,false);
+    assert.equal(h.history.length,0,'server owns sent-email history');assert.equal(h.elements.get(route.button).disabled,route.file==='account-form-send.js');
   });
   test(`${route.file}: absent user or token never sends a request`,async()=>{
     for(const user of [null,{getIdToken:async()=> ''},{getIdToken:async()=>{throw new Error('Expired credential')}}]){

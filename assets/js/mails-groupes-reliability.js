@@ -63,6 +63,7 @@ function badgeClass(status=''){
   const s=status.toLowerCase();
   if(s.includes('erreur'))return 'background:#FDECEC;color:#B42318;border:1px solid #F4B8B4';
   if(s.includes('récupéré'))return 'background:#F2ECFF;color:#6542A5;border:1px solid #CDBBEF';
+  if(s.includes('partielle'))return 'background:#FFF7DF;color:#8A6500;border:1px solid #E9CF76';
   if(s.includes('program'))return 'background:#FFF7DF;color:#8A6500;border:1px solid #E9CF76';
   if(s.includes('cours')||s.includes('tentative'))return 'background:#EAF2FD;color:#245A9B;border:1px solid #B8D2EF';
   return 'background:#E8F7EF;color:#08734A;border:1px solid #B7E2CC';
@@ -109,9 +110,11 @@ async function loadReliableHistory(){
       const status=i.statut||'Envoyé';
       const scheduled=asDate(i.scheduledAt);
       const detail=scheduled&&status.toLowerCase().includes('programm')?`<small style="display:block;color:#777;margin-top:3px">Prévu : ${scheduled.toLocaleString('fr-FR')}</small>`:'';
+      const trace=i.sentCopy?`<small style="display:block;margin-top:3px">${i.sentCopy.status==='saved'?'Copie dans Envoyés OVH':'Copie dans Envoyés non confirmée'}</small>`:'';
+      const refused=i.rejected?.length?`<small style="display:block;color:#B42318">Adresses refusées : ${esc(i.rejected.join(', '))}</small>`:'';
       const err=i.erreur?`<small style="display:block;color:#B42318;margin-top:3px">${esc(i.erreur)}</small>`:'';
       const count=i.nbDestinataires==null?'Non récupérable':`${Number(i.nbDestinataires||0)} contact(s)`;
-      return `<tr><td>${d?d.toLocaleString('fr-FR'):'—'}${detail}</td><td>${esc(i.expediteur||'—')}</td><td><strong>${esc(i.objet||'')}</strong>${err}</td><td>${count}</td><td><span style="display:inline-flex;padding:.3rem .5rem;border-radius:999px;font-size:.72rem;font-weight:800;${badgeClass(status)}">${esc(status)}</span></td></tr>`;
+      return `<tr><td>${d?d.toLocaleString('fr-FR'):'—'}${detail}</td><td>${esc(i.expediteur||'—')}</td><td><strong>${esc(i.objet||'')}</strong>${err}${trace}${refused}</td><td>${count}</td><td><span style="display:inline-flex;padding:.3rem .5rem;border-radius:999px;font-size:.72rem;font-weight:800;${badgeClass(status)}">${esc(status)}</span></td></tr>`;
     }).join('');
   }catch(e){console.error('Historique mails fiable',e)}
 }

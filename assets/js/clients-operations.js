@@ -1,3 +1,4 @@
+import { clientActivity } from './client-activity-core.mjs';
 import { db } from "./firebase.js";
 import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -20,14 +21,7 @@ function parseDate(v){
   if(fr){let y=Number(fr[3]);if(y<100)y+=2000;const d=new Date(y,Number(fr[2])-1,Number(fr[1]));return isNaN(d)?null:d;}
   const d=new Date(s);return isNaN(d)?null:d;
 }
-function latestCommercialDate(c){
-  const dates=[];
-  const add=v=>{const d=parseDate(v);if(d)dates.push(d)};
-  add(c.moovagoDernierSuivi);add(c.dernierEchange);
-  (c.comptes_rendus||c.comptesRendus||[]).forEach(x=>add(x.date||x.dateCreation));
-  (c.historiqueMails||[]).forEach(x=>add(x.date));
-  dates.sort((a,b)=>b-a);return dates[0]||null;
-}
+function latestCommercialDate(c){return clientActivity(c)[0]?.date||null}
 function ageDays(c){const d=latestCommercialDate(c);if(!d)return null;return Math.max(0,Math.floor((Date.now()-d.getTime())/86400000));}
 function followupInfo(c){
   const n=ageDays(c);

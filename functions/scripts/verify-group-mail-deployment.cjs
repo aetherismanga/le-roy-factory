@@ -16,7 +16,7 @@ async function verify() {
   const allowed = ['sendGroupEmail', 'scheduleGroupEmail', 'processScheduledEmails'];
   const names = process.env.MAIL_VERIFY_FUNCTIONS ? process.env.MAIL_VERIFY_FUNCTIONS.split(',').map(value=>value.trim()).filter(Boolean) : allowed;
   if (!names.length || names.some(name=>!allowed.includes(name))) throw new Error('Unexpected mail verification target.');
-  const expected = ['index.js', 'group-mail-history.js'].map(name => ({
+  const expected = ['index.js', 'group-mail-history.js', 'account-invitation-mail.cjs', 'package.json'].map(name => ({
     name, hash: sha256(fs.readFileSync(path.join(__dirname, '..', name)))
   }));
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'verify-group-mail-'));

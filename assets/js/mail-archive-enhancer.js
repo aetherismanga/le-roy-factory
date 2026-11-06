@@ -16,7 +16,7 @@ if(!window.__LRF_MAIL_ARCHIVE_ENHANCER__){
     if(outgoing&&response.ok&&outgoing.htmlContent){
       try{
         const result=await response.clone().json();
-        if(result?.success){
+        if(result?.success&&!result.contentRecorded){
           const recipients=Array.isArray(outgoing.bccRecipients)?outgoing.bccRecipients:[];
           const senderMode=outgoing.senderMode||'jerome';
           const sender=senderMode==='coryne'?'coryne@leroyfactory.fr':senderMode==='both'?'jerome@leroyfactory.fr & coryne@leroyfactory.fr':'jerome@leroyfactory.fr';

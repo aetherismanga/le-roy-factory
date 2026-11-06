@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { compressModel } from './compress-photo-studio-model.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DEFAULT_DIRECTORY = resolve(ROOT, 'assets/vendor/lrf-photo-studio');
@@ -26,6 +27,10 @@ export async function fetchPhotoStudioModel({ directory = DEFAULT_DIRECTORY, ver
       || !Number.isSafeInteger(entry.bytes) || entry.bytes < 1 || !/^[a-f0-9]{64}$/.test(entry.sha256)) {
       throw new Error('Unapproved Photo Studio model asset.');
     }
+    if (entry.transform && (entry.transform !== 'weight-only-q8-v1'
+      || !Number.isSafeInteger(entry.sourceBytes) || !/^[a-f0-9]{64}$/.test(entry.sourceSha256))) {
+      throw new Error('Unapproved Photo Studio model transformation.');
+    }
     const destination = resolve(vendorDirectory, entry.path);
     if (isAbsolute(entry.path) || !destination.startsWith(vendorDirectory + sep)) throw new Error('Invalid model asset path.');
     let present = false;
@@ -34,7 +39,11 @@ export async function fetchPhotoStudioModel({ directory = DEFAULT_DIRECTORY, ver
     if (verifyOnly) throw new Error(`Missing or modified Photo Studio asset: ${entry.path}`);
     const response = await fetchImpl(url, { signal: AbortSignal.timeout(120000), redirect: 'follow' });
     if (!response.ok) throw new Error(`Unable to fetch Photo Studio asset ${entry.path}: HTTP ${response.status}`);
-    const bytes = new Uint8Array(await response.arrayBuffer());
+    let bytes = new Uint8Array(await response.arrayBuffer());
+    if (entry.transform) {
+      if (!verifyBytes(bytes, { bytes: entry.sourceBytes, sha256: entry.sourceSha256 })) throw new Error('Photo Studio original model hash/size mismatch.');
+      bytes = compressModel(Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength)).bytes;
+    }
     if (!verifyBytes(bytes, entry)) throw new Error(`Photo Studio asset hash/size mismatch: ${entry.path}`);
     await mkdir(dirname(destination), { recursive: true });
     const temporary = destination + `.download-${process.pid}`;
