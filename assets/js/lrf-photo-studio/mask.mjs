@@ -6,7 +6,17 @@ export function createMask(width,height,data) {
 }
 export function resampleMask(mask,width,height) {
   const out=createMask(width,height);
-  for(let y=0;y<height;y++)for(let x=0;x<width;x++)out.data[y*width+x]=mask.data[Math.min(mask.height-1,Math.floor(y*mask.height/height))*mask.width+Math.min(mask.width-1,Math.floor(x*mask.width/width))];
+  if(mask.width===width&&mask.height===height){out.data.set(mask.data);return out;}
+  // Bilinear alpha at mask borders keeps furniture edges smooth when
+  // the analysis resolution differs from the exported photo resolution.
+  for(let y=0;y<height;y++){
+    const sy=(y+.5)*mask.height/height-.5,y0=Math.max(0,Math.min(mask.height-1,Math.floor(sy))),y1=Math.min(mask.height-1,y0+1),fy=Math.max(0,Math.min(1,sy-y0));
+    for(let x=0;x<width;x++){
+      const sx=(x+.5)*mask.width/width-.5,x0=Math.max(0,Math.min(mask.width-1,Math.floor(sx))),x1=Math.min(mask.width-1,x0+1),fx=Math.max(0,Math.min(1,sx-x0));
+      const a=mask.data[y0*mask.width+x0],b=mask.data[y0*mask.width+x1],c=mask.data[y1*mask.width+x0],d=mask.data[y1*mask.width+x1];
+      out.data[y*width+x]=Math.round((a*(1-fx)+b*fx)*(1-fy)+(c*(1-fx)+d*fx)*fy);
+    }
+  }
   return out;
 }
 export function brushStroke(mask,from,to,radius,mode='add') {
