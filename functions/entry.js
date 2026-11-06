@@ -13,6 +13,7 @@ const biltSchedule = require('./bilt-schedule');
 const crmFiles = require('./crm-files');
 const siteControl = require('./site-control');
 const aquahomeCatalog = require('./aquahome-catalog');
+const opalCatalog = require('./opal-catalog');
 const reitanoCatalog = require('./reitano-catalog');
 const randalProjects = require('./configurator-projects');
 const configuratorPurchasePrices = require('./configurator-purchase-prices');
@@ -22,7 +23,7 @@ const cerastoneRequest = require('./cerastone-request');
 const planPoseAccess = require('./plan-pose-access');
 const neobathAnimaAccess = require('./neobath-anima-access');
 
-Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics, eliosStock, eliosOrder, eliosPoseOrder, eliosCatalog, biltOrder, biltAutoTask, biltSchedule, crmFiles, siteControl, aquahomeCatalog, reitanoCatalog, randalProjects, configuratorPurchasePrices, feniceRequest, biopietraRequest, cerastoneRequest, planPoseAccess, neobathAnimaAccess);
+Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics, eliosStock, eliosOrder, eliosPoseOrder, eliosCatalog, biltOrder, biltAutoTask, biltSchedule, crmFiles, siteControl, aquahomeCatalog, opalCatalog, reitanoCatalog, randalProjects, configuratorPurchasePrices, feniceRequest, biopietraRequest, cerastoneRequest, planPoseAccess, neobathAnimaAccess);
 
 // La migration vers Storage privé est terminée. Cet endpoint temporaire reste
 // présent uniquement pour éviter une suppression de fonction lors du déploiement,

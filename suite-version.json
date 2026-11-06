@@ -431,12 +431,15 @@
   },
   "site": {
     "opal": {
-      "releaseId": "20261106-opal-cerastone1",
+      "releaseId": "20261106-opal2",
       "models": 22,
       "references": 53,
       "catalogue": "opal-catalogue-interactif.html",
       "designSource": "Cera Stone OPAL Home",
-      "publicPrices": "TTC"
+      "publicPrices": "TTC",
+      "presentation": true,
+      "lexicon": 22,
+      "proPrices": "server-verified HT, explicit toggle"
     }
   }
 }

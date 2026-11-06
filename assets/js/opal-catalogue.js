@@ -1,59 +1,85 @@
-/* Sélection OPAL issue du tarif fabricant 2026 et du catalogue illustré. */
-const escapeHtml = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let opalDataPromise;
-const storageKey='lrf-opal-favorites-v1';
-function readFavorites(){try{return new Set(JSON.parse(localStorage.getItem(storageKey)||'[]'));}catch{return new Set();}}
-let favoriteIds=readFavorites();
-
-window.addEventListener('lrf-opal:add-partner-favorite',event=>{
-  const id=event.detail?.id;if(!id)return;
-  if(favoriteIds.has(id))favoriteIds.delete(id);else favoriteIds.add(id);
-  try{localStorage.setItem(storageKey,JSON.stringify([...favoriteIds]));}catch{}
-  window.dispatchEvent(new CustomEvent('lrf-opal:favorites-state',{detail:{ids:[...favoriteIds]}}));
-});
-const money = amount => Number(amount).toLocaleString('fr-FR',{style:'currency',currency:'EUR'});
-const getProducts = () => opalDataPromise ||= fetch('assets/data/opal-products.json?v=20261106-opal-cerastone1').then(r => { if (!r.ok) throw Error('Catalogue indisponible'); return r.json(); });
-function ensureCss(){
-  if(document.getElementById('opal-catalogue-style')) return;
-  const link=document.createElement('link');link.id='opal-catalogue-style';link.rel='stylesheet';link.href='assets/css/opal-catalogue.css?v=20261106-opal-cerastone1';document.head.append(link);
-  const extra=document.createElement('style');extra.textContent='.opal-view-favorites{margin-top:14px;border:1px solid #b9ae9e;background:transparent;color:#292724;padding:10px 14px;cursor:pointer}';document.head.append(extra);
+import {createOpalPriceState} from './opal-price-state.mjs?v=20261106-opal2';
+const version='20261106-opal2';
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money = value => Number(value).toLocaleString('fr-FR',{style:'currency',currency:'EUR'});
+const norm = value => String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
+const favoriteKey='lrf-opal-favorites-v1', controllers=new Set();
+let productsPromise,authPromise,expiryTimer;
+function favorites(){try{return new Set(JSON.parse(localStorage.getItem(favoriteKey)||'[]'));}catch{return new Set();}}
+const session=()=>window.LRF_PRO_SESSION?.read?.()||null;
+function candidate(){
+  const s=session();if(!s)return null;
+  if([s.type,s.activite,s.categorieActivite].some(value=>norm(value).includes('particulier')))return null;
+  if(s.isAdmin||s.admin)return {key:'agent:'+String(s.email||''),agent:true};
+  if(!/^LRF-\d{5}$/.test(s.codeClient||'')||s.codeClient==='LRF-00001'||!/^[A-Za-z0-9_-]{43}$/.test(s.sessionToken||'')||!(s.partenaires||[]).some(value=>['opal','opalhome'].includes(norm(value))))return null;
+  return {key:'client:'+s.sessionToken,token:s.sessionToken};
 }
-export async function renderOpalCatalogue(container){
-  ensureCss(); let favoritesOnly=false; container.classList.add('opal-catalogue');
-  container.innerHTML='<p class="opal-loading" role="status">Chargement des miroirs…</p>';
-  let products;try{products=await getProducts();}catch{container.innerHTML='<p>La sélection est indisponible pour le moment. Veuillez réessayer ou nous contacter.</p>';return;}
-  const groups = new Map();for(const p of products){if(!groups.has(p.model))groups.set(p.model,[]);groups.get(p.model).push(p);}
-  const models=[...groups.entries()].sort((a,b)=>a[0].localeCompare(b[0],'fr'));
-  container.innerHTML=`<header class="opal-title"><div><p class="opal-eyebrow">LA SÉLECTION LE ROY FACTORY</p><h2>Miroirs <em>OPAL.</em></h2><p>Des miroirs à choisir selon votre espace, avec les références et formats de la collection.</p><button type="button" class="opal-view-favorites">♡ Voir mes favoris</button></div><label>Rechercher<input type="search" placeholder="Nom, dimension ou référence" aria-label="Rechercher un miroir OPAL"></label></header><p class="opal-count" role="status"></p><div class="opal-grid"></div>`;
-  const grid=container.querySelector('.opal-grid'),count=container.querySelector('.opal-count'),search=container.querySelector('input');
-  function draw(){
-    const q=search.value.trim().toLocaleLowerCase('fr');const matches=models.filter(([name,items])=>(!favoritesOnly||items.some(p=>favoriteIds.has(p.id)))&&(!q||[name,...items.flatMap(p=>[p.code,p.dimensions])].join(' ').toLocaleLowerCase('fr').includes(q)));
-    count.textContent=`${matches.length} modèle${matches.length===1?'':'s'} · ${products.length} références`;
-    grid.innerHTML=matches.map(([name,items])=>{const prices=items.map(p=>p.priceTtc).filter(n=>typeof n==='number'&&n>0);const label=prices.length?`${items.length>1?'À partir de ':''}${money(Math.min(...prices))} TTC`:'Prix sur demande';return `<article class="opal-card"><button class="opal-image" type="button" data-model="${escapeHtml(name)}" aria-label="Découvrir les miroirs ${escapeHtml(name)}"><img src="${escapeHtml(items[0].image)}" alt="Miroir OPAL ${escapeHtml(name)}" loading="lazy" decoding="async"><span aria-hidden="true">↗</span></button><p class="opal-eyebrow">MIROIR · ${items.length} FORMAT${items.length>1?'S':''}</p><h3>${escapeHtml(name)}</h3><p>${escapeHtml(label)}</p><button class="opal-open" type="button" data-model="${escapeHtml(name)}">Choisir un format <span aria-hidden="true">↗</span></button></article>`;}).join('')||'<p>Aucun miroir ne correspond à cette recherche.</p>';
+async function agentToken(){
+  if(!authPromise)authPromise=Promise.all([import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js'),import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js')]).then(async([apps,auths])=>{
+    const config={apiKey:'AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',authDomain:'le-roy-factory.firebaseapp.com',projectId:'le-roy-factory'};
+    const app=apps.getApps().find(app=>app.options.projectId===config.projectId)||apps.initializeApp(config);const auth=auths.getAuth(app);await auth.authStateReady?.();return auth;
+  }).catch(error=>{authPromise=null;throw error;});
+  const user=(await authPromise).currentUser;
+  if(!user||!['jerome@leroyfactory.fr','coryne@leroyfactory.fr'].includes(String(user.email||'').toLowerCase()))throw Error('Connexion agent requise.');
+  return user.getIdToken(true);
+}
+function refreshViews(){
+  for(const controller of controllers){if(!controller.host.isConnected){controllers.delete(controller);continue;}controller.refresh();}
+  const workspace=document.getElementById('partner-workspace');
+  if(workspace?.dataset.partner==='Opal'){const badge=document.getElementById('workspace-pro-badge');if(badge)badge.textContent=prices.snapshot().pro?'Catalogue · tarifs PRO HT':'Catalogue · prix publics TTC';}
+  clearTimeout(expiryTimer);const state=prices.snapshot();
+  if(state.expiresAt>Date.now())expiryTimer=setTimeout(()=>{prices.clear();refreshAccess();},state.expiresAt-Date.now()+10);
+}
+const prices=createOpalPriceState({changed:refreshViews,request:async identity=>{
+  const headers={'Content-Type':'application/json'},body={action:'context'};
+  if(identity.agent)headers.Authorization='Bearer '+await agentToken();else body.sessionToken=identity.token;
+  const response=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/opalCatalog',{method:'POST',headers,body:JSON.stringify(body),cache:'no-store',credentials:'omit',signal:AbortSignal.timeout(20000)});
+  if(!response.ok)throw Error('Accès OPAL non validé.');return response.json();
+}});
+function refreshAccess(){return prices.refresh(candidate());}
+window.addEventListener('lrf-pro-session-changed',()=>{prices.clear();refreshAccess();});
+window.addEventListener('pageshow',refreshAccess);
+window.addEventListener('storage',event=>{if(event.key===favoriteKey)refreshViews();});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){prices.clear();refreshAccess();}});
+function getProducts(){return productsPromise||=(fetch('assets/data/opal-products.json?v='+version).then(response=>{if(!response.ok)throw Error();return response.json();}).catch(error=>{productsPromise=null;throw error;}));}
+function priceLabel(product){const value=prices.value(product);return value==null?'Prix sur demande':money(value)+(prices.snapshot().pro?' HT':' TTC');}
+function toggleFavorite(product){const ids=favorites();if(ids.has(product.id))ids.delete(product.id);else ids.add(product.id);try{localStorage.setItem(favoriteKey,JSON.stringify([...ids]));}catch{}refreshViews();}
+export async function renderOpalCatalogue(host){
+  const root=host.shadowRoot||host.attachShadow({mode:'open'});
+  root.innerHTML=`<link rel="stylesheet" href="assets/css/opal-catalogue.css?v=${version}"><div class="oh-loading" role="status">Chargement des collections OPAL Home…</div>`;
+  let products;try{products=await getProducts();}catch{root.innerHTML='<p>Le catalogue ne se charge pas. Rechargez la page pour réessayer.</p>';return;}
+  if(!host.isConnected)return;
+  const groups=new Map();for(const product of products){if(!groups.has(product.model))groups.set(product.model,[]);groups.get(product.model).push(product);}
+  const models=[...groups.keys()].sort((a,b)=>a.localeCompare(b,'fr'));
+  const idFor=name=>'oh-'+norm(name);
+  root.innerHTML=`<link rel="stylesheet" href="assets/css/opal-catalogue.css?v=${version}">
+  <div class="oh-catalogue">
+    <section class="oh-hero" aria-label="Présentation OPAL Home"><div class="oh-hero-copy"><span class="oh-kicker">OPAL HOME · MIROIRS & LUMIÈRE</span><h2>Un autre regard<br>sur votre salle de bain.</h2><p>Des lignes singulières, des reflets lumineux. Découvrez une collection de miroirs qui donne du caractère à chaque espace.</p><div class="oh-hero-actions"><a class="oh-button" href="#oh-collections" data-collections>Découvrir les collections <span>↓</span></a><span>${models.length} collections · ${products.length} références</span></div></div><div class="oh-hero-photo"><img src="assets/img/opal-catalogue-2026/opal-aixa.jpg" alt="Miroir lumineux OPAL Aixa dans une salle de bain" fetchpriority="high"><span>AIXA · OPAL HOME</span></div></section>
+    <div class="oh-browser" id="oh-collections"><aside class="oh-index"><details open><summary>Lexique des collections <span>☰</span></summary><nav aria-label="Toutes les collections OPAL Home">${models.map(name=>`<a href="#${idFor(name)}" data-collection="${esc(name)}">${esc(name)}<span>↗</span></a>`).join('')}</nav></details></aside><section class="oh-products" aria-label="Collections OPAL Home"><div class="oh-toolbar"><div><span class="oh-kicker">LA COLLECTION</span><h3>À chaque espace, son miroir.</h3></div><div class="oh-tools"><button class="oh-tariff" type="button" hidden aria-pressed="false">Voir tarif PRO</button><button class="oh-favorites" type="button" aria-pressed="false">♡ Mes favoris</button></div></div><p class="oh-mode" role="status">Prix publics TTC</p><div class="oh-grid">${models.map(name=>{const items=groups.get(name);return `<article class="oh-card" id="${idFor(name)}"><button class="oh-photo" type="button" data-model="${esc(name)}" aria-label="Découvrir ${esc(name)}"><img src="${esc(items[0].image)}" alt="Miroir OPAL ${esc(name)}" loading="lazy" decoding="async"><span>↗</span></button><p class="oh-kicker">MIROIR · ${items.length} FORMAT${items.length>1?'S':''}</p><h4>${esc(name)}</h4><p class="oh-card-price" data-price-for="${esc(name)}"></p><button class="oh-format" type="button" data-model="${esc(name)}">Choisir un format <span>↗</span></button></article>`;}).join('')}</div><p class="oh-empty" hidden>Aucun favori pour le moment. Ouvrez une collection pour sélectionner vos miroirs.</p></section></div>
+    <dialog class="oh-dialog"><button class="oh-close" type="button" aria-label="Fermer la fiche">×</button><div class="oh-detail"></div></dialog>
+  </div>`;
+  if(matchMedia('(max-width:700px)').matches)root.querySelector('details').open=false;
+  let onlyFavorites=false,selected=null;
+  const dialog=root.querySelector('dialog'),detail=root.querySelector('.oh-detail'),tariff=root.querySelector('.oh-tariff');
+  function renderDetail(){
+    if(!selected)return;const items=groups.get(selected.model),ids=favorites();
+    detail.innerHTML=`<img class="oh-detail-photo" src="${esc(selected.image)}" alt="Miroir OPAL ${esc(selected.model)}"><div class="oh-detail-copy"><span class="oh-kicker">MIROIR OPAL HOME</span><h3>${esc(selected.model)}</h3><p>Choisissez le format adapté à votre projet.</p><label>Format<select aria-label="Choisir le format">${items.map(product=>`<option value="${esc(product.code)}" ${product.code===selected.code?'selected':''}>${esc(product.dimensions)} · ${esc(product.code)}</option>`).join('')}</select></label><p class="oh-reference">Référence : <strong>${esc(selected.code)}</strong></p><p class="oh-detail-price">${prices.snapshot().pro?'Tarif PRO HT':'Prix public TTC'}<strong>${esc(priceLabel(selected))}</strong></p><button type="button" class="oh-add" aria-pressed="${ids.has(selected.id)}">${ids.has(selected.id)?'♥ Retirer des favoris':'♡ Ajouter aux favoris'}</button></div>`;
+    detail.querySelector('select').addEventListener('change',event=>{selected=items.find(product=>product.code===event.target.value);renderDetail();});
+    detail.querySelector('.oh-add').addEventListener('click',()=>toggleFavorite(selected));
   }
-  search.addEventListener('input',draw);
-  container.querySelector('.opal-view-favorites').addEventListener('click',()=>{favoritesOnly=!favoritesOnly;container.querySelector('.opal-view-favorites').textContent=favoritesOnly?'← Tous les miroirs':'♡ Voir mes favoris';draw();});
-  window.addEventListener('lrf-opal:favorites-state',()=>{if(container.isConnected)draw();});
-  container.addEventListener('click',event=>{const button=event.target.closest('[data-model]');if(button&&groups.has(button.dataset.model))openDetail(groups.get(button.dataset.model));});draw();
-}
-function openDetail(variants){
-  let detail=document.getElementById('opal-detail-dialog');
-  if(!detail){detail=document.createElement('dialog');detail.id='opal-detail-dialog';detail.className='opal-detail-dialog';document.body.append(detail);detail.addEventListener('click',e=>{if(e.target===detail||e.target.closest('[data-opal-close-detail]'))detail.close();});}
-  const first=variants[0];
-  detail.innerHTML=`<div class="opal-detail"><button class="opal-close" type="button" data-opal-close-detail aria-label="Fermer">×</button><img src="${escapeHtml(first.image)}" alt="Miroir OPAL ${escapeHtml(first.model)}"><div class="opal-detail-copy"><p class="opal-eyebrow">MIROIR OPAL</p><h3>${escapeHtml(first.model)}</h3><p>Choisissez la référence correspondant à votre projet.</p><label>Format<select class="opal-variant" aria-label="Choisir un format">${variants.map((p,i)=>`<option value="${i}">${escapeHtml(p.dimensions)} · réf. ${escapeHtml(p.code)}</option>`).join('')}</select></label><p class="opal-reference">Référence : <strong>${escapeHtml(first.code)}</strong></p><p class="opal-price">Prix public : sur demande</p><button type="button" class="opal-add">♡ Ajouter aux favoris</button><p class="opal-status" role="status"></p></div></div>`;
-  const select=detail.querySelector('.opal-variant'),add=detail.querySelector('.opal-add');
-  function sync(){const product=variants[Number(select.value)];detail.querySelector('.opal-reference strong').textContent=product.code;detail.querySelector('.opal-price').textContent=product.priceTtc>0?'Prix public : '+money(product.priceTtc)+' TTC':'Prix public : sur demande';add.textContent=favoriteIds.has(product.id)?'♥ Retirer des favoris':'♡ Ajouter aux favoris';add.setAttribute('aria-pressed',String(favoriteIds.has(product.id)));}
-  select.addEventListener('change',()=>{sync();detail.querySelector('.opal-status').textContent='';});
-  detail.syncOpalFavorites=sync;sync();
-  add.addEventListener('click',()=>{const product=variants[Number(select.value)],wasSaved=favoriteIds.has(product.id);window.dispatchEvent(new CustomEvent('lrf-opal:add-partner-favorite',{detail:product}));detail.querySelector('.opal-status').textContent=wasSaved?'Retiré de votre sélection.':'Ajouté à votre sélection.';});
-  detail.showModal();
-}
-export function openOpalCatalogue(){
-  ensureCss();let dialog=document.getElementById('opal-catalogue-dialog');
-  if(!dialog){dialog=document.createElement('dialog');dialog.id='opal-catalogue-dialog';dialog.className='opal-catalogue-dialog';dialog.innerHTML='<div class="opal-catalogue-wrap"><button class="opal-close" type="button" data-opal-close aria-label="Fermer le catalogue">×</button><div class="opal-catalogue-content"></div></div>';document.body.append(dialog);dialog.addEventListener('click',e=>{if(e.target===dialog||e.target.closest('[data-opal-close]'))dialog.close();});renderOpalCatalogue(dialog.querySelector('.opal-catalogue-content'));}
-  if(!dialog.open)dialog.showModal();window.dispatchEvent(new Event('lrf-opal:request-favorites'));
-}
-if(typeof window!=='undefined'&&typeof document!=='undefined'){
-  window.addEventListener('lrf-opal:favorites-state',event=>{favoriteIds=new Set(event.detail?.ids||[]);document.getElementById('opal-detail-dialog')?.syncOpalFavorites?.();});
-  document.addEventListener('click',event=>{const opener=event.target.closest?.('[data-open-opal]');if(!opener)return;event.preventDefault();openOpalCatalogue();});
+  function refresh(){
+    const state=prices.snapshot(),ids=favorites();tariff.hidden=!state.eligible;tariff.textContent=state.pro?'Voir prix publics':'Voir tarif PRO';tariff.setAttribute('aria-pressed',String(state.pro));root.querySelector('.oh-mode').textContent=state.pro?'Tarifs professionnels HT':'Prix publics TTC';
+    let shown=0;for(const name of models){const items=groups.get(name),card=root.getElementById(idFor(name)),values=items.map(product=>prices.value(product)).filter(value=>value!=null);card.hidden=onlyFavorites&&!items.some(product=>ids.has(product.id));if(!card.hidden)shown++;card.querySelector('.oh-card-price').textContent=values.length?(items.length>1?'À partir de ':'')+money(Math.min(...values))+(state.pro?' HT':' TTC'):'Prix sur demande';}
+    root.querySelector('.oh-empty').hidden=shown!==0;if(dialog.open)renderDetail();
+  }
+  controllers.add({host,refresh});refresh();
+  root.addEventListener('click',event=>{
+    const model=event.target.closest('[data-model]');if(model){selected=groups.get(model.dataset.model)[0];renderDetail();dialog.showModal();return;}
+    const link=event.target.closest('[data-collection]');if(link){event.preventDefault();onlyFavorites=false;const fav=root.querySelector('.oh-favorites');fav.setAttribute('aria-pressed','false');fav.textContent='♡ Mes favoris';refresh();root.querySelectorAll('[data-collection]').forEach(item=>item.setAttribute('aria-current',String(item===link)));if(matchMedia('(max-width:700px)').matches)root.querySelector('details').open=false;root.getElementById(idFor(link.dataset.collection)).scrollIntoView({behavior:'instant',block:'start'});return;}
+    if(event.target.closest('[data-collections]')){event.preventDefault();root.getElementById('oh-collections').scrollIntoView({behavior:'instant',block:'start'});}
+  });
+  tariff.addEventListener('click',()=>{prices.toggle();});
+  root.querySelector('.oh-favorites').addEventListener('click',event=>{onlyFavorites=!onlyFavorites;event.currentTarget.setAttribute('aria-pressed',String(onlyFavorites));event.currentTarget.textContent=onlyFavorites?'← Tous les miroirs':'♡ Mes favoris';refresh();});
+  root.querySelector('.oh-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
+  refreshAccess();
 }
