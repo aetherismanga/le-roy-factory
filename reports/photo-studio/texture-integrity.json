@@ -1,0 +1,8 @@
+{
+  "mirrors": 329,
+  "bytes": 38981004,
+  "products": 114,
+  "hashValidation": "SHA256 of every file",
+  "aspectValidation": "Every image after texture rotation against exact millimetre ratio; tolerance logarithmic0.12",
+  "errors": []
+}

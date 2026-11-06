@@ -1,0 +1,64 @@
+{
+  "schema": "lrf-photo-studio-model-assets",
+  "version": 1,
+  "model": "Xenova/detr-resnet-50-panoptic",
+  "revision": "ea24b2d4e0bfae31f0a1299ba3fb892a2df064de",
+  "runtime": "@huggingface/transformers@3.8.1",
+  "totalBytes": 67048156,
+  "files": [
+    {
+      "path": "models/detr-resnet-50-panoptic-ea24b2d/DETR-APACHE-2.0.txt",
+      "bytes": 11354,
+      "sha256": "b208c52b00a2df2c8f4c3298c34407bf2bfe409968213372251c91fcc737a1a5",
+      "source": "https://raw.githubusercontent.com/facebookresearch/detr/main/LICENSE"
+    },
+    {
+      "path": "models/detr-resnet-50-panoptic-ea24b2d/config.json",
+      "bytes": 11834,
+      "sha256": "10f5c1551ee51cce4f18025b364a068784def077f1d29fefab3359c7c0fe909e",
+      "source": "https://huggingface.co/Xenova/detr-resnet-50-panoptic/resolve/ea24b2d4e0bfae31f0a1299ba3fb892a2df064de/config.json"
+    },
+    {
+      "path": "models/detr-resnet-50-panoptic-ea24b2d/onnx/model_quantized.onnx",
+      "bytes": 44483407,
+      "sha256": "93abfec8b8abd77329f203726b231ee5e5d4c2d52c881a74ab1c1134d888c41d",
+      "source": "https://huggingface.co/Xenova/detr-resnet-50-panoptic/resolve/ea24b2d4e0bfae31f0a1299ba3fb892a2df064de/onnx/model_quantized.onnx"
+    },
+    {
+      "path": "models/detr-resnet-50-panoptic-ea24b2d/preprocessor_config.json",
+      "bytes": 454,
+      "sha256": "f40c5d0478854be4a19a29f58a80558b43d3055b42b8288742933d130937c55d",
+      "source": "https://huggingface.co/Xenova/detr-resnet-50-panoptic/resolve/ea24b2d4e0bfae31f0a1299ba3fb892a2df064de/preprocessor_config.json"
+    },
+    {
+      "path": "runtime-3.8.1/ONNXRUNTIME-MIT.txt",
+      "bytes": 1073,
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
+      "source": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.22.0/LICENSE"
+    },
+    {
+      "path": "runtime-3.8.1/TRANSFORMERS-APACHE-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "source": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/LICENSE"
+    },
+    {
+      "path": "runtime-3.8.1/ort-wasm-simd-threaded.jsep.mjs",
+      "bytes": 44484,
+      "sha256": "08fb86ec433c78bfb032c5d84a68b8e8e5a8d81268fa39e24314179a5767a5b9",
+      "source": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/dist/ort-wasm-simd-threaded.jsep.mjs"
+    },
+    {
+      "path": "runtime-3.8.1/ort-wasm-simd-threaded.jsep.wasm",
+      "bytes": 21596019,
+      "sha256": "c46655e8a94afc45338d4cb2b840475f88e5012d524509916e505079c00bfa39",
+      "source": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/dist/ort-wasm-simd-threaded.jsep.wasm"
+    },
+    {
+      "path": "runtime-3.8.1/transformers.min.js",
+      "bytes": 888173,
+      "sha256": "aa5002b70e789798da263f5f99c62bd3e8fcd0c119258a493c40c180648365fa",
+      "source": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/dist/transformers.min.js"
+    }
+  ]
+}
