@@ -6,7 +6,8 @@ import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-data.js';
 import { MI_JUIN_2025_STATS } from './statistiques-mi-juin-2025-data.js';
 import { FIN_2025_STATS } from './statistiques-fin-2025-data.js';
 import { RANDAL_FIN_2025_STATS } from './statistiques-randal-fin-2025-data.js';
-import { STATS_PERIODS } from './statistiques-periods.js';
+import { RANDAL_STATS_2026_10_25 } from './statistiques-randal-octobre-2026-data.js';
+import { STATS_PERIODS } from './statistiques-periods.js?v=20261106-randal-oct25';
 
 const JEROME_DEPTS=new Set(['11','30','34','66']);
 const SETTINGS_KEY='lrf-commission-rates-v1';
@@ -56,6 +57,7 @@ function dept(c,r=null){
   return d;
 }
 function detailRows(partner,key){
+  if(partner==='randal-pro'&&(key==='2026-10'||key==='2026-12'))return RANDAL_STATS_2026_10_25.clients;
   if(key==='2025-06')return MI_JUIN_2025_STATS[partner]||[];
   if(key==='2025-12'){
     if(partner==='randal-pro')return RANDAL_FIN_2025_STATS;

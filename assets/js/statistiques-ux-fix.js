@@ -6,7 +6,8 @@ import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-data.js';
 import { MI_JUIN_2025_STATS } from './statistiques-mi-juin-2025-data.js';
 import { FIN_2025_STATS } from './statistiques-fin-2025-data.js';
 import { RANDAL_FIN_2025_STATS } from './statistiques-randal-fin-2025-data.js';
-import { STATS_PERIODS } from './statistiques-periods.js';
+import { RANDAL_STATS_2026_10_25 } from './statistiques-randal-octobre-2026-data.js';
+import { STATS_PERIODS } from './statistiques-periods.js?v=20261106-randal-oct25';
 
 const PARTNERS=[
   ['elios-ceramica','ELIOS CERAMICA'],['view-ceramica','VIEW CERAMICA'],['la-fenice','LA FENICE'],['reviglass','REVIGLASS'],['biopietra','BIOPIETRA'],['petracers',"PETRACER'S"],['pecchioli-firenze','PECCHIOLI FIRENZE'],['bulbo','BULBO'],['randal-pro','RANDAL PRO'],['floor-italia','FLOOR ITALIA'],['propamsa','PROPAMSA'],['cermed','CERMED'],['neobath','NEOBATH'],['koibath','KOIBATH'],['aquahome','AQUAHOME'],['opal','OPAL'],['bilt','BILT']
@@ -67,6 +68,7 @@ function rowValues(r,year){const current=Number(r[`ca${year}`]??(year===2026?r.c
 function status(v){if(v.current<=0&&v.previous>0)return 'stop';if(v.previous===0&&v.current>0)return 'new';return (v.evolution??0)>0?'up':'down'}
 
 function annualRowsForPartner(partner,year){
+  if(partner==='randal-pro'&&year===2026)return RANDAL_STATS_2026_10_25.clients.map(r=>({...r,partner}));
   if(year===2025){
     if(partner==='randal-pro'&&RANDAL_FIN_2025_STATS.length)return RANDAL_FIN_2025_STATS.map(r=>({...r,partner}));
     if((FIN_2025_STATS[partner]||[]).length)return FIN_2025_STATS[partner].map(r=>({...r,partner}));

@@ -5,7 +5,8 @@ import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-data.js';
 import { MI_JUIN_2025_STATS } from './statistiques-mi-juin-2025-data.js';
 import { FIN_2025_STATS } from './statistiques-fin-2025-data.js';
 import { RANDAL_FIN_2025_STATS } from './statistiques-randal-fin-2025-data.js';
-import { STATS_PERIODS } from './statistiques-periods.js';
+import { RANDAL_STATS_2026_10_25 } from './statistiques-randal-octobre-2026-data.js';
+import { STATS_PERIODS } from './statistiques-periods.js?v=20261106-randal-oct25';
 
 const PARTNERS=[
   ['elios-ceramica','ELIOS CERAMICA'],['view-ceramica','VIEW CERAMICA'],['la-fenice','LA FENICE'],
@@ -107,6 +108,7 @@ function currentPeriod(){
 }
 
 function detailRowsFor(partner,key){
+  if(partner==='randal-pro'&&(key==='2026-10'||key==='2026-12'))return RANDAL_STATS_2026_10_25.clients.map(r=>({...r,partner}));
   if(key==='2025-06')return (MI_JUIN_2025_STATS[partner]||[]).map(r=>({...r,partner}));
   if(key==='2025-12'){
     if(partner==='randal-pro')return RANDAL_FIN_2025_STATS.map(r=>({...r,partner}));

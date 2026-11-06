@@ -18,6 +18,7 @@ const STATUS={
     'biopietra':{kind:'partial',through:'jusqu’à mi-juin 2025',missing:'mi-juin à décembre 2025'}
   },
   2026:{
+    'randal-pro':{kind:'partial',through:'jusqu’au 25 octobre 2026',missing:'du 26 octobre au 31 décembre 2026'},
     'elios-ceramica':{kind:'partial',through:'jusqu’à fin juillet 2026',missing:'août à décembre 2026'},
     'view-ceramica':{kind:'partial',through:'jusqu’à fin juillet 2026',missing:'août à décembre 2026'}
   }
