@@ -1,0 +1,413 @@
+/* Existing presentation from view-lots-sept-2026-home.js; loaded before paint. */
+@keyframes lrfPromoSway{0%,100%{translate:-7px 0}50%{translate:7px 0}}
+    @keyframes viewLotsSweep{0%,24%{transform:translateX(-30%);opacity:0}48%{opacity:.62}72%,100%{transform:translateX(30%);opacity:0}}
+
+    .viewlots26-header,.viewlots26-desktop{position:relative;overflow:hidden;text-decoration:none;color:#fff;border:1px solid rgba(255,211,85,.96);box-shadow:0 0 18px rgba(255,163,55,.24),0 0 12px rgba(255,205,48,.18),0 16px 38px rgba(0,0,0,.25);font-family:inherit;transition:transform .2s,box-shadow .2s;isolation:isolate;box-sizing:border-box}
+    .viewlots26-header:before,.viewlots26-desktop:before{content:"";position:absolute;inset:-80% -40%;background:linear-gradient(112deg,transparent 43%,rgba(255,239,190,.20) 49%,transparent 56%);animation:viewLotsSweep 8s ease-in-out infinite;pointer-events:none}
+    .viewlots26-header:hover,.viewlots26-desktop:hover{transform:scale(1.015);box-shadow:0 0 30px rgba(255,167,60,.34),0 0 18px rgba(255,205,48,.25),0 20px 44px rgba(0,0,0,.3)}
+
+    .viewlots26-desktop{position:absolute;right:clamp(28px,6vw,110px);top:20%;z-index:21;width:360px;height:150px;padding:24px 28px;border-radius:28px;background:radial-gradient(circle at 88% 18%,rgba(255,214,120,.20),transparent 30%),linear-gradient(145deg,#6f3b12,#8b501b 58%,#5c2e0d);display:grid;grid-template-columns:1fr 82px;gap:14px;align-items:center;text-align:left;animation:lrfPromoSway 5.2s ease-in-out infinite}
+    .viewlots26-desktop-copy{position:relative;z-index:2;min-width:0}.viewlots26-desktop-kicker{font-size:.64rem;text-transform:uppercase;letter-spacing:.12em;color:#ffd776;font-weight:900}.viewlots26-desktop-title{font:800 1.55rem Georgia,serif;line-height:1.0;color:#fff;margin:5px 0 6px}.viewlots26-desktop-sub{font-size:.72rem;line-height:1.28;color:#fff3df}.viewlots26-desktop-cta{display:inline-flex;margin-top:8px;padding:6px 10px;border-radius:999px;background:#ffd45a;color:#17120b;font-size:.62rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em}.viewlots26-desktop-logo{position:relative;z-index:2;height:68px;border-radius:13px;background:#fff;padding:8px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(0,0,0,.17)}.viewlots26-desktop-logo img{max-width:100%;max-height:100%;object-fit:contain}
+
+    .viewlots26-header{display:none;border-radius:16px;background:linear-gradient(145deg,#6f3b12,#8b501b 58%,#5c2e0d);align-items:center;justify-content:center;text-align:center;animation:lrfPromoSway 4.8s ease-in-out infinite}.viewlots26-header-inner{position:relative;z-index:1;line-height:1.02}.viewlots26-header b{display:block;color:#ffd95d;font:800 .92rem Georgia,serif;letter-spacing:.03em}.viewlots26-header small{display:block;color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.05em;margin-top:3px;text-transform:uppercase}
+
+    .viewlots26-modal{position:fixed;inset:0;z-index:10070;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}.viewlots26-modal.open{display:flex}.viewlots26-box{position:relative;width:min(1280px,96vw);height:92vh;overflow:hidden;background:#f7f5f0;border:1px solid rgba(212,175,55,.78);border-radius:21px;box-shadow:0 25px 80px rgba(0,0,0,.78)}.viewlots26-close{position:absolute;right:14px;top:12px;z-index:5;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,215,0,.72);background:#111;color:#fff;font-size:1.55rem;line-height:1;cursor:pointer;box-shadow:0 7px 20px rgba(0,0,0,.28)}.viewlots26-frame{display:block;width:100%;height:100%;border:0;background:#f7f5f0}.viewlots26-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#72541f;font-weight:900;background:#f7f5f0;z-index:1}.viewlots26-frame.ready+.viewlots26-loading{display:none}body.viewlots26-lock{overflow:hidden}
+
+    @media(min-width:1500px){.viewlots26-desktop{width:420px;height:170px;padding:28px 32px;border-radius:30px;grid-template-columns:1fr 94px}.viewlots26-desktop-title{font-size:1.72rem}.viewlots26-desktop-sub{font-size:.78rem}.viewlots26-desktop-logo{height:78px}}
+    @media(max-width:1100px) and (min-width:901px){.viewlots26-desktop{width:300px;height:130px;padding:20px 22px;right:28px;top:18%;grid-template-columns:1fr 64px}.viewlots26-desktop-title{font-size:1.32rem}.viewlots26-desktop-sub{font-size:.66rem}.viewlots26-desktop-logo{height:56px}.viewlots26-desktop-cta{margin-top:6px}}
+    @media(max-width:900px){
+      .viewlots26-desktop{display:none}
+      .viewlots26-header{display:flex;width:92px;min-width:92px;height:64px;padding:6px 7px;margin-left:auto}
+      header .nav-container{gap:7px!important}
+      header .nav-container>a.logo img{width:58px!important;height:58px!important}
+      .cersaie26-mobile{width:150px!important;min-width:150px!important;max-width:150px!important;min-height:64px!important;padding:8px 9px!important;margin-left:0!important;margin-right:0!important;animation:lrfPromoSway 5.4s ease-in-out infinite!important}
+      .cersaie26-mobile strong{font-size:.96rem!important}.cersaie26-mobile small{font-size:.67rem!important;line-height:1.22!important}
+      header .burger-btn{width:58px!important;min-width:58px!important;height:58px!important;padding:13px!important}
+      .viewlots26-modal{padding:8px}.viewlots26-box{width:100%;height:96vh;border-radius:17px}.viewlots26-close{right:9px;top:8px;width:38px;height:38px}
+    }
+    @media(max-width:410px){
+      .viewlots26-header{width:82px;min-width:82px;height:58px;padding:5px}.viewlots26-header b{font-size:.82rem}.viewlots26-header small{font-size:.52rem}
+      .cersaie26-mobile{width:132px!important;min-width:132px!important;max-width:132px!important;min-height:58px!important;padding:7px!important}.cersaie26-mobile strong{font-size:.86rem!important}.cersaie26-mobile small{font-size:.61rem!important}
+      header .nav-container>a.logo img{width:52px!important;height:52px!important}header .burger-btn{width:52px!important;min-width:52px!important;height:52px!important;padding:11px!important}
+    }
+    @media(max-width:365px){
+      .viewlots26-header{width:74px;min-width:74px}.viewlots26-header b{font-size:.76rem}.viewlots26-header small{font-size:.47rem}
+      .cersaie26-mobile{width:118px!important;min-width:118px!important;max-width:118px!important}.cersaie26-mobile strong{font-size:.78rem!important}.cersaie26-mobile small{font-size:.56rem!important}
+      header .nav-container{gap:5px!important;padding-left:5px!important;padding-right:5px!important}
+    }
+    @media(prefers-reduced-motion:reduce){.viewlots26-header:before,.viewlots26-desktop:before{animation:none}.viewlots26-header,.viewlots26-desktop,.cersaie26-mobile{animation:none!important}}
+
+/* Existing presentation from aquahome-lisboa-home.js; loaded before paint. */
+@keyframes aqLisboaSway{0%,100%{translate:-7px 0}50%{translate:7px 0}}@keyframes aqLisboaSweep{0%,24%{transform:translateX(-35%);opacity:0}48%{opacity:.65}72%,100%{transform:translateX(35%);opacity:0}}
+.aq-lisboa-desktop,.aq-lisboa-mobile{overflow:hidden;isolation:isolate;animation:aqLisboaSway 4.8s ease-in-out infinite;box-shadow:0 0 18px #e27ca044,0 12px 30px #0004}
+.aq-lisboa-desktop:before,.aq-lisboa-mobile:before{content:"";position:absolute;inset:-80% -40%;background:linear-gradient(112deg,transparent 43%,#ffe6f255 49%,transparent 56%);animation:aqLisboaSweep 8s ease-in-out infinite;pointer-events:none}
+.aq-lisboa-desktop{position:relative;display:grid;grid-template-columns:1fr 75px;align-items:center;gap:12px;padding:18px 22px;border-radius:24px;border:1px solid #d8a0b4;background:linear-gradient(135deg,#78133c,#aa245c);color:#fff;text-decoration:none;box-shadow:0 12px 28px #0003;cursor:pointer;min-width:0}
+.aq-lisboa-desktop strong{display:block;font-size:1.45rem;line-height:1.1}.aq-lisboa-desktop small{display:block;font-size:.72rem;margin:5px 0}.aq-lisboa-desktop em{font-size:.72rem;font-weight:800;font-style:normal;color:#ffe1eb}.aq-lisboa-desktop img{width:100%;max-height:70px;object-fit:contain;background:#fff;border-radius:12px;padding:6px}
+.aq-lisboa-mobile{position:relative;display:none;flex-direction:column;align-items:center;justify-content:center;min-width:82px;height:64px;padding:5px;border:1px solid #e5b2c5;border-radius:14px;background:#8c1647;color:#fff;text-decoration:none;text-align:center;font-size:.7rem;font-weight:900;line-height:1.15}
+.aq-lisboa-mobile small{font-size:.56rem;margin-top:4px}
+.aq-lisboa-overlay{position:fixed;inset:0;z-index:10075;display:none;align-items:center;justify-content:center;padding:12px;background:#000c;backdrop-filter:blur(6px)}.aq-lisboa-overlay.open{display:flex}
+ .aq-lisboa-overlay{z-index:2147483647!important}.aq-lisboa-panel{position:relative;width:min(1050px,100%);max-height:95dvh;overflow:auto;border-radius:20px;background:#faf8f7;color:#262126;padding:24px;box-shadow:0 24px 70px #0008}
+.aq-lisboa-close{position:sticky;top:0;float:right;z-index:2;border:0;background:#54122f;color:white;border-radius:50%;width:40px;height:40px;font-size:25px;cursor:pointer}
+.aq-lisboa-head{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.aq-lisboa-head img{width:160px;max-height:70px;object-fit:contain}.aq-lisboa-head h2{margin:4px 0;color:#94194c;font-size:clamp(1.5rem,3vw,2.5rem)}.aq-lisboa-head p{margin:3px 0}
+.aq-lisboa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px;margin:20px 0}.aq-lisboa-item{background:white;border:1px solid #e7dbe0;border-radius:15px;padding:15px}.aq-lisboa-item h3{font-size:1rem;margin:0 0 8px}.aq-lisboa-product-image{display:block;width:100%;height:150px;object-fit:contain;margin:0 auto 12px;background:#fff;border-radius:10px}.aq-lisboa-item p{font-size:.8rem;color:#666}.aq-lisboa-price{display:block;color:#a01951;font-weight:900;font-size:1.45rem;margin:12px 0}.aq-lisboa-item label{font-size:.82rem}.aq-lisboa-item input{width:85px;max-width:100%;padding:8px;border:1px solid #bca9b2;border-radius:8px}.aq-lisboa-action{background:#a01951;color:#fff;border:0;border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer}.aq-lisboa-form{display:block;text-align:center;margin:16px 0}.aq-lisboa-form .wide{grid-column:1/-1}.aq-lisboa-note{font-size:.78rem;color:#655c60}.aq-lisboa-art{display:block;width:min(100%,650px);height:auto;object-fit:contain;margin:14px auto 20px;border-radius:12px}.aq-lisboa-panel{max-height:calc(100dvh - 24px);scrollbar-gutter:stable}.aq-lisboa-overlay{padding:12px}.aq-lisboa-item{padding:12px}.aq-lisboa-grid{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.aq-lisboa-item input{background:#fff!important;color:#211821!important;border:1px solid #bfa5b0!important;appearance:auto!important}.aq-lisboa-item label{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.aq-lisboa-price{background:transparent!important;border:0!important;padding:0!important;text-align:left}.aq-lisboa-private[hidden],.aq-lisboa-locked[hidden]{display:none!important}.aq-lisboa-locked{padding:22px;border:1px solid #e3c9d4;border-radius:12px;background:#fff7fa;text-align:center;color:#6f1940}.aq-lisboa-locked a{color:#8e1748;font-weight:800}.aq-lisboa-price{cursor:pointer}.aq-lisboa-price:focus{outline:2px solid #8e1748;outline-offset:3px}
+@media(min-width:901px){.lrf-desktop-promo-stack>.aq-lisboa-desktop{width:100%!important;height:clamp(108px,17.5vh,150px)!important;min-height:108px;flex:0 0 clamp(108px,17.5vh,150px)!important} .aq-lisboa-desktop:not(.lrf-desktop-promo-stack>.aq-lisboa-desktop){position:absolute;right:3vw;bottom:10px;width:330px;z-index:22}}
+@media(max-width:900px){
+.aq-lisboa-desktop{display:none}
+.aq-lisboa-mobile{display:flex;width:92px!important;min-width:92px!important;max-width:92px!important;height:64px!important;min-height:64px!important;padding:6px 7px!important;margin-left:0!important;border-radius:16px!important;font-size:.7rem!important;box-sizing:border-box!important}
+.aq-lisboa-panel{padding:16px}.aq-lisboa-head img{width:110px}.aq-lisboa-art{width:100%}
+}
+@media(max-width:410px){.aq-lisboa-mobile{width:82px!important;min-width:82px!important;max-width:82px!important;height:58px!important;min-height:58px!important;font-size:.64rem!important}.aq-lisboa-mobile small{font-size:.49rem}}
+@media(max-width:365px){.aq-lisboa-mobile{width:74px!important;min-width:74px!important;max-width:74px!important;font-size:.59rem!important}.aq-lisboa-mobile small{font-size:.44rem}}
+.aq-lisboa-item input[type=number],.aq-lisboa-panel input[data-product]{
+background:#fff9fb!important;background-color:#fff9fb!important;color:#62213e!important;
+-webkit-text-fill-color:#62213e!important;border:1px solid #d9b7c5!important;
+border-radius:12px!important;box-shadow:0 2px 7px #7a294114!important;
+font-size:1.05rem!important;font-weight:700!important;padding:10px 12px!important;
+outline-color:#a01951!important;color-scheme:light!important;opacity:1!important;
+-webkit-appearance:textfield!important;appearance:textfield!important
+}
+.aq-lisboa-item input[type=number]:focus{border-color:#a01951!important;box-shadow:0 0 0 3px #eac4d4!important}
+.aq-lisboa-add{display:block;margin-top:12px;width:100%;border:0;border-radius:10px;background:#8d1647;color:#fff;font-weight:800;padding:12px;cursor:pointer}.aq-lisboa-cartbar{position:sticky;bottom:-16px;z-index:3;background:#fff;border-top:1px solid #ead9df;padding:12px;display:flex;justify-content:center}.aq-lisboa-cartbar button{width:100%;max-width:420px}.aq-lisboa-recap[hidden],.aq-lisboa-products[hidden]{display:none!important}.aq-lisboa-recap{padding:12px}.aq-lisboa-table{width:100%;border-collapse:collapse;font-size:.85rem}.aq-lisboa-table th,.aq-lisboa-table td{padding:10px 5px;border-bottom:1px solid #ead9df;text-align:left}.aq-lisboa-table input{width:60px!important}.aq-lisboa-total{text-align:right;font-size:1.3rem;color:#94194c;font-weight:900}.aq-lisboa-recap-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.aq-lisboa-recap-actions button{flex:1}.aq-lisboa-muted{font-size:.8rem;color:#6a6065}
+@media(prefers-reduced-motion:reduce){.aq-lisboa-desktop,.aq-lisboa-mobile,.aq-lisboa-desktop:before,.aq-lisboa-mobile:before{animation:none!important}}
+
+/* Existing presentation from bilt-talox-home.js; loaded before paint. */
+.bilt-talox-desktop{position:absolute;right:clamp(28px,6vw,110px);top:38%;z-index:21;width:360px;height:150px;padding:18px 18px 18px 20px;border-radius:28px;overflow:hidden;text-decoration:none;color:#fff;border:1px solid rgba(148,198,153,.90);background:radial-gradient(circle at 88% 12%,rgba(199,235,188,.22),transparent 32%),linear-gradient(145deg,#0f4f2e,#16703f 58%,#0b3e24);box-shadow:0 0 22px rgba(44,138,74,.24),0 16px 38px rgba(0,0,0,.24);display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:12px;align-items:center;transition:transform .2s,box-shadow .2s;isolation:isolate}
+    .bilt-talox-desktop:before{content:"";position:absolute;inset:-80% -40%;background:linear-gradient(112deg,transparent 43%,rgba(226,246,220,.20) 49%,transparent 56%);animation:biltTaloxSweep 8s ease-in-out infinite;pointer-events:none}
+    .bilt-talox-desktop:hover{transform:scale(1.015);box-shadow:0 0 32px rgba(56,153,82,.34),0 20px 44px rgba(0,0,0,.28)}
+    @keyframes biltTaloxSweep{0%,24%{transform:translateX(-30%);opacity:0}48%{opacity:.65}72%,100%{transform:translateX(30%);opacity:0}}
+    .bilt-talox-copy{position:relative;z-index:2;min-width:0}.bilt-talox-kicker{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:#cfe8c8;font-weight:950}.bilt-talox-title{font:900 1.42rem Georgia,serif;line-height:1;color:#fff;margin:4px 0}.bilt-talox-sub{font-size:.68rem;line-height:1.22;color:#eef8ea}.bilt-talox-price{display:inline-flex;margin-top:7px;padding:5px 8px;border-radius:999px;background:#eef8ea;color:#16542d;font-size:.61rem;font-weight:950}.bilt-talox-fair{display:block;margin-top:4px;color:#dfeeda;font-size:.57rem;font-weight:850}
+    .bilt-talox-visual{position:relative;z-index:2;height:104px;border-radius:14px;overflow:hidden;background:#fff;border:1px solid rgba(255,255,255,.7);box-shadow:0 8px 20px rgba(0,0,0,.16)}.bilt-talox-visual img.product{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .22s ease}.bilt-talox-logo{position:absolute;left:7px;top:7px;width:34px;height:16px;object-fit:contain;background:rgba(255,255,255,.94);border-radius:5px;padding:2px;box-shadow:0 2px 7px rgba(0,0,0,.12);z-index:3}.bilt-talox-dots{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);display:flex;gap:4px;z-index:3}.bilt-talox-dots i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 1px 3px rgba(0,0,0,.2)}.bilt-talox-dots i.active{background:#fff}
+    @media(max-width:900px){.bilt-talox-desktop{display:none!important}}
+    @media(prefers-reduced-motion:reduce){.bilt-talox-desktop:before{animation:none}}
+
+/* Existing presentation from elios-rentree-2026-home.js; loaded before paint. */
+@keyframes eliosRentreeSweep{0%,20%{transform:translateX(-38%);opacity:0}48%{opacity:.55}78%,100%{transform:translateX(38%);opacity:0}}
+    @keyframes eliosRentreeGlow{0%,100%{box-shadow:0 0 12px rgba(222,181,84,.18),0 12px 30px rgba(0,0,0,.24)}50%{box-shadow:0 0 26px rgba(222,181,84,.34),0 16px 38px rgba(0,0,0,.3)}}
+    .elios-rentree-desktop,.elios-rentree-mobile{position:relative;overflow:hidden;text-decoration:none;color:#fff;border:1px solid rgba(232,194,92,.98);isolation:isolate;box-sizing:border-box;background:radial-gradient(circle at 88% 18%,rgba(255,226,142,.15),transparent 30%),linear-gradient(145deg,#54152b,#7a203c 58%,#421021)}
+    .elios-rentree-desktop:before,.elios-rentree-mobile:before{content:"";position:absolute;inset:-90% -45%;background:linear-gradient(112deg,transparent 43%,rgba(255,244,205,.23) 49%,transparent 56%);animation:eliosRentreeSweep 8.4s ease-in-out infinite;pointer-events:none}
+    .elios-rentree-desktop{position:absolute;right:clamp(28px,6vw,110px);top:43%;z-index:20;width:360px;min-height:142px;padding:20px 24px;border-radius:27px;display:grid;grid-template-columns:1fr 86px;gap:14px;align-items:center;text-align:left;animation:eliosRentreeGlow 4.8s ease-in-out infinite}
+    .elios-rentree-copy{position:relative;z-index:2;min-width:0}.elios-rentree-kicker{font-size:.63rem;text-transform:uppercase;letter-spacing:.11em;color:#f5d27b;font-weight:900}.elios-rentree-title{font:800 1.42rem Georgia,serif;line-height:1.02;color:#fff;margin:4px 0 6px}.elios-rentree-sub{font-size:.69rem;line-height:1.3;color:#f7e9ed}.elios-rentree-cta{display:inline-flex;margin-top:7px;padding:6px 10px;border-radius:999px;background:#e5bd53;color:#15120a;font-size:.61rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em}.elios-rentree-logo{position:relative;z-index:2;height:66px;border-radius:13px;background:#fff;padding:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(0,0,0,.18)}.elios-rentree-logo img{max-width:100%;max-height:100%;object-fit:contain}
+    .elios-rentree-mobile{display:none;position:relative;z-index:8;width:calc(100% - 18px);min-height:46px;margin:7px auto 0;border-radius:13px;padding:7px 12px;align-items:center;justify-content:space-between;gap:10px;animation:eliosRentreeGlow 5.2s ease-in-out infinite;transition:opacity .16s ease,transform .16s ease,max-height .16s ease,margin .16s ease,padding .16s ease,border-width .16s ease}
+    .elios-rentree-mobile strong{position:relative;z-index:2;font:800 .83rem Georgia,serif;color:#ffe08c}.elios-rentree-mobile span{position:relative;z-index:2;font-size:.63rem;font-weight:800;color:#fff;text-align:right}.elios-rentree-mobile b{color:#ffe174}.elios-rentree-mobile.is-hidden{opacity:0;transform:translateY(-8px);pointer-events:none;max-height:0!important;min-height:0!important;margin-top:0!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;border-width:0!important}
+    .elios-rentree-modal{position:fixed!important;inset:0!important;z-index:2147483000!important;display:none!important;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.88);backdrop-filter:blur(8px);width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;transform:none!important}
+    .elios-rentree-modal.open{display:flex!important}.elios-rentree-box{position:relative;width:min(1280px,96vw);height:92dvh;overflow:hidden;background:#f7f5f0;border:1px solid rgba(212,175,55,.8);border-radius:21px;box-shadow:0 25px 80px rgba(0,0,0,.78)}
+    .elios-rentree-close{position:fixed!important;right:max(14px,env(safe-area-inset-right));top:max(12px,env(safe-area-inset-top));z-index:2147483647!important;width:46px;height:46px;border-radius:50%;border:2px solid #e0b94f;background:#111;color:#fff;font-size:1.75rem;line-height:1;cursor:pointer;box-shadow:0 7px 20px rgba(0,0,0,.45);display:grid;place-items:center;padding:0}
+    .elios-rentree-frame{display:block;width:100%;height:100%;border:0;background:#f7f5f0}.elios-rentree-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#72541f;font-weight:900;background:#f7f5f0;z-index:1}.elios-rentree-frame.ready+.elios-rentree-loading{display:none}body.elios-rentree-lock{overflow:hidden!important;touch-action:none}
+    @media(max-width:1100px) and (min-width:901px){.elios-rentree-desktop{width:300px;min-height:126px;padding:18px 20px;right:28px;top:44%;grid-template-columns:1fr 66px}.elios-rentree-title{font-size:1.23rem}.elios-rentree-sub{font-size:.64rem}.elios-rentree-logo{height:55px}}
+    @media(max-width:900px){.elios-rentree-desktop{display:none}.elios-rentree-mobile{display:flex}.elios-rentree-modal{padding:0!important}.elios-rentree-box{width:100vw!important;height:100dvh!important;border:0;border-radius:0}.elios-rentree-close{right:max(10px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));width:48px;height:48px;font-size:1.9rem}}
+    @media(max-width:390px){.elios-rentree-mobile{width:calc(100% - 12px);padding:6px 9px;min-height:43px}.elios-rentree-mobile strong{font-size:.75rem}.elios-rentree-mobile span{font-size:.57rem}}
+    @media(prefers-reduced-motion:reduce){.elios-rentree-desktop:before,.elios-rentree-mobile:before,.elios-rentree-desktop,.elios-rentree-mobile{animation:none!important}}
+
+/* Existing presentation from desktop-promo-stack.js; loaded before paint. */
+@keyframes lrfDesktopPromoSway{0%,100%{translate:-5px 0}50%{translate:5px 0}}
+
+    /*
+      ACCUEIL PC ADAPTATIF
+      Les actualités ne doivent jamais recouvrir le logo LE ROY FACTORY.
+      - PC moyens / grands : colonne à droite + espace réellement réservé au contenu.
+      - petits portables / fenêtre réduite : bandeau horizontal en bas.
+      - faible hauteur : cartes compactées automatiquement.
+    */
+    @media (min-width:901px){
+      .hero-video-section{
+        --lrf-promo-w:clamp(280px,23vw,360px);
+        --lrf-promo-right:clamp(18px,3.5vw,56px);
+        --lrf-promo-safe-gap:clamp(18px,2.2vw,34px);
+      }
+
+      .lrf-desktop-promo-stack{
+        position:absolute;
+        right:var(--lrf-promo-right);
+        top:50%;
+        transform:translateY(-50%);
+        z-index:22;
+        display:flex;
+        flex-direction:column;
+        align-items:stretch;
+        gap:clamp(8px,1.45vh,14px);
+        width:var(--lrf-promo-w);
+        max-height:calc(100% - 28px);
+        box-sizing:border-box;
+      }
+
+      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
+      .lrf-desktop-promo-stack>.cersaie26-desktop,
+      .lrf-desktop-promo-stack>.elios-rentree-desktop{
+        position:relative!important;
+        top:auto!important;
+        right:auto!important;
+        left:auto!important;
+        bottom:auto!important;
+        width:100%!important;
+        height:clamp(108px,17.5vh,150px)!important;
+        min-height:clamp(108px,17.5vh,150px)!important;
+        margin:0!important;
+        flex:0 0 clamp(108px,17.5vh,150px)!important;
+        box-sizing:border-box!important;
+        -webkit-backdrop-filter:blur(5px) saturate(1.06)!important;
+        backdrop-filter:blur(5px) saturate(1.06)!important;
+      }
+
+      /* Le centre de l'accueil possède désormais sa propre zone sûre. */
+      .hero-video-section>.hero-content{
+        width:100%!important;
+        box-sizing:border-box!important;
+        padding-left:clamp(24px,4vw,68px)!important;
+        padding-right:calc(var(--lrf-promo-w) + var(--lrf-promo-right) + var(--lrf-promo-safe-gap))!important;
+      }
+      .hero-video-section>.hero-content .hero-logo-wrapper{
+        width:min(820px,100%)!important;
+        max-width:100%!important;
+        box-sizing:border-box!important;
+      }
+      .hero-video-section>.hero-content .hero-logo{
+        display:block!important;
+        width:100%!important;
+        max-width:100%!important;
+        height:auto!important;
+      }
+      .hero-video-section>.hero-content>h2,
+      .hero-video-section>.hero-content>p,
+      .hero-video-section>.hero-content>.hero-buttons{
+        max-width:100%!important;
+        box-sizing:border-box!important;
+      }
+
+      /* Fond translucide uniquement : contenu, texte, logos et boutons restent opaques. */
+      .lrf-desktop-promo-stack>.viewlots26-desktop{
+        background:
+          radial-gradient(circle at 88% 18%,rgba(255,214,120,.15),transparent 31%),
+          linear-gradient(145deg,rgba(111,59,18,.82),rgba(139,80,27,.84) 58%,rgba(92,46,13,.82))!important;
+      }
+      .lrf-desktop-promo-stack>.cersaie26-desktop{
+        background:radial-gradient(circle at 88% 18%,rgba(108,205,255,.18),transparent 30%),linear-gradient(145deg,rgba(7,54,96,.88),rgba(10,96,159,.90) 65%,rgba(6,46,83,.88))!important;
+      }
+      .lrf-desktop-promo-stack>.elios-rentree-desktop{
+        background:
+          radial-gradient(circle at 88% 18%,rgba(255,226,142,.12),transparent 31%),
+          linear-gradient(145deg,rgba(84,21,43,.82),rgba(122,32,60,.84) 58%,rgba(66,16,33,.82))!important;
+        padding:clamp(16px,2.5vh,24px) clamp(18px,2vw,28px)!important;
+        border-radius:clamp(20px,2vw,28px)!important;
+        grid-template-columns:minmax(0,1fr) clamp(54px,5.2vw,82px)!important;
+        gap:clamp(9px,1vw,14px)!important;
+        animation:lrfDesktopPromoSway 5.4s ease-in-out infinite,eliosRentreeGlow 4.8s ease-in-out infinite!important;
+      }
+      .lrf-desktop-promo-stack>.viewlots26-desktop>*,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop>*,
+      .lrf-desktop-promo-stack>.cersaie26-desktop>*,
+      .lrf-desktop-promo-stack>.elios-rentree-desktop>*{
+        opacity:1!important;
+      }
+    }
+
+    /* Portable / fenêtre PC étroite : les 3 bannières passent en bas au lieu de rogner le logo. */
+    @media (min-width:901px) and (max-width:1199px){
+      .hero-video-section{
+        --lrf-promo-w:0px;
+        --lrf-promo-right:0px;
+        --lrf-promo-safe-gap:0px;
+      }
+      .lrf-desktop-promo-stack{
+        left:clamp(14px,2vw,24px)!important;
+        right:clamp(14px,2vw,24px)!important;
+        top:auto!important;
+        bottom:clamp(12px,2vh,20px)!important;
+        transform:none!important;
+        width:auto!important;
+        max-height:none!important;
+        display:flex!important;
+        flex-direction:row!important;
+        align-items:stretch!important;
+        gap:clamp(8px,1.2vw,12px)!important;
+      }
+      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
+      .lrf-desktop-promo-stack>.cersaie26-desktop,
+      .lrf-desktop-promo-stack>.elios-rentree-desktop{
+        width:auto!important;
+        min-width:0!important;
+        height:110px!important;
+        min-height:110px!important;
+        flex:1 1 0!important;
+        padding:14px 16px!important;
+        border-radius:18px!important;
+      }
+      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
+      .lrf-desktop-promo-stack>.elios-rentree-desktop{
+        grid-template-columns:minmax(0,1fr) 54px!important;
+        gap:9px!important;
+      }
+      .lrf-desktop-promo-stack>.viewlots26-desktop .viewlots26-desktop-title{font-size:1.05rem!important;line-height:1.02!important;margin:3px 0 4px!important}
+      .lrf-desktop-promo-stack>.viewlots26-desktop .viewlots26-desktop-kicker{font-size:.53rem!important}
+      .lrf-desktop-promo-stack>.viewlots26-desktop .viewlots26-desktop-sub{font-size:.58rem!important;line-height:1.15!important}
+      .lrf-desktop-promo-stack>.viewlots26-desktop .viewlots26-desktop-cta{font-size:.52rem!important;padding:4px 7px!important;margin-top:4px!important}
+      .lrf-desktop-promo-stack>.viewlots26-desktop .viewlots26-desktop-logo{height:48px!important;padding:6px!important}
+
+      .lrf-desktop-promo-stack>.cersaie26-desktop{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;text-align:left!important}
+      .lrf-desktop-promo-stack>.cersaie26-desktop strong{font-size:1.28rem!important;line-height:1!important;margin:0 0 5px!important}
+      .lrf-desktop-promo-stack>.cersaie26-desktop small{font-size:.72rem!important;line-height:1.25!important;margin:0!important}
+
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-kicker{font-size:.52rem!important}
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-title{font-size:1.02rem!important;line-height:1.02!important;margin:3px 0 4px!important}
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-sub{font-size:.56rem!important;line-height:1.16!important}
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-cta{font-size:.51rem!important;padding:4px 7px!important;margin-top:4px!important}
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-logo{height:47px!important;padding:6px!important}
+
+      .hero-video-section>.hero-content{
+        padding-left:clamp(18px,3vw,34px)!important;
+        padding-right:clamp(18px,3vw,34px)!important;
+        padding-bottom:145px!important;
+      }
+      .hero-video-section>.hero-content .hero-logo-wrapper{
+        width:min(720px,88vw)!important;
+      }
+      .hero-video-section>.hero-content>h2{font-size:clamp(1.35rem,2.5vw,1.85rem)!important}
+      .hero-video-section>.hero-content>p{max-width:min(680px,92vw)!important;font-size:clamp(.84rem,1.35vw,1rem)!important;line-height:1.42!important}
+      .hero-video-section>.hero-content>.hero-buttons{margin-top:.65rem!important}
+    }
+
+    /* Portable très bas : on gagne encore de la hauteur sans supprimer les actualités. */
+    @media (min-width:901px) and (max-width:1199px) and (max-height:700px){
+      .lrf-desktop-promo-stack{bottom:9px!important;gap:7px!important}
+      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
+      .lrf-desktop-promo-stack>.cersaie26-desktop,
+      .lrf-desktop-promo-stack>.elios-rentree-desktop{
+        height:92px!important;
+        min-height:92px!important;
+        padding:11px 13px!important;
+      }
+      .lrf-desktop-promo-stack>.viewlots26-desktop .viewlots26-desktop-sub,
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-sub{display:none!important}
+      .lrf-desktop-promo-stack>.cersaie26-desktop strong{font-size:1.12rem!important}
+      .lrf-desktop-promo-stack>.cersaie26-desktop small{font-size:.65rem!important}
+      .hero-video-section>.hero-content{padding-bottom:116px!important}
+      .hero-video-section>.hero-content .hero-logo-wrapper{width:min(640px,78vw)!important}
+      .hero-video-section>.hero-content>p{margin-bottom:.55rem!important}
+    }
+
+    /* PC 1200–1499 px : colonne droite plus étroite, espace central protégé. */
+    @media (min-width:1200px) and (max-width:1499px){
+      .hero-video-section{
+        --lrf-promo-w:clamp(280px,22.5vw,330px);
+        --lrf-promo-right:clamp(18px,2.8vw,42px);
+        --lrf-promo-safe-gap:clamp(20px,2vw,30px);
+      }
+      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
+      .lrf-desktop-promo-stack>.elios-rentree-desktop{
+        grid-template-columns:minmax(0,1fr) clamp(56px,5vw,72px)!important;
+      }
+      .lrf-desktop-promo-stack>.viewlots26-desktop{padding:clamp(16px,2.2vh,22px) clamp(18px,1.8vw,24px)!important}
+      .lrf-desktop-promo-stack>.viewlots26-desktop .viewlots26-desktop-title{font-size:clamp(1.18rem,1.45vw,1.42rem)!important}
+      .lrf-desktop-promo-stack>.viewlots26-desktop .viewlots26-desktop-sub{font-size:clamp(.61rem,.72vw,.69rem)!important}
+      .lrf-desktop-promo-stack>.viewlots26-desktop .viewlots26-desktop-logo{height:clamp(52px,7vh,64px)!important}
+      .lrf-desktop-promo-stack>.cersaie26-desktop{padding:clamp(16px,2.2vh,22px) clamp(18px,1.8vw,24px)!important}
+      .lrf-desktop-promo-stack>.cersaie26-desktop strong{font-size:clamp(1.45rem,1.8vw,1.8rem)!important;margin-bottom:6px!important}
+      .lrf-desktop-promo-stack>.cersaie26-desktop small{font-size:clamp(.78rem,.9vw,.98rem)!important;line-height:1.3!important;margin-top:3px!important}
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-title{font-size:clamp(1.1rem,1.4vw,1.32rem)!important}
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-sub{font-size:clamp(.58rem,.7vw,.66rem)!important}
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-logo{height:clamp(50px,7vh,62px)!important;padding:7px!important}
+    }
+
+    /* Écrans larges : on conserve le confort visuel sans dépasser la zone disponible. */
+    @media (min-width:1500px){
+      .hero-video-section{
+        --lrf-promo-w:clamp(360px,25vw,420px);
+        --lrf-promo-right:clamp(34px,5vw,96px);
+        --lrf-promo-safe-gap:clamp(28px,2vw,40px);
+      }
+      .lrf-desktop-promo-stack{gap:16px}
+      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
+      .lrf-desktop-promo-stack>.cersaie26-desktop,
+      .lrf-desktop-promo-stack>.elios-rentree-desktop{
+        height:clamp(145px,17.5vh,170px)!important;
+        min-height:clamp(145px,17.5vh,170px)!important;
+        flex-basis:clamp(145px,17.5vh,170px)!important;
+      }
+      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
+      .lrf-desktop-promo-stack>.elios-rentree-desktop{
+        grid-template-columns:minmax(0,1fr) 94px!important;
+      }
+      .lrf-desktop-promo-stack>.elios-rentree-desktop{padding:28px 32px!important;border-radius:30px!important}
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-title{font-size:1.62rem!important}
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-sub{font-size:.76rem!important}
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-logo{height:78px!important;padding:9px!important}
+    }
+
+    /* Écrans courts (portable 1366x768, 1280x720, etc.) : colonne compacte. */
+    @media (min-width:1200px) and (max-height:720px){
+      .lrf-desktop-promo-stack{gap:8px!important}
+      .lrf-desktop-promo-stack>.viewlots26-desktop,
+      .lrf-desktop-promo-stack>.aq-lisboa-desktop,
+      .lrf-desktop-promo-stack>.bilt-talox-desktop,
+      .lrf-desktop-promo-stack>.cersaie26-desktop,
+      .lrf-desktop-promo-stack>.elios-rentree-desktop{
+        height:104px!important;
+        min-height:104px!important;
+        flex-basis:104px!important;
+        padding-top:13px!important;
+        padding-bottom:13px!important;
+      }
+      .lrf-desktop-promo-stack>.viewlots26-desktop .viewlots26-desktop-sub,
+      .lrf-desktop-promo-stack>.elios-rentree-desktop .elios-rentree-sub{display:none!important}
+      .lrf-desktop-promo-stack>.cersaie26-desktop strong{font-size:1.38rem!important;margin-bottom:3px!important}
+      .lrf-desktop-promo-stack>.cersaie26-desktop small{font-size:.75rem!important;line-height:1.2!important;margin-top:1px!important}
+      .hero-video-section>.hero-content .hero-logo-wrapper{width:min(740px,100%)!important}
+      .hero-video-section>.hero-content>p{margin-bottom:.6rem!important}
+      .hero-video-section>.hero-content>.hero-buttons{margin-top:.55rem!important}
+    }
+
+    @media (max-width:900px){
+      .lrf-desktop-promo-stack{display:none!important}
+    }
+
+    @media (min-width:901px){
+      .lrf-desktop-promo-stack>.bilt-talox-desktop{
+        position:relative!important;top:auto!important;right:auto!important;left:auto!important;bottom:auto!important;
+        width:100%!important;height:clamp(108px,17.5vh,150px)!important;min-height:clamp(108px,17.5vh,150px)!important;
+        flex:0 0 clamp(108px,17.5vh,150px)!important;margin:0!important;box-sizing:border-box!important;
+        -webkit-backdrop-filter:blur(5px) saturate(1.06)!important;backdrop-filter:blur(5px) saturate(1.06)!important;
+      }
+    }
+    @media (min-width:901px) and (max-width:1199px){
+      .lrf-desktop-promo-stack>.bilt-talox-desktop{width:auto!important;min-width:0!important;height:110px!important;min-height:110px!important;flex:1 1 0!important;padding:13px 14px!important;border-radius:18px!important;grid-template-columns:minmax(0,1fr) 62px!important;gap:8px!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-title{font-size:1rem!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-sub{font-size:.56rem!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-visual{height:68px!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-price{font-size:.5rem!important}
+    }
+    @media (min-width:901px) and (max-width:1199px) and (max-height:700px){
+      .lrf-desktop-promo-stack>.bilt-talox-desktop{height:92px!important;min-height:92px!important;padding:10px 12px!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-sub{display:none!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-visual{height:60px!important}
+    }
+    @media (min-width:1200px) and (max-width:1499px){
+      .lrf-desktop-promo-stack>.bilt-talox-desktop{grid-template-columns:minmax(0,1fr) clamp(72px,6vw,96px)!important;padding:clamp(14px,2vh,20px) clamp(16px,1.6vw,22px)!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-title{font-size:clamp(1.05rem,1.3vw,1.28rem)!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-visual{height:clamp(72px,10vh,94px)!important}
+    }
+    @media (min-width:1500px){
+      .lrf-desktop-promo-stack>.bilt-talox-desktop{height:clamp(145px,17.5vh,170px)!important;min-height:clamp(145px,17.5vh,170px)!important;flex-basis:clamp(145px,17.5vh,170px)!important;grid-template-columns:minmax(0,1fr) 118px!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-visual{height:112px!important}
+    }
+    @media (min-width:1200px) and (max-height:720px){
+      .lrf-desktop-promo-stack>.bilt-talox-desktop{height:104px!important;min-height:104px!important;flex-basis:104px!important;padding-top:11px!important;padding-bottom:11px!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-sub{display:none!important}
+      .lrf-desktop-promo-stack>.bilt-talox-desktop .bilt-talox-visual{height:72px!important}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .lrf-desktop-promo-stack>.elios-rentree-desktop{animation:none!important;translate:0 0!important}
+    }

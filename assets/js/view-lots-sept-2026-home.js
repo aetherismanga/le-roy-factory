@@ -1,5 +1,7 @@
 (()=>{
   'use strict';
+  if(window.__LRF_VIEW_LOTS_HOME__)return;
+  window.__LRF_VIEW_LOTS_HOME__=true;
   const style=document.createElement('style');
   style.textContent=`
     @keyframes lrfPromoSway{0%,100%{translate:-7px 0}50%{translate:7px 0}}
@@ -40,7 +42,7 @@
     }
     @media(prefers-reduced-motion:reduce){.viewlots26-header:before,.viewlots26-desktop:before{animation:none}.viewlots26-header,.viewlots26-desktop,.cersaie26-mobile{animation:none!important}}
   `;
-  document.head.appendChild(style);
+  if(!document.getElementById('lrf-home-promotions-css')) document.head.appendChild(style);
 
   const modal=document.createElement('div');
   modal.className='viewlots26-modal';
@@ -75,23 +77,23 @@
   const nav=document.querySelector('header .nav-container');
   const burger=document.querySelector('header .burger-btn');
   if(nav&&burger){
-    const promo=document.createElement('a');
+    const promo=nav.querySelector('.viewlots26-header')||document.createElement('a');
     promo.className='viewlots26-header';
     promo.href='view-lots-septembre-2026.html';
     promo.setAttribute('aria-label','Découvrir les lots VIEW Octobre 2026');
-    promo.innerHTML='<span class="viewlots26-header-inner"><b>VIEW</b><small>LOTS OCT. 26</small></span>';
+    if(!promo.childNodes.length)promo.innerHTML='<span class="viewlots26-header-inner"><b>VIEW</b><small>LOTS OCT. 26</small></span>';
     promo.addEventListener('click',open);
-    nav.insertBefore(promo,burger);
+    if(!promo.isConnected)nav.insertBefore(promo,burger);
   }
 
   const hero=document.querySelector('.hero-video-section');
   if(hero){
-    const desktop=document.createElement('a');
+    const desktop=hero.querySelector('.viewlots26-desktop')||document.createElement('a');
     desktop.className='viewlots26-desktop';
     desktop.href='view-lots-septembre-2026.html';
     desktop.setAttribute('aria-label','Découvrir les lots VIEW Octobre 2026');
-    desktop.innerHTML='<div class="viewlots26-desktop-copy"><div class="viewlots26-desktop-kicker">Offre pro · Octobre 2026</div><div class="viewlots26-desktop-title">LOTS VIEW<br>CHOIX MS</div><div class="viewlots26-desktop-sub">17 lots disponibles · tarifs réservés aux clients identifiés</div><span class="viewlots26-desktop-cta">Voir les lots</span></div><div class="viewlots26-desktop-logo"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png" alt="VIEW Ceramiche" loading="lazy" decoding="async"></div>';
+    if(!desktop.childNodes.length)desktop.innerHTML='<div class="viewlots26-desktop-copy"><div class="viewlots26-desktop-kicker">Offre pro · Octobre 2026</div><div class="viewlots26-desktop-title">LOTS VIEW<br>CHOIX MS</div><div class="viewlots26-desktop-sub">17 lots disponibles · tarifs réservés aux clients identifiés</div><span class="viewlots26-desktop-cta">Voir les lots</span></div><div class="viewlots26-desktop-logo"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png" alt="VIEW Ceramiche" loading="lazy" decoding="async"></div>';
     desktop.addEventListener('click',open);
-    hero.appendChild(desktop);
+    if(!desktop.isConnected)hero.appendChild(desktop);
   }
 })();

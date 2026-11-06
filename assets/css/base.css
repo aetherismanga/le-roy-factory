@@ -358,3 +358,12 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 /* L'ancien curseur maillet a été supprimé. Le curseur public PC est désormais géré exclusivement par lrf-glove-cursor.js. */
+
+/* Public desktop layout reserves the custom scrollbar before its controller loads.
+   Only pages which install that controller carry this parsed HTML attribute. */
+@media (min-width:901px){
+  html[data-lrf-public-scrollbar]:not(:has(body.crm-body)){scrollbar-width:none!important;scrollbar-gutter:auto!important;overflow-y:scroll!important}
+  html[data-lrf-public-scrollbar]:not(:has(body.crm-body))::-webkit-scrollbar,
+  html[data-lrf-public-scrollbar] body:not(.crm-body)::-webkit-scrollbar{width:0!important;height:0!important;display:none!important}
+  html[data-lrf-public-scrollbar] body:not(.crm-body){padding-right:18px!important;box-sizing:border-box!important}
+}

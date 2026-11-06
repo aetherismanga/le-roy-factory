@@ -86,7 +86,28 @@
     'Neobath':neoRaw.map((p,i)=>({...p,id:p.id||`neo-${i}`,name:p.name||p.collection||`Composition ${i+1}`,collection:p.collection||p.name||'',description:p.description||'',formats:p.dimensions||p.formats||[],colors:p.colors||[],colorFamilies:p.colors||[],effect:p.productType||'Meuble salle de bain',finishes:p.finishes||[],images:p.images||[],category:p.productType||'Meuble salle de bain'}))
   };
 
-  let state={category:'carrelage',partner:'Elios Ceramica',q:'',format:'Tous',color:'Tous',effect:'Tous',finish:'Tous',poolGroup:false};
+  const DEFAULT_SELECTION={category:'carrelage',partner:'Elios Ceramica',q:'',format:'Tous',color:'Tous',effect:'Tous',finish:'Tous',poolGroup:false};
+  const partnerAliases={elios:'Elios Ceramica',view:'View Ceramica',petracer:"Petracer's",pecchioli:'Pecchioli Firenze',randal:'Randal Pro',opalhome:'Opal'};
+  function selectionFromUrl(value=location.href){
+    const params=new URL(value,location.href).searchParams;
+    const requestedCategory=params.get('category')||params.get('cat')||'';
+    const categoryId=requestedCategory==='piscine'?'carrelage':requestedCategory;
+    const requestedPartner=norm(params.get('partner'));
+    const partner=Object.keys(PARTNERS).find(name=>[norm(name),norm(PARTNERS[name].slug)].includes(requestedPartner))||partnerAliases[requestedPartner]||'';
+    const category=CATEGORIES.find(item=>item.id===categoryId&&(!partner||item.partners.includes(partner)))
+      ||(partner?CATEGORIES.find(item=>item.partners.includes(partner)):null)
+      ||CATEGORIES.find(item=>item.id===categoryId)||CATEGORIES[0];
+    const next={...DEFAULT_SELECTION,category:category.id,partner:partner&&category.partners.includes(partner)?partner:category.partners[0]||''};
+    next.poolGroup=next.partner==='Elios Ceramica'&&(requestedCategory==='piscine'||params.get('pool')==='1');
+    for(const key of ['q','format','color','effect','finish']){const text=params.get(key);if(text&&text.length<=(key==='q'?180:120))next[key]=text;}
+    return next;
+  }
+  let state=selectionFromUrl();
+  function updateInitialChrome(){
+    document.documentElement.dataset.lrfSelectionCategory=state.category;
+    document.documentElement.dataset.lrfSelectionPartner=PARTNERS[state.partner]?.slug||'';
+  }
+  updateInitialChrome();
   const categories=$('#insp-categories'),partnerPanel=$('#partner-panel'),partnerGrid=$('#partner-grid'),partnerTrigger=$('#mobile-partner-trigger'),workspace=$('#partner-workspace'),productGrid=$('#partner-products'),count=$('#partner-count');
   if(!categories||!partnerGrid||!workspace||!productGrid)return;
 
@@ -111,7 +132,8 @@
     const colors=unique(data.flatMap(p=>p.colorFamilies||p.colors||[]));
     const effects=unique(data.map(p=>p.effect).filter(Boolean));
     const finishes=unique(data.flatMap(p=>p.finishes||[]));
-    const fill=(id,vals,label)=>{const el=$(id);if(!el)return;const empty=state.partner==="Petracer's"&&!vals.length;el.hidden=empty;el.style.display=empty?"none":"";el.innerHTML=`<option value="Tous">${label}</option>${vals.map(v=>`<option>${esc(v)}</option>`).join('')}`};
+    const fill=(id,vals,label)=>{const el=$(id);if(!el)return;const empty=state.partner==="Petracer's"&&!vals.length;el.hidden=empty;el.style.display=empty?"none":"";el.innerHTML=`<option value="Tous">${label}</option>${vals.map(v=>`<option>${esc(v)}</option>`).join('')}`;const selected=state[id.replace('#v2-','')];if(vals.includes(selected)||selected==='Tous')el.value=selected;};
+    const search=$('#v2-search');if(search&&search.value!==state.q)search.value=state.q;
     fill('#v2-format',formats,state.partner==='Biopietra'?'Tous les éléments':state.partner==="Petracer's"&&state.category!=='exception'?'Toutes les dimensions':'Tous les formats');
     fill('#v2-color',colors,'Toutes les couleurs');
     fill('#v2-effect',effects,state.partner==='Biopietra'||state.partner==="Petracer's"?'Toutes les familles':'Tous les effets');
@@ -137,9 +159,16 @@
   function renderProducts(){
     if(state.partner==='Opal'){
       count.textContent='Catalogue interactif OPAL Home';
-      productGrid.innerHTML='<section class="opal-selection-catalogue"><a class="opal-full-link" href="opal-catalogue-interactif.html">Ouvrir le catalogue en pleine page ↗</a><div data-opal-catalogue-content></div></section>';
-      const target=productGrid.querySelector('[data-opal-catalogue-content]');
-      import('./opal-catalogue.js?v=20261106-opal2').then(module=>{if(target.isConnected)module.renderOpalCatalogue(target);}).catch(()=>{if(target.isConnected)target.innerHTML='<p>Le catalogue ne se charge pas. <a href="opal-catalogue-interactif.html">Réessayer en pleine page</a>.</p>';});
+      // Access/session refreshes reuse both the initial HTML shell and the live
+      // catalogue. A pending module must never be imported/mounted twice.
+      let target=productGrid.querySelector('[data-opal-catalogue-content]');
+      if(!target){
+        productGrid.innerHTML='<section class="opal-selection-catalogue"><a class="opal-full-link" href="opal-catalogue-interactif.html">Ouvrir le catalogue en pleine page ↗</a><div data-opal-catalogue-content></div></section>';
+        target=productGrid.querySelector('[data-opal-catalogue-content]');
+      }
+      if(target.dataset.opalMountState)return;
+      target.dataset.opalMountState='loading';
+      import('./opal-catalogue.js?v=20261106-firstpaint1').then(module=>{if(target.isConnected)return module.renderOpalCatalogue(target);}).then(()=>{if(target.isConnected)target.dataset.opalMountState='ready';}).catch(()=>{if(target.isConnected){target.dataset.opalMountState='error';target.innerHTML='<p>Le catalogue ne se charge pas. <a href="opal-catalogue-interactif.html">Réessayer en pleine page</a>.</p>';}});
       return;
     }
 
@@ -194,8 +223,8 @@
     const groupHeader=state.poolGroup?'<div class="pool-group-header"><button type="button" data-pool-back>← Toutes les collections Elios</button><h3>Pool Surfaces</h3><p>Choisissez une collection pour découvrir ses photos et ses coloris.</p></div>':'';
     productGrid.innerHTML=groupHeader+(found.length?found.map(p=>`<article class="product-card-v2" data-id="${esc(p.id)}"><img src="${esc(imageOf(p))}" alt="${esc(state.partner==='Elios Ceramica'?`${p.name} — Elios Ceramica — ${window.LRF_ELIOS_SEARCH_META?.[p.slug]?.effect||p.effect||p.category}`:p.name)}" loading="lazy" onerror="this.onerror=null;this.src='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/03.png'"><div class="body"><span class="eyebrow">${esc(state.partner)} · ${esc(p.effect||p.category||'Produit')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'')}</p><div class="chips">${[...(p.colorFamilies||[]).slice(0,2),...(p.formats||[]).slice(0,2)].map(x=>`<span>${esc(x)}</span>`).join('')}</div>${p.groupSize?`<span class="pool-group-open">Découvrir les ${p.groupSize} collections →</span>`:''}</div></article>`).join(''):`<div class="empty-partner"><strong>Aucun produit avec ces filtres.</strong><p>Modifiez la recherche, le format, la couleur, l'effet ou la finition.</p></div>`);
   }
-  function renderWorkspace(){if(state.partner==="Petracer's")window.LRF_PETRACER_SELECTION?.setCategory?.(state.category);if(state.partner==='Bulbo')window.LRF_BULBO_SELECTION?.setCategory?.(state.category);workspace.dataset.category=state.category;workspace.dataset.partner=state.partner;const p=PARTNERS[state.partner];if(!p){workspace.classList.remove('open');return}workspace.classList.add('open');$('#workspace-logo').src=p.logo;$('#workspace-title').textContent=state.partner;$('#workspace-sub').textContent=state.partner==='Bilt'?'Outillage & systèmes de pose · espace produits dédié':state.poolGroup?'Pool Surfaces · collections piscine':`${p.country} · espace produits dédié`;const allowed=hasAccess(p.slug),isBio=state.partner==='Biopietra';const badge=$('#workspace-pro-badge');badge.style.display='';badge.textContent=allowed?'✓ Tarif PRO accessible':'🔒 Tarif PRO non associé à ce compte';badge.className=`pro-badge${allowed?' allowed':''}`;const link=$('#workspace-pro-link');link.hidden=!allowed;link.style.display=allowed?'inline-flex':'none';link.href=state.partner==='Bilt'&&allowed?'commande-bilt.html':'tarifs-pro.html';link.textContent=state.partner==='Bilt'&&allowed?'Commander BILT':`Voir tarif PRO ${state.partner}`;
-    if(state.partner==='Opal'){badge.textContent='Catalogue · prix publics TTC';badge.className='pro-badge';link.hidden=true;link.style.display='none';}
+  function renderWorkspace(){const previousOpalBadge=state.partner==='Opal'&&productGrid.querySelector('[data-opal-catalogue-content]')?{text:$('#workspace-pro-badge').textContent,className:$('#workspace-pro-badge').className}:null;if(state.partner==="Petracer's")window.LRF_PETRACER_SELECTION?.setCategory?.(state.category);if(state.partner==='Bulbo')window.LRF_BULBO_SELECTION?.setCategory?.(state.category);workspace.dataset.category=state.category;workspace.dataset.partner=state.partner;const p=PARTNERS[state.partner];if(!p){workspace.classList.remove('open');return}workspace.classList.add('open');$('#workspace-logo').src=p.logo;$('#workspace-title').textContent=state.partner;$('#workspace-sub').textContent=state.partner==='Bilt'?'Outillage & systèmes de pose · espace produits dédié':state.poolGroup?'Pool Surfaces · collections piscine':`${p.country} · espace produits dédié`;const allowed=hasAccess(p.slug),isBio=state.partner==='Biopietra';const badge=$('#workspace-pro-badge');badge.style.display='';badge.textContent=allowed?'✓ Tarif PRO accessible':'🔒 Tarif PRO non associé à ce compte';badge.className=`pro-badge${allowed?' allowed':''}`;const link=$('#workspace-pro-link');link.hidden=!allowed;link.style.display=allowed?'inline-flex':'none';link.href=state.partner==='Bilt'&&allowed?'commande-bilt.html':'tarifs-pro.html';link.textContent=state.partner==='Bilt'&&allowed?'Commander BILT':`Voir tarif PRO ${state.partner}`;
+    if(state.partner==='Opal'){badge.textContent=previousOpalBadge?.text||'Catalogue · prix publics TTC';badge.className=previousOpalBadge?.className||'pro-badge';link.hidden=true;link.style.display='none';}
     const isRandal=state.partner==='Randal Pro';
     const filters=$('#v2-filters');
     if(filters){
@@ -210,15 +239,35 @@
     $('#elios-all-collections')?.setAttribute('aria-pressed',String(!state.poolGroup));$('#elios-pool-collections')?.setAttribute('aria-pressed',String(state.poolGroup));
     fillFilters();renderProducts();window.LRF_BIOPIETRA_SELECTION?.refreshChrome();window.LRF_BULBO_SELECTION?.refreshChrome();window.LRF_PECCHIOLI_SELECTION?.refreshChrome();window.LRF_PETRACER_SELECTION?.refreshChrome(state.category);window.LRF_UPTREND_SELECTION?.refresh?.();}
   function resetFilters(){state.poolGroup=false;state.q='';state.format=state.color=state.effect=state.finish='Tous';const s=$('#v2-search');if(s)s.value=''}
-  function chooseCategory(id){const c=CATEGORIES.find(x=>x.id===id);if(!c)return;state.category=id;state.partner=c.partners[0]||'';resetFilters();renderCategories();renderPartners();renderWorkspace()}
-  function choosePartner(name){if(!CATEGORIES.find(c=>c.id===state.category)?.partners.includes(name))return;state.partner=name;resetFilters();renderPartners();renderWorkspace();partnerPanel.classList.remove('mobile-open')}
+  function syncSelectionUrl(mode='push',{clearCollection=false}={}){
+    const url=new URL(location.href);url.searchParams.delete('cat');
+    url.searchParams.set('category',state.poolGroup?'piscine':state.category);
+    url.searchParams.set('partner',PARTNERS[state.partner]?.slug||state.partner);
+    url.searchParams.delete('pool');
+    if(clearCollection)url.searchParams.delete('collection');
+    for(const key of ['q','format','color','effect','finish']){
+      if(state[key]&&state[key]!=='Tous')url.searchParams.set(key,state[key]);else url.searchParams.delete(key);
+    }
+    try{const previous=history.state&&typeof history.state==='object'?history.state:{};const snapshot={...previous,lrfSelection:{...state}};
+      if(mode==='push'&&url.href!==location.href)history.pushState(snapshot,'',url);else history.replaceState(snapshot,'',url);
+    }catch(_){} // Navigation and rendering still work with restricted History APIs.
+  }
+  function announceSelection(){
+    updateInitialChrome();document.documentElement.dataset.lrfSelectionReady='true';
+    window.dispatchEvent(new CustomEvent('lrf-selection-ready',{detail:{category:state.category,partner:state.partner,partnerSlug:PARTNERS[state.partner]?.slug||'',poolGroup:state.poolGroup}}));
+  }
+  function refreshAccess(){renderPartners();renderWorkspace();}
+  function chooseCategory(id){const c=CATEGORIES.find(x=>x.id===id);if(!c||state.category===id)return;state.category=id;state.partner=c.partners[0]||'';resetFilters();updateInitialChrome();renderCategories();renderPartners();renderWorkspace();syncSelectionUrl('push',{clearCollection:true});announceSelection();}
+  function choosePartner(name){if(!CATEGORIES.find(c=>c.id===state.category)?.partners.includes(name))return;if(state.partner===name){partnerPanel.classList.remove('mobile-open');return;}state.partner=name;resetFilters();updateInitialChrome();renderPartners();renderWorkspace();partnerPanel.classList.remove('mobile-open');syncSelectionUrl('push',{clearCollection:true});announceSelection();}
+  window.LRF_SELECTION_NAVIGATION=Object.freeze({read:()=>({...state}),refreshAccess});
+
   function openProduct(id){
     if(state.partner==="Petracer's" && window.LRF_PETRACER_SELECTION?.openCollection){window.LRF_PETRACER_SELECTION.openCollection(id);return;}
     if(state.partner==='Pecchioli Firenze' && window.LRF_PECCHIOLI_SELECTION?.openCollection){window.LRF_PECCHIOLI_SELECTION.openCollection(id);return;}
     if(state.partner==='Bulbo' && window.LRF_BULBO_SELECTION?.openCollection){window.LRF_BULBO_SELECTION.openCollection(id);return;}
     if(state.partner==='Biopietra' && window.LRF_BIOPIETRA_SELECTION?.openCollection){window.LRF_BIOPIETRA_SELECTION.openCollection(id);return;}
     if(state.partner==='La Fenice' && window.LRF_FENICE_SELECTION?.openCollection){window.LRF_FENICE_SELECTION.openCollection(id);return;}
-    if(id==='elios-pool-surfaces'){resetFilters();state.poolGroup=true;renderWorkspace();workspace.scrollIntoView({behavior:'smooth',block:'start'});return;}
+    if(id==='elios-pool-surfaces'){resetFilters();state.poolGroup=true;renderWorkspace();syncSelectionUrl();announceSelection();workspace.scrollIntoView({behavior:'smooth',block:'start'});return;}
     const p=products().find(x=>x.id===id);if(!p)return;
     const modal=$('#product-modal-v2'),box=$('#product-modal-v2-card');const partner=PARTNERS[state.partner],allowed=hasAccess(partner.slug),dims=p.formats||[];
     let tariff='';
@@ -237,20 +286,20 @@
     modal.classList.add('open');document.body.style.overflow='hidden';$('.modal-v2-close',box).onclick=()=>{modal.classList.remove('open');document.body.style.overflow=''};
   }
 
-  $('#elios-all-collections')?.addEventListener('click',()=>{if(state.partner!=='Elios Ceramica')return;resetFilters();renderWorkspace();});
-  $('#elios-pool-collections')?.addEventListener('click',()=>{if(state.partner!=='Elios Ceramica')return;resetFilters();state.poolGroup=true;renderWorkspace();});
+  $('#elios-all-collections')?.addEventListener('click',()=>{if(state.partner!=='Elios Ceramica'||!state.poolGroup)return;resetFilters();renderWorkspace();syncSelectionUrl();announceSelection();});
+  $('#elios-pool-collections')?.addEventListener('click',()=>{if(state.partner!=='Elios Ceramica'||state.poolGroup)return;resetFilters();state.poolGroup=true;renderWorkspace();syncSelectionUrl();announceSelection();});
   categories.addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(b)chooseCategory(b.dataset.cat)});
   partnerGrid.addEventListener('click',e=>{const b=e.target.closest('[data-partner]');if(b)choosePartner(b.dataset.partner)});
   partnerTrigger.onclick=()=>partnerPanel.classList.toggle('mobile-open');
   $('#mobile-filter-trigger').onclick=()=>$('#v2-filters').classList.toggle('mobile-open');
-  $('#v2-search').addEventListener('input',e=>{state.q=e.target.value;renderProducts()});
-  [['#v2-format','format'],['#v2-color','color'],['#v2-effect','effect'],['#v2-finish','finish']].forEach(([id,key])=>{const el=$(id);if(el)el.addEventListener('change',e=>{state[key]=e.target.value;renderProducts()})});
-  productGrid.addEventListener('click',e=>{if(e.target.closest('[data-pool-back]')){resetFilters();renderWorkspace();workspace.scrollIntoView({behavior:'smooth',block:'start'});return;}const c=e.target.closest('[data-id]');if(c)openProduct(c.dataset.id)});
+  $('#v2-search').addEventListener('input',e=>{state.q=e.target.value.slice(0,180);renderProducts();syncSelectionUrl('replace');});
+  [['#v2-format','format'],['#v2-color','color'],['#v2-effect','effect'],['#v2-finish','finish']].forEach(([id,key])=>{const el=$(id);if(el)el.addEventListener('change',e=>{state[key]=e.target.value;renderProducts();syncSelectionUrl('replace');})});
+  productGrid.addEventListener('click',e=>{if(e.target.closest('[data-pool-back]')){resetFilters();renderWorkspace();syncSelectionUrl();announceSelection();workspace.scrollIntoView({behavior:'smooth',block:'start'});return;}const c=e.target.closest('[data-id]');if(c)openProduct(c.dataset.id)});
   $('#product-modal-v2').addEventListener('click',e=>{if(e.target.id==='product-modal-v2'){e.currentTarget.classList.remove('open');document.body.style.overflow=''}});
 
-  window.addEventListener('lrf-pro-session-changed',()=>{renderPartners();renderWorkspace();});
-  window.addEventListener('lrf-agent-tariffs-ready',()=>{renderPartners();renderWorkspace();});
-  window.addEventListener('pageshow',()=>{if(window.LRF_PRO_SESSION?.read?.()){renderPartners();renderWorkspace();}},{passive:true});
+  window.addEventListener('lrf-pro-session-changed',refreshAccess);
+  window.addEventListener('lrf-agent-tariffs-ready',refreshAccess);
+  window.addEventListener('pageshow',()=>{if(window.LRF_PRO_SESSION?.read?.())refreshAccess();},{passive:true});
 
   let requestedPetracerOpened=false;
   function openRequestedPetracer(){const collection=new URLSearchParams(location.search).get('collection');if(!requestedPetracerOpened && state.partner==="Petracer's" && collection && window.LRF_PETRACER_SELECTION?.openCollection(collection))requestedPetracerOpened=true;}
@@ -277,17 +326,17 @@
   window.addEventListener('lrf-biopietra-data-ready',()=>{if(state.partner==='Biopietra'){fillFilters();renderProducts();openRequestedBiopietra();}});
   window.addEventListener('lrf-biopietra-data-error',()=>{if(state.partner==='Biopietra')productGrid.innerHTML='<div class="empty-partner" role="alert"><strong>Le catalogue n’a pas pu être chargé.</strong><button type="button" class="pro-link" data-biopietra-retry>Réessayer</button></div>';});
   productGrid.addEventListener('click',event=>{if(event.target.closest('[data-biopietra-retry]'))window.LRF_BIOPIETRA_LOAD?.().catch(()=>{});});
-  if(/fenice/i.test(new URLSearchParams(location.search).get('partner')||''))state.partner='La Fenice';
-  if(/biopietra/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category='parement';state.partner='Biopietra';}
-  if(/^bulbo$/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category=new URLSearchParams(location.search).get('category')==='meubles'?'meubles':'exception';state.partner='Bulbo';}
-  if(/^pecchioli(?:-firenze)?$/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category='exception';state.partner='Pecchioli Firenze';}
-  if(/^petracers?$/.test(norm(new URLSearchParams(location.search).get('partner')||''))){const category=new URLSearchParams(location.search).get('category');state.category=['meubles','sanitaire','robinetterie'].includes(category)?category:'exception';state.partner="Petracer's";}
-  const requestedParams=new URLSearchParams(location.search);
-  if(norm(requestedParams.get('partner'))==='reviglass'||requestedParams.get('category')==='mosaique'){state.category='mosaique';state.partner='Reviglass';}
-  if(norm(requestedParams.get('partner'))==='bilt'||requestedParams.get('category')==='outillages'){state.category='outillages';state.partner='Bilt';}
-  if(['opal','opalhome'].includes(norm(requestedParams.get('partner')))){state.category='robinetterie';state.partner='Opal';}
-  if(norm(requestedParams.get('partner'))==='uptrend'){state.category='sanitaire';state.partner='UPTREND';}
-  if(requestedParams.get('category')==='piscine'){state.category='carrelage';state.partner='Elios Ceramica';state.poolGroup=true;}
-  renderCategories();renderPartners();renderWorkspace();openRequestedPetracer();openRequestedPecchioli();openRequestedFenice();openRequestedBiopietra();openRequestedBulbo();
+  function openRequestedCollection(){openRequestedPetracer();openRequestedPecchioli();openRequestedFenice();openRequestedBiopietra();openRequestedBulbo();}
+  window.addEventListener('popstate',()=>{
+    const next=selectionFromUrl();
+    const unchanged=Object.keys(DEFAULT_SELECTION).every(key=>next[key]===state[key]);
+    state=next;updateInitialChrome();
+    if(!unchanged){
+      requestedPetracerOpened=requestedPecchioliOpened=requestedFeniceOpened=requestedBiopietraOpened=requestedBulboOpened=false;
+      renderCategories();renderPartners();renderWorkspace();openRequestedCollection();
+    }
+    announceSelection();
+  });
+  renderCategories();renderPartners();renderWorkspace();openRequestedCollection();announceSelection();
 })();
 

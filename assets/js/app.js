@@ -49,21 +49,18 @@
 
 function ensureMobileCss() {
     if (!window.matchMedia('(max-width: 900px)').matches) return;
-    const old = document.getElementById('lrf-mobile-enhancements');
-    if (old) old.remove();
-    const link = document.createElement('link');
-    link.id = 'lrf-mobile-enhancements';
-    link.rel = 'stylesheet';
-    link.href = 'assets/css/mobile-enhancements.css?v=20260817-1935';
-    document.head.appendChild(link);
-
-    const previousFinal = document.getElementById('lrf-mobile-public-v8-late');
-    if (previousFinal) previousFinal.remove();
-    const finalMobile = document.createElement('link');
-    finalMobile.id = 'lrf-mobile-public-v8-late';
-    finalMobile.rel = 'stylesheet';
-    finalMobile.href = 'assets/css/mobile-public-v8.css?v=20260901-2&media=20261018';
-    document.head.appendChild(finalMobile);
+    const ensure = (id, href) => {
+        const path = new URL(href, location.href).pathname;
+        const existing = [...document.querySelectorAll('link[rel="stylesheet"][href]')]
+            .find(link => new URL(link.getAttribute('href'), location.href).pathname === path);
+        if (existing) { if (!existing.id) existing.id = id; return; }
+        const link = document.createElement('link');
+        link.id = id; link.rel = 'stylesheet'; link.href = href;
+        link.media = '(max-width: 900px)';
+        document.head.appendChild(link);
+    };
+    ensure('lrf-mobile-enhancements', 'assets/css/mobile-enhancements.css?v=20260817-1935');
+    ensure('lrf-mobile-public-v8-css', 'assets/css/mobile-public-v8.css?v=20260901-2&media=20261018');
 }
 
 ensureMobileCss();
@@ -339,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!premiumPages.has(page) || document.getElementById('lrf-premium-public-theme')) return;
     const script = document.createElement('script');
     script.id = 'lrf-premium-public-theme';
-    script.src = 'assets/js/premium-public-theme.js?v=20261027-logo-pro2';
+    script.src = 'assets/js/premium-public-theme.js?v=20261106-firstpaint1';
     script.defer = true;
     document.head.appendChild(script);
 })();

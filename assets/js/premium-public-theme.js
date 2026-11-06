@@ -50,7 +50,9 @@
   if (!allowed.has(page)) return;
 
   const addStylesheet = (id, href) => {
-    if (document.getElementById(id)) return;
+    const path = new URL(href, location.href).pathname;
+    const existing = document.getElementById(id) || [...document.querySelectorAll('link[rel="stylesheet"][href]')].find(link => new URL(link.getAttribute('href'), location.href).pathname === path);
+    if (existing) { if (!existing.id) existing.id = id; return; }
     const link = document.createElement('link');
     link.id = id;
     link.rel = 'stylesheet';
@@ -65,7 +67,7 @@
   if (window.matchMedia('(max-width: 900px)').matches) {
     addStylesheet('lrf-mobile-public-v8-css', 'assets/css/mobile-public-v8.css?v=20260901-2&media=20261018');
   }
-  addStylesheet('lrf-logo-scale-v9-css', 'assets/css/lrf-logo-scale-v9.css?v=20261027-public-perf1');
+  addStylesheet('lrf-logo-scale-v9-css', 'assets/css/lrf-logo-scale-v9.css?v=20261106-firstpaint1');
   document.documentElement.classList.add('lrf-premium-ready');
 
   const pageClass = `lrf-page-${page.replace('.html','').replace(/[^a-z0-9-]/g,'-')}`;
@@ -279,12 +281,12 @@
     const logoLink = document.querySelector('header .logo');
     if (!logoLink) return;
     let img = logoLink.querySelector('img');
-    if (!img || !img.classList.contains('lrf-monogram-header')) {
-      logoLink.innerHTML = '<img class="lrf-monogram-header" src="assets/img/logo03lrf.png" alt="LE ROY FACTORY" width="76" height="76" decoding="async">';
+    if (!img || !img.classList.contains('lrf-wordmark-header')) {
+      logoLink.innerHTML = '<img class="lrf-monogram-header lrf-wordmark-header" src="assets/img/performance-20261027/brand-wordmark-gold.svg" alt="LE ROY FACTORY" width="145" height="52" decoding="async" style="content:normal!important">';
       img = logoLink.querySelector('img');
     }
-    if (img && img.getAttribute('src') !== 'assets/img/logo03lrf.png') {
-      img.setAttribute('src','assets/img/logo03lrf.png');
+    if (img && img.getAttribute('src') !== 'assets/img/performance-20261027/brand-wordmark-gold.svg') {
+      img.setAttribute('src','assets/img/performance-20261027/brand-wordmark-gold.svg');
     }
     // An older cached base.css replaced image pixels through CSS content.
     if (img) img.style.setProperty('content', 'normal', 'important');
@@ -311,8 +313,8 @@
 
     const favicon = document.querySelector('link[rel="icon"]');
     if (favicon) {
-      favicon.href = 'assets/img/logo03lrf.png';
-      favicon.type = 'image/png';
+      favicon.href = 'assets/img/performance-20261027/brand-wordmark-gold.svg';
+      favicon.type = 'image/svg+xml';
     }
 
     enforceHeaderLogo();
@@ -329,7 +331,7 @@
     });
 
     const heroLogo = document.querySelector('.hero-logo');
-    if (heroLogo) {
+    if (heroLogo && page !== 'index.html') {
       heroLogo.src = 'assets/img/performance-20261027/brand-wordmark-gold.svg';
       heroLogo.alt = 'LE ROY factory';
       heroLogo.removeAttribute('style');
@@ -337,7 +339,7 @@
 
     const clientBrand = document.querySelector('.brand img');
     if (page === 'ouverture-compte.html' && clientBrand) {
-      clientBrand.src = 'assets/img/logo03lrf.png';
+      clientBrand.src = 'assets/img/performance-20261027/brand-wordmark-gold.svg';
       clientBrand.alt = 'LRF';
     }
 

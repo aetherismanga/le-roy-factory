@@ -6,7 +6,8 @@
   if (!mobile.matches) return;
 
   const logoWrap = document.querySelector('.hero-logo-wrapper');
-  if (!logoWrap || document.getElementById('bulbo-mobile-trigger')) return;
+  if (!logoWrap || window.__LRF_BULBO_VIDEOS_HOME__) return;
+  window.__LRF_BULBO_VIDEOS_HOME__ = true;
 
   const SLIDES = [
     'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo/diapo-01.webp?v=20260921-4',
@@ -15,12 +16,12 @@
     'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo/diapo-04.webp?v=20260921-4'
   ];
 
-  const badge = document.createElement('button');
+  const badge = document.getElementById('bulbo-mobile-trigger') || document.createElement('button');
   badge.type = 'button';
   badge.id = 'bulbo-mobile-trigger';
   badge.setAttribute('aria-label', 'Voir les vidéos BULBO');
   badge.setAttribute('aria-haspopup', 'dialog');
-  badge.innerHTML =
+  if (!badge.childNodes.length) badge.innerHTML =
     '<span class="bulbo-trigger-shell">' +
       '<img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo-videos-badge.webp?v=20260920-bulbo2" alt="" width="256" height="256" decoding="async">' +
     '</span>';
@@ -35,7 +36,7 @@
   }
 
   logoWrap.classList.add('bulbo-ready');
-  logoWrap.appendChild(badge);
+  if (!badge.isConnected) logoWrap.appendChild(badge);
 
   const overlay = document.createElement('div');
   overlay.id = 'bulbo-video-overlay';

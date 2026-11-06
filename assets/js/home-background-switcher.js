@@ -76,28 +76,28 @@
     document.head.appendChild(style);
   }
 
-  let mode = 'light';
+  let mode = document.documentElement.dataset.lrfHomeMode === 'dark' ? 'dark' : 'light';
   try {
     const saved = localStorage.getItem('lrf-home-screen-mode');
     if (saved === 'dark' || saved === 'light') mode = saved;
   } catch (_) {}
 
-  const testButton = document.createElement('button');
+  const testButton = hero.querySelector('.lrf-screen-test-button') || document.createElement('button');
   testButton.type = 'button';
   testButton.className = 'lrf-screen-test-button';
   testButton.textContent = 'Test écran';
   testButton.setAttribute('aria-label', 'Tester le fond clair et le fond sombre');
   testButton.title = 'Basculer entre fond clair et fond sombre';
-  hero.appendChild(testButton);
+  if (!testButton.isConnected) hero.appendChild(testButton);
 
   let modeToggle = null;
   if (heroButtons) {
-    modeToggle = document.createElement('button');
+    modeToggle = heroButtons.querySelector('.lrf-home-mode-toggle') || document.createElement('button');
     modeToggle.type = 'button';
     modeToggle.className = 'lrf-home-mode-toggle';
-    modeToggle.innerHTML = '<span>Écran clair</span><span class="lrf-toggle-track" aria-hidden="true"><span class="lrf-toggle-dot"></span></span><span class="lrf-toggle-state">ON</span>';
+    if (!modeToggle.children.length) modeToggle.innerHTML = '<span>Écran clair</span><span class="lrf-toggle-track" aria-hidden="true"><span class="lrf-toggle-dot"></span></span><span class="lrf-toggle-state">ON</span>';
     modeToggle.setAttribute('aria-label', 'Activer ou désactiver l’écran clair');
-    heroButtons.appendChild(modeToggle);
+    if (!modeToggle.isConnected) heroButtons.appendChild(modeToggle);
   }
 
   const saveMode = () => {
@@ -112,6 +112,7 @@
   };
 
   const applyBackground = () => {
+    document.documentElement.dataset.lrfHomeMode = mode;
     const mobile = media.matches;
     const light = mode === 'light';
     const image = mobile

@@ -4,7 +4,8 @@
     const nav = document.querySelector('header .nav-container');
     const view = nav?.querySelector('.viewlots26-header');
     const burger = nav?.querySelector('.burger-btn');
-    if (!nav || !view || !burger || nav.querySelector('.revi-header-promo')) return;
+    if (!nav || !view || !burger) return;
+    if (nav.querySelector('.revi-header-promo')) {nav.classList.add('revi-promos-ready');return;}
     const link = document.createElement('a');
     link.className = 'revi-header-promo';
     link.href = 'reviglass-lyon-2026.html';

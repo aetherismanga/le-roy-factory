@@ -1,10 +1,12 @@
 import {createOpalPriceState} from './opal-price-state.mjs?v=20261106-opal2';
-const version='20261106-opal2';
+const version='20261106-firstpaint1';
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money = value => Number(value).toLocaleString('fr-FR',{style:'currency',currency:'EUR'});
 const norm = value => String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
 const favoriteKey='lrf-opal-favorites-v1', controllers=new Set();
-let productsPromise,authPromise,expiryTimer;
+let productsPromise,stylesPromise,authPromise,expiryTimer;
+const mounts=new WeakMap();
+function getStyles(){return stylesPromise||=(fetch('assets/css/opal-catalogue.css?v='+version).then(response=>{if(!response.ok)throw Error();return response.text();}).catch(error=>{stylesPromise=null;throw error;}));}
 function favorites(){try{return new Set(JSON.parse(localStorage.getItem(favoriteKey)||'[]'));}catch{return new Set();}}
 const session=()=>window.LRF_PRO_SESSION?.read?.()||null;
 function candidate(){
@@ -44,15 +46,21 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden){prices.cl
 function getProducts(){return productsPromise||=(fetch('assets/data/opal-products.json?v='+version).then(response=>{if(!response.ok)throw Error();return response.json();}).catch(error=>{productsPromise=null;throw error;}));}
 function priceLabel(product){const value=prices.value(product);return value==null?'Prix sur demande':money(value)+(prices.snapshot().pro?' HT':' TTC');}
 function toggleFavorite(product){const ids=favorites();if(ids.has(product.id))ids.delete(product.id);else ids.add(product.id);try{localStorage.setItem(favoriteKey,JSON.stringify([...ids]));}catch{}refreshViews();}
-export async function renderOpalCatalogue(host){
-  const root=host.shadowRoot||host.attachShadow({mode:'open'});
-  root.innerHTML=`<link rel="stylesheet" href="assets/css/opal-catalogue.css?v=${version}"><div class="oh-loading" role="status">Chargement des collections OPAL Home…</div>`;
-  let products;try{products=await getProducts();}catch{root.innerHTML='<p>Le catalogue ne se charge pas. Rechargez la page pour réessayer.</p>';return;}
+export function renderOpalCatalogue(host){
+  if(mounts.has(host))return mounts.get(host);
+  const job=mountCatalogue(host).catch(error=>{mounts.delete(host);throw error;});
+  mounts.set(host,job);return job;
+}
+async function mountCatalogue(host){
+  // Retain the parsed presentation until both data and its isolated stylesheet
+  // are ready. Shadow-root stylesheet links do not block first paint.
+  let products,css;try{[products,css]=await Promise.all([getProducts(),getStyles()]);}catch{host.innerHTML='<p>Le catalogue ne se charge pas. Rechargez la page pour réessayer.</p>';mounts.delete(host);return;}
   if(!host.isConnected)return;
+  const root=host.shadowRoot||host.attachShadow({mode:'open'});
   const groups=new Map();for(const product of products){if(!groups.has(product.model))groups.set(product.model,[]);groups.get(product.model).push(product);}
   const models=[...groups.keys()].sort((a,b)=>a.localeCompare(b,'fr'));
   const idFor=name=>'oh-'+norm(name);
-  root.innerHTML=`<link rel="stylesheet" href="assets/css/opal-catalogue.css?v=${version}">
+  root.innerHTML=`<style>${css}</style>
   <div class="oh-catalogue">
     <section class="oh-hero" aria-label="Présentation OPAL Home"><div class="oh-hero-copy"><span class="oh-kicker">OPAL HOME · MIROIRS & LUMIÈRE</span><h2>Un autre regard<br>sur votre salle de bain.</h2><p>Des lignes singulières, des reflets lumineux. Découvrez une collection de miroirs qui donne du caractère à chaque espace.</p><div class="oh-hero-actions"><a class="oh-button" href="#oh-collections" data-collections>Découvrir les collections <span>↓</span></a><span>${models.length} collections · ${products.length} références</span></div></div><div class="oh-hero-photo"><img src="assets/img/opal-catalogue-2026/opal-aixa.jpg" alt="Miroir lumineux OPAL Aixa dans une salle de bain" fetchpriority="high"><span>AIXA · OPAL HOME</span></div></section>
     <div class="oh-browser" id="oh-collections"><aside class="oh-index"><details open><summary>Lexique des collections <span>☰</span></summary><nav aria-label="Toutes les collections OPAL Home">${models.map(name=>`<a href="#${idFor(name)}" data-collection="${esc(name)}">${esc(name)}<span>↗</span></a>`).join('')}</nav></details></aside><section class="oh-products" aria-label="Collections OPAL Home"><div class="oh-toolbar"><div><span class="oh-kicker">LA COLLECTION</span><h3>À chaque espace, son miroir.</h3></div><div class="oh-tools"><button class="oh-tariff" type="button" hidden aria-pressed="false">Voir tarif PRO</button><button class="oh-favorites" type="button" aria-pressed="false">♡ Mes favoris</button></div></div><p class="oh-mode" role="status">Prix publics TTC</p><div class="oh-grid">${models.map(name=>{const items=groups.get(name);return `<article class="oh-card" id="${idFor(name)}"><button class="oh-photo" type="button" data-model="${esc(name)}" aria-label="Découvrir ${esc(name)}"><img src="${esc(items[0].image)}" alt="Miroir OPAL ${esc(name)}" loading="lazy" decoding="async"><span>↗</span></button><p class="oh-kicker">MIROIR · ${items.length} FORMAT${items.length>1?'S':''}</p><h4>${esc(name)}</h4><p class="oh-card-price" data-price-for="${esc(name)}"></p><button class="oh-format" type="button" data-model="${esc(name)}">Choisir un format <span>↗</span></button></article>`;}).join('')}</div><p class="oh-empty" hidden>Aucun favori pour le moment. Ouvrez une collection pour sélectionner vos miroirs.</p></section></div>
@@ -81,5 +89,7 @@ export async function renderOpalCatalogue(host){
   tariff.addEventListener('click',()=>{prices.toggle();});
   root.querySelector('.oh-favorites').addEventListener('click',event=>{onlyFavorites=!onlyFavorites;event.currentTarget.setAttribute('aria-pressed',String(onlyFavorites));event.currentTarget.textContent=onlyFavorites?'← Tous les miroirs':'♡ Mes favoris';refresh();});
   root.querySelector('.oh-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
+  host.dataset.opalReady='true';
+  host.dispatchEvent(new CustomEvent('lrf-opal-ready',{bubbles:true}));
   refreshAccess();
 }

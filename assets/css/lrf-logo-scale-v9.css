@@ -88,3 +88,11 @@ body.lrf-page-index .hero-logo-wrapper{
     max-width:92vw!important;
   }
 }
+
+/* A text wordmark keeps its intrinsic aspect ratio instead of a round logo box. */
+html body.lrf-premium-v2.lrf-premium-v2 header .logo:has(> .lrf-wordmark-header){width:145px!important;min-width:145px!important;height:52px!important}
+html body.lrf-premium-v2.lrf-premium-v2 header .logo>.lrf-wordmark-header{width:145px!important;max-width:145px!important;height:52px!important;object-fit:contain!important;border-radius:0!important;content:normal!important}
+@media(max-width:900px){
+  html body.lrf-premium-v2.lrf-premium-v2 header .logo:has(> .lrf-wordmark-header){width:115px!important;min-width:115px!important;height:42px!important}
+  html body.lrf-premium-v2.lrf-premium-v2 header .logo>.lrf-wordmark-header{width:115px!important;max-width:115px!important;height:42px!important;border-radius:0!important}
+}

@@ -314,7 +314,7 @@
       .lrf-desktop-promo-stack>.elios-rentree-desktop{animation:none!important;translate:0 0!important}
     }
   `;
-  document.head.appendChild(style);
+  if(!document.getElementById('lrf-home-promotions-css')) document.head.appendChild(style);
 
   function install(){
     const hero=document.querySelector('.hero-video-section');

@@ -440,6 +440,13 @@
       "presentation": true,
       "lexicon": 22,
       "proPrices": "server-verified HT, explicit toggle"
+    },
+    "loadStability": {
+      "releaseId": "20261106-firstpaint1",
+      "sharedMobileTemplates": 18,
+      "staticThemeTemplates": 13,
+      "selectionRouteBeforeRender": true,
+      "opalStableMount": true
     }
   }
 }
