@@ -97,12 +97,12 @@
   }
 
   /* La barre d'actions du bas et le bouton + ne recouvrent pas la fiche. */
-  body.crm-body:has(#client-modal:not([style*="display: none"])) .lrf-mobile-actions,
-  body.crm-body:has(#client-modal:not([style*="display:none"])) .lrf-mobile-actions,
-  body.crm-body:has(#client-modal:not([style*="display: none"])) #lrf-mobile-fab,
-  body.crm-body:has(#client-modal:not([style*="display:none"])) #lrf-mobile-fab,
-  body.crm-body:has(#client-modal:not([style*="display: none"])) .lrf-mobile-action-sheet,
-  body.crm-body:has(#client-modal:not([style*="display:none"])) .lrf-mobile-action-sheet {
+  body.crm-body:has(#client-modal[style*="display: flex"]) .lrf-mobile-actions,
+  body.crm-body:has(#client-modal[style*="display:flex"]) .lrf-mobile-actions,
+  body.crm-body:has(#client-modal[style*="display: flex"]) #lrf-mobile-fab,
+  body.crm-body:has(#client-modal[style*="display:flex"]) #lrf-mobile-fab,
+  body.crm-body:has(#client-modal[style*="display: flex"]) .lrf-mobile-action-sheet,
+  body.crm-body:has(#client-modal[style*="display:flex"]) .lrf-mobile-action-sheet {
     display: none !important;
   }
 
@@ -114,8 +114,8 @@
     left: 12px !important;
     z-index: 100040 !important;
   }
-  body.crm-body:has(#client-modal:not([style*="display: none"])) #crm-mobile-menu-btn,
-  body.crm-body:has(#client-modal:not([style*="display:none"])) #crm-mobile-menu-btn {
+  body.crm-body:has(#client-modal[style*="display: flex"]) #crm-mobile-menu-btn,
+  body.crm-body:has(#client-modal[style*="display:flex"]) #crm-mobile-menu-btn {
     display: none !important;
   }
 
