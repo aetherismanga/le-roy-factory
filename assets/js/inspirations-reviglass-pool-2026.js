@@ -156,6 +156,7 @@
     }
   ];
 
+  const ALL_SERIES=[...(window.LRF_REVIGLASS_2026?.collections||[]),...SERIES];
   const state={q:'',format:'Tous',support:'Tous',type:'Tous'};
 
   function readSession(){
@@ -189,7 +190,7 @@
     if(search){search.placeholder='Rechercher une série ou une référence Reviglass…';search.value=state.q;}
     if(format)format.innerHTML='<option value="Tous">Tous les formats</option><option>2,5 × 2,5</option><option>5 × 5</option><option>Nez de marche</option>';
     if(support)support.innerHTML='<option value="Tous">Tous les supports</option><option>Cordon polyuréthane</option><option>PVC</option><option>Papier</option>';
-    if(type)type.innerHTML='<option value="Tous">Tous les types</option>'+[...new Set(SERIES.map(x=>x.type))].map(v=>`<option>${esc(v)}</option>`).join('');
+    if(type)type.innerHTML='<option value="Tous">Tous les types</option>'+[...new Set(ALL_SERIES.map(x=>x.type))].map(v=>`<option>${esc(v)}</option>`).join('');
     if(finish){finish.innerHTML='<option value="Tous">Tarif 2026 Piscines</option>';finish.disabled=true;}
     if(format)format.value=state.format;
     if(support)support.value=state.support;
@@ -209,13 +210,14 @@
     if(!isActive())return;
     installStyle();configureFilters();
     const host=$('#partner-products'),count=$('#partner-count');if(!host)return;
-    const found=SERIES.filter(matches);
-    if(count)count.textContent=`${found.length} série${found.length>1?'s':''} tarifaire${found.length>1?'s':''} · ${SERIES.reduce((a,x)=>a+refsOf(x).length,0)} références / désignations`;
+    const found=ALL_SERIES.filter(matches);
+    if(count)count.textContent=`${found.length} série${found.length>1?'s':''} et collection${found.length>1?'s':''} · ${ALL_SERIES.reduce((a,x)=>a+refsOf(x).length,0)} références / désignations`;
     host.className='reviglass-grid';
-    host.innerHTML=`<div class="reviglass-source"><strong>${esc(SRC)}</strong><br>Les prix sont affichés uniquement aux comptes autorisés Reviglass. Les références restent consultables pour préparer les commandes et demandes de disponibilité.</div>${found.map(series=>{
+    host.innerHTML=`<a class="revi-selection-banner" href="reviglass-lyon-2026.html#collections"><span><strong>Nouveautés Reviglass</strong><small>MIDAS &amp; S-TONES · Retrouvez-nous à Lyon du 17 au 20 novembre.<br>Hall 4 · Stand D74 · Votre entrée gratuite</small></span><span aria-hidden="true">↗</span></a>${found.map(series=>{
       const supports=supportsOf(series), refs=refsOf(series);
+      if(series.href)return `<a class="revi-selection-card" href="${esc(series.href)}" data-revi-new="${esc(series.id)}"><img src="${esc(series.cover)}" width="700" height="525" alt="Piscine Reviglass ${esc(series.name)}" loading="lazy" decoding="async"><div><span class="revi-pill">Nouveauté Reviglass</span><h3>${esc(series.name)}</h3><p>${esc(series.description)}</p><p>${esc(series.format)} cm · ${refs.length} référence${refs.length>1?'s':''}</p><b>Découvrir la collection ↗</b></div></a>`;
       return `<button type="button" class="reviglass-card" data-reviglass-id="${esc(series.id)}"><div class="reviglass-card-top"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/reviglass.png" alt="Reviglass"><div><span>${esc(series.format)} · ${esc(series.type)}</span><h3>${esc(series.name)}</h3></div></div><div class="reviglass-card-body"><p>${esc(refs.slice(0,6).join(' · '))}${refs.length>6?' …':''}</p><div class="reviglass-chips">${supports.slice(0,3).map(v=>`<span>${esc(v)}</span>`).join('')}</div><div class="reviglass-count">${refs.length} référence${refs.length>1?'s':''} / désignation${refs.length>1?'s':''}</div></div></button>`;
-    }).join('')}`;
+    }).join('')}<div class="reviglass-source"><strong>${esc(SRC)}</strong><br>Les prix sont affichés uniquement aux comptes autorisés Reviglass. Pour MIDAS et S-TONES, contactez l’agence pour les tarifs et disponibilités.</div>`;
   }
 
   function ensureModal(){

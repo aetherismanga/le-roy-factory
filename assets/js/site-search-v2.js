@@ -94,7 +94,7 @@
     (series.refs||[]).forEach(ref=>add({
       type:'Référence Reviglass',icon:'⌕',title:ref,
       desc:`Reviglass · ${series.name} · ${series.format}`,
-      url:`univers.html?partner=${u('Reviglass')}&series=${u(series.id)}&ref=${u(ref)}&open=1`,
+      url:series.href ? `${series.href}${series.id==='s-tones'?'?ref='+u(ref):''}` : `univers.html?partner=${u('Reviglass')}&series=${u(series.id)}&ref=${u(ref)}&open=1`,
       aliases:['reviglass',series.name,series.format,ref]
     }));
   });

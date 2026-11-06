@@ -32,6 +32,7 @@
   ];
 
   const FORMATS=[...new Set(DATA.map(x=>x.format))];
+  const SELECTION_DATA=[...(window.LRF_REVIGLASS_2026?.collections||[]).map(x=>({...x,rows:x.rows.map(row=>[row.refs,[]])})),...DATA];
   const COLORS=[['','Toutes les couleurs'],['blanc','Blanc'],['bleu','Bleu'],['gris','Gris'],['noir','Noir'],['vert','Vert'],['jaune','Jaune'],['nacre','Nacré'],['phosphorescent','Phosphorescent']];
   const COLOR_WORDS={
     blanc:['white','blanc','polar','swan','dove','albatros','calacatta','ps50','ps53'],
@@ -72,14 +73,17 @@
     inner.dataset.revCustom='1';
     inner.innerHTML=`<div class="rev-filter-grid"><div><label>Format</label><select id="rev-filter-format"><option value="">Tous les formats</option>${FORMATS.map(f=>`<option>${esc(f)}</option>`).join('')}</select></div><div><label>Série</label><select id="rev-filter-series"><option value="">Toutes les séries</option></select></div><div><label>Couleur</label><select id="rev-filter-color">${COLORS.map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select></div></div>`;
     const f=$('#rev-filter-format'),s=$('#rev-filter-series'),c=$('#rev-filter-color');
-    const refreshSeries=()=>{const old=s.value;s.innerHTML='<option value="">Toutes les séries</option>'+seriesByFormat(f.value).map(x=>`<option value="${esc(x.id)}">${esc(x.name)}</option>`).join('');if([...s.options].some(o=>o.value===old))s.value=old;filterCards()};
+    const refreshSeries=()=>{const old=s.value;s.innerHTML='<option value="">Toutes les séries</option>'+SELECTION_DATA.filter(x=>!f.value||x.format===f.value).map(x=>`<option value="${esc(x.id)}">${esc(x.name)}</option>`).join('');if([...s.options].some(o=>o.value===old))s.value=old;filterCards()};
     f.onchange=refreshSeries;s.onchange=filterCards;c.onchange=filterCards;refreshSeries();
   }
   function filterCards(){
     if(!isReviglass())return;
     const format=$('#rev-filter-format')?.value||'',series=$('#rev-filter-series')?.value||'',color=$('#rev-filter-color')?.value||'';
-    $$('[data-reviglass-id]').forEach(card=>{const d=DATA.find(x=>x.id===card.dataset.reviglassId);card.style.display=d&&(!format||d.format===format)&&(!series||d.id===series)&&seriesColorMatch(d,color)?'':'none'});
-    const visible=$$('[data-reviglass-id]').filter(x=>x.style.display!=='none').length,count=$('#partner-count');if(count)count.textContent=`${visible} série${visible>1?'s':''} affichée${visible>1?'s':''} · 184 références / désignations`;
+    const cards=$$('[data-reviglass-id],[data-revi-new]');
+    cards.forEach(card=>{const d=SELECTION_DATA.find(x=>x.id===(card.dataset.reviglassId||card.dataset.reviNew));card.style.display=d&&(!format||d.format===format)&&(!series||d.id===series)&&seriesColorMatch(d,color)?'':'none'});
+    const visible=cards.filter(x=>x.style.display!=='none'),count=$('#partner-count');
+    const refs=visible.reduce((sum,card)=>sum+flatRefs(SELECTION_DATA.find(x=>x.id===(card.dataset.reviglassId||card.dataset.reviNew))).length,0);
+    if(count)count.textContent=`${visible.length} série${visible.length>1?'s':''} / collection${visible.length>1?'s':''} affichée${visible.length>1?'s':''} · ${refs} références / désignations`;
   }
 
   function installWorkspaceActions(){

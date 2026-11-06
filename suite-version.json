@@ -271,6 +271,20 @@
       "boundedDesktopFormScroll": true,
       "compactLaptopSummary": true,
       "preserveClientFields": true
+    },
+    "reviglass": {
+      "releaseId": "20261106-reviglass1",
+      "collections": [
+        "MIDAS",
+        "S-TONES"
+      ],
+      "references": 7,
+      "officialPhotographs": 24,
+      "animatedInstaller": true,
+      "eventPage": "reviglass-lyon-2026.html",
+      "homepageBlueBanner": true,
+      "selectionCategory": "mosaique",
+      "invitationLinkVerified": "2026-11-06"
     }
   },
   "configurators": {

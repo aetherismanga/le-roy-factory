@@ -274,6 +274,7 @@
   if(/^pecchioli(?:-firenze)?$/i.test(new URLSearchParams(location.search).get('partner')||'')){state.category='exception';state.partner='Pecchioli Firenze';}
   if(/^petracers?$/.test(norm(new URLSearchParams(location.search).get('partner')||''))){const category=new URLSearchParams(location.search).get('category');state.category=['meubles','sanitaire','robinetterie'].includes(category)?category:'exception';state.partner="Petracer's";}
   const requestedParams=new URLSearchParams(location.search);
+  if(norm(requestedParams.get('partner'))==='reviglass'||requestedParams.get('category')==='mosaique'){state.category='mosaique';state.partner='Reviglass';}
   if(norm(requestedParams.get('partner'))==='bilt'||requestedParams.get('category')==='outillages'){state.category='outillages';state.partner='Bilt';}
   if(norm(requestedParams.get('partner'))==='uptrend'){state.category='sanitaire';state.partner='UPTREND';}
   if(requestedParams.get('category')==='piscine'){state.category='carrelage';state.partner='Elios Ceramica';state.poolGroup=true;}

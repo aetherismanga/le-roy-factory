@@ -69,6 +69,7 @@
   }
   function openReviglass(){
     const target=exactRevTarget();
+    if(target?.series?.href){location.assign(target.series.href+(target.series.id==='s-tones'&&target.ref?'?ref='+encodeURIComponent(target.ref):''));return;}
     let tries=0;
     const timer=setInterval(()=>{
       tries++;

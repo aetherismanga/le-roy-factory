@@ -156,6 +156,9 @@
 
     function currentEntries() {
       const partner = currentPartnerName();
+      if (/reviglass/i.test(partner)) {
+        return [...document.querySelectorAll('#partner-products [data-revi-new],#partner-products [data-reviglass-id]')].map(card=>({id:'reviglass-'+(card.dataset.reviNew||card.dataset.reviglassId),name:card.querySelector('h3')?.textContent?.trim()||'',href:card.getAttribute('href')||'',keywords:card.textContent||''})).filter(x=>x.name).sort((a,b)=>a.name.localeCompare(b.name,'fr',{sensitivity:'base'}));
+      }
       if (/biopietra/i.test(partner) && Array.isArray(window.BIOPIETRA_CATALOGUE)) {
         return window.BIOPIETRA_CATALOGUE.map(p=>({id:p.id,name:p.name,meta:p.group||p.family||'',keywords:[p.baseSeries,p.composition,...(p.swatches||[]).map(c=>c.name)].filter(Boolean).join(' ')})).sort((a,b)=>a.name.localeCompare(b.name,'fr',{numeric:true,sensitivity:'base'}));
       }
@@ -237,6 +240,11 @@
       const id = item.dataset.lexId;
       const entry = entries.find(x => x.id === id);
       closeLexicon();
+      if(id.startsWith('reviglass-')){
+        if(entry?.href)location.assign(entry.href);
+        else document.querySelector(`#partner-products [data-reviglass-id="${CSS.escape(id.slice(10))}"]`)?.click();
+        return;
+      }
 
       if(id.startsWith('fenice-') && window.LRF_FENICE_SELECTION?.openCollection(id))return;
       if(id.startsWith('biopietra-') && window.LRF_BIOPIETRA_SELECTION?.openCollection(id))return;

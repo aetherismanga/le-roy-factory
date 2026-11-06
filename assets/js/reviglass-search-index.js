@@ -3,6 +3,7 @@
   if (window.LRF_REVIGLASS_SEARCH_INDEX) return;
   const s=(id,name,format,refs)=>({id,name,format,refs});
   window.LRF_REVIGLASS_SEARCH_INDEX=[
+{"id": "midas", "name": "MIDAS", "format": "2,5 × 2,5", "refs": ["MIDAS"], "href": "reviglass-midas.html"},{"id": "s-tones", "name": "S-TONES", "format": "5 × 5", "refs": ["ST-01 CARRARA", "ST-02 TAJ MAHAL", "ST-03 COTO", "ST-04 SUKABUMI", "ST-05 SUMATRA", "ST-06 VULCANO"], "href": "reviglass-s-tones.html"},
     s('serie-ps-25','Série PS','2,5 × 2,5',['PS50','PS53','PS40','PS41','PS21','PS22','PS23','PS24','PS51','PS52','PS56','PS59','PS25','PS54','PS55','PS60','PS26','PS27','PS63']),
     s('anti-derapant-25','Antidérapant Cat. C · Classe 3 · R11','2,5 × 2,5',['PS40','PS41','PS50','PS53','PS56','PS59','PS25','PS55','PS60']),
     s('serie-ps-mezcla','Série PS · Mezcla','2,5 × 2,5',['TANGANIKA','VICTORIA','NESS','MIX AQUA']),
