@@ -1,0 +1,42 @@
+name: Verify LRF Photo Studio preview
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'lrf-photo-studio.html'
+      - 'configurateurs.html'
+      - 'assets/js/lrf-photo-studio/**'
+      - 'assets/css/lrf-photo-studio.css'
+      - 'scripts/build-photo-studio-*.mjs'
+      - 'tests/photo-studio/**'
+      - 'tests/photo-studio*.test.mjs'
+      - '.github/workflows/photo-studio-preview.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  photo-studio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout feature source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364 # v4.2.2
+      - name: Node 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Validate browser module syntax
+        run: |
+          node --check assets/js/lrf-photo-studio/app.mjs
+          node --check assets/js/lrf-photo-studio/catalogue.mjs
+          node --check assets/js/lrf-photo-studio/mask.mjs
+          node --check assets/js/lrf-photo-studio/renderer.mjs
+      - name: Validate catalogue regeneration against committed source
+        run: |
+          node scripts/build-photo-studio-catalogue.mjs
+          git diff --exit-code -- assets/js/lrf-photo-studio/catalogue.json
+      - name: Run photo studio unit and catalogue acceptance tests
+        run: node --test tests/photo-studio*.test.mjs tests/photo-studio/*.test.mjs
