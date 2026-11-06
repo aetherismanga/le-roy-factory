@@ -43,12 +43,12 @@
         await loadScript('assets/js/inspirations-view-tariff-2026-10-15.js?v=20261005-view-tariff1','lrf-view-tariff-20261015-boot');
         await loadScript('assets/js/inspirations-view-accessories.js?v=20260911-view-accessories1','lrf-view-accessories-boot');
         await loadScript('assets/js/inspirations-view-hd.js?v=20260907-view-hd1','lrf-view-hd-boot');
-        await loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260911-view-safe-stable2','lrf-view-mobile-safe');
+        await loadScript('assets/js/inspirations-view-mobile-safe.js?v=20261106-view-availability1','lrf-view-mobile-safe');
         await loadScript('assets/js/inspirations-view-pallet-info.js?v=20260912-pallet1','lrf-view-pallet-info');
         window.dispatchEvent(new CustomEvent('lrf-view-bootstrap-ready'));
       }catch(err){
         console.warn('LRF VIEW bootstrap',err);
-        setTimeout(()=>{loadScript('assets/js/inspirations-view-mobile-safe.js?v=20260911-view-safe-stable2','lrf-view-mobile-safe-retry').catch(()=>{});},500);
+        setTimeout(()=>{loadScript('assets/js/inspirations-view-mobile-safe.js?v=20261106-view-availability1','lrf-view-mobile-safe-retry').catch(()=>{});},500);
       }
     })();
     return window.__LRF_VIEW_BOOTSTRAP_PROMISE__;
