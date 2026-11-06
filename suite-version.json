@@ -273,7 +273,7 @@
       "preserveClientFields": true
     },
     "reviglass": {
-      "releaseId": "20261106-reviglass1",
+      "releaseId": "20261106-reviglass2",
       "collections": [
         "MIDAS",
         "S-TONES"
@@ -284,7 +284,12 @@
       "eventPage": "reviglass-lyon-2026.html",
       "homepageBlueBanner": true,
       "selectionCategory": "mosaique",
-      "invitationLinkVerified": "2026-11-06"
+      "invitationLinkVerified": "2026-11-06",
+      "mobileBannerPlacement": "header-next-to-view",
+      "mobileAnimatedPromotions": true,
+      "officialAgencyLogo": true,
+      "lyonBackground": "official-s-tones-sukabumi-pool",
+      "agencyPresentWithReviglass": true
     }
   },
   "configurators": {

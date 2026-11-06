@@ -1,0 +1,130 @@
+/* The homepage's three mobile promotions share one row and one movement. */
+.revi-header-promo {display:none}
+@keyframes reviHeaderSway {0%,100% {translate:-3px 0} 50% {translate:3px 0}}
+@keyframes reviHeaderSheen {0%,25% {transform:translateX(-45%);opacity:0} 50% {opacity:.6} 75%,100% {transform:translateX(45%);opacity:0}}
+@media (max-width:900px) {
+  html body.lrf-page-index.lrf-premium-v2 .revi-home-banner {display:none!important}
+  html body.lrf-page-index.lrf-premium-v2 header .nav-container.revi-promos-ready {
+    display:grid!important;
+    grid-template-columns:60px repeat(3,minmax(0,1fr)) 46px!important;
+    gap:6px!important;
+    padding:0 10px!important;
+    width:100%!important;
+    box-sizing:border-box!important;
+  }
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>nav {position:absolute;width:0;height:0;left:0;top:0}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.logo {grid-column:1;grid-row:1;width:60px!important;min-width:60px!important;margin:0!important}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.viewlots26-header {grid-column:2}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.revi-header-promo {grid-column:3}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.aq-lisboa-mobile {grid-column:4}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.burger-btn {grid-column:5;grid-row:1;width:46px!important;min-width:46px!important;height:54px!important;margin:0!important;padding:10px!important}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.viewlots26-header,
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.aq-lisboa-mobile,
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.revi-header-promo {
+    grid-row:1;display:flex!important;flex-direction:column;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;isolation:isolate;
+    width:100%!important;min-width:0!important;max-width:none!important;
+    height:60px!important;min-height:60px!important;padding:6px 3px!important;
+    margin:0!important;box-sizing:border-box!important;border-radius:15px!important;
+    border:1px solid #e2c167!important;text-decoration:none!important;text-align:center;
+    animation:reviHeaderSway 4.8s ease-in-out infinite!important;
+  }
+  html body.lrf-page-index.lrf-premium-v2 header .revi-header-promo {background:linear-gradient(145deg,#06486d,#0788a8 65%,#07506c);color:#fff!important;box-shadow:0 5px 15px #063f7155}
+  .revi-header-promo::before {content:'';position:absolute;inset:-80% -40%;background:linear-gradient(112deg,transparent 43%,#d6f6ff55 49%,transparent 56%);animation:reviHeaderSheen 8s ease-in-out infinite;pointer-events:none}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-header-promo img {width:100%;max-width:78px;height:24px;object-fit:contain;position:relative;z-index:1}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-header-promo span {font:800 8px/1.3 Arial,sans-serif;letter-spacing:.025em;color:#fff;margin-top:3px;position:relative;z-index:1;white-space:nowrap}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready .viewlots26-header b {font-size:.77rem!important}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready .viewlots26-header small {font-size:.46rem!important;letter-spacing:0!important}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready .aq-lisboa-mobile {font-size:.62rem!important;line-height:1.15!important}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready .aq-lisboa-mobile small {font-size:.43rem!important;line-height:1.15!important}
+}
+@media (max-width:365px) {
+  html body.lrf-page-index.lrf-premium-v2 header .nav-container.revi-promos-ready {grid-template-columns:50px repeat(3,minmax(0,1fr)) 42px!important;gap:4px!important;padding:0 6px!important}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.logo {width:50px!important;min-width:50px!important;height:54px!important}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.logo img {width:48px!important;height:48px!important;max-width:48px!important}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.burger-btn {width:42px!important;min-width:42px!important;height:50px!important}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.viewlots26-header,
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.aq-lisboa-mobile,
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.revi-header-promo {height:56px!important;min-height:56px!important;border-radius:12px!important}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready .aq-lisboa-mobile {font-size:.54rem!important}
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready .aq-lisboa-mobile small {font-size:.38rem!important}
+}
+/* Official LRF identity on the three Reviglass pages. */
+.revi-page .revi-header {height:104px;background:#fcfbf6;border-bottom:1px solid #c5a966}
+.revi-page .revi-agency-brand {display:flex;align-items:center;gap:13px;text-decoration:none}
+.revi-page .revi-header .revi-agency-brand>img {width:80px;height:80px;max-width:none;border-radius:50%;object-fit:contain}
+.revi-agency-title {font:600 15px/1.35 Georgia,serif;letter-spacing:.13em;color:#244e47}
+.revi-page .revi-footer {align-items:center;background:#163e3b}
+.revi-footer-brand {display:flex;align-items:center;gap:13px}
+.revi-footer-brand>img {width:46px;height:46px;border-radius:50%;object-fit:contain}
+/* A real Reviglass mosaic pool fills the Lyon page's opening. */
+body.revi-lyon-page {
+  background-color:#f5f4ed;
+  background-image:linear-gradient(90deg,#84a69e0d 1px,transparent 1px),linear-gradient(#84a69e0d 1px,transparent 1px);
+  background-size:28px 28px;
+  --revi-ink:#244d46;--revi-blue:#32675f;
+}
+.revi-lyon-page .revi-event-hero {
+  background:#6f9b95 url('../img/reviglass-2026/st-04-sukabumi-2.webp') center 64%/cover no-repeat;
+  color:#244d46;
+  border-bottom:1px solid #baab7e;
+}
+.revi-lyon-page .revi-event-hero::before {content:'';position:absolute;inset:0;background:linear-gradient(90deg,#183c3733,transparent 60%),linear-gradient(0deg,#143c3b33,transparent 45%);pointer-events:none}
+.revi-lyon-page .revi-event-hero::after {display:none}
+.revi-lyon-page .revi-event-grid {display:flex;align-items:center;min-height:690px;padding-block:48px;position:relative;z-index:1}
+.revi-lyon-page .revi-event-copy {
+  width:min(580px,100%);padding:37px 40px 38px;margin:0;
+  border:1px solid #e5d6ad;border-radius:5px;background:#fcfaf3f2;
+  box-shadow:0 24px 80px #123c3926;backdrop-filter:blur(8px);
+}
+.revi-co-brands {display:flex;align-items:center;gap:18px;margin-bottom:28px}
+.revi-co-brands>.revi-co-lrf {width:63px;height:63px;object-fit:contain;border-radius:50%}
+.revi-co-brands>.revi-co-reviglass {width:153px;height:52px;object-fit:contain}
+.revi-co-brands>span {color:#ae9250;font:300 27px/1 Georgia,serif}
+.revi-lyon-page .revi-event-copy .revi-kicker {color:#7d713f;font-size:10px;letter-spacing:.18em}
+.revi-lyon-page .revi-event-copy h1 {font-size:clamp(54px,5.6vw,80px);line-height:1.02;margin:22px 0 21px;color:#244d46;letter-spacing:-.045em}
+.revi-lyon-page .revi-event-copy h1 em {color:#967c37;font-weight:400}
+.revi-presence {border-left:2px solid #b69951;padding:2px 0 2px 14px;font:700 12px/1.7 Arial,sans-serif;letter-spacing:.02em;color:#365a50;margin-bottom:16px}
+.revi-lyon-page .revi-event-copy>p {color:#53675b;font-size:14px;line-height:1.75;margin:0}
+.revi-lyon-page .revi-event-copy .revi-actions {margin-top:23px;gap:10px}
+.revi-lyon-page .revi-button {background:#285f55;border-color:#285f55;color:#fff!important;font-size:12px;padding-inline:20px}
+.revi-lyon-page .revi-button:hover {background:#173f39}
+.revi-lyon-page .revi-button.outline {background:transparent;color:#285f55!important;border-color:#b8b59d}
+.revi-lyon-page .revi-event-facts {background:#fcfaf3;gap:28px;padding-inline:27px;border:1px solid #ded8bf;border-top:0}
+.revi-lyon-page .revi-event-facts span {color:#8a7948}
+.revi-lyon-page .revi-event-facts strong {color:#305349;font-size:16px}
+.revi-lyon-page .revi-section-heading .revi-kicker,.revi-lyon-page .revi-installer .revi-kicker {color:#89703b}
+.revi-lyon-page .revi-collection-tile {border-color:#d9d4c0;border-radius:5px;box-shadow:0 13px 36px #2e51480b}
+.revi-lyon-page .revi-collection-tile h3 {color:#284d43}
+.revi-lyon-page .revi-installer {border-color:#d5ceb6}
+.revi-lyon-page .revi-meeting {background:#ede9dc;border-block:1px solid #d9d1b8}
+.revi-lyon-page .revi-meeting .revi-kicker {color:#8b7746}
+.revi-lyon-page .revi-meeting h2 {color:#264d44}
+@media (max-width:760px) {
+  .revi-page .revi-header {height:90px;padding-inline:16px;gap:12px}
+  .revi-page .revi-agency-brand {gap:9px}
+  .revi-page .revi-header .revi-agency-brand>img {width:64px;height:64px}
+  .revi-agency-title {font-size:11px;letter-spacing:.07em}
+  .revi-page .revi-header nav {gap:12px;font-size:10px}
+  .revi-lyon-page .revi-event-hero {background-position:56% center}
+  .revi-lyon-page .revi-event-grid {min-height:670px;padding-block:30px 110px;width:calc(100% - 30px);align-items:flex-start}
+  .revi-lyon-page .revi-event-copy {padding:24px 24px 27px;background:#fcfaf3ee;backdrop-filter:blur(5px)}
+  .revi-co-brands {gap:15px;margin-bottom:22px}
+  .revi-co-brands>.revi-co-lrf {width:55px;height:55px}
+  .revi-co-brands>.revi-co-reviglass {width:143px;height:46px}
+  .revi-lyon-page .revi-event-copy .revi-kicker {font-size:9px;letter-spacing:.11em}
+  .revi-lyon-page .revi-event-copy h1 {font-size:clamp(47px,13vw,60px);margin:20px 0}
+  .revi-presence {font-size:11px;padding-left:11px;margin-bottom:14px}
+  .revi-lyon-page .revi-event-copy>p {font-size:13px;line-height:1.7}
+  .revi-lyon-page .revi-event-copy .revi-actions {display:flex;flex-direction:column;align-items:stretch;margin-top:20px}
+  .revi-lyon-page .revi-button {min-height:47px;font-size:12px;padding-inline:15px}
+  .revi-lyon-page .revi-event-facts {padding-inline:18px;gap:0 18px}
+  .revi-lyon-page .revi-event-facts strong {font-size:14px}
+  .revi-page .revi-footer {align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce) {
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.viewlots26-header,
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.aq-lisboa-mobile,
+  html body.lrf-page-index.lrf-premium-v2 header .revi-promos-ready>.revi-header-promo,
+  .revi-header-promo::before {animation:none!important;translate:0 0!important}
+}
