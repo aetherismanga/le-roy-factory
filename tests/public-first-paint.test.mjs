@@ -64,6 +64,7 @@ test('initial home promotion CSS preserves every existing runtime presentation r
  assert.match(bundled,/padding-right:calc\(var\(--lrf-promo-w\)/);
 });
 test('the parsed home search button receives lazy search behavior without replacing its content',async()=>{
+ assert.match(read('index.html'),/<script[^>]*id="lrf-global-search-router-loader"[^>]*src="assets\/js\/global-search-router\.js\?v=20261106-firstpaint2"/);
  const source=read('assets/js/global-search-router.js');const start=source.slice(source.indexOf('    const start = async () => {'),source.indexOf("    if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',start"));
  const listeners=[];const button={addEventListener(type,handler){listeners.push({type,handler});}};
  const document={querySelectorAll:()=>[],getElementById:id=>id==='lrf-open-search'?button:null,addEventListener(){},createElement(){throw Error('the parsed button must be reused')}};
