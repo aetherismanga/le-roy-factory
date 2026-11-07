@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {filterCatalogue,filterProducts} from '../../assets/js/lrf-photo-studio/catalogue.mjs';
+import {filterCatalogue,filterProducts,resolveSimulationProduct} from '../../assets/js/lrf-photo-studio/catalogue.mjs';
 
 const catalogue=JSON.parse(readFileSync(new URL('../../assets/js/lrf-photo-studio/catalogue.json',import.meta.url),'utf8'));
 
@@ -29,4 +29,26 @@ test('browse filtering includes non-simulable Elios collections but simulation f
  const byReference=filterCatalogue(catalogue.browseProducts,{query:'00Y2C00'});
  assert.equal(byReference.length,1);
  assert.equal(byReference[0].reference,'00Y2C00');
+});
+
+test('every selectable summary resolves the exact full render record, including dimensions and real faces',()=>{
+ for(const card of catalogue.browseProducts.filter(p=>p.photoStudioEligible)){
+  assert.equal(card.textureFaces,undefined,'Cards deliberately omit renderer payloads');
+  const product=resolveSimulationProduct(card,catalogue.products);
+  assert.equal(product,catalogue.products.find(p=>p.id===card.id));
+  for(const key of ['id','manufacturer','collection','color','format','reference','finish'])assert.equal(product[key],card[key]);
+  assert.ok(product.widthMm>0&&product.heightMm>0);
+  assert.ok(product.textureFaces.length);
+  assert.ok(product.workingTextureFaces.length);
+  assert.ok(product.supportedLayouts.length);
+ }
+});
+
+test('unavailable, stale and incomplete selections never fall back to another tile',()=>{
+ const unavailable=catalogue.browseProducts.find(p=>!p.photoStudioEligible);
+ assert.throws(()=>resolveSimulationProduct(unavailable,catalogue.products),{message:unavailable.ineligibleReason});
+ assert.throws(()=>resolveSimulationProduct({...catalogue.browseProducts.find(p=>p.photoStudioEligible),id:'missing'},catalogue.products),/ne peut pas être simulée/);
+ const product=catalogue.products[0];
+ for(const invalid of [{...product,textureFaces:[]},{...product,widthMm:0}])assert.throws(()=>resolveSimulationProduct(product.id,[invalid]),/textures ou dimensions/);
+ assert.equal(resolveSimulationProduct(product.id,catalogue.products),product);
 });
