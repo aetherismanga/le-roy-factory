@@ -23,9 +23,11 @@ jobs:
     timeout-minutes: 12
     steps:
       - name: Checkout feature source
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
       - name: Node 22
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '22'
       - name: Validate browser module syntax
@@ -40,3 +42,22 @@ jobs:
           git diff --exit-code -- assets/js/lrf-photo-studio/catalogue.json
       - name: Run photo studio unit and catalogue acceptance tests
         run: node --test tests/photo-studio*.test.mjs tests/photo-studio/*.test.mjs
+      - name: Prepare verified offline resources for local browser QA
+        run: |
+          node scripts/fetch-photo-studio-model.mjs
+          mkdir -p /tmp/photo-studio-qa
+          python3 - <<'PY'
+          import glob, pathlib, tarfile, json
+          root=pathlib.Path('.')
+          paths=['lrf-photo-studio.html','configurateurs.html','package.json','package-lock.json','vercel.json','assets/css/lrf-photo-studio.css','assets/js/lrf-photo-studio','assets/img/lrf-photo-studio','assets/vendor/lrf-photo-studio','assets/img/performance-20261027','assets/img/elios/cersaie-2026/stone-icon','shared/lrf-3d','scripts','tests','docs/PHOTO_STUDIO_CATALOGUE.md','reports/photo-studio','reports/elios-hd/deco-reference-mapping.json','tools/configurator-materials/elios-faces.json','data/fabricants.json','assets/js/inspirations-reviglass-reset.js']
+          paths+=glob.glob('assets/data/*catalogue.json')+glob.glob('assets/data/fenice-packaging.json')+glob.glob('assets/data/reviglass-nouveautes-2026.json')
+          with tarfile.open('/tmp/photo-studio-qa/source.tar.gz','w:gz') as tar:
+              for p in paths:
+                  if pathlib.Path(p).exists():tar.add(p,arcname=p)
+          PY
+      - name: Keep public source and model bundle only (never user photographs)
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: photo-studio-offline-qa
+          path: /tmp/photo-studio-qa/source.tar.gz
+          retention-days: 1
