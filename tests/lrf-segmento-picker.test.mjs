@@ -14,6 +14,7 @@ class Element {
  replaceChildren(...children){for(const child of this.children)child.parentElement=null;this.children=[];this.append(...children);}
  setAttribute(name,value){this.attrs[name]=String(value);}
  getAttribute(name){return this.attrs[name]??null;}
+ closest(selector){for(let element=this;element;element=element.parentElement)if(selector.startsWith('#')&&element.id===selector.slice(1))return element;return null;}
  get textContent(){return this._text+this.children.map(child=>child.textContent||'').join('');}
  set textContent(value){this._text=String(value??'');this.children=[];}
  addEventListener(name,callback){this['on'+name]=callback;}
@@ -26,11 +27,11 @@ const ids=root=>compositions(root).map(element=>element.dataset.segmentoComposit
 const allIds=SEGMENTO.compositions.map(item=>item.id).sort();
 const expected=({pattern='',color=''}={})=>SEGMENTO.compositions.filter(item=>(!pattern||item.patternId===pattern)&&(!color||item.tiles.some(tile=>tile.color===color))).map(item=>item.id).sort();
 
-function fixture(composition=null,withPatterns=true){
+function fixture(composition=null,withPatterns=true,host=null){
  const styles=new Map();
  globalThis.document={createElement:tag=>new Element(tag),getElementById:id=>styles.get(id),head:{append:element=>styles.set(element.id,element)}};
  globalThis.Option=function(label,value){const option=new Element('option');option.textContent=label;option.value=value;return option;};
- const calls=[],parent=new Element('div'),root=renderSurfacePicker(parent,{kind:'wall',collection:'Segmento',color:'albus',format:'15x15',urlFor:value=>value,layout:composition?segmentoLayout({},composition):{},onColor:id=>calls.push({type:'color',id}),onFormat:id=>calls.push({type:'format',id}),onSegmento:withPatterns?id=>calls.push({type:'composition',id}):undefined});
+ const calls=[],parent=host||new Element('div'),root=renderSurfacePicker(parent,{kind:'wall',collection:'Segmento',color:'albus',format:'15x15',urlFor:value=>value,layout:composition?segmentoLayout({},composition):{},onColor:id=>calls.push({type:'color',id}),onFormat:id=>calls.push({type:'format',id}),onSegmento:withPatterns?id=>calls.push({type:'composition',id}):undefined});
  return {root,parent,calls,control:field=>{
   const element=flatten(root).find(element=>element.dataset.segmentoFilter===field);assert(element,'Segmento '+field+' filter is available');return element;
  },reset:()=>{const button=flatten(root).find(element=>Object.hasOwn(element.dataset,'segmentoReset'));assert(button,'Segmento filter reset is available');button.onclick();},count:()=>{
@@ -121,4 +122,23 @@ test('app rerenders preserve the searched motif and colour for the same host aft
  const independent=renderSurfacePicker(new Element('div'),options);
  assert.deepEqual(ids(independent),allIds,'A separate surface picker begins with the complete collection');
  assert.deepEqual(h.calls,[{type:'composition',id:'S11-G'}],'Rebuilding either picker does not apply another composition');
+});
+
+test('the real inspector can replace picker children while retaining wall filters independently of floor filters',()=>{
+ const body=new Element('div');body.id='object-editor-body';const first=new Element('div');body.append(first);
+ const h=fixture(null,true,first);
+ for(const [field,value]of [['pattern','S11'],['color','duplex-d'],['search','04I15D0']]){const control=h.control(field);control.value=value;control[field==='search'?'oninput':'onchange']();}
+ compositions(h.root)[0].onclick();
+ const options={kind:'wall',collection:'Segmento',color:'duplex-d',format:'15x15',urlFor:value=>value,layout:segmentoLayout({},'S11-G'),onColor:()=>{},onSegmento:()=>{}};
+ const replace=(owner,input)=>{const parent=new Element('div');owner.replaceChildren(parent);return renderSurfacePicker(parent,input);};
+ const wall=replace(body,options),filter=(root,field)=>flatten(root).find(element=>element.dataset.segmentoFilter===field);
+ assert.deepEqual(ids(wall),['S11-G'],'A new child under the stable inspector keeps the user’s exact search');
+ assert.equal(filter(wall,'pattern').value,'S11');assert.equal(filter(wall,'color').value,'duplex-d');assert.equal(filter(wall,'search').value,'04I15D0');
+ assert.equal(compositions(wall)[0].getAttribute('aria-pressed'),'true');
+ const floor=replace(body,{...options,kind:'floor'});assert.deepEqual(ids(floor),allIds,'The floor does not inherit the wall search');
+ filter(floor,'pattern').value='S02';filter(floor,'pattern').onchange();
+ assert.deepEqual(ids(floor),expected({pattern:'S02'}));
+ const restoredWall=replace(body,options);assert.deepEqual(ids(restoredWall),['S11-G'],'Returning to the wall restores its own filters');
+ const otherBody=new Element('div');otherBody.id='object-editor-body';
+ assert.deepEqual(ids(replace(otherBody,options)),allIds,'A separate inspector object starts with all compositions');
 });

@@ -17,3 +17,5 @@ Le composant réel a été vérifié dans une fenêtre mobile de 390 px : motif 
 Validation finale : noyau et contrôles des deux ateliers réussis ; 15 tests ciblés Segmento, 88 tests Anima et 589 tests PLAN & POSE/sécurité réussis (1 test ignoré). Les trois applications et le site ont été compilés.
 
 Publication Pages : la première synchronisation a dépassé les 10 minutes ; la relance du même identifiant a été annulée. Un nouvel envoi exclut uniquement les quatre PNG sources des ambiances extérieures (13 955 686 octets), conservés dans Git. Leurs WebP lossless actifs, 1536 × 1024, sont identiques pixel pour pixel. Aucun nouveau déploiement des ateliers ni de la fonction privée n’est nécessaire pour cet ajustement de publication.
+
+Dernier contrôle du vrai cycle de l’inspecteur : son contenu est recréé après application. Les filtres sont désormais conservés sur son corps stable, avec états séparés pour sol et mur. La régression recrée plusieurs enfants successifs et un nouveau corps ; 8 tests UI et 16 tests Segmento ciblés passent. Le contrôle mobile a été répété avec cette recréation réelle. Reconstruction des trois applications et 88 tests Anima réussis.

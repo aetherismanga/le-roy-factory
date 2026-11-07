@@ -348,7 +348,7 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261107-neobath-anima-studio-one-segmento-corrected-20",
+      "releaseId": "20261107-neobath-anima-studio-one-segmento-search-21",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true
@@ -484,7 +484,7 @@
     }
   },
   "segmento": {
-    "releaseId": "20261107-segmento-corrected-2",
+    "releaseId": "20261107-segmento-search-3",
     "applications": [
       "schemas-elios",
       "studio-one",
@@ -504,10 +504,10 @@
     "multicolorQuantities": true,
     "source": "ELIOS_FLYER-SEGMENTO.pdf",
     "webglVisualVerification": false,
-    "studioAppSha256": "01f624955b6afbf6745f7adba65dc09b06480a38ea69cff6d05b393cf882cc5f",
-    "generalAppSha256": "796c3c6fbb95bfa0cff33e4f9a8dc9e7d31123ffdd76167170c1184325859e64",
-    "animaAppSha256": "a165952a4d565a5d0863c8b4c8c17d408a17c1eb908be69ac643460f3ec34fb9",
-    "animaReleaseId": "20261107-neobath-anima-studio-one-segmento-corrected-20",
+    "studioAppSha256": "83d519189407a9945382bc88822ee08777b0c3225523f55f56f9420122a8c64e",
+    "generalAppSha256": "47b789d7608ae44aeb30c92b6455bfee5a5e990070040c0738beb8f40f423956",
+    "animaAppSha256": "2cb60574b8316c930317f37f731b379d5e113f2025d911d8f3c4440fa988b0a4",
+    "animaReleaseId": "20261107-neobath-anima-studio-one-segmento-search-21",
     "dataVersion": "20261107-2",
     "correctedCompositions": 9,
     "correctedColorCells": 147,
@@ -518,7 +518,7 @@
     "searchByReference": true,
     "preserveFiltersAfterSelection": true,
     "meshRasterVerification": true,
-    "rendererSourceCommit": "06c3506053f6ad4fefed3aeee63c905ad7569bf3",
-    "pagesPublication": "20261107-segmento2-retry"
+    "pagesPublication": "20261107-segmento2-retry",
+    "inspectorFiltersPersistAfterRebuild": true
   }
 }

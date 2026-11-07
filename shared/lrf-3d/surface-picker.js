@@ -4,8 +4,8 @@ import {RAL_SCREEN_NOTE} from './ral-colors.js';
 import {SEGMENTO,segmentoSelection,segmentoCompositions,segmentoPreview,segmentoComposition} from './segmento.js';
 
 const collator=new Intl.Collator('fr',{sensitivity:'base',numeric:true});
-// Applying a surface rebuilds its picker host. Keep browsing filters with that
-// host so comparing another variant does not restart the whole library.
+// The inspector replaces its picker element after applying a composition.
+// Retain browsing filters on its stable body, separately for floor and wall.
 const segmentoPickerFilters=new WeakMap();
 export const surfaceSeries=(brand,kind)=>Object.entries(COLLECTIONS)
  .filter(([name,c])=>c.brand===brand&&(kind==='wall'||name!=='Peinture')&&(!c.surfaces||c.surfaces.includes(kind))&&availableColors(name).length>0)
@@ -96,7 +96,7 @@ export function renderSurfacePicker(parent,{kind,collection,color,format,urlFor,
  const segmentoResultsBar=document.createElement('div'),segmentoCount=document.createElement('small'),segmentoReset=document.createElement('button');segmentoResultsBar.className='segmento-results-bar';segmentoCount.dataset.segmentoCount='true';segmentoCount.setAttribute('role','status');segmentoCount.setAttribute('aria-live','polite');segmentoReset.type='button';segmentoReset.className='segmento-reset';segmentoReset.dataset.segmentoReset='true';segmentoReset.textContent='Réinitialiser';segmentoResultsBar.append(segmentoCount,segmentoReset);
  segmentoVariants.className='segmento-results';segmentoVariants.setAttribute('aria-label','Compositions Segmento');segmentoNote.textContent='12 motifs · 48 compositions du fabricant · 15 × 15 cm. Parcourez les motifs, puis choisissez une composition pour l’appliquer. Quantités et boîtes par référence.';segmentoStep.append(segmentoCurrent,referenceRow,segmentoNote,segmentoSearchLabel,segmentoFilters,segmentoBrowser,segmentoResultsBar,segmentoVariants);
  let composition=segmentoSelection(layout);
- const segmentoFilter=segmentoPickerFilters.get(parent)||{pattern:'',color:'',search:''},searchText=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(),motifLabel=pattern=>'Motif '+(pattern.id.match(/\d+/)?.[0]||pattern.id);
+ const segmentoFilterHost=parent.closest?.('#object-editor-body')||parent,segmentoHostFilters=segmentoPickerFilters.get(segmentoFilterHost)||new Map(),segmentoFilter=segmentoHostFilters.get(kind)||{pattern:'',color:'',search:''},searchText=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(),motifLabel=pattern=>'Motif '+(pattern.id.match(/\d+/)?.[0]||pattern.id);
  const compositionColors=item=>SEGMENTO.colors.filter(co=>item.tiles.some(tile=>tile.color===co.id));
  const matchesSearch=item=>{const terms=searchText(segmentoFilter.search).split(/\s+/).filter(Boolean),pattern=SEGMENTO.patterns.find(p=>p.id===item.patternId),parts=[item.id,item.label,item.description,pattern?.label,pattern?.name,pattern&&motifLabel(pattern),...compositionColors(item).flatMap(co=>[co.id,co.label,co.name,co.ref])],text=searchText(parts.join(' ')),compact=text.replace(/\s+/g,'');return terms.every(term=>text.includes(term)||compact.includes(term));};
  const chooseSegmento=id=>{composition=segmentoComposition(id);populateSegmento();onSegmento?.(composition?.id||null);};
@@ -106,7 +106,7 @@ export function renderSurfacePicker(parent,{kind,collection,color,format,urlFor,
  segmentoReset.onclick=()=>{segmentoFilter.pattern=segmentoFilter.color=segmentoFilter.search='';populateSegmento();};
  function populateSegmento(){
   segmentoStep.hidden=draft.collection!=='Segmento'||!onSegmento;if(segmentoStep.hidden)return;
-  segmentoPickerFilters.set(parent,segmentoFilter);
+  segmentoHostFilters.set(kind,segmentoFilter);segmentoPickerFilters.set(segmentoFilterHost,segmentoHostFilters);
   segmentoSingle.setAttribute('aria-pressed',String(!composition));segmentoPatterns.replaceChildren();segmentoVariants.replaceChildren();
   const selectedColor=SEGMENTO.colors.find(co=>co.id===draft.color),labelFor=co=>(co.label||co.name||co.id)+' · '+co.ref;
   segmentoReference.replaceChildren(new Option('Choisir une référence seule…',''),...SEGMENTO.colors.map(co=>new Option(labelFor(co),co.id)));segmentoReference.value=composition?'':draft.color;
