@@ -1,0 +1,49 @@
+name: Verify Elios laying schemes
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/js/elios-pose-*'
+      - 'assets/js/inspirations-elios-color-media-20261101.js'
+      - 'assets/css/elios-pose-*'
+      - 'assets/data/elios-segmento.json'
+      - 'configurateur-elios-pose.html'
+      - 'functions/elios-pose-order-data.js'
+      - 'functions/test/elios-pose-order-data.test.cjs'
+      - 'tests/elios-pose-*'
+      - 'tests/elios-segmento-schematics.test.mjs'
+      - 'tests/elios-sedimenti-preview.test.mjs'
+      - '.github/workflows/elios-pose-quality.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/js/elios-pose-*'
+      - 'assets/js/inspirations-elios-color-media-20261101.js'
+      - 'assets/css/elios-pose-*'
+      - 'assets/data/elios-segmento.json'
+      - 'configurateur-elios-pose.html'
+      - 'functions/elios-pose-order-data.js'
+      - 'functions/test/elios-pose-order-data.test.cjs'
+      - 'tests/elios-pose-*'
+      - 'tests/elios-segmento-schematics.test.mjs'
+      - 'tests/elios-sedimenti-preview.test.mjs'
+      - '.github/workflows/elios-pose-quality.yml'
+permissions:
+  contents: read
+concurrency:
+  group: elios-pose-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  schemes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - name: Verify real references, diagrams, palettes and complete boxes
+        run: node --test tests/elios-pose-*.test.mjs tests/elios-segmento-schematics.test.mjs tests/elios-sedimenti-preview.test.mjs functions/test/elios-pose-order-data.test.cjs
+      - run: npm run build:site

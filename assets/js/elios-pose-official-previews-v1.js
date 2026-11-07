@@ -177,11 +177,11 @@
     const id=btn?.dataset?.pattern;
     if(id?.startsWith('S')&&window.LRF_ELIOS_SEGMENTO) return;
     const box=btn?.querySelector(':scope > div');
-    if(!id||!box||!C[id]) return;
-    box.classList.remove('ep-official-ready');
+    if(!id||!box||!C[id]||box.dataset.poseOrigin==='lrf') return;
+    if(!box.querySelector('.ep-official-preview'))box.classList.remove('ep-official-ready');
     try{
       const src=await srcFor(id);
-      if(!src||!btn.isConnected||btn.dataset.pattern!==id||(id.startsWith('S')&&window.LRF_ELIOS_SEGMENTO)) return;
+      if(!src||box.dataset.poseOrigin==='lrf'||!btn.isConnected||btn.dataset.pattern!==id||(id.startsWith('S')&&window.LRF_ELIOS_SEGMENTO)) return;
       const current=box.querySelector('.ep-official-preview');
       if(current?.src===src){box.classList.add('ep-official-ready');return;}
       box.replaceChildren(officialImg(src,btn.querySelector('b')?.textContent||`Schéma ${id}`));
@@ -196,13 +196,18 @@
     const id=active?.dataset?.pattern;
     if(id?.startsWith('S')&&window.LRF_ELIOS_SEGMENTO) return;
     const box=document.getElementById('ep-preview');
-    if(!id||!box||!C[id]) return;
-    box.classList.remove('ep-official-ready');
+    if(!id||!box||!C[id]||box.dataset.poseOrigin==='lrf') return;
+    if(!box.querySelector('.ep-official-preview'))box.classList.remove('ep-official-ready');
     try{
       const src=await srcFor(id);
       const stillActive=document.querySelector('#ep-pattern-grid .ep-pattern.active')?.dataset?.pattern;
-      if(!src||stillActive!==id||(id.startsWith('S')&&window.LRF_ELIOS_SEGMENTO)) return;
-      box.replaceChildren(officialImg(src,document.getElementById('ep-preview-title')?.textContent||`Schéma ${id}`));
+      if(!src||box.dataset.poseOrigin==='lrf'||stillActive!==id||(id.startsWith('S')&&window.LRF_ELIOS_SEGMENTO)) return;
+      const prior=box.querySelector('.ep-official-preview');
+      if(prior&&(prior.getAttribute?.('src')||prior.src)===src&&prior.complete&&prior.naturalWidth){box.classList.add('ep-official-ready');return;}
+      const image=officialImg(src,document.getElementById('ep-preview-title')?.textContent||`Schéma ${id}`);
+      if(image.decode)await image.decode();
+      if(box.dataset.poseOrigin==='lrf'||document.querySelector('#ep-pattern-grid .ep-pattern.active')?.dataset?.pattern!==id)return;
+      box.replaceChildren(image);
       box.classList.add('ep-official-ready');
       const badge=document.getElementById('ep-preview-badge');
       if(badge) badge.textContent='ELIOS 2026 · OFFICIEL';
@@ -210,6 +215,8 @@
       console.warn('Grand aperçu officiel Elios indisponible',err);
     }
   }
+
+  window.LRF_ELIOS_POSE_OFFICIAL_PREVIEW={ready:async()=>{await paintLarge();const box=document.getElementById('ep-preview');if(box?.dataset.poseOrigin==='lrf')return;const image=box?.querySelector('.ep-official-preview');if(!image?.complete||!image.naturalWidth)throw Error('Le schéma officiel est encore indisponible. Réessayez après son chargement.');}};
 
   function refresh(){
     document.querySelectorAll('#ep-pattern-grid .ep-pattern').forEach(paintCard);
@@ -222,10 +229,12 @@
     refresh();
     // Le configurateur recrée ses boutons après un changement de schéma/famille.
     // On repeint uniquement après les clics : pas de MutationObserver, donc aucun risque de boucle/freeze.
+    root.addEventListener('change',()=>setTimeout(refresh,0));
     root.addEventListener('click',e=>{
       if(e.target.closest('.ep-pattern,.ep-tab')) setTimeout(refresh,0);
     });
     window.addEventListener('beforeprint',refresh);
+    window.addEventListener('lrf-elios-pose-ready',refresh);
   }
 
   // Le conteneur existe déjà à cet endroit de la page : on applique les styles et on masque

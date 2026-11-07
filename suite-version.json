@@ -326,6 +326,55 @@
       "manufacturers": 20,
       "manufacturerCountryClassification": true,
       "nationalTechnicalCataloguesPreserved": true
+    },
+    "eliosPose": {
+      "releaseId": "20261107-elios-pose-creations-1",
+      "page": "configurateur-elios-pose.html",
+      "officialDrawings": 44,
+      "additionalDrawings": 36,
+      "totalDrawings": 80,
+      "officialSegmentoCompositions": 48,
+      "segmentoCreativePatterns": 12,
+      "segmentoPalettes": 12,
+      "segmentoReferences": 16,
+      "additionalSmallLayouts": 24,
+      "smallLayoutsPerFamily": 10,
+      "coloredSedimentiPatterns": 4,
+      "freeReferenceAssignments": true,
+      "rotateRealTilesOnly": true,
+      "separateManufacturerAndAgencyCreations": true,
+      "preservedManufacturerDataVersion": "20261107-2",
+      "quantitiesPerRealReference": true,
+      "wholeBoxesAfterReferenceAggregation": true,
+      "printWaitsForImages": true,
+      "sourceSha256": {
+        "assets/css/elios-pose-segmento.css": "a18cfa1ee0f43cca617b20f77f861fb9c79582fed2325ecca2206a9c4942ac74",
+        "assets/js/elios-pose-configurator-v1.js": "bb05c12cbcc4c550c6e2675ff95176d4f5a0bd59967bad5668150dbe30d0a126",
+        "assets/js/elios-pose-data-v1.js": "4e124c5209ffba506a52e354315f465484a6cb3cf18c86262909745fb99cb3de",
+        "assets/js/elios-pose-designs.js": "21b6d7bff0bb347b9d6c87c73d4a33113aab21f9c63e323de34fa8a54655c25f",
+        "assets/js/elios-pose-official-previews-v1.js": "3d57ff70b533f273cfe701c255c4adb8bc76631cb7428973ba66325321ae03c5",
+        "assets/js/elios-pose-samples.js": "c3c6aa281be66922114b44a51b22d510b23c75f82664913d4190834bf6d7d526",
+        "assets/js/elios-pose-sedimenti-preview.js": "b90dc1fbb248a19bbdd59bdd7678739f066214fdeceb61e1cb321ad123b19c48",
+        "assets/js/elios-pose-segmento.js": "fd5062b4f8444f0afccc3f668069e753291a105d507f8eee4d73ea9a31ea2f88",
+        "assets/js/elios-pose-small-designs.js": "d6fc9c4da9f7cff79a6be95d4b291710609fbfb954bd2a0843fcac5c5787ec8f",
+        "assets/js/elios-pose-v2-base.js": "486184aae97cd82788132abd0d89e81702c8e8a1dc7ca3232b0cd0a3600601fb",
+        "assets/js/elios-pose-v2-calc.js": "4d3e902d5e64f26b447595a203d7c7a4ae9b0d34c622b3f5f0d7a5c41ac6e922",
+        "assets/js/elios-pose-v2-finishes.js": "6da32a5be002351cbd5caff5abd208d2eb79ff0be3012e755d78b2a21acf2b2a",
+        "assets/js/elios-pose-v2-init.js": "96be3bb4994bdb3a87f3726379eb53e4fac0efec2a1a47dd3d2dd43bee588aa0",
+        "assets/js/elios-pose-v2-order-context.js": "c2713185bc7eb211887db849096c0134196a5cdea6f5e05766e401778607d6cd",
+        "assets/js/elios-pose-v2-order-send.js": "890218eb8549049a37bda82db9350fba5afd862719290dc49499ce2a071ef930",
+        "assets/js/elios-pose-v2-order-style.js": "6c9c5f59730202d3923c2894d9b127f7bdd44bce7e0142a71c419fc820f983dd",
+        "assets/js/elios-pose-v2-order-summary.js": "dca636cf5cb8b0e438e3ed30e52797086762dbf9efabd766d6b9172dd2190ad7",
+        "assets/js/elios-pose-v2-selection.js": "0e5607110b4afa9a0cdbaca2a9af4a58e0a6b13eee331b5cb70aec5d2b6f8e9a",
+        "configurateur-elios-pose.html": "f9e80019ca91ddf2f3e0dc9ee76d3ce8db9da4b02de9b9f0971d4d4155143b53"
+      },
+      "romaModuleColoursAdded": [
+        "Viminale",
+        "Palatino"
+      ],
+      "modularProductOptions": 12,
+      "verifiedHistoricalConfigurations": 300,
+      "verifiedMaterialLines": 775
     }
   },
   "configurators": {
@@ -361,6 +410,15 @@
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true
+    },
+    "eliosPose": {
+      "releaseId": "20261107-elios-pose-creations-1",
+      "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/eliosPoseOrder",
+      "access": "verified-elios-professional-session",
+      "newPrepackedModuleReferences": [
+        "085M100",
+        "085M170"
+      ]
     }
   },
   "rendering": {

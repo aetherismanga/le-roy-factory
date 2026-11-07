@@ -19,6 +19,8 @@ const sed=(id,finish,finishLabel,color,d)=>opt(id,'Sedimenti Tumbled',finish,fin
 D.modularOptions=[
   roma('roma-r10-aventino','R10','R10 · 10 mm','Aventino',['0852040','0852640','0854240','0854640','0856140'],true),
   roma('roma-r10-celio','R10','R10 · 10 mm','Celio',['0852005','0852605','0854205','0854605','0856105'],true),
+  {...opt('roma-r10-viminale','Roma','R10','R10 · 10 mm','Viminale',{'61x61':fmt('61x61','61 × 61 cm',3,1.12,'0856100'),'40.6x60.9':fmt('40.6x60.9','40,6 × 60,9 cm',6,1.46,'0854600')}),moduleOnly:true},
+  {...opt('roma-r10-palatino','Roma','R10','R10 · 10 mm','Palatino',{'61x61':fmt('61x61','61 × 61 cm',3,1.12,'0856170'),'40.6x60.9':fmt('40.6x60.9','40,6 × 60,9 cm',6,1.46,'0854670')}),moduleOnly:true},
   roma('roma-r11-aventino','R11','Outdoor R11 · 10 mm','Aventino',['0852042','0852642','0854242','0854642'],false),
   roma('roma-r11-celio','R11','Outdoor R11 · 10 mm','Celio',['0852007','0852607','0854207','0854607'],false),
   sed('sedimenti-tumbled-r10-white','R10','Tumbled · R10 · 8,5 mm','White Tumbled','01'),
@@ -31,6 +33,8 @@ D.modularOptions=[
 S.modules={
   'roma-r10-aventino':{ref:'085M140',label:'Modulo préemballé · 0,75 m²',boxM2:.75,pcs:6,finish:'R10 · 10 mm'},
   'roma-r10-celio':{ref:'085M105',label:'Modulo préemballé · 0,75 m²',boxM2:.75,pcs:6,finish:'R10 · 10 mm'},
+  'roma-r10-viminale':{ref:'085M100',label:'Modulo préemballé · 0,75 m²',boxM2:.75,pcs:6,finish:'R10 · 10 mm'},
+  'roma-r10-palatino':{ref:'085M170',label:'Modulo préemballé · 0,75 m²',boxM2:.75,pcs:6,finish:'R10 · 10 mm'},
   'roma-r11-aventino':{ref:'085M141',label:'Modulo extérieur préemballé · 0,75 m²',boxM2:.75,pcs:6,finish:'Outdoor R11 · 10 mm'},
   'roma-r11-celio':{ref:'085M106',label:'Modulo extérieur préemballé · 0,75 m²',boxM2:.75,pcs:6,finish:'Outdoor R11 · 10 mm'},
   'sedimenti-tumbled-r10-white':{ref:'03ZM101',label:'Modulo pré-boxé · 0,75 m²',boxM2:.75,pcs:6,finish:'Tumbled · R10 · 8,5 mm'},
