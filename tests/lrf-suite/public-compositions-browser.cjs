@@ -1,4 +1,5 @@
 // Public examples use the real atelier session, storage and native dialog on PC/mobile.
+const {handle:handleAnonymousCommercial}=require('./anonymous-commercial-fixture.cjs');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const {chromium}=require('playwright');
 const root=path.resolve(__dirname,'../..'),roots={studio:path.join(root,'studio-one/dist'),general:path.join(root,'randal-general/dist')};
@@ -20,7 +21,7 @@ async function verifyMobileVisitControls(page,label,kind){
  const {openingBathroomProject}=await import('../../shared/lrf-3d/opening-project.js');
  const {PUBLIC_COMPOSITIONS,publicCompositionProject}=await import('../../shared/lrf-3d/public-compositions.js');
  const templateBefore=PUBLIC_COMPOSITIONS.map(c=>publicCompositionProject(c.id));
- server=http.createServer((req,res)=>{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),kind=pathname.split('/')[1];if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end('{"success":false}');}const asset=roots[kind]?read(roots[kind],pathname.slice(kind.length+1)):pathname.startsWith('/assets/')?read(roots[active],pathname):null;if(!asset){res.writeHead(404);return res.end();}res.setHeader('Content-Type',asset.contentType);res.end(asset.body);});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
+ server=http.createServer((req,res)=>{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),kind=pathname.split('/')[1];if(handleAnonymousCommercial(req,res,pathname))return;if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end('{"success":false}');}const asset=roots[kind]?read(roots[kind],pathname.slice(kind.length+1)):pathname.startsWith('/assets/')?read(roots[active],pathname):null;if(!asset){res.writeHead(404);return res.end();}res.setHeader('Content-Type',asset.contentType);res.end(asset.body);});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
  browser=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  for(const kind of (process.env.LRF_PUBLIC_KIND?[process.env.LRF_PUBLIC_KIND]:['studio','general']))for(const mobile of (process.env.LRF_PUBLIC_DESKTOP?[false]:process.env.LRF_PUBLIC_MOBILE?[true]:[false,true])){
   active=kind;const prefix=kind==='studio'?'studio-one':'randal-general',variant=prefix,id='lrf-expo-'+(kind==='studio'?'studio-one':'general'),other=PUBLIC_COMPOSITIONS.find(c=>c.variant!==variant),label=kind+(mobile?' mobile':' PC');

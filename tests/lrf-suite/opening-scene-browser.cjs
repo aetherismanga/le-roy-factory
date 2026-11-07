@@ -1,4 +1,5 @@
 // Fresh workshop, explicit resume and saved-project fidelity in both shipped WebGL apps.
+const {handle:handleAnonymousCommercial}=require('./anonymous-commercial-fixture.cjs');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const {chromium}=require('playwright');
 const root=path.resolve(__dirname,'../..'),roots={studio:path.join(root,'studio-one/dist'),general:path.join(root,'randal-general/dist')};
@@ -17,7 +18,7 @@ function defaults(p){
 (async()=>{
  const {openingBathroomProject}=await import('../../shared/lrf-3d/opening-project.js');
  const stale=openingBathroomProject();stale.title='Brouillon ancien conservé';stale.floor={collection:'Creta',color:'caramello',format:'60x120',groutColor:'Ivoire'};stale.walls=stale.walls.map(()=>({collection:'Peinture',color:'sand'}));stale.lighting='warm';stale.brightness=118;stale.temperature=3400;
- server=http.createServer((req,res)=>{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),kind=pathname.split('/')[1];if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end('{"success":false}');}const asset=roots[kind]?read(roots[kind],pathname.slice(kind.length+1)):pathname.startsWith('/assets/')?read(roots[active],pathname):null;if(!asset){res.writeHead(404);return res.end();}res.setHeader('Content-Type',asset.contentType);res.end(asset.body);});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
+ server=http.createServer((req,res)=>{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),kind=pathname.split('/')[1];if(handleAnonymousCommercial(req,res,pathname))return;if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end('{"success":false}');}const asset=roots[kind]?read(roots[kind],pathname.slice(kind.length+1)):pathname.startsWith('/assets/')?read(roots[active],pathname):null;if(!asset){res.writeHead(404);return res.end();}res.setHeader('Content-Type',asset.contentType);res.end(asset.body);});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
  browser=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  for(const kind of (process.env.LRF_OPENING_KIND?[process.env.LRF_OPENING_KIND]:['studio','general']))for(const mobile of (process.env.LRF_OPENING_DESKTOP?[false]:process.env.LRF_OPENING_MOBILE?[true]:[false,true])){
   active=kind;const prefix=kind==='studio'?'studio-one':'randal-general',label=kind+(mobile?' mobile':' PC');

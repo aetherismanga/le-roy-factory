@@ -26,7 +26,7 @@ for(const variant of ['studio-one','randal-general'])test(variant+': presentatio
  try{
   assert.equal(presentation.capabilities().led,true);presentation.setLED(false);for(const mirror of preview.items.filter(i=>i.type==='mirror'))assert.equal(mirror.asset.root.getObjectByName('Eclairage_LED').visible,false);
   presentation.setLED(true);for(const mirror of preview.items.filter(i=>i.type==='mirror'))assert.equal(mirror.asset.root.getObjectByName('Eclairage_LED').visible,true);
-  presentation.setOpened(true);callbacks.splice(0).forEach(fn=>fn(performance.now()+300));assert(preview.items.find(i=>i.type==='cabinet').asset.drawers.every(d=>d.position.z>.2));assert(Math.abs(preview.items.find(i=>i.type==='column').asset.door.rotation.y)>1);
+  presentation.setOpened(true);callbacks.splice(0).forEach(fn=>fn(performance.now()+300));assert(preview.items.find(i=>i.type==='cabinet').asset.drawers.every(d=>d.position.z>=.2));assert(Math.abs(preview.items.find(i=>i.type==='column').asset.door.rotation.y)>1);
   presentation.setOpened(false);callbacks.splice(0).forEach(fn=>fn(performance.now()+300));assert(preview.items.find(i=>i.type==='cabinet').asset.drawers.every(d=>d.position.z===0));
   for(const c of RANDAL_FLOORS)assert.equal(await presentation.setSurface('floor',c.id),true);
   for(const c of RANDAL_WALLS)assert.equal(await presentation.setSurface('wall',c.id),true);

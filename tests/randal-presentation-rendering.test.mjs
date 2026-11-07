@@ -40,3 +40,13 @@ test('sustained expensive renders reduce memory once and keep the scene lighting
  const f=fixture({duration:65});f.helper.resize(1920,1080);const surfaceQuality=f.helper.surfaceQuality(),intensity=f.fill.intensity,exposure=f.renderer.toneMappingExposure;
  for(let i=0;i<20;i++)f.helper.render();const state=f.helper.diagnostics();assert.equal(state.downgrades,1);assert.equal(state.profile,'presentation-balanced');assert.ok(state.pixels<=1500000);assert.equal(f.helper.surfaceQuality(),surfaceQuality);assert.equal(surfaceQuality.maxSurfaceFaces,1);assert.equal(surfaceQuality.textureProfile,'balanced');assert.equal(f.fill.intensity,intensity);assert.equal(f.renderer.toneMappingExposure,exposure);f.helper.dispose();
 });
+
+
+test('brightness adjusts the common raster and path-tracer exposure without changing lights or other profiles',()=>{
+ const f=fixture(),light=f.fill.intensity;
+ assert.equal(f.helper.getBrightness(),100);assert.equal(f.helper.setBrightness(65),65);assert.equal(f.renderer.toneMappingExposure,.65);
+ assert.equal(f.helper.setBrightness(999),150);assert.equal(f.renderer.toneMappingExposure,1.5);
+ assert.equal(f.helper.setBrightness(-5),25);assert.equal(f.renderer.toneMappingExposure,.25);
+ assert.equal(f.helper.setBrightness(NaN),100);assert.equal(f.renderer.toneMappingExposure,1);assert.equal(f.fill.intensity,light);
+ f.helper.dispose();assert.equal(f.renderer.toneMappingExposure,1);f.helper.setBrightness(50);assert.equal(f.renderer.toneMappingExposure,1);
+});

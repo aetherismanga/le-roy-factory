@@ -18,7 +18,7 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
   if(!isRandalPresentation(getIdentity())||!input)return false;
   if(dialog)close();previousFocus=document.activeElement;project=structuredClone(input);const turn=++opening;
   dialog=element('dialog');dialog.className='randal-presentation';dialog.id='randal-presentation';dialog.setAttribute('aria-label','Votre composition en plein écran');
-  const header=element('header');header.className='randal-presentation-header';header.append(element('strong','Votre composition RANDAL · version de test'));const exit=button('randal-presentation-close','Fermer ✕');header.append(exit);
+  const header=element('header');header.className='randal-presentation-header';header.append(element('strong','Votre composition RANDAL'));const exit=button('randal-presentation-close','Fermer ✕');header.append(exit);
   const body=element('div');body.className='randal-presentation-body';const stage=element('div');stage.className='randal-presentation-stage';stage.id='randal-presentation-stage';const controls=element('aside');controls.className='randal-presentation-controls';controls.setAttribute('aria-label','Personnaliser la présentation');const status=element('p','Préparation de votre composition…');status.className='randal-presentation-status';status.setAttribute('role','status');const renderQuality=element('p','Préparation du rendu…');renderQuality.className='randal-render-quality';renderQuality.setAttribute('role','status');stage.append(status,renderQuality);body.append(stage,controls);dialog.append(header,body);document.body.append(dialog);
   exit.onclick=close;dialog.addEventListener('cancel',e=>{e.preventDefault();close();});dialog.showModal();onVisibility(true);
   // Native fullscreen must be requested during the click. The modal fills the
@@ -32,6 +32,20 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
    selection=catalog.presentationChoices(project);
    const openButton=button('randal-composition-open','Ouvrir la composition'),ledButton=button('randal-mirror-led','Allumer le miroir'),reset=button('randal-presentation-reset','Vue initiale');
    controls.append(openButton,ledButton);
+   const boundedBrightness=value=>Number.isFinite(Number(value))?Math.min(150,Math.max(25,Math.round(Number(value)))):100;
+   let brightnessValue=boundedBrightness(project.presentation?.brightness??100),dimensionsVisible=project.presentation?.dimensions!==false;
+   engine.setBrightness?.(brightnessValue);engine.dimensions?.setVisible(dimensionsVisible);
+   const displayControls=element('div');displayControls.className='randal-presentation-display';
+   const dimensionButton=button('randal-dimensions-toggle','Cotes');dimensionButton.setAttribute('aria-pressed',String(dimensionsVisible));dimensionButton.title='Afficher ou masquer les dimensions du mobilier';
+   const brightnessLabel=element('label');brightnessLabel.className='randal-presentation-brightness';brightnessLabel.htmlFor='randal-brightness';
+   const brightnessHeading=element('span');brightnessHeading.className='randal-brightness-heading';const brightnessOutput=element('output');brightnessOutput.id='randal-brightness-value';brightnessOutput.setAttribute('for','randal-brightness');brightnessHeading.append(element('span','Luminosité'),brightnessOutput);
+   const brightness=element('input');brightness.type='range';brightness.id='randal-brightness';brightness.min='25';brightness.max='150';brightness.step='1';brightness.setAttribute('aria-label','Luminosité');
+   function reflectBrightness(){brightness.value=String(brightnessValue);brightness.setAttribute('aria-valuetext',brightnessValue+' %');brightnessOutput.value=brightnessValue+' %';brightnessOutput.textContent=brightnessValue+' %';}
+   function saveDisplay(){const prior=project.presentation&&typeof project.presentation==='object'&&!Array.isArray(project.presentation)?project.presentation:{};project.presentation={...prior,brightness:brightnessValue,dimensions:dimensionsVisible};onChange(structuredClone(project));}
+   brightness.oninput=()=>{if(turn!==opening||!engine)return false;brightnessValue=boundedBrightness(brightness.value);engine.setBrightness?.(brightnessValue);reflectBrightness();return true;};
+   brightness.onchange=()=>{if(brightness.oninput())saveDisplay();};
+   dimensionButton.onclick=()=>{if(turn!==opening||!engine)return;dimensionsVisible=!dimensionsVisible;engine.dimensions?.setVisible(dimensionsVisible);dimensionButton.setAttribute('aria-pressed',String(dimensionsVisible));saveDisplay();};
+   reflectBrightness();brightnessLabel.append(brightnessHeading,brightness);displayControls.append(dimensionButton,brightnessLabel);controls.append(displayControls);
    function reflect(){if(!engine)return;const state=engine.presentation.capabilities();openButton.hidden=!state.openable;openButton.textContent=state.opened?'Fermer la composition':'Ouvrir la composition';openButton.setAttribute('aria-pressed',String(state.opened));ledButton.hidden=!state.led;ledButton.textContent=state.ledOn?'Éteindre le miroir':'Allumer le miroir';ledButton.setAttribute('aria-pressed',String(state.ledOn));}
    openButton.onclick=()=>{const state=engine.presentation.capabilities();engine.presentation.setOpened(!state.opened);reflect();};
    const ledEligible=new Set(),ledModels=new Map();

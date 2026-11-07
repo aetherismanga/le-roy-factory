@@ -1,3 +1,4 @@
+const {handle:handleAnonymousCommercial}=require('./anonymous-commercial-fixture.cjs');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const {pathToFileURL}=require('node:url'),{chromium}=require('playwright');
 const {verifyPCColumns}=require('./pc-column-checks.cjs');
@@ -22,7 +23,7 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
  project.rooms=[room];const expected=core.quantity(room,1,project.loss);assert.equal(expected.error,'');
  server=http.createServer((req,res)=>{
   const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),kind=pathname.split('/')[1];
-  if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end(JSON.stringify({success:false,error:'Guest test: authentication required'}));}
+  if(handleAnonymousCommercial(req,res,pathname))return;if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end(JSON.stringify({success:false,error:'Guest test: authentication required'}));}
   const asset=roots[kind]?readWithin(roots[kind],pathname.slice(kind.length+1)||'/atelier.html'):pathname.startsWith('/assets/')?readWithin(roots[activeKind],pathname):null;
   if(!asset){res.writeHead(404);return res.end('Missing local QA asset');}res.setHeader('Content-Type',asset.contentType);res.end(asset.body);
  });

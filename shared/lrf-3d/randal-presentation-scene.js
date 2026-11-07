@@ -9,11 +9,12 @@ import {applyPresentationMirrorLighting} from './randal-presentation-lighting.js
 import {mirrorSpec} from './mirrors.js';
 import {presentationChoice} from './randal-presentation-catalog.js';
 import {createPresentationEditing} from './randal-presentation-editing.js';
+import {createPresentationMotion,presentationDrawerTravel} from './randal-presentation-motion.js';
 
 // Adds presentation controls to the genuine, existing furniture preview.
 // Furniture movement stays on its existing wall, with bounded positions.
-export function createRandalPresentationScene({scene,renderer,floor,wall,getItems,getProject=()=>null,camera,controls,canvas,invalidate,loadTexture=loadQueuedTexture,quality={}}){
- let disposed=false,opened=false,animation=0;const faces={},revisions={floor:0,wall:0},resources=new Map(),selected={},selectedResources={},pendingResources=new Map(),ledMirrors=new Map();
+export function createRandalPresentationScene({scene,renderer,floor,wall,getItems,getProject=()=>null,camera,controls,canvas,invalidate,loadTexture=loadQueuedTexture,quality={},drawerTravel=presentationDrawerTravel}){
+ let disposed=false;const faces={},revisions={floor:0,wall:0},resources=new Map(),selected={},selectedResources={},pendingResources=new Map(),ledMirrors=new Map();
  const paintTexture=paintBump();
  // A simple architectural enclosure gives the real planar mirrors something
  // coherent to reflect. These are physical planes, never a baked room image.
@@ -31,6 +32,7 @@ export function createRandalPresentationScene({scene,renderer,floor,wall,getItem
  }
  scene.add(enclosure);
  const editing=createPresentationEditing({scene,camera,controls,canvas,getItems,getProject,invalidate});
+ const motion=createPresentationMotion({getItems,invalidate,refresh:()=>editing.refresh(),drawerTravel});
  function face(kind){
   if(faces[kind])return faces[kind];
   const s=createSurface(kind==='floor'?[[-10,-10],[10,-10],[10,10],[-10,10]]:[[-7,0],[7,0],[7,6],[-7,6]],'Présentation_'+kind,[],{receiveTileShadows:true});
@@ -65,18 +67,7 @@ export function createRandalPresentationScene({scene,renderer,floor,wall,getItem
  }
  function releaseUnused(){const used=new Set([...Object.values(selectedResources).flat(),...Array.from(pendingResources.values()).flat()]);for(const [key,promise]of resources)if(!used.has(key)){resources.delete(key);promise.then(t=>t.dispose()).catch(()=>{});}}
  function hasLED(item){if(item.type!=='mirror')return false;const spec=mirrorSpec(item.settings),eligible=spec.led||spec.metal&&(item.settings.led||ledMirrors.get(item.id)===spec.id);if(eligible)ledMirrors.set(item.id,spec.id);else ledMirrors.delete(item.id);return !!eligible;}
- function capabilities(){const items=getItems()||[],led=items.filter(hasLED);return {openable:items.some(i=>i.asset.drawers?.length||i.asset.door||i.asset.doors?.length),led:led.length>0,ledOn:led.length>0&&led.every(i=>!!i.settings.led),opened};}
+ function capabilities(){const items=getItems()||[],led=items.filter(hasLED);return {openable:items.some(i=>i.asset.drawers?.length||i.asset.door||i.asset.doors?.length),led:led.length>0,ledOn:led.length>0&&led.every(i=>!!i.settings.led),opened:motion.opened};}
  function setLED(enabled){for(const item of getItems()||[])if(hasLED(item)){item.settings={...item.settings,led:!!enabled};applyPresentationMirrorLighting(item);}invalidate();}
- function setOpened(value){
-  opened=!!value;cancelAnimationFrame(animation);const changes=[];
-  for(const item of getItems()||[]){const asset=item.asset;
-   for(const drawer of asset.drawers||[])changes.push({object:drawer.position,key:'z',from:drawer.position.z,to:opened ? .28 : 0});
-   if(asset.door)changes.push({object:asset.door.rotation,key:'y',from:asset.door.rotation.y,to:opened?-Math.PI*.55*(asset.getHingeSign?.()||1):0});
-   else if(asset.setDoorProgress){const from=asset.doors?.[0]?.rotation.y?1:0;changes.push({object:{set value(v){asset.setDoorProgress(v);}},key:'value',from,to:opened?1:0});}
-   else for(const [index,door]of (asset.doors||[]).entries())changes.push({object:door.rotation,key:'y',from:door.rotation.y,to:opened?(index%2?1:-1)*Math.PI*.55:0});
-  }
-  const start=performance.now(),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const tick=time=>{if(disposed)return;const p=reduced?1:Math.min(1,(time-start)/260),ease=1-(1-p)**3;for(const c of changes)c.object[c.key]=c.from+(c.to-c.from)*ease;editing.refresh();invalidate();if(p<1)animation=requestAnimationFrame(tick);};animation=requestAnimationFrame(tick);
- }
- return {editing,setSurface,setLED,setOpened,capabilities,diagnostics:()=>({selected:{...selected},...capabilities(),editing:editing.state(),textureCount:resources.size,layouts:Object.fromEntries(Object.entries(faces).map(([kind,s])=>[kind,{...s.layout}]))}),dispose(){disposed=true;editing.dispose();cancelAnimationFrame(animation);for(const s of Object.values(faces)){scene.remove(s.group);const materials=new Set();s.group.traverse(o=>{o.geometry?.dispose();for(const m of o.material?Array.isArray(o.material)?o.material:[o.material]:[])materials.add(m);});for(const m of materials)m.dispose();}scene.remove(enclosure);enclosure.traverse(o=>o.geometry?.dispose());enclosureMaterial.dispose();windowMaterial.dispose();paintTexture.dispose();for(const p of resources.values())p.then(t=>t.dispose()).catch(()=>{});resources.clear();floor.visible=wall.visible=true;}};
+ return {editing,setSurface,setLED,setOpened:motion.setOpened,capabilities,diagnostics:()=>({selected:{...selected},...capabilities(),editing:editing.state(),textureCount:resources.size,layouts:Object.fromEntries(Object.entries(faces).map(([kind,s])=>[kind,{...s.layout}]))}),dispose(){disposed=true;editing.dispose();motion.dispose();for(const s of Object.values(faces)){scene.remove(s.group);const materials=new Set();s.group.traverse(o=>{o.geometry?.dispose();for(const m of o.material?Array.isArray(o.material)?o.material:[o.material]:[])materials.add(m);});for(const m of materials)m.dispose();}scene.remove(enclosure);enclosure.traverse(o=>o.geometry?.dispose());enclosureMaterial.dispose();windowMaterial.dispose();paintTexture.dispose();for(const p of resources.values())p.then(t=>t.dispose()).catch(()=>{});resources.clear();floor.visible=wall.visible=true;}};
 }
