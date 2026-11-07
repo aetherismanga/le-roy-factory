@@ -18,3 +18,9 @@
 .randal-furniture-actions,.randal-furniture-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .randal-presentation-furniture button{min-width:0;padding:8px;font-size:12px}
 .randal-presentation-furniture button:disabled{opacity:.45;cursor:default}
+
+.randal-presentation-products{display:grid;gap:8px;grid-column:1/-1;min-width:0}
+.randal-presentation-product{border:1px solid #d7d4c8;border-radius:9px;background:#fffefb;min-width:0}
+.randal-presentation-product>summary{padding:12px;min-height:44px;font-size:14px;font-weight:600;cursor:pointer}
+.randal-presentation-product>div{display:grid;gap:12px;padding:0 12px 12px;min-width:0}
+.randal-presentation-product select:disabled{opacity:.55}
