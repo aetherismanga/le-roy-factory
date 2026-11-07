@@ -1,0 +1,241 @@
+{
+  "date": "2026-11-06",
+  "environment": "Chrome distant; WASM mono-thread; aucun appareil physique",
+  "modelSha256": "f37d9a5f5c9a3e3b98024ca8617d8435551afd8b7ab4ede935b525547d8f43f4",
+  "workerVersion": "20261106-precise-floor-4",
+  "method": "Six JPEG réels autorisés et un recadrage sans sol; importPhoto puis analyze du module livré; aucun masque de référence fourni",
+  "results": [
+    {
+      "name": "08-commons",
+      "coverage": 0,
+      "confidence": 0,
+      "timings": {
+        "downloadMs": 2440,
+        "inferenceMs": 9524,
+        "workingWidth": 640,
+        "workingHeight": 583,
+        "backend": "wasm",
+        "threads": 1
+      },
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 0,
+        "keptPixels": 0,
+        "componentCount": 0,
+        "keptComponentCount": 0,
+        "discardedPixels": 0
+      },
+      "totalMs": 12120
+    },
+    {
+      "name": "10-commons",
+      "coverage": 0.22518078512396694,
+      "confidence": 0.7956365881567351,
+      "timings": {
+        "downloadMs": 0,
+        "inferenceMs": 7721,
+        "workingWidth": 640,
+        "workingHeight": 484,
+        "backend": "wasm",
+        "threads": 1
+      },
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 69955,
+        "keptPixels": 69752,
+        "componentCount": 3,
+        "keptComponentCount": 2,
+        "discardedPixels": 203
+      },
+      "totalMs": 7744
+    },
+    {
+      "name": "11-commons",
+      "coverage": 0.05354680164319249,
+      "confidence": 0.9913214341940026,
+      "timings": {
+        "downloadMs": 0,
+        "inferenceMs": 6568,
+        "workingWidth": 640,
+        "workingHeight": 426,
+        "backend": "wasm",
+        "threads": 1
+      },
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 154,
+        "candidatePixels": 14599,
+        "keptPixels": 14599,
+        "componentCount": 1,
+        "keptComponentCount": 1,
+        "discardedPixels": 0
+      },
+      "totalMs": 6578
+    },
+    {
+      "name": "12-commons",
+      "coverage": 0,
+      "confidence": 0,
+      "timings": {
+        "downloadMs": 0,
+        "inferenceMs": 6643,
+        "workingWidth": 640,
+        "workingHeight": 426,
+        "backend": "wasm",
+        "threads": 1
+      },
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 139,
+        "candidatePixels": 740,
+        "keptPixels": 0,
+        "componentCount": 1,
+        "keptComponentCount": 0,
+        "discardedPixels": 740
+      },
+      "totalMs": 6657
+    },
+    {
+      "name": "14-commons",
+      "coverage": 0,
+      "confidence": 0,
+      "timings": {
+        "downloadMs": 0,
+        "inferenceMs": 7001,
+        "workingWidth": 640,
+        "workingHeight": 480,
+        "backend": "wasm",
+        "threads": 1
+      },
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 0,
+        "keptPixels": 0,
+        "componentCount": 0,
+        "keptComponentCount": 0,
+        "discardedPixels": 0
+      },
+      "totalMs": 7012
+    },
+    {
+      "name": "15-commons",
+      "coverage": 0.21289388020833333,
+      "confidence": 0.9986431549546068,
+      "timings": {
+        "downloadMs": 0,
+        "inferenceMs": 7155,
+        "workingWidth": 640,
+        "workingHeight": 480,
+        "backend": "wasm",
+        "threads": 1
+      },
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 65401,
+        "keptPixels": 65401,
+        "componentCount": 1,
+        "keptComponentCount": 1,
+        "discardedPixels": 0
+      },
+      "totalMs": 7164
+    },
+    {
+      "name": "16-no-floor-photo-crop",
+      "coverage": 0,
+      "confidence": 0,
+      "timings": {
+        "downloadMs": 0,
+        "inferenceMs": 2344,
+        "workingWidth": 640,
+        "workingHeight": 149,
+        "backend": "wasm",
+        "threads": 1
+      },
+      "postprocess": {
+        "objectThreshold": 0.6,
+        "maskThreshold": 0.5,
+        "overlapThreshold": 0.5,
+        "pixelProbabilityThreshold": 0.05,
+        "componentConnectivity": 4,
+        "componentSelection": "significant-predicted-components",
+        "minimumComponentCoverage": 0.001,
+        "minimumCoverage": 0.005,
+        "protectedRugClassId": 200,
+        "rugConfidenceThreshold": 0.8,
+        "rugPixelProbabilityThreshold": 0.5,
+        "protectedRugPixels": 0,
+        "candidatePixels": 0,
+        "keptPixels": 0,
+        "componentCount": 0,
+        "keptComponentCount": 0,
+        "discardedPixels": 0
+      },
+      "totalMs": 2348
+    }
+  ],
+  "limitations": "Couverture prédite, pas précision annotée. Les sols absents ou manquants nécessitent un tracé manuel; aucun test physique Android/Safari."
+}

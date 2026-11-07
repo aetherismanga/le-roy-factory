@@ -1,0 +1,319 @@
+{
+  "modelSha256": "93abfec8b8abd77329f203726b231ee5e5d4c2d52c881a74ab1c1134d888c41d",
+  "modelBytes": 44483407,
+  "runtime": "onnxruntime 1.22.0",
+  "backend": "native CPU, one thread (not browser WASM)",
+  "inputNames": [
+    "pixel_values",
+    "pixel_mask"
+  ],
+  "results": [
+    {
+      "image": "01-hard-perspective.jpg",
+      "original": [
+        146,
+        190
+      ],
+      "working": [
+        384,
+        500
+      ],
+      "inferenceMs": 889,
+      "coverage": 0.1642,
+      "floorSegments": [
+        {
+          "id": 190,
+          "score": 0.947,
+          "pixels": 31518
+        }
+      ]
+    },
+    {
+      "image": "02-living-seating.jpg",
+      "original": [
+        260,
+        187
+      ],
+      "working": [
+        534,
+        384
+      ],
+      "inferenceMs": 790,
+      "coverage": 0.3102,
+      "floorSegments": [
+        {
+          "id": 118,
+          "score": 0.9758,
+          "pixels": 63614
+        }
+      ]
+    },
+    {
+      "image": "03-dining-chairs.jpg",
+      "original": [
+        1300,
+        1600
+      ],
+      "working": [
+        384,
+        473
+      ],
+      "inferenceMs": 729,
+      "coverage": 0.0244,
+      "floorSegments": [
+        {
+          "id": 190,
+          "score": 0.9235,
+          "pixels": 4431
+        }
+      ]
+    },
+    {
+      "image": "04-dark-dining.jpg",
+      "original": [
+        1600,
+        1143
+      ],
+      "working": [
+        538,
+        384
+      ],
+      "inferenceMs": 870,
+      "coverage": 0.2088,
+      "floorSegments": [
+        {
+          "id": 190,
+          "score": 0.9938,
+          "pixels": 43137
+        }
+      ]
+    },
+    {
+      "image": "05-contrast-pattern.jpg",
+      "original": [
+        1600,
+        1066
+      ],
+      "working": [
+        576,
+        384
+      ],
+      "inferenceMs": 748,
+      "coverage": 0.4337,
+      "floorSegments": [
+        {
+          "id": 190,
+          "score": 0.9884,
+          "pixels": 26558
+        },
+        {
+          "id": 190,
+          "score": 0.7196,
+          "pixels": 69379
+        }
+      ]
+    },
+    {
+      "image": "06-bright-living.jpg",
+      "original": [
+        1600,
+        1131
+      ],
+      "working": [
+        543,
+        384
+      ],
+      "inferenceMs": 732,
+      "coverage": 0.5304,
+      "floorSegments": [
+        {
+          "id": 190,
+          "score": 0.9934,
+          "pixels": 110593
+        }
+      ]
+    },
+    {
+      "image": "07-no-floor-texture.jpg",
+      "original": [
+        192,
+        190
+      ],
+      "working": [
+        388,
+        384
+      ],
+      "inferenceMs": 651,
+      "coverage": 0.0,
+      "floorSegments": []
+    },
+    {
+      "image": "08-commons.jpg",
+      "original": [
+        1920,
+        1749
+      ],
+      "working": [
+        422,
+        384
+      ],
+      "inferenceMs": 654,
+      "coverage": 0.231,
+      "floorSegments": [
+        {
+          "id": 190,
+          "score": 0.9935,
+          "pixels": 37429
+        }
+      ]
+    },
+    {
+      "image": "09-commons.jpg",
+      "original": [
+        1920,
+        1440
+      ],
+      "working": [
+        512,
+        384
+      ],
+      "inferenceMs": 744,
+      "coverage": 0.0,
+      "floorSegments": []
+    },
+    {
+      "image": "10-commons.jpg",
+      "original": [
+        1920,
+        1453
+      ],
+      "working": [
+        507,
+        384
+      ],
+      "inferenceMs": 752,
+      "coverage": 0.2081,
+      "floorSegments": [
+        {
+          "id": 118,
+          "score": 0.9496,
+          "pixels": 40523
+        }
+      ]
+    },
+    {
+      "image": "11-commons.jpg",
+      "original": [
+        1920,
+        1277
+      ],
+      "working": [
+        577,
+        384
+      ],
+      "inferenceMs": 857,
+      "coverage": 0.0533,
+      "floorSegments": [
+        {
+          "id": 190,
+          "score": 0.9885,
+          "pixels": 11806
+        }
+      ]
+    },
+    {
+      "image": "12-commons.jpg",
+      "original": [
+        1920,
+        1277
+      ],
+      "working": [
+        577,
+        384
+      ],
+      "inferenceMs": 1064,
+      "coverage": 0.0,
+      "floorSegments": []
+    },
+    {
+      "image": "13-commons.jpg",
+      "original": [
+        1920,
+        1440
+      ],
+      "working": [
+        512,
+        384
+      ],
+      "inferenceMs": 805,
+      "coverage": 0.0311,
+      "floorSegments": [
+        {
+          "id": 118,
+          "score": 0.8126,
+          "pixels": 1018
+        },
+        {
+          "id": 118,
+          "score": 0.8299,
+          "pixels": 5090
+        }
+      ]
+    },
+    {
+      "image": "14-commons.jpg",
+      "original": [
+        1920,
+        1440
+      ],
+      "working": [
+        512,
+        384
+      ],
+      "inferenceMs": 757,
+      "coverage": 0.0,
+      "floorSegments": []
+    },
+    {
+      "image": "15-commons.jpg",
+      "original": [
+        1920,
+        1440
+      ],
+      "working": [
+        512,
+        384
+      ],
+      "inferenceMs": 818,
+      "coverage": 0.1938,
+      "floorSegments": [
+        {
+          "id": 118,
+          "score": 0.9897,
+          "pixels": 21528
+        },
+        {
+          "id": 118,
+          "score": 0.8278,
+          "pixels": 16581
+        }
+      ]
+    },
+    {
+      "image": "16-no-floor-photo-crop.jpg",
+      "original": [
+        1920,
+        446
+      ],
+      "working": [
+        640,
+        149
+      ],
+      "inferenceMs": 330,
+      "coverage": 0.0,
+      "floorSegments": []
+    }
+  ],
+  "date": "2026-11-06",
+  "limitations": "Native CPU operator/inference verification only; neither browser WASM nor physical-device performance. Coverage is predicted pixel fraction, not annotated accuracy. Review manual corrections for misses and fine object boundaries."
+}

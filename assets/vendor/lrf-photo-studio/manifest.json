@@ -1,0 +1,107 @@
+{
+  "schema": "lrf-photo-studio-model-assets",
+  "version": 3,
+  "model": "Xenova/detr-resnet-50-panoptic",
+  "revision": "ea24b2d4e0bfae31f0a1299ba3fb892a2df064de",
+  "runtime": "@huggingface/transformers@3.8.1",
+  "totalBytes": 80633369,
+  "refinementModel": {
+    "model": "Xenova/slimsam-77-uniform",
+    "revision": "5850ab45f587c112167512ffef949107115e26a0",
+    "localId": "slimsam-77-5850ab4-q8-v1",
+    "license": "Apache-2.0",
+    "dtype": "q8",
+    "totalBytes": 13798177,
+    "purpose": "Prompted local refinement of floor and object boundaries"
+  },
+  "files": [
+    {
+      "path": "models/detr-resnet-50-panoptic-ea24b2d-woq8-v1/DETR-APACHE-2.0.txt",
+      "bytes": 11354,
+      "sha256": "b208c52b00a2df2c8f4c3298c34407bf2bfe409968213372251c91fcc737a1a5",
+      "source": "https://raw.githubusercontent.com/facebookresearch/detr/main/LICENSE"
+    },
+    {
+      "path": "models/detr-resnet-50-panoptic-ea24b2d-woq8-v1/config.json",
+      "bytes": 11834,
+      "sha256": "10f5c1551ee51cce4f18025b364a068784def077f1d29fefab3359c7c0fe909e",
+      "source": "https://huggingface.co/Xenova/detr-resnet-50-panoptic/resolve/ea24b2d4e0bfae31f0a1299ba3fb892a2df064de/config.json"
+    },
+    {
+      "path": "models/detr-resnet-50-panoptic-ea24b2d-woq8-v1/onnx/model_quantized.onnx",
+      "bytes": 44270443,
+      "sha256": "f37d9a5f5c9a3e3b98024ca8617d8435551afd8b7ab4ede935b525547d8f43f4",
+      "source": "https://huggingface.co/Xenova/detr-resnet-50-panoptic/resolve/ea24b2d4e0bfae31f0a1299ba3fb892a2df064de/onnx/model.onnx",
+      "transform": "weight-only-q8-v1",
+      "sourceBytes": 172282717,
+      "sourceSha256": "f41a80cd659d1ae2e4981f2423955d983d28657d747e965ddc980b7768042de1"
+    },
+    {
+      "path": "models/detr-resnet-50-panoptic-ea24b2d-woq8-v1/preprocessor_config.json",
+      "bytes": 454,
+      "sha256": "f40c5d0478854be4a19a29f58a80558b43d3055b42b8288742933d130937c55d",
+      "source": "https://huggingface.co/Xenova/detr-resnet-50-panoptic/resolve/ea24b2d4e0bfae31f0a1299ba3fb892a2df064de/preprocessor_config.json"
+    },
+    {
+      "path": "models/slimsam-77-5850ab4-q8-v1/SLIMSAM-APACHE-2.0.txt",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "source": "https://raw.githubusercontent.com/czg1225/SlimSAM/2ddb8f7a8400344b4e64ed32f0197af9007a9aa0/LICENSE"
+    },
+    {
+      "path": "models/slimsam-77-5850ab4-q8-v1/config.json",
+      "bytes": 379,
+      "sha256": "6339884f168658d3ca6473b486973913fb33e84e625e06ae2dd7b4a808187419",
+      "source": "https://huggingface.co/Xenova/slimsam-77-uniform/resolve/5850ab45f587c112167512ffef949107115e26a0/config.json"
+    },
+    {
+      "path": "models/slimsam-77-5850ab4-q8-v1/onnx/prompt_encoder_mask_decoder_quantized.onnx",
+      "bytes": 4903810,
+      "sha256": "cb90b279f549d2cab7fd6e20c38522438c65d84bdcca3d2a764cff7d857fdce2",
+      "source": "https://huggingface.co/Xenova/slimsam-77-uniform/resolve/5850ab45f587c112167512ffef949107115e26a0/onnx/prompt_encoder_mask_decoder_quantized.onnx"
+    },
+    {
+      "path": "models/slimsam-77-5850ab4-q8-v1/onnx/vision_encoder_quantized.onnx",
+      "bytes": 8882165,
+      "sha256": "cce23c7b2e5d4f330932738fb67ba518e04b0d99ccdd1cccd22a7da4e01f2971",
+      "source": "https://huggingface.co/Xenova/slimsam-77-uniform/resolve/5850ab45f587c112167512ffef949107115e26a0/onnx/vision_encoder_quantized.onnx"
+    },
+    {
+      "path": "models/slimsam-77-5850ab4-q8-v1/preprocessor_config.json",
+      "bytes": 466,
+      "sha256": "225545a743c654e3c495ec6f545a0eaba57c8ba3fbbd8483b3cb1c0fc58db517",
+      "source": "https://huggingface.co/Xenova/slimsam-77-uniform/resolve/5850ab45f587c112167512ffef949107115e26a0/preprocessor_config.json"
+    },
+    {
+      "path": "runtime-3.8.1/ONNXRUNTIME-MIT.txt",
+      "bytes": 1073,
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
+      "source": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.22.0/LICENSE"
+    },
+    {
+      "path": "runtime-3.8.1/TRANSFORMERS-APACHE-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "source": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/LICENSE"
+    },
+    {
+      "path": "runtime-3.8.1/ort-wasm-simd-threaded.jsep.mjs",
+      "bytes": 44484,
+      "sha256": "08fb86ec433c78bfb032c5d84a68b8e8e5a8d81268fa39e24314179a5767a5b9",
+      "source": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/dist/ort-wasm-simd-threaded.jsep.mjs"
+    },
+    {
+      "path": "runtime-3.8.1/ort-wasm-simd-threaded.jsep.wasm",
+      "bytes": 21596019,
+      "sha256": "c46655e8a94afc45338d4cb2b840475f88e5012d524509916e505079c00bfa39",
+      "source": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/dist/ort-wasm-simd-threaded.jsep.wasm"
+    },
+    {
+      "path": "runtime-3.8.1/transformers.min.js",
+      "bytes": 888173,
+      "sha256": "aa5002b70e789798da263f5f99c62bd3e8fcd0c119258a493c40c180648365fa",
+      "source": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/dist/transformers.min.js"
+    }
+  ],
+  "compression": "weight-only-q8-v1; floating-point activations"
+}
