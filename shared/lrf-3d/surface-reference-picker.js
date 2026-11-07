@@ -1,5 +1,6 @@
 import {resolveSurfaceTexture} from './surface-texture-selection.js';
 import {surfaceAssetURL} from './texture-loader.js';
+import {enhanceVisualSelect,attachVisualPreview} from './visual-choice.js';
 
 // Use the same reviewed reference-to-face mapping as the 3D scene. In
 // particular, an HD face for one finish must not illustrate a different SKU.
@@ -21,13 +22,14 @@ function installStyle(){
  .surface-reference-image [hidden]{display:none!important}
  .surface-reference-unavailable{padding:5px;text-align:center;font:10px/1.3 Arial,sans-serif;color:#71816d}
  .surface-reference-control select{width:100%;min-width:0;min-height:44px}
+ .surface-reference-control:has(.lrf-visual-choice){grid-template-columns:minmax(0,1fr)}
+ .surface-reference-control:has(.lrf-visual-choice)>.surface-reference-image{display:none}
  .surface-reference-caption{display:block;margin-top:5px;color:#71816d;font-size:11px;line-height:1.4;overflow-wrap:anywhere}
  `;document.head.append(style);
 }
 
-// Native select retains keyboard/touch support; the adjacent image remains
-// visible while choosing references instead of relying on unsupported option
-// images. Only the selected face is requested, never every HD option at once.
+// Keep the native value/change contract for the scene, while the illustrated
+// choices expose each candidate's reviewed face on desktop and touch screens.
 export function renderSurfaceReferenceSelection(host,{choices,selected,onChange}){
  if(!host)return;host.replaceChildren();if(!selected)return;
  installStyle();
@@ -40,6 +42,7 @@ export function renderSurfaceReferenceSelection(host,{choices,selected,onChange}
  select.value=selected.key;
  const caption=document.createElement('small');caption.className='surface-reference-caption';
  const note=document.createElement('p');note.className='control-note';
+ let disposePreview;
  const fmt=value=>Number(value||0).toLocaleString('fr-FR',{maximumFractionDigits:2,minimumFractionDigits:2});
  function show(product){
   const image=document.createElement('img'),url=surfaceReferencePreview(product);
@@ -48,11 +51,14 @@ export function renderSurfaceReferenceSelection(host,{choices,selected,onChange}
   image.width=72;image.height=72;image.loading='lazy';image.decoding='async';
   image.hidden=!url;unavailable.hidden=!!url;image.onerror=()=>{image.hidden=true;unavailable.hidden=false;};
   if(url)image.src=url;
+  disposePreview?.();
   preview.replaceChildren(image,unavailable);
+  disposePreview=attachVisualPreview(preview,{value:product.key,label:[product.reference,product.finish].filter(Boolean).join(' · '),detail:[product.collection,product.color,product.format].filter(Boolean).join(' · '),image:url});
   caption.textContent=[product.collection,product.color,product.format&&product.format.replaceAll('x',' × ')+' cm'].filter(Boolean).join(' · ');
   note.textContent=product.packVerified?product.packPieces+' pièces · '+fmt(product.packArea)+' m² par boîte':'Boîtage à confirmer sur la fiche fabricant';
  }
  select.onchange=()=>{const product=choices.find(product=>product.key===select.value);if(!product)return;show(product);onChange?.(product.key);};
  row.append(preview,select);label.append(row,caption);host.append(label,note);show(selected);
- return {select,preview};
+ const visual=enhanceVisualSelect(select,{label:'Référence & finition',entries:choices.map(product=>({value:product.key,label:(product.reference||'Référence à confirmer')+' · '+product.finish,detail:[product.collection,product.color,product.format&&product.format.replaceAll('x',' × ')+' cm'].filter(Boolean).join(' · '),image:surfaceReferencePreview(product)})),searchPlaceholder:'Rechercher une référence ou une finition'});
+ return {select,preview,visual};
 }
