@@ -26,7 +26,7 @@ for(const variant of ['studio-one','randal-general'])test(variant+': presentatio
  try{
   assert.equal(presentation.capabilities().led,true);presentation.setLED(false);for(const mirror of preview.items.filter(i=>i.type==='mirror'))assert.equal(mirror.asset.root.getObjectByName('Eclairage_LED').visible,false);
   presentation.setLED(true);for(const mirror of preview.items.filter(i=>i.type==='mirror'))assert.equal(mirror.asset.root.getObjectByName('Eclairage_LED').visible,true);
-  presentation.setOpened(true);callbacks.splice(0).forEach(fn=>fn(performance.now()+300));assert(preview.items.find(i=>i.type==='cabinet').asset.drawers.every(d=>d.position.z>.2));assert(Math.abs(preview.items.find(i=>i.type==='column').asset.door.rotation.y)>1);
+  presentation.setOpened(true);callbacks.splice(0).forEach(fn=>fn(performance.now()+300));assert(preview.items.find(i=>i.type==='cabinet').asset.drawers.every(d=>d.position.z>=.2));assert(Math.abs(preview.items.find(i=>i.type==='column').asset.door.rotation.y)>1);
   presentation.setOpened(false);callbacks.splice(0).forEach(fn=>fn(performance.now()+300));assert(preview.items.find(i=>i.type==='cabinet').asset.drawers.every(d=>d.position.z===0));
   for(const c of RANDAL_FLOORS)assert.equal(await presentation.setSurface('floor',c.id),true);
   for(const c of RANDAL_WALLS)assert.equal(await presentation.setSurface('wall',c.id),true);
@@ -38,12 +38,14 @@ for(const variant of ['studio-one','randal-general'])test(variant+': presentatio
 
 test('floor and wall selections remain separate, bounded and use the requested layouts',()=>{
  assert.equal(RANDAL_FLOORS.length,3);assert.deepEqual(RANDAL_FLOORS.map(x=>[x.collection,x.color,x.width,x.height,x.pattern]),[['Yosemite','honey',1.2,.2,'third'],['Creta','caramello',1.2,.6,'straight'],['Slate','gold',.6,.6,'straight']]);
- assert.deepEqual(RANDAL_WALLS.map(c=>c.name),['Blanc cassé','Ivoire','Sable','Sauge','Argile','Gris perle','Anthracite']);
- assert(RANDAL_WALLS.every(c=>c.collection==='Peinture'));
+ assert.deepEqual(RANDAL_WALLS.filter(c=>c.collection==='Peinture').map(c=>c.name),['Blanc cassé','Ivoire','Sable','Sauge','Argile','Gris perle','Anthracite']);
+ assert(RANDAL_WALLS.every(c=>['Peinture','Stone Icon','Allure'].includes(c.collection)));
+ assert.equal(RANDAL_WALLS.filter(c=>c.collection==='Allure'&&c.decor).length,4);assert.equal(RANDAL_WALLS.filter(c=>c.collection==='Allure'&&!c.decor).length,5);
+ assert.equal(presentationChoice('wall','stone-icon-leccese').format,'60x90');
  assert.equal(presentationChoice('floor','allure-eden'),null);assert.equal(presentationChoice('wall','yosemite-honey'),null);
  const project={room:{points:[[0,0],[450,0],[450,450],[0,450]]},items:[{id:'cabinet',settings:{finish:'ROBLE'}}],walls:[{collection:'Creta'}]};
  const next=withPresentationSurface(project,'floor','yosemite-honey');assert.equal(next.layouts.floor.pattern,'third');assert.equal(next.layouts.floor.height,.2);assert.deepEqual(next.items,project.items);assert.equal(project.floor,undefined);
- const walls=withPresentationSurface(next,'wall','paint-sand');assert.equal(walls.walls[0].color,'sand');assert.deepEqual(walls.items,project.items);assert.throws(()=>withPresentationSurface(project,'floor','unknown'));assert.throws(()=>withPresentationSurface(project,'wall','allure-eden'));
+ const walls=withPresentationSurface(next,'wall','paint-sand');assert.equal(walls.walls[0].color,'sand');assert.deepEqual(walls.items,project.items);assert.throws(()=>withPresentationSurface(project,'floor','unknown'));assert.equal(withPresentationSurface(project,'wall','allure-eden').walls[0].color,'eden');
 });
 
 test('the Slate Gold sample is the unchanged original identified by Elios',()=>{

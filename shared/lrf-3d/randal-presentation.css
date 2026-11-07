@@ -12,9 +12,17 @@
 @media print{.randal-presentation{display:none!important}}
 
 .randal-access-pending #direct-atelier{visibility:hidden}
-.randal-presentation-furniture{grid-column:1/-1;border:1px solid #d7d4c8;border-radius:9px;background:#fffefb}
-.randal-presentation-furniture>summary{padding:12px;min-height:44px;font-size:13px;font-weight:600;cursor:pointer}
-.randal-presentation-furniture>div{display:grid;gap:10px;padding:0 12px 12px}
-.randal-furniture-actions,.randal-furniture-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.randal-presentation-furniture button{min-width:0;padding:8px;font-size:12px}
-.randal-presentation-furniture button:disabled{opacity:.45;cursor:default}
+.randal-render-quality{position:absolute;top:14px;left:14px;margin:0;padding:7px 11px;border:1px solid #dedbd0;border-radius:20px;background:#fffefbdc;color:#3d493e;font-size:12px;pointer-events:none}
+.randal-render-quality[data-mode=photoreal],.randal-render-quality[data-mode=ready]{border-color:#b7a276;background:#fffdf1eb}
+
+.randal-presentation-products{display:grid;gap:8px;grid-column:1/-1;min-width:0}
+.randal-presentation-product{border:1px solid #d7d4c8;border-radius:9px;background:#fffefb;min-width:0}
+.randal-presentation-product>h2{padding:12px;margin:0;font-size:14px;font-weight:600}
+.randal-presentation-product>div{display:grid;gap:12px;padding:0 12px 12px;min-width:0}
+.randal-presentation-product select:disabled{opacity:.55}
+.randal-context-hint{padding:12px;border:1px solid #dedbd0;border-radius:9px;background:#f6f4ee}
+.randal-presentation-display{display:grid;gap:12px;grid-column:1/-1;min-width:0}
+.randal-brightness-heading{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.randal-brightness-heading output{font-variant-numeric:tabular-nums;font-weight:500;color:#66705f;white-space:nowrap}
+.randal-presentation-brightness input[type=range]{width:100%;min-width:0;margin:0;min-height:44px;accent-color:#293a2f;cursor:pointer}
+.randal-presentation-display button:focus-visible,.randal-presentation-brightness input:focus-visible{outline:2px solid #a78a55;outline-offset:3px}

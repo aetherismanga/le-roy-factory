@@ -1,4 +1,5 @@
 // Real built 3D scenes and mouse input. All projects and accounts are local fixtures.
+const {handle:handleAnonymousCommercial}=require('./anonymous-commercial-fixture.cjs');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const {chromium}=require('playwright');
 const root=path.resolve(__dirname,'../..'),roots={studio:path.join(root,'studio-one/dist'),general:path.join(root,'randal-general/dist')};
@@ -6,7 +7,7 @@ const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json
 const read=(dir,relative)=>{const file=path.resolve(dir,'.'+relative);return file.startsWith(dir+path.sep)&&fs.existsSync(file)&&fs.statSync(file).isFile()?{body:fs.readFileSync(file),contentType:mime[path.extname(file)]||'application/octet-stream'}:null;};
 let browser,server,page,active='studio';const checks=[],errors=[];const evidenceDir=process.env.LRF_LOCK_QA_DIR||'/tmp/lrf-position-lock-qa';fs.mkdirSync(evidenceDir,{recursive:true});
 (async()=>{
- server=http.createServer((req,res)=>{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),kind=pathname.split('/')[1];if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end('{"success":false}');}const asset=roots[kind]?read(roots[kind],pathname.slice(kind.length+1)):pathname.startsWith('/assets/')?read(roots[active],pathname):null;if(!asset){res.writeHead(404);return res.end();}res.setHeader('Content-Type',asset.contentType);res.end(asset.body);});
+ server=http.createServer((req,res)=>{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),kind=pathname.split('/')[1];if(handleAnonymousCommercial(req,res,pathname))return;if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end('{"success":false}');}const asset=roots[kind]?read(roots[kind],pathname.slice(kind.length+1)):pathname.startsWith('/assets/')?read(roots[active],pathname):null;if(!asset){res.writeHead(404);return res.end();}res.setHeader('Content-Type',asset.contentType);res.end(asset.body);});
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
  browser=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  for(const kind of ['studio','general'])for(const mobile of [false,true]){

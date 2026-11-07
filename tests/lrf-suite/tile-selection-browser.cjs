@@ -1,3 +1,4 @@
+const {handle:handleAnonymousCommercial}=require('./anonymous-commercial-fixture.cjs');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const {chromium}=require('playwright');
 const root=path.resolve(__dirname,'../..'),roots={studio:path.join(root,'studio-one/dist'),general:path.join(root,'randal-general/dist')};
@@ -8,7 +9,7 @@ const pass=message=>{checks.push(message);console.log('PASS',message);};
 (async()=>{
  server=http.createServer((req,res)=>{
   const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),kind=pathname.split('/')[1];
-  if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end('{"success":false}');}
+  if(handleAnonymousCommercial(req,res,pathname))return;if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end('{"success":false}');}
   const asset=roots[kind]?read(roots[kind],pathname.slice(kind.length+1)):pathname.startsWith('/assets/')?read(roots[activeKind],pathname):null;
   if(!asset){res.writeHead(404);return res.end('Missing QA asset');}res.setHeader('Content-Type',asset.contentType);res.end(asset.body);
  });

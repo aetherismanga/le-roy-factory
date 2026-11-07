@@ -1,4 +1,5 @@
 // Synthetic projects and local static routes only; no real account or production writes.
+const {handle:handleAnonymousCommercial,responseFor:anonymousCommercialResponse}=require('./anonymous-commercial-fixture.cjs');
 const {chromium}=require('playwright'),fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const {pathToFileURL}=require('node:url');
 const root=path.resolve(__dirname,'../..'),dist=path.join(root,'studio-one/dist'),appHost='studio-one-beta-test-v2.vercel.app';
@@ -10,6 +11,7 @@ const unauthorized=JSON.stringify({client:null,error:'Compte non connecté'});
  // the real built application, served under its normal HTTPS origin by routing.
  const server=http.createServer((req,res)=>{
   const url=new URL(req.url,'http://localhost');
+  if(handleAnonymousCommercial(req,res,url.pathname))return;
   if(url.pathname.startsWith('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end(unauthorized);}
   const siteFile=['/configurateurs-randal.html','/studio-one-configurateur.html'].includes(url.pathname)||url.pathname.startsWith('/assets/js/'),base=siteFile?root:dist;
   const file=path.resolve(base,'.'+(url.pathname==='/'?'/index.html':decodeURIComponent(url.pathname)));
@@ -27,7 +29,7 @@ const unauthorized=JSON.stringify({client:null,error:'Compte non connecté'});
   },previous);
   await context.route(/^https:\/\//,route=>{
    const url=new URL(route.request().url());
-   if(url.hostname===appHost&&url.pathname.startsWith('/api/'))return route.fulfill({status:401,contentType:'application/json',body:unauthorized});
+   if(url.hostname===appHost&&url.pathname.startsWith('/api/')){const anonymous=anonymousCommercialResponse(route.request().method(),url.pathname,route.request().postData());return route.fulfill(anonymous||{status:401,contentType:'application/json',body:unauthorized});}
    const local=url.hostname===appHost||url.hostname==='leroyfactory.fr'&&url.pathname.startsWith('/review-studio/assets/');
    if(local){const name=url.pathname==='/'?'/index.html':decodeURIComponent(url.pathname.replace(/^\/review-studio/,'')),file=path.resolve(dist,'.'+name);if(file.startsWith(dist+path.sep)&&fs.existsSync(file)&&fs.statSync(file).isFile())return route.fulfill({path:file,contentType:mime[path.extname(file)]});}
    return route.abort();

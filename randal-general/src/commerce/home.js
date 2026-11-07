@@ -31,7 +31,8 @@ if(routeParams.get('new')==='1'){for(const key of [DRAFT_KEY,TRANSFER_KEY,CURREN
 let draft=initialDraft(),view='home',step=0,project=null,projectTitle=t('Ma salle de bains'),siteReference='',quoteMode='guided',session=null,guest=null,orderPurpose='send';
 let preview=null,previewPromise=null,previewFailed=false,previewTurn=0,lastPreviewProject=null,identityStarted=false;
 const identity=createIdentity(()=>currentComposition(),state=>{session=state;renderAccount();});
-const randalPresentation=createRandalPresentation({getIdentity:()=>identity.state,getProject:currentComposition,createPreview:(host,options)=>import('./live-preview.js').then(m=>m.createPreview(host,options)),onChange:data=>{project=checkedProject(data);storeQuote(localStorage,project,quoteMode);if(view==='quote')updatePreview(project);projectWorkspace.checkpoint();}});
+let presentationActive=false;
+const randalPresentation=createRandalPresentation({products:{catalog:C,normalizeDraft,draftProject,initialDraft},onVisibility:active=>{presentationActive=active;previewTurn++;preview?.setActive(!active);if(!active&&view==='quote')updatePreview(project);},getIdentity:()=>identity.state,getProject:currentComposition,createPreview:(host,options)=>import('./live-preview.js').then(m=>m.createPreview(host,options)),onChange:data=>{project=checkedProject(data);storeQuote(localStorage,project,quoteMode);if(view==='quote'&&!presentationActive)updatePreview(project);projectWorkspace.checkpoint();}});
 document.body.classList.add('randal-access-pending');
 const routeCollection=C.collections.find(c=>c.id===routeParams.get('collection')||c.name.toLowerCase()===(routeParams.get('collection')||'').toLowerCase());
 try{draft=normalizeDraft(read(DRAFT_KEY,initialDraft(routeCollection?.id)));const prior=read(QUOTE_KEY);if(prior){projectTitle=prior.title||projectTitle;siteReference=prior.siteReference||'';}}catch{}

@@ -29,46 +29,91 @@ export function presentationPlacementAllowed(item,placement,items){
  return !items.some(other=>{if(other.id===item.id||other.placement.wall!==placement.wall)return false;const b=presentationItemSize(other),ol=other.placement.u-b.width/2,ob=other.placement.height-(b.centre?b.height/2:0);return Math.min(right,ol+b.width)-Math.max(left,ol)>.5&&Math.min(top,ob+b.height)-Math.max(bottom,ob)>.5;});
 }
 
+// Follow the real model's edit targets so the clicked basin/plan opens its
+// own controls instead of always editing the first cabinet in the project.
+export function presentationHitPart(object,item){
+ if(item.type!=='cabinet')return item.type;
+ let target=null;
+ for(let o=object;o&&o!==item.wrapper;o=o.parent){
+  const name=o.name||'';
+  if(/Mitigeur/i.test(name))return 'tap';
+  if(/Vasque|Coque_ceramique|Bonde|Trop_plein/i.test(name))return 'basin';
+  if(/^Plan_/i.test(name))return 'top';
+  if(o.userData?.editTarget==='basin')target='basin';
+ }
+ return target||'cabinet';
+}
 export function createPresentationEditing({scene,camera,controls,canvas,getItems,getProject,invalidate}){
  if(controls)configurePresentationCamera(controls);
- let selectedId=null,moving=false,drag=null,tap=null,listener=()=>{},helper=null,disposed=false;
- const raycaster=new T.Raycaster(),pointer=new T.Vector2();
+ let selectedId=null,selectedPart=null,gesture=null,listener=()=>{},helper=null,disposed=false,enabled=true,multitouch=false,handingOver=false,releasing=false;
+ const raycaster=new T.Raycaster(),pointer=new T.Vector2(),pointers=new Map();
  const items=()=>getItems()||[];
  const selected=()=>items().find(i=>i.id===selectedId)||items().find(i=>i.type==='cabinet')||items()[0]||null;
- function refresh(){if(helper){helper.visible=moving&&!!selected();if(helper.visible)helper.setFromObject(selected().wrapper);}}
+ function refresh(){if(helper){const item=items().find(i=>i.id===selectedId);helper.visible=!!item&&enabled;if(helper.visible)helper.setFromObject(item.wrapper);}}
+ function ensureHelper(){if(!helper){helper=new T.BoxHelper(selected()?.wrapper,0xa78a55);helper.raycast=()=>{};helper.name='Présentation_selection';scene.add(helper);}refresh();}
  function notify(event={}){refresh();listener({...event,state:state()});invalidate();}
- function state(){const item=selected();return {selected:item?.id||null,moving,canMove:!!item,vertical:!!item&&!presentationItemSize(item).floorStanding,canReverse:!!item?.asset.setHingeSide&&item.asset.canReverseHinge!==false,hingeSide:item?.settings.hingeSide||item?.asset.getHingeSide?.()||'left',items:items().map((i,index)=>({id:i.id,label:(i.type==='cabinet'?'Meuble':i.type==='column'?'Colonne':'Miroir')+' '+(index+1)}))};}
- function selectItem(id){if(!items().some(i=>i.id===id))return false;selectedId=id;notify({kind:'selection'});return true;}
- function setMoving(value){moving=!!value;if(canvas)canvas.style.cursor=moving?'grab':'';if(moving&&!helper){helper=new T.BoxHelper(selected()?.wrapper,0xa78a55);helper.raycast=()=>{};scene.add(helper);}notify({kind:'mode'});}
+ function state(){const item=selected();return {selected:selectedId||null,part:selectedPart||item?.type||null,moving:!!gesture?.dragged,canMove:!!item,vertical:!!item&&!presentationItemSize(item).floorStanding,canReverse:!!item?.asset.setHingeSide&&item.asset.canReverseHinge!==false,hingeSide:item?.settings.hingeSide||item?.asset.getHingeSide?.()||'left',items:items().map((i,index)=>({id:i.id,label:(i.type==='cabinet'?'Meuble':i.type==='column'?'Colonne':'Miroir')+' '+(index+1)}))};}
+ function selectItem(id,part){const item=items().find(i=>i.id===id);if(!item)return false;selectedId=id;selectedPart=part||item.type;ensureHelper();notify({kind:'selection',itemId:id,part:selectedPart});return true;}
+ function clearSelection(){selectedId=selectedPart=null;notify({kind:'selection',itemId:null,part:null});}
  function moveItem(item,proposal,{commit=true}={}){
   const room=getProject()?.room;if(!room||!item||disposed)return false;
   const next=boundedPresentationPlacement(room,item,proposal);if(!next||!Number.isFinite(next.u)||!Number.isFinite(next.height)||!presentationPlacementAllowed(item,next,items())){notify({kind:'invalid',message:'Les éléments doivent rester dans le mur sans se superposer.'});return false;}
   const frame=presentationWall(room,item.placement.wall),du=(next.u-item.placement.u)/100,dy=(next.height-item.placement.height)/100;
   item.wrapper.position.addScaledVector(frame.tangent,du);item.wrapper.position.y+=dy;item.placement=next;item.wrapper.updateMatrixWorld(true);
-  notify({kind:commit?'placement':'preview',itemId:item.id,placement:{...next}});return true;
+  notify({kind:commit?'placement':'preview',itemId:item.id,part:selectedPart,placement:{...next}});return true;
  }
  function nudge(du=0,dh=0){const item=selected();return !!item&&moveItem(item,{...item.placement,u:item.placement.u+du,height:item.placement.height+dh});}
- function reverseHinge(){const item=selected();if(!item?.asset.setHingeSide||item.asset.canReverseHinge===false)return false;const side=(item.settings.hingeSide||item.asset.getHingeSide?.()||'left')==='left'?'right':'left',angle=Math.abs(item.asset.door?.rotation.y||0);if(item.asset.setHingeSide(side)===false)return false;if(item.asset.door)item.asset.door.rotation.y=angle*(side==='right'?1:-1);item.settings={...item.settings,hingeSide:side};notify({kind:'hinge',itemId:item.id,hingeSide:side});return true;}
- function ray(event){const rect=canvas.getBoundingClientRect();pointer.set((event.clientX-rect.left)/rect.width*2-1,-(event.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(pointer,camera);return raycaster.ray;}
- function hit(event){if(!camera||!canvas)return null;ray(event);const list=items();for(const h of raycaster.intersectObjects(list.map(i=>i.wrapper),true)){for(let o=h.object;o;o=o.parent){const item=list.find(i=>i.wrapper===o);if(item)return {item,point:h.point};}}return null;}
+ function reverseHinge(){const item=selected();if(!item?.asset.setHingeSide||item.asset.canReverseHinge===false)return false;const side=(item.settings.hingeSide||item.asset.getHingeSide?.()||'left')==='left'?'right':'left',angle=Math.abs(item.asset.door?.rotation.y||0);if(item.asset.setHingeSide(side)===false)return false;if(item.asset.door)item.asset.door.rotation.y=angle*(side==='right'?1:-1);item.settings={...item.settings,hingeSide:side};notify({kind:'hinge',itemId:item.id,part:selectedPart,hingeSide:side});return true;}
+ function ray(event){const rect=canvas.getBoundingClientRect();pointer.set((event.clientX-rect.left)/rect.width*2-1,-(event.clientY-rect.top)/rect.height*2+1);camera.updateMatrixWorld();raycaster.setFromCamera(pointer,camera);return raycaster.ray;}
+ function hit(event){if(!camera||!canvas)return null;scene.updateMatrixWorld(true);ray(event);const list=items();for(const h of raycaster.intersectObjects(list.map(i=>i.wrapper),true)){
+   let visible=true;for(let o=h.object;o;o=o.parent)if(!o.visible){visible=false;break;}if(!visible)continue;
+   for(let o=h.object;o;o=o.parent){const item=list.find(i=>i.wrapper===o);if(item)return {item,point:h.point,part:presentationHitPart(h.object,item)};}
+  }return null;
+ }
+ const stop=event=>{event.preventDefault?.();event.stopImmediatePropagation?.();};
+ function release(previous){controls.enabled=previous.enabled;canvas.style.cursor='';if(canvas.hasPointerCapture?.(previous.id)){releasing=true;try{canvas.releasePointerCapture(previous.id);}finally{releasing=false;}}}
+ function restore(previous){const frame=presentationWall(getProject().room,previous.item.placement.wall);previous.item.wrapper.position.addScaledVector(frame.tangent,(previous.placement.u-previous.item.placement.u)/100);previous.item.wrapper.position.y+=(previous.placement.height-previous.item.placement.height)/100;previous.item.placement={...previous.placement};previous.item.wrapper.updateMatrixWorld(true);}
+ function cancelGesture(){if(!gesture)return;const previous=gesture;gesture=null;if(previous.dragged)restore(previous);release(previous);notify({kind:'gesture-cancel',itemId:previous.item.id,part:previous.part});}
+ function handToOrbit(event){
+  // OrbitControls did not receive the first down while an object was held.
+  // Replay only that down when a second finger arrives, then let the genuine
+  // second down and subsequent native events perform the normal pinch gesture.
+  const first=[...pointers.values()].find(p=>p.pointerId!==event.pointerId);
+  if(!first||typeof PointerEvent==='undefined'||!canvas.dispatchEvent)return;
+  handingOver=true;try{canvas.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,pointerId:first.pointerId,pointerType:first.pointerType||'touch',clientX:first.clientX,clientY:first.clientY,button:0,buttons:1,isPrimary:true}));}finally{handingOver=false;}
+ }
  function down(event){
-  if(event.button!==undefined&&event.button!==0)return;
-  if(drag){finish(event,true);return;}tap={id:event.pointerId,x:event.clientX,y:event.clientY};
-  if(!moving)return;const result=hit(event);if(!result)return;selectItem(result.item.id);
-  const frame=presentationWall(getProject().room,result.item.placement.wall);drag={id:event.pointerId,item:result.item,start:result.point.clone(),placement:{...result.item.placement},plane:new T.Plane().setFromNormalAndCoplanarPoint(frame.normal,result.point),tangent:frame.tangent,enabled:controls.enabled};
-  controls.enabled=false;canvas.style.cursor='grabbing';canvas.setPointerCapture?.(event.pointerId);event.preventDefault();event.stopImmediatePropagation();
+  if(handingOver||disposed||!enabled||event.button!==undefined&&event.button!==0)return;
+  pointers.set(event.pointerId,{pointerId:event.pointerId,pointerType:event.pointerType,clientX:event.clientX,clientY:event.clientY});
+  if(pointers.size>1){const held=!!gesture;cancelGesture();multitouch=true;if(held)handToOrbit(event);return;}
+  if(multitouch)return;const result=hit(event);if(!result)return;
+  const frame=presentationWall(getProject()?.room,result.item.placement.wall);if(!frame)return;
+  selectedId=result.item.id;selectedPart=result.part;
+  gesture={id:event.pointerId,item:result.item,part:result.part,x:event.clientX,y:event.clientY,start:result.point.clone(),placement:{...result.item.placement},plane:new T.Plane().setFromNormalAndCoplanarPoint(frame.normal,result.point),tangent:frame.tangent,enabled:controls.enabled,dragged:false};
+  controls.enabled=false;canvas.style.cursor='grab';canvas.setPointerCapture?.(event.pointerId);stop(event);
  }
- function move(event){if(!drag||event.pointerId!==drag.id)return;const point=ray(event).intersectPlane(drag.plane,new T.Vector3());if(point){const delta=point.sub(drag.start);moveItem(drag.item,{...drag.placement,u:drag.placement.u+delta.dot(drag.tangent)*100,height:drag.placement.height+delta.y*100},{commit:false});}event.preventDefault();event.stopImmediatePropagation();}
+ function move(event){
+  const entry=pointers.get(event.pointerId);if(entry){entry.clientX=event.clientX;entry.clientY=event.clientY;}
+  if(disposed||!enabled||multitouch)return;
+  if(!gesture){if(event.pointerType!=='touch'&&canvas)canvas.style.cursor=hit(event)?'grab':'';return;}
+  if(event.pointerId!==gesture.id)return;const current=gesture;
+  if(!current.dragged&&Math.hypot(event.clientX-current.x,event.clientY-current.y)>6){current.dragged=true;ensureHelper();notify({kind:'dragstart',itemId:current.item.id,part:current.part});canvas.style.cursor='grabbing';}
+  if(current.dragged){const point=ray(event).intersectPlane(current.plane,new T.Vector3());if(point){const delta=point.sub(current.start);moveItem(current.item,{...current.placement,u:current.placement.u+delta.dot(current.tangent)*100,height:current.placement.height+delta.y*100},{commit:false});}}
+  stop(event);
+ }
  function finish(event,cancel=false){
-  if(drag){if(event.pointerId!==drag.id&&!cancel)return;const previous=drag;drag=null;controls.enabled=previous.enabled;canvas.style.cursor=moving?'grab':'';if(canvas.hasPointerCapture?.(previous.id))canvas.releasePointerCapture(previous.id);
-   if(cancel){const frame=presentationWall(getProject().room,previous.item.placement.wall);previous.item.wrapper.position.addScaledVector(frame.tangent,(previous.placement.u-previous.item.placement.u)/100);previous.item.wrapper.position.y+=(previous.placement.height-previous.item.placement.height)/100;previous.item.placement=previous.placement;notify({kind:'selection'});}
-   else notify({kind:'placement',itemId:previous.item.id,placement:{...previous.item.placement}});
-   tap=null;event.preventDefault?.();event.stopImmediatePropagation?.();return;
-  }
-  if(!cancel&&tap?.id===event.pointerId&&Math.hypot(event.clientX-tap.x,event.clientY-tap.y)<7){const result=hit(event);if(result)selectItem(result.item.id);}tap=null;
+  if(releasing)return;pointers.delete(event.pointerId);
+  if(multitouch){if(!pointers.size)multitouch=false;return;}
+  if(!gesture||event.pointerId!==gesture.id)return;const previous=gesture;gesture=null;release(previous);
+  if(cancel){if(previous.dragged)restore(previous);notify({kind:'gesture-cancel',itemId:previous.item.id,part:previous.part});}
+  else if(previous.dragged)notify({kind:'placement',itemId:previous.item.id,part:previous.part,placement:{...previous.item.placement}});
+  else selectItem(previous.item.id,previous.part);
+  stop(event);
  }
- function key(event){if(!moving)return;const delta={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,1],ArrowDown:[0,-1]}[event.key];if(delta){event.preventDefault();event.stopImmediatePropagation();nudge(...delta);}else if(event.key==='Escape'){event.preventDefault();event.stopImmediatePropagation();setMoving(false);}}
- const listeners=[['pointerdown',down],['pointermove',move],['pointerup',e=>finish(e)],['pointercancel',e=>finish(e,true)],['lostpointercapture',e=>finish(e,true)],['keydown',key]];
+ function key(event){if(!enabled||!selectedId)return;const delta={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,1],ArrowDown:[0,-1]}[event.key];if(delta){stop(event);nudge(...delta);}else if(event.key==='Escape'){stop(event);cancelGesture();clearSelection();}}
+ const listeners=[['pointerdown',down],['pointermove',move],['pointerup',e=>finish(e)],['pointercancel',e=>finish(e,true)],['lostpointercapture',e=>{if(gesture?.id===e.pointerId)finish(e,true);}],['keydown',key]];
  for(const [name,handler]of listeners)canvas?.addEventListener(name,handler,{capture:true});
- return {state,selectItem,setMoving,nudge,reverseHinge,refresh,setListener(fn){listener=typeof fn==='function'?fn:()=>{};},dispose(){disposed=true;if(drag)finish({pointerId:drag.id},true);for(const [name,handler]of listeners)canvas?.removeEventListener(name,handler,{capture:true});if(helper){scene.remove(helper);helper.geometry.dispose();helper.material.dispose();}listener=()=>{};}};
+ // setMoving remains a compatibility no-op for older embedded consumers.
+ // Object dragging itself is always direct and needs no mode or extra button.
+ return {state,selectItem,clearSelection,setMoving(){},setEnabled(value){enabled=!!value;if(!enabled)cancelGesture();refresh();},nudge,reverseHinge,refresh,setListener(fn){listener=typeof fn==='function'?fn:()=>{};},dispose(){cancelGesture();disposed=true;for(const [name,handler]of listeners)canvas?.removeEventListener(name,handler,{capture:true});pointers.clear();if(helper){scene.remove(helper);helper.geometry.dispose();helper.material.dispose();}listener=()=>{};}};
 }

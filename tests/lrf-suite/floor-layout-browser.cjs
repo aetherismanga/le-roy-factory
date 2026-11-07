@@ -1,4 +1,5 @@
 // Exercise the built ateliers with local reviewed media and no real accounts.
+const {handle:handleAnonymousCommercial}=require('./anonymous-commercial-fixture.cjs');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const {chromium}=require('playwright');
 const root=path.resolve(__dirname,'../..'),roots={studio:path.join(root,'studio-one/dist'),general:path.join(root,'randal-general/dist')};
@@ -9,7 +10,7 @@ const product=catalogue.products.find(p=>p.collection==='Creta'&&p.colorId==='ca
 const finish={collection:product.collection,color:product.colorId,format:product.format,catalogueKey:product.key,reference:product.reference,finish:product.finish,groutWidth:2,pack:{collection:product.collection,color:product.colorId,format:product.format,pcsBox:2,m2Box:1.44,source:'Synthetic selected carton fixture'}};
 let browser,server,page,active='studio';const errors=[],checks=[];
 (async()=>{
- server=http.createServer((req,res)=>{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),kind=pathname.split('/')[1];if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end('{"success":false}');}const asset=roots[kind]?read(roots[kind],pathname.slice(kind.length+1)):pathname.startsWith('/assets/')?read(roots[active],pathname):null;if(!asset){res.writeHead(404);return res.end();}res.setHeader('Content-Type',asset.contentType);res.end(asset.body);});
+ server=http.createServer((req,res)=>{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),kind=pathname.split('/')[1];if(handleAnonymousCommercial(req,res,pathname))return;if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end('{"success":false}');}const asset=roots[kind]?read(roots[kind],pathname.slice(kind.length+1)):pathname.startsWith('/assets/')?read(roots[active],pathname):null;if(!asset){res.writeHead(404);return res.end();}res.setHeader('Content-Type',asset.contentType);res.end(asset.body);});
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
  browser=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  for(const kind of ['studio','general'])for(const mobile of [false,true]){
