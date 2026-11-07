@@ -1,11 +1,13 @@
 // Every candidate uses the existing manufacturer catalog and guided validator.
 // Context identifies the actual clicked item; unrelated project data stays intact.
 export {mirrorSpec} from './mirrors.js';
+import {MIRROR_METALS} from './mirrors.js';
 import {presentationWall} from './randal-presentation-editing.js';
 import {integratedOptions,vesselLayoutOptions} from './integrated-basins.js';
 import {fullTopDrawerAvailable} from './drawer-options.js';
+import {presentationMaterialPreview,presentationAssetURL} from './randal-presentation-choice-previews.js';
 
-export function createPresentationProducts({catalog:C,normalizeDraft,draftProject,initialDraft}){
+export function createPresentationProducts({catalog:C,finishes=C.finishes,normalizeDraft,draftProject,initialDraft}){
  const general=Array.isArray(C.columns),modelOf=d=>C.models.find(m=>m.id===d.format);
  const cabinetKeys=['format','width','finish','facadeMode','top','basinColor','basinLayout','topFinish','topDrawer'];
  const columnKeys=['column','columnModel','columnFinish'],mirrorKeys=['mirror','mirrorSize','mirrorFinish'];
@@ -77,7 +79,22 @@ export function createPresentationProducts({catalog:C,normalizeDraft,draftProjec
  }
  function fields(project,context={}){
   const state=read(project,context),{d,cabinet}=state,model=modelOf(d),groups=[];
-  const field=(key,label,choices,value=d[key],{compact=false}={})=>({key,label,value:String(value??''),choices:choices.map(([value,label])=>{let error='';try{apply(project,{[key]:typeof d[key]==='number'?Number(value):value},{...context,validateOnly:true});}catch(e){error=e.message;}return {value:String(value??''),label,disabled:!!error,reason:error};}).filter(choice=>!(compact||key==='width')||!choice.disabled||choice.value===String(value))});
+  function previewFor(key,value){
+   if(['finish','columnFinish','topFinish'].includes(key)){
+    const native=C.finishes.find(f=>f.id===value);if(!native)return null;
+    return presentationMaterialPreview({...native,...finishes.find(f=>f.id===value)});
+   }
+   if(key==='basinColor')return presentationMaterialPreview((['sella','tampa'].includes(d.top)?C.insetColors:C.vesselColors).find(c=>c.code===value));
+   if(key==='mirrorFinish')return presentationMaterialPreview(MIRROR_METALS.find(f=>f.id===value),{label:value});
+   let product;
+   if(key==='format')product=C.models.find(m=>m.id===value);
+   if(key==='columnModel')product=general?C.columns.find(c=>c.id===value):value==='studio-column'?C.column:null;
+   if(key==='mirror')product=C.mirrors.find(m=>m.id===value);
+   if(product){const src=presentationAssetURL(product.photoImage||product.image);return src?{type:'image',src,alt:product.name,caption:product.name+' · Illustration catalogue'}:null;}
+   if(key==='top'&&['sella','tampa','neris','torne'].includes(value)&&C.media)return {type:'image',src:C.media+'accessories/hd/basin-'+value+'.webp',alt:topNames[value],caption:topNames[value]+' · Illustration catalogue'};
+   return null;
+  }
+  const field=(key,label,choices,value=d[key],{compact=false}={})=>({key,label,value:String(value??''),choices:choices.map(([value,label])=>{let error='';try{apply(project,{[key]:typeof d[key]==='number'?Number(value):value},{...context,validateOnly:true});}catch(e){error=e.message;}return {value:String(value??''),label,disabled:!!error,reason:error,preview:previewFor(key,value)};}).filter(choice=>!(compact||key==='width')||!choice.disabled||choice.value===String(value))});
   function basinFields(){
    const result=[field('top','Plan et vasque',Object.entries(topNames).filter(([id])=>general?id!=='bare':!['none','compact'].includes(id)),d.top,{compact:true})];
    if(['sella','tampa','neris','torne'].includes(d.top)){

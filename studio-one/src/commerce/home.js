@@ -1,3 +1,4 @@
+import {FINISHES as PRESENTATION_FINISHES} from '../finishes.js';
 import {isRandalPresentation} from '../../../shared/lrf-3d/randal-client-access.js';
 import {createRandalPresentation} from '../../../shared/lrf-3d/randal-presentation-ui.js';
 import '../facade-i18n.js';
@@ -33,7 +34,7 @@ const columnThumbnails=new Map();
 const warmPreview=()=>{if(!previewModulePromise)previewModulePromise=import('./live-preview.js').catch(()=>{previewModulePromise=null;return null;});};
 const identity=createIdentity(()=>currentComposition(),state=>{session=state;renderAccount();});
 let presentationActive=false;
-const randalPresentation=createRandalPresentation({products:{catalog:C,normalizeDraft,draftProject,initialDraft},onVisibility:active=>{presentationActive=active;previewTurn++;preview?.setActive(!active);if(!active&&view==='quote')updatePreview(project);},getIdentity:()=>identity.state,getProject:currentComposition,createPreview:(host,options)=>import('./live-preview.js').then(m=>m.createPreview(host,options)),onChange:data=>{project=checkedProject(data);storeQuote(localStorage,project,quoteMode);if(view==='quote'&&!presentationActive)updatePreview(project);projectWorkspace.checkpoint();}});
+const randalPresentation=createRandalPresentation({products:{catalog:C,finishes:PRESENTATION_FINISHES,normalizeDraft,draftProject,initialDraft},onVisibility:active=>{presentationActive=active;previewTurn++;preview?.setActive(!active);if(!active&&view==='quote')updatePreview(project);},getIdentity:()=>identity.state,getProject:currentComposition,createPreview:(host,options)=>import('./live-preview.js').then(m=>m.createPreview(host,options)),onChange:data=>{project=checkedProject(data);storeQuote(localStorage,project,quoteMode);if(view==='quote'&&!presentationActive)updatePreview(project);projectWorkspace.checkpoint();}});
 document.body.classList.add('randal-access-pending');
 try{draft=normalizeDraft(read(DRAFT_KEY,initialDraft()));const prior=read(QUOTE_KEY);if(prior){projectTitle=prior.title||projectTitle;siteReference=prior.siteReference||'';}}catch{}
 function navigationProject(){try{if(view==='quote'&&project)return project;if(view==='wizard')return {...draftProject(draft),title:projectTitle,siteReference};const prior=read(FLOW_KEY);if(prior?.view==='atelier'||prior?.view==='quote')return read(CURRENT_KEY)||read(QUOTE_KEY);if(read(DRAFT_KEY))return {...draftProject(draft),title:projectTitle,siteReference};}catch{}return null;}

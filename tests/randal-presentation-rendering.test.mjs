@@ -12,13 +12,14 @@ test('fullscreen budgets reserve half-resolution contact occlusion and HD materi
  assert.equal(presentationRenderProfile({floatTargets:false}).ao,false);
 });
 
-function fixture({duration=2}={}){
+function fixture({duration=2,floatTargets=false,loadProgressive}={}){
  const scene=new T.Scene(),camera=new T.PerspectiveCamera(),sun=new T.DirectionalLight('#fff',.9),fill=new T.HemisphereLight('#fff','#888',.35);scene.add(sun,fill);
- const listeners=new Map(),sizes=[],size=new T.Vector2(1,1);let pixelRatio=1,draws=0,clock=0;
+ const listeners=new Map(),controlListeners=new Map(),sizes=[],statuses=[],size=new T.Vector2(1,1);let pixelRatio=1,draws=0,clock=0;
  const canvas={addEventListener:(type,fn)=>listeners.set(type,fn),removeEventListener:type=>listeners.delete(type)};
- const renderer={capabilities:{maxTextureSize:8192,getMaxAnisotropy:()=>16},extensions:{has:()=>false},toneMappingExposure:1,getPixelRatio:()=>pixelRatio,setPixelRatio:v=>pixelRatio=v,getSize:v=>v.copy(size),setSize(w,h){size.set(w,h);sizes.push([w,h]);},render(){draws++;},shadowMap:{}};
- const helper=createPresentationRendering({renderer,scene,camera,controls:{},canvas,sun,invalidate(){},now(){clock+=duration;return clock;}});
- return {helper,scene,sun,fill,renderer,listeners,sizes,get draws(){return draws;}};
+ const renderer={capabilities:{maxTextureSize:8192,getMaxAnisotropy:()=>16},extensions:{has:()=>floatTargets},toneMappingExposure:1,getPixelRatio:()=>pixelRatio,setPixelRatio:v=>pixelRatio=v,getSize:v=>v.copy(size),setSize(w,h){size.set(w,h);sizes.push([w,h]);},render(){draws++;},shadowMap:{}};
+ const controls={addEventListener:(type,fn)=>controlListeners.set(type,fn),removeEventListener:type=>controlListeners.delete(type)};
+ const helper=createPresentationRendering({renderer,scene,camera,controls,canvas,sun,invalidate(){},onRenderStatus:s=>statuses.push(s),loadProgressive,now(){clock+=duration;return clock;}});
+ return {helper,scene,sun,fill,renderer,listeners,controlListeners,sizes,statuses,get draws(){return draws;}};
 }
 
 test('fullscreen rendering is on demand, identical resizes do not reallocate and context loss suspends draws',()=>{
@@ -49,4 +50,22 @@ test('brightness adjusts the common raster and path-tracer exposure without chan
  assert.equal(f.helper.setBrightness(-5),25);assert.equal(f.renderer.toneMappingExposure,.25);
  assert.equal(f.helper.setBrightness(NaN),100);assert.equal(f.renderer.toneMappingExposure,1);assert.equal(f.fill.intensity,light);
  f.helper.dispose();assert.equal(f.renderer.toneMappingExposure,1);f.helper.setBrightness(50);assert.equal(f.renderer.toneMappingExposure,1);
+});
+
+const withWorker=async fn=>{const previous=globalThis.Worker;globalThis.Worker=class{};try{return await fn();}finally{if(previous===undefined)delete globalThis.Worker;else globalThis.Worker=previous;}};
+function prepareFurniture(f){const group=new T.Group();group.add(new T.Mesh(new T.BoxGeometry(.8,.8,.45),new T.MeshStandardMaterial()));f.scene.add(group);f.helper.prepareModel(group);}
+
+test('photo engine import is manual-only and changes cancel synchronously without automatic restart',()=>withWorker(async()=>{
+ let imports=0,starts=0,changes=0,cancels=0,disposed=0;
+ const engine={start:async()=>{starts++;return true;},changed:()=>changes++,cancel:()=>cancels++,getPhotoCapture:()=>null,setActive(){},diagnostics:()=>({}),dispose:()=>disposed++};
+ const f=fixture({floatTargets:true,loadProgressive:async()=>{imports++;return {createProgressivePresentation:()=>engine};}});prepareFurniture(f);for(let i=0;i<5;i++)f.helper.render();f.helper.setActive(false);f.helper.setActive(true);assert.equal(imports,0);assert.equal(starts,0);assert.equal(f.statuses.length,0);
+ assert.equal(await f.helper.startPhotoRender(),true);assert.equal(imports,1);assert.equal(starts,1);const before=changes;f.controlListeners.get('change')();assert.equal(changes,before+1);f.helper.setBrightness(80);assert.equal(changes,before+2);f.helper.render();assert.equal(starts,1);assert.equal(imports,1);f.helper.cancelPhotoRender();assert.equal(cancels,1);f.helper.dispose();assert.equal(disposed,1);assert.equal(f.controlListeners.size,0);
+}));
+
+test('a changed composition or closed fullscreen cancels pending module import before any worker allocation',()=>withWorker(async()=>{
+ for(const close of [false,true]){let resume,created=0;const f=fixture({floatTargets:true,loadProgressive:()=>new Promise(resolve=>resume=resolve)});prepareFurniture(f);const pending=f.helper.startPhotoRender();if(close)f.helper.dispose();else f.controlListeners.get('change')();resume({createProgressivePresentation(){created++;throw Error('stale request allocated');}});assert.equal(await pending,false);assert.equal(created,0);f.helper.dispose();}
+}));
+
+test('an unsupported device reports unavailability only when photo is requested and never imports the engine',async()=>{
+ let imported=false;const f=fixture({loadProgressive:async()=>{imported=true;}});prepareFurniture(f);f.helper.render();assert.equal(f.statuses.length,0);assert.equal(await f.helper.startPhotoRender(),false);assert.equal(imported,false);assert.equal(f.statuses.at(-1).mode,'fallback');assert.equal(f.statuses.at(-1).available,false);f.helper.dispose();
 });
