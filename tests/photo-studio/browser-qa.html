@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>LRF PHOTO STUDIO — contrôle de prévisualisation</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f4f2eb;color:#23382c;font:14px/1.4 system-ui,sans-serif}.toolbar{padding:12px 18px;border-bottom:1px solid #d3c7ad;background:#fffef8}.toolbar h1{font-size:16px;margin:0 0 8px}.controls{display:flex;align-items:center;flex-wrap:wrap;gap:9px}label{display:flex;align-items:center;gap:6px}button,select,a.action{font:inherit;border:1px solid #9caa9b;background:#fff;border-radius:7px;padding:8px 10px;color:#23382c}button{cursor:pointer;background:#214634;color:#fff;border-color:#214634}button:disabled{opacity:.5;cursor:wait}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #d6ac4f;outline-offset:2px}.help{color:#556356;font-size:12px;margin:8px 0 0}.app-shell{padding:12px;overflow:auto}iframe{display:block;width:100%;min-width:320px;height:1060px;border:1px solid #c6cebd;border-radius:10px;background:#fffef8;margin:auto}.observations{padding:0 18px 24px}#status{padding:10px;border:1px solid #d8d8cb;border-radius:8px;background:#fff;white-space:pre-wrap;max-height:200px;overflow:auto;font:12px/1.5 ui-monospace,monospace}#events{font-size:12px;padding-left:22px}#exportPreview{display:block;max-width:min(100%,900px);max-height:440px;object-fit:contain;border:1px solid #ccc;margin:10px 0;background:#fff}#exportMeta{white-space:pre-wrap;overflow-wrap:anywhere}#error{color:#9e2d1c;font-weight:600}.exports[hidden]{display:none}a{color:#265b40}.credit{font-size:12px;max-width:1000px}h2{font-size:16px;margin:15px 0 8px}
+  </style>
+</head>
+<body>
+  <header class="toolbar">
+    <h1>Contrôle de prévisualisation · LRF PHOTO STUDIO</h1>
+    <div class="controls">
+      <label>Photo de contrôle <select id="fixture"><option value="room.jpg">Pièce avec parquet · photo réelle</option><option value="no-floor.jpg">Cas négatif · aucun sol visible</option></select></label>
+      <button id="loadFixture" type="button" disabled>Charger la photo de contrôle</button>
+      <label>Largeur d’affichage <select id="viewport"><option value="100%">Ordinateur</option><option value="390px">390 px · simulation d’écran étroit</option></select></label>
+      <a href="/lrf-photo-studio.html" target="_blank" rel="noopener">Ouvrir l’application seule</a>
+    </div>
+    <p class="help">Cette page charge un fichier de test dans le vrai champ d’import. L’analyse, le masque, le catalogue et l’export restent ceux de l’application. Aucun résultat de détection n’est injecté. L’affichage étroit ne constitue pas un test physique sur téléphone.</p>
+    <p id="error" role="alert"></p>
+  </header>
+  <div class="app-shell"><iframe id="app" title="Application réelle LRF PHOTO STUDIO" src="/lrf-photo-studio.html"></iframe></div>
+  <section class="observations" aria-label="Observations du contrôle">
+    <h2>État observé dans l’application</h2>
+    <pre id="status" aria-live="polite">Chargement de l’application…</pre>
+    <ol id="events"></ol>
+    <section class="exports" id="exportResult" hidden>
+      <h2>JPEG réellement créé par Enregistrer</h2>
+      <p id="exportMeta"></p>
+      <a class="action" id="verifiedDownload" download="LRF-PHOTO-STUDIO-controle.jpg">Télécharger le JPEG vérifié</a>
+      <img id="exportPreview" alt="Fichier JPEG produit par le moteur réel sur la photo de contrôle">
+      <p class="help">Le contrôle intercepte uniquement le téléchargement de cette photo de test pour afficher et vérifier les mêmes octets. Le fichier de l’application et ses réglages ne sont pas remplacés.</p>
+    </section>
+    <p class="credit">Pièce avec parquet : aismallard, <a href="https://commons.wikimedia.org/wiki/File:Empty_apartment_room_with_extension_cord.jpg" target="_blank" rel="noopener">Empty apartment room with extension cord</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Cas négatif : Shixart1985, <a href="https://commons.wikimedia.org/wiki/File:Cozy_living_room_with_a_gray_sofa.jpg" target="_blank" rel="noopener">Cozy living room with a gray sofa</a>, <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>, recadré sans sol. Conversion JPEG et retrait des métadonnées. Les simulations modifient le revêtement du sol ; leurs crédits et conditions suivent la photo utilisée. <a href="NOTICE.md">Crédits et empreintes complets</a>.</p>
+  </section>
+  <script type="module">
+    const $=id=>document.getElementById(id),frame=$('app');
+    let observer=null,connectedDocument=null,updateTimer=null,started=0,milestones=new Set(),controlledFile=null,captureAllowed=false,exportUrl=null,lastSummary='',currentFixture='';
+    function log(message){const li=document.createElement('li');li.textContent=(started?((performance.now()-started)/1000).toFixed(2)+' s · ':'')+message;$('events').append(li);}
+    function once(key,message){if(!milestones.has(key)){milestones.add(key);log(message);}}
+    function appDocument(){const doc=frame.contentDocument;if(!doc?.getElementById('fileInput'))throw new Error('L’application n’est pas encore prête ou la page affichée a changé.');return doc;}
+    function readStatus(){
+      try{
+        const doc=appDocument(),get=id=>doc.getElementById(id),analysis=get('analysis'),workspace=get('workspace'),confirmed=!!get('zoneBar')?.hidden,ready=get('exportImage')&&!get('exportImage').disabled;
+        const status={page:frame.contentWindow.location.pathname,photoVisible:workspace?!workspace.hidden:false,analyseVisible:analysis?!analysis.hidden:false,analyse:get('analysisText')?.textContent?.trim()||'',zoneConfirmee:confirmed,produit:get('productSummary')?.textContent?.trim()||'',exportDisponible:!!ready,sauvegarde:get('saveState')?.textContent?.trim()||'',message:get('notice')?.textContent?.trim()||''};
+        $('status').textContent=JSON.stringify(status,null,2);
+        if(started&&status.photoVisible)once('photo','La photo est affichée dans l’espace de travail.');
+        if(started&&status.analyseVisible)once('analysis-start','Le véritable panneau d’analyse est visible.');
+        if(started&&milestones.has('analysis-start')&&!status.analyseVisible)once('analysis-end','Le panneau d’analyse s’est fermé. Message : '+status.message);
+        if(started&&status.zoneConfirmee)once('confirmed','La zone de sol est confirmée.');
+        if(started&&ready)once('render-ready','L’application active son bouton Enregistrer après le rendu.');
+        if(started&&status.produit!==lastSummary){lastSummary=status.produit;if(status.produit)log('Identité affichée : '+status.produit);}
+        if(started&&status.sauvegarde==='Enregistré sur cet appareil')once('saved','L’application confirme la sauvegarde locale sur cet appareil.');
+      }catch(error){$('status').textContent=error.message;}
+    }
+    function scheduleStatus(){clearTimeout(updateTimer);updateTimer=setTimeout(readStatus,70);}
+    async function inspectExport(href){
+      try{
+        const response=await fetch(href),blob=await response.blob();
+        if(blob.type!=='image/jpeg')throw new Error('L’export capturé n’est pas un JPEG : '+blob.type);
+        const bytes=await blob.arrayBuffer(),hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),n=>n.toString(16).padStart(2,'0')).join('');
+        if(exportUrl)URL.revokeObjectURL(exportUrl);exportUrl=URL.createObjectURL(blob);
+        const image=$('exportPreview');image.src=exportUrl;await image.decode();
+        if(!(image.naturalWidth>0&&image.naturalHeight>0))throw new Error('Le fichier JPEG ne peut pas être décodé.');
+        $('verifiedDownload').href=exportUrl;$('exportMeta').textContent=`Photo de contrôle : ${currentFixture}\nJPEG lisible : ${image.naturalWidth} × ${image.naturalHeight} px · ${blob.size.toLocaleString('fr-FR')} octets\nSHA-256 : ${hash}`;$('exportResult').hidden=false;
+        log(`JPEG réel décodé : ${image.naturalWidth} × ${image.naturalHeight} px, ${blob.size} octets ; SHA-256 ${hash}.`);
+      }catch(error){$('error').textContent='Vérification de l’export : '+error.message;log('Échec de vérification de l’export : '+error.message);}
+    }
+    function connect(){
+      try{
+        const doc=appDocument(),win=frame.contentWindow,input=doc.getElementById('fileInput');
+        if(doc===connectedDocument){readStatus();return;}
+        observer?.disconnect();connectedDocument=doc;controlledFile=null;captureAllowed=false;
+        input.addEventListener('change',()=>{if(input.files?.[0]!==controlledFile)captureAllowed=false;});
+        doc.getElementById('cameraInput')?.addEventListener('change',()=>{captureAllowed=false;});
+        const prototype=win.HTMLAnchorElement.prototype,originalClick=prototype.click;
+        prototype.click=function(...args){
+          if(captureAllowed&&this.download==='LRF-PHOTO-STUDIO.jpg'&&this.href.startsWith('blob:'+location.origin+'/')){inspectExport(this.href);return;}
+          return originalClick.apply(this,args);
+        };
+        observer=new MutationObserver(scheduleStatus);observer.observe(doc.body,{subtree:true,childList:true,attributes:true,characterData:true});
+        $('loadFixture').disabled=false;$('error').textContent='';readStatus();
+      }catch(error){$('error').textContent=error.message;$('loadFixture').disabled=true;}
+    }
+    frame.addEventListener('load',connect);
+    if(frame.contentDocument?.readyState==='complete'&&frame.contentDocument.getElementById('fileInput'))connect();
+    $('viewport').addEventListener('change',()=>{frame.style.width=$('viewport').value;});
+    $('loadFixture').addEventListener('click',async()=>{
+      $('loadFixture').disabled=true;$('error').textContent='';
+      try{
+        const doc=appDocument(),win=frame.contentWindow,name=$('fixture').value;
+        if(!['room.jpg','no-floor.jpg'].includes(name))throw new Error('Photo de contrôle inconnue.');
+        const response=await fetch(name,{cache:'no-store'});if(!response.ok)throw new Error('La photo de contrôle est absente : HTTP '+response.status);
+        const blob=await response.blob(),file=new win.File([blob],name,{type:'image/jpeg'}),transfer=new win.DataTransfer();transfer.items.add(file);
+        const input=doc.getElementById('fileInput');input.files=transfer.files;controlledFile=input.files[0];captureAllowed=true;currentFixture=name;started=performance.now();milestones=new Set();lastSummary='';$('events').replaceChildren();$('exportResult').hidden=true;log('Fichier JPEG de contrôle remis au champ d’import réel : '+name+'.');
+        input.dispatchEvent(new win.Event('change',{bubbles:true}));readStatus();
+      }catch(error){$('error').textContent=error.message;captureAllowed=false;}
+      finally{$('loadFixture').disabled=false;}
+    });
+    window.addEventListener('pagehide',()=>{observer?.disconnect();if(exportUrl)URL.revokeObjectURL(exportUrl);});
+  </script>
+</body>
+</html>
