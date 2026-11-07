@@ -64,9 +64,9 @@ test('rendered foreground pixels remain byte-for-byte original while the confirm
  }finally{restore();}
 });
 
-test('preview and larger export choose identical faces, joints and protected zones at matching photo positions',async()=>{
+test('preview and larger export choose identical faces and protected zones at matching photo positions',async()=>{
  const restore=installCanvas();try{const mask=createMask(33,33,new Uint8ClampedArray(33*33).fill(255));brushStroke(mask,{x:15,y:20},{x:20,y:23},3,'remove');
- const options={mask,product,faces,quad,settings:{lighting:0,layout:'third',rotation:90,seed:27}};
+ const options={mask,product,faces,quad,settings:{lighting:0,groutMm:0,layout:'third',rotation:90,seed:27}};
  const preview=await renderFloor({...options,photo:image(33,33)}),exported=await renderFloor({...options,photo:image(99,99)});
  for(let y=0;y<33;y++)for(let x=0;x<33;x++){const p=(y*33+x)*4,e=((y*3+1)*99+x*3+1)*4;assert.deepEqual(exported.pixels.data.slice(e,e+4),preview.pixels.data.slice(p,p+4),`${x},${y}`);}
  }finally{restore();}

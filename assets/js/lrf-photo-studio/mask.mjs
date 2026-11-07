@@ -49,6 +49,32 @@ export function fillContour(mask,points,mode='add') {
   return mask;
 }
 export function maskCoverage(mask){return mask.data.reduce((sum,n)=>sum+(n>127),0)/mask.data.length;}
+/** Snap only an uncertain boundary band to nearby photo colours; retain interior cutouts.
+ * This refines an actual segmentation, never creates a floor from a fixed polygon.
+ */
+export function refineMaskEdges(mask,image,{radius=Math.max(4,Math.min(12,Math.round(Math.min(mask.width,mask.height)/65))),passes=2}={}){
+ if(image?.width!==mask.width||image?.height!==mask.height||image.data?.length!==mask.width*mask.height*4)throw Error('Photo et masque incompatibles.');
+ const {width:w,height:h}=mask,n=w*h,distance=new Float32Array(n).fill(radius+1);
+ for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){const i=y*w+x,v=mask.data[i]>127;if(v!==(mask.data[i-1]>127)||v!==(mask.data[i+1]>127)||v!==(mask.data[i-w]>127)||v!==(mask.data[i+w]>127))distance[i]=0;}
+ for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=y*w+x;if(x)distance[i]=Math.min(distance[i],distance[i-1]+1);if(y)distance[i]=Math.min(distance[i],distance[i-w]+1);}
+ for(let y=h-1;y>=0;y--)for(let x=w-1;x>=0;x--){const i=y*w+x;if(x+1<w)distance[i]=Math.min(distance[i],distance[i+1]+1);if(y+1<h)distance[i]=Math.min(distance[i],distance[i+w]+1);}
+ let values=new Uint8ClampedArray(mask.data);const step=radius>7?3:2,offsets=[];
+ for(let dy=-radius;dy<=radius;dy+=step)for(let dx=-radius;dx<=radius;dx+=step)if(dx*dx+dy*dy<=radius*radius)offsets.push({dx,dy,spatial:Math.exp(-(dx*dx+dy*dy)/(radius*radius))});
+ const pixels=image.data;
+ for(let pass=0;pass<passes;pass++){
+  const out=new Uint8ClampedArray(values);
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+   const i=y*w+x;if(distance[i]>=radius)continue;
+   const p=i*4,r=pixels[p],g=pixels[p+1],b=pixels[p+2];let sum=values[i]*.12,weights=.12;
+   for(const o of offsets){const xx=x+o.dx,yy=y+o.dy;if(xx<0||xx>=w||yy<0||yy>=h)continue;const j=yy*w+xx,k=j*4,colour=(r-pixels[k])**2+(g-pixels[k+1])**2+(b-pixels[k+2])**2;
+    const weight=o.spatial*Math.exp(-colour/(2*24*24))*(.2+Math.min(1,distance[j]/3));sum+=values[j]*weight;weights+=weight;
+   }
+   const t=Math.max(0,Math.min(1,(sum/weights/255-.18)/.64));out[i]=Math.round(255*t*t*(3-2*t));
+  }
+  values=out;
+ }
+ return createMask(w,h,values);
+}
 export class MaskHistory {
   constructor(limit=20){this.limit=limit;this.past=[];this.future=[];}
   push(mask){this.past.push(new Uint8ClampedArray(mask.data));if(this.past.length>this.limit)this.past.shift();this.future=[];}

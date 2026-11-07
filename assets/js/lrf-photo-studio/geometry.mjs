@@ -52,21 +52,9 @@ export function planeProjection(quad, widthMm = 3600, heightMm = 3000) {
   if (!(widthMm > 0 && heightMm > 0 && widthMm <= 100000 && heightMm <= 100000)) throw new Error('Dimensions de calibration invalides (mm).');
   return solveHomography(quad, [{x:0,y:0},{x:widthMm,y:0},{x:widthMm,y:heightMm},{x:0,y:heightMm}]);
 }
-/** Geometry suggestion only: this does not create or alter the floor mask. */
-export function defaultQuad(mask, width, height) {
-  const data = mask?.data ?? mask;
-  if (data?.length === width*height) {
-    const rows = [];
-    for (let y=0;y<height;y++) { let first=width,last=-1; for(let x=0;x<width;x++) if(data[y*width+x]>127){first=Math.min(first,x);last=x;}
-      if(last-first>width*.08) rows.push({y,left:first/width,right:last/width});
-    }
-    if (rows.length > height*.08) {
-      const top=rows[Math.floor(rows.length*.12)], bottom=rows[Math.floor(rows.length*.94)];
-      const q=[{x:top.left,y:top.y/height},{x:top.right,y:top.y/height},{x:bottom.right,y:bottom.y/height},{x:bottom.left,y:bottom.y/height}];
-      if(validateQuad(q))return q;
-    }
-  }
-  return [{x:.28,y:.50},{x:.72,y:.50},{x:.98,y:.98},{x:.02,y:.98}];
+/** Starting handles for guided alignment only. Furniture/mask widths cannot infer perspective. */
+export function defaultQuad(){
+ return [{x:.32,y:.62},{x:.68,y:.62},{x:.92,y:.94},{x:.08,y:.94}];
 }
 export function deterministicFace(column, row, faceCount, seed=17) {
   let n = Math.imul(column|0,73856093)^Math.imul(row|0,19349663)^seed;

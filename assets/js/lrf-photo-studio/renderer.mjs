@@ -1,8 +1,9 @@
 import {planeProjection,tileAt} from './geometry.mjs';
 import {resampleMask} from './mask.mjs';
 import {decodeBlob} from './import.mjs';
+import {projectionCoverage} from './perspective.mjs';
 const cache=new Map(),CACHE_LIMIT=10,CACHE_BYTES=96*1024*1024;
-export const DEFAULT_SETTINGS=Object.freeze({planeWidthMm:3600,planeHeightMm:3000,scale:1,rotation:0,layout:'straight',groutMm:2,groutColor:'#d6cbbb',lighting:.35,seed:17});
+export const DEFAULT_SETTINGS=Object.freeze({planeWidthMm:3600,planeHeightMm:3000,scale:1,rotation:0,alignLongEdge:true,layout:'straight',groutMm:2,groutColor:'#d6cbbb',lighting:.6,seed:17});
 function abort(signal){if(signal?.aborted)throw new DOMException('Rendu annulé.','AbortError');}
 function makeCanvas(width,height){const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;return canvas;}
 async function loadFace(url,signal,maxSide) {
@@ -37,6 +38,17 @@ export async function loadFaces(product,{signal,quality='preview'}={}) {
   const faces=[];for(const url of urls.slice(0,12))faces.push(await loadFace(url,signal,maxSide));return faces;
 }
 function parseColor(value){const v=/^#([0-9a-f]{6})$/i.exec(value||'');return v?[parseInt(v[1].slice(0,2),16),parseInt(v[1].slice(2,4),16),parseInt(v[1].slice(4,6),16)]:[214,203,187];}
+function facePixel(face,u,v){
+ const x=Math.max(0,Math.min(face.width-1,u*face.width-.5)),y=Math.max(0,Math.min(face.height-1,v*face.height-.5)),x0=Math.floor(x),y0=Math.floor(y),x1=Math.min(face.width-1,x0+1),y1=Math.min(face.height-1,y0+1),dx=x-x0,dy=y-y0;
+ const a=(y0*face.width+x0)*4,b=(y0*face.width+x1)*4,c=(y1*face.width+x0)*4,d=(y1*face.width+x1)*4;
+ return [0,1,2].map(k=>face.data[a+k]*(1-dx)*(1-dy)+face.data[b+k]*dx*(1-dy)+face.data[c+k]*(1-dx)*dy+face.data[d+k]*dx*dy);
+}
+/** Exact box coverage of periodic joints, even when thinner than a distant pixel. */
+export function jointCoverage(coordinate,size,joint,footprint){
+ if(!(joint>0))return 0;const pitch=size+joint,half=Math.max(.001,Math.min(pitch*4,footprint))/2;
+ const integral=x=>{const n=Math.floor(x/pitch),local=x-n*pitch;return n*joint+Math.max(0,local-size);};
+ return Math.max(0,Math.min(1,(integral(coordinate+half)-integral(coordinate-half))/(2*half)));
+}
 /** Very low-frequency illumination, never the original joint/motif at pixel resolution. */
 export function illuminationField(original,mask,columns=10,rows=10) {
   const w=original.width,h=original.height,grid=new Float32Array(columns*rows),counts=new Uint32Array(grid.length),values=[];
@@ -51,9 +63,11 @@ function lightAt(field,x,y,w,h){const fx=Math.max(0,Math.min(field.columns-1,x/w
 export async function renderFloor({photo,mask,product,faces,quad,settings={},signal,onProgress}={}) {
   abort(signal);if(!product?.photoStudioEligible)throw new Error('Sélectionnez une référence simulable.');
   if(!faces?.length)throw new Error('Texture fabricant manquante.');
+  if(projectionCoverage(quad,mask)<.995)throw new Error('La perspective coupe une partie du sol. Ouvrez « Aligner au sol » et replacez les quatre repères.');
   const cfg={...DEFAULT_SETTINGS,...settings},w=photo.width,h=photo.height,canvas=makeCanvas(w,h),ctx=canvas.getContext('2d',{willReadFrequently:true});
+  if(cfg.alignLongEdge&&product.widthMm>product.heightMm*1.2)cfg.rotation=(Number(cfg.rotation)+90)%180;
   const original=photo.data?photo:photo.getContext('2d',{willReadFrequently:true}).getImageData(0,0,w,h),output=new ImageData(new Uint8ClampedArray(original.data),w,h);
-  const mm=mask.width===w&&mask.height===h?mask:resampleMask(mask,w,h),homo=planeProjection(quad,cfg.planeWidthMm,cfg.planeHeightMm),grout=parseColor(cfg.groutColor),lighting=Math.max(0,Math.min(1,Number(cfg.lighting)||0)),light=lighting?illuminationField(original,mm):null;
+  const mm=mask.width===w&&mask.height===h?mask:resampleMask(mask,w,h),homo=planeProjection(quad,cfg.planeWidthMm,cfg.planeHeightMm),grout=parseColor(cfg.groutColor),lighting=Math.max(0,Math.min(1,Number(cfg.lighting)||0)),light=lighting?illuminationField(original,mm,Math.min(40,Math.ceil(w/24)),Math.min(40,Math.ceil(h/24))):null;
   // Inline inverse homography projection, but tile addressing remains the tested pure function.
   for(let y=0;y<h;y++) {
     abort(signal);const ny=(y+.5)/h,denY=homo[7]*ny+homo[8],numX=homo[1]*ny+homo[2],numY=homo[4]*ny+homo[5];
@@ -64,9 +78,12 @@ export async function renderFloor({photo,mask,product,faces,quad,settings={},sig
       if(!Number.isFinite(d)||d<=1e-7)continue;
       const px=(homo[0]*nx+numX)/d,py=(homo[3]*nx+numY)/d;if(!Number.isFinite(px)||!Number.isFinite(py)||Math.abs(px)>1e7||Math.abs(py)>1e7)continue;
       const tile=tileAt(px,py,product,cfg,faces.length),p=i*4;let r,g,b;
-      if(tile.grout){[r,g,b]=grout;}else{const face=faces[tile.face];let u=tile.u,v=tile.v;const rotation=((Number(product.textureRotation)||0)%360+360)%360;
+      {const face=faces[tile.face];let u=Math.min(1,tile.u),v=Math.min(1,tile.v);const rotation=((Number(product.textureRotation)||0)%360+360)%360;
         if(rotation===90)[u,v]=[v,1-u];else if(rotation===180)[u,v]=[1-u,1-v];else if(rotation===270)[u,v]=[1-v,u];
-        const tx=Math.max(0,Math.min(face.width-1,Math.floor(u*face.width))),ty=Math.max(0,Math.min(face.height-1,Math.floor(v*face.height))),j=(ty*face.width+tx)*4;r=face.data[j];g=face.data[j+1];b=face.data[j+2];}
+        [r,g,b]=facePixel(face,u,v);}
+      const scale=Math.max(.1,Math.min(6,Number(cfg.scale)||1)),ax=(Math.abs(homo[0]-px*homo[6])/w+Math.abs(homo[1]-px*homo[7])/h)/d/scale,ay=(Math.abs(homo[3]-py*homo[6])/w+Math.abs(homo[4]-py*homo[7])/h)/d/scale;
+      const jointX=jointCoverage(tile.u*product.widthMm,product.widthMm,cfg.groutMm,cfg.rotation===90?ay:ax),jointY=jointCoverage(tile.v*product.heightMm,product.heightMm,cfg.groutMm,cfg.rotation===90?ax:ay),joint=1-(1-jointX)*(1-jointY);
+      r=r*(1-joint)+grout[0]*joint;g=g*(1-joint)+grout[1]*joint;b=b*(1-joint)+grout[2]*joint;
       const factor=light?1+lighting*(lightAt(light,x,y,w,h)-1):1;
       output.data[p]=r*factor*alpha+original.data[p]*(1-alpha);output.data[p+1]=g*factor*alpha+original.data[p+1]*(1-alpha);output.data[p+2]=b*factor*alpha+original.data[p+2]*(1-alpha);
     }

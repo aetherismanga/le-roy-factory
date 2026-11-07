@@ -71,3 +71,6 @@
 .ps-primary:hover{background:#385344;border-color:#385344}
 @media(max-width:950px){.ps-intro-art{border-radius:14px;aspect-ratio:16/9;max-height:280px}.ps-intro-art figcaption{font-size:14px;padding:40px 12px 12px}}
 @media(max-width:600px){.ps-intro-art{aspect-ratio:16/9;max-height:200px;min-height:160px}.ps-welcome{gap:15px}.ps-intro-art figcaption{font-size:13px}}
+
+/* Keep photo-plane alignment in the main mobile flow, above any catalogue sheet. */
+.ps-alignment-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:14px;background:#fff9e9;border:1px solid #ccb679;border-radius:8px;margin-top:8px}.ps-alignment-bar>div{flex:1;min-width:220px}.ps-alignment-bar strong{font-size:14px}.ps-alignment-bar p{font-size:12px;line-height:1.5;margin:7px 0}.ps-alignment-bar small{font-size:11px;color:#6c664f}.ps-alignment-bar button{font-size:12px}#openAlignment{border-color:#a98944;color:#584720}@media(max-width:600px){.ps-alignment-bar>button{flex:1;min-height:44px}.ps-inline{max-width:250px}.ps-topline .ps-inline #openAlignment{font-size:10px}}
