@@ -66,3 +66,86 @@ test('an unresponsive worker times out and releases its inference resources', as
   disposeSegmentation();
   delete globalThis.Worker;
 });
+
+// A minimal FIFO Web Locks stand-in. The tests exercise separate module
+// instances, as separate Photo Studio tabs would, rather than sharing `active`.
+class FifoLocks {
+  requests=[];
+  waiting=[];
+  held=false;
+  request(name,options,callback){
+    this.requests.push({name,signal:options.signal});
+    return new Promise((resolve,reject)=>{
+      const job={options,callback,resolve,reject};
+      job.cancel=()=>{
+        const index=this.waiting.indexOf(job);
+        if(index<0)return;
+        this.waiting.splice(index,1);reject(new DOMException('Lock request aborted.','AbortError'));
+      };
+      if(options.signal?.aborted){reject(new DOMException('Lock request aborted.','AbortError'));return;}
+      options.signal?.addEventListener('abort',job.cancel,{once:true});
+      this.waiting.push(job);this.drain();
+    });
+  }
+  async drain(){
+    if(this.held||!this.waiting.length)return;
+    this.held=true;const job=this.waiting.shift();
+    job.options.signal?.removeEventListener('abort',job.cancel);
+    try{job.resolve(await job.callback());}catch(error){job.reject(error);}
+    finally{this.held=false;this.drain();}
+  }
+}
+
+test('cross-tab inference holds one FIFO memory lease and aborts a waiting photo without starting its worker',async()=>{
+  const navigatorDescriptor=Object.getOwnPropertyDescriptor(globalThis,'navigator'),locks=new FifoLocks(),start=TestWorker.instances.length;
+  globalThis.Worker=TestWorker;
+  Object.defineProperty(globalThis,'navigator',{configurable:true,value:{locks}});
+  const firstTab=await import('../assets/js/lrf-photo-studio/segmentation.mjs?test-lock-first');
+  const secondTab=await import('../assets/js/lrf-photo-studio/segmentation.mjs?test-lock-second');
+  try{
+    const first=firstTab.analyze(image());
+    const queuedController=new AbortController();
+    const queued=secondTab.analyze(image(),{signal:queuedController.signal});
+    const queuedFailure=assert.rejects(queued,{name:'AbortError'});
+    const third=secondTab.analyze(image());
+    assert.equal(TestWorker.instances.length,start+1,'queued editors must not allocate an inference worker');
+    assert.equal(locks.requests.length,3);
+    assert.equal(new Set(locks.requests.map(request=>request.name)).size,1,'all editors coordinate through the same exclusive lease');
+    assert.equal(locks.requests[1].signal,queuedController.signal);
+    queuedController.abort();await queuedFailure;
+    assert.equal(TestWorker.instances.length,start+1,'aborted waiters do not enter the model');
+    TestWorker.instances[start].respond({type:'result',result:{width:2,height:2,mask:new Uint8ClampedArray([255,0,0,0]).buffer}});
+    assert.deepEqual([...(await first).mask],[255,0,0,0]);
+    await new Promise(resolve=>setImmediate(resolve));
+    assert.equal(TestWorker.instances.length,start+2,'the next live waiter starts after the prior result releases its lease');
+    TestWorker.instances[start+1].respond({type:'result',result:{width:2,height:2,mask:new Uint8ClampedArray([0,0,255,0]).buffer}});
+    assert.deepEqual([...(await third).mask],[0,0,255,0]);
+  }finally{
+    firstTab.disposeSegmentation();secondTab.disposeSegmentation();
+    if(navigatorDescriptor)Object.defineProperty(globalThis,'navigator',navigatorDescriptor);else delete globalThis.navigator;
+    delete globalThis.Worker;
+  }
+});
+
+test('an idle background editor releases its model worker while preserving its completed mask',async()=>{
+  const documentDescriptor=Object.getOwnPropertyDescriptor(globalThis,'document'),listeners=new Map(),page={hidden:false,addEventListener:(name,callback)=>listeners.set(name,callback)};
+  globalThis.Worker=TestWorker;
+  Object.defineProperty(globalThis,'document',{configurable:true,value:page});
+  const editor=await import('../assets/js/lrf-photo-studio/segmentation.mjs?test-background-release');
+  try{
+    const pending=editor.analyze(image()),worker=TestWorker.instances.at(-1);
+    page.hidden=true;listeners.get('visibilitychange')();
+    assert.notEqual(worker.terminated,true,'a background transition must not kill an analysis before its result');
+    page.hidden=false;
+    worker.respond({type:'result',result:{width:2,height:2,mask:new Uint8ClampedArray([0,255,255,0]).buffer}});
+    const result=await pending;
+    assert.notEqual(worker.terminated,true,'a visible editor keeps its warm model available');
+    page.hidden=true;listeners.get('visibilitychange')();
+    assert.equal(worker.terminated,true);
+    assert.deepEqual([...result.mask],[0,255,255,0],'releasing inference memory must not erase the editor result');
+  }finally{
+    editor.disposeSegmentation();
+    if(documentDescriptor)Object.defineProperty(globalThis,'document',documentDescriptor);else delete globalThis.document;
+    delete globalThis.Worker;
+  }
+});

@@ -31,6 +31,8 @@ keystore.properties
 
 # Generated suite outputs and local credentials
 /public-site/
+/assets/vendor/lrf-photo-studio/models/*/onnx/*.onnx
+/assets/vendor/lrf-photo-studio/runtime-*/**/*.wasm
 .env*
 
 # Built from the canonical PLAN & POSE entry before Functions deployment

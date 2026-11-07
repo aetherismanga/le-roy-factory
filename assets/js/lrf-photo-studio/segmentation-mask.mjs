@@ -3,7 +3,7 @@ export const FLOOR_POSTPROCESS = Object.freeze({
   objectThreshold: .6,
   maskThreshold: .5,
   overlapThreshold: .5,
-  pixelProbabilityThreshold: .05,
+  pixelProbabilityThreshold: .5,
   componentConnectivity: 4,
   componentSelection: 'significant-predicted-components',
   minimumComponentCoverage: .001,
@@ -51,6 +51,11 @@ export function largestComponent(mask, width, height) {
 }
 
 const sigmoid = value => value >= 0 ? 1 / (1 + Math.exp(-value)) : Math.exp(value) / (1 + Math.exp(value));
+// Native COCO category IDs in the pinned DETR model, rather than array offsets.
+// Only objects which can occlude a floor need subsequent prompted refinement.
+// Original COCO panoptic IDs, including furniture-stuff (the converted config
+// leaves some merged labels unnamed). Kitchen fronts must stay above the floor.
+const FLOOR_OBJECT_IDS = new Set([1,15,16,17,18,19,20,21,22,23,24,25,33,62,63,64,65,67,70,107,156,188,189]);
 
 /**
  * Reproduce DETR panoptic class/mask competition, then stop low-probability
@@ -66,7 +71,10 @@ export function conservativeFloorMask({ logits, masks, width, height, floorIds =
     || masks.data?.length !== masks.dims.reduce((a, b) => a * b, 1)) throw new Error('Invalid DETR segmentation output.');
   const cfg = { ...FLOOR_POSTPROCESS, ...postprocess }, count = logits.dims[1], classes = logits.dims[2], sourceHeight = masks.dims[2], sourceWidth = masks.dims[3];
   const pixels = width * height, winners = new Int16Array(pixels).fill(-1), bestScores = new Float32Array(pixels), winningProbabilities = new Float32Array(pixels);
-  const queries = [], floorSet = new Set(floorIds), protectedRugs = new Uint8Array(pixels);
+  const queries = [], floorSet = new Set(floorIds), protectedRugs = new Uint8Array(pixels), objectProposals = [];
+  // Reused scratch space holds only confident interior pixel indices for the
+  // current query. No object masks or model tensors leave this function.
+  let objectCoreIndices;
   const x0 = new Uint16Array(width), x1 = new Uint16Array(width), dx = new Float32Array(width);
   for (let x = 0; x < width; x++) {
     const sx = Math.max(0, Math.min(sourceWidth - 1, (x + .5) * sourceWidth / width - .5));
@@ -84,6 +92,10 @@ export function conservativeFloorMask({ logits, masks, width, height, floorIds =
     const values = new Float32Array(sourceWidth * sourceHeight), maskOffset = query * values.length;
     for (let i = 0; i < values.length; i++) values[i] = sigmoid(masks.data[maskOffset + i]);
     const candidate = { query, label, score, originalArea: 0, winningArea: 0 };
+    const protectsObject = FLOOR_OBJECT_IDS.has(label) && !floorSet.has(label) && score > .6;
+    if (protectsObject) objectCoreIndices ??= new Uint32Array(pixels);
+    let objectArea = 0, objectX = 0, objectY = 0, coreCount = 0;
+    const objectBounds = {minX:width,minY:height,maxX:-1,maxY:-1};
     queries[query] = candidate;
     for (let y = 0; y < height; y++) {
       const sy = Math.max(0, Math.min(sourceHeight - 1, (y + .5) * sourceHeight / height - .5)), y0 = Math.floor(sy), y1 = Math.min(sourceHeight - 1, y0 + 1), dy = sy - y0;
@@ -91,6 +103,12 @@ export function conservativeFloorMask({ logits, masks, width, height, floorIds =
         const p = Math.fround((values[y0 * sourceWidth + x0[x]] * (1 - dx[x]) + values[y0 * sourceWidth + x1[x]] * dx[x]) * (1 - dy)
           + (values[y1 * sourceWidth + x0[x]] * (1 - dx[x]) + values[y1 * sourceWidth + x1[x]] * dx[x]) * dy);
         const weighted = Math.fround(p * score), i = y * width + x;
+        if (protectsObject && p > .5) {
+          objectArea++; objectX += x; objectY += y;
+          objectBounds.minX = Math.min(objectBounds.minX,x); objectBounds.maxX = Math.max(objectBounds.maxX,x);
+          objectBounds.minY = Math.min(objectBounds.minY,y); objectBounds.maxY = Math.max(objectBounds.maxY,y);
+          if (p > .8) objectCoreIndices[coreCount++] = i;
+        }
         // A confidently recognized rug remains protected even when a floor
         // query wins overlapping pixels by a slightly higher panoptic score.
         if (label === cfg.protectedRugClassId && score >= cfg.rugConfidenceThreshold
@@ -98,6 +116,16 @@ export function conservativeFloorMask({ logits, masks, width, height, floorIds =
         if (weighted >= cfg.maskThreshold) candidate.originalArea++;
         if (weighted > bestScores[i]) { bestScores[i] = weighted; winners[i] = query; winningProbabilities[i] = p; }
       }
+    }
+    if (objectArea > pixels * .002 && coreCount) {
+      const centerX = objectX / objectArea, centerY = objectY / objectArea;
+      let best = -1, distance = Infinity;
+      for (let n = 0; n < coreCount; n++) {
+        const i = objectCoreIndices[n], x = i % width, y = Math.floor(i / width);
+        const nextDistance = (x-centerX)**2 + (y-centerY)**2;
+        if (nextDistance < distance) {distance = nextDistance; best = i;}
+      }
+      objectProposals.push({label,score,bounds:objectBounds,area:objectArea,point:[best%width,Math.floor(best/width)]});
     }
   }
   for (const query of winners) if (query >= 0) queries[query].winningArea++;
@@ -119,11 +147,13 @@ export function conservativeFloorMask({ logits, masks, width, height, floorIds =
     component.pixels = 0;
     component.keptComponentCount = 0;
   }
-  let scoreSum = 0;
+  let scoreSum = 0, floorMinY = height;
   const labels = new Set();
-  for (let i = 0; i < pixels; i++) if (component.mask[i]) { const candidate = queries[winners[i]]; scoreSum += candidate.score; labels.add(candidate.label); }
+  for (let i = 0; i < pixels; i++) if (component.mask[i]) { const candidate = queries[winners[i]]; scoreSum += candidate.score; labels.add(candidate.label); floorMinY = Math.min(floorMinY,Math.floor(i/width)); }
+  const protectedObjects = objectProposals.filter(object => object.bounds.maxY >= floorMinY)
+    .sort((a,b) => b.area-a.area || b.score-a.score).slice(0,8);
   return {
-    mask: component.mask, width, height, coverage: component.pixels / pixels, confidence: component.pixels ? scoreSum / component.pixels : 0,
+    mask: component.mask, protectedMask: protectedRugs, protectedObjects, width, height, coverage: component.pixels / pixels, confidence: component.pixels ? scoreSum / component.pixels : 0,
     labelIds: [...labels], postprocess: { ...cfg, protectedRugPixels, candidatePixels, keptPixels: component.pixels, componentCount: component.componentCount, keptComponentCount: component.keptComponentCount, discardedPixels: candidatePixels - component.pixels },
   };
 }

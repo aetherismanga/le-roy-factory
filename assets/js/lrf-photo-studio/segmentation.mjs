@@ -8,14 +8,16 @@ export const FLOOR_MODEL = Object.freeze({
   compression: 'weight-only-q8-v1; floating-point activations',
   sha256: 'f37d9a5f5c9a3e3b98024ca8617d8435551afd8b7ab4ede935b525547d8f43f4',
   floorLabels: ['floor-wood', 'floor-other-merged'],
+  refinement: Object.freeze({id:'Xenova/slimsam-77-uniform',revision:'5850ab45f587c112167512ffef949107115e26a0',bytes:13785975,license:'Apache-2.0'}),
 });
 
 let worker;
 let active;
 let sequence = 0;
+let idleTimer,memoryChannel;
 // Version the worker entry independently from photo/project URLs. A cached 404
 // during a preview rebuild must not pin subsequent analyses to a broken entry.
-const WORKER_VERSION = '20261106-precise-floor-4';
+const WORKER_VERSION = '20261107-detail-4';
 const abortError = () => new DOMException('Analyse annulée.', 'AbortError');
 const diagnosticsEnabled = () => typeof location !== 'undefined' && new URLSearchParams(location.search).has('ps-diagnostic');
 function analysisError(message, detail) {
@@ -26,16 +28,41 @@ function analysisError(message, detail) {
 }
 
 function stopWorker() {
+  clearTimeout(idleTimer);
   worker?.terminate();
   worker = undefined;
 }
+function releaseWhenIdle(){
+  clearTimeout(idleTimer);
+  if(typeof document!=='undefined'&&document.hidden){stopWorker();return;}
+  idleTimer=setTimeout(()=>{if(!active)stopWorker();},45000);
+  idleTimer?.unref?.();
+}
+function announceMemoryLease(){
+  if(typeof window==='undefined'||typeof BroadcastChannel==='undefined')return;
+  memoryChannel??=new BroadcastChannel('lrf-photo-studio-model-memory');
+  memoryChannel.onmessage=()=>{if(!active)stopWorker();};
+  memoryChannel.postMessage('release-idle-model');
+}
+async function withMemoryLease(image,options){
+  const execute=()=>{announceMemoryLease();return run(image,options);};
+  // Serialize expensive analyses across tabs of the same origin as well as
+  // within this editor. Other idle editors release their large WASM heaps.
+  if(typeof navigator!=='undefined'&&navigator.locks?.request){
+    options.onProgress?.({stage:'waiting',message:'Préparation de l’analyse de cette photo…',progress:null});
+    return navigator.locks.request('lrf-photo-studio-inference',{signal:options.signal},execute);
+  }
+  return execute();
+}
+if(typeof document!=='undefined')document.addEventListener('visibilitychange',()=>{if(document.hidden&&!active)stopWorker();});
 
 /**
  * @param {ImageData|{data:Uint8ClampedArray,width:number,height:number}} imageData
  * @param {{signal?:AbortSignal,onProgress?:(event:object)=>void,timeoutMs?:number}} options
  * @returns {Promise<{mask:Uint8ClampedArray,width:number,height:number,confidence:number,coverage:number,warning:string|null,timings:object,model:object}>}
  */
-export function analyze(imageData, { signal, onProgress, timeoutMs = 120000 } = {}) {
+function run(imageData, { signal, onProgress, timeoutMs = 180000, type='analyze',point } = {}) {
+  clearTimeout(idleTimer);
   if (signal?.aborted) return Promise.reject(abortError());
   if (!imageData || !Number.isInteger(imageData.width) || !Number.isInteger(imageData.height)
     || imageData.width < 1 || imageData.height < 1 || imageData.width * imageData.height > 6000000
@@ -56,6 +83,7 @@ export function analyze(imageData, { signal, onProgress, timeoutMs = 120000 } = 
       clearTimeout(timer);
       signal?.removeEventListener('abort', cancel);
       if (active?.id === id) active = undefined;
+      releaseWhenIdle();
       if (error) reject(error); else resolve(result);
     };
     const cancel = () => { stopWorker(); finish(abortError()); };
@@ -76,7 +104,10 @@ export function analyze(imageData, { signal, onProgress, timeoutMs = 120000 } = 
         }
         if (data.id !== id || settled) return;
         if (data.type === 'progress') onProgress?.(data.progress);
-        else if (data.type === 'result') finish(null, { ...data.result, mask: new Uint8ClampedArray(data.result.mask), model: FLOOR_MODEL });
+        else if (data.type === 'result') {
+          if(diagnosticsEnabled()&&data.result.detail)console.info('[LRF Photo Studio] Detail:',JSON.stringify({...data.result.detail,timings:data.result.timings}));
+          finish(null, { ...data.result, mask: new Uint8ClampedArray(data.result.mask), model: FLOOR_MODEL });
+        }
         else if (data.type === 'error') {
           console.error('[LRF Photo Studio] Local model failure:', data.detail ?? data.message);
           stopWorker();
@@ -92,10 +123,15 @@ export function analyze(imageData, { signal, onProgress, timeoutMs = 120000 } = 
       };
       // Transfer a copy: the original photo remains owned by the editor.
       const data = new Uint8ClampedArray(imageData.data);
-      worker.postMessage({ type: 'analyze', id, width: imageData.width, height: imageData.height, data: data.buffer }, [data.buffer]);
+      worker.postMessage({ type, point, id, width: imageData.width, height: imageData.height, data: data.buffer }, [data.buffer]);
     } catch (error) { stopWorker(); finish(error); }
   });
 }
 
+export function analyze(imageData,options={}){return withMemoryLease(imageData,options);}
 export const analyzeFloor = analyze;
+export function protectObject(imageData,point,options={}){
+  if(!point||!Number.isFinite(point.x)||!Number.isFinite(point.y))return Promise.reject(new Error('Touchez le meuble ou le tapis à préserver.'));
+  return withMemoryLease(imageData,{...options,point,type:'protect-object'});
+}
 export function disposeSegmentation() { active?.cancel(); stopWorker(); }

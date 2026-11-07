@@ -1,10 +1,19 @@
 {
   "schema": "lrf-photo-studio-model-assets",
-  "version": 2,
+  "version": 3,
   "model": "Xenova/detr-resnet-50-panoptic",
   "revision": "ea24b2d4e0bfae31f0a1299ba3fb892a2df064de",
   "runtime": "@huggingface/transformers@3.8.1",
-  "totalBytes": 66835192,
+  "totalBytes": 80633369,
+  "refinementModel": {
+    "model": "Xenova/slimsam-77-uniform",
+    "revision": "5850ab45f587c112167512ffef949107115e26a0",
+    "localId": "slimsam-77-5850ab4-q8-v1",
+    "license": "Apache-2.0",
+    "dtype": "q8",
+    "totalBytes": 13798177,
+    "purpose": "Prompted local refinement of floor and object boundaries"
+  },
   "files": [
     {
       "path": "models/detr-resnet-50-panoptic-ea24b2d-woq8-v1/DETR-APACHE-2.0.txt",
@@ -32,6 +41,36 @@
       "bytes": 454,
       "sha256": "f40c5d0478854be4a19a29f58a80558b43d3055b42b8288742933d130937c55d",
       "source": "https://huggingface.co/Xenova/detr-resnet-50-panoptic/resolve/ea24b2d4e0bfae31f0a1299ba3fb892a2df064de/preprocessor_config.json"
+    },
+    {
+      "path": "models/slimsam-77-5850ab4-q8-v1/SLIMSAM-APACHE-2.0.txt",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "source": "https://raw.githubusercontent.com/czg1225/SlimSAM/2ddb8f7a8400344b4e64ed32f0197af9007a9aa0/LICENSE"
+    },
+    {
+      "path": "models/slimsam-77-5850ab4-q8-v1/config.json",
+      "bytes": 379,
+      "sha256": "6339884f168658d3ca6473b486973913fb33e84e625e06ae2dd7b4a808187419",
+      "source": "https://huggingface.co/Xenova/slimsam-77-uniform/resolve/5850ab45f587c112167512ffef949107115e26a0/config.json"
+    },
+    {
+      "path": "models/slimsam-77-5850ab4-q8-v1/onnx/prompt_encoder_mask_decoder_quantized.onnx",
+      "bytes": 4903810,
+      "sha256": "cb90b279f549d2cab7fd6e20c38522438c65d84bdcca3d2a764cff7d857fdce2",
+      "source": "https://huggingface.co/Xenova/slimsam-77-uniform/resolve/5850ab45f587c112167512ffef949107115e26a0/onnx/prompt_encoder_mask_decoder_quantized.onnx"
+    },
+    {
+      "path": "models/slimsam-77-5850ab4-q8-v1/onnx/vision_encoder_quantized.onnx",
+      "bytes": 8882165,
+      "sha256": "cce23c7b2e5d4f330932738fb67ba518e04b0d99ccdd1cccd22a7da4e01f2971",
+      "source": "https://huggingface.co/Xenova/slimsam-77-uniform/resolve/5850ab45f587c112167512ffef949107115e26a0/onnx/vision_encoder_quantized.onnx"
+    },
+    {
+      "path": "models/slimsam-77-5850ab4-q8-v1/preprocessor_config.json",
+      "bytes": 466,
+      "sha256": "225545a743c654e3c495ec6f545a0eaba57c8ba3fbbd8483b3cb1c0fc58db517",
+      "source": "https://huggingface.co/Xenova/slimsam-77-uniform/resolve/5850ab45f587c112167512ffef949107115e26a0/preprocessor_config.json"
     },
     {
       "path": "runtime-3.8.1/ONNXRUNTIME-MIT.txt",
