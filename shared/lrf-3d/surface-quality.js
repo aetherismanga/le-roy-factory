@@ -7,6 +7,10 @@ function reviewedNativeDecor(collection,color){
  if(!p.faces?.length||p.faces.length!==color.faces?.length)return false;
  return p.faces.every((face,i)=>official.test(face.source||'')&&face.source===p.source&&face.sourceSha256===p.sourceSha256&&face.generated===false&&face.upscaled===false&&face.nativeSize?.length===2&&face.sourceSize?.length===2&&face.nativeSize.every((v,j)=>Number.isInteger(v)&&v>=100&&v<=250&&v<=face.sourceSize[j])&&face.variants?.max===color.faces[i]&&/^https:\/\/leroyfactory\.fr\/assets\/img\/lrf-plan-pose\/faces\/elios-20261104\/(?:deco|design-evo)\//.test(color.faces[i])&&(!face.crop||face.crop.length===4&&face.crop[0]>=0&&face.crop[1]>=0&&face.crop[2]<=face.sourceSize[0]&&face.crop[3]<=face.sourceSize[1]&&face.crop[2]-face.crop[0]===face.nativeSize[0]&&face.crop[3]-face.crop[1]===face.nativeSize[1]));
 }
+function reviewedSegmentoFace(collection,color){
+ const p=color?.textureProvenance,size=color?.resolution;
+ return collection==='Segmento'&&color.nativeFaces===true&&color.previewReviewed===true&&p?.kind==='manufacturer-transfer-original'&&p.manufacturerOriginal===true&&p.generated===false&&p.upscaled===false&&p.referenceAssignmentVerified===true&&/^04I15[0-9A-F]0$/.test(p.reference||'')&&color.references?.includes(p.reference)&&/^[a-f0-9]{64}$/.test(p.sourceSha256||'')&&Array.isArray(size)&&size.length===2&&size.every((v,i)=>v>=529&&v<=535&&v===p.nativeDimensions?.[i])&&(color.faces||[]).every(file=>/^https:\/\/leroyfactory\.fr\/assets\/img\/elios-segmento-20261107\/originals\/[a-z-]+\.jpg$/.test(file));
+}
 export function surfaceColorIssue(collection,color){
  if(!color||color.available3d===false)return 'no-usable-manufacturer-face';
  if(collection==='Peinture')return /^#[\da-f]{6}$/i.test(color.hex||'')?null:'missing-paint-colour';
@@ -21,7 +25,7 @@ export function surfaceColorIssue(collection,color){
  // pixels are preserved, and neither this exception nor a larger derivative
  // marks them as original manufacturer HD faces.
  if(color.definitionLimited===true&&color.previewReviewed===true&&color.nativeFaces===false&&color.textureProvenance?.kind==='manufacturer-catalogue-sample'&&/^https:\/\/eliosceramica\.com\/wp-content\/uploads\/.+\.pdf(?:#.*)?$/i.test(color.textureProvenance.source||''))return null;
- if(reviewedNativeDecor(collection,color))return null;
+ if(reviewedNativeDecor(collection,color)||reviewedSegmentoFace(collection,color))return null;
  if(Math.max(width,height)<700||width*height<150000)return 'insufficient-source-definition';
  return null;
 }

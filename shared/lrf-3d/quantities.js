@@ -2,6 +2,7 @@ import {COLLECTIONS,tileFormat} from './surface-catalog.js';
 import {surfaceRegions,regionsArea} from './surface-cuts.js';
 import commercialSurfaces from './commercial-surfaces.json' with {type:'json'};
 import {commercialSurfaceProduct} from './surface-identity.mjs';
+import {SEGMENTO,segmentoSelection,segmentoColor} from './segmento.js';
 export const packagingKey=(finish,format)=>[finish.collection,finish.color,format].join('|');
 export function packagingFor(finish,formatId){const f=tileFormat(finish.collection,formatId)||{},legacy=finish.pack;return finish.packs?.[packagingKey(finish,formatId)]||(legacy?.format===formatId&&(!legacy.collection||legacy.collection===finish.collection)&&(!legacy.color||legacy.color===finish.color)?legacy:null)||f.packByColor?.[finish.color]||f;}
 export function quantityForSurface(surface,finish,layout={},loss=10,label=''){
@@ -12,6 +13,16 @@ export function quantityForSurface(surface,finish,layout={},loss=10,label=''){
  if(!c||!format||finish.collection==='Peinture')return {label,collection:finish.collection,color:finish.color,area,paint:true,boxes:0};
  const cells=surface.tiles.geometry.userData.cells||[],tileCount=cells.length,full=cells.filter(v=>v.area>=(v.faceArea??((format.width-.002)*(format.height-.002)))-.00001).length,cut=tileCount-full,layoutArea=cells.reduce((n,v)=>n+(v.nominalArea??format.width*format.height),0),withLoss=area*(1+Math.max(0,Math.min(30,loss))/100),needed=Math.max(layoutArea,withLoss),pack=packagingFor(finish,format.id),packVerified=Number(pack.m2Box)>0&&Number.isInteger(Number(pack.pcsBox))&&Number(pack.pcsBox)>0,boxes=packVerified?Math.ceil((needed-1e-8)/Number(pack.m2Box)):null;
  const row={label,catalogueKey:finish.catalogueKey,reference:finish.reference,finish:finish.finish,customPack:Boolean(finish.packs?.[packagingKey(finish,format.id)]||finish.pack?.format===format.id),brand:c.brand,collection:finish.collection,color:finish.color,format:format.id,area,tileCount,full,cut,layoutArea,cutWaste:Math.max(0,layoutArea-area),loss,withLoss,needed,pcsBox:packVerified?Number(pack.pcsBox):null,m2Box:packVerified?Number(pack.m2Box):null,packVerified,boxes,orderArea:packVerified?boxes*Number(pack.m2Box):null,orderPieces:packVerified?boxes*Number(pack.pcsBox):Math.ceil(tileCount*(1+Math.max(0,loss)/100)),source:pack.source||format.source||c.source||'Conditionnement fabricant à confirmer'};
+ if(finish.collection==='Segmento'&&segmentoSelection(layout)){
+  const composition=segmentoSelection(layout),groups=new Map(),sum=cells.reduce((n,cell)=>n+cell.area,0);
+  for(const cell of cells){const color=finish.tiles?.[cell.key]||cell.segmentoColor||finish.color;if(!segmentoColor(color))throw Error('Référence Segmento inconnue dans le motif.');if(!groups.has(color))groups.set(color,[]);groups.get(color).push(cell);}
+  row.segmentoComposition=composition.id;
+  row.components=[...groups].map(([color,values])=>{
+   const definition=segmentoColor(color),reference=definition.reference||definition.ref,identity={collection:'Segmento',color,format:'15x15',reference},product=commercialSurfaceProduct(identity,commercialSurfaces.products),component={...identity,catalogueKey:product?.key,finish:product?.finish||'',pack:{collection:'Segmento',color,format:'15x15',m2Box:SEGMENTO.format.m2Box,pcsBox:SEGMENTO.format.pcsBox,source:SEGMENTO.source}};
+   const componentArea=sum>0?area*values.reduce((n,cell)=>n+cell.area,0)/sum:0;
+   return {...quantityForSurface({...surface,quantityAreaOverride:componentArea,tiles:{geometry:{userData:{cells:values}}}},component,{...layout,pattern:'straight',segmento:undefined},loss,label+' · Segmento '+(definition.name||definition.label||color)),segmentoComposition:composition.id};
+  });
+ }
  if(layout.pattern==='opus'&&layout.opus?.mode!=='manufacturer6'){
   const groups=new Map();for(const cell of cells){const key=cell.width+'|'+cell.height;if(!groups.has(key))groups.set(key,[]);groups.get(key).push(cell);}
   if(groups.size>1||groups.size&&format.opus?.mode==='stone-icon-big'){const sum=cells.reduce((n,c)=>n+c.area,0);row.components=[...groups.values()].map(values=>{const cell=values[0],f=c.formats.find(f=>Math.abs(f.width-cell.width)<.001&&Math.abs(f.height-cell.height)<.001||Math.abs(f.height-cell.width)<.001&&Math.abs(f.width-cell.height)<.001);if(!f)throw Error('Le module opus comporte un format absent de cette collection.');let component={...finish,format:f.id};

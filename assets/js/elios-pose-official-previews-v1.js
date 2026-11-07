@@ -175,12 +175,13 @@
 
   async function paintCard(btn){
     const id=btn?.dataset?.pattern;
+    if(id?.startsWith('S')&&window.LRF_ELIOS_SEGMENTO) return;
     const box=btn?.querySelector(':scope > div');
     if(!id||!box||!C[id]) return;
     box.classList.remove('ep-official-ready');
     try{
       const src=await srcFor(id);
-      if(!src||!btn.isConnected||btn.dataset.pattern!==id) return;
+      if(!src||!btn.isConnected||btn.dataset.pattern!==id||(id.startsWith('S')&&window.LRF_ELIOS_SEGMENTO)) return;
       const current=box.querySelector('.ep-official-preview');
       if(current?.src===src){box.classList.add('ep-official-ready');return;}
       box.replaceChildren(officialImg(src,btn.querySelector('b')?.textContent||`Schéma ${id}`));
@@ -193,13 +194,14 @@
   async function paintLarge(){
     const active=document.querySelector('#ep-pattern-grid .ep-pattern.active');
     const id=active?.dataset?.pattern;
+    if(id?.startsWith('S')&&window.LRF_ELIOS_SEGMENTO) return;
     const box=document.getElementById('ep-preview');
     if(!id||!box||!C[id]) return;
     box.classList.remove('ep-official-ready');
     try{
       const src=await srcFor(id);
       const stillActive=document.querySelector('#ep-pattern-grid .ep-pattern.active')?.dataset?.pattern;
-      if(!src||stillActive!==id) return;
+      if(!src||stillActive!==id||(id.startsWith('S')&&window.LRF_ELIOS_SEGMENTO)) return;
       box.replaceChildren(officialImg(src,document.getElementById('ep-preview-title')?.textContent||`Schéma ${id}`));
       box.classList.add('ep-official-ready');
       const badge=document.getElementById('ep-preview-badge');

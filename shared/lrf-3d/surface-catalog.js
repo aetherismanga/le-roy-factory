@@ -2,6 +2,7 @@ import manufacturerSurfaces from './manufacturer-surfaces.json' with {type:'json
 import * as T from 'three';
 import {SURFACE_COLORS} from './surfaces.js';
 import {RAL_COLORS} from './ral-colors.js';
+import {SEGMENTO,segmentoSelection} from './segmento.js';
 const eSource='ELIOS Catalogue Général 2026 · Creta pp.224–225 / Shell pp.334–335';
 export const COLLECTIONS={
  Shell:{brand:'ELIOS',colors:SURFACE_COLORS.floor,formats:[{id:'60x120',width:1.2,height:.6,pcsBox:2,m2Box:1.44,source:eSource}],roughness:.70,bump:.00055},
@@ -32,6 +33,7 @@ export function layoutPatterns(collection,colorId,formatId,layout={}){
  const opus=opusForFormat(collection,format.id,colorId);
  if(opus)return [{id:'opus',name:'Opus · module fabricant'}];
  const basic=[{id:'straight',name:'Pose droite'}];
+ if(collection==='Segmento')return [...basic,{id:'segmento',name:'Motif Segmento · composition fabricant'}];
  if(color?.continuousDecor||format.shape==='hexagon')return basic;
  const choices=[...basic,{id:'offset',name:'Décalée 1/2'},{id:'third',name:'Décalée 1/3'},{id:'two-thirds',name:'Décalée 2/3'},...(woodCollection(collection)?[{id:'random',name:'Aléatoire · effet bois'}]:[])];
  return format.layouts?.length?choices.filter(p=>format.layouts.includes(p.id)):choices;
@@ -40,7 +42,7 @@ export function normalizeLayout(layout={},collection,formatId,colorId){
  const formats=formatsForColor(collection,colorId);if(!formats.length)return {...layout};
  const format=formats.find(f=>f.id===formatId)||formats.find(f=>Math.abs(f.width-Number(layout.width||1.2))<.001&&Math.abs(f.height-Number(layout.height||.6))<.001)||formats.find(f=>f.id==='60x120')||formats[0];
  const patterns=layoutPatterns(collection,colorId,format.id,layout),pattern=patterns.some(p=>p.id===layout.pattern)?layout.pattern:patterns[0]?.id||'straight',opus=pattern==='opus'?opusForFormat(collection,format.id,colorId):undefined;
- return {...layout,width:format.width,height:format.height,shape:format.shape||'rectangle',pattern,opus,chevronAngle:format.chevronAngle||45};
+ return {...layout,width:format.width,height:format.height,shape:format.shape||'rectangle',pattern,opus,segmento:collection==='Segmento'&&pattern==='segmento'?{composition:segmentoSelection({...layout,pattern})?.id||SEGMENTO.compositions[0]?.id}:undefined,chevronAngle:format.chevronAngle||45};
 }
 
 // Reuse the reviewed catalogue; load real tile faces only when selected.

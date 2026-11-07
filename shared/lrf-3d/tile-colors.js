@@ -1,7 +1,8 @@
 import {COLLECTIONS} from './surface-catalog.js';
 import {quantityForSurface} from './quantities.js';
 import {resolveSurfaceTexture,finishForSurface} from './surface-texture-selection.js';
-export function validTileColors(surface,finish){const keys=new Set(surface.tiles.geometry.userData.cells.map(c=>c.key)),colors=new Set(COLLECTIONS[finish.collection]?.colors.map(c=>c.id)||[]);return Object.fromEntries(Object.entries(finish.tiles||{}).slice(0,12000).filter(([key,color])=>keys.has(key)&&colors.has(color)&&color!==finish.color));}
+import {segmentoSelection} from './segmento.js';
+export function validTileColors(surface,finish){const cells=surface.tiles.geometry.userData.cells,keys=new Set(cells.map(c=>c.key)),colors=new Set(COLLECTIONS[finish.collection]?.colors.map(c=>c.id)||[]),pattern=finish.collection==='Segmento'&&segmentoSelection(surface.layout)?Object.fromEntries(cells.filter(c=>c.segmentoColor).map(c=>[c.key,c.segmentoColor])):{};return Object.fromEntries(Object.entries({...pattern,...finish.tiles}).slice(0,12000).filter(([key,color])=>keys.has(key)&&colors.has(color)&&color!==finish.color));}
 const positiveModulo=(value,period)=>((value%period)+period)%period;
 const decorDimension=value=>Number.isInteger(value)&&value>0&&value<=64?value:1;
 function decorQuarterTurn(definition,col,row){
@@ -52,6 +53,7 @@ export function applyTileColors(surface,finish,createMaterial){
  const indices=[],faces=[];g.clearGroups();buckets.forEach((bucket,index)=>{const start=indices.length;for(const face of bucket){indices.push(face*3,face*3+1,face*3+2);faces.push(source[face]);}g.addGroup(start,indices.length-start,index);});g.setIndex(indices);g.userData.faceCells=faces;surface.tiles.material=materials.length>1?materials:materials[0];return colors;
 }
 export function coloredQuantityRows(surface,finish,layout,loss,label){
+ if(finish.collection==='Segmento'&&segmentoSelection(layout))return [quantityForSurface(surface,finish,layout,loss,label)];
  const colors=validTileColors(surface,finish);if(!Object.keys(colors).length||finish.collection==='Peinture')return [quantityForSurface(surface,finish,layout,loss,label)];
  const cells=surface.tiles.geometry.userData.cells,base=quantityForSurface(surface,finish,layout,loss,label),sum=cells.reduce((n,c)=>n+c.area,0),groups=new Map();for(const cell of cells){const color=colors[cell.key]||finish.color;if(!groups.has(color))groups.set(color,[]);groups.get(color).push(cell);}
  return [...groups].map(([color,group])=>quantityForSurface({...surface,quantityAreaOverride:base.area*group.reduce((n,c)=>n+c.area,0)/sum,tiles:{geometry:{userData:{cells:group}}}},{...finish,color},layout,loss,label+' · '+(COLLECTIONS[finish.collection].colors.find(c=>c.id===color)?.name||color)));

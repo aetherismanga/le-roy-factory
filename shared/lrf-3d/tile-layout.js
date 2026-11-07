@@ -1,8 +1,9 @@
 import * as T from 'three';
+import {segmentoSelection,segmentoCell} from './segmento.js';
 
 export function rowShift(pattern,row,width){if(pattern==='offset')return Math.abs(row%2)*width/2;if(pattern==='third')return ((row%3+3)%3)*width/3;if(pattern==='two-thirds')return ((row*2%3+3)%3)*width/3;if(pattern==='random'){const h=(Math.imul(row+104729,1664525)^1013904223)>>>0;return (.15+(h%701)/1000)*width;}return 0;}
 const area=p=>p.reduce((n,a,i)=>{const b=p[(i+1)%p.length];return n+a[0]*b[1]-b[0]*a[1];},0)/2;
-export const normalizeTileLayout=(l={})=>({direction:l.direction==='vertical'?'vertical':'horizontal',pattern:['straight','offset','third','two-thirds','random','opus','chevron'].includes(l.pattern)?l.pattern:(l.shape==='chevron'?'chevron':'straight'),x:Math.max(-1000,Math.min(1000,Number(l.x)||0)),y:Math.max(-1000,Math.min(1000,Number(l.y)||0)),width:Math.max(.025,Math.min(3,Number(l.width)||1.2)),height:Math.max(.025,Math.min(3,Number(l.height)||.6)),shape:['hexagon','chevron'].includes(l.shape)?l.shape:'rectangle',chevronAngle:[30,45,60].includes(Number(l.chevronAngle))?Number(l.chevronAngle):45,groutWidth:Math.max(1,Math.min(10,Number(l.groutWidth)||2)),...(l.opus?{opus:l.opus}: {}),...(l.planAxes?{planAxes:true}:{})});
+export const normalizeTileLayout=(l={})=>({direction:l.direction==='vertical'?'vertical':'horizontal',pattern:['straight','offset','third','two-thirds','random','opus','chevron','segmento'].includes(l.pattern)?l.pattern:(l.shape==='chevron'?'chevron':'straight'),x:Math.max(-1000,Math.min(1000,Number(l.x)||0)),y:Math.max(-1000,Math.min(1000,Number(l.y)||0)),width:Math.max(.025,Math.min(3,Number(l.width)||1.2)),height:Math.max(.025,Math.min(3,Number(l.height)||.6)),shape:['hexagon','chevron'].includes(l.shape)?l.shape:'rectangle',chevronAngle:[30,45,60].includes(Number(l.chevronAngle))?Number(l.chevronAngle):45,groutWidth:Math.max(1,Math.min(10,Number(l.groutWidth)||2)),...(l.opus?{opus:l.opus}: {}),...(segmentoSelection(l)?{segmento:{composition:segmentoSelection(l).id}}:{}),...(l.planAxes?{planAxes:true}:{})});
 
 // Clip each triangulated room fragment against a convex, physical tile face.
 // The same polygons drive the visible cuts and the order quantities.
@@ -29,6 +30,7 @@ function insetConvex(p,d){
  return edges.map((b,i)=>{const a=edges[(i-1+edges.length)%edges.length],cross=a.dx*b.dy-a.dy*b.dx,t=((b.x-a.x)*b.dy-(b.y-a.y)*b.dx)/cross;return [a.x+t*a.dx,a.y+t*a.dy];});
 }
 export function tileModules(bounds,layout={}){
+ const composition=segmentoSelection(layout);
  const l=normalizeTileLayout(layout),{width:w,height:h}=l,g=l.groutWidth/2000,modules=[];
  if(l.pattern==='chevron'||l.shape==='chevron'){
   // True chevron planks have mitred ends meeting at a straight centre seam.
@@ -73,8 +75,8 @@ export function tileModules(bounds,layout={}){
   }
  }else{
   for(let r=Math.floor(bounds.minY/h)-1;r<=Math.ceil(bounds.maxY/h);r++)for(let c=Math.floor(bounds.minX/w)-2;c<=Math.ceil(bounds.maxX/w)+1;c++){
-   const x=c*w+rowShift(l.pattern,r,w),y=r*h;
-   modules.push({key:c+':'+r,col:c,row:r,x,y,width:w,height:h,nominalArea:w*h,polygon:rectangle(x,y,w,h,g)});
+   const x=c*w+rowShift(l.pattern,r,w),y=r*h,segmento=segmentoCell(composition,c,r);
+   modules.push({key:c+':'+r,col:c,row:r,x,y,width:w,height:h,nominalArea:w*h,...(segmento?{segmentoColor:segmento.color,segmentoRotation:segmento.rotation||0}:{}),polygon:rectangle(x,y,w,h,g)});
   }
  }
  return modules;
@@ -86,7 +88,7 @@ export function buildTileGeometry(polygon,layout={},holes=[],regions=null){
  const clippedTriangles=regions?regions.flatMap(region=>{const v=region.map(local);return T.ShapeUtils.triangulateShape(v.map(p=>new T.Vector2(...p)),[]).map(t=>t.map(i=>v[i]));}):triangles.map(tri=>tri.map(i=>all[i]));
  const xs=p.map(v=>v[0]),ys=p.map(v=>v[1]),bounds={minX:Math.min(...xs),maxX:Math.max(...xs),minY:Math.min(...ys),maxY:Math.max(...ys)};
  const positions=[],normals=[],uv=[],cells=[],faceCells=[];
- const vertex=(v,z,n,m)=>{const q=world(v),nn=vertical?[-n[1],n[0],n[2]]:n;positions.push(q[0],q[1],z);if(l.planAxes)nn[1]=-nn[1];normals.push(...nn);let u=(v[0]-m.x)/(m.uvBasis?.width||m.width),t=m.uvBasis?(v[1]-m.y-m.uvBasis.slope*(v[0]-m.x))/m.uvBasis.height:(v[1]-m.y)/m.height;if((Math.abs(m.col*13+m.row*7)%2)===1){u=1-u;t=1-t;}uv.push(u,t);};
+ const vertex=(v,z,n,m)=>{const q=world(v),nn=vertical?[-n[1],n[0],n[2]]:n;positions.push(q[0],q[1],z);if(l.planAxes)nn[1]=-nn[1];normals.push(...nn);let u=(v[0]-m.x)/(m.uvBasis?.width||m.width),t=m.uvBasis?(v[1]-m.y-m.uvBasis.slope*(v[0]-m.x))/m.uvBasis.height:(v[1]-m.y)/m.height;if(m.segmentoColor){const turn=((Math.round(m.segmentoRotation/90)%4)+4)%4;if(turn===1)[u,t]=[1-t,u];else if(turn===2)[u,t]=[1-u,1-t];else if(turn===3)[u,t]=[t,1-u];}else if((Math.abs(m.col*13+m.row*7)%2)===1){u=1-u;t=1-t;}uv.push(u,t);};
  const triangle=(vs,zs,ns,m)=>{if(l.planAxes){vs=[vs[0],vs[2],vs[1]];zs=[zs[0],zs[2],zs[1]];ns=[ns[0],ns[2],ns[1]];}faceCells.push(m.key);for(let j=0;j<3;j++)vertex(vs[j],zs[j],ns[j],m);};
  const key=v=>v.map(x=>Math.round(x*1e7)).join(',');
  const modules=tileModules(bounds,l);if(modules.length>60000)throw Error('Choisissez une zone plus petite pour ce petit format.');
@@ -97,7 +99,7 @@ export function buildTileGeometry(polygon,layout={},holes=[],regions=null){
   }
   if(!usedArea)continue;
   for(const [a,b] of exposedEdges(edges)){const length=Math.hypot(b[0]-a[0],b[1]-a[1]);if(length<1e-8)continue;const n=[(b[1]-a[1])/length,-(b[0]-a[0])/length,0];triangle([a,a,b],[0,-.008,0],[n,n,n],m);triangle([b,a,b],[0,-.008,-.008],[n,n,n],m);}
-  const center=world(m.center||[m.x+m.width/2,m.y+m.height/2]);cells.push({key:m.key,area:usedArea,nominalArea:m.nominalArea,faceArea:Math.abs(area(m.polygon)),width:m.width,height:m.height,center,bounds:m.polygon.map(world)});
+  const center=world(m.center||[m.x+m.width/2,m.y+m.height/2]);cells.push({key:m.key,area:usedArea,nominalArea:m.nominalArea,faceArea:Math.abs(area(m.polygon)),width:m.width,height:m.height,...(m.segmentoColor?{segmentoColor:m.segmentoColor,segmentoRotation:m.segmentoRotation}:{}),center,bounds:m.polygon.map(world)});
  }
  const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));geometry.setAttribute('normal',new T.Float32BufferAttribute(normals,3));geometry.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geometry.computeBoundingBox();geometry.computeBoundingSphere();geometry.userData={cells,tileCount:cells.length,faceCells};return geometry;
 }

@@ -1,0 +1,342 @@
+{
+  "collection": "Segmento",
+  "manufacturer": "Elios Ceramica",
+  "sourcePage": "https://eliosceramica.com/collezione/segmento/",
+  "downloadedAt": "2026-11-07",
+  "sourceEmail": {
+    "messageId": "1a1b1c472e717430",
+    "sender": "Ghislaine Lebreton <glebreton@eliosceramica.it>",
+    "subject": "I: segmento",
+    "sentAt": "2026-11-06T16:49:54Z"
+  },
+  "sourceTransfer": {
+    "url": "https://we.tl/t-6WjGJQcW49DjcsKr",
+    "title": "MINIMALI SEGMENTO",
+    "fileCount": 282,
+    "originalZipSHA256": "6792211564b229dca49f7c7737e59aec8229b5228e387a46f8dc45a856df4bcc"
+  },
+  "note": "Authentic manufacturer original tiles supplied by Ghislaine Lebreton, retained losslessly as JPEG originals plus native-resolution WebP derivatives. Native 529×529 pixels, Duplex A/F 535×535. No generated imagery, no upscaling, no color correction. Original diagonal top-left to bottom-right. Duplex B WebP is rotated 180 degrees to match catalogue template triangle order; original JPEG stays unchanged. Other pattern rotations belong to official layout. Full 282-image transfer remains in the working source archive; only the selected representative image for each of the 16 references is published.",
+  "entries": [
+    {
+      "name": "ALBUS",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/ALBUS/04I1500@1.jpg",
+      "bytes": 103325,
+      "file": "assets/img/elios-segmento-20261107/albus.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/albus.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "19b15bcd0f1793bf4c6fdb0dfa0b150f41d4c1c91b45d8fda79592e5f7c044f6",
+      "sha256": "c7175707249660da38203b544787dde8a45535823658f820ddfd1d31fe447e14",
+      "optimizedBytes": 14380
+    },
+    {
+      "name": "AMARYLLIS",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/AMARYLLIS/04I1510@1.jpg",
+      "bytes": 98552,
+      "file": "assets/img/elios-segmento-20261107/amaryllis.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/amaryllis.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "bcd112e03aee5a80ec8a19097b711e74cb4c7256729b1258531e2e86b957b206",
+      "sha256": "fe55938abff5a260d205fa909880d31f8d53e9d0823a32e7d1c387c190acb21d",
+      "optimizedBytes": 72656
+    },
+    {
+      "name": "CAERULEUS",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/CAERULEUS/04I1520@1.jpg",
+      "bytes": 243009,
+      "file": "assets/img/elios-segmento-20261107/caeruleus.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/caeruleus.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "3f158aad288d5a1a11d601a2e4f42144dda93a5e2fa85f7a1d09d2023ee64e4d",
+      "sha256": "15bafa27a1a75b0a89b1a0a5c69d0406b8ba9f2a619403b68cbc9d112a39a998",
+      "optimizedBytes": 185460
+    },
+    {
+      "name": "COELESTIS",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/COELESTIS/04I1530@1.jpg",
+      "bytes": 167984,
+      "file": "assets/img/elios-segmento-20261107/coelestis.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/coelestis.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "ca9c0a1c3784f0af3d6b2c22b952ec7f292606f0f7505422be2a5828371af309",
+      "sha256": "dff0959101caba9ba9ab0543890886d067732def84dbb2bdf9f23771c545bde5",
+      "optimizedBytes": 147262
+    },
+    {
+      "name": "DUPLEX-A",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/DUPLEX A/04I15A0@1.jpg",
+      "bytes": 100769,
+      "file": "assets/img/elios-segmento-20261107/duplex-a.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/duplex-a.jpg",
+      "nativeResolution": [
+        535,
+        535
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "4531a6ff70e82df8eef88f89a543b7d0007e5c9596de7aec5089fb3a41baa5fa",
+      "sha256": "01ce479eb70e54a66c8a1bb5cef2a544dd147e281bab0610c66ad46e59d239d5",
+      "optimizedBytes": 71100
+    },
+    {
+      "name": "DUPLEX-B",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/DUPLEX B/04I15B0@1.jpg",
+      "bytes": 103368,
+      "file": "assets/img/elios-segmento-20261107/duplex-b.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/duplex-b.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 180,
+      "sourceSHA256": "af24b83482aec904b7f403a31c6c0deb52e950141b497c0b81d583f4d94bb843",
+      "sha256": "c108a7c78007a0504434004811fa57e68170f975599f44ed46025ddf29ddd7bc",
+      "optimizedBytes": 77636,
+      "rotationReason": "The factory Duplex B face @1 has triangle colors reversed relative to the catalogue compositional template; WebP rotated 180 degrees to match official PDF compositions. Exact JPEG original retained unchanged."
+    },
+    {
+      "name": "DUPLEX-C",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/DUPLEX C/04I15C0@1.jpg",
+      "bytes": 200569,
+      "file": "assets/img/elios-segmento-20261107/duplex-c.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/duplex-c.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "3149f7d2198ab231fb5b4bd4d263e1df43689cb2d6c86ddb8ddcefb9e2fc5b6e",
+      "sha256": "4a2c6af3a9667dd7fd13d3b55d4ce5351f9f988d9c079b23932e375becacb250",
+      "optimizedBytes": 159644
+    },
+    {
+      "name": "DUPLEX-D",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/DUPLEX D/04I15D0@1.jpg",
+      "bytes": 327055,
+      "file": "assets/img/elios-segmento-20261107/duplex-d.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/duplex-d.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "3864e447033ab4a2f25d3e639979ad9158498954f02a05d24887e07580129840",
+      "sha256": "4f8eed60dadad97c8035ea838537e140b7672848df85c1c87608c8a240df0d2c",
+      "optimizedBytes": 117384
+    },
+    {
+      "name": "DUPLEX-E",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/DUPLEX E/04I15E0@1.jpg",
+      "bytes": 160941,
+      "file": "assets/img/elios-segmento-20261107/duplex-e.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/duplex-e.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "e35f255dd2ad641ecc6c73f07249cc02a72161fa61a7584bc37af47a4df66ca5",
+      "sha256": "900729751c981049736eb692301057fb8246decc551395440e18b3cca16b5e6b",
+      "optimizedBytes": 142308
+    },
+    {
+      "name": "DUPLEX-F",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/DUPLEX F/04I15F0@1.jpg",
+      "bytes": 141208,
+      "file": "assets/img/elios-segmento-20261107/duplex-f.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/duplex-f.jpg",
+      "nativeResolution": [
+        535,
+        535
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "1d73aabff008d3a1892d599af256830fb2d2090998008483a468814792626051",
+      "sha256": "5636215631e850b1e92e383607c71efcaea74b3743d1a7e1133644f77fc7f16e",
+      "optimizedBytes": 126922
+    },
+    {
+      "name": "FLAVUS",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/FLAVUS/04I1540@1.jpg",
+      "bytes": 447982,
+      "file": "assets/img/elios-segmento-20261107/flavus.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/flavus.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "91ca140faa3be87258276d1b9f65be541a7c5cf23199b0e690e9d93cf340084c",
+      "sha256": "45060b5fc5ffc268b8dc4248a0a9a2badaf54acab9af7c2716371b1ed3a72777",
+      "optimizedBytes": 145796
+    },
+    {
+      "name": "LAPIS",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/LAPIS/04I1550@1.jpg",
+      "bytes": 207299,
+      "file": "assets/img/elios-segmento-20261107/lapis.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/lapis.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "6f032ea594ae7f07957b57e86aacc2e6765c6b3042a456a94be87815f6486f1d",
+      "sha256": "a362bc6bf384af6d18a542e588b8fe48c80ec6b05546091f1c535f1dd1ac2db2",
+      "optimizedBytes": 184610
+    },
+    {
+      "name": "NIGRUM",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/NIGRUM/04I1560@1.jpg",
+      "bytes": 132764,
+      "file": "assets/img/elios-segmento-20261107/nigrum.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/nigrum.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "ccb211c1211264e49156d9e8cabbe3edf91173590d17a34e72a9dce10e7fc5c4",
+      "sha256": "99e3c637eb0bf61fe3c24a4fc3e8ed0c39c4c58df62ff0acbb7e3c73d8885270",
+      "optimizedBytes": 114470
+    },
+    {
+      "name": "NOX",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/NOX/04I1570@1.jpg",
+      "bytes": 128245,
+      "file": "assets/img/elios-segmento-20261107/nox.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/nox.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "7d97c4973a2a0649c357fc7388ee40d503cf9b95a78858cccc103bc6b114d08c",
+      "sha256": "dbd9c1476c49ec0eea2ad62b06bf43babd5b7ac319f1177dd370bbd690f40f15",
+      "optimizedBytes": 117276
+    },
+    {
+      "name": "RUBENS",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/RUBENS/04I1580@1.jpg",
+      "bytes": 99830,
+      "file": "assets/img/elios-segmento-20261107/rubens.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/rubens.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "e0ff3c4857ee6dc4aa42764ce86f620e44791c0b3b81e4b962be962ba02417d4",
+      "sha256": "a228a6f6de7767d99f27ec47f8e2e1632c9f57956596a46420d360487d763094",
+      "optimizedBytes": 72766
+    },
+    {
+      "name": "VIRIDIS",
+      "source": "https://we.tl/t-6WjGJQcW49DjcsKr",
+      "sourceFile": "MINIMALI SEGMENTO/VIRIDIS/04I1590@1.jpg",
+      "bytes": 324897,
+      "file": "assets/img/elios-segmento-20261107/viridis.webp",
+      "originalFile": "assets/img/elios-segmento-20261107/originals/viridis.jpg",
+      "nativeResolution": [
+        529,
+        529
+      ],
+      "definitionLimited": false,
+      "hd": true,
+      "generated": false,
+      "upscaled": false,
+      "rotation": 0,
+      "sourceSHA256": "c020e2fab6a499fb7e911461c54672282e115ab0de46c42f1d64318c35006021",
+      "sha256": "401c4c1efd897b23fd623e42caa43f49d469d26dfc4fd4191befee0eaff0fd3b",
+      "optimizedBytes": 116896
+    }
+  ]
+}

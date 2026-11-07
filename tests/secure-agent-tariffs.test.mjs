@@ -93,7 +93,7 @@ test('public VIEW projections preserve products and contain no purchase fields',
 
 test('ELIOS public pricing contains no generic or special rate table and keeps Pool UI',()=>{
  const source=readFileSync(new URL('../assets/js/inspirations-elios-pricing.js',import.meta.url),'utf8');
- assert(source.includes('__LRF_PUBLIC_TARIFFS_V1__'));assert(source.includes('installPoolShortcut'));assert(source.includes('renderPoolPage'));
+ assert(source.includes('__LRF_PUBLIC_TARIFFS_V1__'));assert(source.includes('installPoolHydration'));assert(source.includes('renderPoolPage'));
  assert(!source.includes('const generic ='));assert(!source.includes('function specialPrice'));assert(source.includes('LRF_AGENT_TARIFFS'));
  assert.equal(tariffKey('Pool Surfaces','60 × 120 cm 20 mm'),tariffKey('pool-surfaces','60x120 20 mm'));
  const overrides=readFileSync(new URL('../assets/js/inspirations-elios-thickness-overrides.js',import.meta.url),'utf8');assert(overrides.includes('__LRF_PUBLIC_TARIFFS_V1__'));assert(!overrides.includes('patchAzuliPricing'));assert(!/amount\s*:\s*\d/.test(overrides));assert(!/\d+(?:[,.]\d+)?\s*€\s*(?:HT|net)/i.test(overrides));assert(overrides.includes('hydrateAzuliCard'));

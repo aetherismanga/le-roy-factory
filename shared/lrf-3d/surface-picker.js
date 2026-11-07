@@ -1,6 +1,7 @@
 import {COLLECTIONS,formatsForColor} from './surface-catalog.js';
 import {surfaceColorIssue} from './surface-quality.js';
 import {RAL_SCREEN_NOTE} from './ral-colors.js';
+import {SEGMENTO,segmentoSelection,segmentoCompositions,segmentoPreview,segmentoComposition} from './segmento.js';
 
 const collator=new Intl.Collator('fr',{sensitivity:'base',numeric:true});
 export const surfaceSeries=(brand,kind)=>Object.entries(COLLECTIONS)
@@ -40,6 +41,7 @@ function installStyle(){
  .grout-choice[aria-checked=true]{border:2px solid #294b3f;background:#e9eddf;padding:6px;font-weight:600}
  .grout-choice input{appearance:auto!important;width:16px!important;height:16px!important;margin:0!important;accent-color:#294b3f;flex-shrink:0}
  .grout-choice-sample{width:16px;height:16px;flex-shrink:0;border:1px solid #b0b4aa;border-radius:3px}
+ .segmento-pattern-grid,.segmento-composition-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.surface-picker .segmento-choice{display:grid;gap:4px;padding:5px;font-size:10px;min-width:0}.segmento-choice[aria-pressed=true]{border:2px solid #887858;background:#f1ecdf}.segmento-preview{display:block;width:100%;aspect-ratio:1;overflow:hidden;background:#eee}.segmento-preview img,.segmento-preview svg{display:block;width:100%;height:100%;object-fit:contain}.segmento-choice-label{overflow-wrap:anywhere}
  .surface-picker a{color:#5e7154;text-underline-offset:3px;font-size:11px}
  .surface-ral-picker{display:grid;gap:7px}.surface-ral-picker input{width:100%;min-height:44px;border:1px solid #cbd2c2;border-radius:8px;padding:10px;background:#fffdf7}.surface-ral-preview{display:flex;align-items:center;gap:8px}.surface-ral-preview:before{content:'';display:block;width:28px;height:28px;flex-shrink:0;border:1px solid #b0b4aa;border-radius:4px;background:var(--ral-preview,#eeeae0)}
  .surface-paint-custom input{width:100%;height:44px;padding:3px;border:1px solid #cbd2c2;border-radius:8px;background:white}
@@ -56,16 +58,18 @@ function installStyle(){
 
 
 export function surfacePreviewNote(color){
+ if(color?.textureProvenance?.kind==='manufacturer-transfer-original')return 'Visuel original transmis par le fabricant.';
  if(color?.textureProvenance?.kind==='product-platform-image')return `Visuel produit · ${(color.resolution||[]).join(' × ')} px · source Tilelook.`;
  if(color?.textureProvenance?.kind==='ai-reconstruction')return 'Reconstitution visuelle · '+(color.textureProvenance.facesPerColor||color.faces?.length||8)+' tampons par couleur · teinte indicative.';
  if(Object.values(color?.textureVariantsByReference||{}).some(mapping=>mapping.verified&&mapping.textureProvenance?.kind==='product-platform-image'))return 'Visuels produit disponibles pour le 60 × 90 Tumbled. Les autres formats conservent leur échantillon catalogue.';
+ if(color?.definitionLimited&&color?.previewReviewed&&color.textureProvenance?.kind==='manufacturer-sample')return 'Échantillon officiel du fabricant · définition limitée. Les couleurs et références sont conservées.';
  if(color?.definitionLimited&&color?.previewReviewed)return 'Échantillon du catalogue fabricant · définition limitée. La référence et la finition choisies sont conservées.';
  return color?.definitionLimited?'Visuel fabricant en définition limitée. Les dimensions et la référence du décor sont conservées.':'';
 }
 
 // Every entry point uses the same manufacturer → series → colour → size flow.
 // Only the current series' thumbnails load; full tile faces remain on demand.
-export function renderSurfacePicker(parent,{kind,collection,color,format,urlFor,onCollection,onColor,onFormat,onPaint,paintHex,allowPaint=kind==='wall'}){
+export function renderSurfacePicker(parent,{kind,collection,color,format,urlFor,onCollection,onColor,onFormat,onPaint,paintHex,layout={},onSegmento,allowPaint=kind==='wall'}){
  installStyle();
  const root=document.createElement('div');root.className='surface-picker';root.dataset.surfacePicker=kind;
  let draft={brand:COLLECTIONS[collection]?.brand||'ELIOS',collection,color,format};
@@ -75,6 +79,19 @@ export function renderSurfacePicker(parent,{kind,collection,color,format,urlFor,
  const colorStep=step('3','Couleur'),colors=document.createElement('div');colors.className='surface-picker-colors';colors.setAttribute('role','group');colors.setAttribute('aria-label','Couleur du revêtement');colorStep.append(colors);
  const ralStep=step('RAL','Nuancier peinture RAL Classic'),ralSearch=document.createElement('input'),ralSelect=document.createElement('select'),ralPreview=document.createElement('small');ralStep.classList.add('surface-ral-picker');ralSearch.type='search';ralSearch.value='';ralSearch.placeholder='Rechercher un code ou une teinte';ralSearch.setAttribute('aria-label','Rechercher une peinture RAL');ralSelect.setAttribute('aria-label','Couleur de peinture RAL');ralSelect.dataset.surfaceField='ral';ralPreview.className='surface-ral-preview';ralStep.append(ralSearch,ralSelect,ralPreview);
  const formatStep=step('4','Format'),sizes=document.createElement('select');sizes.dataset.surfaceField='format';sizes.setAttribute('aria-label','Format du carrelage');const formatNote=document.createElement('small');formatNote.className='surface-format-note';formatStep.append(sizes,formatNote);
+ const segmentoStep=step('5','Motif Segmento'),segmentoSingle=document.createElement('button'),segmentoPatterns=document.createElement('div'),segmentoVariants=document.createElement('div'),segmentoNote=document.createElement('small');
+ segmentoStep.dataset.segmentoPicker=kind;segmentoSingle.type='button';segmentoSingle.textContent='Référence seule';segmentoSingle.dataset.segmentoComposition='';segmentoPatterns.className='segmento-pattern-grid';segmentoPatterns.setAttribute('role','group');segmentoPatterns.setAttribute('aria-label','Motifs Segmento');segmentoVariants.className='segmento-composition-grid';segmentoVariants.setAttribute('role','group');segmentoVariants.setAttribute('aria-label','Compositions Segmento');segmentoNote.textContent='Compositions du fabricant · 15 × 15 cm · quantités et boîtes par référence. Choisir une couleur revient à la référence seule.';segmentoStep.append(segmentoSingle,segmentoPatterns,segmentoVariants,segmentoNote);
+ let composition=segmentoSelection(layout);
+ const chooseSegmento=id=>{composition=segmentoComposition(id);populateSegmento();onSegmento?.(composition?.id||null);};
+ segmentoSingle.onclick=()=>chooseSegmento(null);
+ function populateSegmento(){
+  segmentoStep.hidden=draft.collection!=='Segmento'||!onSegmento;if(segmentoStep.hidden)return;
+  segmentoSingle.setAttribute('aria-pressed',String(!composition));segmentoPatterns.replaceChildren();segmentoVariants.replaceChildren();
+  const makeChoice=(item,label,active,attribute,select)=>{const button=document.createElement('button');button.type='button';button.className='segmento-choice';button.setAttribute('aria-pressed',String(active));button.setAttribute('aria-label',label);button.dataset[attribute]=attribute==='segmentoPattern'?item.patternId:item.id;const image=document.createElement('span');image.className='segmento-preview';image.innerHTML=segmentoPreview(item,urlFor);const caption=document.createElement('span');caption.className='segmento-choice-label';caption.textContent=label;button.append(image,caption);button.onclick=select;return button;};
+  const selectedPattern=composition?.patternId||SEGMENTO.patterns[0]?.id;
+  for(const pattern of SEGMENTO.patterns){const first=segmentoCompositions(pattern.id)[0];if(first)segmentoPatterns.append(makeChoice(first,pattern.name||pattern.label||pattern.id,composition?.patternId===pattern.id,'segmentoPattern',()=>chooseSegmento(first.id)));}
+  for(const variant of segmentoCompositions(selectedPattern))segmentoVariants.append(makeChoice(variant,variant.label||variant.id,composition?.id===variant.id,'segmentoComposition',()=>chooseSegmento(variant.id)));
+ }
  const paint=document.createElement('label');paint.className='surface-picker-step surface-paint-custom';paint.textContent='Votre couleur de peinture';const input=document.createElement('input');input.type='color';input.value=paintHex||'#eeeae0';input.setAttribute('aria-label','Couleur personnalisée de peinture');input.oninput=()=>onPaint?.(input.value);paint.append(input);root.append(paint);
  const note=document.createElement('p');note.className='surface-picker-note';note.setAttribute('role','status');root.append(note);
  const source=document.createElement('a');source.textContent='Consulter la collection fabricant ↗';source.target='_blank';source.rel='noopener noreferrer';root.append(source);
@@ -86,8 +103,8 @@ export function renderSurfacePicker(parent,{kind,collection,color,format,urlFor,
   const selected=choices.find(c=>c.id===draft.color);ralPreview.textContent=(selected?selected.name+' · ':'')+RAL_SCREEN_NOTE;ralPreview.style.setProperty('--ral-preview',selected?.hex||'#eeeae0');
  }
  ralSearch.oninput=populateRal;ralSelect.onchange=()=>{if(!ralSelect.value)return;draft.color=ralSelect.value;populateColors();onColor?.(draft.color);};
- function populateColors(){colors.replaceChildren();const c=COLLECTIONS[draft.collection],choices=availableColors(draft.collection);colorStep.hidden=!choices.length;paint.hidden=draft.collection!=='Peinture'||!onPaint;note.hidden=true;source.hidden=!c?.source;if(c?.source)source.href=c.source;
-  for(const co of choices.filter(c=>!c.id.startsWith('ral-'))){const b=document.createElement('button');b.type='button';b.className='surface-color';b.dataset.surfaceColor=co.id;b.dataset.surfaceKind=kind;b.setAttribute('aria-pressed',String(co.id===draft.color));b.setAttribute('aria-label',co.name);const sample=document.createElement('span');sample.className='surface-color-sample';if(co.file){const img=document.createElement('img');img.src=urlFor(co.file);img.alt='';img.loading='lazy';img.decoding='async';sample.append(img);}else if(co.hex)sample.style.backgroundColor=co.hex;const name=document.createElement('span');name.className='surface-color-name';name.textContent=co.name;b.append(sample,name);b.onclick=()=>{draft.color=co.id;populateColors();populateFormats();onColor?.(co.id);};colors.append(b);}
+ function populateColors(){populateSegmento();colors.replaceChildren();const c=COLLECTIONS[draft.collection],choices=availableColors(draft.collection);colorStep.hidden=!choices.length;paint.hidden=draft.collection!=='Peinture'||!onPaint;note.hidden=true;source.hidden=!c?.source;if(c?.source)source.href=c.source;
+  for(const co of choices.filter(c=>!c.id.startsWith('ral-'))){const b=document.createElement('button');b.type='button';b.className='surface-color';b.dataset.surfaceColor=co.id;b.dataset.surfaceKind=kind;b.setAttribute('aria-pressed',String(co.id===draft.color));b.setAttribute('aria-label',co.name);const sample=document.createElement('span');sample.className='surface-color-sample';if(co.file){const img=document.createElement('img');img.src=urlFor(co.file);img.alt='';img.loading='lazy';img.decoding='async';sample.append(img);}else if(co.hex)sample.style.backgroundColor=co.hex;const name=document.createElement('span');name.className='surface-color-name';name.textContent=co.name;b.append(sample,name);b.onclick=()=>{draft.color=co.id;composition=null;populateColors();populateFormats();onColor?.(co.id);};colors.append(b);}
   if(c&&draft.color&&!choices.some(co=>co.id===draft.color)){note.hidden=false;note.textContent=choices.length?'Le coloris enregistré reste appliqué. Choisissez une couleur pour le remplacer.':'Ce revêtement est conservé dans votre projet. Choisissez une série pour le remplacer.';}
   const previewNote=surfacePreviewNote(choices.find(co=>co.id===draft.color));if(previewNote){const prior=note.hidden?'':note.textContent+' ';note.hidden=false;note.textContent=prior+previewNote;}
   if(choices.find(co=>co.id===draft.color)?.continuousDecor){const detail=note.hidden?'':note.textContent+' ';note.hidden=false;note.textContent=(choices.find(co=>co.id===draft.color)?.decorRotations?'Décor complet sur 4 carreaux (2 × 2) · rotations automatiques. ':'Décor à raccord continu · pose droite, horizontale ou verticale. ')+detail;}
@@ -95,7 +112,7 @@ export function renderSurfacePicker(parent,{kind,collection,color,format,urlFor,
  }
  function populateSeries(placeholder=false){const entries=surfaceSeries(draft.brand,kind),current=entries.some(([name])=>name===draft.collection);series.replaceChildren();if(!current&&COLLECTIONS[draft.collection]){const legacy=new Option(draft.collection+' · référence enregistrée',draft.collection,true,true);legacy.disabled=true;legacy.dataset.legacyMaterial='true';series.append(legacy);}else if(placeholder||!current)series.append(new Option('Choisir une série…',''));for(const [name]of entries)series.append(new Option(name,name));series.value=current||COLLECTIONS[draft.collection]?draft.collection:'';count.textContent=entries.length+' série'+(entries.length>1?'s':'');seriesStep.hidden=draft.brand==='Peinture';populateColors();}
  for(const brand of ['ELIOS','VIEW',...(allowPaint?['Peinture']:[])].filter(name=>surfaceSeries(name,kind).length)){const b=document.createElement('button');b.type='button';b.textContent=brand;b.dataset.surfaceBrand=brand;b.setAttribute('aria-pressed',String(draft.brand===brand));b.onclick=()=>{if(draft.brand===brand)return;draft.brand=brand;draft.collection=brand==='Peinture'?'Peinture':'';draft.color=brand==='Peinture'?'white':'';draft.format='';for(const button of buttons.children)button.setAttribute('aria-pressed',String(button===b));populateSeries(brand!=='Peinture');if(brand==='Peinture')onCollection?.('Peinture');};buttons.append(b);}
- series.onchange=()=>{draft.collection=series.value;const c=COLLECTIONS[draft.collection];draft.color=availableColors(draft.collection)[0]?.id||c?.colors[0]?.id||'';draft.format='';populateColors();if(availableColors(draft.collection).length)onCollection?.(draft.collection);};
+ series.onchange=()=>{draft.collection=series.value;composition=null;const c=COLLECTIONS[draft.collection];draft.color=availableColors(draft.collection)[0]?.id||c?.colors[0]?.id||'';draft.format='';populateColors();if(availableColors(draft.collection).length)onCollection?.(draft.collection);};
  sizes.onchange=()=>{draft.format=sizes.value;populateFormats();onFormat?.(sizes.value);};populateSeries();parent.replaceChildren(root);return root;
 }
 

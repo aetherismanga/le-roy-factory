@@ -448,5 +448,28 @@
       "selectionRouteBeforeRender": true,
       "opalStableMount": true
     }
+  },
+  "segmento": {
+    "releaseId": "20261107-segmento-1",
+    "applications": [
+      "schemas-elios",
+      "studio-one",
+      "randal-general"
+    ],
+    "references": 16,
+    "patterns": 12,
+    "compositions": 48,
+    "piecesPerBox": 46,
+    "m2PerBox": 1.04,
+    "manufacturerImages": "Ghislaine Elios, WeTransfer 2026-11-06",
+    "nativeTextureSize": [
+      529,
+      535
+    ],
+    "multicolorQuantities": true,
+    "source": "ELIOS_FLYER-SEGMENTO.pdf",
+    "webglVisualVerification": false,
+    "studioAppSha256": "7c2ecc5152ef6033bc307b5e5fc5b7c349fe0406e3c87013963b6285d95a4fd8",
+    "generalAppSha256": "e7c4f0792892d7259f25fa772e69cdb9a24511b25e3e29bb013fb2bc59fb0891"
   }
 }

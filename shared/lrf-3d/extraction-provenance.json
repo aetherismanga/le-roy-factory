@@ -494,17 +494,30 @@
       "bytes": 9166,
       "originalsIdentical": true,
       "current": {
-        "sha256": "2e1c3266e0371311c4478d8340245f6a0a7b0638486ae4c720b1d95cb040930a",
-        "bytes": 11975,
-        "changeType": "functional-update-20261025",
-        "reason": "Requested floor calepinage side panel and compatible wall alignment; verified Stone Icon Big Opus; wall-mounted WC with inherited editable cladding. Original extraction hash retained above.",
+        "sha256": "a297880af559b3613f404dc87f38498db24c3d688bdc6618f64cbdaecbb7abe9",
+        "bytes": 12560,
+        "changeType": "functional-update-20261107",
+        "reason": "Integrate the official Elios Segmento physical layouts in both shared 3D ateliers: retain colour and rotation through clipped geometry, split quantities and boxes by manufacturer reference, and expose synchronized visual composition choices. Preserve original extraction provenance.",
         "validation": [
-          "tests/lrf-suite/floor-wall-alignment.test.mjs",
-          "tests/lrf-suite/sanitary-mount.test.mjs",
-          "tests/lrf-suite/sanitary-support-cladding.test.mjs",
-          "tests/lrf-suite/stone-icon-big-opus.test.mjs"
+          "shared/lrf-3d/qa/segmento-check.mjs",
+          "shared/lrf-3d/qa/tile-layout-acceptance.mjs",
+          "shared/lrf-3d/qa/shared-graph-check.mjs"
         ]
-      }
+      },
+      "history": [
+        {
+          "sha256": "2e1c3266e0371311c4478d8340245f6a0a7b0638486ae4c720b1d95cb040930a",
+          "bytes": 11975,
+          "changeType": "functional-update-20261025",
+          "reason": "Requested floor calepinage side panel and compatible wall alignment; verified Stone Icon Big Opus; wall-mounted WC with inherited editable cladding. Original extraction hash retained above.",
+          "validation": [
+            "tests/lrf-suite/floor-wall-alignment.test.mjs",
+            "tests/lrf-suite/sanitary-mount.test.mjs",
+            "tests/lrf-suite/sanitary-support-cladding.test.mjs",
+            "tests/lrf-suite/stone-icon-big-opus.test.mjs"
+          ]
+        }
+      ]
     },
     {
       "module": "ultra-rendering.js",

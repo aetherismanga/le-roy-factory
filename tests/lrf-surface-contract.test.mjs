@@ -12,7 +12,8 @@ const products=JSON.parse(readFileSync(new URL('../shared/lrf-3d/commercial-surf
 test('the former missing colours share one usable catalogue without pretending limited samples are HD',()=>{
  for(const [name,count]of Object.entries({Slate:6,'Azuli Mood':11,Allure:9,Venere:6,COCO:2,Creta:8,Quercia:4,Corso:2,'Golden Stone':5}))assert.equal(generalColors(name).length,count,name);
  for(const name of ['Slate','Venere','COCO'])for(const color of generalColors(name))assert.equal(color.definitionLimited,true);
- const chalk=generalTexture('Azuli Mood','chalk','max');assert(chalk.files[0].endsWith('azuli-mood-chalk-native.jpg'));assert(!chalk.files[0].includes('-fluid.'));
+ const chalk=generalTexture('Azuli Mood','chalk','max');assert(chalk.files[0].endsWith('chalk-1-1200x400.webp'));assert(!chalk.files[0].includes('-fluid.'));
+ assert.deepEqual(chalk.choice.resolution,[1200,400]);assert.equal(chalk.choice.definitionLimited,true);assert.equal(chalk.choice.textureProvenance.generated,false);assert.equal(chalk.choice.textureProvenance.upscaled,false);
  for(const color of ['fenix-blueberry','fenix-juniper','eden','safari']){assert(generalCollections.Allure.colors.find(item=>item.id===color).continuousDecor);assert.equal(generalTexture('Allure',color,'max').rotation,-90);}
 });
 

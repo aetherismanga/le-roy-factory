@@ -2,6 +2,7 @@ import {COLLECTIONS} from './surface-catalog.js';
 import products from './commercial-surfaces.json' with {type:'json'};
 import {commercialSurfaceProduct} from './surface-identity.mjs';
 import {surfaceFaceLimit} from './texture-budget.js';
+import {segmentoColors,segmentoSelection} from './segmento.js';
 const commercialProduct=finish=>commercialSurfaceProduct(finish,products.products);
 
 // The commercial reference identifies a physical format and finish. A new HD
@@ -21,12 +22,12 @@ export function resolveSurfaceTexture(collection,id,profile='balanced',finish={}
  // face zero stable. No borrowed colour, format, inferred face or new image.
  const faceIndices=Array.from({length:count},(_,index)=>Math.floor(index*nativeFiles.length/count)),files=faceIndices.map(index=>nativeFiles[index]);
  const sourceKey=JSON.stringify(mapped?[collection,id,format,reference]:[collection,id,'legacy']);
- return {files,faceIndices,nativeFaceCount:nativeFiles.length,sourceKey,cacheKey:'surface|'+sourceKey+'|'+profile+(count<nativeFiles.length?'|faces:'+faceIndices.join(','):''),format,reference,profile,mapped,rotation:mapped?candidate.textureRotation:choice?.textureRotation,choice};
+ return {files,faceIndices,nativeFaceCount:nativeFiles.length,sourceKey,cacheKey:'surface|'+sourceKey+'|'+profile+(count<nativeFiles.length?'|faces:'+faceIndices.join(','):''),format,reference,profile,mapped,rotation:mapped?candidate.textureRotation:choice?.textureRotationByProfile?.[profile]??choice?.textureRotation,choice};
 }
 
 export function finishForSurface(collection,color,layout={},finish={},collections=COLLECTIONS){
  const format=collections[collection]?.formats.find(f=>Math.abs(f.width-Number(layout.width))<.001&&Math.abs(f.height-Number(layout.height))<.001);
  // Geometry is authoritative when a saved catalogueKey belongs to an older size.
  const sized=Number(layout.width)>0&&Number(layout.height)>0;
- return {...finish,collection,color,format:format?.id||(sized?'':finish.format||''),texturePattern:layout.pattern||finish.texturePattern||finish.pattern};
+ return {...finish,collection,color,format:format?.id||(sized?'':finish.format||''),texturePattern:layout.pattern||finish.texturePattern||finish.pattern,segmento:collection==='Segmento'?(layout.pattern===undefined?finish.segmento:segmentoSelection(layout)?{composition:segmentoSelection(layout).id}:undefined):undefined,segmentoColors:collection==='Segmento'?(layout.pattern===undefined?finish.segmentoColors:segmentoColors(layout)):undefined};
 }
