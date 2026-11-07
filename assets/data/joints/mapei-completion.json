@@ -1,0 +1,1305 @@
+{
+  "schema": "lrf-joints-catalog-source",
+  "checkedAt": "2026-11-07",
+  "brands": [
+    {
+      "id": "es-mapei",
+      "country": "es",
+      "name": "Mapei",
+      "logoPath": "assets/img/ragreage/brands/mapei-official-pdf.png",
+      "website": "https://www.mapei.com/es/es",
+      "products": [
+        {
+          "id": "es-mapei-ultracolor-plus",
+          "name": "Ultracolor Plus",
+          "kind": "ciment",
+          "description": "Mortier-joint à liants hydrauliques, à prise rapide et effet perlant, pour carrelages, pierres et mosaïques.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche nationale : (A + B) / (A × B) × C × D × 1,6 = kg/m² ; toutes les dimensions sont en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": null,
+          "jointMax": 20,
+          "packages": [
+            2,
+            5,
+            23
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/es-ultracolor.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_02801_ultracolor-plus_es-es_68e03c7f671f47e7902670e1ef0bfe21.pdf?sfvrsn=39f0f0bd_0#page=1",
+          "imageNote": "Photographie du conditionnement extraite de la première page de la fiche technique nationale officielle.",
+          "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_02801_ultracolor-plus_es-es_68e03c7f671f47e7902670e1ef0bfe21.pdf?sfvrsn=39f0f0bd_0",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_02801_ultracolor-plus_es-es_68e03c7f671f47e7902670e1ef0bfe21.pdf?sfvrsn=39f0f0bd_0",
+          "technicalRevision": "2801-10-2026 es-es (ES)",
+          "notes": [
+            "Conditionnements vérifiés dans la fiche nationale ; disponibilité selon les coloris à confirmer auprès du distributeur.",
+            "La fiche nationale indique « jusqu’à 20 mm » sans préciser de largeur minimale. Respecter les prescriptions de pose du chantier et vérifier le minimum auprès du fabricant."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_02801_ultracolor-plus_es-es_68e03c7f671f47e7902670e1ef0bfe21.pdf?sfvrsn=39f0f0bd_0",
+          "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale."
+        },
+        {
+          "id": "es-mapei-kerapoxy-easy-design",
+          "name": "Kerapoxy Easy Design",
+          "kind": "epoxy",
+          "description": "Joint décoratif époxy bicomposant, facile à appliquer et nettoyer, pour carrelages et mosaïques.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche nationale : (A + B) / (A × B) × C × D × 1,6 = kg/m² ; toutes les dimensions sont en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 15,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/es-kerapoxy.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_09001_kerapoxy-easy-design_es-es_02c44e82995546a4b62a6ef02e888fb6.pdf?sfvrsn=e722cf10_0#page=1",
+          "imageNote": "Photographie du conditionnement extraite de la première page de la fiche technique nationale officielle.",
+          "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_09001_kerapoxy-easy-design_es-es_02c44e82995546a4b62a6ef02e888fb6.pdf?sfvrsn=e722cf10_0",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_09001_kerapoxy-easy-design_es-es_02c44e82995546a4b62a6ef02e888fb6.pdf?sfvrsn=e722cf10_0",
+          "technicalRevision": "9001-7-2022-es",
+          "notes": [
+            "Conditionnements vérifiés dans la fiche nationale ; disponibilité selon les coloris à confirmer auprès du distributeur.",
+            "Kit prédosé, composants A et B inclus ; respecter les proportions du fabricant."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_09001_kerapoxy-easy-design_es-es_02c44e82995546a4b62a6ef02e888fb6.pdf?sfvrsn=e722cf10_0",
+          "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale."
+        },
+        {
+          "id": "es-mapei-keracolor-ff",
+          "name": "Keracolor FF",
+          "kind": "ciment",
+          "description": "Mortier-joint ciment à grain fin et effet perlant, pour joints fins en sol et mur.",
+          "coefficient": 1.5,
+          "coefficientNote": "Coefficient 1,5 explicitement publié dans la formule de consommation de la fiche nationale : (A + B) / (A × B) × C × D × 1,5 = kg/m² ; toutes les dimensions sont en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": null,
+          "jointMax": 6,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/es-keracolor.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00131_keracolor-ff_es-es_5c08654e48b644dfbd6322e37fe9de92.pdf?sfvrsn=911a76b9_0#page=1",
+          "imageNote": "Photographie du conditionnement extraite de la première page de la fiche technique nationale officielle.",
+          "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00131_keracolor-ff_es-es_5c08654e48b644dfbd6322e37fe9de92.pdf?sfvrsn=911a76b9_0",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00131_keracolor-ff_es-es_5c08654e48b644dfbd6322e37fe9de92.pdf?sfvrsn=911a76b9_0",
+          "technicalRevision": "131-2-2025 es-es (ES)",
+          "notes": [
+            "Conditionnements vérifiés dans la fiche nationale ; disponibilité selon les coloris à confirmer auprès du distributeur.",
+            "La fiche nationale indique « jusqu’à 6 mm » sans préciser de largeur minimale. Respecter les prescriptions de pose du chantier et vérifier le minimum auprès du fabricant."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00131_keracolor-ff_es-es_5c08654e48b644dfbd6322e37fe9de92.pdf?sfvrsn=911a76b9_0",
+          "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale."
+        },
+        {
+          "id": "es-mapei-keracolor-sf",
+          "name": "Keracolor SF",
+          "kind": "ciment",
+          "description": "Mortier-joint ciment pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": 1.5,
+          "coefficientNote": "Coefficient 1,5 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,5 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": null,
+          "jointMax": 4,
+          "packages": [
+            5,
+            22
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/es-mapei-keracolor-sf.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00138_keracolor-sf_es-es_3e2bb26f010340e78c64fef81c0e25bf.pdf?sfvrsn=9d1d2801_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/es/es/productos-y-soluciones/lista-de-productos/detalles-del-producto/keracolor-sf",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00138_keracolor-sf_es-es_3e2bb26f010340e78c64fef81c0e25bf.pdf?sfvrsn=9d1d2801_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00138_keracolor-sf_es-es_3e2bb26f010340e78c64fef81c0e25bf.pdf?sfvrsn=9d1d2801_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Disponibilité des conditionnements selon les coloris à confirmer auprès du distributeur.",
+            "La fiche indique « jusqu’à 4 mm » sans minimum explicite ; respecter les prescriptions de pose du chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "es-mapei-keracolor-gg",
+          "name": "Keracolor GG",
+          "kind": "ciment",
+          "description": "Mortier-joint ciment pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,6 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 4,
+          "jointMax": 15,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/es-mapei-keracolor-gg.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00132_keracolor-gg_es-es_4a7d78f2080744929136bbd22d41e3d9.pdf?sfvrsn=375dc261_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/es/es/productos-y-soluciones/lista-de-productos/detalles-del-producto/keracolor-gg",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00132_keracolor-gg_es-es_4a7d78f2080744929136bbd22d41e3d9.pdf?sfvrsn=375dc261_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00132_keracolor-gg_es-es_4a7d78f2080744929136bbd22d41e3d9.pdf?sfvrsn=375dc261_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Disponibilité des conditionnements selon les coloris à confirmer auprès du distributeur."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "es-mapei-kerapoxy",
+          "name": "Kerapoxy",
+          "kind": "epoxy",
+          "description": "Mortier-joint époxy bicomposant pour carrelages et pierres naturelles.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,6 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": null,
+          "packages": [
+            2,
+            5,
+            10
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/es-mapei-kerapoxy.webp",
+          "imageSource": "https://cdnmedia.mapei.com/images/librariesprovider47/products-images/4_kerapoxy_fb0462f20f08457e8c0be34acced1d00.jpg?sfvrsn=acb7f9f7_0",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/es/es/productos-y-soluciones/lista-de-productos/detalles-del-producto/kerapoxy",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_141_kerapoxy_es_65a2e9a771bf47628fb03593a6ad4d52.pdf?sfvrsn=fdeb0da2_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_141_kerapoxy_es_65a2e9a771bf47628fb03593a6ad4d52.pdf?sfvrsn=fdeb0da2_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Conditionnements prédosés, composants A et B inclus ; respecter les proportions du fabricant.",
+            "La fiche indique une largeur minimale de 3 mm sans maximum explicite ; vérifier l’adéquation du joint au chantier.",
+            "La fiche espagnole datée de 2005 est toujours proposée par la page nationale actuelle ; confirmer le conditionnement disponible localement."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "es-mapei-kerapoxy-cq",
+          "name": "Kerapoxy CQ",
+          "kind": "epoxy",
+          "description": "Mortier-joint époxy bicomposant pour carrelages et pierres naturelles.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,6 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": null,
+          "packages": [
+            3,
+            10
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/es-mapei-kerapoxy-cq.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00150_kerapoxy-cq_es-es_888f642e5ffc45269f1eeb9c8d28f848.pdf?sfvrsn=6029f390_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/es/es/productos-y-soluciones/lista-de-productos/detalles-del-producto/kerapoxy-cq",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00150_kerapoxy-cq_es-es_888f642e5ffc45269f1eeb9c8d28f848.pdf?sfvrsn=6029f390_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00150_kerapoxy-cq_es-es_888f642e5ffc45269f1eeb9c8d28f848.pdf?sfvrsn=6029f390_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Conditionnements prédosés, composants A et B inclus ; respecter les proportions du fabricant.",
+            "La fiche indique une largeur minimale de 1 mm sans maximum explicite ; vérifier l’adéquation du joint au chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "es-mapei-kerapoxy-ieg",
+          "name": "Kerapoxy IEG",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant à très haute résistance chimique, destiné aux revêtements industriels.",
+          "coefficient": 1.4,
+          "coefficientNote": "Coefficient 1,4 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,4 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": null,
+          "packages": [
+            10
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/es-mapei-kerapoxy-ieg.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00148_kerapoxy-ieg_en_c97b834f82534c99a96228dcff49528e.pdf?sfvrsn=fb81d012_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/es/es/productos-y-soluciones/lista-de-productos/detalles-del-producto/kerapoxy-ieg",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00148_kerapoxy-ieg_en_c97b834f82534c99a96228dcff49528e.pdf?sfvrsn=fb81d012_0",
+          "locations": [
+            "inside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00148_kerapoxy-ieg_en_c97b834f82534c99a96228dcff49528e.pdf?sfvrsn=fb81d012_0",
+          "locationNote": "La fiche vise les revêtements des locaux industriels, notamment agroalimentaires ; l’usage extérieur n’est pas confirmé par la fiche consultée.",
+          "notes": [
+            "Conditionnements prédosés, composants A et B inclus ; respecter les proportions du fabricant.",
+            "La fiche indique une largeur minimale de 3 mm sans maximum explicite ; vérifier l’adéquation du joint au chantier.",
+            "Pour un usage extérieur, demander la validation technique de Mapei.",
+            "Le site Mapei Espagne fournit actuellement cette fiche technique en anglais."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "es-mapei-kerapoxy-p",
+          "name": "Kerapoxy P",
+          "kind": "epoxy",
+          "description": "Mortier-joint époxy bicomposant pour carrelages et pierres naturelles.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,6 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": null,
+          "packages": [
+            10
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/es-mapei-kerapoxy-p.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00146_kerapoxy-p_es-es_bf2d8e065d2044199b50d1fb7ab977d2.pdf?sfvrsn=903496ee_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/es/es/productos-y-soluciones/lista-de-productos/detalles-del-producto/kerapoxy-p",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00146_kerapoxy-p_es-es_bf2d8e065d2044199b50d1fb7ab977d2.pdf?sfvrsn=903496ee_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_00146_kerapoxy-p_es-es_bf2d8e065d2044199b50d1fb7ab977d2.pdf?sfvrsn=903496ee_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Conditionnements prédosés, composants A et B inclus ; respecter les proportions du fabricant.",
+            "La fiche indique une largeur minimale de 3 mm sans maximum explicite ; vérifier l’adéquation du joint au chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "es-mapei-flexcolor-easy-grout",
+          "name": "Flexcolor Easy Grout",
+          "kind": "acrylique",
+          "description": "Joint prêt à l’emploi en dispersion aqueuse à base de résines acryl-polyuréthanes, pour carrelages et mosaïques.",
+          "coefficient": null,
+          "coefficientNote": "La fiche nationale renvoie au calculateur Mapei sans publier de formule ni de tableau de consommation. La seule masse volumique ne suffit pas à valider le facteur de consommation retenu ici.",
+          "coefficientSourceType": "manufacturer-clarification",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 10,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/es-mapei-flexcolor-easy-grout.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_04502_flexcolor-easy-grout_es-es_5f7c80bf44c84c65ae6e48ea514a62a4.pdf?sfvrsn=a46d0af6_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/es/es/productos-y-soluciones/lista-de-productos/detalles-del-producto/flexcolor-easy-grout",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_04502_flexcolor-easy-grout_es-es_5f7c80bf44c84c65ae6e48ea514a62a4.pdf?sfvrsn=a46d0af6_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider47/products-documents/1_04502_flexcolor-easy-grout_es-es_5f7c80bf44c84c65ae6e48ea514a62a4.pdf?sfvrsn=a46d0af6_0",
+          "locationNote": "Intérieur : sols et murs. Extérieur : murs uniquement.",
+          "notes": [
+            "La fiche nationale renvoie au calculateur Mapei sans publier de formule ni de tableau de consommation. La seule masse volumique ne suffit pas à valider le facteur de consommation retenu ici.",
+            "Disponibilité des conditionnements selon les coloris à confirmer auprès du distributeur.",
+            "En extérieur, uniquement pour les murs : ne pas utiliser sur un sol extérieur."
+          ],
+          "checkedAt": "2026-11-07",
+          "locationRestrictions": [
+            "En extérieur, uniquement pour les murs : ne pas utiliser sur un sol extérieur."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "it-mapei",
+      "country": "it",
+      "name": "Mapei",
+      "logoPath": "assets/img/ragreage/brands/mapei-official-pdf.png",
+      "website": "https://www.mapei.com/it/it",
+      "products": [
+        {
+          "id": "it-mapei-ultracolor-plus",
+          "name": "Ultracolor Plus",
+          "kind": "ciment",
+          "description": "Mortier-joint à liants hydrauliques, à prise rapide et effet perlant, pour carrelages, pierres et mosaïques.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche nationale : (A + B) / (A × B) × C × D × 1,6 = kg/m² ; toutes les dimensions sont en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": null,
+          "jointMax": 20,
+          "packages": [
+            2,
+            5,
+            22
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/it-ultracolor.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_02801_ultracolor-plus_it-it_64358c12320b4f2093051b3391ab6465.pdf?sfvrsn=71f72c71_0#page=1",
+          "imageNote": "Photographie du conditionnement extraite de la première page de la fiche technique nationale officielle.",
+          "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_02801_ultracolor-plus_it-it_64358c12320b4f2093051b3391ab6465.pdf?sfvrsn=71f72c71_0",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_02801_ultracolor-plus_it-it_64358c12320b4f2093051b3391ab6465.pdf?sfvrsn=71f72c71_0",
+          "technicalRevision": "2801-9-2026 it-it (IT)",
+          "notes": [
+            "Conditionnements vérifiés dans la fiche nationale ; disponibilité selon les coloris à confirmer auprès du distributeur.",
+            "La fiche nationale indique « jusqu’à 20 mm » sans préciser de largeur minimale. Respecter les prescriptions de pose du chantier et vérifier le minimum auprès du fabricant."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_02801_ultracolor-plus_it-it_64358c12320b4f2093051b3391ab6465.pdf?sfvrsn=71f72c71_0",
+          "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale."
+        },
+        {
+          "id": "it-mapei-kerapoxy-easy-design",
+          "name": "Kerapoxy Easy Design",
+          "kind": "epoxy",
+          "description": "Joint décoratif époxy bicomposant, facile à appliquer et nettoyer, pour carrelages et mosaïques.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche nationale : (A + B) / (A × B) × C × D × 1,6 = kg/m² ; toutes les dimensions sont en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 15,
+          "packages": [
+            1.5,
+            3
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/it-kerapoxy.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_09001_kerapoxy-easy-design_it-it_1af143ee9e1f4694b30631969401259f.pdf?sfvrsn=937a509f_0#page=1",
+          "imageNote": "Photographie du conditionnement extraite de la première page de la fiche technique nationale officielle.",
+          "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_09001_kerapoxy-easy-design_it-it_1af143ee9e1f4694b30631969401259f.pdf?sfvrsn=937a509f_0",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_09001_kerapoxy-easy-design_it-it_1af143ee9e1f4694b30631969401259f.pdf?sfvrsn=937a509f_0",
+          "technicalRevision": "9001-9-2026 it-it (IT)",
+          "notes": [
+            "Conditionnements vérifiés dans la fiche nationale ; disponibilité selon les coloris à confirmer auprès du distributeur.",
+            "Kit prédosé, composants A et B inclus ; respecter les proportions du fabricant."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_09001_kerapoxy-easy-design_it-it_1af143ee9e1f4694b30631969401259f.pdf?sfvrsn=937a509f_0",
+          "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale."
+        },
+        {
+          "id": "it-mapei-keracolor-ff",
+          "name": "Keracolor FF",
+          "kind": "ciment",
+          "description": "Mortier-joint ciment à grain fin et effet perlant, pour joints fins en sol et mur.",
+          "coefficient": 1.5,
+          "coefficientNote": "Coefficient 1,5 explicitement publié dans la formule de consommation de la fiche nationale : (A + B) / (A × B) × C × D × 1,5 = kg/m² ; toutes les dimensions sont en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": null,
+          "jointMax": 6,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/it-keracolor.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00131_keracolor-ff_it-it_94521219b84446a0b7e9e39ca7b06e81.pdf?sfvrsn=ca43a4a3_0#page=1",
+          "imageNote": "Photographie du conditionnement extraite de la première page de la fiche technique nationale officielle.",
+          "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00131_keracolor-ff_it-it_94521219b84446a0b7e9e39ca7b06e81.pdf?sfvrsn=ca43a4a3_0",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00131_keracolor-ff_it-it_94521219b84446a0b7e9e39ca7b06e81.pdf?sfvrsn=ca43a4a3_0",
+          "technicalRevision": "131-9-2026 it-it (IT)",
+          "notes": [
+            "Conditionnements vérifiés dans la fiche nationale ; disponibilité selon les coloris à confirmer auprès du distributeur.",
+            "La fiche nationale indique « jusqu’à 6 mm » sans préciser de largeur minimale. Respecter les prescriptions de pose du chantier et vérifier le minimum auprès du fabricant."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00131_keracolor-ff_it-it_94521219b84446a0b7e9e39ca7b06e81.pdf?sfvrsn=ca43a4a3_0",
+          "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale."
+        },
+        {
+          "id": "it-mapei-keracolor-sf",
+          "name": "Keracolor SF",
+          "kind": "ciment",
+          "description": "Mortier-joint ciment pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": 1.5,
+          "coefficientNote": "Coefficient 1,5 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,5 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": null,
+          "jointMax": 4,
+          "packages": [
+            5,
+            22
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/it-mapei-keracolor-sf.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00138_keracolor-sf_it-it_dba5d8e51d6443bf9c88427bd236fced.pdf?sfvrsn=bbac0968_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/it/it/prodotti-e-soluzioni/prodotti/dettaglio/keracolor-sf",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00138_keracolor-sf_it-it_dba5d8e51d6443bf9c88427bd236fced.pdf?sfvrsn=bbac0968_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00138_keracolor-sf_it-it_dba5d8e51d6443bf9c88427bd236fced.pdf?sfvrsn=bbac0968_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Disponibilité des conditionnements selon les coloris à confirmer auprès du distributeur.",
+            "La fiche indique « jusqu’à 4 mm » sans minimum explicite ; respecter les prescriptions de pose du chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-mapei-keracolor-gg",
+          "name": "Keracolor GG",
+          "kind": "ciment",
+          "description": "Mortier-joint ciment pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,6 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 4,
+          "jointMax": 15,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/it-mapei-keracolor-gg.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00132_keracolor-gg_it-it_03133788f2c04f88961240e6dec90397.pdf?sfvrsn=9704a20d_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/it/it/prodotti-e-soluzioni/prodotti/dettaglio/keracolor-gg",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00132_keracolor-gg_it-it_03133788f2c04f88961240e6dec90397.pdf?sfvrsn=9704a20d_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00132_keracolor-gg_it-it_03133788f2c04f88961240e6dec90397.pdf?sfvrsn=9704a20d_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Disponibilité des conditionnements selon les coloris à confirmer auprès du distributeur."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-mapei-kerapoxy",
+          "name": "Kerapoxy",
+          "kind": "epoxy",
+          "description": "Mortier-joint époxy bicomposant pour carrelages et pierres naturelles.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,6 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": null,
+          "packages": [
+            2,
+            5,
+            10
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/it-mapei-kerapoxy.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00141_kerapoxy_it-it_58d802473b9c4098aa04bf8062e6a016.pdf?sfvrsn=ac1c8e87_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/it/it/prodotti-e-soluzioni/prodotti/dettaglio/kerapoxy",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00141_kerapoxy_it-it_58d802473b9c4098aa04bf8062e6a016.pdf?sfvrsn=ac1c8e87_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00141_kerapoxy_it-it_58d802473b9c4098aa04bf8062e6a016.pdf?sfvrsn=ac1c8e87_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Conditionnements prédosés, composants A et B inclus ; respecter les proportions du fabricant.",
+            "La fiche indique une largeur minimale de 1 mm sans maximum explicite ; vérifier l’adéquation du joint au chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-mapei-kerapoxy-cq",
+          "name": "Kerapoxy CQ",
+          "kind": "epoxy",
+          "description": "Mortier-joint époxy bicomposant pour carrelages et pierres naturelles.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,6 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": null,
+          "packages": [
+            3,
+            10
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/it-mapei-kerapoxy-cq.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00150_kerapoxy-cq_it-it_ed199226d5c343fe81ac55008e6a193d.pdf?sfvrsn=56fbc072_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/it/it/prodotti-e-soluzioni/prodotti/dettaglio/kerapoxy-cq",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00150_kerapoxy-cq_it-it_ed199226d5c343fe81ac55008e6a193d.pdf?sfvrsn=56fbc072_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00150_kerapoxy-cq_it-it_ed199226d5c343fe81ac55008e6a193d.pdf?sfvrsn=56fbc072_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Conditionnements prédosés, composants A et B inclus ; respecter les proportions du fabricant.",
+            "La fiche indique une largeur minimale de 1 mm sans maximum explicite ; vérifier l’adéquation du joint au chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-mapei-kerapoxy-ieg",
+          "name": "Kerapoxy IEG",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant à très haute résistance chimique, destiné aux revêtements industriels.",
+          "coefficient": 1.4,
+          "coefficientNote": "Coefficient 1,4 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,4 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": null,
+          "packages": [
+            10
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/it-mapei-kerapoxy-ieg.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00148_kerapoxy-ieg_it-it_8127aba899984ce384bee3d9f277406e.pdf?sfvrsn=9e96bd46_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/it/it/prodotti-e-soluzioni/prodotti/dettaglio/kerapoxy-ieg",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00148_kerapoxy-ieg_it-it_8127aba899984ce384bee3d9f277406e.pdf?sfvrsn=9e96bd46_0",
+          "locations": [
+            "inside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00148_kerapoxy-ieg_it-it_8127aba899984ce384bee3d9f277406e.pdf?sfvrsn=9e96bd46_0",
+          "locationNote": "La fiche vise les revêtements des locaux industriels, notamment agroalimentaires ; l’usage extérieur n’est pas confirmé par la fiche consultée.",
+          "notes": [
+            "Conditionnements prédosés, composants A et B inclus ; respecter les proportions du fabricant.",
+            "La fiche indique une largeur minimale de 3 mm sans maximum explicite ; vérifier l’adéquation du joint au chantier.",
+            "Pour un usage extérieur, demander la validation technique de Mapei."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-mapei-kerapoxy-p",
+          "name": "Kerapoxy P",
+          "kind": "epoxy",
+          "description": "Mortier-joint époxy bicomposant pour carrelages et pierres naturelles.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,6 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": null,
+          "packages": [
+            10
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/it-mapei-kerapoxy-p.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00146_kerapoxy-p_it-it_3d5488ecd8b04735ad257ece7889d8aa.pdf?sfvrsn=8d0f42be_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/it/it/prodotti-e-soluzioni/prodotti/dettaglio/kerapoxy-p",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00146_kerapoxy-p_it-it_3d5488ecd8b04735ad257ece7889d8aa.pdf?sfvrsn=8d0f42be_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_00146_kerapoxy-p_it-it_3d5488ecd8b04735ad257ece7889d8aa.pdf?sfvrsn=8d0f42be_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Conditionnements prédosés, composants A et B inclus ; respecter les proportions du fabricant.",
+            "La fiche indique une largeur minimale de 3 mm sans maximum explicite ; vérifier l’adéquation du joint au chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-mapei-flexcolor-easy-grout",
+          "name": "Flexcolor Easy Grout",
+          "kind": "acrylique",
+          "description": "Joint prêt à l’emploi en dispersion aqueuse à base de résines acryl-polyuréthanes, pour carrelages et mosaïques.",
+          "coefficient": null,
+          "coefficientNote": "La fiche nationale renvoie au calculateur Mapei sans publier de formule ni de tableau de consommation. La seule masse volumique ne suffit pas à valider le facteur de consommation retenu ici.",
+          "coefficientSourceType": "manufacturer-clarification",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 10,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/it-mapei-flexcolor-easy-grout.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_04502_flexcolor-easy-grout_it-it_5bfe6ef481ac4bf5a444d0a6f3be55d1.pdf?sfvrsn=5c7246b1_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/it/it/prodotti-e-soluzioni/prodotti/dettaglio/flexcolor-easy-grout",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_04502_flexcolor-easy-grout_it-it_5bfe6ef481ac4bf5a444d0a6f3be55d1.pdf?sfvrsn=5c7246b1_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/products-documents/1_04502_flexcolor-easy-grout_it-it_5bfe6ef481ac4bf5a444d0a6f3be55d1.pdf?sfvrsn=5c7246b1_0",
+          "locationNote": "Intérieur : sols et murs. Extérieur : murs uniquement.",
+          "notes": [
+            "La fiche nationale renvoie au calculateur Mapei sans publier de formule ni de tableau de consommation. La seule masse volumique ne suffit pas à valider le facteur de consommation retenu ici.",
+            "Disponibilité des conditionnements selon les coloris à confirmer auprès du distributeur.",
+            "En extérieur, uniquement pour les murs : ne pas utiliser sur un sol extérieur."
+          ],
+          "checkedAt": "2026-11-07",
+          "locationRestrictions": [
+            "En extérieur, uniquement pour les murs : ne pas utiliser sur un sol extérieur."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fr-mapei",
+      "country": "fr",
+      "name": "Mapei",
+      "logoPath": "assets/img/ragreage/brands/mapei-official-pdf.png",
+      "website": "https://www.mapei.com/fr/fr-fr",
+      "products": [
+        {
+          "id": "fr-mapei-keracolor-ff",
+          "name": "Keracolor FF",
+          "kind": "ciment",
+          "description": "Mortier-joint ciment pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": 1.5,
+          "coefficientNote": "Coefficient 1,5 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,5 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 6,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/fr-mapei-keracolor-ff.webp",
+          "imageSource": "https://cdnmedia.mapei.com/images/librariesprovider42/products-images/4_131-keracolor-ff-130-5kg-int-952702_d944237783274802ba11509bdad3ea11.png?sfvrsn=a4fa6552_0",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/fr/fr-fr/produits-et-systemes/produits/details-du-produit/keracolor-ff",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_00131_keracolor-ff_fr-fr_fb7d929c20534163810ab770a7388f23.pdf?sfvrsn=21a6d0ac_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_00131_keracolor-ff_fr-fr_fb7d929c20534163810ab770a7388f23.pdf?sfvrsn=21a6d0ac_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Disponibilité des conditionnements selon les coloris à confirmer auprès du distributeur.",
+            "Largeur minimale publiée dans le catalogue Mapei France 2026 ; la fiche technique indique seulement la largeur maximale."
+          ],
+          "checkedAt": "2026-11-07",
+          "jointRangeSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/tarif/catalogue_produits_services_mapei-france_02-2026.pdf?sfvrsn=84c19389_17"
+        },
+        {
+          "id": "fr-mapei-keracolor-sf",
+          "name": "Keracolor SF",
+          "kind": "ciment",
+          "description": "Mortier-joint ciment pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": 1.5,
+          "coefficientNote": "Coefficient 1,5 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,5 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 4,
+          "packages": [
+            5,
+            22
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/fr-mapei-keracolor-sf.webp",
+          "imageSource": "https://cdnmedia.mapei.com/images/librariesprovider42/products-images/4_138-keracolor-sf-photobd1_18db793f8a3a4e57b495de4599a3b962.png?sfvrsn=dd5fec83_0",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/fr/fr-fr/produits-et-systemes/produits/details-du-produit/keracolor-sf",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_00138_keracolor-sf_fr-fr_b78d241477ba4295af6f73ffc87968fc.pdf?sfvrsn=9a731ae0_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_00138_keracolor-sf_fr-fr_b78d241477ba4295af6f73ffc87968fc.pdf?sfvrsn=9a731ae0_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Disponibilité des conditionnements selon les coloris à confirmer auprès du distributeur.",
+            "Largeur minimale publiée dans le catalogue Mapei France 2026 ; la fiche technique indique seulement la largeur maximale."
+          ],
+          "checkedAt": "2026-11-07",
+          "jointRangeSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/tarif/catalogue_produits_services_mapei-france_02-2026.pdf?sfvrsn=84c19389_17"
+        },
+        {
+          "id": "fr-mapei-keracolor-gg",
+          "name": "Keracolor GG",
+          "kind": "ciment",
+          "description": "Mortier-joint ciment pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,6 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 4,
+          "jointMax": 15,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/fr-mapei-keracolor-gg.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_00132_keracolor-gg_fr-fr_39e006b48adb483f9aef58e5818d315a.pdf?sfvrsn=6a8e872a_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/fr/fr-fr/produits-et-systemes/produits/details-du-produit/keracolor-gg",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_00132_keracolor-gg_fr-fr_39e006b48adb483f9aef58e5818d315a.pdf?sfvrsn=6a8e872a_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_00132_keracolor-gg_fr-fr_39e006b48adb483f9aef58e5818d315a.pdf?sfvrsn=6a8e872a_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Disponibilité des conditionnements selon les coloris à confirmer auprès du distributeur."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-mapei-keracolor-gg-souple",
+          "name": "Keracolor GG Souple",
+          "kind": "ciment",
+          "description": "Mortier-joint ciment pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": null,
+          "coefficientNote": "La fiche nationale présente une contradiction : la formule emploie 1,5, mais le tableau indique 1,6 kg/m² pour un carreau 100 × 100 mm, épaisseur 10 mm et joint 4 mm (la formule donne 1,2 kg/m²). Le calcul automatique attend une clarification du fabricant.",
+          "coefficientSourceType": "manufacturer-clarification",
+          "consumptionIncludesWaste": false,
+          "jointMin": 4,
+          "jointMax": 15,
+          "packages": [
+            25
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/fr-mapei-keracolor-gg-souple.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_00135_keracolor-gg-souple_fr-fr_800128e793654adaa4d096fa25a32867.pdf?sfvrsn=20be1bdf_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/fr/fr-fr/produits-et-systemes/produits/details-du-produit/keracolor-gg-souple",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_00135_keracolor-gg-souple_fr-fr_800128e793654adaa4d096fa25a32867.pdf?sfvrsn=20be1bdf_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_00135_keracolor-gg-souple_fr-fr_800128e793654adaa4d096fa25a32867.pdf?sfvrsn=20be1bdf_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "La fiche nationale présente une contradiction : la formule emploie 1,5, mais le tableau indique 1,6 kg/m² pour un carreau 100 × 100 mm, épaisseur 10 mm et joint 4 mm (la formule donne 1,2 kg/m²). Le calcul automatique attend une clarification du fabricant.",
+            "Disponibilité des conditionnements selon les coloris à confirmer auprès du distributeur."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-mapei-keracolor-rustic",
+          "name": "Keracolor Rustic",
+          "kind": "ciment",
+          "description": "Mortier-joint ciment à forte granulométrie, pour joints larges et finitions rustiques.",
+          "coefficient": null,
+          "coefficientNote": "La fiche nationale présente une contradiction : la formule emploie 1,5, tandis que le tableau donne 1,7 kg/m² pour un carreau 200 × 200 mm, épaisseur 10 mm et joint 10 mm. Le calcul automatique attend une clarification du fabricant.",
+          "coefficientSourceType": "manufacturer-clarification",
+          "consumptionIncludesWaste": false,
+          "jointMin": 5,
+          "jointMax": 50,
+          "packages": [
+            25
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/fr-mapei-keracolor-rustic.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_02816_keracolor-rustic_fr-fr_e89a0679e0a844959f833d1cc36628a9.pdf?sfvrsn=75d25dc7_0#page=1",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/fr/fr-fr/produits-et-systemes/produits/details-du-produit/keracolor-rustic",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_02816_keracolor-rustic_fr-fr_e89a0679e0a844959f833d1cc36628a9.pdf?sfvrsn=75d25dc7_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_02816_keracolor-rustic_fr-fr_e89a0679e0a844959f833d1cc36628a9.pdf?sfvrsn=75d25dc7_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "La fiche nationale présente une contradiction : la formule emploie 1,5, tandis que le tableau donne 1,7 kg/m² pour un carreau 200 × 200 mm, épaisseur 10 mm et joint 10 mm. Le calcul automatique attend une clarification du fabricant.",
+            "Disponibilité des conditionnements selon les coloris à confirmer auprès du distributeur."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-mapei-kerapoxy-cq",
+          "name": "Kerapoxy CQ",
+          "kind": "epoxy",
+          "description": "Mortier-joint époxy bicomposant pour carrelages et pierres naturelles.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche fournie par le site national ; (A + B) / (A × B) × C × D × 1,6 = kg/m², dimensions en mm.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": null,
+          "packages": [
+            3,
+            10
+          ],
+          "imagePath": "assets/img/joints/mapei-completion/fr-mapei-kerapoxy-cq.webp",
+          "imageSource": "https://cdnmedia.mapei.com/images/librariesprovider42/products-images/4_150-kerapoxy-cq-a-b-3kg-int-945031_d52fe3f6088f4dd88cbe80523b090e37.png?sfvrsn=f5a4487c_0",
+          "imageNote": "Photographie officielle du site national ou extraite de sa fiche technique nationale.",
+          "sourceUrl": "https://www.mapei.com/fr/fr-fr/produits-et-systemes/produits/details-du-produit/kerapoxy-cq",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_00150_kerapoxy-cq_fr-fr_eefadd9d62ee47cda65853b61faa219d.pdf?sfvrsn=af15f9f_0",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_00150_kerapoxy-cq_fr-fr_eefadd9d62ee47cda65853b61faa219d.pdf?sfvrsn=af15f9f_0",
+          "locationNote": "Sols et murs en intérieur et extérieur, selon le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Conditionnements prédosés, composants A et B inclus ; respecter les proportions du fabricant.",
+            "La fiche indique une largeur minimale de 1 mm sans maximum explicite ; vérifier l’adéquation du joint au chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "fr-kerakoll",
+      "country": "fr",
+      "name": "Kerakoll",
+      "logoPath": "assets/img/ragreage/brands/kerakoll-official-pdf.png",
+      "website": "https://fr.kerakoll.com/",
+      "products": [
+        {
+          "id": "fr-kerakoll-fugalite-invisibile",
+          "name": "Fugalite Invisibile",
+          "kind": "epoxy",
+          "description": "Joint époxy translucide à microperles de verre, pour mosaïques et revêtements intérieurs.",
+          "coefficient": 1.8,
+          "coefficientNote": "Coefficient approché reconstitué du tableau fabricant : 40 × 40 cm, épaisseur 10 mm, joint 1 mm ≈ 90 g/m². Le tableau contient des valeurs arrondies.",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 0,
+          "jointMax": 3,
+          "packages": [
+            3
+          ],
+          "packageSourceUrl": "https://fr.kerakoll.com/p/fugalite-invisibile",
+          "imagePath": "assets/img/joints/mapei-completion/fr-kerakoll-fugalite-invisibile.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Italia/K_Fugalite-Invisibile_3-kg_26.jpg",
+          "sourceUrl": "https://fr.kerakoll.com/p/fugalite-invisibile",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/3_Posa_Ceramica/Fugalite%20Invisibile_2026_%28kkfr%29.pdf",
+          "locations": [
+            "inside"
+          ],
+          "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/3_Posa_Ceramica/Fugalite%20Invisibile_2026_%28kkfr%29.pdf",
+          "locationNote": "Sols et murs intérieurs uniquement.",
+          "notes": [
+            "Le tableau fabricant intègre déjà les déchets de chantier ; la réserve ajoutée par le calculateur est complémentaire.",
+            "Les largeurs nominales de la gamme ne remplacent pas les règles de pose applicables au chantier.",
+            "Usage intérieur uniquement, conformément à la fiche nationale ; kit A 2,82 kg + B 0,18 kg."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-kerakoll-fugarok",
+          "name": "Fugarok",
+          "kind": "ciment",
+          "description": "Mortier-joint minéral pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": 1.96,
+          "coefficientNote": "Coefficient reconstitué du tableau fabricant : 40 × 40 cm, épaisseur 10 mm, joint 2 mm ≈ 196 g/m² (joint 3 mm ≈ 294 g/m²).",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 2,
+          "jointMax": 20,
+          "packages": [
+            20
+          ],
+          "packageSourceUrl": "https://fr.kerakoll.com/p/fugarok",
+          "imagePath": "assets/img/joints/mapei-completion/fr-kerakoll-fugarok.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Italia/K_COMP-Fugarok_KK-66_26.jpg",
+          "sourceUrl": "https://fr.kerakoll.com/p/fugarok",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/3_Posa_Ceramica/Fugarok_2026_kkfr_I.pdf",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/3_Posa_Ceramica/Fugarok_2026_kkfr_I.pdf",
+          "locationNote": "Sols et murs en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Le tableau fabricant intègre déjà les déchets de chantier ; la réserve ajoutée par le calculateur est complémentaire.",
+            "Les largeurs nominales de la gamme ne remplacent pas les règles de pose applicables au chantier.",
+            "La page française annonce le sac de 20 kg ; la fiche mentionne aussi 5 kg. Le calcul retient le conditionnement annoncé pour le marché français."
+          ],
+          "checkedAt": "2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "it-kerakoll",
+      "country": "it",
+      "name": "Kerakoll",
+      "logoPath": "assets/img/ragreage/brands/kerakoll-official-pdf.png",
+      "website": "https://it.kerakoll.com/",
+      "products": [
+        {
+          "id": "it-kerakoll-fugalite-invisibile",
+          "name": "Fugalite Invisibile",
+          "kind": "epoxy",
+          "description": "Joint époxy translucide à microperles de verre, pour mosaïques et revêtements intérieurs.",
+          "coefficient": 1.8,
+          "coefficientNote": "Coefficient approché reconstitué du tableau fabricant : 40 × 40 cm, épaisseur 10 mm, joint 1 mm ≈ 90 g/m². Le tableau contient des valeurs arrondies.",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 0,
+          "jointMax": 3,
+          "packages": [
+            3
+          ],
+          "packageSourceUrl": "https://it.kerakoll.com/p/fugalite-invisibile",
+          "imagePath": "assets/img/joints/mapei-completion/it-kerakoll-fugalite-invisibile.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Italia/K_Fugalite-Invisibile_3-kg_26.jpg",
+          "sourceUrl": "https://it.kerakoll.com/p/fugalite-invisibile",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/3_Posa_Ceramica_e_pietre_naturali/Fugalite%20Invisibile_2026_ita.pdf",
+          "locations": [
+            "inside"
+          ],
+          "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/3_Posa_Ceramica_e_pietre_naturali/Fugalite%20Invisibile_2026_ita.pdf",
+          "locationNote": "Sols et murs intérieurs uniquement.",
+          "notes": [
+            "Le tableau fabricant intègre déjà les déchets de chantier ; la réserve ajoutée par le calculateur est complémentaire.",
+            "Les largeurs nominales de la gamme ne remplacent pas les règles de pose applicables au chantier.",
+            "Usage intérieur uniquement, conformément à la fiche nationale ; kit A 2,82 kg + B 0,18 kg."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-kerakoll-fugarok",
+          "name": "Fugarok",
+          "kind": "ciment",
+          "description": "Mortier-joint minéral pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": 1.96,
+          "coefficientNote": "Coefficient reconstitué du tableau fabricant : 40 × 40 cm, épaisseur 10 mm, joint 2 mm ≈ 196 g/m² (joint 3 mm ≈ 294 g/m²).",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 2,
+          "jointMax": 20,
+          "packages": [
+            5,
+            20
+          ],
+          "packageSourceUrl": "https://it.kerakoll.com/p/fugarok",
+          "imagePath": "assets/img/joints/mapei-completion/it-kerakoll-fugarok.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Italia/K_COMP-Fugarok_KK-66_26.jpg",
+          "sourceUrl": "https://it.kerakoll.com/p/fugarok",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/3_Posa_Ceramica_e_pietre_naturali/Fugarok_2026_I_ita.pdf",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/3_Posa_Ceramica_e_pietre_naturali/Fugarok_2026_I_ita.pdf",
+          "locationNote": "Sols et murs en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Le tableau fabricant intègre déjà les déchets de chantier ; la réserve ajoutée par le calculateur est complémentaire.",
+            "Les largeurs nominales de la gamme ne remplacent pas les règles de pose applicables au chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-kerakoll-fugabella-porcelana-0-5",
+          "name": "Fugabella Porcelana 0-5",
+          "kind": "ciment",
+          "description": "Mortier-joint minéral pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": null,
+          "coefficientNote": "La fiche italienne 2026 intitule les colonnes 1/2/3 mm, mais leurs consommations sont multipliées par 1/3/5. Le calcul automatique attend une clarification du fabricant.",
+          "coefficientSourceType": "manufacturer-clarification",
+          "consumptionIncludesWaste": true,
+          "jointMin": 0,
+          "jointMax": 5,
+          "packages": [
+            5
+          ],
+          "packageSourceUrl": "https://it.kerakoll.com/p/fugabella-porcelana-0-5",
+          "imagePath": "assets/img/joints/mapei-completion/it-kerakoll-fugabella-porcelana-0-5.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Italia/K-FB-Eco-Porcelana-0-5-Kg-5-color-32-19-fnt-IT.jpg",
+          "sourceUrl": "https://it.kerakoll.com/p/fugabella-porcelana-0-5",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/3_Posa_Ceramica_e_pietre_naturali/Fugabella%20Porcelana%2005_2026_ita.pdf",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/3_Posa_Ceramica_e_pietre_naturali/Fugabella%20Porcelana%2005_2026_ita.pdf",
+          "locationNote": "Sols et murs en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Le tableau fabricant intègre déjà les déchets de chantier ; la réserve ajoutée par le calculateur est complémentaire.",
+            "La fiche italienne 2026 intitule les colonnes 1/2/3 mm, mais leurs consommations sont multipliées par 1/3/5. Le calcul automatique attend une clarification du fabricant.",
+            "Les largeurs nominales de la gamme ne remplacent pas les règles de pose applicables au chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "es-kerakoll",
+      "country": "es",
+      "name": "Kerakoll",
+      "logoPath": "assets/img/ragreage/brands/kerakoll-official-pdf.png",
+      "website": "https://es.kerakoll.com/",
+      "products": [
+        {
+          "id": "es-kerakoll-fugalite-invisibile",
+          "name": "Fugalite Invisibile",
+          "kind": "epoxy",
+          "description": "Joint époxy translucide à microperles de verre, pour mosaïques et revêtements intérieurs.",
+          "coefficient": 1.8,
+          "coefficientNote": "Coefficient approché reconstitué du tableau fabricant : 40 × 40 cm, épaisseur 10 mm, joint 1 mm ≈ 90 g/m². Le tableau contient des valeurs arrondies.",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 0,
+          "jointMax": 3,
+          "packages": [
+            3
+          ],
+          "packageSourceUrl": "https://es.kerakoll.com/p/fugalite-invisibile",
+          "imagePath": "assets/img/joints/mapei-completion/es-kerakoll-fugalite-invisibile.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Italia/K_Fugalite-Invisibile_3-kg_26.jpg",
+          "sourceUrl": "https://es.kerakoll.com/p/fugalite-invisibile",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/Spagna/3_Posa_ceramica/Fugalite%20Invisibile_2026_%28es-export%20es%29.pdf",
+          "locations": [
+            "inside"
+          ],
+          "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/Spagna/3_Posa_ceramica/Fugalite%20Invisibile_2026_%28es-export%20es%29.pdf",
+          "locationNote": "Sols et murs intérieurs uniquement.",
+          "notes": [
+            "Le tableau fabricant intègre déjà les déchets de chantier ; la réserve ajoutée par le calculateur est complémentaire.",
+            "Les largeurs nominales de la gamme ne remplacent pas les règles de pose applicables au chantier.",
+            "Usage intérieur uniquement, conformément à la fiche nationale ; kit A 2,82 kg + B 0,18 kg."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "es-kerakoll-fugabella-porcelana-0-5",
+          "name": "Fugabella Porcelana 0-5",
+          "kind": "ciment",
+          "description": "Mortier-joint minéral pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": 1.9,
+          "coefficientNote": "Coefficient approché reconstitué du tableau national : 40 × 40 cm, épaisseur 10 mm, joint 1 mm ≈ 95 g/m² et joint 3 mm ≈ 285 g/m².",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 0,
+          "jointMax": 5,
+          "packages": [
+            5,
+            20
+          ],
+          "packageSourceUrl": "https://es.kerakoll.com/p/fugabella-porcelana-0-5",
+          "imagePath": "assets/img/joints/mapei-completion/es-kerakoll-fugabella-porcelana-0-5.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Iberica/K_COMP%20FB%20Eco%20Porcelana%200-5_25_ES%202.jpg",
+          "sourceUrl": "https://es.kerakoll.com/p/fugabella-porcelana-0-5",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/Spagna/3_Posa_ceramica/Fugabella%20porcelana%2005%202025_%28es-export%20es%29_esg.pdf",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/Spagna/3_Posa_ceramica/Fugabella%20porcelana%2005%202025_%28es-export%20es%29_esg.pdf",
+          "locationNote": "Sols et murs en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Le tableau fabricant intègre déjà les déchets de chantier ; la réserve ajoutée par le calculateur est complémentaire.",
+            "Les largeurs nominales de la gamme ne remplacent pas les règles de pose applicables au chantier.",
+            "La page nationale annonce des sacs de 5 et 20 kg ; la fiche indique seulement 5 kg. Confirmer la disponibilité du 20 kg auprès du distributeur.",
+            "En extérieur, vérifier la tenue de la teinte : la fiche réserve notamment les teintes 21 rouge et 23 jaune à l’intérieur."
+          ],
+          "checkedAt": "2026-11-07",
+          "locationRestrictions": [
+            "Certaines couleurs sont réservées à l’intérieur ; vérifier le nuancier de la fiche."
+          ]
+        },
+        {
+          "id": "es-kerakoll-fugabella-2-12",
+          "name": "Fugabella 2-12",
+          "kind": "ciment",
+          "description": "Mortier-joint minéral pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": 2.1,
+          "coefficientNote": "Coefficient approché reconstitué du tableau national : 40 × 40 cm, épaisseur 10 mm, joint 1 mm ≈ 105 g/m² et joint 2 mm ≈ 210 g/m².",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 2,
+          "jointMax": 12,
+          "packages": [
+            5,
+            25
+          ],
+          "packageSourceUrl": "https://es.kerakoll.com/p/fugabella-2-12",
+          "imagePath": "assets/img/joints/mapei-completion/es-kerakoll-fugabella-2-12.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Iberica/K-COMP-FB-Eco-2-12-19-fnt-ES-ES.jpg",
+          "sourceUrl": "https://es.kerakoll.com/p/fugabella-2-12",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/Spagna/3_Posa_ceramica/Fugabella%202-12%202022_%28es-export%20es%29_esg.pdf",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/Spagna/3_Posa_ceramica/Fugabella%202-12%202022_%28es-export%20es%29_esg.pdf",
+          "locationNote": "Sols et murs en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Le tableau fabricant intègre déjà les déchets de chantier ; la réserve ajoutée par le calculateur est complémentaire.",
+            "Les largeurs nominales de la gamme ne remplacent pas les règles de pose applicables au chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "es-kerakoll-fugabella-scuba",
+          "name": "Fugabella Scuba",
+          "kind": "ciment",
+          "description": "Mortier-joint minéral pour carrelages et pierres naturelles, en sol et mur.",
+          "coefficient": 1.68,
+          "coefficientNote": "Coefficient approché reconstitué du tableau national : 40 × 40 cm, épaisseur 10 mm, joint 1 mm ≈ 84 g/m² et joint 2 mm ≈ 168 g/m².",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": false,
+          "jointMin": 0,
+          "jointMax": 5,
+          "packages": [
+            5
+          ],
+          "packageSourceUrl": "https://es.kerakoll.com/p/fugabella-scuba",
+          "imagePath": "assets/img/joints/mapei-completion/es-kerakoll-fugabella-scuba.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Italia/K-FB-Eco-Scuba-Kg-5-19-fnt-IT.jpg",
+          "sourceUrl": "https://es.kerakoll.com/p/fugabella-scuba",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/Spagna/3_Posa_ceramica/Fugabella%20Scuba%202022_%28es-export%20es%29_esg.pdf",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/Spagna/3_Posa_ceramica/Fugabella%20Scuba%202022_%28es-export%20es%29_esg.pdf",
+          "locationNote": "Sols et murs en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+          "notes": [
+            "Le tableau de consommation ne précise pas si les pertes de chantier sont incluses.",
+            "Les largeurs nominales de la gamme ne remplacent pas les règles de pose applicables au chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        }
+      ]
+    }
+  ],
+  "productUpdates": [
+    {
+      "id": "fr-mapei-ultracolor-plus",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_02801_ultracolor-plus_fr-fr_965c2bbf469847659ee517a925d2531e.pdf?sfvrsn=6e0d38d6_0",
+      "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "id": "fr-mapei-kerapoxy-easy-design",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "locationSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_09001_kerapoxy-easy-design_fr-fr_c9dc17ee0e774e418643cae391bb1c2a.pdf?sfvrsn=344f989_0",
+      "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "id": "fr-kerakoll-fugabella-color",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/3_Posa_Ceramica/Fugabella%20Color_2026_kkfr.pdf",
+      "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "id": "fr-kerakoll-fugalite-color",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/3_Posa_Ceramica/Fugalite%20Color_2026_kkfr.pdf",
+      "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "id": "es-kerakoll-fugabella-color",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/Spagna/3_Posa_ceramica/Fugabella%20Color_2026_%28es-export%20es%29_esg.pdf",
+      "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "id": "es-kerakoll-fugalite-color",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/Spagna/3_Posa_ceramica/Fugalite%20Color_2026_%28es-export%20es%29.pdf",
+      "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "id": "it-kerakoll-fugabella-color",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/3_Posa_Ceramica_e_pietre_naturali/Fugabella%20Color_2026_ita.pdf",
+      "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "id": "it-kerakoll-fugalite-color",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "locationSourceUrl": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/3_Posa_Ceramica_e_pietre_naturali/Fugalite%20Color_2026_ita.pdf",
+      "locationNote": "Sols et murs, en intérieur et extérieur, dans le domaine d’emploi de la fiche nationale.",
+      "checkedAt": "2026-11-07"
+    }
+  ],
+  "catalogueCoverage": [
+    {
+      "brandId": "fr-kerakoll",
+      "sourceUrl": "https://fr.kerakoll.com/s/mortiers-joints-et-mastics-decoratifs",
+      "note": "Catégorie nationale actuelle parcourue ; tous les mortiers-joints listés sont couverts, mastics et accessoires exclus. Fugalite Bio et anciennes dénominations Eco ne sont pas ajoutés comme références actuelles distinctes."
+    },
+    {
+      "brandId": "it-kerakoll",
+      "sourceUrl": "https://it.kerakoll.com/s/stucchi-e-sigillanti-decorativi",
+      "note": "Catégorie nationale actuelle parcourue ; tous les mortiers-joints listés sont couverts, mastics et accessoires exclus. Fugalite Bio et anciennes dénominations Eco ne sont pas ajoutés comme références actuelles distinctes."
+    },
+    {
+      "brandId": "es-kerakoll",
+      "sourceUrl": "https://es.kerakoll.com/s/juntas-y-sellantes-decorativos",
+      "note": "Catégorie nationale actuelle parcourue ; tous les mortiers-joints listés sont couverts, mastics et accessoires exclus. Fugalite Bio et anciennes dénominations Eco ne sont pas ajoutés comme références actuelles distinctes."
+    },
+    {
+      "brandId": "it-mapei",
+      "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/lines-technical-documentation/pieghevole-_gamma_fughe_fisarmonica_30_luglio_2026.pdf?sfvrsn=d75f1674_31",
+      "note": "Gamme joints du nuancier italien juillet 2026 couverte ; Kerapoxy P ajouté depuis sa page et sa fiche nationales actives. Les anciennes pages Flexcolor, Kerapoxy SP et Keracolor PPN ne proposent pas de référence actuelle équivalente sur le site italien consulté."
+    },
+    {
+      "brandId": "fr-mapei",
+      "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/tarif/catalogue_produits_services_mapei-france_02-2026.pdf?sfvrsn=84c19389_17",
+      "note": "8 mortiers-joints du catalogue France 2026 couverts, confirmés par les pages nationales et leurs fiches. Kerapoxy classique, IEG et P ne sont pas ajoutés au marché français sans fiche/page nationale actuelle."
+    },
+    {
+      "brandId": "es-mapei",
+      "sourceUrl": "https://www.mapei.com/es/es/productos-y-soluciones/lista-de-productos",
+      "note": "10 références confirmées par les pages nationales actives et leurs fiches techniques ; les anciens Kerapoxy Design, SP, Keracolor PPN et Flexcolor ne sont pas ajoutés à partir de catalogues historiques seuls."
+    }
+  ]
+}

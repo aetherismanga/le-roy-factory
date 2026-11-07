@@ -1,0 +1,684 @@
+{
+  "brands": [
+    {
+      "id": "it-technokolla",
+      "country": "it",
+      "name": "Technokolla",
+      "logoPath": "assets/img/ragreage/brands/technokolla-official-packshot.png",
+      "website": "https://www.technokolla.com/",
+      "products": [
+        {
+          "id": "it-technokolla-technostuk-2-12",
+          "name": "TECHNOSTUK 2-12",
+          "kind": "ciment",
+          "description": "Joint ciment hydrofuge pour carrelages et pierres naturelles, en intérieur comme en extérieur.",
+          "coefficient": 1.6,
+          "coefficientNote": "Formule fabricant, fiche officielle 01/25, p. 4 : largeur et profondeur en mm × (L+l)/(L×l), L et l en cm, × 160 pour des g/m² ; équivalent 1,6 avec toutes les dimensions en mm et un résultat en kg/m². Exemple : 30 × 60 cm, épaisseur 10 mm, joint 2 mm = 0,160 kg/m².",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 12,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/it-completion/technostuk-2-12.webp",
+          "imageSource": "https://www.technokolla.eu/images/prodotti/STUC2_zoom.jpg",
+          "sourceUrl": "https://www.technokolla.com/groutings-and-sealants/TECHNOSTUK-2-12",
+          "technicalUrl": "https://www.technokolla.eu/download/catalogo/fr/technostuk2-120125F.pdf",
+          "notes": [
+            "Fiche officielle de janvier 2025 en français ; les pages du fabricant sont actuellement proposées en anglais et en français.",
+            "Pour les piscines, le fabricant recommande un gâchage avec TC-STUK."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "it-technokolla-technostuk-gg",
+          "name": "TECHNOSTUK G.G.",
+          "kind": "ciment",
+          "description": "Mortier ciment hydrofuge pour joints larges, adapté aux sols et murs et aux surfaces poreuses telles que la terre cuite.",
+          "coefficient": 1.7,
+          "coefficientNote": "Formule fabricant, fiche officielle 01/25, p. 4 : largeur et profondeur en mm × (L+l)/(L×l), L et l en cm, × 170 pour des g/m² ; équivalent 1,7 avec toutes les dimensions en mm et un résultat en kg/m². Exemple : 30 × 60 cm, épaisseur 10 mm, joint 4 mm = 0,340 kg/m².",
+          "consumptionIncludesWaste": false,
+          "jointMin": 4,
+          "jointMax": 20,
+          "packages": [
+            25
+          ],
+          "imagePath": "assets/img/joints/it-completion/technostuk-gg.webp",
+          "imageSource": "https://www.technokolla.eu/images/prodotti/STUC4_zoom.jpg",
+          "sourceUrl": "https://www.technokolla.com/groutings-and-sealants/TECHNOSTUK-G.G.",
+          "technicalUrl": "https://www.technokolla.eu/download/catalogo/fr/technostukgg0125F.pdf",
+          "notes": [
+            "Fiche officielle de janvier 2025 en français ; conditionnement de 25 kg indiqué dans les instructions de gâchage.",
+            "Pour les piscines ou sols chauffants, le fabricant recommande un gâchage avec TC-STUK."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "it-technokolla-technocolors",
+          "name": "TECHNOCOLORS",
+          "kind": "ciment",
+          "description": "Joint ciment à finition fine pour carrelage, marbre et mosaïque, hydrofuge et adapté aux sols chauffants.",
+          "coefficient": 1.4,
+          "coefficientNote": "Formule de consommation fabricant, fiche 01/25, p.4 : profondeur et largeur de joint en mm × (L+l)/(L×l), côtés en cm, × 140 en g/m². Équivalent 1,4 avec toutes les dimensions en mm et résultat en kg/m². Exemple : 30 × 60 cm, 10 mm d’épaisseur et joint 2 mm = 0,140 kg/m².",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 8,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/it-completion/technokolla-technocolors.webp",
+          "imageSource": "https://www.technokolla.eu/images/prodotti/STU3_zoom.jpg",
+          "sourceUrl": "https://www.technokolla.com/groutings-and-sealants/TECHNOCOLORS",
+          "technicalUrl": "https://www.technokolla.eu/download/catalogo/fr/technocolors0125F.pdf",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "notes": [
+            "Pour les piscines et façades, le fabricant recommande un gâchage avec TC-STUK."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-technokolla-epostuk",
+          "name": "EPOSTUK",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant pour locaux soumis aux agressions chimiques et au trafic intense, ainsi que pour les piscines.",
+          "coefficient": 1.6,
+          "coefficientNote": "Formule de consommation de la fiche fabricant 04/26, p.3 : facteur 160 en g/m² avec côtés du carreau en cm, largeur et profondeur en mm ; équivalent 1,6 lorsque toutes les dimensions sont en mm et le résultat en kg/m². Exemple :30 × 60 cm, épaisseur 10 mm, joint 3 mm =0,240 kg/m².",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 20,
+          "packages": [
+            10
+          ],
+          "imagePath": "assets/img/joints/it-completion/technokolla-epostuk.webp",
+          "imageSource": "https://www.technokolla.eu/images/prodotti/STUC7_zoom.jpg",
+          "sourceUrl": "https://www.technokolla.com/groutings-and-sealants/EPOSTUK",
+          "technicalUrl": "https://www.technokolla.com/download/catalogo/en/epostuk0426GB.pdf",
+          "locations": [],
+          "notes": [
+            "La FT 04/26 indique 2–20 mm ; le court descriptif web 3–15 mm n’a pas encore été harmonisé.",
+            "Le conditionnement de 10 kg figure sur le visuel officiel ; confirmer le conditionnement disponible à la commande.",
+            "Les sources consultées confirment sols, murs et piscines ; la répartition intérieur/extérieur reste à confirmer avec le fabricant."
+          ],
+          "checkedAt": "2026-11-07",
+          "locationNote": "Sols, murs et piscines mentionnés par le fabricant ; répartition intérieur/extérieur à confirmer.",
+          "components": 2
+        },
+        {
+          "id": "it-technokolla-skycolors-evolution",
+          "name": "SKYCOLORS EVOLUTION",
+          "kind": "epoxy",
+          "description": "Joint époxy décoratif bicomposant pour carrelages et mosaïques, notamment dans les salles d’eau, spas et piscines.",
+          "coefficient": 1.6,
+          "coefficientNote": "Formule de consommation de la fiche italienne 02/24, p.4 : facteur 160 en g/m² avec côtés du carreau en cm, largeur et profondeur en mm ; équivalent 1,6 en kg/m² avec toutes les dimensions en mm. Exemple 30 × 60 cm, épaisseur 10 mm, joint 2 mm =0,160 kg/m². Le catalogue annonce une révision 04/26 dont le téléchargement n’a pas pu être confirmé.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 15,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/it-completion/technokolla-skycolors-evolution.webp",
+          "imageSource": "https://www.technokolla.eu/images/prodotti/232_zoom.jpg",
+          "sourceUrl": "https://www.technokolla.com/groutings-and-sealants/SKYCOLORS-EVOLUTION",
+          "technicalUrl": "https://www.technokolla.com/download/catalogo/it/skycolorsevolution0224I.pdf",
+          "locations": [],
+          "notes": [
+            "Conditionnement de 3 kg indiqué dans la documentation officielle du système époxy.",
+            "La référence figure dans le catalogue actuel ; les données de consommation consultables sont issues de la fiche italienne 02/24.",
+            "Les sources consultées confirment sols, murs, salles d’eau et piscines ; la répartition intérieur/extérieur reste à confirmer avec le fabricant."
+          ],
+          "checkedAt": "2026-11-07",
+          "locationNote": "Sols, murs et piscines mentionnés par le fabricant ; répartition intérieur/extérieur à confirmer.",
+          "components": 2
+        }
+      ]
+    },
+    {
+      "id": "it-benfer",
+      "country": "it",
+      "name": "Benfer",
+      "logoPath": "assets/img/ragreage/brands/benfer.gif",
+      "website": "https://www.benfer.it/it/s/index.jsp",
+      "products": [
+        {
+          "id": "it-benfer-dekogrout-fs",
+          "name": "DEKOGROUT FS",
+          "kind": "ciment",
+          "description": "Joint ciment fin hydrofuge pour carrelages, sols chauffants et piscines ; pierres naturelles après vérification de leur compatibilité.",
+          "coefficient": 1.65,
+          "coefficientNote": "Coefficient de consommation reconstitué depuis le tableau fabricant, fiche italienne rév. 02/06.12.2024, p. 5 : carreau 20 × 20 mm, épaisseur 4 mm, joint 1 mm = 0,66 kg/m², soit 0,66 / ((20+20)/(20 × 20)× 4 × 1) = 1,65. Le tableau comprend déjà 10 % de pertes ; ne pas les ajouter une deuxième fois.",
+          "consumptionIncludesWaste": true,
+          "jointMin": 1,
+          "jointMax": 8,
+          "packages": [
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/it-completion/benfer-dekogrout-fs.webp",
+          "imageSource": "https://www.benfer.it/userfiles/Prodotto/images/SACCHI_E_CONFEZIONI_2026/DEKOGROUT_FS_sacco_bobina_5kg_BENFER.png?size=max_utilizzo",
+          "sourceUrl": "https://www.benfer.it/dekogrout-fs/cms/Pagina.action?localeSite=it&page=Prodotto.783&pageAction=",
+          "technicalUrl": "https://www.benfer.it/it/cms/Utility.action?schedaTecnica=&jm=Prodotto.783",
+          "notes": [
+            "Sacs de 5 kg pour toutes les teintes ; sacs de 20 kg uniquement pour les coloris 44, 89, 24, 42 et 45.",
+            "Consommations fabricant indicatives et arrondies ; le tableau inclut 10 % de pertes."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "it-benfer-dekogrout-3k",
+          "name": "DEKOGROUT-3K",
+          "kind": "epoxy",
+          "description": "Joint époxy à trois composants pour carrelage et mosaïque, adapté aux zones humides et aux sollicitations chimiques.",
+          "coefficient": 1.75,
+          "coefficientNote": "Coefficient indicatif reconstitué à partir du tableau de consommation fabricant : carreau 20 × 20 mm, épaisseur 4 mm, joint 3 mm =2,10 kg/m², soit 2,10 / ((20+20)/(20 × 20)× 4 × 3) =1,75. Tableau arrondi et comprenant déjà 10 % de pertes.",
+          "consumptionIncludesWaste": true,
+          "jointMin": 1.5,
+          "jointMax": 12,
+          "packages": [
+            3.2
+          ],
+          "imagePath": "assets/img/joints/it-completion/benfer-dekogrout-3k.webp",
+          "imageSource": "https://www.benfer.it/userfiles/Prodotto/images/Sacchi_e_Confezioni_2017/DEKOGROUT-3K_secchio_NO_ADR_web.png?size=max_utilizzo",
+          "sourceUrl": "https://www.benfer.it/dekogrout-3k/cms/Pagina.action?localeSite=it&page=Prodotto.697&pageAction=",
+          "technicalUrl": "https://www.benfer.it/it/cms/Utility.action?schedaTecnica=&jm=Prodotto.697",
+          "notes": [
+            "Kit complet de 3,2 kg : composant A 0,35 kg + B 0,35 kg + C 2,50 kg.",
+            "Consommations fabricant indicatives et arrondies ; le tableau inclut 10 % de pertes."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "components": 3
+        },
+        {
+          "id": "it-benfer-dekogrout-fl",
+          "name": "DEKOGROUT FL",
+          "kind": "ciment",
+          "description": "Joint ciment pour joints larges de carrelage, pierre et marbre, en intérieur, en extérieur et en piscine.",
+          "coefficient": 1.875,
+          "coefficientNote": "Coefficient indicatif reconstitué à partir du tableau de consommation fabricant : carreau 20 × 20 mm, épaisseur 4 mm, joint 3 mm =2,25 kg/m², soit 2,25 / ((20+20)/(20 × 20)× 4 × 3) =1,875. Tableau arrondi et comprenant déjà 10 % de pertes.",
+          "consumptionIncludesWaste": true,
+          "jointMin": 3,
+          "jointMax": 30,
+          "packages": [
+            25
+          ],
+          "imagePath": "assets/img/joints/it-completion/benfer-dekogrout-fl.webp",
+          "imageSource": "https://www.benfer.it/userfiles/Prodotto/images/SACCHI_E_CONFEZIONI_2026/DEKOGROUT_FL_0626_3D_RID.png?size=max_utilizzo",
+          "sourceUrl": "https://www.benfer.it/dekogrout-fl/cms/Pagina.action?localeSite=it&page=Prodotto.739&pageAction=",
+          "technicalUrl": "https://www.benfer.it/it/cms/Utility.action?schedaTecnica=&jm=Prodotto.739",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "notes": [
+            "Le tableau fabricant contient déjà 10 % de pertes."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-benfer-dekogrout-epoxy",
+          "name": "DEKOGROUT EPOXY",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant pour carrelages, mosaïques et pierres compatibles, en intérieur, en extérieur et en piscine.",
+          "coefficient": 1.75,
+          "coefficientNote": "Coefficient indicatif reconstitué à partir du tableau de consommation fabricant : carreau 20 × 20 mm, épaisseur 4 mm, joint 3 mm =2,10 kg/m², soit 2,10 / ((20+20)/(20 × 20)× 4 × 3) =1,75. Tableau arrondi et comprenant déjà 10 % de pertes.",
+          "consumptionIncludesWaste": true,
+          "jointMin": 2,
+          "jointMax": 10,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/it-completion/benfer-dekogrout-epoxy.webp",
+          "imageSource": "https://www.benfer.it/userfiles/Prodotto/images/SACCHI_E_CONFEZIONI_2026/DEKOGROUT_EPOXY_bin_FRONT_-LID_WEB4.png?size=max_utilizzo",
+          "sourceUrl": "https://www.benfer.it/dekogrout-epoxy/cms/Pagina.action?localeSite=it&page=Prodotto.741&pageAction=",
+          "technicalUrl": "https://www.benfer.it/it/cms/Utility.action?schedaTecnica=&jm=Prodotto.741",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "notes": [
+            "Kit de 3 kg : composant A 2,82 kg + B 0,18 kg.",
+            "La FT recommande au moins 2 mm en intérieur et 5 mm en extérieur.",
+            "Le tableau fabricant contient déjà 10 % de pertes."
+          ],
+          "checkedAt": "2026-11-07",
+          "components": 2
+        }
+      ]
+    },
+    {
+      "id": "it-index",
+      "country": "it",
+      "name": "INDEX",
+      "logoPath": "assets/img/joints/it-completion/index-logo.webp",
+      "website": "https://www.indexspa.it/index.asp",
+      "notes": [
+        "Marque désormais rattachée au portefeuille Sika Italie. Anciennes références joints : disponibilité à confirmer."
+      ],
+      "availabilityStatus": "legacy-confirm",
+      "products": [
+        {
+          "id": "it-index-fugocolor-4-15",
+          "name": "FUGOCOLOR 4-15",
+          "kind": "ciment",
+          "description": "Ancienne gamme INDEX, disponibilité à confirmer. Mortier ciment coloré pour joints larges de sols et murs, en intérieur et en extérieur.",
+          "coefficient": 1.6,
+          "coefficientNote": "Formule explicite de la fiche fabricant FUGOCOLOR, édition 3/2022 : ((A+B)/(A×B))×C×D× 1,6 = kg/m², toutes les dimensions en mm. Documentation historique : le lien PDF redirige désormais vers Sika Italie. La valeur vient de la fiche INDEX historique consultée ; le lien externe ouvre désormais la page produit historique afin de ne pas ouvrir un autre produit Sika.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 4,
+          "jointMax": 15,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/it-completion/index-fugocolor-4-15.webp",
+          "imageSource": "https://www.indexspa.it/indexspacom/TECNOPLAN/images/Immagine_prodotto/139.jpg",
+          "sourceUrl": "https://www.indexspa.it/IT/descrizioneprodotto.asp?idprodotto=139&nomep=yes",
+          "technicalUrl": "https://www.indexspa.it/IT/descrizioneprodotto.asp?idprodotto=139&nomep=yes",
+          "notes": [
+            "Ancienne documentation INDEX datée de mars 2022. Au contrôle du 07/11/2026, le lien de téléchargement est redirigé vers Sika Italie ; disponibilité de cette ancienne référence à confirmer avant commande."
+          ],
+          "checkedAt": "2026-11-07",
+          "availabilityStatus": "legacy-confirm",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "legacy": true
+        },
+        {
+          "id": "it-index-fugopox-color-ab",
+          "name": "FUGOPOX COLOR AB",
+          "kind": "epoxy",
+          "description": "Ancienne gamme INDEX, disponibilité à confirmer. Joint époxy à deux composants pour carrelages soumis à l’humidité et aux agressions chimiques.",
+          "coefficient": 1.6,
+          "coefficientNote": "Formule explicite de la fiche fabricant FUGOPOX COLOR AB, édition 3/2022, p. 1 : ((A+B)/(A×B))×C×D× 1,6 = kg/m², toutes les dimensions en mm. Documentation historique : le lien PDF redirige désormais vers Sika Italie. La valeur vient de la fiche INDEX historique consultée ; le lien externe ouvre désormais la page produit historique afin de ne pas ouvrir un autre produit Sika.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 20,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/it-completion/index-fugopox-color-ab.webp",
+          "imageSource": "https://www.indexspa.it/indexspacom/TECNOPLAN/images/Immagine_prodotto/689.jpg",
+          "sourceUrl": "https://www.indexspa.it/IT/descrizioneprodotto.asp?idprodotto=689&nomep=yes",
+          "technicalUrl": "https://www.indexspa.it/IT/descrizioneprodotto.asp?idprodotto=689&nomep=yes",
+          "notes": [
+            "Ancienne documentation INDEX datée de mars 2022. Au contrôle du 07/11/2026, le lien de téléchargement est redirigé vers Sika Italie ; disponibilité de cette ancienne référence à confirmer avant commande.",
+            "Kit de 3 kg : composant A 2,82 kg + B 0,18 kg."
+          ],
+          "checkedAt": "2026-11-07",
+          "availabilityStatus": "legacy-confirm",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "legacy": true,
+          "components": 2
+        },
+        {
+          "id": "it-index-fugoflex-1-8",
+          "name": "FUGOFLEX 1-8",
+          "kind": "ciment",
+          "description": "Ancienne gamme INDEX, disponibilité à confirmer. Joint ciment flexible et hydrofuge pour sols et murs.",
+          "coefficient": 1.6,
+          "coefficientNote": "Formule explicite de la fiche INDEX FUGOFLEX, édition 3/2022, p.2 :((A+B)/(A×B))×C×D× 1,6 =kg/m², toutes les dimensions en mm. La page produit historique est fournie en lien pour éviter de renvoyer vers une autre référence Sika.",
+          "jointMin": 1,
+          "jointMax": 8,
+          "packages": [
+            5
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "imagePath": "assets/img/joints/it-completion/index-fugoflex-1-8.webp",
+          "imageSource": "https://www.indexspa.it/indexspacom/TECNOPLAN/images/Immagine_prodotto/368.jpg",
+          "sourceUrl": "https://www.indexspa.it/IT/descrizioneprodotto.asp?idprodotto=368&nomep=yes",
+          "technicalUrl": "https://www.indexspa.it/IT/descrizioneprodotto.asp?idprodotto=368&nomep=yes",
+          "notes": [
+            "Ancienne documentation INDEX. La migration vers Sika Italie redirige désormais le téléchargement vers un autre produit ; disponibilité et version du produit à confirmer avant commande.",
+            "La FT de la famille couvre aussi FUGOFLEX 0-4, de 1 à 4 mm, mais son visuel exact n’a pas pu être récupéré."
+          ],
+          "legacy": true,
+          "availabilityStatus": "legacy-confirm",
+          "consumptionIncludesWaste": false,
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-index-fugocolor-maxi",
+          "name": "FUGOCOLOR MAXI",
+          "kind": "ciment",
+          "description": "Ancienne gamme INDEX, disponibilité à confirmer. Mortier ciment de jointoiement pour pavés et dallages en pierre soumis au gel et aux sels.",
+          "coefficient": 1.7,
+          "coefficientNote": "Formule de la fiche INDEX historique 2022 :((A+B)/(A×B))×C×D× 17 =kg/m² avec toutes les dimensions en cm. Coefficient équivalent 1,7 quand toutes les dimensions sont en mm. La migration du lien technique mène désormais à SikaEmaco T 322 Joint : ne pas appliquer les données de ce nouveau produit au FUGOCOLOR MAXI.",
+          "jointMin": 5,
+          "jointMax": 25,
+          "packages": [
+            25
+          ],
+          "locations": [
+            "outside"
+          ],
+          "imagePath": "assets/img/joints/it-completion/index-fugocolor-maxi.webp",
+          "imageSource": "https://www.indexspa.it/indexspacom/TECNOPLAN/images/Immagine_prodotto/589.jpg",
+          "sourceUrl": "https://www.indexspa.it/IT/descrizioneprodotto.asp?idprodotto=589&nomep=yes",
+          "technicalUrl": "https://www.indexspa.it/IT/descrizioneprodotto.asp?idprodotto=589&nomep=yes",
+          "notes": [
+            "Ancienne documentation INDEX. La migration vers Sika Italie redirige désormais le téléchargement vers un autre produit ; disponibilité et version du produit à confirmer avant commande.",
+            "Usage documenté : joints de pavés, dalles et pierres de places, trottoirs, parkings et voies circulées."
+          ],
+          "legacy": true,
+          "availabilityStatus": "legacy-confirm",
+          "consumptionIncludesWaste": false,
+          "checkedAt": "2026-11-07"
+        }
+      ],
+      "legacy": true
+    },
+    {
+      "id": "it-fassa",
+      "country": "it",
+      "name": "Fassa Bortolo",
+      "logoPath": "assets/img/ragreage/brands/fassa.svg",
+      "website": "https://www.fassabortolo.it/",
+      "products": [
+        {
+          "id": "it-fassa-medium",
+          "name": "FASSAFILL MEDIUM",
+          "kind": "ciment",
+          "description": "Joint ciment hydrofuge polyvalent pour carrelages, pierres et mosaïques.",
+          "coefficient": 1.575,
+          "coefficientNote": "Formule explicite de la fiche italienne 09/2026 : [(A+B)/(A×B)]×C×D× 1500 × 1,05 = g/m², toutes les dimensions en mm. Coefficient équivalent en kg/m² : 1,575. Le facteur fabricant 1,05 est déjà inclus.",
+          "consumptionIncludesWaste": true,
+          "jointMin": 2,
+          "jointMax": 12,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/it-completion/fassa-medium.webp",
+          "imageSource": "https://www.fassabortolo.it/wp-content/uploads/media/assets/Fassafill_MEDIUM.jpg",
+          "sourceUrl": "https://www.fassabortolo.it/product/fassafill-medium/",
+          "technicalUrl": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_IT_FASSAFILL-MEDIUM_2026-09.pdf",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "notes": [
+            "Le facteur fabricant 1,05 est déjà inclus ; toute réserve supplémentaire s’y ajoute.",
+            "En piscine, LATEX DR 843 remplace intégralement l’eau de gâchage selon la fiche fabricant."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-fassa-large",
+          "name": "FASSAFILL LARGE",
+          "kind": "ciment",
+          "description": "Joint ciment hydrofuge pour joints larges de carrelages et pierres.",
+          "coefficient": 1.575,
+          "coefficientNote": "Formule explicite de la fiche italienne 09/2026 : [(A+B)/(A×B)]×C×D× 1500 × 1,05 = g/m², toutes les dimensions en mm. Coefficient équivalent en kg/m² : 1,575. Le facteur fabricant 1,05 est déjà inclus.",
+          "consumptionIncludesWaste": true,
+          "jointMin": 5,
+          "jointMax": 20,
+          "packages": [
+            25
+          ],
+          "imagePath": "assets/img/joints/it-completion/fassa-large.webp",
+          "imageSource": "https://www.fassabortolo.it/wp-content/uploads/media/assets/Fassafill_LARGE.jpg",
+          "sourceUrl": "https://www.fassabortolo.it/product/fassafill-large/",
+          "technicalUrl": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_IT_FASSAFILL-LARGE_2026-09.pdf",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "notes": [
+            "Le facteur fabricant 1,05 est déjà inclus ; toute réserve supplémentaire s’y ajoute.",
+            "En piscine, LATEX DR 843 remplace intégralement l’eau de gâchage selon la fiche fabricant."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-fassa-rapid",
+          "name": "FASSAFILL RAPID",
+          "kind": "ciment",
+          "description": "Joint ciment hydrofuge à prise rapide pour carrelages et pierres.",
+          "coefficient": 1.575,
+          "coefficientNote": "Formule explicite de la fiche italienne 08/2025 : [(A+B)/(A×B)]×C×D× 1500 × 1,05 = g/m², toutes les dimensions en mm. Coefficient équivalent en kg/m² : 1,575. Le facteur fabricant 1,05 est déjà inclus.",
+          "consumptionIncludesWaste": true,
+          "jointMin": 2,
+          "jointMax": 20,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/it-completion/fassa-rapid.webp",
+          "imageSource": "https://www.fassabortolo.it/wp-content/uploads/media/assets/Fassafill_RAPID.jpg",
+          "sourceUrl": "https://www.fassabortolo.it/product/fassafill-rapid/",
+          "technicalUrl": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_IT_FASSAFILL-RAPID_2025-08.pdf",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "notes": [
+            "Le facteur fabricant 1,05 est déjà inclus ; toute réserve supplémentaire s’y ajoute."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-fassa-epoxy",
+          "name": "FASSAFILL EPOXY",
+          "kind": "epoxy",
+          "description": "Joint époxy décoratif bicomposant pour sols et murs, zones humides et piscines.",
+          "coefficient": 1.575,
+          "coefficientNote": "Formule explicite de la fiche italienne 10/2024 : [(A+B)/(A×B)]×C×D× 1500 × 1,05 = g/m², toutes les dimensions en mm. Coefficient équivalent en kg/m² : 1,575. Le facteur fabricant 1,05 est déjà inclus.",
+          "consumptionIncludesWaste": true,
+          "jointMin": 1,
+          "jointMax": 10,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/it-completion/fassa-epoxy.webp",
+          "imageSource": "https://www.fassabortolo.it/wp-content/uploads/media/assets/FASSAFILL_EPOXY.jpg",
+          "sourceUrl": "https://www.fassabortolo.it/product/fassafill-epoxy/",
+          "technicalUrl": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_IT_FASSAFILL-EPOXY_2024-10.pdf",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "notes": [
+            "Le facteur fabricant 1,05 est déjà inclus ; toute réserve supplémentaire s’y ajoute.",
+            "Kit de 3 kg : A 2,7 kg + B 0,3 kg."
+          ],
+          "checkedAt": "2026-11-07",
+          "components": 2
+        },
+        {
+          "id": "it-fassa-fe838",
+          "name": "FE 838",
+          "kind": "epoxy",
+          "description": "Mortier de jointoiement époxy bicomposant pour surfaces exposées aux acides, huiles et alcalis.",
+          "coefficient": 1.68,
+          "coefficientNote": "Formule explicite de la fiche italienne 09/2024 : [(A+B)/(A×B)]×C×D× 1600 × 1,05 = g/m², toutes les dimensions en mm. Coefficient équivalent en kg/m² : 1,68. Le facteur fabricant 1,05 est déjà inclus.",
+          "consumptionIncludesWaste": true,
+          "jointMin": 3,
+          "jointMax": null,
+          "packages": [
+            10
+          ],
+          "imagePath": "assets/img/joints/it-completion/fassa-fe838.webp",
+          "imageSource": "https://www.fassabortolo.it/wp-content/uploads/media/assets/FE_838.jpg",
+          "sourceUrl": "https://www.fassabortolo.it/product/fe-838/",
+          "technicalUrl": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_IT_FE-838_2024-09.pdf",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "notes": [
+            "Le facteur fabricant 1,05 est déjà inclus ; toute réserve supplémentaire s’y ajoute.",
+            "Largeur minimale déclarée :3 mm. La fiche ne donne pas de maximum ; le plus grand joint du tableau ne constitue pas une limite produit.",
+            "Kit de 10 kg : A 9,4 kg + B 0,6 kg ; le gris est réservé au marché espagnol."
+          ],
+          "checkedAt": "2026-11-07",
+          "components": 2
+        }
+      ]
+    },
+    {
+      "id": "it-litokol",
+      "country": "it",
+      "name": "Litokol",
+      "logoPath": "assets/img/ragreage/brands/litokol.svg",
+      "website": "https://www.litokol.com/it-it/",
+      "products": [
+        {
+          "id": "it-litokol-stylegrout-tech",
+          "name": "StyleGrout Tech",
+          "kind": "ciment",
+          "description": "Joint ciment flexible à prise rapide, hydrofuge et destiné aux carrelages, mosaïques et pierres.",
+          "coefficient": 1.6,
+          "coefficientNote": "La fiche italienne liée depuis la page actuelle publie directement(A+B)/(A×B)×C×D× 1,6 = kg/m², toutes les dimensions en mm. Coefficient de la formule de consommation, distinct de la seule densité du mélange.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 0,
+          "jointMax": 20,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/it-completion/litokol-stylegrout-tech.webp",
+          "imageSource": "https://www.litokol.com/media/filer_public/9b/dc/9bdcf030-2072-43fe-8f6b-445ad8442fb7/codelitokolprodottimanagementcommandsdataimmaginifoto_pack_sgt_stylegrout_tech.jpg",
+          "sourceUrl": "https://www.litokol.com/it-it/p/stylegrout-tech/",
+          "technicalUrl": "https://www.litokol.com/d/filer/canonical/1780016469/1421/",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "notes": [
+            "La plage produit ne dispense pas de respecter la largeur de joint adaptée au carrelage et aux règles de pose."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-litokol-x-color-06",
+          "name": "X-Color 06",
+          "kind": "ciment",
+          "description": "Joint minéral ciment renforcé de polymères, à finition extra fine pour carrelages et pierres.",
+          "coefficient": 1.94,
+          "coefficientNote": "La fiche italienne liée depuis la page actuelle publie directement(A+B)/(A×B)×C×D× 1,94 = kg/m², toutes les dimensions en mm. Coefficient de la formule de consommation, distinct de la seule densité du mélange.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 0,
+          "jointMax": 6,
+          "packages": [
+            3,
+            20
+          ],
+          "imagePath": "assets/img/joints/it-completion/litokol-x-color-06.webp",
+          "imageSource": "https://www.litokol.com/media/filer_public/80/00/8000df96-8d3b-4d91-aa18-eaa4321621ac/codelitokolprodottimanagementcommandsdataimmaginixcolor06.jpg",
+          "sourceUrl": "https://www.litokol.com/it-it/p/x-color-06/",
+          "technicalUrl": "https://www.litokol.com/d/filer/canonical/1780016461/1411/",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "notes": [
+            "La plage produit ne dispense pas de respecter la largeur de joint adaptée au carrelage et aux règles de pose."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-litokol-x-color-2-12",
+          "name": "X-Color 2 12",
+          "kind": "ciment",
+          "description": "Joint minéral ciment renforcé de polymères, pour carrelages et pierres, notamment en extérieur.",
+          "coefficient": 2.02,
+          "coefficientNote": "La fiche italienne liée depuis la page actuelle publie directement(A+B)/(A×B)×C×D× 2,02 = kg/m², toutes les dimensions en mm. Coefficient de la formule de consommation, distinct de la seule densité du mélange.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 12,
+          "packages": [
+            3,
+            20
+          ],
+          "imagePath": "assets/img/joints/it-completion/litokol-x-color-2-12.webp",
+          "imageSource": "https://www.litokol.com/media/filer_public/03/da/03dafadd-cf05-4e5e-969c-42e0a6e924a6/codelitokolprodottimanagementcommandsdataimmaginixcolor212.jpg",
+          "sourceUrl": "https://www.litokol.com/it-it/p/x-color-2-12/",
+          "technicalUrl": "https://www.litokol.com/d/filer/canonical/1780016462/1412/",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "notes": [
+            "La plage produit ne dispense pas de respecter la largeur de joint adaptée au carrelage et aux règles de pose."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-litokol-starlike-crystal",
+          "name": "Starlike Crystal",
+          "kind": "epoxy",
+          "description": "Joint époxy translucide pour mosaïques et carrelages, adapté aux sols, murs, zones humides et piscines.",
+          "coefficient": 1.55,
+          "coefficientNote": "La fiche italienne liée depuis la page actuelle publie directement(A+B)/(A×B)×C×D× 1,55 = kg/m², toutes les dimensions en mm. Coefficient de la formule de consommation, distinct de la seule densité du mélange.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 0,
+          "jointMax": 3,
+          "packages": [
+            2.5,
+            5
+          ],
+          "imagePath": "assets/img/joints/it-completion/litokol-starlike-crystal.webp",
+          "imageSource": "https://www.litokol.com/media/filer_public/85/63/8563e9e2-32a9-4944-bcdc-0eb424fc2868/pack_8.jpg",
+          "sourceUrl": "https://www.litokol.com/it-it/p/starlike-crystal/",
+          "technicalUrl": "https://www.litokol.com/d/filer/canonical/1780016453/1404/",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "notes": [
+            "La plage produit ne dispense pas de respecter la largeur de joint adaptée au carrelage et aux règles de pose.",
+            "Kit prédosé A+B ; les finitions décoratives ajoutées sont réservées à l’intérieur selon la FT."
+          ],
+          "checkedAt": "2026-11-07",
+          "components": 2
+        }
+      ]
+    }
+  ],
+  "productUpdates": [
+    {
+      "id": "it-fassa-small",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "locationNote": "La fiche italienne confirme sols et murs en intérieur et en extérieur."
+    },
+    {
+      "id": "it-litokol-starlike-pro",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "locationNote": "La fiche italienne confirme sols et murs en intérieur et en extérieur."
+    }
+  ],
+  "coverageNotes": [
+    "Gammes actuelles ciment et époxy vérifiées : Technokolla 5 références, Benfer 4, Fassa 6 (Small déjà présent), Litokol 5 (Starlike Pro déjà présent).",
+    "INDEX : 4 références historiques documentées sont fournies avec legacy:true. FUGOFLEX 0-4 et FUGOPOX AB identifiés dans les archives officielles mais visuels exacts indisponibles ; ne pas annoncer une exhaustivité des anciennes gammes INDEX. FUGOGLASS concerne les briques de verre et n’a pas été assimilé à un joint carrelage."
+  ]
+}

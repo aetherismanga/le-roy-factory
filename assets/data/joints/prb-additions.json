@@ -1,0 +1,663 @@
+{
+  "country": "fr",
+  "checkedAt": "2026-11-07",
+  "brands": [
+    {
+      "id": "fr-prb",
+      "country": "fr",
+      "name": "PRB",
+      "logoPath": "assets/img/ragreage/brands/prb-official-pdf.png",
+      "website": "https://www.prb.fr/fr/",
+      "products": [
+        {
+          "id": "fr-prb-joint-fin",
+          "name": "PRB JOINT FIN & FIN COULEUR",
+          "kind": "ciment",
+          "description": "Joint fin hydrofugé à finition lisse pour les carrelages et les faïences.",
+          "coefficient": 1.85,
+          "coefficientNote": "Calculateur officiel PRB consulté le 07/11/2026 : option « PRB JOINT FIN » de valeur 0,185. Le script fabricant calcule C = épaisseur (mm) × largeur du joint (mm) × (A+B)/(A×B) × 0,185, avec A et B en cm. Cela équivaut au coefficient 1,85 avec A et B en mm. Aucune majoration de pertes dans cette formule.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 5,
+          "packages": [
+            3,
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/prb-additions/prb-joint-fin.webp",
+          "imageSource": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb_joint_fin_20kg.png",
+          "sourceUrl": "https://www.prb.fr/fr/produit/prb-joint-fin",
+          "technicalUrl": "https://pim.prb.fr/Produits/4.10.1.1-1.10.40.6/ft_prb_joint_fin_-_fin_couleur_fr_30_01_2025.pdf",
+          "technicalEdition": "30/01/2025",
+          "calculatorUrl": "https://www.prb.fr/calcul-de-consommation",
+          "calculatorScriptUrl": "https://www.prb.fr/media/com_fbocustom/js/calcul-conso-joint.js",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "kgM2": 1.85,
+              "netKg": 185.0
+            },
+            {
+              "areaM2": 50,
+              "lengthCm": 10,
+              "widthCm": 20,
+              "thicknessMm": 10,
+              "jointMm": 4,
+              "kgM2": 1.11,
+              "netKg": 55.5
+            }
+          ],
+          "notes": [
+            "Le sac de 5 kg est proposé en gris et blanc ; les conditionnements et teintes dépendent de la gamme.",
+            "Les coloris vifs sont exclus en extérieur et en piscine : consulter le nuancier fabricant."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationNote": "Sols et murs intérieurs et extérieurs : domaine d’emploi de la fiche technique officielle.",
+          "locationsSourceUrl": "https://pim.prb.fr/Produits/4.10.1.1-1.10.40.6/ft_prb_joint_fin_-_fin_couleur_fr_30_01_2025.pdf",
+          "variantSourceUrls": [
+            "https://www.prb.fr/fr/produit/ls-prb-joint-fin"
+          ],
+          "aliases": [
+            "PRB JOINT FIN CARRELAGE",
+            "PRB JOINT FIN COULEUR"
+          ],
+          "usageNote": "Les coloris vifs sont exclus en extérieur et en piscine.",
+          "calculatorProductId": "274445"
+        },
+        {
+          "id": "fr-prb-joint-rectiflex",
+          "name": "PRB JOINT RECTIFLEX",
+          "kind": "ciment",
+          "description": "Joint fin flexible à prise semi rapide, adapté aux carreaux rectifiés et aux planchers chauffants.",
+          "coefficient": 2,
+          "coefficientNote": "Calculateur officiel PRB consulté le 07/11/2026 : option « PRB JOINT RECTIFLEX » de valeur 0,2. Le script fabricant calcule C = épaisseur (mm) × largeur du joint (mm) × (A+B)/(A×B) × 0,2, avec A et B en cm. Cela équivaut au coefficient 2 avec A et B en mm. Aucune majoration de pertes dans cette formule.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 8,
+          "packages": [
+            5,
+            15
+          ],
+          "imagePath": "assets/img/joints/prb-additions/prb-joint-rectiflex.webp",
+          "imageSource": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb_joint_rectiflex_15_kg.png",
+          "sourceUrl": "https://www.prb.fr/fr/produit/prb-joint-rectiflex",
+          "technicalUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.11/ft_prb_joint_rectiflex_fr_18_04_2024-1.pdf",
+          "technicalEdition": "18/04/2024",
+          "calculatorUrl": "https://www.prb.fr/calcul-de-consommation",
+          "calculatorScriptUrl": "https://www.prb.fr/media/com_fbocustom/js/calcul-conso-joint.js",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "kgM2": 2.0,
+              "netKg": 200.0
+            },
+            {
+              "areaM2": 50,
+              "lengthCm": 10,
+              "widthCm": 20,
+              "thicknessMm": 10,
+              "jointMm": 4,
+              "kgM2": 1.2,
+              "netKg": 60.0
+            }
+          ],
+          "notes": [
+            "Le format de 5 kg est commercialisé sous le nom PRB JOINT FLEX CARRELAGE."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationNote": "Sols et murs intérieurs et extérieurs : domaine d’emploi de la fiche technique officielle.",
+          "locationsSourceUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.11/ft_prb_joint_rectiflex_fr_18_04_2024-1.pdf",
+          "variantSourceUrls": [
+            "https://www.prb.fr/fr/produit/ls-prb-joint-rectiflex"
+          ],
+          "aliases": [
+            "PRB JOINT FLEX CARRELAGE"
+          ],
+          "calculatorProductId": "275204"
+        },
+        {
+          "id": "fr-prb-joint-souple",
+          "name": "PRB JOINT SOUPLE",
+          "kind": "ciment",
+          "description": "Joint souple hydrofugé pour les carrelages sur supports soumis à des contraintes.",
+          "coefficient": 1.85,
+          "coefficientNote": "Calculateur officiel PRB consulté le 07/11/2026 : option « PRB JOINT SOUPLE » de valeur 0,185. Le script fabricant calcule C = épaisseur (mm) × largeur du joint (mm) × (A+B)/(A×B) × 0,185, avec A et B en cm. Cela équivaut au coefficient 1,85 avec A et B en mm. Aucune majoration de pertes dans cette formule.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": 15,
+          "packages": [
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/prb-additions/prb-joint-souple.webp",
+          "imageSource": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb-joint-souple-20kg.png",
+          "sourceUrl": "https://www.prb.fr/fr/produit/prb-joint-souple",
+          "technicalUrl": "https://pim.prb.fr/Produits/4.10.1.3-1.10.40.30/ft_prb_joint_souple_fr_20_02_2023-1.pdf",
+          "technicalEdition": "20/02/2023",
+          "calculatorUrl": "https://www.prb.fr/calcul-de-consommation",
+          "calculatorScriptUrl": "https://www.prb.fr/media/com_fbocustom/js/calcul-conso-joint.js",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "kgM2": 1.85,
+              "netKg": 185.0
+            },
+            {
+              "areaM2": 50,
+              "lengthCm": 10,
+              "widthCm": 20,
+              "thicknessMm": 10,
+              "jointMm": 4,
+              "kgM2": 1.11,
+              "netKg": 55.5
+            }
+          ],
+          "notes": [
+            "Prévu notamment pour planchers chauffants, supports bois et systèmes phoniques selon la fiche technique."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationNote": "Sols et murs intérieurs et extérieurs : domaine d’emploi de la fiche technique officielle.",
+          "locationsSourceUrl": "https://pim.prb.fr/Produits/4.10.1.3-1.10.40.30/ft_prb_joint_souple_fr_20_02_2023-1.pdf",
+          "variantSourceUrls": [
+            "https://www.prb.fr/fr/produit/ls-prb-joint-souple"
+          ],
+          "aliases": [
+            "PRB JOINT SOUPLE CARRELAGE"
+          ],
+          "calculatorProductId": "275443"
+        },
+        {
+          "id": "fr-prb-joint-carl-premium",
+          "name": "PRB JOINT CARL PREMIUM",
+          "kind": "ciment",
+          "description": "Joint fin flexible à durcissement rapide et finition lisse pour murs intérieurs et sols.",
+          "coefficient": 1.85,
+          "coefficientNote": "Calculateur officiel PRB consulté le 07/11/2026 : option « PRB JOINT CARL PREMIUM » de valeur 0,185. Le script fabricant calcule C = épaisseur (mm) × largeur du joint (mm) × (A+B)/(A×B) × 0,185, avec A et B en cm. Cela équivaut au coefficient 1,85 avec A et B en mm. Aucune majoration de pertes dans cette formule.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 8,
+          "packages": [
+            5,
+            15
+          ],
+          "imagePath": "assets/img/joints/prb-additions/prb-joint-carl-premium.webp",
+          "imageSource": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb_joint_carl_premium_15_kg_1.png",
+          "sourceUrl": "https://www.prb.fr/fr/produit/prb-joint-carl-premium",
+          "technicalUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.18/ft_prb_joint_carl_premium_fr_28_08_2025-1.pdf",
+          "technicalEdition": "28/08/2025",
+          "calculatorUrl": "https://www.prb.fr/calcul-de-consommation",
+          "calculatorScriptUrl": "https://www.prb.fr/media/com_fbocustom/js/calcul-conso-joint.js",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "kgM2": 1.85,
+              "netKg": 185.0
+            },
+            {
+              "areaM2": 50,
+              "lengthCm": 10,
+              "widthCm": 20,
+              "thicknessMm": 10,
+              "jointMm": 4,
+              "kgM2": 1.11,
+              "netKg": 55.5
+            }
+          ],
+          "notes": [
+            "La fiche technique limite les joints à 8 mm.",
+            "Ne convient pas aux sous-couches acoustiques, planchers bois ni façades.",
+            "En extérieur, uniquement pour les sols."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationNote": "Sols et murs intérieurs ; sols extérieurs uniquement : domaine d’emploi de la fiche technique officielle.",
+          "locationsSourceUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.18/ft_prb_joint_carl_premium_fr_28_08_2025-1.pdf",
+          "variantSourceUrls": [
+            "https://www.prb.fr/fr/produit/ls-prb-joint-carl-premium"
+          ],
+          "usageNote": "En extérieur : sols uniquement.",
+          "calculatorProductId": "278150"
+        },
+        {
+          "id": "fr-prb-col-joint-epoxy",
+          "name": "PRB COL & JOINT ÉPOXY",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant pour les carrelages exposés à l’eau ou aux agressions chimiques.",
+          "coefficient": 1.6,
+          "coefficientNote": "Calculateur officiel PRB consulté le 07/11/2026 : option « PRB COL & JOINT ÉPOXY » de valeur 0,16. Le script fabricant calcule C = épaisseur (mm) × largeur du joint (mm) × (A+B)/(A×B) × 0,16, avec A et B en cm. Cela équivaut au coefficient 1,6 avec A et B en mm. Aucune majoration de pertes dans cette formule.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            2.5,
+            5
+          ],
+          "imagePath": "assets/img/joints/prb-additions/prb-col-joint-epoxy.webp",
+          "imageSource": "https://pim.prb.fr/Produits/4.9.3.1-4.15.10.23/20260320133550_prb-col-et-joint-epoxy-5-kg.png",
+          "sourceUrl": "https://www.prb.fr/fr/produit/prb-col-joint-epoxy",
+          "technicalUrl": "https://pim.prb.fr/Produits/4.9.3.1-4.15.10.23/ft_prb_col_-_joint_epoxy_fr_28_08_2025-3.pdf",
+          "technicalEdition": "28/08/2025",
+          "calculatorUrl": "https://www.prb.fr/calcul-de-consommation",
+          "calculatorScriptUrl": "https://www.prb.fr/media/com_fbocustom/js/calcul-conso-joint.js",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "kgM2": 1.6,
+              "netKg": 160.0
+            },
+            {
+              "areaM2": 50,
+              "lengthCm": 10,
+              "widthCm": 20,
+              "thicknessMm": 10,
+              "jointMm": 4,
+              "kgM2": 0.96,
+              "netKg": 48.0
+            }
+          ],
+          "notes": [
+            "Les poids indiqués correspondent au kit complet ; mélanger les deux composants.",
+            "Le kit de 5 kg est proposé uniquement en gris et ultra blanc."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationNote": "Sols et murs intérieurs et extérieurs : domaine d’emploi de la fiche technique officielle.",
+          "locationsSourceUrl": "https://pim.prb.fr/Produits/4.9.3.1-4.15.10.23/ft_prb_col_-_joint_epoxy_fr_28_08_2025-3.pdf",
+          "variantSourceUrls": [
+            "https://www.prb.fr/fr/produit/ls-prb-col-joint-epoxy"
+          ],
+          "calculatorProductId": "275218"
+        },
+        {
+          "id": "fr-prb-joint-fr",
+          "name": "PRB JOINT FR",
+          "kind": "ciment",
+          "description": "Joint hydrofugé à fortes résistances pour les sols et murs carrelés.",
+          "coefficient": 2,
+          "coefficientNote": "Calculateur officiel PRB consulté le 07/11/2026 : option « PRB JOINT FR » de valeur 0,2. Le script fabricant calcule C = épaisseur (mm) × largeur du joint (mm) × (A+B)/(A×B) × 0,2, avec A et B en cm. Cela équivaut au coefficient 2 avec A et B en mm. Aucune majoration de pertes dans cette formule.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 12,
+          "packages": [
+            20
+          ],
+          "imagePath": "assets/img/joints/prb-additions/prb-joint-fr.webp",
+          "imageSource": "https://pim.prb.fr/20250120131813_prb-joint-fr-20kg.png",
+          "sourceUrl": "https://www.prb.fr/fr/produit/prb-joint-fr",
+          "technicalUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.7/ft_prb_joint_fr_fr_20_10_2025-3.pdf",
+          "technicalEdition": "20/10/2025",
+          "calculatorUrl": "https://www.prb.fr/calcul-de-consommation",
+          "calculatorScriptUrl": "https://www.prb.fr/media/com_fbocustom/js/calcul-conso-joint.js",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "kgM2": 2.0,
+              "netKg": 200.0
+            },
+            {
+              "areaM2": 50,
+              "lengthCm": 10,
+              "widthCm": 20,
+              "thicknessMm": 10,
+              "jointMm": 4,
+              "kgM2": 1.2,
+              "netKg": 60.0
+            }
+          ],
+          "notes": [
+            "Le conditionnement annoncé dans la fiche technique actuelle est le sac de 20 kg.",
+            "Ne convient pas aux planchers bois ni aux façades."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationNote": "Sols et murs intérieurs et extérieurs : domaine d’emploi de la fiche technique officielle.",
+          "locationsSourceUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.7/ft_prb_joint_fr_fr_20_10_2025-3.pdf",
+          "calculatorProductId": "275408"
+        },
+        {
+          "id": "fr-prb-joint-hpr",
+          "name": "PRB JOINT HPR",
+          "kind": "ciment",
+          "description": "Joint souple à prise rapide pour les grands formats et les supports à contraintes.",
+          "coefficient": 1.85,
+          "coefficientNote": "Calculateur officiel PRB consulté le 07/11/2026 : option « PRB JOINT HPR » de valeur 0,185. Le script fabricant calcule C = épaisseur (mm) × largeur du joint (mm) × (A+B)/(A×B) × 0,185, avec A et B en cm. Cela équivaut au coefficient 1,85 avec A et B en mm. Aucune majoration de pertes dans cette formule.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": 15,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/prb-additions/prb-joint-hpr.webp",
+          "imageSource": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.10/20250513155708_prb-joint-hpr-25-kg.png",
+          "sourceUrl": "https://www.prb.fr/fr/produit/prb-joint-hpr",
+          "technicalUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.10/ft_prb_joint_hpr_fr_28_08_2025-1.pdf",
+          "technicalEdition": "28/08/2025",
+          "calculatorUrl": "https://www.prb.fr/calcul-de-consommation",
+          "calculatorScriptUrl": "https://www.prb.fr/media/com_fbocustom/js/calcul-conso-joint.js",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "kgM2": 1.85,
+              "netKg": 185.0
+            },
+            {
+              "areaM2": 50,
+              "lengthCm": 10,
+              "widthCm": 20,
+              "thicknessMm": 10,
+              "jointMm": 4,
+              "kgM2": 1.11,
+              "netKg": 55.5
+            }
+          ],
+          "notes": [
+            "Ne convient pas aux carreaux de faïence ; utiliser un joint non abrasif adapté."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationNote": "Sols et murs intérieurs et extérieurs : domaine d’emploi de la fiche technique officielle.",
+          "locationsSourceUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.10/ft_prb_joint_hpr_fr_28_08_2025-1.pdf",
+          "variantSourceUrls": [
+            "https://www.prb.fr/fr/produit/ls-prb-joint-hpr"
+          ],
+          "calculatorProductId": "275426"
+        },
+        {
+          "id": "fr-prb-joint-opus",
+          "name": "PRB JOINT OPUS",
+          "kind": "ciment",
+          "description": "Joint large hydrofugé pour les dallages en pierre, dalles et pavés.",
+          "coefficient": 1.85,
+          "coefficientNote": "Calculateur officiel PRB consulté le 07/11/2026 : option « PRB JOINT OPUS » de valeur 0,185. Le script fabricant calcule C = épaisseur (mm) × largeur du joint (mm) × (A+B)/(A×B) × 0,185, avec A et B en cm. Cela équivaut au coefficient 1,85 avec A et B en mm. Aucune majoration de pertes dans cette formule.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 6,
+          "jointMax": 50,
+          "packages": [
+            25
+          ],
+          "imagePath": "assets/img/joints/prb-additions/prb-joint-opus.webp",
+          "imageSource": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb-joint-opus-25kg.png",
+          "sourceUrl": "https://www.prb.fr/fr/produit/prb-joint-opus",
+          "technicalUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.25/ft_prb_joint_opus_fr_30_01_2025.pdf",
+          "technicalEdition": "30/01/2025",
+          "calculatorUrl": "https://www.prb.fr/calcul-de-consommation",
+          "calculatorScriptUrl": "https://www.prb.fr/media/com_fbocustom/js/calcul-conso-joint.js",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 10,
+              "kgM2": 3.7,
+              "netKg": 370.0
+            },
+            {
+              "areaM2": 50,
+              "lengthCm": 10,
+              "widthCm": 20,
+              "thicknessMm": 10,
+              "jointMm": 8,
+              "kgM2": 2.22,
+              "netKg": 111.0
+            }
+          ],
+          "notes": [
+            "Largeur courante de 6 à 50 mm ; la fiche autorise 100 mm ponctuellement."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationNote": "Sols et murs intérieurs et extérieurs : domaine d’emploi de la fiche technique officielle.",
+          "locationsSourceUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.25/ft_prb_joint_opus_fr_30_01_2025.pdf",
+          "calculatorProductId": "275372"
+        },
+        {
+          "id": "fr-prb-joint-xt",
+          "name": "PRB JOINT XT",
+          "kind": "ciment",
+          "description": "Joint large hydrofugé à double gâchage pour les murs et sols carrelés.",
+          "coefficient": 1.85,
+          "coefficientNote": "Calculateur officiel PRB consulté le 07/11/2026 : option « PRB JOINT XT » de valeur 0,185. Le script fabricant calcule C = épaisseur (mm) × largeur du joint (mm) × (A+B)/(A×B) × 0,185, avec A et B en cm. Cela équivaut au coefficient 1,85 avec A et B en mm. Aucune majoration de pertes dans cette formule.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": 15,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/prb-additions/prb-joint-xt.webp",
+          "imageSource": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb_joint_xt_25_kg_1_1.png",
+          "sourceUrl": "https://www.prb.fr/fr/produit/prb-joint-xt",
+          "technicalUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.9/ft_prb_joint_xt_fr_20_01_2025-1.pdf",
+          "technicalEdition": "20/01/2025",
+          "calculatorUrl": "https://www.prb.fr/calcul-de-consommation",
+          "calculatorScriptUrl": "https://www.prb.fr/media/com_fbocustom/js/calcul-conso-joint.js",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "kgM2": 1.85,
+              "netKg": 185.0
+            },
+            {
+              "areaM2": 50,
+              "lengthCm": 10,
+              "widthCm": 20,
+              "thicknessMm": 10,
+              "jointMm": 4,
+              "kgM2": 1.11,
+              "netKg": 55.5
+            }
+          ],
+          "notes": [
+            "La variante de 5 kg est commercialisée sous le nom PRB JOINT LARGE CARRELAGE.",
+            "Le sac de 25 kg est proposé en 15 coloris et celui de 5 kg en 4 coloris.",
+            "Ne convient pas aux panneaux bois ni aux carreaux de faïence."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationNote": "Sols et murs intérieurs et extérieurs : domaine d’emploi de la fiche technique officielle.",
+          "aliases": [
+            "PRB JOINT LARGE CARRELAGE"
+          ],
+          "availabilityNote": "Référence au catalogue officiel PRB, fiche technique du 20/01/2025 et documentation commerciale 2026.",
+          "locationsSourceUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.40.9/ft_prb_joint_xt_fr_20_01_2025-1.pdf",
+          "variantSourceUrls": [
+            "https://www.prb.fr/fr/produit/ls-prb-joint-xt"
+          ],
+          "calculatorProductId": "275461"
+        },
+        {
+          "id": "fr-prb-top-joint",
+          "name": "PRB TOP JOINT",
+          "kind": "ciment",
+          "description": "Joint coloré pour les dalles et pavés en béton, terre cuite ou pierre naturelle.",
+          "coefficient": 1.85,
+          "coefficientNote": "Calculateur officiel PRB consulté le 07/11/2026 : option « PRB TOP JOINT » de valeur 0,185. Le script fabricant calcule C = épaisseur (mm) × largeur du joint (mm) × (A+B)/(A×B) × 0,185, avec A et B en cm. Cela équivaut au coefficient 1,85 avec A et B en mm. Aucune majoration de pertes dans cette formule.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 5,
+          "jointMax": 20,
+          "packages": [
+            25
+          ],
+          "imagePath": "assets/img/joints/prb-additions/prb-top-joint.webp",
+          "imageSource": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/prb-top-joint-25-kg.png",
+          "sourceUrl": "https://www.prb.fr/fr/produit/prb-top-joint",
+          "technicalUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.50.15/ft_prb_top_joint_fr_13_10_2022.pdf",
+          "technicalEdition": "13/10/2022",
+          "calculatorUrl": "https://www.prb.fr/calcul-de-consommation",
+          "calculatorScriptUrl": "https://www.prb.fr/media/com_fbocustom/js/calcul-conso-joint.js",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "kgM2": 1.85,
+              "netKg": 185
+            },
+            {
+              "areaM2": 50,
+              "lengthCm": 10,
+              "widthCm": 20,
+              "thicknessMm": 10,
+              "jointMm": 8,
+              "kgM2": 2.22,
+              "netKg": 111
+            }
+          ],
+          "notes": [
+            "Réservé aux sols : dallages, pavés, allées et aménagements paysagers."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "locationNote": "Sols intérieurs et extérieurs : domaine d’emploi de la fiche technique officielle.",
+          "locationsSourceUrl": "https://pim.prb.fr/Produits/4.10.1.2-1.10.50.15/ft_prb_top_joint_fr_13_10_2022.pdf",
+          "usageNote": "Sols uniquement, en intérieur comme en extérieur.",
+          "availabilityNote": "Référence au catalogue officiel PRB, fiche technique du 13/10/2022 toujours publiée et documentation commerciale 2026.",
+          "calculatorProductId": "274402"
+        },
+        {
+          "id": "fr-prb-colle-joint-2-en-1",
+          "name": "PRB COLLE ET JOINT 2 EN 1",
+          "kind": "dispersion",
+          "description": "Colle et joint en pâte prêt à l’emploi pour les murs intérieurs et plans de travail.",
+          "coefficient": 1.4,
+          "coefficientNote": "Calculateur officiel PRB consulté le 07/11/2026 : option « PRB COLLE ET JOINT 2 en 1 » de valeur 0,14. Le script fabricant calcule C = épaisseur (mm) × largeur du joint (mm) × (A+B)/(A×B) × 0,14, avec A et B en cm. Cela équivaut au coefficient 1,4 avec A et B en mm. Aucune majoration de pertes dans cette formule.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 3,
+          "packages": [
+            0.3,
+            1.5
+          ],
+          "imagePath": "assets/img/joints/prb-additions/prb-colle-joint-2-en-1.webp",
+          "imageSource": "https://pim.prb.fr/PRB/Images%20de%20mise%20en%20oeuvre/lmc3_colle_et_joint_2_en_1_1.5_kg.png",
+          "sourceUrl": "https://www.prb.fr/fr/produit/colle-et-joint-2-en-1",
+          "technicalUrl": "https://pim.prb.fr/Produits/8.5.45.50-1.40.50.90/ft_prb_colle_et_joint_2_en_1_fr_25_07_2025-1.pdf",
+          "technicalEdition": "25/07/2025",
+          "calculatorUrl": "https://www.prb.fr/calcul-de-consommation",
+          "calculatorScriptUrl": "https://www.prb.fr/media/com_fbocustom/js/calcul-conso-joint.js",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 2,
+              "kgM2": 0.56,
+              "netKg": 56
+            },
+            {
+              "areaM2": 50,
+              "lengthCm": 10,
+              "widthCm": 20,
+              "thicknessMm": 10,
+              "jointMm": 2,
+              "kgM2": 0.42,
+              "netKg": 21
+            }
+          ],
+          "notes": [
+            "Pâte de résine en dispersion, classe D2 : prêt à l’emploi.",
+            "Réservé à l’habitat privatif ; ne convient pas aux sols, murs extérieurs ni surfaces immergées.",
+            "Ne convient pas aux douches multijets ni aux parois EB+ collectifs et EC.",
+            "Conditionnements de la fiche actuelle : tube de 300 g et seau de 1,5 kg."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside"
+          ],
+          "locationNote": "Murs intérieurs et plans de travail : domaine d’emploi de la fiche technique officielle. Le mur extérieur et les surfaces immergées sont interdits.",
+          "locationsSourceUrl": "https://pim.prb.fr/Produits/8.5.45.50-1.40.50.90/ft_prb_colle_et_joint_2_en_1_fr_25_07_2025-1.pdf",
+          "usageNote": "Murs intérieurs et plans de travail uniquement.",
+          "availabilityNote": "Référence au catalogue officiel PRB avec fiche technique du 25/07/2025.",
+          "calculatorProductId": "275451"
+        }
+      ],
+      "catalogueSourceUrls": [
+        "https://www.prb.fr/fr/categories/colle-sol/finitions/mortiers-de-jointoiement",
+        "https://www.prb.fr/fr/categories/colle-sol/finitions/joints-resine",
+        "https://www.prb.fr/fr/categories/colle-sol/pose-du-carrelage/mortiers-colles-et-joints-base-epoxy",
+        "https://www.prb.fr/fr/categories/libre-service/carrelage/jointoiement-du-carrelage"
+      ]
+    }
+  ]
+}

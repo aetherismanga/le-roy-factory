@@ -294,21 +294,29 @@
       "agencyPresentWithReviglass": true
     },
     "joints": {
-      "releaseId": "20261107-joints-fabricants1",
+      "releaseId": "20261107-joints-complet2",
       "page": "configurateur-joints.html",
       "countries": [
         "fr",
         "es",
         "it"
       ],
-      "marketCatalogues": 11,
-      "references": 18,
-      "officialProductPhotos": 18,
+      "marketCatalogues": 27,
+      "references": 181,
+      "officialProductPhotos": 173,
       "favoriteOnDevice": true,
       "separateReserve": true,
       "manufacturerPackaging": true,
       "manualConsumptionSupported": true,
-      "checkedAt": "2026-11-07"
+      "checkedAt": "2026-11-07",
+      "modes": [
+        "quick",
+        "precise"
+      ],
+      "usageFiltering": true,
+      "cementAndEpoxyRanges": true,
+      "technicalDocumentOnEveryCard": true,
+      "productPhotos": 180
     }
   },
   "configurators": {

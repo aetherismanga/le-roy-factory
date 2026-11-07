@@ -2,13 +2,28 @@ import {readFileSync,writeFileSync,existsSync}from'node:fs';
 import {resolve,dirname}from'node:path';
 import {fileURLToPath}from'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
-const brands=['main.json','fr-extra.json','es-it-extra.json'].flatMap(file=>JSON.parse(readFileSync(resolve(root,'assets/data/joints',file),'utf8')).brands);
+const sources=['main.json','fr-extra.json','es-it-extra.json','prb-additions.json','fr-completion.json','mapei-completion.json','es-completion.json','it-completion.json','fr-range-completion.json'];
+const byId=new Map();
+const updates=[];
+for(const file of sources){const data=JSON.parse(readFileSync(resolve(root,'assets/data/joints',file),'utf8'));updates.push(...(data.productUpdates||[]));for(const incoming of data.brands){
+  const existing=byId.get(incoming.id);
+  if(existing){
+    if(existing.country!==incoming.country||existing.name!==incoming.name)throw Error(`Conflicting manufacturer ${incoming.id}`);
+    for(const [key,value]of Object.entries(incoming))if(!['id','name','country','products'].includes(key))existing[key]=value;
+    existing.products.push(...incoming.products);
+  }else byId.set(incoming.id,{...incoming,products:[...incoming.products]});
+}}
+const brands=[...byId.values()];
+for(const update of updates){const target=brands.flatMap(b=>b.products).find(p=>p.id===update.id);if(!target)throw Error(`Unknown product update ${update.id}`);Object.assign(target,update);}
 const ids=new Set();
 for(const b of brands){
   if(ids.has(b.id)||!['fr','it','es'].includes(b.country)||!b.products.length)throw Error(`Invalid brand ${b.id}`);ids.add(b.id);
-  if(!existsSync(resolve(root,b.logoPath)))throw Error(`Missing logo ${b.logoPath}`);
+  if(typeof b.logoPath!=='string'||!existsSync(resolve(root,b.logoPath)))throw Error(`Missing logo ${b.logoPath}`);
+  if(b.logoTone&&!['light-on-dark'].includes(b.logoTone))throw Error(`Invalid logo contrast ${b.id}`);
+  for(const item of Object.values(b.missingFamilies||{}))if(!item.note||!/^https:\/\//.test(item.sourceUrl||''))throw Error(`Unsourced missing family ${b.id}`);
   for(const p of b.products){
-    if(ids.has(p.id)||!p.id.startsWith(b.country+'-')||!p.name||!p.coefficientNote||!(p.coefficient===null||p.coefficient>0)||!['ciment','epoxy'].includes(p.kind)||p.jointMin<0||!(p.jointMax>p.jointMin)||!p.packages?.length||p.packages.some(v=>!Number.isFinite(v)||v<=0))throw Error(`Invalid product ${p.id}`);
+    if(ids.has(p.id)||!p.id.startsWith(b.country+'-')||!p.name||!p.coefficientNote||!(p.coefficient===null||(Number.isFinite(p.coefficient)&&p.coefficient>0))||!['ciment','epoxy','acrylique','dispersion'].includes(p.kind)||!(p.jointMin===null||(Number.isFinite(p.jointMin)&&p.jointMin>=0))||!(p.jointMax===null||(Number.isFinite(p.jointMax)&&p.jointMax>(p.jointMin??0)))||!p.packages?.length||p.packages.some(v=>!Number.isFinite(v)||v<=0))throw Error(`Invalid product ${p.id}`);
+    if(!Array.isArray(p.locations)||p.locations.some(v=>!['inside','outside'].includes(v)))throw Error(`Missing applicability ${p.id}`);
     ids.add(p.id);
     for(const key of ['sourceUrl','technicalUrl','imageSource'])if(!/^https:\/\//.test(p[key]||''))throw Error(`Missing ${key} ${p.id}`);
     if(!p.imagePath?.startsWith('assets/img/joints/')||!existsSync(resolve(root,p.imagePath)))throw Error(`Missing image ${p.id}`);

@@ -31,7 +31,9 @@
           ],
           "checkedAt": "2026-11-07"
         }
-      ]
+      ],
+      "logoTone": "light-on-dark",
+      "logoSource": "https://www.grupopuma.com/es-ES/empresa"
     },
     {
       "id": "es-weber",

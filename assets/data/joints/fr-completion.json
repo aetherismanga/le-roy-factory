@@ -1,0 +1,1109 @@
+{
+  "country": "fr",
+  "checkedAt": "2026-11-07",
+  "brands": [
+    {
+      "id": "fr-parexlanko",
+      "name": "Parexlanko",
+      "country": "fr",
+      "logoPath": "assets/img/ragreage/brands/parexlanko.svg",
+      "website": "https://www.parexlanko.com/",
+      "products": [
+        {
+          "id": "fr-parexlanko-5056",
+          "name": "5056 PROLIJOINT DESIGN",
+          "kind": "ciment",
+          "description": "Joint décoratif à finition fine pour les murs et sols, adapté aux supports déformables.",
+          "coefficient": 1.81,
+          "coefficientNote": "Fiche technique fabricant de juin 2025, page 2 : consommation = 0,181 × h × e × (L+l)/(L×l), avec L et l en cm et h et e en mm. Cela correspond à 1,81 pour des dimensions toutes exprimées en mm.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 2,
+          "jointMax": 6,
+          "packages": [
+            2.5,
+            5,
+            10
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex5056.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5C5056%20PROLIJOINT%20DESIGN%20BLANC%2010KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/5056-prolijoint-design-10kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5C5056%20PROLIJOINT%20DESIGN_FT.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/5056-prolijoint-design-10kg",
+          "notes": [
+            "Ne convient pas aux piscines, saunas, hammams ni spas.",
+            "Disponibilité des teintes à confirmer selon le conditionnement."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2025",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-5040",
+          "name": "5040 PROLIJOINT PERFECT",
+          "kind": "ciment",
+          "description": "Joint à gros grain pour les sols intérieurs et extérieurs, avec finition à l’éponge ou par poudrage.",
+          "coefficient": 2.05,
+          "coefficientNote": "Fiche technique fabricant de juin 2025, page 2 : consommation = 0,205 × h × e × (L+l)/(L×l), avec L et l en cm et h et e en mm. Cela correspond à 2,05 pour des dimensions toutes exprimées en mm.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 3,
+          "jointMax": 15,
+          "packages": [
+            25
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex5040.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5C5040%20PROLIJOINT%20PERFECT%2025KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/5040-prolijoint-perfect-25kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5C5040%20PROLIJOINT%20PERFECT_FT.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/5040-prolijoint-perfect-25kg",
+          "notes": [
+            "Ne convient pas aux piscines, saunas, hammams ni spas."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2025",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-541",
+          "name": "541 PROLIJOINT FIN",
+          "kind": "ciment",
+          "description": "Joint à grain fin pour les carreaux de sols et murs.",
+          "coefficient": 1.9,
+          "coefficientNote": "Fiche technique fabricant 06/2025, formule de consommation : 0.19 × h × e × (L+l)/(L×l), avec L et l en cm et h et e en mm. Le coefficient pour toutes les dimensions en mm est 1.9.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 2,
+          "jointMax": 12,
+          "packages": [
+            2.5,
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-541-prolijoint-fin-blanc-5kg.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5C541%20PROLIJOINT%20FIN%20BLANC%205KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/541-prolijoint-fin-blanc-5kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5C541%20PROLIJOINT%20FIN_FT.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/541-prolijoint-fin-blanc-5kg",
+          "notes": [
+            "La fiche actuelle prévoit 2 à 12 mm, même si certains textes commerciaux affichent encore l’ancienne plage.",
+            "Le coloris anthracite est exclu en extérieur et en milieu humide.",
+            "Ne convient pas aux piscines, saunas, hammams ni spas."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2025",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-5045",
+          "name": "5045 PROLIJOINT SOUPLE",
+          "kind": "ciment",
+          "description": "Joint souple pour les supports déformables, planchers chauffants, balcons et terrasses.",
+          "coefficient": 1.9,
+          "coefficientNote": "Fiche technique fabricant 06/2025, formule de consommation : 0.19 × h × e × (L+l)/(L×l), avec L et l en cm et h et e en mm. Le coefficient pour toutes les dimensions en mm est 1.9.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 2,
+          "jointMax": 12,
+          "packages": [
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-5045-prolijoint-souple-blanc-5kg.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5C5045%20PROLIJOINT%20SOUPLE%20BLANC%205KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/5045-prolijoint-souple-blanc-5kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5C5045%20PROLIJOINT%20SOUPLE_FT.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/5045-prolijoint-souple-blanc-5kg",
+          "notes": [
+            "Ne convient pas aux piscines, saunas, hammams ni spas."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2025",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-547",
+          "name": "547 PROLIJOINT RUSTIC",
+          "kind": "ciment",
+          "description": "Joint à gros grain pour les dallages, pierres naturelles et joints de grande largeur.",
+          "coefficient": 1.96,
+          "coefficientNote": "Fiche technique fabricant 12/2025, formule de consommation : 0.196 × h × e × (L+l)/(L×l), avec L et l en cm et h et e en mm. Le coefficient pour toutes les dimensions en mm est 1.96.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 6,
+          "jointMax": 50,
+          "packages": [
+            25
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-547-prolijoint-rustic-25kg.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5C547%20PROLIJOINT%20RUSTIC%2025KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/547-prolijoint-rustic-25kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5C547%20PROLIJOINT%20RUSTIC_FT.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/547-prolijoint-rustic-25kg",
+          "notes": [
+            "Admis sur les plages de piscine ; exclu dans les bassins, saunas, hammams et spas."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "12/2025",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-550",
+          "name": "550 PROLIJOINT RESIST GRIS",
+          "kind": "ciment",
+          "description": "Mortier bicomposant à liant hydraulique et silicate, résistant aux nettoyages et agressions chimiques.",
+          "coefficient": 2.1,
+          "coefficientNote": "Fiche technique fabricant 04/2021 — fiche actuellement liée au catalogue, formule de consommation : 0.21 × h × e × (L+l)/(L×l), avec L et l en cm et h et e en mm. Le coefficient pour toutes les dimensions en mm est 2.1.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 2,
+          "jointMax": 20,
+          "packages": [
+            12
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-550-prolijoint-resist-gris-12kg.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5C550%20PROLIJOINT%20RESIST%20GRIS%2012KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/550-prolijoint-resist-gris-12kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5C550%20PROLIJOINT%20RESIST%20GRIS_FT.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/550-prolijoint-resist-gris-12kg",
+          "notes": [
+            "Produit cimentaire CG2 : le fait qu’il comporte deux composants ne le classe pas comme époxy.",
+            "Kit de 12 kg comprenant deux sachets de poudre de 5 kg et deux bidons de liquide de 1 litre."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "04/2021 — fiche actuellement liée au catalogue",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-551",
+          "name": "551 PROLIJOINT RESIST BLANC",
+          "kind": "ciment",
+          "description": "Mortier bicomposant blanc à liant hydraulique et silicate pour joints fins résistants.",
+          "coefficient": 1.9,
+          "coefficientNote": "Fiche technique fabricant 10/2020 — fiche actuellement liée au catalogue, formule de consommation : 0.19 × h × e × (L+l)/(L×l), avec L et l en cm et h et e en mm. Le coefficient pour toutes les dimensions en mm est 1.9.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 1,
+          "jointMax": 6,
+          "packages": [
+            13
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-551-prolijoint-resist-blanc-13kg.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5C551%20PROLIJOINT%20RESIST%20BLANC%2013KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/551-prolijoint-resist-blanc-13kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5C551%20PROLIJOINT%20RESIST%20BLANC_FT.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/551-prolijoint-resist-blanc-13kg",
+          "notes": [
+            "Produit cimentaire CG2 : le fait qu’il comporte deux composants ne le classe pas comme époxy.",
+            "Kit de 13 kg comprenant deux sachets de poudre de 5 kg et deux bidons de liquide de 1,5 litre."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "10/2020 — fiche actuellement liée au catalogue",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-553",
+          "name": "553 PROLIJOINT HR",
+          "kind": "ciment",
+          "description": "Mortier de jointoiement mono-composant pour les locaux exposés aux sollicitations mécaniques.",
+          "coefficient": 2.1,
+          "coefficientNote": "Fiche technique fabricant 11/2023 — fiche actuellement liée au catalogue, formule de consommation : 0.21 × h × e × (L+l)/(L×l), avec L et l en cm et h et e en mm. Le coefficient pour toutes les dimensions en mm est 2.1.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            15
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-553-prolijoint-hr-gris-ciment-15kg.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5C553%20PROLIJOINT%20HR%20GRIS%2015KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/553-prolijoint-hr-gris-ciment-15kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5C553%20PROLIJOINT%20HR_FT.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/553-prolijoint-hr-gris-ciment-15kg",
+          "notes": [
+            "Respecter les limites de produits chimiques et de nettoyage indiquées dans la fiche technique."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "11/2023 — fiche actuellement liée au catalogue",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-560",
+          "name": "560 PERFECT COLOR DESIGN",
+          "kind": "epoxy",
+          "description": "Mortier époxy de collage et de jointoiement pour les sols, murs, piscines et locaux exposés aux produits chimiques.",
+          "coefficient": 1.8,
+          "coefficientNote": "Fiche technique fabricant 05/2025, formule de consommation : 0.18 × h × e × (L+l)/(L×l), avec L et l en cm et h et e en mm. Le coefficient pour toutes les dimensions en mm est 1.8.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 1,
+          "jointMax": 20,
+          "packages": [
+            2,
+            5
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-560.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5CSTICKER%20560%20PERFECT%20COLOR%20DESIGN%202KG%20BLANC_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/560-perfect-color-design-2kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5C560%20PERFECT%20COLOR%20DESIGN_FT.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/560-perfect-color-design-2kg",
+          "notes": [
+            "Conditionnements en kits complets de deux composants ; respecter leurs proportions."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "05/2025",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-colle-joint-epoxy",
+          "name": "COLLE ET JOINT ÉPOXY",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant pour les pièces humides, douches, salles de bains et plans de travail.",
+          "coefficient": 1.55,
+          "coefficientNote": "Fiche fabricant 06/2025 : tableau de consommation à 10 mm de profondeur. Les carreaux de 10×10 cm avec joint de 5 mm donnent 1,55 kg/m² ; les carreaux de 50×50 cm avec joint de 5 mm donnent 0,31 kg/m². Ces deux valeurs vérifient un coefficient de 1,55 dans la formule géométrique en mm ; les autres lignes sont arrondies.",
+          "coefficientMethod": "official-table",
+          "jointMin": 1,
+          "jointMax": 15,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-colle-et-joint-epoxy-3kg-blanc.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5CCOLLE%20ET%20JOINT%20EPOXY%20BLANC%203KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/colle-et-joint-epoxy-3kg-blanc",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5CCOLLE%20ET%20JOINT%20EPOXY_FT.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/colle-et-joint-epoxy-3kg-blanc",
+          "notes": [
+            "L’usage extérieur n’est pas confirmé dans la fiche liée ; cette référence est présentée pour les pièces humides."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2025",
+          "locations": [
+            "inside"
+          ],
+          "calculatorExamples": [
+            {
+              "lengthMm": 100,
+              "widthMm": 100,
+              "depthMm": 10,
+              "jointMm": 5,
+              "kgM2": 1.55,
+              "areaM2": 1,
+              "lengthCm": 10.0,
+              "widthCm": 10.0,
+              "thicknessMm": 10,
+              "netKg": 1.55
+            },
+            {
+              "lengthMm": 500,
+              "widthMm": 500,
+              "depthMm": 10,
+              "jointMm": 5,
+              "kgM2": 0.31,
+              "areaM2": 1,
+              "lengthCm": 50.0,
+              "widthCm": 50.0,
+              "thicknessMm": 10,
+              "netKg": 0.31
+            }
+          ]
+        },
+        {
+          "id": "fr-parexlanko-joint-souple-tous-supports",
+          "name": "JOINT SOUPLE TOUS SUPPORTS",
+          "kind": "ciment",
+          "description": "Joint souple pour les murs et sols, compatible avec les planchers chauffants.",
+          "coefficient": null,
+          "coefficientNote": "La fiche fabricant fournit des consommations tabulées, avec largeur et profondeur fixées, sans coefficient explicite. Pour éviter de transformer des valeurs arrondies en fausse précision, saisir la consommation du fabricant applicable au chantier.",
+          "coefficientMethod": "manufacturer-consumption-required",
+          "jointMin": 2,
+          "jointMax": 12,
+          "packages": [
+            1,
+            2.5,
+            5,
+            10,
+            20
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-joint-souple-tous-supports-blanc-2-5kg.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5CJOINT%20SOUPLE%20TOUS%20SUPPORTS%20BLANC%202%2C5KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/joint-souple-tous-supports-blanc-2-5kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5CJOINT%20SOUPLE%20TOUS%20SUPPORTS_FT_GP_010823.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/joint-souple-tous-supports-blanc-2-5kg",
+          "notes": [
+            "Le coloris charbon ne doit pas être utilisé en extérieur ni dans les salles de bains."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "02/2025",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-joint-fin-mur-sol",
+          "name": "JOINT FIN MUR ET SOL",
+          "kind": "ciment",
+          "description": "Joint fin pour les murs et sols intérieurs.",
+          "coefficient": null,
+          "coefficientNote": "La fiche fabricant fournit des consommations tabulées, avec largeur et profondeur fixées, sans coefficient explicite. Pour éviter de transformer des valeurs arrondies en fausse précision, saisir la consommation du fabricant applicable au chantier.",
+          "coefficientMethod": "manufacturer-consumption-required",
+          "jointMin": 1,
+          "jointMax": 6,
+          "packages": [
+            2.5,
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-joint-fin-mur-et-sol-blanc-2-5kg.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5CJOINT%20FIN%20MUR%20ET%20SOL%20BLANC%202_5KG_3D.JPG",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/joint-fin-mur-et-sol-blanc-2-5kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5CJOINT%20FIN%20MUR%20ET%20SOL_FT.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/joint-fin-mur-et-sol-blanc-2-5kg",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "07/2023 — fiche actuellement liée au catalogue",
+          "locations": [
+            "inside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-joint-sol",
+          "name": "JOINT SOL",
+          "kind": "ciment",
+          "description": "Mortier de jointoiement pour les sols intérieurs et extérieurs.",
+          "coefficient": 1.8,
+          "coefficientNote": "Fiche fabricant 06/2026 : tableau pour joint de 5 mm de largeur et 10 mm de profondeur. Les carreaux de 20×20 cm donnent 0,9 kg/m² et ceux de 30×30 cm donnent 0,6 kg/m² ; les deux vérifient le coefficient 1,8 dans la formule géométrique en mm.",
+          "coefficientMethod": "official-table",
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-joint-sol-gris-25kg.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5CJOINT%20SOL%2025KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/joint-sol-gris-25kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%20GRAND%20PUBLIC%5CJOINT%20SOL_FTGP.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/joint-sol-gris-25kg",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2026",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "calculatorExamples": [
+            {
+              "lengthMm": 200,
+              "widthMm": 200,
+              "depthMm": 10,
+              "jointMm": 5,
+              "kgM2": 0.9,
+              "areaM2": 1,
+              "lengthCm": 20.0,
+              "widthCm": 20.0,
+              "thicknessMm": 10,
+              "netKg": 0.9
+            },
+            {
+              "lengthMm": 300,
+              "widthMm": 300,
+              "depthMm": 10,
+              "jointMm": 5,
+              "kgM2": 0.6,
+              "areaM2": 1,
+              "lengthCm": 30.0,
+              "widthCm": 30.0,
+              "thicknessMm": 10,
+              "netKg": 0.6
+            }
+          ]
+        },
+        {
+          "id": "fr-parexlanko-joint-special-terrasse",
+          "name": "JOINT SPÉCIAL TERRASSE",
+          "kind": "ciment",
+          "description": "Joint hydrofugé à grain épais pour les dallages, opus et pierres naturelles en terrasse.",
+          "coefficient": null,
+          "coefficientNote": "La fiche fabricant fournit des consommations tabulées, avec largeur et profondeur fixées, sans coefficient explicite. Pour éviter de transformer des valeurs arrondies en fausse précision, saisir la consommation du fabricant applicable au chantier.",
+          "coefficientMethod": "manufacturer-consumption-required",
+          "jointMin": 6,
+          "jointMax": 50,
+          "packages": [
+            25
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-joint-special-terrasse-beige-25kg.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5CJOINT%20SPECIAL%20TERRASSE%20BEIGE%2025KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/joint-special-terrasse-beige-25kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%20GRAND%20PUBLIC%5CJOINT%20SPECIAL%20TERRASSE_FTGP.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/joint-special-terrasse-beige-25kg",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "09/2024 — fiche actuellement liée au catalogue",
+          "locations": [
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-colle-joint",
+          "name": "COLLE ET JOINT",
+          "kind": "ciment",
+          "description": "Mortier cimentaire pour le collage et le jointoiement, notamment des mosaïques et pâtes de verre.",
+          "coefficient": null,
+          "coefficientNote": "La fiche fabricant fournit des consommations tabulées, avec largeur et profondeur fixées, sans coefficient explicite. Pour éviter de transformer des valeurs arrondies en fausse précision, saisir la consommation du fabricant applicable au chantier.",
+          "coefficientMethod": "manufacturer-consumption-required",
+          "jointMin": 1,
+          "jointMax": 8,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-colle-et-joint-blanc-5kg.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5CCOLLE%20ET%20JOINT_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/colle-et-joint-blanc-5kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%20GRAND%20PUBLIC%5CCOLLE%20ET%20JOINT_FTGP.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/colle-et-joint-blanc-5kg",
+          "notes": [
+            "En extérieur, usage au sol uniquement.",
+            "La quantité calculée pour les joints ne comprend pas la colle nécessaire à la pose."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "01/2026",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-joint-traditionnel-parement",
+          "name": "JOINT TRADITIONNEL POUR PLAQUETTES DE PAREMENT",
+          "kind": "ciment",
+          "description": "Mortier en poudre pour les joints de plaquettes, briquettes et pierres de parement sur les murs.",
+          "coefficient": null,
+          "coefficientNote": "Fiche fabricant 07/2023, actuellement liée au catalogue : consommations tabulées pour les plaquettes 220×60×15 mm et 300×150×15 mm. Le tableau présente une unité kg/m³ incohérente avec son usage par surface ; aucun coefficient n’est déduit automatiquement. Utiliser la consommation confirmée par le fabricant.",
+          "coefficientMethod": "manufacturer-consumption-required",
+          "jointMin": null,
+          "jointMax": 30,
+          "packages": [
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-traditionnel.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5CETUI%20JOINT%20TRADITIONNEL%20POUR%20PLAQUETTES%20DE%20PAREMENT%20PIERRE%205KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/joint-traditionnel-plaquettes-parement-pierre-5kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%5CJOINT%20TRADITIONNEL%20POUR%20PLAQUETTES%20DE%20PAREMENT_FT_GP_240723.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/joint-traditionnel-plaquettes-parement-pierre-5kg",
+          "notes": [
+            "Pour les murs intérieurs et extérieurs ; usage au sol non prévu dans cette fiche.",
+            "Le fabricant ne fixe pas de largeur minimale dans cette fiche."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "07/2023 — fiche actuellement liée au catalogue",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-parexlanko-joint-en-pate",
+          "name": "JOINT EN PÂTE",
+          "kind": "dispersion",
+          "description": "Joint prêt à l’emploi pour les murs intérieurs et plans de travail en cuisine et salle de bains.",
+          "coefficient": null,
+          "coefficientNote": "Fiche fabricant 05/2019 actuellement liée au catalogue : tableau pour 3 mm de largeur et 6 mm de profondeur, sans coefficient explicite. Saisir la consommation de la fiche applicable au chantier ; les valeurs arrondies ne sont pas extrapolées automatiquement.",
+          "coefficientMethod": "manufacturer-consumption-required",
+          "jointMin": 1,
+          "jointMax": 6,
+          "packages": [
+            1.5,
+            5
+          ],
+          "imagePath": "assets/img/joints/fr-completion/parex-pate.webp",
+          "imageSource": "https://parexlanko-media.nextpage.fr/Large/MED%20-%20MARKETING%5CVISUELS%203D%5CJOINT%20EN%20PATE%201.5KG_3D.jpg",
+          "sourceUrl": "https://www.parexlanko.com/produits/sheet/joint-en-pate-blanc-1-5kg",
+          "technicalUrl": "https://parexlanko-media.nextpage.fr/MED%20-%20FICHES%20TECHNIQUES%5CFICHES%20TECHNIQUES%20GRAND%20PUBLIC%5CJOINT%20EN%20PATE_FTGP.pdf",
+          "calculatorUrl": "https://www.parexlanko.com/produits/sheet/joint-en-pate-blanc-1-5kg",
+          "notes": [
+            "Usage aux murs intérieurs et plans de travail uniquement ; ne pas utiliser au sol.",
+            "Ne remplace pas le joint souple entre les sanitaires et les murs.",
+            "Le regroupement prêt à l’emploi reprend la pâte mono-composant ; la fiche ne détaille pas la famille chimique du liant."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "05/2019 — fiche actuellement liée au catalogue",
+          "locations": [
+            "inside"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fr-cegecol",
+      "name": "Cégécol",
+      "country": "fr",
+      "logoPath": "assets/img/ragreage/brands/cegecol.png",
+      "website": "https://www.cegecol.com/fr/",
+      "products": [
+        {
+          "id": "fr-cegecol-carrojoint-premium",
+          "name": "CARROJOINT PREMIUM",
+          "kind": "ciment",
+          "description": "Joint souple à prise rapide et finition lisse pour les murs, sols et façades.",
+          "coefficient": 1.9,
+          "coefficientNote": "Fiche technique fabricant 2025, page 2 : consommation = (L+l) × e × p × d / (L×l) / 10, avec L et l en cm, e et p en mm et d = 1,9. Le tableau pour une épaisseur de 6 mm et un joint de 2 mm confirme la formule.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 1,
+          "jointMax": 10,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/fr-completion/cegepremium.webp",
+          "imageSource": "https://media-pms2.schoenox.net/cegecol/products/cegecolcarrojointpremium.jpg",
+          "sourceUrl": "https://www.cegecol.com/fr/mise-en-oeuvre-du-carrelage/?p=5779&pc=58",
+          "technicalUrl": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcarrojointpremium_fr_fr_tds.pdf",
+          "calculatorUrl": "https://www.cegecol.com/fr/mise-en-oeuvre-du-carrelage/?p=5779&pc=58",
+          "notes": [
+            "Largeur limitée à 1–5 mm sur les pierres naturelles.",
+            "Pour les piscines ou les agressions chimiques, choisir une référence prévue pour cet usage."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "2025",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-cegecol-carrojoint-xl",
+          "name": "CARROJOINT XL",
+          "kind": "ciment",
+          "description": "Joint hydrofugé pour les surfaces carrelées soumises à contraintes, dont les planchers chauffants.",
+          "coefficient": 1.67,
+          "coefficientNote": "Fiche technique fabricant 2026, page 2 : consommation = (L+l) × e × p × 1,67 / (L×l) / 10, avec L et l en cm et e et p en mm. Le coefficient de calcul est 1,67, distinct de la densité du mélange gâché annoncée page 1.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 2,
+          "jointMax": 20,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/fr-completion/cegexl.webp",
+          "imageSource": "https://media-pms2.schoenox.net/cegecol/products/cegecolcarrojointxl.jpg",
+          "sourceUrl": "https://www.cegecol.com/fr/mise-en-oeuvre-du-carrelage/?p=5488&pc=58",
+          "technicalUrl": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcarrojointxl_fr_fr_tds.pdf",
+          "calculatorUrl": "https://www.cegecol.com/fr/mise-en-oeuvre-du-carrelage/?p=5488&pc=58",
+          "notes": [
+            "Pour la faïence, le fabricant recommande CARROJOINT XS2 ou PREMIUM.",
+            "Pour les piscines ou les agressions chimiques, choisir une référence prévue pour cet usage.",
+            "Certaines teintes ne sont disponibles qu’en sac de 5 kg."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "2026",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-cegecol-carrojoint-xr",
+          "name": "CARROJOINT XR",
+          "kind": "ciment",
+          "description": "Joint à résistance renforcée pour les sols, murs, façades et piscines.",
+          "coefficient": 1.88,
+          "coefficientNote": "Fiche technique fabricant 2025, page 2 : consommation = (L+l) × e × p × 1,88 / (L×l) / 10, avec L et l en cm et e et p en mm. Le coefficient pour toutes les dimensions en mm est 1,88.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/fr-completion/cegexr.webp",
+          "imageSource": "https://media-pms2.schoenox.net/cegecol/products/cegecolcarrojointxr.jpg",
+          "sourceUrl": "https://www.cegecol.com/fr/mise-en-oeuvre-du-carrelage/?p=2514&pc=58",
+          "technicalUrl": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcarrojointxr_fr_fr_tds.pdf",
+          "calculatorUrl": "https://www.cegecol.com/fr/mise-en-oeuvre-du-carrelage/?p=2514&pc=58",
+          "notes": [
+            "Pour les agressions chimiques fortes, le fabricant préconise EPOFIX CJ3."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "2025",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-cegecol-carrojoint-xs2",
+          "name": "CARROJOINT XS2",
+          "kind": "ciment",
+          "description": "Joint souple hydrofugé pour les sols, murs et façades, dont les planchers chauffants.",
+          "coefficient": 1.9,
+          "coefficientNote": "Fiche technique fabricant 2025, page 2 : consommation = (L+l) × e × p × 1,9 / (L×l) / 10, avec L et l en cm et e et p en mm. Le coefficient pour toutes les dimensions en mm est 1,9.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 2,
+          "jointMax": 12,
+          "packages": [
+            20
+          ],
+          "imagePath": "assets/img/joints/fr-completion/cegexs2.webp",
+          "imageSource": "https://media-pms2.schoenox.net/cegecol/products/cegecolcarrojointxs2.jpg",
+          "sourceUrl": "https://www.cegecol.com/fr/mise-en-oeuvre-du-carrelage/?p=5931&pc=58",
+          "technicalUrl": "https://media-pms2.schoenox.net/cegecol/docs/cegecolcarrojointxs2_fr_fr_tds.pdf",
+          "calculatorUrl": "https://www.cegecol.com/fr/mise-en-oeuvre-du-carrelage/?p=5931&pc=58",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "2025",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-cegecol-epofix-cj3",
+          "name": "EPOFIX CJ3",
+          "kind": "epoxy",
+          "description": "Mortier époxy pour le collage et le jointoiement soumis à des sollicitations mécaniques et chimiques.",
+          "coefficient": 1.63,
+          "coefficientNote": "Fiche technique fabricant 2023, page 2 : consommation = (L+l) × e × p × 1,63 / (L×l) / 10, avec L et l en cm et e et p en mm. Le coefficient pour toutes les dimensions en mm est 1,63.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 2,
+          "jointMax": 12,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/fr-completion/cegeepofix.webp",
+          "imageSource": "https://media-pms2.schoenox.net/cegecol/products/cegecolepofixcj3.jpg",
+          "sourceUrl": "https://www.cegecol.com/fr/mise-en-oeuvre-du-carrelage/?p=5780&pc=58",
+          "technicalUrl": "https://media-pms2.schoenox.net/cegecol/docs/cegecolepofixcj3_fr_fr_tds.pdf",
+          "calculatorUrl": "https://www.cegecol.com/fr/mise-en-oeuvre-du-carrelage/?p=5780&pc=58",
+          "notes": [
+            "Kit de 5 kg : composant A de 3,75 kg et composant B de 1,25 kg.",
+            "Pour les carreaux épais, respecter la largeur minimale de 5 mm prévue dans la fiche technique."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "2023",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fr-litokol",
+      "name": "Litokol",
+      "country": "fr",
+      "logoPath": "assets/img/ragreage/brands/litokol.svg",
+      "website": "https://www.litokol.com/fr-fr/",
+      "products": [
+        {
+          "id": "fr-litokol-starlike-pro",
+          "name": "Starlike Pro",
+          "kind": "epoxy",
+          "description": "Joint époxy décoratif pour carreaux, mosaïques et pierres naturelles, en intérieur et extérieur.",
+          "coefficient": 1.55,
+          "coefficientNote": "Fiche technique française n°332, révision 3 de septembre 2026, pages 6–7 : consommation = (A+B)/(A×B) × C × D × 1,55 en kg/m², avec A, B, C et D en mm.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 1,
+          "jointMax": 20,
+          "packages": [
+            2.5,
+            5
+          ],
+          "imagePath": "assets/img/joints/fr-completion/litokol-starlike-pro.webp",
+          "imageSource": "https://www.litokol.com/media/filer_public/31/51/31510dd3-3899-411b-adac-978bcfa808e9/codelitokolprodottimanagementcommandsdataimmaginistarlikepro.jpg",
+          "sourceUrl": "https://www.litokol.com/fr-fr/p/starlike-pro/",
+          "technicalUrl": "https://www.litokol.com/media/filer_public/da/41/da41390a-b078-4eaa-9dc2-b65627e11b72/ds_starlike_pro_fr.pdf",
+          "calculatorUrl": "https://www.litokol.com/fr-fr/p/starlike-pro/",
+          "notes": [
+            "Les kits comprennent les composants A et B ; respecter leur dosage."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "09/2026 — révision 3",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-litokol-starlike-crystal",
+          "name": "Starlike Crystal",
+          "kind": "epoxy",
+          "description": "Joint époxy translucide pour les carreaux et mosaïques, en intérieur et extérieur.",
+          "coefficient": 1.55,
+          "coefficientNote": "Fiche technique française fabricant 11/2026 — révision 3 : consommation = (A+B)/(A×B) × C × D × 1,55 en kg/m², avec longueur, largeur, épaisseur et largeur du joint en mm.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 0,
+          "jointMax": 3,
+          "packages": [
+            2.5,
+            5
+          ],
+          "imagePath": "assets/img/joints/fr-completion/litokol-starlike-crystal.webp",
+          "imageSource": "https://www.litokol.com/media/filer_public/85/63/8563e9e2-32a9-4944-bcdc-0eb424fc2868/pack_8.jpg",
+          "sourceUrl": "https://www.litokol.com/fr-fr/p/starlike-crystal/",
+          "technicalUrl": "https://www.litokol.com/media/filer_public/c4/ca/c4ca409b-4047-4c84-822e-5aa8314da801/ds_starlike_crystal_fr.pdf",
+          "calculatorUrl": "https://www.litokol.com/fr-fr/p/starlike-crystal/",
+          "notes": [
+            "Les finitions décoratives ajoutées Starlike Finishes sont réservées à l’intérieur.",
+            "La fiche prévoit une plage de 0 à 3 mm ; respecter les règles de conception des joints applicables au chantier."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "11/2026 — révision 3",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-litokol-x-color-06",
+          "name": "X-Color 06",
+          "kind": "ciment",
+          "description": "Mortier de jointoiement à liants hydrauliques et polymères pour les sols et murs.",
+          "coefficient": 1.94,
+          "coefficientNote": "Fiche technique française fabricant 09/2026 — révision 1 : consommation = (A+B)/(A×B) × C × D × 1,94 en kg/m², avec longueur, largeur, épaisseur et largeur du joint en mm.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 0,
+          "jointMax": 6,
+          "packages": [
+            3,
+            20
+          ],
+          "imagePath": "assets/img/joints/fr-completion/litokol-x-color-06.webp",
+          "imageSource": "https://www.litokol.com/media/filer_public/80/00/8000df96-8d3b-4d91-aa18-eaa4321621ac/codelitokolprodottimanagementcommandsdataimmaginixcolor06.jpg",
+          "sourceUrl": "https://www.litokol.com/fr-fr/p/x-color-06/",
+          "technicalUrl": "https://www.litokol.com/media/filer_public/d6/e6/d6e643d9-06e1-41cc-b756-e24a5886d0f0/ds_x_color_06_fr.pdf",
+          "calculatorUrl": "https://www.litokol.com/fr-fr/p/x-color-06/",
+          "notes": [
+            "La fiche prévoit une plage de 0 à 6 mm ; respecter les règles de conception des joints applicables au chantier."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "09/2026 — révision 1",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-litokol-x-color-2-12",
+          "name": "X-Color 2 12",
+          "kind": "ciment",
+          "description": "Mortier de jointoiement renforcé de polymères pour les carreaux et pierres naturelles.",
+          "coefficient": 2.02,
+          "coefficientNote": "Fiche technique française fabricant 06/2026 — révision 1 : consommation = (A+B)/(A×B) × C × D × 2,02 en kg/m², avec longueur, largeur, épaisseur et largeur du joint en mm.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 2,
+          "jointMax": 12,
+          "packages": [
+            3,
+            20
+          ],
+          "imagePath": "assets/img/joints/fr-completion/litokol-x-color-2-12.webp",
+          "imageSource": "https://www.litokol.com/media/filer_public/03/da/03dafadd-cf05-4e5e-969c-42e0a6e924a6/codelitokolprodottimanagementcommandsdataimmaginixcolor212.jpg",
+          "sourceUrl": "https://www.litokol.com/fr-fr/p/x-color-2-12/",
+          "technicalUrl": "https://www.litokol.com/media/filer_public/56/38/56383be6-6d98-441d-83c4-7d72c1a6f392/ds_x_color_2_12_fr.pdf",
+          "calculatorUrl": "https://www.litokol.com/fr-fr/p/x-color-2-12/",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2026 — révision 1",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-litokol-stylegrout-tech",
+          "name": "StyleGrout Tech",
+          "kind": "ciment",
+          "description": "Mortier de jointoiement cimentaire flexible pour carreaux, mosaïques et pierres naturelles.",
+          "coefficient": 1.6,
+          "coefficientNote": "Fiche technique française fabricant 03/2024 — révision 1 : consommation = (A+B)/(A×B) × C × D × 1,6 en kg/m², avec longueur, largeur, épaisseur et largeur du joint en mm.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 0,
+          "jointMax": 20,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/fr-completion/litokol-stylegrout-tech.webp",
+          "imageSource": "https://www.litokol.com/media/filer_public/9b/dc/9bdcf030-2072-43fe-8f6b-445ad8442fb7/codelitokolprodottimanagementcommandsdataimmaginifoto_pack_sgt_stylegrout_tech.jpg",
+          "sourceUrl": "https://www.litokol.com/fr-fr/p/stylegrout-tech/",
+          "technicalUrl": "https://www.litokol.com/media/filer_public/e4/29/e4293abb-8723-4c00-8e00-b234000ce9cd/ds_stylegrout_tech_fr.pdf",
+          "calculatorUrl": "https://www.litokol.com/fr-fr/p/stylegrout-tech/",
+          "notes": [
+            "La fiche prévoit une plage de 0 à 20 mm ; respecter les règles de conception des joints applicables au chantier."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "03/2024 — révision 1",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fr-vpi",
+      "name": "VPI",
+      "country": "fr",
+      "logoPath": "assets/img/ragreage/brands/vpi.jpg",
+      "website": "https://www.vpi.vicat.fr/",
+      "products": [
+        {
+          "id": "fr-vpi-v610",
+          "name": "JOINT FIN CLASSIC V610",
+          "kind": "ciment",
+          "description": "Joint fin pour les sols et murs intérieurs.",
+          "coefficient": 1.5,
+          "coefficientNote": "Fiche fabricant 06/2026, page 1 : (A+B) × E × J × 0.15 / (A×B), avec A et B en cm, E et J en mm, soit 1.5 pour toutes les dimensions en mm.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 1,
+          "jointMax": 7,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/fr-completion/vpi610.webp",
+          "imageSource": "https://medias.groupe-samse.fr/Photo/600x600/Photo_1244803.jpg",
+          "sourceUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-classiques/JOINT-FIN-CLASSIC-V610",
+          "technicalUrl": "https://www.vpi.vicat.fr/content/download/48394/448865/version/9/file/FT%2BJOINT%2BFIN%2BCLASSIC%2BV610_06.2026.pdf",
+          "calculatorUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-classiques/JOINT-FIN-CLASSIC-V610",
+          "notes": [
+            "Usage intérieur uniquement.",
+            "Photo réelle du revendeur SAMSE : le site fabricant était en maintenance lors de la vérification."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2026",
+          "locations": [
+            "inside"
+          ]
+        },
+        {
+          "id": "fr-vpi-v625",
+          "name": "JOINT LARGE CLASSIC V625",
+          "kind": "ciment",
+          "description": "Mortier de jointoiement pour les sols et murs intérieurs et extérieurs.",
+          "coefficient": 1.5,
+          "coefficientNote": "Fiche fabricant 06/2026, page 1 : (A+B) × E × J × 0.15 / (A×B), avec A et B en cm, E et J en mm, soit 1.5 pour toutes les dimensions en mm.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 3,
+          "jointMax": 15,
+          "packages": [
+            25
+          ],
+          "imagePath": "assets/img/joints/fr-completion/vpi625.webp",
+          "imageSource": "https://medias.groupe-samse.fr/Photo/600x600/Photo_1422646.jpg",
+          "sourceUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-classiques/JOINT-LARGE-CLASSIC-V625",
+          "technicalUrl": "https://www.vpi.vicat.fr/content/download/107821/1005152/version/18/file/FT%2BJOINT%2BLARGE%2BCLASSIC%2BV625_06.2026.pdf",
+          "calculatorUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-classiques/JOINT-LARGE-CLASSIC-V625",
+          "notes": [
+            "Photo réelle du revendeur SAMSE : le site fabricant était en maintenance lors de la vérification."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2026",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-vpi-v630",
+          "name": "CÉRAJOINT RUSTIQUE V630",
+          "kind": "ciment",
+          "description": "Joint rustique pour les dallages et pierres naturelles aux sols intérieurs et extérieurs.",
+          "coefficient": null,
+          "coefficientNote": "La fiche produit officielle confirme l’usage, les largeurs et les conditionnements. La fiche technique de juin 2026 est inaccessible pendant la maintenance ; la consommation doit être saisie à partir de la fiche fabricant applicable au chantier. Aucun coefficient d’une édition antérieure n’est appliqué automatiquement.",
+          "coefficientMethod": "manufacturer-consumption-required",
+          "jointMin": 10,
+          "jointMax": 50,
+          "packages": [
+            25
+          ],
+          "imagePath": "assets/img/joints/fr-completion/vpi630.webp",
+          "imageSource": "https://medias.groupe-samse.fr/Photo/600x600/Photo_962666.jpg",
+          "sourceUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-classiques/CERAJOINT-RUSTIQUE-V630",
+          "technicalUrl": "https://www.vpi.vicat.fr/content/download/45022/417572/version/13/file/FT%2BCERAJOINT%2BRUSTIQUE%2BV630_06.2026.pdf",
+          "calculatorUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-classiques/CERAJOINT-RUSTIQUE-V630",
+          "notes": [
+            "Photo réelle du revendeur SAMSE : le site fabricant était en maintenance lors de la vérification."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2026 — lien fabricant, PDF indisponible",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-vpi-v645",
+          "name": "JOINT SOUPLE UNIVERSEL V645",
+          "kind": "ciment",
+          "description": "Mortier de jointoiement souple pour les supports soumis à déformation.",
+          "coefficient": null,
+          "coefficientNote": "La fiche produit officielle confirme l’usage, les largeurs et les conditionnements. La fiche technique de juin 2026 est inaccessible pendant la maintenance ; la consommation doit être saisie à partir de la fiche fabricant applicable au chantier. Aucun coefficient d’une édition antérieure n’est appliqué automatiquement.",
+          "coefficientMethod": "manufacturer-consumption-required",
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/fr-completion/vpi645.webp",
+          "imageSource": "https://medias.groupe-samse.fr/Photo/600x600/Photo_1357516.jpg",
+          "sourceUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-techniques/JOINT-SOUPLE-UNIVERSEL-V645",
+          "technicalUrl": "https://www.vpi.vicat.fr/content/download/105404/976771/version/17/file/FT%2BJOINT%2BSOUPLE%2BUNIVERSEL%2BV645_06.2026.pdf",
+          "calculatorUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-techniques/JOINT-SOUPLE-UNIVERSEL-V645",
+          "notes": [
+            "Photo réelle du revendeur SAMSE : le site fabricant était en maintenance lors de la vérification."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2026 — lien fabricant, PDF indisponible",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-vpi-v650",
+          "name": "JOINT FIN PREMIUM V650",
+          "kind": "ciment",
+          "description": "Joint fin souple pour les carreaux en intérieur, en extérieur et en piscine privée.",
+          "coefficient": null,
+          "coefficientNote": "La fiche produit officielle confirme l’usage, les largeurs et les conditionnements. La fiche technique de juin 2026 est inaccessible pendant la maintenance ; la consommation doit être saisie à partir de la fiche fabricant applicable au chantier. Aucun coefficient d’une édition antérieure n’est appliqué automatiquement.",
+          "coefficientMethod": "manufacturer-consumption-required",
+          "jointMin": 1,
+          "jointMax": 10,
+          "packages": [
+            1,
+            5,
+            10
+          ],
+          "imagePath": "assets/img/joints/fr-completion/vpi650.webp",
+          "imageSource": "https://medias.groupe-samse.fr/Photo/600x600/Photo_1431129.jpg",
+          "sourceUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-techniques/JOINT-FIN-PREMIUM-V650",
+          "technicalUrl": "https://www.vpi.vicat.fr/content/download/48395/448869/version/10/file/FT%2BJOINT%2BFIN%2BPREMIUM%2BV650_06.2026.pdf",
+          "calculatorUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-techniques/JOINT-FIN-PREMIUM-V650",
+          "notes": [
+            "Photo réelle du revendeur SAMSE : le site fabricant était en maintenance lors de la vérification."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2026 — lien fabricant, PDF indisponible",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-vpi-v660",
+          "name": "CÉRAJOINT HP V660",
+          "kind": "ciment",
+          "description": "Mortier de jointoiement adapté aux sollicitations mécaniques et chimiques modérées.",
+          "coefficient": 1.8,
+          "coefficientNote": "Fiche fabricant 06/2026, page 1 : (A+B) × E × J × 0.18 / (A×B), avec A et B en cm, E et J en mm, soit 1.8 pour toutes les dimensions en mm.",
+          "coefficientMethod": "official-formula",
+          "jointMin": 2,
+          "jointMax": 10,
+          "packages": [
+            10
+          ],
+          "imagePath": "assets/img/joints/fr-completion/vpi660.webp",
+          "imageSource": "https://medias.groupe-samse.fr/Photo/600x600/Photo_1244898.jpg",
+          "sourceUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-techniques/CERAJOINT-HP-V660",
+          "technicalUrl": "https://www.vpi.vicat.fr/content/download/45024/417580/version/13/file/FT%2BCERAJOINT%2BHP%2BV660_06.2026.pdf",
+          "calculatorUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-techniques/CERAJOINT-HP-V660",
+          "notes": [
+            "En extérieur, usage au sol uniquement.",
+            "La photo du revendeur montre une ancienne présentation de 5 kg ; la fiche actuelle prévoit un conditionnement de 10 kg.",
+            "Photo réelle du revendeur SAMSE : le site fabricant était en maintenance lors de la vérification."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "06/2026",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "fr-vpi-v670",
+          "name": "PLATINIUM V670",
+          "kind": "epoxy",
+          "description": "Mortier époxy de collage et de jointoiement, notamment pour la mosaïque et la piscine.",
+          "coefficient": null,
+          "coefficientNote": "La fiche produit officielle confirme l’usage, les largeurs et les conditionnements. La fiche technique de juin 2026 est inaccessible pendant la maintenance ; la consommation doit être saisie à partir de la fiche fabricant applicable au chantier. Aucun coefficient d’une édition antérieure n’est appliqué automatiquement.",
+          "coefficientMethod": "manufacturer-consumption-required",
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            2.5,
+            5
+          ],
+          "imagePath": "assets/img/joints/fr-completion/vpi670.webp",
+          "imageSource": "https://medias.groupe-samse.fr/Photo/600x600/Photo_1126953.jpg",
+          "sourceUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-techniques/PLATINIUM-V670",
+          "technicalUrl": "https://www.vpi.vicat.fr/content/download/53052/488494/version/13/file/FT%2BPLATINIUM%2BV670_09.2025.pdf",
+          "calculatorUrl": "https://www.vpi.vicat.fr/Le-catalogue/Sol-carrelage/Fiches-produits/Mortiers-joints-techniques/PLATINIUM-V670",
+          "notes": [
+            "Kit complet A+B ; ne pas modifier les proportions du fabricant.",
+            "Photo réelle du revendeur SAMSE : le site fabricant était en maintenance lors de la vérification."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "09/2025 — édition accessible",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        }
+      ]
+    }
+  ]
+}

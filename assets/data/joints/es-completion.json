@@ -1,0 +1,1348 @@
+{
+  "brands": [
+    {
+      "id": "es-propam-molins",
+      "country": "es",
+      "name": "Propamsa / Molins",
+      "logoPath": "assets/img/ragreage/brands/propam-molins.svg",
+      "website": "https://www.molins.es/construction-solutions/",
+      "products": [
+        {
+          "id": "es-molins-borada-universal",
+          "name": "BORADA® UNIVERSAL",
+          "kind": "ciment",
+          "description": "Joint ciment hydrofugé pour sols et murs en intérieur et extérieur.",
+          "coefficient": null,
+          "coefficientNote": "La fiche espagnole actuelle renvoie à un tableau de rendement sans reproduire de formule exploitable. Saisir la consommation en g/m² confirmée par Molins pour le format, la profondeur et la largeur de joint du chantier.",
+          "jointMin": 1,
+          "jointMax": 15,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/es-completion/propam-borada-universal.webp",
+          "imageSource": "https://cdn-mol-web-pro-fccrfzgbedcxa3fn.a02.azurefd.net/construction-solutions/wp-content/uploads/sites/6/importedmedia/PR395BI1348_0312_BORADA(r)_UNIVERSAL_IMD.jpg",
+          "sourceUrl": "https://www.molins.es/construction-solutions/products/colocacion-ceramica/colocacion-ceramica-juntas/morteros-de-junta-base-cemento/borada-universal/",
+          "technicalUrl": "https://print.saleslayer.com/WkxIU3VFYS81eTg9/products/0312/es",
+          "notes": [
+            "Sachet unitaire de 5 kg en carton de 4 ; sac de 25 kg disponible dans une sélection de couleurs.",
+            "Pour moins de 1 mm, le fabricant oriente vers BORADA PORCELÁNICA ; pour des joints étanches ou antiacides, vers BORADA EPOLUXE.",
+            "La fiche impose de respecter les prescriptions de pose applicables de la norme UNE 138002.",
+            "Fiche technique espagnole actualisée le 03/11/2026, téléchargée le 07/11/2026."
+          ],
+          "checkedAt": "2026-11-07",
+          "coefficientMethod": "manual-manufacturer-consumption",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-molins-borada-chroma",
+          "name": "BORADA® CHROMA",
+          "kind": "ciment",
+          "description": "Joint ciment à prise rapide pour carrelages et pierres, sols et murs.",
+          "coefficient": null,
+          "coefficientNote": "La fiche nationale ne publie pas de formule de consommation vérifiable. Saisir la consommation en g/m² confirmée par le service technique du fabricant pour les dimensions exactes du chantier.",
+          "jointMin": null,
+          "jointMax": 8,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/es-completion/molins-chroma.webp",
+          "imageSource": "https://cdn-mol-web-pro-fccrfzgbedcxa3fn.a02.azurefd.net/construction-solutions/wp-content/uploads/sites/6/importedmedia/PR649BI1343_0316_BORADA(r)_CHROMA_IMD.jpg",
+          "sourceUrl": "https://www.molins.es/construction-solutions/products/colocacion-ceramica/colocacion-ceramica-juntas/morteros-de-junta-base-cemento/borada-chroma/",
+          "technicalUrl": "https://print.saleslayer.com/WkxIU3VFYS81eTg9/products/0316/es",
+          "notes": [
+            "Carton de 4 sachets de 3 kg.",
+            "La fiche actuelle donne uniquement une largeur maximale de 8 mm."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols et murs intérieurs et extérieurs ; largeur minimale à confirmer dans les règles de pose."
+        },
+        {
+          "id": "es-molins-borada-porcelanica",
+          "name": "BORADA® PORCELÁNICA",
+          "kind": "ciment",
+          "description": "Joint ciment fin pour carrelages peu absorbants, sols et murs.",
+          "coefficient": null,
+          "coefficientNote": "La fiche nationale ne publie pas de formule de consommation vérifiable. Saisir la consommation en g/m² confirmée par le service technique du fabricant pour les dimensions exactes du chantier.",
+          "jointMin": null,
+          "jointMax": 4,
+          "packages": [
+            4.5,
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/es-completion/molins-porcelanica.webp",
+          "imageSource": "https://cdn-mol-web-pro-fccrfzgbedcxa3fn.a02.azurefd.net/construction-solutions/wp-content/uploads/sites/6/importedmedia/PR394BI1771_0311_BORADA(r)_PORCELANICA_IMD.jpg",
+          "sourceUrl": "https://www.molins.es/construction-solutions/products/colocacion-ceramica/colocacion-ceramica-juntas/morteros-de-junta-base-cemento/borada-porcelanica/",
+          "technicalUrl": "https://print.saleslayer.com/WkxIU3VFYS81eTg9/products/0311/es",
+          "notes": [
+            "4,5 et 20 kg pour Blanco Polar ; sachets de 5 kg pour les autres couleurs selon la fiche actuelle.",
+            "La fiche actuelle donne uniquement une largeur maximale de 4 mm."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-molins-borada-epoluxe",
+          "name": "BORADA® EPOLUXE",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant antiacide pour carrelages, mosaïques et piscines.",
+          "coefficient": null,
+          "coefficientNote": "La fiche nationale ne publie pas de formule de consommation vérifiable. Saisir la consommation en g/m² confirmée par le service technique du fabricant pour les dimensions exactes du chantier.",
+          "jointMin": null,
+          "jointMax": 20,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/es-completion/molins-epoluxe.webp",
+          "imageSource": "https://cdn-mol-web-pro-fccrfzgbedcxa3fn.a02.azurefd.net/construction-solutions/wp-content/uploads/sites/6/importedmedia/PR398BI1344_0321_BORADA(r)_EPOLUXE_IMD.jpg",
+          "sourceUrl": "https://www.molins.es/construction-solutions/products/colocacion-ceramica/colocacion-ceramica-juntas/morteros-de-junta-base-epoxi/borada-epoluxe/",
+          "technicalUrl": "https://print.saleslayer.com/WkxIU3VFYS81eTg9/products/0321/es",
+          "notes": [
+            "Kit bicomposant de 3 kg.",
+            "La fiche actuelle donne uniquement une largeur maximale de 20 mm."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols et murs sur supports fixes non déformables ; essai préalable sur pierres et surfaces poreuses."
+        }
+      ]
+    },
+    {
+      "id": "es-gecol",
+      "country": "es",
+      "name": "GECOL",
+      "logoPath": "assets/img/ragreage/brands/gecol.png",
+      "website": "https://www.gecol.com/es/",
+      "products": [
+        {
+          "id": "es-gecol-junta-premium",
+          "name": "G#color Junta Premium",
+          "kind": "ciment",
+          "description": "Joint minéral gel à prise rapide et faible absorption d’eau pour carrelages et pierres.",
+          "coefficient": 1.6,
+          "coefficientNote": "La formule illustrée de la fiche technique nationale actuelle, page 5, prescrit ((A+B)/(A×B))×C×D×1,6 en mm. Le calculateur web GECOL utilise toutefois 1,5 ; cette divergence officielle est signalée et la fiche technique est retenue.",
+          "jointMin": null,
+          "jointMax": 8,
+          "packages": [
+            3,
+            15
+          ],
+          "imagePath": "assets/img/joints/es-completion/gecol-premium.webp",
+          "imageSource": "https://www.gecol.com/files/resize/outside/500-500-webimage-bodegon-juntaspremium-2025-copia_046bb2ad57b0ca157f55d4f0e29d75b9.png",
+          "sourceUrl": "https://www.gecol.com/es/product/g-color-junta-premium",
+          "technicalUrl": "https://my.assets-library.com/asset/131c2e81-1b8f-441c-8541-719f7b80b427/TDS-G-COLOR-JUNTA-PREMIUM.pdf",
+          "notes": [
+            "La fiche indique jusqu’à 8 mm sans minimum produit explicite ; vérifier la largeur minimale selon les prescriptions de pose.",
+            "Sachets unitaires de 3 kg (carton de 5) et sacs de 15 kg ; disponibilité des couleurs selon le format.",
+            "La fiche actuelle exige une profondeur libre uniforme au moins égale aux deux tiers de l’épaisseur du revêtement.",
+            "Divergence officielle : la formule de la fiche nationale actuelle impose 1,6 ; le calculateur web applique 1,5."
+          ],
+          "checkedAt": "2026-11-07",
+          "coefficientMethod": "national-technical-formula",
+          "calculatorUrl": "https://www.gecol.com/es/calculadora-de-juntas",
+          "calculatorScriptUrl": "https://www.gecol.com/assets/sopremav4/javascripts/app.js?asset_version=1792611982",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "technicalFormulaExamples": [
+            {
+              "areaM2": 80,
+              "lengthCm": 80,
+              "widthCm": 80,
+              "thicknessMm": 9,
+              "jointMm": 2,
+              "netKg": 5.76
+            },
+            {
+              "areaM2": 50,
+              "lengthCm": 60,
+              "widthCm": 120,
+              "thicknessMm": 9,
+              "jointMm": 0.5,
+              "netKg": 0.9
+            }
+          ]
+        },
+        {
+          "id": "es-gecol-junta-f-plus",
+          "name": "G#color Junta F PLUS",
+          "kind": "ciment",
+          "description": "Joint ciment fin flexible et hydrofugé, adapté aux pièces humides.",
+          "coefficient": 1.6,
+          "coefficientNote": "La formule illustrée de la fiche technique nationale, page 5, impose ((A+B)/(A×B))×C×D×1,6 en mm. Le calculateur web GECOL utilise toutefois 1,5 pour F PLUS ; cette divergence officielle est signalée et la fiche technique est retenue.",
+          "jointMin": 0,
+          "jointMax": 6,
+          "packages": [
+            3,
+            15
+          ],
+          "imagePath": "assets/img/joints/es-completion/gecol-g-color-junta-f-plus.webp",
+          "imageSource": "https://www.gecol.com/files/resize/outside/500-500-webimage-eup017123-g-color-junta-f-5x3kg-15-kg_c5a8a0b85d62c794f63b7289fb5f56ed.png",
+          "sourceUrl": "https://www.gecol.com/es/product/g-color-junta-f-plus",
+          "technicalUrl": "https://my.assets-library.com/asset/f0f413bd-9b51-4e16-a112-e0a77c555e03/TDS-G-color-Junta-F-PLUS.pdf",
+          "notes": [
+            "La plage nominale commence à 0 mm dans la fiche ; cela ne valide pas une pose sans joint. Respecter les règles de pose applicables.",
+            "La fiche renvoie à UNE 138002 pour la mise en œuvre.",
+            "Divergence de consommation : fiche technique 1,6, calculateur officiel 1,5."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "calculatorUrl": "https://www.gecol.com/es/calculadora-de-juntas"
+        },
+        {
+          "id": "es-gecol-junta-g-plus",
+          "name": "G#color Junta G PLUS",
+          "kind": "ciment",
+          "description": "Joint ciment flexible hydrofugé pour joints de largeur moyenne à large.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 dans le calculateur officiel GECOL ; formule (L+l)/(L×l)×épaisseur×largeur avec toutes les dimensions en mm.",
+          "jointMin": 3,
+          "jointMax": 15,
+          "packages": [
+            15
+          ],
+          "imagePath": "assets/img/joints/es-completion/gecol-g-color-junta-g-plus.webp",
+          "imageSource": "https://www.gecol.com/files/resize/outside/500-500-webimage-eup017124-g-color-junta-g-15-kg_93c3c0880d4d56094640dd95c00ac0c7.png",
+          "sourceUrl": "https://www.gecol.com/es/product/g-color-junta-g-plus",
+          "technicalUrl": "https://my.assets-library.com/asset/a63b7571-9617-4a8a-84f8-a486e6e3afc4/TDS-G-color-Junta-G-PLUS.pdf",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "calculatorUrl": "https://www.gecol.com/es/calculadora-de-juntas"
+        },
+        {
+          "id": "es-gecol-junta-epoplus",
+          "name": "G#color Junta Epoplus",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant étanche pour carrelages, piscines et usage exigeant.",
+          "coefficient": 1.6,
+          "coefficientNote": "Formule illustrée de la fiche technique nationale, page 7 : ((A+B)/(A×B))×C×D×1,6 en mm. Même coefficient dans le calculateur officiel.",
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/gecol-g-color-junta-epoplus.webp",
+          "imageSource": "https://www.gecol.com/files/resize/outside/500-500-webimage-gcolor-epoplus_dea79a47cd731e3aacbff98e38f57084.png",
+          "sourceUrl": "https://www.gecol.com/es/product/g-color-junta-epoplus",
+          "technicalUrl": "https://my.assets-library.com/asset/1983cdff-25c5-489d-bfb4-335ddab64fe2/TDS-G-color-Epoplus.pdf",
+          "notes": [
+            "Kit de 5 kg : 4,63 kg de résine + 0,37 kg de durcisseur."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "calculatorUrl": "https://www.gecol.com/es/calculadora-de-juntas"
+        },
+        {
+          "id": "es-gecol-g200-epoxi",
+          "name": "G200 Epoxi",
+          "kind": "epoxy",
+          "description": "Mortier époxy bicomposant pour collage et jointoiement antiacide.",
+          "coefficient": 1.6,
+          "coefficientNote": "Formule illustrée de la fiche technique nationale, page 8 : ((A+B)/(A×B))×C×D×1,6, avec toutes les dimensions en mm.",
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/gecol-g200-epoxi.webp",
+          "imageSource": "https://www.gecol.com/files/resize/outside/500-500-webimage-g200-epoxi_13152b9c298d52da1d095e68f7e6515a.png",
+          "sourceUrl": "https://www.gecol.com/es/product/g200-epoxi",
+          "technicalUrl": "https://my.assets-library.com/asset/c55f0253-bc37-405a-8f70-085d48ffe0da/TDS-G200-Epoxi.pdf",
+          "notes": [
+            "Kit de 5 kg : 4,63 kg de résine + 0,37 kg de durcisseur.",
+            "Coloris blanc et anthracite selon la fiche nationale."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-capa",
+      "country": "es",
+      "name": "Cementos Capa",
+      "logoPath": "assets/img/ragreage/brands/capa.svg",
+      "website": "https://capa.es/",
+      "products": [
+        {
+          "id": "es-capa-flex-color-0-5",
+          "name": "GL Capagel Flex Color 0–5",
+          "kind": "ciment",
+          "description": "Joint ciment gel flexible à finition fine, pour carrelages, mosaïques et pierres en intérieur et extérieur.",
+          "coefficient": 1.84,
+          "coefficientNote": "Le calculateur officiel Capa sélectionne le facteur 1,84 pour cette référence et applique R × largeur(cm) × profondeur(cm) × [10/longueur(cm) + 10/largeur-carreau(cm)]. Facteur équivalent 1,84 dans la formule avec toutes les dimensions en mm.",
+          "jointMin": 0,
+          "jointMax": 5,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/capa-flex-color.webp",
+          "imageSource": "https://capa.es/wp-content/uploads/2024/07/GL-Capagel-Flex-Color.jpg",
+          "sourceUrl": "https://capa.es/capagel-flex-color-0-5/",
+          "technicalUrl": "https://capa.es/wp-content/uploads/2025/10/FT-GL-Capagel-Flex-Color-0-5-Oct-25.pdf",
+          "notes": [
+            "Sachets unitaires de 5 kg, cartons de 4 sachets ; le carton de 20 kg n’est pas un sac unitaire.",
+            "En piscine, le fabricant demande de vérifier l’adéquation au type d’eau et à son traitement.",
+            "Plage produit nominale : respecter également les règles de pose et la largeur adaptée au revêtement."
+          ],
+          "checkedAt": "2026-11-07",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorUrl": "https://capa.es/calculadora-de-consumos-de-morteros-de-juntas/",
+          "calculatorExamples": [
+            {
+              "areaM2": 80,
+              "lengthCm": 80,
+              "widthCm": 80,
+              "thicknessMm": 9,
+              "jointMm": 2,
+              "netKg": 6.624
+            }
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-capa-flex-color-3-12",
+          "name": "GL Capagel Flex Color 3–12",
+          "kind": "ciment",
+          "description": "Joint ciment gel flexible à finition fine, pour carrelages, mosaïques et pierres en intérieur et extérieur.",
+          "coefficient": 1.79,
+          "coefficientNote": "Le calculateur officiel Capa sélectionne le facteur 1,79 pour cette référence et applique R × largeur(cm) × profondeur(cm) × [10/longueur(cm) + 10/largeur-carreau(cm)]. Facteur équivalent 1,79 dans la formule avec toutes les dimensions en mm.",
+          "jointMin": 3,
+          "jointMax": 12,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/capa-flex-color.webp",
+          "imageSource": "https://capa.es/wp-content/uploads/2024/07/GL-Capagel-Flex-Color.jpg",
+          "sourceUrl": "https://capa.es/capagel-flex-color-3-12/",
+          "technicalUrl": "https://capa.es/wp-content/uploads/2025/10/FT-GL-Capagel-Flex-Color-3-12-Oct-25.pdf",
+          "notes": [
+            "Sachets unitaires de 5 kg, cartons de 4 sachets ; le carton de 20 kg n’est pas un sac unitaire.",
+            "En piscine, le fabricant demande de vérifier l’adéquation au type d’eau et à son traitement.",
+            "Plage produit nominale : respecter également les règles de pose et la largeur adaptée au revêtement."
+          ],
+          "checkedAt": "2026-11-07",
+          "coefficientMethod": "official-calculator-source",
+          "calculatorUrl": "https://capa.es/calculadora-de-consumos-de-morteros-de-juntas/",
+          "calculatorExamples": [
+            {
+              "areaM2": 80,
+              "lengthCm": 80,
+              "widthCm": 80,
+              "thicknessMm": 9,
+              "jointMm": 4,
+              "netKg": 12.888
+            }
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-capa-aplicacolor-0-15",
+          "name": "Aplica Color 0–15",
+          "kind": "ciment",
+          "description": "Joint ciment déformable hydrofugé pour carrelages et pierres naturelles.",
+          "coefficient": 1.82,
+          "coefficientNote": "Formule explicite de la fiche nationale : R=1,82×Z×H×(10/X+10/Y), dimensions en cm ; équivaut au coefficient 1,82 dans la formule toutes dimensions en mm.",
+          "jointMin": 0,
+          "jointMax": 15,
+          "packages": [
+            1,
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/es-completion/capa-aplicacolor-0-15-e5k.webp",
+          "imageSource": "https://capa.es/wp-content/uploads/2025/10/Aplicacolor-0-15-5K.jpg",
+          "sourceUrl": "https://capa.es/aplicacolor-0-15-e5k/",
+          "technicalUrl": "https://capa.es/wp-content/uploads/2025/10/FT-Aplica-Color-0-15-Oct-25.pdf",
+          "notes": [
+            "La plage nominale commence à 0 mm dans la fiche ; cela ne valide pas une pose sans joint. Respecter les règles de pose applicables.",
+            "Sachets de 1 et 5 kg dans la fiche E5K ; sacs de 20 kg dans la fiche E20K."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "additionalSourceUrls": [
+            "https://capa.es/aplicacolor-0-15-e20k/"
+          ],
+          "additionalTechnicalUrls": [
+            "https://capa.es/wp-content/uploads/2025/07/FT-Aplica-Color-0-15-20K-jul-25.pdf"
+          ]
+        },
+        {
+          "id": "es-capa-aplicacolor-0-4",
+          "name": "Aplica Color 0–4",
+          "kind": "ciment",
+          "description": "Joint ciment fin déformable hydrofugé pour sols et murs.",
+          "coefficient": 1.82,
+          "coefficientNote": "Formule explicite de la fiche nationale : R=1,82×Z×H×(10/X+10/Y), dimensions en cm ; équivaut au coefficient 1,82 dans la formule toutes dimensions en mm.",
+          "jointMin": 0,
+          "jointMax": 4,
+          "packages": [
+            1,
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/capa-aplicacolor-0-4-e5k.webp",
+          "imageSource": "https://capa.es/wp-content/uploads/2025/10/Bolsa-caja-Aplicacolor-0-4.jpg",
+          "sourceUrl": "https://capa.es/aplicacolor-0-4-e5k/",
+          "technicalUrl": "https://capa.es/wp-content/uploads/2025/10/FT-Aplica-Color-0-4-Oct-25.pdf",
+          "notes": [
+            "La plage nominale commence à 0 mm dans la fiche ; cela ne valide pas une pose sans joint. Respecter les règles de pose applicables."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-capa-aplicacolor-fina-0-4",
+          "name": "Aplica Color Fina 0–4",
+          "kind": "ciment",
+          "description": "Joint ciment fin blanc déformable pour carrelages et pierres naturelles.",
+          "coefficient": null,
+          "coefficientNote": "La fiche actuelle renvoie au calculateur Capa, mais celui-ci ne nomme pas Aplica Color Fina 0–4. Aucun coefficient d’un autre produit n’est transposé ; confirmer le g/m² auprès de Capa.",
+          "jointMin": 0,
+          "jointMax": 4,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/capa-aplica-color-fina-0-4.webp",
+          "imageSource": "https://capa.es/wp-content/uploads/2025/10/Aplicacolor-Fina.jpg",
+          "sourceUrl": "https://capa.es/aplica-color-fina-0-4/",
+          "technicalUrl": "https://capa.es/wp-content/uploads/2025/10/FT-Aplica-Color-Fina-0-4-Oct-25.pdf",
+          "notes": [
+            "La plage nominale commence à 0 mm dans la fiche ; cela ne valide pas une pose sans joint. Respecter les règles de pose applicables."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "calculatorUrl": "https://capa.es/calculadora-de-consumos-de-morteros-de-juntas/"
+        },
+        {
+          "id": "es-capa-capajoint-color-0-4",
+          "name": "JT Capajoint Color 0–4",
+          "kind": "ciment",
+          "description": "Joint ciment fin déformable pour carrelages et pierres naturelles.",
+          "coefficient": 1.82,
+          "coefficientNote": "Formule explicite de la fiche nationale : R=1,82×Z×H×(10/X+10/Y), dimensions en cm ; équivaut au coefficient 1,82 dans la formule toutes dimensions en mm.",
+          "jointMin": 0,
+          "jointMax": 4,
+          "packages": [
+            1,
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/capa-jt-capajoint-color-0-4.webp",
+          "imageSource": "https://capa.es/wp-content/uploads/2025/10/Bolsa-caja-JT-Capajoint-Color.jpg",
+          "sourceUrl": "https://capa.es/jt-capajoint-color-0-4/",
+          "technicalUrl": "https://capa.es/wp-content/uploads/2025/10/FT-JT-Capajoint-Color-0-4-Oct-25.pdf",
+          "notes": [
+            "La plage nominale commence à 0 mm dans la fiche ; cela ne valide pas une pose sans joint. Respecter les règles de pose applicables."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-capa-capajoint-color-0-15",
+          "name": "JT Capajoint Color 0–15",
+          "kind": "ciment",
+          "description": "Joint ciment flexible pour carrelages, pierres, piscines et zones humides.",
+          "coefficient": null,
+          "coefficientNote": "La fiche actuelle ne publie pas de formule. Le calculateur nomme Capacolor 0–15, sans établir son équivalence à JT Capajoint Color 0–15 ; coefficient non transposé. Confirmer le g/m² auprès de Capa.",
+          "jointMin": 0,
+          "jointMax": 15,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/capa-jt-capajoint-color-0-15.webp",
+          "imageSource": "https://capa.es/wp-content/uploads/2025/10/Bolsa-caja-JT-Capajoint-Color.jpg",
+          "sourceUrl": "https://capa.es/jt-capajoint-color-0-15/",
+          "technicalUrl": "https://capa.es/wp-content/uploads/2025/10/FT-JT-Capajoint-Color-0-15-Oct-25.pdf",
+          "notes": [
+            "La plage nominale commence à 0 mm dans la fiche ; cela ne valide pas une pose sans joint. Respecter les règles de pose applicables."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-capa-aplicacer-epoxi-2-5",
+          "name": "AplicaCer Color Epoxi E2.5K",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant pour mosaïques et carrelages non absorbants.",
+          "coefficient": 1.4,
+          "coefficientNote": "Coefficient 1,40 explicitement associé à AplicaCer Color Epoxi 2.5K dans le calculateur officiel Capa : R×Z×H×(10/X+10/Y) avec dimensions en cm, équivalent à la formule en mm.",
+          "jointMin": 2,
+          "jointMax": 10,
+          "packages": [
+            2.5
+          ],
+          "imagePath": "assets/img/joints/es-completion/capa-aplicacer-color-epoxi-e-2-5k.webp",
+          "imageSource": "https://capa.es/wp-content/uploads/2025/07/WEB-PRODUCT-Epoxi-2.5.jpg",
+          "sourceUrl": "https://capa.es/aplicacer-color-epoxi-e-2-5k/",
+          "technicalUrl": "https://capa.es/wp-content/uploads/2025/07/FT-Aplica-Color-Epoxi-2.5-jul-25.pdf",
+          "notes": [
+            "Référence E2.5K distincte de la version Epoxi 5.0, dont les données techniques et la plage diffèrent."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols et murs intérieurs et extérieurs ; surfaces non absorbantes et supports fixes non déformables.",
+          "calculatorUrl": "https://capa.es/calculadora-de-consumos-de-morteros-de-juntas/"
+        },
+        {
+          "id": "es-capa-aplicacer-epoxi-5",
+          "name": "AplicaCer Color Epoxi E5.0K",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant antiacide pour sols et murs soumis aux fortes exigences.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,60 explicitement associé à AplicaCer Color Epoxi 5K dans le calculateur officiel Capa : R×Z×H×(10/X+10/Y) avec dimensions en cm, équivalent à la formule en mm.",
+          "jointMin": null,
+          "jointMax": 20,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/capa-aplicacer-color-epoxi-e-5-0k.webp",
+          "imageSource": "https://capa.es/wp-content/uploads/2025/07/WEB-PRODUCT-Epoxi-5.0.jpg",
+          "sourceUrl": "https://capa.es/aplicacer-color-epoxi-e-5-0k/",
+          "technicalUrl": "https://capa.es/wp-content/uploads/2025/07/FT-Aplica-Color-Epoxi-5.0-jul-25.pdf",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols et murs intérieurs et extérieurs ; surfaces non absorbantes et supports fixes non déformables. Largeur minimale à confirmer.",
+          "calculatorUrl": "https://capa.es/calculadora-de-consumos-de-morteros-de-juntas/"
+        },
+        {
+          "id": "es-capa-capajoint-epoxi-3",
+          "name": "JT Capajoint Epoxi 3K",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant antiacide pour sols et murs en céramique.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,60 explicitement associé à JT Capajoint Epoxi 3K dans le calculateur officiel Capa : R×Z×H×(10/X+10/Y) avec dimensions en cm, équivalent à la formule en mm.",
+          "jointMin": null,
+          "jointMax": 20,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/es-completion/capa-jt-capajoint-epoxi-3k.webp",
+          "imageSource": "https://capa.es/wp-content/uploads/2024/09/JT-Capajont-Epoxi-3K.jpg",
+          "sourceUrl": "https://capa.es/jt-capajoint-epoxi-3k/",
+          "technicalUrl": "https://capa.es/wp-content/uploads/2025/05/FT-JT-Capajoint-Epoxi-3K-May-25-ES.pdf",
+          "notes": [
+            "Kit de 3 kg : pâte A 2,7 kg + liquide B 0,3 kg."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols et murs intérieurs et extérieurs sur supports fixes non déformables ; largeur minimale à confirmer.",
+          "calculatorUrl": "https://capa.es/calculadora-de-consumos-de-morteros-de-juntas/"
+        },
+        {
+          "id": "es-capa-capajoint-lechada",
+          "name": "JT Capajoint Lechada",
+          "kind": "ciment",
+          "description": "Joint ciment blanc pour joints fins de carrelage en intérieur.",
+          "coefficient": null,
+          "coefficientNote": "La fiche ne donne pas de formule de rendement. Le calculateur mentionne Capalechada/Aplicalechada sans lien explicite avec la nouvelle référence JT Capajoint Lechada ; confirmer le g/m² auprès de Capa.",
+          "jointMin": 0,
+          "jointMax": 2,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/capa-jt-capajoint-lechada.webp",
+          "imageSource": "https://capa.es/wp-content/uploads/2025/10/Capalechada.jpg",
+          "sourceUrl": "https://capa.es/jt-capajoint-lechada/",
+          "technicalUrl": "https://capa.es/wp-content/uploads/2025/10/FT-JT-CAPAJOINT-Lechada-Oct-25.pdf",
+          "notes": [
+            "La plage nominale commence à 0 mm dans la fiche ; cela ne valide pas une pose sans joint. Respecter les règles de pose applicables."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside"
+          ],
+          "usageNote": "Intérieur uniquement ; pour plus de 2 mm ou à l’extérieur, la fiche oriente vers CapaColor."
+        }
+      ]
+    },
+    {
+      "id": "es-sika",
+      "country": "es",
+      "name": "Sika",
+      "logoPath": "assets/img/ragreage/brands/sika-es.png",
+      "website": "https://esp.sika.com/",
+      "products": [
+        {
+          "id": "es-sika-cleangrout",
+          "name": "SikaCeram® CleanGrout",
+          "kind": "ciment",
+          "description": "Joint ciment hydrofugé pour carrelages, mosaïques et pierres en intérieur et extérieur.",
+          "coefficient": 1.4,
+          "coefficientNote": "La fiche espagnole, page 2, publie largeur(mm) × profondeur(mm) × [(L(cm)+l(cm))/(L(cm)×l(cm))] × 140 en g/m². Cela correspond au facteur 1,4 dans la formule en kg/m² avec toutes les dimensions en mm.",
+          "jointMin": 1,
+          "jointMax": 8,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/sika-cleangrout.webp",
+          "imageSource": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:f3b80339-9932-4731-a258-0219e5708d09/as/es-esp-sikaceram-cleangrout-5kg-00340387.png?smartcrop=1-1&width=900&height=900",
+          "sourceUrl": "https://esp.sika.com/es/repara-tu-casa/cocina/sikaceram-cleangrout.html",
+          "technicalUrl": "https://esp.sika.com/dam/dms/es01/c/sikaceram_cleangrout.pdf",
+          "notes": [
+            "Sachets de 5 kg ; attendre environ 21 jours avant immersion selon la fiche espagnole.",
+            "La consommation dépend du relief et de la rugosité des surfaces ; la fiche donne une formule et un tableau indicatifs.",
+            "Pour certaines applications exigeantes, le fabricant prévoit SikaCeram LatexGrout suivant sa fiche spécifique."
+          ],
+          "checkedAt": "2026-11-07",
+          "coefficientMethod": "manufacturer-formula",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-sika-650-classic",
+          "name": "SikaCeram®-650 Classic",
+          "kind": "ciment",
+          "description": "Joint ciment coloré hydrofugé pour sols et murs.",
+          "coefficient": 1.9,
+          "coefficientNote": "La rubrique Consumo de la fiche espagnole prescrit explicitement A×B×((C+D)/(C×D))×ρ, toutes les dimensions en mm, avec ρ=1,9 ; ce facteur est repris de la formule de consommation fabricant.",
+          "jointMin": 1,
+          "jointMax": 6,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/sika-sikaceram-650-classic.webp",
+          "imageSource": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:ab84908e-2bb6-4212-b72a-424f220e4c07/as/es-SikaCeram650Classic-00833248.jpg?smartcrop=1-1&width=480&height=480",
+          "sourceUrl": "https://esp.sika.com/es/construccion/acabados/colocacion-de-ceramica/gres-porcelanico/sikaceram-650-classic.html",
+          "technicalUrl": "https://esp.sika.com/dam/dms/es01/s/sikaceram_-650_classic.pdf",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-sika-670-elite",
+          "name": "SikaCeram®-670 Elite",
+          "kind": "ciment",
+          "description": "Joint ciment de haute résistance pour sols, murs, façades et piscines.",
+          "coefficient": 1.92,
+          "coefficientNote": "La rubrique Consumo de la fiche espagnole prescrit explicitement A×B×((C+D)/(C×D))×ρ, toutes les dimensions en mm, avec ρ=1,92 ; ce facteur est repris de la formule de consommation fabricant.",
+          "jointMin": 1,
+          "jointMax": 12,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/es-completion/sika-sikaceram-670-elite.webp",
+          "imageSource": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:163c30e1-0102-4b72-a0f5-173516f0a24e/as/es-SikaCeram670Elite-00220427.jpg?smartcrop=1-1&width=480&height=480",
+          "sourceUrl": "https://esp.sika.com/es/construccion/acabados/colocacion-de-ceramica/gres-porcelanico/sikaceram-670-elite.html",
+          "technicalUrl": "https://esp.sika.com/dam/dms/es01/p/sikaceram_-670_elite.pdf",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-sika-685-wall",
+          "name": "SikaCeram®-685 Wall",
+          "kind": "ciment",
+          "description": "Joint ciment hydrofugé pour façades, systèmes SATE et piscines.",
+          "coefficient": 1.9,
+          "coefficientNote": "La rubrique Consumo de la fiche espagnole prescrit explicitement A×B×((C+D)/(C×D))×ρ, toutes les dimensions en mm, avec ρ=1,9 ; ce facteur est repris de la formule de consommation fabricant.",
+          "jointMin": 3,
+          "jointMax": 20,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/es-completion/sika-sikaceram-685-wall.webp",
+          "imageSource": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:a44eaf09-5570-4fb6-97c6-64aa31537433/as/es-SikaCeram-685Wall-3D-1-06945416.png?smartcrop=1-1&width=480&height=480",
+          "sourceUrl": "https://esp.sika.com/es/construccion/acabados/colocacion-de-ceramica/gres-porcelanico/sikaceram-685-wall.html",
+          "technicalUrl": "https://esp.sika.com/dam/dms/es01/o/sikaceram-685-wall.pdf",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Façades, murs et systèmes SATE, piscines ; la fiche ne documente pas le sol courant."
+        },
+        {
+          "id": "es-sika-880-easy-epoxy",
+          "name": "SikaCeram®-880 Easy Epoxy",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant pour carrelages, locaux exigeants et piscines.",
+          "coefficient": null,
+          "coefficientNote": "La fiche publie seulement des exemples de jointoiement arrondis (mosaïque 5×5 cm : 1,0 kg/m² ; 20×20 cm : 0,7 kg/m² ; 30×60 cm : 0,3 kg/m²), insuffisants pour fixer un coefficient unique. La valeur 1,6 kg/m²/mm concerne le produit étalé en couche et n’est pas transposée au jointoiement ; confirmer le g/m² auprès de Sika.",
+          "jointMin": 1,
+          "jointMax": 20,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/sika-sikaceram-880-easyepoxy.webp",
+          "imageSource": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:8bdbe71b-4775-407a-a27a-fa56d3b1eddf/as/es-sikaceram-880-easy-epoxy-07054456.png?smartcrop=1-1&width=480&height=480",
+          "sourceUrl": "https://esp.sika.com/es/construccion/acabados/colocacion-de-ceramica/gres-porcelanico/sikaceram-880-easyepoxy.html",
+          "technicalUrl": "https://esp.sika.com/dam/dms/es01/w/sikaceram-880-easyepoxy.pdf",
+          "notes": [
+            "Kit de 5 kg composants A+B."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-sika-epoxygrout",
+          "name": "SikaCeram® EpoxyGrout",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant antiacide pour carrelages et piscines.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 reconstitué à partir de plusieurs lignes complètes du tableau de consommation de la fiche espagnole : 30×60×1 cm et 40×40×1 cm, joints de 2/4/6/8/10 mm = 160/320/480/640/800 g/m². Les profondeurs sont explicitement fournies.",
+          "jointMin": 2,
+          "jointMax": 20,
+          "packages": [
+            2,
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/sika-epoxygrout.webp",
+          "imageSource": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:e3fe26c9-d25a-43d2-ba39-f8c3698799d0/as/gr-02-el-GR-SikaCeram-Epoxygrout-1x1-00426515.png?smartcrop=1-1&width=480&height=480",
+          "sourceUrl": "https://esp.sika.com/es/construccion/acabados/pavimentos/pavimentos-adhesivos/sikaceram-epoxygrout.html",
+          "technicalUrl": "https://esp.sika.com/dam/dms/es01/5/sikaceram_epoxygrout.pdf",
+          "notes": [
+            "La photo affichée provient de la page nationale Sika ; le fabricant y utilise un emballage multilingue."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [],
+          "usageNote": "Sols, murs et piscines, y compris eau de mer. La fiche espagnole ne distingue pas explicitement intérieur et extérieur : confirmer ce critère auprès de Sika avant sélection automatique."
+        }
+      ]
+    },
+    {
+      "id": "es-fixcer",
+      "country": "es",
+      "name": "Fixcer",
+      "logoPath": "assets/img/ragreage/brands/fixcer.png",
+      "website": "https://fixcer.com/",
+      "products": [
+        {
+          "id": "es-fixcer-fixcolor-016",
+          "name": "FIXCOLOR 0/16",
+          "kind": "ciment",
+          "description": "Joint ciment coloré pour carrelages et pierres, adapté aux piscines à chloration traditionnelle.",
+          "coefficient": null,
+          "coefficientNote": "La fiche officielle indique explicitement « Consumo: Consultar al Dpto. Técnico ». Aucune consommation n’est déduite des densités de poudre ou de pâte. Saisir le rendement en g/m² confirmé par le fabricant.",
+          "jointMin": 0,
+          "jointMax": 16,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/fixcer-fixcolor.webp",
+          "imageSource": "https://fixcer.com/wp-content/uploads/2026/04/fixcer-mortero-cemento-fixcolor-0-16-01.webp",
+          "sourceUrl": "https://fixcer.com/material-construccion/productos/rejuntado-ceramica/fixcolor-016/",
+          "technicalUrl": "https://fixcer.com/upload/es/fichas/fixcer-ficha-producto-fixcolor-0-16-es.pdf",
+          "notes": [
+            "Sachets de 5 kg ; attendre 24 heures entre collage et jointoiement selon la fiche.",
+            "La plage 0–16 mm est la plage nominale du produit ; la largeur doit respecter les prescriptions de pose.",
+            "Pour les piscines, le domaine d’emploi décrit la chloration traditionnelle ; vérifier les autres traitements auprès de Fixcer."
+          ],
+          "checkedAt": "2026-11-07",
+          "coefficientMethod": "manual-manufacturer-consumption",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-fixcer-cerpoxi",
+          "name": "CERPOXI",
+          "kind": "epoxy",
+          "description": "Joint époxy antiacide à trois composants pour carrelages et piscines.",
+          "coefficient": null,
+          "coefficientNote": "La fiche espagnole indique « Consumo: consultar al Dpto. Técnico ». Saisir la consommation en g/m² validée par FIXCER ; aucune densité n’est utilisée pour inventer un coefficient.",
+          "jointMin": 0,
+          "jointMax": 10,
+          "packages": [
+            2,
+            7,
+            21
+          ],
+          "imagePath": "assets/img/joints/es-completion/fixcer-cerpoxi.webp",
+          "imageSource": "https://fixcer.com/wp-content/uploads/2023/10/fixcer-materiales-construccion-sellador-cerpoxi.jpg",
+          "sourceUrl": "https://fixcer.com/material-construccion/productos/rejuntado-ceramica/cerpoxi/",
+          "technicalUrl": "https://fixcer.com/upload/es/fichas/fixcer-ficha-producto-cerpoxi-es.pdf",
+          "notes": [
+            "La plage nominale commence à 0 mm dans la fiche ; cela ne valide pas une pose sans joint. Respecter les règles de pose applicables."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-fixcer-eurocolor-flex",
+          "name": "EUROCOLOR FLEX",
+          "kind": "ciment",
+          "description": "Joint ciment coloré flexible pour sols et murs.",
+          "coefficient": null,
+          "coefficientNote": "La fiche espagnole indique « Consumo: consultar al Dpto. Técnico ». Saisir la consommation en g/m² validée par FIXCER ; aucune densité n’est utilisée pour inventer un coefficient.",
+          "jointMin": 0,
+          "jointMax": 16,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/es-completion/fixcer-eurocolor-flex.webp",
+          "imageSource": "https://fixcer.com/wp-content/uploads/2024/02/fixcer-mortero-cemento-eurocolor-flex-01.jpg",
+          "sourceUrl": "https://fixcer.com/material-construccion/productos/rejuntado-ceramica/eurocolor-flex/",
+          "technicalUrl": "https://fixcer.com/upload/es/fichas/fixcer-ficha-producto-eurocolor-flex-es.pdf",
+          "notes": [
+            "La plage nominale commence à 0 mm dans la fiche ; cela ne valide pas une pose sans joint. Respecter les règles de pose applicables."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-fixcer-ideal-color",
+          "name": "IDEAL COLOR",
+          "kind": "ciment",
+          "description": "Joint ciment à prise rapide pour sols et murs en céramique.",
+          "coefficient": null,
+          "coefficientNote": "La fiche espagnole indique « Consumo: consultar al Dpto. Técnico ». Saisir la consommation en g/m² validée par FIXCER ; aucune densité n’est utilisée pour inventer un coefficient.",
+          "jointMin": 0,
+          "jointMax": 6,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/es-completion/fixcer-ideal-color.webp",
+          "imageSource": "https://fixcer.com/wp-content/uploads/2024/02/fixcer-mortero-cemento-ideal-color-01.jpg",
+          "sourceUrl": "https://fixcer.com/material-construccion/productos/rejuntado-ceramica/ideal-color/",
+          "technicalUrl": "https://fixcer.com/upload/es/fichas/fixcer-ficha-producto-ideal-color-es.pdf",
+          "notes": [
+            "La plage nominale commence à 0 mm dans la fiche ; cela ne valide pas une pose sans joint. Respecter les règles de pose applicables."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-fixcer-ideal-pool",
+          "name": "IDEAL POOL",
+          "kind": "ciment",
+          "description": "Joint ciment spécial piscines résistant aux acides faibles.",
+          "coefficient": null,
+          "coefficientNote": "La fiche espagnole indique « Consumo: consultar al Dpto. Técnico ». Saisir la consommation en g/m² validée par FIXCER ; aucune densité n’est utilisée pour inventer un coefficient.",
+          "jointMin": null,
+          "jointMax": null,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/fixcer-ideal-pool.webp",
+          "imageSource": "https://fixcer.com/wp-content/uploads/2024/03/fixcer-mortero-cemento-ideal-pool-01.jpg",
+          "sourceUrl": "https://fixcer.com/material-construccion/productos/rejuntado-ceramica/ideal-pool/",
+          "technicalUrl": "https://fixcer.com/upload/es/fichas/fixcer-ficha-producto-ideal-pool-es.pdf",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "locations": [],
+          "usageNote": "Spécial piscines. La fiche nationale ne précise ni plage de largeur ni intérieur/extérieur ; confirmer ces critères auprès de FIXCER."
+        },
+        {
+          "id": "es-fixcer-professional-px",
+          "name": "PROFESSIONAL PX",
+          "kind": "epoxy",
+          "description": "Joint et colle époxy antiacide à trois composants, utilisable sans coulure.",
+          "coefficient": null,
+          "coefficientNote": "La fiche espagnole indique « Consumo: consultar al Dpto. Técnico ». Saisir la consommation en g/m² validée par FIXCER ; aucune densité n’est utilisée pour inventer un coefficient.",
+          "jointMin": null,
+          "jointMax": null,
+          "packages": [
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/es-completion/fixcer-professional-px.webp",
+          "imageSource": "https://fixcer.com/wp-content/uploads/2024/03/fixcer-mortero-epoxico-01.jpg",
+          "sourceUrl": "https://fixcer.com/material-construccion/productos/rejuntado-ceramica/professional-px/",
+          "technicalUrl": "https://fixcer.com/upload/es/fichas/fixcer-ficha-producto-professional-px-es.pdf",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols et murs, piscines et zones d’eau. La fiche nationale ne précise pas la plage de largeur ; la faire confirmer par FIXCER."
+        },
+        {
+          "id": "es-fixcer-cerpoxi-fluid",
+          "name": "CERPOXI FLUID",
+          "kind": "epoxy",
+          "description": "Joint époxy très fluide pour joints fins de carrelage au sol.",
+          "coefficient": null,
+          "coefficientNote": "La fiche espagnole indique « Consumo: consultar al Dpto. Técnico ». Saisir la consommation en g/m² validée par FIXCER ; aucune densité n’est utilisée pour inventer un coefficient.",
+          "jointMin": 0,
+          "jointMax": 2,
+          "packages": [
+            18
+          ],
+          "imagePath": "assets/img/joints/es-completion/fixcer-cerpoxi-fluid.webp",
+          "imageSource": "https://fixcer.com/wp-content/uploads/2026/04/fixcer-rejuntado-ceramica-cerpoxi-fluid-01.webp",
+          "sourceUrl": "https://fixcer.com/material-construccion/productos/rejuntado-ceramica/cerpoxi-fluid/",
+          "technicalUrl": "https://fixcer.com/upload/es/fichas/fixcer-ficha-producto-cerpoxi-fluid-es.pdf",
+          "notes": [
+            "La plage nominale commence à 0 mm dans la fiche ; cela ne valide pas une pose sans joint. Respecter les règles de pose applicables.",
+            "Le fabricant utilise sur cette page une photo commune d’emballage CERPOXI ; les conditionnements sont ceux de la fiche propre à cette variante."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Exclusivement pour pavements horizontaux, en intérieur et extérieur ; ne pas proposer sur murs."
+        },
+        {
+          "id": "es-fixcer-cerpoxi-star",
+          "name": "CERPOXI STAR",
+          "kind": "epoxy",
+          "description": "Joint époxy photoluminescent pour sols et murs en céramique.",
+          "coefficient": null,
+          "coefficientNote": "La fiche espagnole indique « Consumo: consultar al Dpto. Técnico ». Saisir la consommation en g/m² validée par FIXCER ; aucune densité n’est utilisée pour inventer un coefficient.",
+          "jointMin": 0,
+          "jointMax": 10,
+          "packages": [
+            2
+          ],
+          "imagePath": "assets/img/joints/es-completion/fixcer-cerpoxi-star.webp",
+          "imageSource": "https://fixcer.com/wp-content/uploads/2026/04/fixcer-rejuntado-ceramica-cerpoxi-star-01.webp",
+          "sourceUrl": "https://fixcer.com/material-construccion/productos/rejuntado-ceramica/cerpoxi-star/",
+          "technicalUrl": "https://fixcer.com/upload/es/fichas/fixcer-ficha-producto-cerpoxi-star-es.pdf",
+          "notes": [
+            "La plage nominale commence à 0 mm dans la fiche ; cela ne valide pas une pose sans joint. Respecter les règles de pose applicables.",
+            "Le fabricant utilise sur cette page une photo commune d’emballage CERPOXI ; les conditionnements sont ceux de la fiche propre à cette variante."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols et murs intérieurs et extérieurs ; propriétés photoluminescentes pour applications décoratives et de repérage."
+        }
+      ]
+    },
+    {
+      "id": "es-solbau",
+      "country": "es",
+      "name": "SOLBAU",
+      "logoPath": "assets/img/joints/es-completion/solbau-logo.webp",
+      "website": "https://solbaumorteros.com/",
+      "products": [
+        {
+          "id": "es-solbau-junta-color",
+          "name": "Solbau Junta Color",
+          "kind": "ciment",
+          "description": "Joint ciment polymère modifié coloré, à faible absorption d’eau, pour sols et murs en intérieur et extérieur.",
+          "coefficient": 1.75,
+          "coefficientNote": "La fiche espagnole édition 08/2024, page 2, publie directement [(A+B)/(A×B)] × C × D × 1,75 ; longueur, largeur, épaisseur du carreau et largeur de joint en mm.",
+          "jointMin": 1,
+          "jointMax": 20,
+          "packages": [
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/es-completion/solbau-junta-color.webp",
+          "imageSource": "https://solbaumorteros.com/wp-content/uploads/2023/10/Junta-e-mortero-rejuntado-removebg-preview.png.webp",
+          "sourceUrl": "https://solbaumorteros.com/producto/junta-color/",
+          "technicalUrl": "https://solbaumorteros.com/wp-content/uploads/2023/10/FT-COL-Junta-Color-240820.pdf",
+          "notes": [
+            "Sachets de 5 kg (cartons de 4) et sacs de 20 kg.",
+            "La fiche demande un support sain et sec et une application entre +5 et +30 °C.",
+            "Respecter le temps d’attente après collage et protéger les joints extérieurs de la pluie jusqu’au séchage."
+          ],
+          "checkedAt": "2026-11-07",
+          "coefficientMethod": "manufacturer-formula",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "id": "es-solbau-junta-e",
+          "name": "Solbau Junta-E",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant antiacide pour carrelages et piscines.",
+          "coefficient": 1.8,
+          "coefficientNote": "Formule explicite de la fiche espagnole : ((A+B)/(A×B))×C×D×1,80 ; A/B/C/D en mm.",
+          "jointMin": 1,
+          "jointMax": 16,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/solbau-junta-e.webp",
+          "imageSource": "https://solbaumorteros.com/wp-content/uploads/2023/10/Junta-E.png.webp",
+          "sourceUrl": "https://solbaumorteros.com/producto/junta-e/",
+          "technicalUrl": "https://solbaumorteros.com/wp-content/uploads/2023/10/Junta-E-161110.pdf",
+          "notes": [
+            "Kit de 5 kg : composant A 3,75 kg + composant B 1,25 kg.",
+            "Visuel générique fourni par SOLBAU sur la page produit et dans son catalogue ; le conditionnement à retenir est le kit de 5 kg de la fiche technique."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        }
+      ],
+      "logoSource": "https://solbaumorteros.com/wp-content/uploads/2024/06/Logo-optimizado.webp"
+    },
+    {
+      "id": "es-puma",
+      "country": "es",
+      "name": "Grupo Puma",
+      "logoPath": "assets/img/ragreage/brands/puma.png",
+      "website": "https://www.grupopuma.com/es-ES/",
+      "logoTone": "light-on-dark",
+      "logoSource": "https://www.grupopuma.com/es-ES/empresa",
+      "products": [
+        {
+          "id": "es-puma-morcemcolor-ultra",
+          "name": "Morcemcolor® Ultra CG2 A W",
+          "kind": "ciment",
+          "description": "Joint ciment à prise rapide, hydrofugé et résistant aux efflorescences.",
+          "coefficient": 1.7,
+          "coefficientNote": "Formule explicite de la fiche espagnole rév. 26_10 : ((A+B)/(A×B))×C×D×0,17 avec A/B en cm et C/D en mm ; soit coefficient 1,7 avec toutes les dimensions en mm.",
+          "jointMin": 2,
+          "jointMax": 20,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/puma-ultra-cg2-a-w.webp",
+          "imageSource": "https://www.grupopuma.com/uploads/productos/media/2c1d134421bcb3628d4ec2980c3695d0.jpg_2.png",
+          "sourceUrl": "https://www.grupopuma.com/es-ES/productos/ver/morcemcolor-ultra-cg2-a-w-es-es",
+          "technicalUrl": "https://www.grupopuma.com/services/pdf/6527",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols et murs intérieurs et extérieurs, chauffage au sol et piscines. Pour les piscines, attendre au moins 48 h avant le premier remplissage."
+        },
+        {
+          "id": "es-puma-morcemcolor-epoxi",
+          "name": "Morcemcolor® Epoxi",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant antiacide pour carrelages et mosaïques.",
+          "coefficient": 1.55,
+          "coefficientNote": "Formule explicite de la fiche espagnole : ((A+B)/(A×B))×C×D×0,155 avec A/B en cm et C/D en mm ; soit coefficient 1,55 en dimensions toutes en mm.",
+          "jointMin": 1,
+          "jointMax": 15,
+          "packages": [
+            2.5,
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/puma-epoxi-r2-t.webp",
+          "imageSource": "https://www.grupopuma.com/uploads/productos/media/50febf111b8f8f2e4ce1d150d0db1e99.png_2.png",
+          "sourceUrl": "https://www.grupopuma.com/es-ES/productos/ver/morcemcolor-epoxi-r2-t-es-es",
+          "technicalUrl": "https://www.grupopuma.com/services/pdf/5534",
+          "notes": [
+            "Le kit de 2,5 kg est réservé au coloris Blanco EP 154 ; kit de 5 kg selon gamme.",
+            "Consommations fabricant calculées pour des joints vides, sans résidus de colle."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-weber",
+      "country": "es",
+      "name": "Weber",
+      "logoPath": "assets/img/ragreage/brands/weber-official-pdf.png",
+      "website": "https://www.es.weber/",
+      "products": [
+        {
+          "id": "es-weber-premium-ocean",
+          "name": "webercolor PREMIUM OCEAN",
+          "kind": "ciment",
+          "description": "Joint ciment flexible pour carrelages et piscines à chloration saline.",
+          "coefficient": null,
+          "coefficientNote": "Consommation manuelle requise : la fiche espagnole donne un seul exemple de 1,060 kg/m² pour des carreaux de 30 × 30 cm, une profondeur de 10 mm et un joint de 10 mm. Cette valeur arrondie ne suffit pas à valider un coefficient pour tous les formats. Le calculateur officiel 5531 renvoie un résultat vide lors du contrôle du 07/11/2026. Faire confirmer le g/m² par Weber.",
+          "jointMin": 1,
+          "jointMax": 15,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/es-completion/weber-webercolor-premium-ocean.webp",
+          "imageSource": "https://www.es.weber/files/es/styles/768x768_resize/public/pictures/2024-12/Premium_OCEAN_NUEVA_IMG-removebg-preview.png.webp?itok=t4-S6Q41&cb=236b89ab",
+          "sourceUrl": "https://www.es.weber/colocacion-y-rejuntado-de-ceramica/rejuntados/webercolor-premium-ocean",
+          "technicalUrl": "https://www.es.weber/files/es/2024-12/webercolor_PREMIUM_OCEAN.pdf",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols et murs intérieurs et extérieurs, piscines. La fiche recommande au moins 2 mm en intérieur et 5 mm en extérieur.",
+          "applicabilityMin": 2,
+          "locationJointMin": {
+            "inside": 2,
+            "outside": 5
+          },
+          "coefficientMethod": "manual-required-rounded-example",
+          "calculatorEndpoint": "https://www.es.weber/weber/consumption-calculator/5531",
+          "manufacturerConsumptionExamples": [
+            {
+              "tileLengthMm": 300,
+              "tileWidthMm": 300,
+              "jointDepthMm": 10,
+              "jointWidthMm": 10,
+              "gramsPerM2": 1060
+            }
+          ]
+        },
+        {
+          "id": "es-weber-porcelanica",
+          "name": "webercolor PORCELÁNICA",
+          "kind": "ciment",
+          "description": "Joint ciment fin pour carrelages et revêtements céramiques.",
+          "coefficient": null,
+          "coefficientNote": "Consommation manuelle requise : la fiche espagnole donne 0,400 kg/m² pour des carreaux de 10 × 10 cm, une profondeur de 10 mm et un joint de 1 mm (facteur géométrique correspondant à 2,0), alors que le calculateur officiel 5526 applique 0,4 sur deux essais. Ces sources officielles divergent ; aucun coefficient automatique n’est retenu. Faire confirmer le g/m² par Weber.",
+          "jointMin": 1,
+          "jointMax": 8,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/weber-webercolor-porcelanica.webp",
+          "imageSource": "https://www.es.weber/files/es/styles/768x768_resize/public/pictures/2024-10/3D-PKG-bolsa-webercolor-porcelanica.png?itok=3gSjonoT&cb=4cadb59a",
+          "sourceUrl": "https://www.es.weber/colocacion-y-rejuntado-de-ceramica/rejuntados/webercolor-porcelanica",
+          "technicalUrl": "https://www.es.weber/files/es/2024-10/FT_Webercolor_PORCELNICA_ES.pdf",
+          "notes": [
+            "Divergence de consommation fabricant : exemple de fiche correspondant à un coefficient de 2,0 ; calculateur web configuré à 0,4. Faire confirmer la consommation par Weber en cas de doute."
+          ],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "La fiche autorise intérieur/extérieur, mais recommande la gamme PREMIUM en extérieur ou sur supports déformables ; exigences fortes et piscines : PREMIUM OCEAN ou weberepox EASY.",
+          "calculatorEndpoint": "https://www.es.weber/weber/consumption-calculator/5526",
+          "coefficientMethod": "manual-required-official-discrepancy",
+          "manufacturerConsumptionExamples": [
+            {
+              "tileLengthMm": 100,
+              "tileWidthMm": 100,
+              "jointDepthMm": 10,
+              "jointWidthMm": 1,
+              "gramsPerM2": 400
+            }
+          ]
+        },
+        {
+          "id": "es-weber-epox-easy",
+          "name": "weberepox EASY",
+          "kind": "epoxy",
+          "description": "Joint époxy pour carrelages, piscines et résistance aux agressions chimiques.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 vérifié dans le calculateur national officiel le 07/11/2026 sur deux configurations : 100 m² en 100×100 mm, épaisseur 10 mm, joint 5 mm = 160 kg ; 80 m² en 800×800 mm, épaisseur 10 mm, joint 2 mm = 6,4 kg.",
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-completion/weber-weberepox-easy.webp",
+          "imageSource": "https://www.es.weber/files/es/styles/768x768_resize/public/pictures/2024-10/thumb_78DBAB1094114B5498787CB90C63B5ED-removebg-preview.png.webp?itok=_RrcLrS9&cb=876d41f8",
+          "sourceUrl": "https://www.es.weber/colocacion-y-rejuntado-de-ceramica/rejuntados/weberepox-easy",
+          "technicalUrl": "https://www.es.weber/files/es/2025-09/weberepox_EASY.pdf",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Intérieur et extérieur. La fiche recommande au moins 2 mm en intérieur et 5 mm en extérieur ; piscines salines admises, piscines à ionisation cuivre/argent exclues.",
+          "locationJointMin": {
+            "inside": 2,
+            "outside": 5
+          },
+          "coefficientMethod": "official-calculator-verified",
+          "calculatorEndpoint": "https://www.es.weber/weber/consumption-calculator/1996",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "netKg": 160
+            },
+            {
+              "areaM2": 80,
+              "lengthCm": 80,
+              "widthCm": 80,
+              "thicknessMm": 10,
+              "jointMm": 2,
+              "netKg": 6.4
+            }
+          ]
+        },
+        {
+          "id": "es-weber-evolution",
+          "name": "webercolor EVOLUTION",
+          "kind": "acrylique",
+          "description": "Joint acrylique prêt à l’emploi pour carrelages de sols et murs intérieurs.",
+          "coefficient": null,
+          "coefficientNote": "La fiche espagnole indique une consommation variable selon format, épaisseur et largeur, sans formule ni tableau chiffré exploitable. Confirmer le g/m² auprès de Weber pour le chantier.",
+          "jointMin": 2,
+          "jointMax": 10,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/es-completion/weber-evolution.webp",
+          "imageSource": "https://www.es.weber/files/es/styles/768x432_resize/public/pictures/2024-05/webercolor_evolution%20%281%29.jpeg.webp?itok=OTfISnlg&cb=cd2337d6",
+          "sourceUrl": "https://www.es.weber/gama-webercolor",
+          "technicalUrl": "https://www.es.weber/files/es/2024-10/FT_webercolor_EVOLUTION_ES.pdf",
+          "notes": [],
+          "checkedAt": "2026-11-07",
+          "locations": [
+            "inside"
+          ],
+          "usageNote": "Intérieur uniquement, sols et murs, chauffage au sol compris. Profondeur de joint supérieure à 3 mm.",
+          "jointDepthMin": 3
+        }
+      ]
+    }
+  ],
+  "productUpdates": [
+    {
+      "id": "es-puma-morcemcolor-plus",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "locationJointMin": {
+        "inside": 1.5,
+        "outside": 3
+      }
+    },
+    {
+      "id": "es-weber-premium-fina",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "locationJointMin": {
+        "inside": 2,
+        "outside": 5
+      },
+      "usageNote": "Sols et murs intérieurs et extérieurs ; la fiche recommande au moins 2 mm en intérieur et 5 mm en extérieur."
+    }
+  ],
+  "inventorySources": [
+    {
+      "brand": "es-propam-molins",
+      "sourceUrl": "https://www.molins.es/construction-solutions/products/",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "brand": "es-gecol",
+      "sourceUrl": "https://www.gecol.com/es/rejuntado-de-ceramica",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "brand": "es-capa",
+      "sourceUrl": "https://capa.es/morteros-de-junta/",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "brand": "es-fixcer",
+      "sourceUrl": "https://fixcer.com/construccion/productos/rejuntado-ceramica/",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "brand": "es-solbau",
+      "sourceUrl": "https://solbaumorteros.com/morteros-de-rejuntado/",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "brand": "es-puma",
+      "sourceUrl": "https://www.grupopuma.com/es-ES/productos/familia/morteros-para-juntas-es",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "brand": "es-weber",
+      "sourceUrl": "https://www.es.weber/media/24766",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "brand": "es-sika",
+      "sourceUrl": "https://esp.sika.com/es/construccion/acabados/colocacion-de-ceramica/gres-porcelanico.html",
+      "checkedAt": "2026-11-07"
+    }
+  ],
+  "catalogueNotes": [
+    "Catalogue national Espagne vérifié le 7 novembre 2026. Additifs latex, nettoyants, mastics de dilatation et mortiers de maçonnerie exclus.",
+    "Les variantes de conditionnement Aplica Color 0–15 E5K/E20K sont regroupées sous une référence ; AplicaCer Epoxi E2.5K et E5.0K gardent leurs fiches et coefficients distincts.",
+    "Une donnée absente de la fiche n’est pas déduite d’un autre pays ou d’une densité. Les références restent documentées avec demande de confirmation quand le lieu, la largeur ou la consommation manque."
+  ]
+}

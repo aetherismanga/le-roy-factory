@@ -1,0 +1,764 @@
+{
+  "country": "fr",
+  "checkedAt": "2026-11-07",
+  "brands": [
+    {
+      "id": "fr-weber",
+      "name": "Weber",
+      "country": "fr",
+      "logoPath": "assets/img/ragreage/brands/weber-official-pdf.png",
+      "website": "https://www.fr.weber/",
+      "products": [
+        {
+          "id": "fr-weber-star",
+          "name": "weberjoint star",
+          "kind": "ciment",
+          "description": "Joint ciment à prise rapide pour murs et sols, avec une palette de 28 teintes.",
+          "coefficient": 1.75,
+          "coefficientNote": "Facteur 1,75 vérifié le 07/11/2026 sur deux configurations du calculateur officiel Weber : 100 m², carreaux 10 × 10 cm, épaisseur 10 mm, joint 5 mm = 175 kg ; 80 m², carreaux 80 × 80 cm, épaisseur 10 mm, joint 2 mm = 7 kg. Résultats hors pertes de mise en œuvre.",
+          "coefficientMethod": "official-calculator-verified",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 10,
+          "packages": [
+            2,
+            5
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Murs et sols intérieurs et extérieurs ; planchers chauffants et piscines privatives selon la fiche technique.",
+          "imagePath": "assets/img/joints/fr-range-completion/weber-star.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_02A5CC34166A4E7C916CD3DD310153A3.jpg.webp?itok=N4BId87l&cb=48d612c8",
+          "sourceUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-star",
+          "technicalUrl": "https://www.fr.weber/files/fr/2026-04/fichetechnique_weberjoint%20star_fr.pdf?cb=f81ab7d4",
+          "calculatorUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-star",
+          "calculatorEndpoint": "https://www.fr.weber/weber/consumption-calculator/14386",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "netKg": 175.0
+            },
+            {
+              "areaM2": 80,
+              "lengthCm": 80,
+              "widthCm": 80,
+              "thicknessMm": 10,
+              "jointMm": 2,
+              "netKg": 7.0
+            }
+          ],
+          "notes": [
+            "Référence actuelle du joint esthétique ; ne pas confondre avec l’ancienne référence weberjoint design.",
+            "Utiliser un joint technique adapté pour cuisines ou douches collectives et nettoyages intensifs."
+          ],
+          "technicalEdition": "14/10/2026",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-weber-flex",
+          "name": "weberjoint flex",
+          "kind": "ciment",
+          "description": "Joint ciment flexible pour les supports bois, les planchers chauffants et les façades.",
+          "coefficient": 1.8,
+          "coefficientNote": "Facteur 1,8 vérifié le 07/11/2026 sur deux configurations du calculateur officiel Weber : 100 m², carreaux 10 × 10 cm, épaisseur 10 mm, joint 5 mm = 180 kg ; 80 m², carreaux 80 × 80 cm, épaisseur 10 mm, joint 2 mm = 7.2 kg. Résultats hors pertes de mise en œuvre.",
+          "coefficientMethod": "official-calculator-verified",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": 12,
+          "packages": [
+            5,
+            25
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Murs et sols intérieurs et extérieurs, y compris façades et terrasses ; respecter les exclusions de la fiche.",
+          "imagePath": "assets/img/joints/fr-range-completion/weber-flex.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_7080CDAC1E8A4D6B8F7A85B97FA76064.jpg.webp?itok=C3F9bvb5&cb=53fd7eae",
+          "sourceUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-flex",
+          "technicalUrl": "https://www.fr.weber/files/fr/2023-08/Fiche_produit_-_weberjoint_flex.pdf?cb=d5f690e4",
+          "calculatorUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-flex",
+          "calculatorEndpoint": "https://www.fr.weber/weber/consumption-calculator/135",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "netKg": 180.0
+            },
+            {
+              "areaM2": 80,
+              "lengthCm": 80,
+              "widthCm": 80,
+              "thicknessMm": 10,
+              "jointMm": 2,
+              "netKg": 7.2
+            }
+          ],
+          "notes": [
+            "Pour supports soumis à déformation, y compris systèmes acoustiques sous carrelage."
+          ],
+          "technicalEdition": "10/01/2024",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-weber-large",
+          "name": "weberjoint large",
+          "kind": "ciment",
+          "description": "Joint ciment à grain large pour carrelages, terres cuites et pierres naturelles.",
+          "coefficient": 2,
+          "coefficientNote": "Facteur 2 vérifié le 07/11/2026 sur deux configurations du calculateur officiel Weber : 100 m², carreaux 10 × 10 cm, épaisseur 10 mm, joint 5 mm = 200 kg ; 80 m², carreaux 80 × 80 cm, épaisseur 10 mm, joint 3 mm = 12 kg. Résultats hors pertes de mise en œuvre.",
+          "coefficientMethod": "official-calculator-verified",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": 20,
+          "packages": [
+            25
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols intérieurs et extérieurs, murs intérieurs ; ne pas employer sur plancher rayonnant électrique, bois ou en piscine.",
+          "imagePath": "assets/img/joints/fr-range-completion/weber-large.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_9B1C99F4891246A893B544C8A816696D.jpg.webp?itok=bjW1MYIR&cb=53fd7eae",
+          "sourceUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-large",
+          "technicalUrl": "https://www.fr.weber/files/fr/2026-01/fichetechnique_weberjoint%20large_fr.pdf?cb=92a2950b",
+          "calculatorUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-large",
+          "calculatorEndpoint": "https://www.fr.weber/weber/consumption-calculator/1236",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "netKg": 200.0
+            },
+            {
+              "areaM2": 80,
+              "lengthCm": 80,
+              "widthCm": 80,
+              "thicknessMm": 10,
+              "jointMm": 3,
+              "netKg": 12.0
+            }
+          ],
+          "notes": [],
+          "technicalEdition": "23/10/2026",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-weber-hr",
+          "name": "weberjoint HR",
+          "kind": "ciment",
+          "description": "Joint ciment à haute résistance pour piscines et locaux soumis à des nettoyages fréquents.",
+          "coefficient": 2,
+          "coefficientNote": "Facteur 2 vérifié le 07/11/2026 sur deux configurations du calculateur officiel Weber : 100 m², carreaux 10 × 10 cm, épaisseur 10 mm, joint 5 mm = 200 kg ; 80 m², carreaux 80 × 80 cm, épaisseur 10 mm, joint 2 mm = 8 kg. Résultats hors pertes de mise en œuvre.",
+          "coefficientMethod": "official-calculator-verified",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 10,
+          "packages": [
+            5,
+            20
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols et murs intérieurs, sols extérieurs et piscines ; pas de sol déformable ni de plancher rayonnant électrique.",
+          "imagePath": "assets/img/joints/fr-range-completion/weber-hr.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_C382ACC806B44BB0B9E04BB47E5F6409.jpg.webp?itok=WJ2Boyu6&cb=53fd7eae",
+          "sourceUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-hr",
+          "technicalUrl": "https://www.fr.weber/files/fr/2026-01/fichetechnique_weberjoint%20HR_fr.pdf?cb=d5f690e4",
+          "calculatorUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-hr",
+          "calculatorEndpoint": "https://www.fr.weber/weber/consumption-calculator/127",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "netKg": 200.0
+            },
+            {
+              "areaM2": 80,
+              "lengthCm": 80,
+              "widthCm": 80,
+              "thicknessMm": 10,
+              "jointMm": 2,
+              "netKg": 8.0
+            }
+          ],
+          "notes": [
+            "Le seau de 20 kg contient quatre sacs de 5 kg.",
+            "Pour traitement cuivre/argent, seule la teinte gris quartz est admise selon la fiche."
+          ],
+          "technicalEdition": "12/02/2026",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-weber-dallage",
+          "name": "weberjoint dallage",
+          "kind": "ciment",
+          "description": "Mortier de jointoiement pour dallages et pierres naturelles à joints très larges.",
+          "coefficient": 2,
+          "coefficientNote": "Facteur 2 vérifié le 07/11/2026 sur deux configurations du calculateur officiel Weber : 100 m², carreaux 10 × 10 cm, épaisseur 10 mm, joint 10 mm = 400 kg ; 80 m², carreaux 80 × 80 cm, épaisseur 10 mm, joint 20 mm = 80 kg. Résultats hors pertes de mise en œuvre.",
+          "coefficientMethod": "official-calculator-verified",
+          "consumptionIncludesWaste": false,
+          "jointMin": 10,
+          "jointMax": 100,
+          "packages": [
+            25
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols intérieurs et extérieurs uniquement ; pour les pavés, le fabricant renvoie vers weberjoint pavé.",
+          "imagePath": "assets/img/joints/fr-range-completion/weber-dallage.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_6737F64AB61447949C0157398EA2A553.jpg.webp?itok=_TWLC-4z&cb=53fd7eae",
+          "sourceUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-dallage",
+          "technicalUrl": "https://www.fr.weber/files/fr/2023-08/Fiche_produit_-_weberjoint_dallage.pdf?cb=d5f690e4",
+          "calculatorUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-dallage",
+          "calculatorEndpoint": "https://www.fr.weber/weber/consumption-calculator/49",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 10,
+              "netKg": 400.0
+            },
+            {
+              "areaM2": 80,
+              "lengthCm": 80,
+              "widthCm": 80,
+              "thicknessMm": 10,
+              "jointMm": 20,
+              "netKg": 80.0
+            }
+          ],
+          "notes": [
+            "Ne convient pas aux sols bois ni aux planchers rayonnants électriques."
+          ],
+          "technicalEdition": "15/01/2024",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-weber-color-evolution",
+          "name": "webercolor evolution",
+          "kind": "dispersion",
+          "description": "Joint coloré prêt à l’emploi pour les sols et murs des logements et bureaux.",
+          "coefficient": null,
+          "coefficientNote": "La documentation officielle décrit une consommation variable ou un tableau sans épaisseur de carreau de référence. Aucun coefficient géométrique vérifiable n’est publié : saisir une consommation fabricant adaptée au chantier.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 10,
+          "packages": [
+            3
+          ],
+          "locations": [
+            "inside"
+          ],
+          "usageNote": "Murs et sols intérieurs, plans de travail et sols chauffants ; profondeur de joint supérieure à 3 mm. Pas de piscine.",
+          "imagePath": "assets/img/joints/fr-range-completion/weber-evolution.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_9E8B060323BF4FA0B1C95B80B9FFFE5A.jpg.webp?itok=NDJP1ALs&cb=53fd7eae",
+          "sourceUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/webercolor-evolution",
+          "technicalUrl": "https://www.fr.weber/files/fr/2025-06/fichetechnique_webercolor%20evolution_fr.pdf?cb=8716122d",
+          "notes": [
+            "Résine synthétique en phase aqueuse ; ne pas classer ce produit parmi les joints ciment ou époxy.",
+            "Ne pas employer pour des joints de mouvement ni dans les locaux soumis au nettoyage haute pression."
+          ],
+          "technicalEdition": "26/05/2025",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-weber-joint-pret-emploi",
+          "name": "joint prêt à l’emploi",
+          "kind": "acrylique",
+          "description": "Joint fin en pâte pour les murs et la rénovation des joints existants.",
+          "coefficient": null,
+          "coefficientNote": "La documentation officielle décrit une consommation variable ou un tableau sans épaisseur de carreau de référence. Aucun coefficient géométrique vérifiable n’est publié : saisir une consommation fabricant adaptée au chantier.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 3,
+          "packages": [
+            5
+          ],
+          "locations": [
+            "inside"
+          ],
+          "usageNote": "Murs intérieurs et plans de travail des logements et bureaux uniquement.",
+          "imagePath": "assets/img/joints/fr-range-completion/weber-joint-pret-emploi.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2019-06/emballage_joint_pret_a_lemploi_5_kg_87F29F9D388640F8A30105EC54409700.jpg.webp?cb=96efd285&itok=ovJhMcUU",
+          "sourceUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/joint-pret-lemploi",
+          "technicalUrl": "https://www.fr.weber/files/fr/2022-02/joint_prt__lemploi.pdf?cb=38438f33",
+          "notes": [
+            "La fiche emploie aussi l’appellation weberjoint pâte dans sa rubrique rénovation.",
+            "Composition indiquée : résines acryliques en dispersion ; aucun facteur de consommation n’est publié."
+          ],
+          "technicalEdition": "16/12/2022",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-weber-col-joint",
+          "name": "webercol & joint",
+          "kind": "ciment",
+          "description": "Mortier ciment pour coller et jointoyer les mosaïques de pâte de verre.",
+          "coefficient": null,
+          "coefficientNote": "La documentation officielle décrit une consommation variable ou un tableau sans épaisseur de carreau de référence. Aucun coefficient géométrique vérifiable n’est publié : saisir une consommation fabricant adaptée au chantier.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 6,
+          "packages": [
+            25
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Murs et sols intérieurs, sols extérieurs, bassins privatifs ; pas de façade ni de plancher chauffant.",
+          "imagePath": "assets/img/joints/fr-range-completion/weber-col-joint.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2017-11/weber_col__joint_GP_5054CBD6DC1F4559AA195987FE9A7184.jpg.webp?cb=c7919b0e&itok=k-sTZAH5",
+          "sourceUrl": "https://www.fr.weber/pose-du-carrelage/les-colles-en-poudre-mortiers-colles/webercol-joint",
+          "technicalUrl": "https://www.fr.weber/files/fr/2018-01/fiche_imprimable_webercol_joint.pdf?cb=fd58254c",
+          "notes": [
+            "Produit combiné : le calcul de joints seul n’inclut pas la quantité nécessaire au collage.",
+            "La consommation publiée de 3,5 à 5 kg/m² correspond au collage et jointoiement simultanés.",
+            "La page officielle et sa fiche restent consultables ; la fiche publiée porte une date d’export du 31/01/2018, disponibilité commerciale à confirmer."
+          ],
+          "technicalEdition": "31/01/2018",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-weber-joint-sol",
+          "name": "joint sol",
+          "kind": "ciment",
+          "description": "Joint ciment de la gamme bricolage pour les carreaux de sol.",
+          "coefficient": null,
+          "coefficientNote": "La fiche publie un tableau de consommation sans épaisseur de carreau de référence. Saisir une consommation fabricant validée pour le chantier.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": 20,
+          "packages": [
+            25
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols intérieurs et extérieurs ; plancher chauffant à eau chaude admis, sols bois et planchers rayonnants électriques exclus.",
+          "imagePath": "assets/img/joints/fr-range-completion/weber-joint-sol.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_03DB0DA6A37B4269A68743559F106781.jpg.webp?itok=M2yxTQLt&cb=53fd7eae",
+          "sourceUrl": "https://www.fr.weber/fiche-bricolage/joint-sol",
+          "technicalUrl": "https://www.fr.weber/files/fr/2023-10/Fiche_produit_-_joint_sol.pdf?cb=d5f690e4",
+          "notes": [
+            "Référence de la gamme bricolage Weber, conditionnée en sac de 25 kg."
+          ],
+          "technicalEdition": "12/02/2024",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-weber-joint-extra-large-terrasse",
+          "name": "joint extra large terrasse",
+          "kind": "ciment",
+          "description": "Mortier ciment de la gamme bricolage pour les dallages et pierres naturelles.",
+          "coefficient": 2,
+          "coefficientNote": "Fiche du 12/02/2024, p. 2 : tableau pour dalles de 2 cm d’épaisseur. Pour 20 × 20 cm, joint 10 mm : 4 kg/m² ; pour 40 × 40 cm, même joint : 2 kg/m². Ces deux configurations correspondent au facteur géométrique 2 avec les dimensions en mm.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 10,
+          "jointMax": 100,
+          "packages": [
+            25
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols intérieurs et extérieurs sur chape ciment ou dalle béton ; exclut la pose sur lit de sable.",
+          "imagePath": "assets/img/joints/fr-range-completion/weber-joint-extra-large-terrasse.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_879EBFD2FBB94AE8A8D27969E446DF6F.jpg.webp?itok=3wKAhWbx&cb=53fd7eae",
+          "sourceUrl": "https://www.fr.weber/fiche-bricolage/joint-extra-large-terrasse",
+          "technicalUrl": "https://www.fr.weber/files/fr/2024-02/Fiche_produit_-_joint_extra_large_terrasse.pdf?cb=d5f690e4",
+          "notes": [
+            "Référence de la gamme bricolage Weber, conditionnée en sac de 25 kg."
+          ],
+          "technicalEdition": "12/02/2024",
+          "checkedAt": "2026-11-07",
+          "coefficientMethod": "published-consumption-table-with-depth"
+        }
+      ]
+    },
+    {
+      "id": "fr-bostik",
+      "name": "Bostik",
+      "country": "fr",
+      "logoPath": "assets/img/ragreage/brands/bostik-official-pdf.png",
+      "website": "https://diy.bostik.com/fr-FR",
+      "products": [
+        {
+          "id": "fr-bostik-j200-hrc",
+          "name": "J200 Joint HRC",
+          "kind": "ciment",
+          "description": "Mortier ciment pour joints soumis à des sollicitations chimiques et mécaniques élevées.",
+          "coefficient": null,
+          "coefficientNote": "La fiche publie une formule géométrique avec D = densité du joint, mais ne donne pas de coefficient de rendement sec identifié indépendamment de la densité apparente. Aucune conversion de densité en consommation n’est déduite ; saisir une consommation validée pour le chantier.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            25
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Murs intérieurs et sols intérieurs ou extérieurs selon la fiche ; piscines et locaux sollicités.",
+          "imagePath": "assets/img/joints/fr-range-completion/bostik-hrc.webp",
+          "imageSource": "https://www.bostik.com/files/live/sites/shared_bostik/files/Images/France/Header%20Images%204-3/C%26C/Visuels/Sols%20%26%20Murs/BOSTIK-30604276-packaging-avant-J-200-JOINT-HRC-mortier-de-jointement-haute-resistance-FR-640x480.jpg",
+          "sourceUrl": "https://www.bostik.com/france/fr/catalog/product/construction/emea/france/product-mortier-de-jointement-bo/",
+          "technicalUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/BOSTIK_FR_FICHE_TECHNIQUE_J-200_JOINT_HRC_30604276_TDS_2021.pdf",
+          "notes": [
+            "La page et le pictogramme indiquent 2 à 15 mm, alors que le paragraphe Destinations de la fiche indique 2 à 20 mm : plafond conservateur de 15 mm retenu."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-bostik-ardacolor-xtrem-easy",
+          "name": "ARDACOLOR XTREM EASY",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant pour piscines, cuisines collectives et surfaces fortement sollicitées.",
+          "coefficient": null,
+          "coefficientNote": "La fiche publie une formule géométrique avec D = densité du joint, mais ne donne pas de coefficient de rendement sec identifié indépendamment de la densité apparente. Aucune conversion de densité en consommation n’est déduite ; saisir une consommation validée pour le chantier.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            5
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Murs et sols intérieurs ; l’usage extérieur est documenté pour les bassins et piscines. Confirmer les autres ouvrages extérieurs auprès du fabricant.",
+          "imagePath": "assets/img/joints/fr-range-completion/bostik-ardacolor.webp",
+          "imageSource": "https://www.bostik.com/files/live/sites/shared_bostik/files/Images/France/Products/C%26C/bostik-fr-ardacolor-xtrem-easy-packaging-640x480.png",
+          "sourceUrl": "https://www.bostik.com/france/fr/catalog/product/construction/emea/france/product-bostik-ardacolor-xtrem-easy/",
+          "technicalUrl": "https://www.bostik.com/files/live/sites/shared_bostik/files/documents-brochures/France/Documents/TDS/bostik-fr-ardacolor-xtrem-easy-tds-2024.pdf",
+          "notes": [
+            "Ancienne désignation officielle : J300 EPOCOLOR.",
+            "Largeur minimale de 4 mm en locaux P4/P4S.",
+            "Le conditionnement de 5 kg est un kit prédosé complet ; mélanger tous les composants."
+          ],
+          "checkedAt": "2026-11-07",
+          "technicalEdition": "23/07/2024"
+        },
+        {
+          "id": "fr-bostik-pate-standard",
+          "name": "Joint Pâte Standard",
+          "kind": "dispersion",
+          "description": "Pâte prête à l’emploi pour les crédences, murs et plans de travail.",
+          "coefficient": null,
+          "coefficientNote": "La documentation officielle décrit une consommation variable ou un tableau sans épaisseur de carreau de référence. Aucun coefficient géométrique vérifiable n’est publié : saisir une consommation fabricant adaptée au chantier.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 6,
+          "packages": [
+            1.5
+          ],
+          "locations": [
+            "inside"
+          ],
+          "usageNote": "Murs intérieurs et plans de travail sur supports rigides ; exclut parois de douche et baignoires.",
+          "imagePath": "assets/img/joints/fr-range-completion/bostik-pate.webp",
+          "imageSource": "https://diy.bostik.com/sites/default/files/styles/square_crop/public/2026-05/bostik-diy-fr-joint-pate-standard-1%2C5kg-blanc-600x600.jpg?itok=ksGQtmHS",
+          "sourceUrl": "https://diy.bostik.com/fr-FR/votre-projet/habiller-mon-mur/joint-de-carrelage-standard-pate",
+          "technicalUrl": "https://diy.bostik.com/sites/default/files/2025-09/Joint%20p%C3%A2te%20standard%20blanc.pdf",
+          "notes": [
+            "Le conditionnement de 1,5 kg est celui de la fiche technique du 16/07/2025."
+          ],
+          "technicalEdition": "16/07/2025",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-bostik-colle-joint-2en1",
+          "name": "Colle et Joint 2 en 1 – Pâte D2ET",
+          "kind": "dispersion",
+          "description": "Pâte polyvalente pour coller et jointoyer les carrelages muraux.",
+          "coefficient": null,
+          "coefficientNote": "La documentation officielle décrit une consommation variable ou un tableau sans épaisseur de carreau de référence. Aucun coefficient géométrique vérifiable n’est publié : saisir une consommation fabricant adaptée au chantier.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 4,
+          "packages": [
+            1.5
+          ],
+          "locations": [
+            "inside"
+          ],
+          "usageNote": "Murs et plans de travail intérieurs uniquement ; supports et préparation selon la fiche.",
+          "imagePath": "assets/img/joints/fr-range-completion/bostik-2en1.webp",
+          "imageSource": "https://diy.bostik.com/sites/default/files/styles/square_crop/public/2026-05/Bostik-DIY-France-Colle-et-Joint-Carrelage-2-en-1-P%C3%A2te-D2ET-1%2C5kg-gris-product-image.jpg?itok=w-v9STNC",
+          "sourceUrl": "https://diy.bostik.com/fr-FR/votre-projet/habiller-mon-mur/colle-et-joint-carrelage-2-en-1-pate-d2et",
+          "technicalUrl": "https://diy.bostik.com/sites/default/files/2025-09/Colle%20et%20joint%202%20en%201.pdf",
+          "notes": [
+            "Produit combiné : le calcul des joints n’inclut pas le produit nécessaire au collage.",
+            "Le conditionnement de 1,5 kg est celui de la fiche du 16/07/2025 ; d’anciens visuels de 5 kg restent dans la galerie."
+          ],
+          "technicalEdition": "16/07/2025",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-bostik-joint-sechage-rapide",
+          "name": "Joint Carrelage Séchage Rapide",
+          "kind": "ciment",
+          "description": "Joint ciment à temps de travail court pour les supports rigides.",
+          "coefficient": null,
+          "coefficientNote": "La documentation officielle décrit une consommation variable ou un tableau sans épaisseur de carreau de référence. Aucun coefficient géométrique vérifiable n’est publié : saisir une consommation fabricant adaptée au chantier.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": 15,
+          "packages": [
+            5
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Murs et sols intérieurs ou extérieurs ; exclut supports déformables, sols chauffants et bacs à douche à l’italienne.",
+          "imagePath": "assets/img/joints/fr-range-completion/bostik-rapide.webp",
+          "imageSource": "https://diy.bostik.com/sites/default/files/styles/square_crop/public/2026-05/Bostik-DIY-France-Joint-de-Carrelage-S%C3%A9chage-Rapide-product-image.jpg?itok=aR-mlfC9",
+          "sourceUrl": "https://diy.bostik.com/fr-FR/votre-projet/habiller-mon-sol/joint-de-carrelage-sechage-rapide",
+          "technicalUrl": "https://diy.bostik.com/sites/default/files/2025-01/Bostik-diy-France-joint-carrelage-sechage-rapide-tds.pdf",
+          "notes": [
+            "Temps d’utilisation du mélange annoncé : environ 20 minutes.",
+            "La plage nominale de 3 à 15 mm prévaut sur les exemples de consommation à 2 mm."
+          ],
+          "technicalEdition": "07/04/2017",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-bostik-joint-flex-terrasse-balcon",
+          "name": "Joint Flex Terrasse & Balcon",
+          "kind": "ciment",
+          "description": "Joint ciment souple pour les terrasses et balcons carrelés.",
+          "coefficient": null,
+          "coefficientNote": "La documentation officielle décrit une consommation variable ou un tableau sans épaisseur de carreau de référence. Aucun coefficient géométrique vérifiable n’est publié : saisir une consommation fabricant adaptée au chantier.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 3,
+          "jointMax": 30,
+          "packages": [
+            15
+          ],
+          "locations": [
+            "outside"
+          ],
+          "usageNote": "Sols extérieurs uniquement selon la fiche du 16/07/2025 ; supports béton, chape ciment et anciens carrelages rigides.",
+          "imagePath": "assets/img/joints/fr-range-completion/bostik-terrasse.webp",
+          "imageSource": "https://diy.bostik.com/sites/default/files/styles/square_crop/public/2026-05/bostik-diy-fr-joint-terasse-flex-terasse-balcon-gris-argent-600x600.jpg?itok=LC0m8d-F",
+          "sourceUrl": "https://diy.bostik.com/fr-FR/votre-projet/habiller-mon-sol/joint-de-carrelage-joint-flex-terrasse-et-balcon",
+          "technicalUrl": "https://diy.bostik.com/sites/default/files/2025-09/Joint%20flex%20terrasses%20et%20balcon.pdf",
+          "notes": [
+            "Le sac de 15 kg est confirmé par la fiche technique et le visuel actuels ; la page commerciale conserve une mention ancienne de 25 kg.",
+            "La fiche actuelle prévaut sur la page commerciale pour l’emploi : elle vise le sol extérieur.",
+            "Le tableau officiel illustre les joints de 3, 10, 15 et 30 mm."
+          ],
+          "technicalEdition": "16/07/2025",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-bostik-colle-joint-salle-bain",
+          "name": "Colle et Joint Flex Spécial Salle de Bain – C2T",
+          "kind": "ciment",
+          "description": "Mortier ciment pour coller et jointoyer mosaïques, pâtes de verre et galets.",
+          "coefficient": null,
+          "coefficientNote": "La fiche du 16/07/2025 publie uniquement les consommations de collage. La page fabricant conserve un tableau indicatif de joints de 1 à 15 mm sans épaisseur du carreau. Saisir une consommation de jointoiement validée pour le chantier ; ne pas utiliser la consommation de collage.",
+          "consumptionIncludesWaste": false,
+          "jointMin": null,
+          "jointMax": null,
+          "packages": [
+            25
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Murs et sols intérieurs ou extérieurs selon la fiche. La largeur nominale admissible des joints n’est pas précisée dans la fiche actuelle : la faire confirmer par le fabricant.",
+          "imagePath": "assets/img/joints/fr-range-completion/bostik-col-joint-flex.webp",
+          "imageSource": "https://diy.bostik.com/sites/default/files/styles/square_crop/public/2026-05/Bostik-DIY-France-Colle-et-Joint-Carrelage-Flex-Sp%C3%A9cial-Pi%C3%A8ces-Humides-C2T-product-image.jpg?itok=yZznNA_2",
+          "sourceUrl": "https://diy.bostik.com/fr-FR/votre-projet/habiller-mon-sol/colle-et-joint-carrelage-flex-special-pieces-humides-c2t",
+          "technicalUrl": "https://diy.bostik.com/sites/default/files/2025-09/colle%20carrelage%20sp%C3%A9cial%20salle%20de%20bain.pdf",
+          "notes": [
+            "Produit combiné : la quantité nécessaire au collage doit être ajoutée séparément.",
+            "Les dimensions de joints du tableau commercial sont des exemples de consommation et ne sont pas présentées comme une plage nominale d’emploi.",
+            "La fiche vise notamment mosaïques, pâte de verre, galets et pièces humides."
+          ],
+          "technicalEdition": "16/07/2025",
+          "checkedAt": "2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "fr-sika",
+      "name": "Sika",
+      "country": "fr",
+      "logoPath": "assets/img/ragreage/brands/sika.svg",
+      "website": "https://fra.sika.com/",
+      "products": [
+        {
+          "id": "fr-sika-615",
+          "name": "SikaCeram-615 Joint Large",
+          "kind": "ciment",
+          "description": "Joint ciment pour les revêtements céramiques et pierres naturelles au sol.",
+          "coefficient": 2,
+          "coefficientNote": "Notice française de juin 2023, p. 2 : consommation = A × B × (C+D)/(C×D) × 0,2, A et B en mm, C et D en cm ; cela correspond à un facteur 2 avec toutes les dimensions en mm. Vérification : carreaux 30 × 30 cm, épaisseur 9 mm et joint 5 mm = 0,6 kg/m² dans le tableau officiel.",
+          "coefficientMethod": "published-formula-and-table",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            5,
+            25
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Sols intérieurs et extérieurs uniquement ; ne pas soumettre aux produits agressifs ni au nettoyage haute pression.",
+          "imagePath": "assets/img/joints/fr-range-completion/sika-615.webp",
+          "imageSource": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:8ffa8a9f-eb26-4c39-bf89-68a741c259bb/as/fr-sikaceram-615-joint-large-5kg-3d-01719864.png?smartcrop=1-1&width=480&height=480",
+          "sourceUrl": "https://fra.sika.com/fr/bricolage/famille-produits/sols-murs/pose-de-carrelage/sikaceram-615-jointlarge.html",
+          "technicalUrl": "https://fra.sika.com/dam/dms/fr01/y/sikaceram-615-largegrout.pdf",
+          "notes": [
+            "La boîte de 5 kg contient deux sachets de 2,5 kg.",
+            "Essai préalable de non-tachabilité pour les pierres naturelles."
+          ],
+          "technicalEdition": "06/2023",
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-sika-joint-dallage-exterieur",
+          "name": "SikaCeram Joint Dallage Extérieur",
+          "kind": "ciment",
+          "description": "Mortier ciment à finition rustique pour les dalles, pierres naturelles et opus.",
+          "coefficient": null,
+          "coefficientNote": "La notice française d’août 2018 publie une formule en p. 1 et un tableau pour une épaisseur de 10 mm en p. 2, mais l’unité g/m² de la formule diffère de l’unité kg/m² du tableau et certaines valeurs à 50 mm divergent de la formule. Aucun coefficient automatique retenu ; saisir une consommation de jointoiement validée pour le chantier.",
+          "consumptionIncludesWaste": false,
+          "jointMin": 5,
+          "jointMax": 50,
+          "packages": [
+            25
+          ],
+          "locations": [
+            "inside",
+            "outside"
+          ],
+          "usageNote": "Murs et sols intérieurs et extérieurs, y compris sols chauffants à eau selon la notice ; exclut eaux agressives, eau de mer et nettoyages haute pression.",
+          "imagePath": "assets/img/joints/fr-range-completion/sika-dallage.webp",
+          "imageSource": "https://fra.sika.com/dam/dms/fr01/x/fr-bro-sikaceram-joints-carrelage-gp.pdf",
+          "imageSourcePage": 3,
+          "sourceUrl": "https://fra.sika.com/fr/bricolage/conseils-astuces/appliquer-joint-dalle-beton.html",
+          "technicalUrl": "https://fra.sika.com/dam/dms/fr01/x/sikaceram_joint_dallageexterieur.pdf",
+          "notes": [
+            "Référence toujours présentée dans la brochure nationale de mai 2024 et dans les conseils Sika France consultés le 07/11/2026.",
+            "La brochure met en avant le sol extérieur ; la notice produit atteste également les usages en murs et sols intérieurs ou extérieurs.",
+            "Photo officielle du sac de 25 kg extraite de la page 3 de la brochure nationale."
+          ],
+          "technicalEdition": "08/2018",
+          "checkedAt": "2026-11-07"
+        }
+      ],
+      "missingFamilies": {
+        "epoxy": {
+          "note": "Aucune référence de joint époxy vérifiée dans le catalogue Sika France consulté. Les gammes peuvent différer selon le pays.",
+          "sourceUrl": "https://fra.sika.com/fr/bricolage/famille-produits/sols-murs/pose-de-carrelage.html"
+        }
+      },
+      "coverageNote": "Gamme française vérifiée sur les index Sika France et les documents nationaux : joints ciment 606, 615 et Joint Dallage Extérieur. Aucune référence de joint époxy SikaCeram attestée dans ces sources françaises au 07/11/2026.",
+      "coverageSourceUrls": [
+        "https://fra.sika.com/fr/bricolage/famille-produits/sols-murs/pose-de-carrelage.html",
+        "https://fra.sika.com/fr/construction/preparation-supports-collage-revetements/pose-carrelage.html",
+        "https://fra.sika.com/dam/dms/fr01/x/fr-bro-sikaceram-joints-carrelage-gp.pdf",
+        "https://fra.sika.com/content/sika-webdms/fr01.sitemap-seo.xml"
+      ]
+    }
+  ],
+  "productUpdates": [
+    {
+      "id": "fr-weber-integral",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "usageNote": "Murs intérieurs et sols intérieurs ou extérieurs ; pas de façade ni de piscine."
+    },
+    {
+      "id": "fr-weber-fin",
+      "locations": [
+        "inside"
+      ],
+      "usageNote": "Sols et murs intérieurs ; piscines privatives prévues par la fiche, sous restrictions de traitement et de teinte. Le sol extérieur courant n’est pas visé."
+    },
+    {
+      "id": "fr-weber-epox",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "usageNote": "Murs et sols intérieurs ou extérieurs, piscines et locaux industriels selon la fiche."
+    },
+    {
+      "id": "fr-bostik-fin-tous-terrains",
+      "locations": [
+        "inside"
+      ],
+      "usageNote": "Murs et sols intérieurs privatifs ; exclut sols chauffants, locaux P4 et nettoyages haute pression.",
+      "notes": [
+        "La fiche technique exclut les sols chauffants et les nettoyages sous haute pression.",
+        "Conditionnements et couleurs disponibles à confirmer pour la teinte choisie.",
+        "La page officielle historique J100 Joint Fin redirige vers cette référence actuelle."
+      ]
+    },
+    {
+      "id": "fr-bostik-joint-flex",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "usageNote": "Sols et murs intérieurs ou extérieurs, y compris supports déformables et planchers chauffants selon la fiche.",
+      "notes": [
+        "Utiliser pour des joints de 3 à 30 mm conformément à la fiche de cette référence.",
+        "Conditionnements et couleurs disponibles à confirmer pour la teinte choisie.",
+        "Les pages officielles historiques J125 Joint Large, J150 Joint Rustic et J175 Joint Flex redirigent vers cette référence actuelle."
+      ]
+    },
+    {
+      "id": "fr-sika-606",
+      "locations": [
+        "inside",
+        "outside"
+      ],
+      "usageNote": "Murs et sols intérieurs et extérieurs, y compris sols chauffants ; exclut piscines et nettoyages haute pression."
+    }
+  ],
+  "rangeAuditNotes": [
+    "Les anciennes pages Bostik J100/J125/J150/J175/J300 redirigent vers les références actuelles ; elles ne sont pas dupliquées artificiellement.",
+    "La gamme bricolage Weber expose actuellement joint sol et joint extra large terrasse ; leurs fiches et leurs emballages sont conservés comme références distinctes.",
+    "Les pages dédiées anciennes weberjoint design et weberjoint pâte ne répondent plus. L’entrée actuelle joint prêt à l’emploi conserve le nom weberjoint pâte dans le texte de sa fiche ; elle n’est pas dupliquée.",
+    "Bostik Colle et Joint Flex Spécial Salle de Bain : plage nominale non déclarée dans la fiche du 16/07/2025 ; jointMin/jointMax volontairement nuls, consommation manuelle.",
+    "Sika France : les index et le sitemap documentaire nationaux consultés ne référencent aucun joint époxy SikaCeram. La brochure nationale de mai 2024 atteste en plus des 606 et 615 le Joint Dallage Extérieur, ajouté après vérification de sa notice et de son emballage officiel."
+  ]
+}
