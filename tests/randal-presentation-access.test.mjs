@@ -31,20 +31,20 @@ for(const variant of ['studio-one','randal-general'])test(variant+': presentatio
   for(const c of RANDAL_FLOORS)assert.equal(await presentation.setSurface('floor',c.id),true);
   for(const c of RANDAL_WALLS)assert.equal(await presentation.setSurface('wall',c.id),true);
   await presentation.setSurface('floor','slate-beige');const material=scene.getObjectByName('Présentation_floor').children[0].material;assert.equal(material.map.repeat.x,.5,'official rectangular sample is cropped to square, never stretched');assert.equal(material.map.repeat.y,1);assert.equal(material.map.offset.x,.25);
-  await presentation.setSurface('floor','yosemite-honey');assert.deepEqual([presentation.diagnostics().layouts.floor.width,presentation.diagnostics().layouts.floor.height,presentation.diagnostics().layouts.floor.pattern],[1.2,.2,'third']);
+  await presentation.setSurface('floor','yosemite-honey');assert.deepEqual([presentation.diagnostics().layouts.floor.width,presentation.diagnostics().layouts.floor.height,presentation.diagnostics().layouts.floor.pattern],[1.2,.2,'two-thirds']);
   await assert.rejects(presentation.setSurface('floor','allure-eden'));assert.equal(JSON.stringify(input),unchanged,'presentation mechanisms never edit the source furniture/project');
  }finally{presentation.dispose();Object.assign(globalThis,originals);}
 });
 
 test('floor and wall selections remain separate, bounded and use the requested layouts',()=>{
- assert.equal(RANDAL_FLOORS.length,3);assert.deepEqual(RANDAL_FLOORS.map(x=>[x.collection,x.color,x.width,x.height,x.pattern]),[['Yosemite','honey',1.2,.2,'third'],['Creta','caramello',1.2,.6,'straight'],['Slate','gold',.6,.6,'straight']]);
+ assert.equal(RANDAL_FLOORS.length,3);assert.deepEqual(RANDAL_FLOORS.map(x=>[x.collection,x.color,x.width,x.height,x.pattern]),[['Yosemite','honey',1.2,.2,'two-thirds'],['Creta','caramello',1.2,.6,'straight'],['Slate','gold',.6,.6,'straight']]);
  assert.deepEqual(RANDAL_WALLS.filter(c=>c.collection==='Peinture').map(c=>c.name),['Blanc cassé','Ivoire','Sable','Sauge','Argile','Gris perle','Anthracite']);
  assert(RANDAL_WALLS.every(c=>['Peinture','Stone Icon','Allure'].includes(c.collection)));
  assert.equal(RANDAL_WALLS.filter(c=>c.collection==='Allure'&&c.decor).length,4);assert.equal(RANDAL_WALLS.filter(c=>c.collection==='Allure'&&!c.decor).length,5);
  assert.equal(presentationChoice('wall','stone-icon-leccese').format,'60x90');
  assert.equal(presentationChoice('floor','allure-eden'),null);assert.equal(presentationChoice('wall','yosemite-honey'),null);
  const project={room:{points:[[0,0],[450,0],[450,450],[0,450]]},items:[{id:'cabinet',settings:{finish:'ROBLE'}}],walls:[{collection:'Creta'}]};
- const next=withPresentationSurface(project,'floor','yosemite-honey');assert.equal(next.layouts.floor.pattern,'third');assert.equal(next.layouts.floor.height,.2);assert.deepEqual(next.items,project.items);assert.equal(project.floor,undefined);
+ const next=withPresentationSurface(project,'floor','yosemite-honey');assert.equal(next.layouts.floor.pattern,'two-thirds');assert.equal(next.layouts.floor.height,.2);assert.deepEqual(next.items,project.items);assert.equal(project.floor,undefined);
  const walls=withPresentationSurface(next,'wall','paint-sand');assert.equal(walls.walls[0].color,'sand');assert.deepEqual(walls.items,project.items);assert.throws(()=>withPresentationSurface(project,'floor','unknown'));assert.equal(withPresentationSurface(project,'wall','allure-eden').walls[0].color,'eden');
 });
 

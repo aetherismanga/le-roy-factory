@@ -1,10 +1,10 @@
 import {isRandalPresentation} from './randal-client-access.js';
 
 export function createRandalPresentation({getIdentity,getProject,createPreview,products,onVisibility=()=>{},onChange=()=>{}}){
- let dialog=null,engine=null,catalog=null,project=null,selection=null,opening=0,previousFocus=null,wasRestricted=false,originalOrigin='',disposeResources=()=>{};
+ let dialog=null,engine=null,catalog=null,project=null,selection=null,opening=0,previousFocus=null,wasRestricted=false,originalOrigin='';
  const element=(tag,text)=>{const e=document.createElement(tag);if(text)e.textContent=text;return e;};
  const button=(id,text)=>{const e=element('button',text);e.id=id;e.type='button';return e;};
- function close(){const visible=!!dialog;opening++;if(document.fullscreenElement===dialog)document.exitFullscreen?.().catch(()=>{});if(dialog?.open)dialog.close();engine?.dispose();engine=null;disposeResources();disposeResources=()=>{};dialog?.remove();dialog=null;if(visible)onVisibility(false);previousFocus?.focus?.();}
+ function close(){const visible=!!dialog;opening++;if(document.fullscreenElement===dialog)document.exitFullscreen?.().catch(()=>{});if(dialog?.open)dialog.close();engine?.dispose();engine=null;dialog?.remove();dialog=null;if(visible)onVisibility(false);previousFocus?.focus?.();}
  function sync(){const restricted=isRandalPresentation(getIdentity()),pending=!getIdentity()?.known;
   document.body.classList.toggle('randal-access-pending',pending);document.body.classList.toggle('randal-client-presentation',restricted);
   const direct=document.querySelector('#direct-atelier');if(direct)direct.hidden=restricted;
@@ -16,59 +16,24 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
  }
  async function open(input=getProject()){
   if(!isRandalPresentation(getIdentity())||!input)return false;
-  if(dialog)close();previousFocus=document.activeElement;project=structuredClone(input);const turn=++opening;
+  if(dialog)close();previousFocus=document.activeElement;project=structuredClone(input);const migrateDefaults=project.presentation?.defaultsVersion!==2,turn=++opening;
   dialog=element('dialog');dialog.className='randal-presentation';dialog.id='randal-presentation';dialog.setAttribute('aria-label','Votre composition en plein écran');
   const header=element('header');header.className='randal-presentation-header';header.append(element('strong','Votre composition RANDAL'));const exit=button('randal-presentation-close','Fermer ✕');header.append(exit);
-  const body=element('div');body.className='randal-presentation-body';const stage=element('div');stage.className='randal-presentation-stage';stage.id='randal-presentation-stage';const controls=element('aside');controls.className='randal-presentation-controls';controls.setAttribute('aria-label','Personnaliser la présentation');const status=element('p','Préparation de votre composition…');status.className='randal-presentation-status';status.setAttribute('role','status');const renderQuality=element('p','Aperçu interactif');renderQuality.className='randal-render-quality';renderQuality.setAttribute('role','status');stage.append(status,renderQuality);body.append(stage,controls);dialog.append(header,body);document.body.append(dialog);
-  const photoControls=element('section');photoControls.className='randal-photo-controls';photoControls.setAttribute('aria-label','Rendu photo');
-  const photoButton=button('randal-photo-render','Créer le rendu photo'),photoCancel=button('randal-photo-cancel','Annuler le rendu');photoButton.disabled=true;photoCancel.hidden=true;
-  const photoNote=element('p','Le rendu photo démarre uniquement sur demande.');photoNote.className='randal-presentation-help';
-  const capturePane=element('figure');capturePane.className='randal-photo-capture';capturePane.id='randal-photo-capture';capturePane.hidden=true;
-  photoControls.append(photoButton,photoCancel,photoNote,capturePane);
-  let photoBusy=false,photoAvailable=true,captureURL='',captureCurrent=false,photoRequest=0,presentationReady=false,productBusy=false,surfaceBusy=0,context=null;
-  const photoModes=new Set(['requested','preparing','photoreal','denoising','capturing']);
-  function reflectPhoto(){photoButton.disabled=!presentationReady||productBusy||!!surfaceBusy||photoBusy||!engine?.startPhotoRender||!photoAvailable;photoButton.textContent=photoBusy?'Rendu photo en cours…':captureCurrent?'Créer un nouveau rendu photo':'Créer le rendu photo';photoCancel.hidden=!photoBusy;photoControls.setAttribute('aria-busy',String(photoBusy));}
-  function markCapturePrevious(){if(!captureURL)return;captureCurrent=false;capturePane.dataset.current='false';const caption=capturePane.querySelector('figcaption');if(caption)caption.textContent='Capture précédente — créez un nouveau rendu pour l’actualiser.';reflectPhoto();}
-  function invalidatePhoto(){markCapturePrevious();if(photoBusy){photoRequest++;engine?.cancelPhotoRender?.();renderStatus({mode:'cancelled'});}}
-  function renderStatus(render={}){
-   if(turn!==opening)return;const mode=render.mode||'interactive';photoBusy=photoModes.has(mode);if(render.available===false)photoAvailable=false;else if(render.available===true)photoAvailable=true;
-   if(mode!=='ready')markCapturePrevious();
-   const label=mode==='ready'?(captureCurrent?'Rendu photo et capture prêts':'Rendu terminé — capture indisponible'):mode==='photoreal'?'Rendu photo · affinage '+Math.floor(render.samples||0)+' / '+(render.maxSamples||256):mode==='requested'?'Préparation du rendu photo…':mode==='preparing'?'Calcul de la lumière…':mode==='denoising'?'Nettoyage du rendu…':mode==='capturing'?'Capture du rendu…':mode==='incomplete'?'Rendu incomplet — réessayez':mode==='cancelled'?'Rendu annulé · aperçu interactif':mode==='fallback'?'Aperçu interactif · qualité adaptée':'Aperçu interactif';
-   renderQuality.textContent=label;renderQuality.dataset.mode=mode;renderQuality.title=render.message||label;
-   photoNote.textContent=!photoAvailable?(render.message||'Le rendu photo n’est pas disponible sur cet appareil.'):photoBusy?(render.message||'Gardez cette vue pendant le calcul. Vous pouvez annuler à tout moment.'):mode==='incomplete'?(render.message||'Le calcul n’a pas atteint la qualité nécessaire. Aucune capture finale n’a été créée.'):mode==='ready'&&captureCurrent?'La capture est prête. Vous pouvez la télécharger en PNG.':'Le rendu photo démarre uniquement sur demande.';
-   reflectPhoto();
-  }
-  function photoCapture(capture){
-   if(turn!==opening||!capture?.blob||capture.blob.type!=='image/png'||!(capture.blob.size>0)||!URL.createObjectURL)return;
-   let nextURL;try{nextURL=URL.createObjectURL(capture.blob);}catch{return;}
-   const previousURL=captureURL;captureURL=nextURL;captureCurrent=true;capturePane.replaceChildren();capturePane.hidden=false;capturePane.dataset.current='true';
-   const image=element('img');image.src=captureURL;image.alt='Capture du rendu photo de votre composition RANDAL';image.decoding='async';
-   const caption=element('figcaption','Capture du rendu photo'+(capture.width&&capture.height?' · '+capture.width+' × '+capture.height:''));
-   const download=element('a','Télécharger la capture PNG');download.id='randal-photo-download';download.href=captureURL;download.download='composition-randal.png';download.className='randal-photo-download';
-   capturePane.append(image,caption,download);if(previousURL)URL.revokeObjectURL(previousURL);reflectPhoto();
-  }
-  disposeResources=()=>{photoRequest++;if(captureURL)URL.revokeObjectURL(captureURL);captureURL='';captureCurrent=false;};
-  photoButton.onclick=async()=>{
-   if(turn!==opening||!presentationReady||productBusy||surfaceBusy||photoBusy||!photoAvailable||!engine?.startPhotoRender)return;
-   const preview=engine,request=++photoRequest;markCapturePrevious();photoBusy=true;renderQuality.textContent='Préparation du rendu photo…';renderQuality.dataset.mode='preparing';photoNote.textContent='Préparation du rendu photo…';reflectPhoto();
-   try{const started=await preview.startPhotoRender();if(turn!==opening||request!==photoRequest)return;if(started===false&&photoBusy)renderStatus({mode:'incomplete',message:'Le rendu photo n’a pas pu démarrer. Réessayez.'});}
-   catch(error){if(turn===opening&&request===photoRequest)renderStatus({mode:'incomplete',message:'Le rendu photo n’a pas pu aboutir. '+(error?.message||'Réessayez.')});}
-  };
-  photoCancel.onclick=()=>{if(turn!==opening||!engine||!photoBusy)return;photoRequest++;engine.cancelPhotoRender?.();renderStatus({mode:'cancelled'});};
+  const body=element('div');body.className='randal-presentation-body';const stage=element('div');stage.className='randal-presentation-stage';stage.id='randal-presentation-stage';const controls=element('aside');controls.className='randal-presentation-controls';controls.setAttribute('aria-label','Personnaliser la présentation');const status=element('p','Préparation de votre composition…');status.className='randal-presentation-status';status.setAttribute('role','status');stage.append(status);body.append(stage,controls);dialog.append(header,body);document.body.append(dialog);
   exit.onclick=close;dialog.addEventListener('cancel',e=>{e.preventDefault();close();});dialog.showModal();onVisibility(true);
   // Native fullscreen must be requested during the click. The modal fills the
   // available viewport as well on iPhone and other browsers without this API.
   try{const native=dialog.requestFullscreen?.();native?.catch(()=>{});}catch{}
   try{
-   const settled=await Promise.allSettled([import('./randal-presentation-catalog.js'),createPreview(stage,{presentation:true,onRenderStatus:renderStatus,onPhotoCapture:photoCapture}),import('./randal-presentation-products.js'),import('./randal-presentation-choice-previews.js')]),failure=settled.find(r=>r.status==='rejected');
+   const settled=await Promise.allSettled([import('./randal-presentation-catalog.js'),createPreview(stage,{presentation:true}),import('./randal-presentation-products.js'),import('./randal-presentation-choice-previews.js')]),failure=settled.find(r=>r.status==='rejected');
    if(failure){if(settled[1].status==='fulfilled')settled[1].value.dispose();throw failure.reason;}
    const results=settled.map(r=>r.value);catalog=results[0];const next=results[1],productCatalog=products?results[2].createPresentationProducts(products):null,mirrorSpec=results[2].mirrorSpec,choicePreview=results[3].presentationChoicePreview;
-   if(turn!==opening){next.dispose();return false;}engine=next;await engine.update(project);if(turn!==opening)return false;
+   if(turn!==opening){next.dispose();return false;}engine=next;project=catalog.presentationDefaults?.(project)??project;await engine.update(project);if(turn!==opening)return false;
    selection=catalog.presentationChoices(project);
    const openButton=button('randal-composition-open','Ouvrir la composition'),ledButton=button('randal-mirror-led','Allumer le miroir'),reset=button('randal-presentation-reset','Vue initiale');
-   controls.append(openButton,ledButton,photoControls);reflectPhoto();if(!engine.startPhotoRender)photoNote.textContent='Le rendu photo n’est pas disponible sur cet appareil.';
+   controls.append(openButton,ledButton);
    const boundedBrightness=value=>Number.isFinite(Number(value))?Math.min(150,Math.max(25,Math.round(Number(value)))):100;
-   let brightnessValue=boundedBrightness(project.presentation?.brightness??100),dimensionsVisible=project.presentation?.dimensions!==false;
+   let brightnessValue=boundedBrightness(project.presentation?.brightness??100),dimensionsVisible=project.presentation?.dimensions===true;
    engine.setBrightness?.(brightnessValue);engine.dimensions?.setVisible(dimensionsVisible);
    const displayControls=element('div');displayControls.className='randal-presentation-display';
    const dimensionButton=button('randal-dimensions-toggle','Cotes');dimensionButton.setAttribute('aria-pressed',String(dimensionsVisible));dimensionButton.title='Afficher ou masquer les dimensions du mobilier';
@@ -77,17 +42,17 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
    const brightness=element('input');brightness.type='range';brightness.id='randal-brightness';brightness.min='25';brightness.max='150';brightness.step='1';brightness.setAttribute('aria-label','Luminosité');
    function reflectBrightness(){brightness.value=String(brightnessValue);brightness.setAttribute('aria-valuetext',brightnessValue+' %');brightnessOutput.value=brightnessValue+' %';brightnessOutput.textContent=brightnessValue+' %';}
    function saveDisplay(){const prior=project.presentation&&typeof project.presentation==='object'&&!Array.isArray(project.presentation)?project.presentation:{};project.presentation={...prior,brightness:brightnessValue,dimensions:dimensionsVisible};onChange(structuredClone(project));}
-   brightness.oninput=()=>{if(turn!==opening||!engine)return false;brightnessValue=boundedBrightness(brightness.value);invalidatePhoto();engine.setBrightness?.(brightnessValue);reflectBrightness();return true;};
+   brightness.oninput=()=>{if(turn!==opening||!engine)return false;brightnessValue=boundedBrightness(brightness.value);engine.setBrightness?.(brightnessValue);reflectBrightness();return true;};
    brightness.onchange=()=>{if(brightness.oninput())saveDisplay();};
-   dimensionButton.onclick=()=>{if(turn!==opening||!engine)return;dimensionsVisible=!dimensionsVisible;invalidatePhoto();engine.dimensions?.setVisible(dimensionsVisible);dimensionButton.setAttribute('aria-pressed',String(dimensionsVisible));saveDisplay();};
+   dimensionButton.onclick=()=>{if(turn!==opening||!engine)return;dimensionsVisible=!dimensionsVisible;engine.dimensions?.setVisible(dimensionsVisible);dimensionButton.setAttribute('aria-pressed',String(dimensionsVisible));saveDisplay();};
    reflectBrightness();brightnessLabel.append(brightnessHeading,brightness);displayControls.append(dimensionButton,brightnessLabel);controls.append(displayControls);
    function reflect(){if(!engine)return;const state=engine.presentation.capabilities();openButton.hidden=!state.openable;openButton.textContent=state.opened?'Fermer la composition':'Ouvrir la composition';openButton.setAttribute('aria-pressed',String(state.opened));ledButton.hidden=!state.led;ledButton.textContent=state.ledOn?'Éteindre le miroir':'Allumer le miroir';ledButton.setAttribute('aria-pressed',String(state.ledOn));}
-   openButton.onclick=()=>{if(turn!==opening||!engine)return;invalidatePhoto();const state=engine.presentation.capabilities();engine.presentation.setOpened(!state.opened);reflect();};
+   openButton.onclick=()=>{if(turn!==opening||!engine)return;const state=engine.presentation.capabilities();engine.presentation.setOpened(!state.opened);reflect();};
    const ledEligible=new Set(),ledModels=new Map();
    function rememberLED(){for(const item of project.items)if(item.type==='mirror'){if(ledModels.get(item.id)!==item.settings.mirrorModel)ledEligible.delete(item.id);ledModels.set(item.id,item.settings.mirrorModel);const spec=mirrorSpec(item.settings);if(spec.led||spec.metal&&item.settings.led)ledEligible.add(item.id);else if(!spec.metal)ledEligible.delete(item.id);}}
-   rememberLED();ledButton.onclick=()=>{if(turn!==opening||!engine)return;invalidatePhoto();const enabled=!engine.presentation.capabilities().ledOn;engine.presentation.setLED(enabled);for(const item of project.items)if(ledEligible.has(item.id))item.settings={...item.settings,led:enabled};onChange(structuredClone(project));reflect();};reset.onclick=()=>{if(turn!==opening||!engine)return;invalidatePhoto();engine.reset();};reflect();
-   const productControls=element('div');productControls.className='randal-presentation-products';controls.append(productControls);
-   const hingeButton=button('randal-reverse-hinge','Inverser l’ouverture');hingeButton.hidden=true;hingeButton.onclick=()=>{if(turn!==opening||!engine)return;invalidatePhoto();engine.presentation.editing.reverseHinge();};
+   rememberLED();ledButton.onclick=()=>{if(turn!==opening||!engine)return;const enabled=!engine.presentation.capabilities().ledOn;engine.presentation.setLED(enabled);for(const item of project.items)if(ledEligible.has(item.id))item.settings={...item.settings,led:enabled};onChange(structuredClone(project));reflect();};reset.onclick=()=>{if(turn!==opening||!engine)return;engine.reset();};reflect();
+   const productControls=element('div');productControls.className='randal-presentation-products';controls.append(productControls);let productBusy=false,surfaceBusy=0,context=null;
+   const hingeButton=button('randal-reverse-hinge','Inverser l’ouverture');hingeButton.hidden=true;hingeButton.onclick=()=>{if(turn!==opening||!engine)return;engine.presentation.editing.reverseHinge();};
    function reflectContext(){if(!engine)return;const state=engine.presentation.editing.state();hingeButton.hidden=!context||state.selected!==context.itemId||!state.canReverse;hingeButton.textContent='Ouverture à '+(state.hingeSide==='right'?'droite':'gauche')+' · inverser';}
    function choiceFigure(){const figure=element('figure');figure.className='randal-choice-preview';figure.hidden=true;return figure;}
    function showChoicePreview(figure,preview){
@@ -104,10 +69,10 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
     try{const state=productCatalog.fields(project,context);for(const group of state.groups){
      const section=element('section');section.className='randal-presentation-product';section.dataset.family=group.id;const heading=element('h2',group.label);section.append(heading);const fields=element('div');
      for(const field of group.fields){const label=element('label',field.label),select=element('select');select.id='randal-product-'+field.key;label.htmlFor=select.id;select.setAttribute('aria-label',field.label);for(const choice of field.choices){const option=element('option',choice.label+(choice.disabled?' · indisponible':''));option.value=choice.value;option.disabled=choice.disabled;if(choice.reason)option.title=choice.reason;select.append(option);}select.value=field.value;const visual=choiceFigure(),selectedPreview=value=>field.choices.find(choice=>String(choice.value)===String(value))?.preview;showChoicePreview(visual,selectedPreview(field.value)||field.preview);label.append(select,visual);fields.append(label);
-      select.onchange=async()=>{if(productBusy||surfaceBusy||turn!==opening){select.value=field.value;showChoicePreview(visual,selectedPreview(field.value)||field.preview);return;}showChoicePreview(visual,selectedPreview(select.value));const value=field.key==='mirror'&&!select.value?null:['width','mirrorSize'].includes(field.key)?Number(select.value):select.value;let next;try{next=productCatalog.apply(project,{[field.key]:value},context);}catch(e){status.textContent=e.message;select.value=field.value;showChoicePreview(visual,selectedPreview(field.value)||field.preview);return;}const preview=engine,opened=preview.presentation.capabilities().opened;invalidatePhoto();productBusy=true;reflectPhoto();controls.inert=true;preview.presentation.editing.setEnabled?.(false);status.textContent='Préparation de votre choix…';
+      select.onchange=async()=>{if(productBusy||surfaceBusy||turn!==opening){select.value=field.value;showChoicePreview(visual,selectedPreview(field.value)||field.preview);return;}showChoicePreview(visual,selectedPreview(select.value));const value=field.key==='mirror'&&!select.value?null:['width','mirrorSize'].includes(field.key)?Number(select.value):select.value;let next;try{next=productCatalog.apply(project,{[field.key]:value},context);}catch(e){status.textContent=e.message;select.value=field.value;showChoicePreview(visual,selectedPreview(field.value)||field.preview);return;}const preview=engine,opened=preview.presentation.capabilities().opened;productBusy=true;controls.inert=true;preview.presentation.editing.setEnabled?.(false);status.textContent='Préparation de votre choix…';
        try{const applied=await preview.update(next);if(turn!==opening)return;if(!applied){select.value=field.value;showChoicePreview(visual,selectedPreview(field.value)||field.preview);status.textContent='Ce choix ne peut pas s’afficher. Réessayez.';return;}onChange(structuredClone(next));project=next;rememberLED();if(opened)preview.presentation.setOpened(true);renderProducts();reflect();reflectContext();preview.presentation.editing.refresh();status.textContent='';}
        catch(e){if(turn!==opening)return;try{await preview.update(project);}catch{}status.textContent='Ce choix ne peut pas s’afficher. '+e.message;renderProducts();}
-       finally{productBusy=false;reflectPhoto();controls.inert=false;if(turn===opening){preview.presentation.editing.setEnabled?.(true);reflectContext();}}
+       finally{productBusy=false;controls.inert=false;if(turn===opening){preview.presentation.editing.setEnabled?.(true);reflectContext();}}
       };
      }section.append(fields);productControls.append(section);
     }productControls.append(hingeButton);reflectContext();}
@@ -118,20 +83,20 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
     const label=element('label',kind==='floor'?'Sol':'Murs'),select=element('select');select.id='randal-'+kind+'-choice';select.setAttribute('aria-label',kind==='floor'?'Sol':'Murs');label.htmlFor=select.id;
     const groups=new Map();for(const choice of kind==='floor'?catalog.RANDAL_FLOORS:catalog.RANDAL_WALLS){const groupName=kind==='floor'?'':choice.collection==='Peinture'?'Peinture':choice.collection==='Allure'?(choice.decor?'Allure · décors':'Allure · unis'):'Stone Icon';let parent=select;if(groupName){if(!groups.has(groupName)){const group=element('optgroup');group.label=groupName;select.append(group);groups.set(groupName,group);}parent=groups.get(groupName);}const option=element('option',choice.name);option.value=choice.id;parent.append(option);}
     const choices=kind==='floor'?catalog.RANDAL_FLOORS:catalog.RANDAL_WALLS,visual=choiceFigure(),surfacePreview=id=>choicePreview(choices.find(choice=>choice.id===id));select.value=selection[kind];showChoicePreview(visual,surfacePreview(select.value));label.append(select,visual);controls.append(label);
-    select.onchange=async()=>{if(turn!==opening||productBusy||surfaceBusy){select.value=selection[kind];showChoicePreview(visual,surfacePreview(select.value));return;}const id=select.value;invalidatePhoto();showChoicePreview(visual,surfacePreview(id));surfaceBusy++;reflectPhoto();productControls.inert=true;engine.presentation.editing.setEnabled?.(false);status.textContent='Chargement du revêtement…';try{const applied=await engine.presentation.setSurface(kind,id);if(turn!==opening)return;if(!applied){select.value=selection[kind];showChoicePreview(visual,surfacePreview(select.value));status.textContent='Revêtement indisponible. Réessayez.';return;}selection[kind]=id;project=catalog.withPresentationSurface(project,kind,id);onChange(structuredClone(project));status.textContent='';}catch(e){if(turn!==opening)return;select.value=selection[kind];showChoicePreview(visual,surfacePreview(select.value));status.textContent='Revêtement indisponible. Réessayez. '+e.message;}finally{surfaceBusy--;reflectPhoto();productControls.inert=surfaceBusy>0;if(turn===opening&&!surfaceBusy)engine?.presentation.editing.setEnabled?.(true);}};
+    select.onchange=async()=>{if(turn!==opening||productBusy||surfaceBusy){select.value=selection[kind];showChoicePreview(visual,surfacePreview(select.value));return;}const id=select.value;showChoicePreview(visual,surfacePreview(id));surfaceBusy++;productControls.inert=true;engine.presentation.editing.setEnabled?.(false);status.textContent='Chargement du revêtement…';try{const applied=await engine.presentation.setSurface(kind,id);if(turn!==opening)return;if(!applied){select.value=selection[kind];showChoicePreview(visual,surfacePreview(select.value));status.textContent='Revêtement indisponible. Réessayez.';return;}selection[kind]=id;project=catalog.withPresentationSurface(project,kind,id);onChange(structuredClone(project));status.textContent='';}catch(e){if(turn!==opening)return;select.value=selection[kind];showChoicePreview(visual,surfacePreview(select.value));status.textContent='Revêtement indisponible. Réessayez. '+e.message;}finally{surfaceBusy--;productControls.inert=surfaceBusy>0;if(turn===opening&&!surfaceBusy)engine?.presentation.editing.setEnabled?.(true);}};
    }
    engine.presentation.editing.setListener(edit=>{
     if(turn!==opening)return;
     if(edit.kind==='selection'){context=edit.itemId?{itemId:edit.itemId,part:edit.part||edit.state?.part}:null;renderProducts();status.textContent='';return;}
     if(edit.kind==='invalid'){status.textContent=edit.message;return;}
     if(!['placement','hinge'].includes(edit.kind))return;
-    invalidatePhoto();status.textContent='';const item=project.items.find(i=>i.id===edit.itemId);if(!item)return;
+    status.textContent='';const item=project.items.find(i=>i.id===edit.itemId);if(!item)return;
     if(edit.kind==='placement'){item.placement={...edit.placement};if(context&&context.itemId!==edit.itemId){context=null;renderProducts();}}
     else item.settings={...item.settings,hingeSide:edit.hingeSide};
     onChange(structuredClone(project));reflectContext();
    });renderProducts();
    const help=element('p','Glissez un élément pour le déplacer. Cliquez dessus pour modifier ses options. Glissez le fond pour tourner ; pincez pour zoomer.');help.className='randal-presentation-help';controls.append(reset,help);
-   await Promise.all(['floor','wall'].map(kind=>engine.presentation.setSurface(kind,selection[kind])));if(turn!==opening)return false;status.textContent='';presentationReady=true;reflectPhoto();return true;
+   const initialSurfaces=await Promise.all(['floor','wall'].map(kind=>engine.presentation.setSurface(kind,selection[kind])));if(turn!==opening)return false;if(initialSurfaces.some(applied=>!applied))throw Error('Un revêtement n’a pas pu être chargé.');status.textContent='';if(migrateDefaults)onChange(structuredClone(project));return true;
   }catch(e){if(turn===opening){engine?.dispose();engine=null;controls.replaceChildren();status.textContent='Affichage indisponible. Fermez puis réessayez. '+e.message;}return false;}
  }
  return {sync,open,close};
