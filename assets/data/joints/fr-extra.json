@@ -1,0 +1,233 @@
+{
+  "country": "fr",
+  "checkedAt": "2026-11-07",
+  "brands": [
+    {
+      "id": "fr-weber",
+      "name": "Weber",
+      "country": "fr",
+      "logoPath": "assets/img/ragreage/brands/weber-official-pdf.png",
+      "website": "https://www.fr.weber/",
+      "products": [
+        {
+          "id": "fr-weber-integral",
+          "name": "weberjoint intégral",
+          "kind": "ciment",
+          "description": "Joint souple pour les sols, les carreaux rectifiés et les terrasses.",
+          "coefficient": 1.8,
+          "coefficientNote": "Facteur 1,8 vérifié contre deux configurations du calculateur officiel Weber le 07/11/2026 : 100 m² en 10 × 10 cm, épaisseur 10 mm et joint 5 mm ; puis 80 m² en 80 × 80 cm, épaisseur 10 mm et joint 2 mm. Les résultats officiels excluent les pertes de mise en œuvre.",
+          "jointMin": 2,
+          "jointMax": 20,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/fr-extra/weber-integral.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_86D60D812A8046338443620767EF5D14.jpg.webp?cb=53fd7eae&itok=lYnHpre2",
+          "sourceUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-integral",
+          "technicalUrl": "https://www.fr.weber/files/fr/2023-08/Fiche_produit_-_weberjoint_intgral.pdf?cb=d5f690e4",
+          "calculatorUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-integral",
+          "notes": [
+            "Ne convient pas aux piscines ni aux façades."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "10/01/2024",
+          "consumptionRange": "0,1 à 2 kg/m² selon les dimensions",
+          "coefficientMethod": "official-calculator-verified",
+          "calculatorEndpoint": "https://www.fr.weber/weber/consumption-calculator/234",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "netKg": 180
+            },
+            {
+              "areaM2": 80,
+              "lengthCm": 80,
+              "widthCm": 80,
+              "thicknessMm": 10,
+              "jointMm": 2,
+              "netKg": 7.2
+            }
+          ]
+        },
+        {
+          "id": "fr-weber-fin",
+          "name": "weberjoint fin",
+          "kind": "ciment",
+          "description": "Joint à finition fine pour les murs et sols intérieurs.",
+          "coefficient": 1.6,
+          "coefficientNote": "Facteur 1,6 vérifié contre deux configurations du calculateur officiel Weber le 07/11/2026 : 100 m² en 10 × 10 cm, épaisseur 10 mm et joint 5 mm ; puis 80 m² en 80 × 80 cm, épaisseur 10 mm et joint 2 mm. Les résultats officiels excluent les pertes de mise en œuvre.",
+          "jointMin": 1,
+          "jointMax": 6,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/fr-extra/weber-fin.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_A4EA2535D0134A36936C8A727612E1EF.jpg.webp?cb=53fd7eae&itok=VE5UWbPu",
+          "sourceUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-fin",
+          "technicalUrl": "https://www.fr.weber/files/fr/2025-10/fichetechnique_weberjoint%20fin_fr.pdf?cb=f13b0ed6",
+          "calculatorUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberjoint-fin",
+          "notes": [
+            "Ne convient pas aux planchers chauffants ni aux sols en panneaux bois."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "19/10/2026",
+          "consumptionRange": "0,14 à 1,3 kg/m² selon les dimensions",
+          "coefficientMethod": "official-calculator-verified",
+          "calculatorEndpoint": "https://www.fr.weber/weber/consumption-calculator/46",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "netKg": 160
+            },
+            {
+              "areaM2": 80,
+              "lengthCm": 80,
+              "widthCm": 80,
+              "thicknessMm": 10,
+              "jointMm": 2,
+              "netKg": 6.4
+            }
+          ]
+        },
+        {
+          "id": "fr-weber-epox",
+          "name": "weberepox easy",
+          "kind": "epoxy",
+          "description": "Joint époxy bicomposant pour les surfaces soumises à l’eau et aux nettoyages exigeants.",
+          "coefficient": 1.6,
+          "coefficientNote": "Fiche française du 19/10/2026, page 3 : C = 0,16 × largeur du joint (mm) × épaisseur (mm) × (A+B)/(A×B), A et B en cm. Soit un coefficient de 1,6 lorsque toutes les dimensions sont en mm.",
+          "jointMin": 2,
+          "jointMax": 15,
+          "packages": [
+            2.5,
+            5,
+            10
+          ],
+          "imagePath": "assets/img/joints/fr-extra/weber-epox.webp",
+          "imageSource": "https://www.fr.weber/files/fr/styles/768x768_resize/public/pictures/2025-06/IMG_D7022A351C354EC89F0FD484295AC0B7.jpg.webp?cb=9df63e90&itok=gapj4voi",
+          "sourceUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberepox-easy",
+          "technicalUrl": "https://www.fr.weber/files/fr/2026-02/fichetechnique_weberepox%20easy_fr.pdf?cb=f13b0ed6",
+          "calculatorUrl": "https://www.fr.weber/pose-du-carrelage/les-joints-de-carrelage/weberepox-easy",
+          "notes": [
+            "Les conditionnements comprennent les composants A et B ; mélanger le kit complet.",
+            "Ne convient pas aux piscines traitées par électrolyse cuivre/argent."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "19/10/2026"
+        }
+      ]
+    },
+    {
+      "id": "fr-bostik",
+      "name": "Bostik",
+      "country": "fr",
+      "logoPath": "assets/img/ragreage/brands/bostik-official-pdf.png",
+      "website": "https://diy.bostik.com/fr-FR",
+      "products": [
+        {
+          "id": "fr-bostik-fin-tous-terrains",
+          "name": "Joint Fin Tous Terrains",
+          "kind": "ciment",
+          "description": "Joint de finition fine pour carrelages et pierres naturelles en intérieur.",
+          "coefficient": null,
+          "coefficientNote": "La fiche fabricant publie un tableau indicatif, sans coefficient géométrique ni épaisseur du carreau de référence. Saisir une consommation validée pour les dimensions du chantier.",
+          "jointMin": 1,
+          "jointMax": 6,
+          "packages": [
+            1,
+            5,
+            10,
+            20
+          ],
+          "imagePath": "assets/img/joints/fr-extra/bostik-joint-fin.jpg",
+          "imageSource": "https://diy.bostik.com/sites/default/files/2026-05/Bostik-DIY-France-Joint-de-Carrelage-Joint-Fin-Tous-Terrains-gris-20kg-product-image_0.jpg",
+          "sourceUrl": "https://diy.bostik.com/fr-FR/votre-projet/habiller-mon-mur/joint-de-carrelage-joint-fin-tous-terrains",
+          "technicalUrl": "https://diy.bostik.com/sites/default/files/2025-01/bostik-DIY-France-joint-fin-carrelage-tous-terrains-tds.pdf",
+          "calculatorUrl": "https://diy.bostik.com/fr-FR/votre-projet/habiller-mon-mur/joint-de-carrelage-joint-fin-tous-terrains",
+          "notes": [
+            "La fiche technique exclut les sols chauffants et les nettoyages sous haute pression.",
+            "Conditionnements et couleurs disponibles à confirmer pour la teinte choisie."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "24/04/2024"
+        },
+        {
+          "id": "fr-bostik-joint-flex",
+          "name": "Joint Flex Souple et Large",
+          "kind": "ciment",
+          "description": "Joint pour grands carreaux, terrasses et supports soumis à déformation.",
+          "coefficient": null,
+          "coefficientNote": "La fiche du 23/07/2024 indique une consommation dépendant des dimensions sans coefficient géométrique. Saisir une consommation fabricant pour les dimensions du chantier.",
+          "jointMin": 3,
+          "jointMax": 30,
+          "packages": [
+            5,
+            25
+          ],
+          "imagePath": "assets/img/joints/fr-extra/bostik-joint-flex.jpg",
+          "imageSource": "https://diy.bostik.com/sites/default/files/2025-01/Bostik-DIY-France-Joint-de-Carrelage-Joint-Flex-Souple-et-Large-product-image.jpg",
+          "sourceUrl": "https://diy.bostik.com/fr-FR/votre-projet/habiller-mon-sol/joint-de-carrelage-joint-flex-souple-et-large",
+          "technicalUrl": "https://diy.bostik.com/sites/default/files/2025-01/Bostik-diy-france-joint-carrelage-flex-souple-large-tds.pdf",
+          "calculatorUrl": "https://diy.bostik.com/fr-FR/votre-projet/habiller-mon-sol/joint-de-carrelage-joint-flex-souple-et-large",
+          "notes": [
+            "Utiliser pour des joints de 3 à 30 mm conformément à la fiche de cette référence.",
+            "Conditionnements et couleurs disponibles à confirmer pour la teinte choisie."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "23/07/2024"
+        }
+      ]
+    },
+    {
+      "id": "fr-sika",
+      "name": "Sika",
+      "country": "fr",
+      "logoPath": "assets/img/ragreage/brands/sika.svg",
+      "website": "https://fra.sika.com/",
+      "products": [
+        {
+          "id": "fr-sika-606",
+          "name": "SikaCeram-606 Joint Fin Mur et Sol",
+          "kind": "ciment",
+          "description": "Joint fin pour murs et sols intérieurs ou extérieurs, y compris sols chauffants.",
+          "coefficient": 1.9,
+          "coefficientNote": "Notice française de février 2024, page 2 : coefficient de consommation 1,9 et formule A × D × (B+C)/(B×C) × d/10 (B et C en cm).",
+          "jointMin": 2,
+          "jointMax": 6,
+          "packages": [
+            2.5,
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/fr-extra/sika-606.png",
+          "imageSource": "https://dynamicmedia.sika.com/adobe/assets/urn:aaid:aem:c548cd5b-55f2-4ba6-ab27-b835401e95d7/as/fr-sikaceram-606-joint-fin-2.5kg-blanc-3d-01065990.png?smartcrop=1-1&width=480&height=480",
+          "sourceUrl": "https://fra.sika.com/fr/bricolage/famille-produits/sols-murs/pose-de-carrelage/sikaceram-606-jointfinmuretsol.html",
+          "technicalUrl": "https://fra.sika.com/dam/dms/fr01/y/sikaceram-606-finegroutwallandfloor.pdf",
+          "calculatorUrl": "https://fra.sika.com/fr/bricolage/famille-produits/sols-murs/pose-de-carrelage/sikaceram-606-jointfinmuretsol.html",
+          "notes": [
+            "Ne convient pas aux piscines, aux eaux agressives ni aux nettoyages sous haute pression.",
+            "Le choix des teintes diffère entre les boîtes et les sacs."
+          ],
+          "checkedAt": "2026-11-07",
+          "consumptionIncludesWaste": false,
+          "technicalEdition": "02/2024"
+        }
+      ]
+    }
+  ]
+}

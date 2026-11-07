@@ -1,0 +1,246 @@
+{
+  "schema": "lrf-joints-catalog-source",
+  "checkedAt": "2026-11-07",
+  "brands": [
+    {
+      "id": "fr-mapei",
+      "country": "fr",
+      "name": "Mapei",
+      "logoPath": "assets/img/ragreage/brands/mapei-official-pdf.png",
+      "website": "https://www.mapei.com/fr/fr-fr",
+      "products": [
+        {
+          "id": "fr-mapei-ultracolor-plus",
+          "name": "Ultracolor Plus",
+          "kind": "ciment",
+          "description": "Joint ciment hydrofugé à prise rapide, pour sols et murs, en intérieur et extérieur.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche technique.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 2,
+          "jointMax": 20,
+          "packages": [
+            5,
+            8,
+            23,
+            25
+          ],
+          "imagePath": "assets/img/joints/main/mapei-ultracolor.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_02801_ultracolor-plus_fr-fr_965c2bbf469847659ee517a925d2531e.pdf?sfvrsn=6e0d38d6_0#page=1",
+          "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_02801_ultracolor-plus_fr-fr_965c2bbf469847659ee517a925d2531e.pdf?sfvrsn=6e0d38d6_0",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_02801_ultracolor-plus_fr-fr_965c2bbf469847659ee517a925d2531e.pdf?sfvrsn=6e0d38d6_0",
+          "notes": [
+            "Conditionnements selon les coloris ; confirmer la disponibilité auprès du distributeur."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-mapei-kerapoxy-easy-design",
+          "name": "Kerapoxy Easy Design",
+          "kind": "epoxy",
+          "description": "Mortier-joint époxy bicomposant décoratif, pour sols et murs, carrelages et mosaïques.",
+          "coefficient": 1.6,
+          "coefficientNote": "Coefficient 1,6 explicitement publié dans la formule de consommation de la fiche technique.",
+          "coefficientSourceType": "manufacturer-formula",
+          "consumptionIncludesWaste": false,
+          "jointMin": 1,
+          "jointMax": 15,
+          "packages": [
+            3
+          ],
+          "imagePath": "assets/img/joints/main/mapei-kerapoxy.webp",
+          "imageSource": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_09001_kerapoxy-easy-design_fr-fr_c9dc17ee0e774e418643cae391bb1c2a.pdf?sfvrsn=344f989_0#page=1",
+          "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_09001_kerapoxy-easy-design_fr-fr_c9dc17ee0e774e418643cae391bb1c2a.pdf?sfvrsn=344f989_0",
+          "technicalUrl": "https://cdnmedia.mapei.com/docs/librariesprovider42/products-documents/1_09001_kerapoxy-easy-design_fr-fr_c9dc17ee0e774e418643cae391bb1c2a.pdf?sfvrsn=344f989_0",
+          "notes": [
+            "Kit de 3 kg, composants A et B inclus ; conserver les proportions prédosées du fabricant."
+          ],
+          "checkedAt": "2026-11-07",
+          "jointRangeSourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider16/products-documents/1_09001_kerapoxy-easy-design_fr-be_52e83196b8d243b5bbf6b0400ee89017.pdf?sfvrsn=f9749a2f_0"
+        }
+      ]
+    },
+    {
+      "id": "fr-kerakoll",
+      "country": "fr",
+      "name": "Kerakoll",
+      "logoPath": "assets/img/ragreage/brands/kerakoll-official-pdf.png",
+      "website": "https://fr.kerakoll.com/",
+      "products": [
+        {
+          "id": "fr-kerakoll-fugabella-color",
+          "name": "Fugabella Color",
+          "kind": "ciment",
+          "description": "Joint décoratif résine-ciment à grain fin, pour carrelages, mosaïques et pierres naturelles.",
+          "coefficient": 1.9,
+          "coefficientNote": "Coefficient reconstitué du tableau fabricant : 20 × 20 cm, épaisseur 8 mm, joint 1 mm = 152 g/m².",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 0,
+          "jointMax": 20,
+          "packages": [
+            3,
+            20
+          ],
+          "imagePath": "assets/img/joints/main/fugabella-color-fr.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Italia/K_COMP_Fb-Color_KK-66_20%2B3-kg_25.jpg",
+          "sourceUrl": "https://fr.kerakoll.com/p/fugabella-color",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/3_Posa_Ceramica/Fugabella%20Color_2026_kkfr.pdf",
+          "notes": [
+            "Le tableau de consommation intègre déjà les déchets de chantier ; la réserve ajoutée dans le calcul est complémentaire.",
+            "La largeur de joint de la gamme ne remplace pas les règles de pose applicables au chantier.",
+            "La fiche rappelle un minimum de 2 mm selon UNI 11493-1 ; vérifier les règles applicables à votre pose."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "fr-kerakoll-fugalite-color",
+          "name": "Fugalite Color",
+          "kind": "epoxy",
+          "description": "Joint décoratif époxy bicomposant, étanche et antitache, pour carrelages et mosaïques.",
+          "coefficient": 1.57,
+          "coefficientNote": "Coefficient cohérent avec le tableau fabricant : 20 × 20 cm, épaisseur 8 mm, joint 1 mm ≈ 126 g/m² ; 30 × 30 cm, 9 mm, joint 1 mm ≈ 94 g/m².",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 0,
+          "jointMax": 10,
+          "packages": [
+            1.5,
+            3
+          ],
+          "imagePath": "assets/img/joints/main/fugalite-color-fr.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Italia/K_COMP_Fugalite-Color_KK-66_3%2B1%2C5-kg_26.jpg",
+          "sourceUrl": "https://fr.kerakoll.com/p/fugalite-color",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/KK_France/3_Posa_Ceramica/Fugalite%20Color_2026_kkfr.pdf",
+          "notes": [
+            "Le tableau de consommation intègre déjà les déchets de chantier ; la réserve ajoutée dans le calcul est complémentaire.",
+            "La largeur de joint de la gamme ne remplace pas les règles de pose applicables au chantier.",
+            "La fiche rappelle un minimum de 2 mm selon UNI 11493-1 ; vérifier les règles applicables à votre pose."
+          ],
+          "checkedAt": "2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "es-kerakoll",
+      "country": "es",
+      "name": "Kerakoll",
+      "logoPath": "assets/img/ragreage/brands/kerakoll-official-pdf.png",
+      "website": "https://es.kerakoll.com/",
+      "products": [
+        {
+          "id": "es-kerakoll-fugabella-color",
+          "name": "Fugabella Color",
+          "kind": "ciment",
+          "description": "Joint décoratif résine-ciment à grain fin, pour carrelages, mosaïques et pierres naturelles.",
+          "coefficient": 1.9,
+          "coefficientNote": "Coefficient reconstitué du tableau fabricant : 20 × 20 cm, épaisseur 8 mm, joint 1 mm = 152 g/m².",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 0,
+          "jointMax": 20,
+          "packages": [
+            3,
+            20
+          ],
+          "imagePath": "assets/img/joints/main/fugabella-color-es.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Iberica/K_COMP_Fb%20Color_KK%2066_20%2B3%20kg_25_ES.jpg",
+          "sourceUrl": "https://es.kerakoll.com/p/fugabella-color",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/Spagna/3_Posa_ceramica/Fugabella%20Color_2026_%28es-export%20es%29_esg.pdf",
+          "notes": [
+            "Le tableau de consommation intègre déjà les déchets de chantier ; la réserve ajoutée dans le calcul est complémentaire.",
+            "La largeur de joint de la gamme ne remplace pas les règles de pose applicables au chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "es-kerakoll-fugalite-color",
+          "name": "Fugalite Color",
+          "kind": "epoxy",
+          "description": "Joint décoratif époxy bicomposant, étanche et antitache, pour carrelages et mosaïques.",
+          "coefficient": 1.57,
+          "coefficientNote": "Coefficient cohérent avec le tableau fabricant : 20 × 20 cm, épaisseur 8 mm, joint 1 mm ≈ 126 g/m² ; 30 × 30 cm, 9 mm, joint 1 mm ≈ 94 g/m².",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 0,
+          "jointMax": 10,
+          "packages": [
+            1.5,
+            3
+          ],
+          "imagePath": "assets/img/joints/main/fugalite-color-es.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Italia/K_COMP_Fugalite-Color_KK-66_3%2B1%2C5-kg_26.jpg",
+          "sourceUrl": "https://es.kerakoll.com/p/fugalite-color",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/West_EU/Spagna/3_Posa_ceramica/Fugalite%20Color_2026_%28es-export%20es%29.pdf",
+          "notes": [
+            "Le tableau de consommation intègre déjà les déchets de chantier ; la réserve ajoutée dans le calcul est complémentaire.",
+            "La largeur de joint de la gamme ne remplace pas les règles de pose applicables au chantier."
+          ],
+          "checkedAt": "2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "it-kerakoll",
+      "country": "it",
+      "name": "Kerakoll",
+      "logoPath": "assets/img/ragreage/brands/kerakoll-official-pdf.png",
+      "website": "https://it.kerakoll.com/",
+      "products": [
+        {
+          "id": "it-kerakoll-fugabella-color",
+          "name": "Fugabella Color",
+          "kind": "ciment",
+          "description": "Joint décoratif résine-ciment à grain fin, pour carrelages, mosaïques et pierres naturelles.",
+          "coefficient": 1.9,
+          "coefficientNote": "Coefficient reconstitué du tableau fabricant : 20 × 20 cm, épaisseur 8 mm, joint 1 mm = 152 g/m².",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 0,
+          "jointMax": 20,
+          "packages": [
+            3,
+            20
+          ],
+          "imagePath": "assets/img/joints/main/fugabella-color-it.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Italia/K_COMP_Fb-Color_KK-66_20%2B3-kg_25.jpg",
+          "sourceUrl": "https://it.kerakoll.com/p/fugabella-color",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/3_Posa_Ceramica_e_pietre_naturali/Fugabella%20Color_2026_ita.pdf",
+          "notes": [
+            "Le tableau de consommation intègre déjà les déchets de chantier ; la réserve ajoutée dans le calcul est complémentaire.",
+            "La largeur de joint de la gamme ne remplace pas les règles de pose applicables au chantier.",
+            "La fiche rappelle un minimum de 2 mm selon UNI 11493-1 ; vérifier les règles applicables à votre pose."
+          ],
+          "checkedAt": "2026-11-07"
+        },
+        {
+          "id": "it-kerakoll-fugalite-color",
+          "name": "Fugalite Color",
+          "kind": "epoxy",
+          "description": "Joint décoratif époxy bicomposant, étanche et antitache, pour carrelages et mosaïques.",
+          "coefficient": 1.57,
+          "coefficientNote": "Coefficient cohérent avec le tableau fabricant : 20 × 20 cm, épaisseur 8 mm, joint 1 mm ≈ 126 g/m² ; 30 × 30 cm, 9 mm, joint 1 mm ≈ 94 g/m².",
+          "coefficientSourceType": "manufacturer-table",
+          "consumptionIncludesWaste": true,
+          "jointMin": 0,
+          "jointMax": 10,
+          "packages": [
+            1.5,
+            3
+          ],
+          "imagePath": "assets/img/joints/main/fugalite-color-it.webp",
+          "imageSource": "https://media.kerakoll.com/Sito_Web/mainImage/3_Posa_ceramica/KK_Italia/K_COMP_Fugalite-Color_KK-66_3%2B1%2C5-kg_26.jpg",
+          "sourceUrl": "https://it.kerakoll.com/p/fugalite-color",
+          "technicalUrl": "https://media.kerakoll.com/Sito_Web/techSheet/ITALIA/3_Posa_Ceramica_e_pietre_naturali/Fugalite%20Color_2026_ita.pdf",
+          "notes": [
+            "Le tableau de consommation intègre déjà les déchets de chantier ; la réserve ajoutée dans le calcul est complémentaire.",
+            "La largeur de joint de la gamme ne remplace pas les règles de pose applicables au chantier.",
+            "La fiche rappelle un minimum de 2 mm selon UNI 11493-1 ; vérifier les règles applicables à votre pose."
+          ],
+          "checkedAt": "2026-11-07"
+        }
+      ]
+    }
+  ]
+}

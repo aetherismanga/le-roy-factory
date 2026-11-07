@@ -292,6 +292,23 @@
       "officialAgencyLogo": true,
       "lyonBackground": "official-s-tones-sukabumi-pool",
       "agencyPresentWithReviglass": true
+    },
+    "joints": {
+      "releaseId": "20261107-joints-fabricants1",
+      "page": "configurateur-joints.html",
+      "countries": [
+        "fr",
+        "es",
+        "it"
+      ],
+      "marketCatalogues": 11,
+      "references": 18,
+      "officialProductPhotos": 18,
+      "favoriteOnDevice": true,
+      "separateReserve": true,
+      "manufacturerPackaging": true,
+      "manualConsumptionSupported": true,
+      "checkedAt": "2026-11-07"
     }
   },
   "configurators": {

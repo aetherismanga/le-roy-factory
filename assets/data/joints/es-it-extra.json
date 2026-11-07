@@ -1,0 +1,156 @@
+{
+  "brands": [
+    {
+      "id": "es-puma",
+      "country": "es",
+      "name": "Grupo Puma",
+      "logoPath": "assets/img/ragreage/brands/puma.png",
+      "website": "https://www.grupopuma.com/es-ES/",
+      "products": [
+        {
+          "id": "es-puma-morcemcolor-plus",
+          "name": "Morcemcolor Plus Flexible CG2 WA",
+          "kind": "ciment",
+          "description": "Joint ciment fin hydrofugé et flexible, pour sols et murs en intérieur et extérieur.",
+          "coefficient": 1.7,
+          "coefficientNote": "La fiche espagnole publie un facteur 0,17 avec les longueurs en cm, soit 1,7 lorsque toutes les dimensions sont en mm.",
+          "jointMin": 1.5,
+          "jointMax": 15,
+          "applicabilityMin": 1.5,
+          "packages": [
+            5,
+            20
+          ],
+          "imagePath": "assets/img/joints/es-it-extra/puma-morcemcolor-plus.webp",
+          "imageSource": "https://www.grupopuma.com/uploads/productos/media/665bf17ea42977628c51be57a5e13809.png_2.png",
+          "sourceUrl": "https://www.grupopuma.com/es-ES/productos/ver/morcemcolor-plus-flexible-cg2-a-w-es-es",
+          "technicalUrl": "https://www.grupopuma.com/services/pdf/266",
+          "notes": [
+            "La fiche prescrit des joints de 1,5 à 3 mm minimum en intérieur/piscine, et de 3 à 5 mm minimum en extérieur, selon le format et la pose.",
+            "Pour immersion exigeante, eau de mer ou électrolyse saline, le fabricant oriente vers Morcemcolor Epoxi."
+          ],
+          "checkedAt": "2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "es-weber",
+      "country": "es",
+      "name": "Weber",
+      "logoPath": "assets/img/ragreage/brands/weber-official-pdf.png",
+      "website": "https://www.es.weber/",
+      "products": [
+        {
+          "id": "es-weber-premium-fina",
+          "name": "webercolor PREMIUM FINA",
+          "kind": "ciment",
+          "description": "Joint ciment flexible très fin, avec silicone, pour carrelage en intérieur et extérieur.",
+          "coefficient": 1.4,
+          "coefficientNote": "Facteur 1,4 vérifié sur deux configurations du calculateur officiel Weber Espagne le 07/11/2026 : 100 m² en 10 × 10 cm, épaisseur 10 mm et joint 5 mm = 140 kg ; 80 m² en 80 × 80 cm, épaisseur 10 mm et joint 2 mm = 5,6 kg. Le formulaire espagnol attend les dimensions du carreau en millimètres.",
+          "jointMin": 1,
+          "jointMax": 10,
+          "applicabilityMin": 2,
+          "packages": [
+            3,
+            15
+          ],
+          "imagePath": "assets/img/joints/es-it-extra/weber-premium-fina.webp",
+          "imageSource": "https://www.es.weber/files/es/pictures/2024-11/3D-PKG-bolsa-webercolor-premium-fina_4C70910FDB394BFEBBB2CE1C6B29B3A0.png",
+          "sourceUrl": "https://www.es.weber/colocacion-y-rejuntado-de-ceramica/rejuntados/webercolor-premium-fina",
+          "technicalUrl": "https://www.es.weber/files/es/2025-04/webercolor_PREMIUM_FINA.pdf?cb=fe2c64ba",
+          "notes": [
+            "Plage technique de 1 à 10 mm ; la même fiche recommande au minimum 2 mm en intérieur et 5 mm en extérieur.",
+            "Le sac de 15 kg est proposé dans 6 couleurs, contre 30 couleurs pour le sac de 3 kg.",
+            "Pour une piscine à électrolyse saline, choisir le système prescrit par Weber."
+          ],
+          "checkedAt": "2026-11-07",
+          "coefficientMethod": "official-calculator-verified",
+          "calculatorEndpoint": "https://www.es.weber/weber/consumption-calculator/2641",
+          "calculatorExamples": [
+            {
+              "areaM2": 100,
+              "lengthCm": 10,
+              "widthCm": 10,
+              "thicknessMm": 10,
+              "jointMm": 5,
+              "netKg": 140
+            },
+            {
+              "areaM2": 80,
+              "lengthCm": 80,
+              "widthCm": 80,
+              "thicknessMm": 10,
+              "jointMm": 2,
+              "netKg": 5.6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "it-fassa",
+      "country": "it",
+      "name": "Fassa Bortolo",
+      "logoPath": "assets/img/ragreage/brands/fassa.svg",
+      "website": "https://www.fassabortolo.it/",
+      "products": [
+        {
+          "id": "it-fassa-small",
+          "name": "FASSAFILL SMALL",
+          "kind": "ciment",
+          "description": "Joint ciment hydrofugé à finition fine pour carrelages, pierres et mosaïques, en intérieur et extérieur.",
+          "coefficient": 1.575,
+          "coefficientNote": "La fiche italienne 08/2025 publie [(A+B)/(A×B)] × C × D × 1500 × 1,05 en g/m² : le coefficient équivalent en kg/m² est 1,575. Le facteur fabricant de 5 % est déjà inclus.",
+          "consumptionIncludesWaste": true,
+          "jointMin": 0,
+          "jointMax": 5,
+          "packages": [
+            5
+          ],
+          "imagePath": "assets/img/joints/es-it-extra/fassa-small.webp",
+          "imageSource": "https://www.fassabortolo.it/wp-content/uploads/media/assets/Fassafill_SMALL_new.jpg",
+          "sourceUrl": "https://www.fassabortolo.it/prodotti/sistema-posa-pavimenti-e-rivestimenti/fassafill-sigillanti-per-fughe/fassafill-small/",
+          "technicalUrl": "https://www.fassabortolo.it/wp-content/uploads/media/documents/Schede_Tecniche/FASSA/FASSA_STE_IT_FASSAFILL-SMALL_2025-08.pdf",
+          "notes": [
+            "Le calcul fabricant inclut déjà un facteur 1,05 ; toute réserve choisie dans le calculateur s’ajoute à ce facteur.",
+            "En piscine ou lorsque les performances doivent être renforcées, la fiche impose LATEX DR 843 en remplacement de l’eau.",
+            "La plage produit 0–5 mm ne dispense pas du respect des règles de pose et de la largeur adaptée au carrelage."
+          ],
+          "checkedAt": "2026-11-07"
+        }
+      ]
+    },
+    {
+      "id": "it-litokol",
+      "country": "it",
+      "name": "Litokol",
+      "logoPath": "assets/img/ragreage/brands/litokol.svg",
+      "website": "https://www.litokol.com/it-it/",
+      "products": [
+        {
+          "id": "it-litokol-starlike-pro",
+          "name": "Starlike Pro",
+          "kind": "epoxy",
+          "description": "Joint époxy décoratif bicomposant pour carrelages, mosaïques et pierres, avec résistance aux taches et aux UV.",
+          "coefficient": 1.55,
+          "coefficientNote": "La fiche italienne actuelle, page 5, publie directement (A+B)/(A×B) × C × D × 1,55 en kg/m², toutes les dimensions en mm.",
+          "jointMin": 1,
+          "jointMax": 20,
+          "packages": [
+            2.5,
+            5
+          ],
+          "imagePath": "assets/img/joints/es-it-extra/litokol-starlike-pro.webp",
+          "imageSource": "https://www.litokol.com/media/filer_public/f8/58/f858364a-f86a-453a-a08a-13b59dd63166/starlike_1600_trasparente.png",
+          "sourceUrl": "https://www.litokol.com/it-it/p/starlike-pro/",
+          "technicalUrl": "https://www.litokol.com/d/filer/canonical/1780016450/1403/",
+          "notes": [
+            "Kit prédosé A+B : respecter le rapport du fabricant.",
+            "Application entre +10 °C et +30 °C ; contrôle de compatibilité sur pierres et surfaces poreuses."
+          ],
+          "checkedAt": "2026-11-07"
+        }
+      ]
+    }
+  ]
+}
