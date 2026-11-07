@@ -1,0 +1,31 @@
+.pro-bathroom-group{grid-column:1/-1;align-self:start;min-width:0;border:1px solid #d9c58b;border-radius:20px;background:linear-gradient(145deg,#fffefa,#fff);box-shadow:0 8px 24px #7055260c;color:#1a2530;overflow:hidden}
+.pro-bathroom-summary{display:block;position:relative;padding:1.6rem;cursor:pointer;list-style:none}
+.pro-bathroom-summary::-webkit-details-marker{display:none}
+.pro-bathroom-summary:focus-visible{outline:3px solid #9a7624;outline-offset:-5px;border-radius:18px}
+.pro-bathroom-eyebrow{display:block;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:#6a796f}
+.pro-bathroom-title{display:block;margin:.65rem 0 1rem;font-size:1.25rem;font-weight:700;line-height:1.35;color:#6c4b12}
+.pro-bathroom-brands{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin-bottom:1rem;max-width:600px}
+.pro-bathroom-brands>span{padding:.65rem .3rem;border:1px solid #e8dfcd;border-radius:9px;text-align:center;background:#fbf8f1;min-width:0}
+.pro-bathroom-brands strong{display:block;font-size:.83rem}
+.pro-bathroom-brands small{display:block;font-size:.68rem;color:#67706a;margin-top:.2rem}
+.pro-bathroom-intro{display:block;font-size:.9rem;line-height:1.6;color:#50594f}
+.pro-bathroom-action{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-top:1.2rem;font-size:.8rem;font-weight:700;color:#76571b}
+.pro-bathroom-close{display:none}
+.pro-bathroom-group[open] .pro-bathroom-open{display:none}
+.pro-bathroom-group[open] .pro-bathroom-close{display:inline}
+.pro-bathroom-chevron{font-size:1.5rem;line-height:1;transition:transform .15s}
+.pro-bathroom-group[open] .pro-bathroom-chevron{transform:rotate(180deg)}
+.pro-bathroom-content{padding:0 1.6rem 1.6rem}
+.pro-bathroom-shipping{padding:1rem 1.1rem;margin-bottom:1.2rem;border-left:3px solid #b49135;background:#f6f2e8;border-radius:8px;font-size:.86rem;line-height:1.65}
+.pro-bathroom-shipping>strong{font-size:.95rem;color:#6c4b12}
+.pro-bathroom-shipping p{margin:.6rem 0}
+.pro-bathroom-shipping small{display:block;color:#6b695f;font-size:.73rem}
+.pro-bathroom-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;align-items:start}
+body.lrf-page-tarifs-pro .pro-bathroom-cards>.card-premium{min-width:0;padding:1.25rem!important;box-shadow:none!important;transform:none!important;border-radius:12px!important;gap:1rem}
+.pro-bathroom-cards .pro-info-row{align-items:flex-start;flex-wrap:wrap;gap:.7rem}
+.pro-bathroom-cards .pro-info-row>div{min-width:0}
+.pro-bathroom-cards .pro-info-row>a{margin-left:auto}
+.pro-bathroom-cards .pro-contact-links a{overflow-wrap:anywhere}
+.pro-bathroom-cards .pro-conditions-list{margin:.5rem 0 0;padding-left:1.1rem;font-size:.8rem;line-height:1.65;color:#444}
+.pro-bathroom-cards .pro-conditions-list li+li{margin-top:.35rem}
+@media(max-width:900px){.pro-bathroom-cards{grid-template-columns:1fr}.pro-bathroom-summary{padding:1.25rem}.pro-bathroom-content{padding:0 1rem 1rem}.pro-bathroom-title{font-size:1.2rem}.pro-bathroom-group{width:100%;box-sizing:border-box}.pro-bathroom-cards>.card-premium{width:100%}.pro-bathroom-cards .pro-conditions-list{font-size:.84rem}}

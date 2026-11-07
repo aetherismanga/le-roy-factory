@@ -36,20 +36,81 @@ export const PARTNER_CONTACTS = {
     { name: 'Giulia Bonci', role: 'Contact commercial / ouverture compte', email: 'g.bonci@neobathdesign.it', phone: '' },
     { name: 'Said Chouhdi', role: 'Agent / intermédiaire', email: 'said@sachgroup.it', phone: '' }
   ]},
-  'Koibath': { logo: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/koibath.png', contacts: [
-    { name: 'Houda El Azouan', role: 'Après-vente / SAV', email: 'postventa@koibath.com', phone: '+34 617 439 852' },
-    { name: 'Ruth Ballano', role: 'Commandes', email: 'pedidos@koibath.com', phone: '' },
-    { name: 'María Antonia', role: 'Direction commerciale', email: 'direccioncomercial@koibath.com', phone: '' }
-  ]},
-  'Aquahome': { logo: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/aquahome.png', contacts: [
-    { name: 'María Antonia Macías', role: 'Direction commerciale', email: 'direccioncomercial@aquahomebs.com', phone: '' },
-    { name: 'Raquel Estage', role: 'Commercial / ventes', email: 'comercialventas@aquahomebs.com', phone: '+34 617 430 609' }
-  ]},
-  'Opal': { logo: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/opal.png', contacts: [
-    { name: 'Houda El Azouan', role: 'Après-vente / SAV', email: 'postventa@koibath.com', phone: '+34 617 439 852' },
-    { name: 'Ruth Ballano', role: 'Commandes', email: 'pedidos@koibath.com', phone: '' },
-    { name: 'María Antonia', role: 'Direction commerciale', email: 'direccioncomercial@koibath.com', phone: '' }
-  ]},
+  'Koibath': {
+    "logo": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/koibath.png",
+    "contacts": [
+        {
+            "name": "Houda El Azouan",
+            "role": "Commandes et devis · Koibath / Opal",
+            "email": "compras@koibath.com",
+            "phone": "+34 617 439 852"
+        },
+        {
+            "name": "Houda El Azouan",
+            "role": "Suivi des commandes / SAV",
+            "email": "postventa@koibath.com",
+            "phone": ""
+        },
+        {
+            "name": "Ruth Ballano",
+            "role": "Service commandes",
+            "email": "pedidos@koibath.com",
+            "phone": ""
+        },
+        {
+            "name": "María Antonia Macías",
+            "role": "Direction commerciale",
+            "email": "direccioncomercial@koibath.com",
+            "phone": ""
+        }
+    ]
+},
+  'Aquahome': {
+    "logo": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/aquahome.png",
+    "contacts": [
+        {
+            "name": "Raquel Estage",
+            "role": "Commandes et devis · Aquahome",
+            "email": "comercialventas@aquahomebs.com",
+            "phone": "+34 617 430 609"
+        },
+        {
+            "name": "María Antonia Macías",
+            "role": "Direction commerciale",
+            "email": "direccioncomercial@aquahomebs.com",
+            "phone": ""
+        }
+    ]
+},
+  'Opal': {
+    "logo": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/opal.png",
+    "contacts": [
+        {
+            "name": "Houda El Azouan",
+            "role": "Commandes et devis · Koibath / Opal",
+            "email": "compras@koibath.com",
+            "phone": "+34 617 439 852"
+        },
+        {
+            "name": "Houda El Azouan",
+            "role": "Suivi des commandes / SAV",
+            "email": "postventa@koibath.com",
+            "phone": ""
+        },
+        {
+            "name": "Ruth Ballano",
+            "role": "Service commandes",
+            "email": "pedidos@koibath.com",
+            "phone": ""
+        },
+        {
+            "name": "María Antonia Macías",
+            "role": "Direction commerciale",
+            "email": "direccioncomercial@koibath.com",
+            "phone": ""
+        }
+    ]
+},
   'Bilt': { logo: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bilt.png', contacts: [
     { name: 'Carles Bofarull', role: 'Export Manager', email: ['carlesb','biltbs.com'].join('@'), phone: ['+34','650','068','495'].join(' ') }
   ]}

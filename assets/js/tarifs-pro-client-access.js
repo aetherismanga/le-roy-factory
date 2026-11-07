@@ -1,4 +1,5 @@
-import { partnerContacts } from "./partner-contacts.js?v=20261101-biopietra1";
+import { partnerContacts } from "./partner-contacts.js?v=20261107-bathroom-group1";
+import { groupBathroomPartners } from "./pro-bathroom-group.mjs?v=20261107-bathroom-group1";
 import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
@@ -222,6 +223,7 @@ function openForAdmin(profile){
   currentClient=null;clearSession();
   const {content,grid}=prepareTariffGrid();if(!grid||!content)return;
   [...grid.children].forEach(card=>setCardAccess(card,true,true));
+  groupBathroomPartners(grid);
   let summary=document.getElementById("pro-client-summary");if(!summary){summary=document.createElement("div");summary.id="pro-client-summary";content.insertBefore(summary,grid)}
   summary.className="pro-client-summary admin";
   summary.innerHTML=`<div><div class="pro-client-name">★ ${esc(profile.name)} — Administrateur</div><div class="pro-client-meta">${esc(profile.email)} · Accès complet à tous les tarifs LE ROY FACTORY · Aucun code requis</div></div><button type="button" class="pro-logout" id="pro-admin-dashboard">Espace Agent</button>`;
@@ -236,6 +238,7 @@ function openForClient(client,sessionToken="",remembered=false){
   saveVerifiedSession(client,partners,activity,sessionToken);
   const {content,grid}=prepareTariffGrid();if(!grid||!content)return;
   [...grid.children].forEach(card=>{const partnerName=card.querySelector("h3")?.textContent?.trim()||"ce partenaire";setCardAccess(card,allowedNames.has(norm(partnerName)),false)});
+  groupBathroomPartners(grid);
   let summary=document.getElementById("pro-client-summary");if(!summary){summary=document.createElement("div");summary.id="pro-client-summary";content.insertBefore(summary,grid)}
   summary.className="pro-client-summary";
   const deviceBadge=sessionToken?`<span class="pro-device-ok">✓ ${remembered?"Appareil mémorisé":"Session sécurisée"}</span>`:"";

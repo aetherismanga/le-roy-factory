@@ -11,6 +11,8 @@
     if(!cards.length)return false;
     const target=cards.find(card=>compact(card.querySelector('h3')?.textContent||'')===compact(wanted));
     if(!target)return false;
+    const group=target.closest('.pro-bathroom-group');
+    if(group)group.open=true;
     target.style.border='2px solid #D4AF37';
     target.style.boxShadow='0 10px 34px rgba(212,175,55,.24)';
     target.style.scrollMarginTop='110px';
