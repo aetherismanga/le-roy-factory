@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
     installProEmptyPlaceholders();
 
     if (window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) {
-        import('./tarifs-pro-client-access.js?v=20261107-bathroom-group1')
+        import('./tarifs-pro-client-access.js?v=20261107-bathroom-group2')
             .then(() => installProEmptyPlaceholders())
             .catch(err => console.error('Erreur chargement accès tarifs PRO client :', err));
     }
@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!premiumPages.has(page) || document.getElementById('lrf-premium-public-theme')) return;
     const script = document.createElement('script');
     script.id = 'lrf-premium-public-theme';
-    script.src = 'assets/js/premium-public-theme.js?v=20261107-logo-rond1';
+    script.src = 'assets/js/premium-public-theme.js?v=20261107-bathroom-group2';
     script.defer = true;
     document.head.appendChild(script);
 })();

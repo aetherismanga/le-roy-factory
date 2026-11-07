@@ -1,5 +1,5 @@
-import { partnerContacts } from "./partner-contacts.js?v=20261107-bathroom-group1";
-import { groupBathroomPartners } from "./pro-bathroom-group.mjs?v=20261107-bathroom-group1";
+import { partnerContacts } from "./partner-contacts.js?v=20261107-bathroom-group2";
+import { groupBathroomPartners } from "./pro-bathroom-group.mjs?v=20261107-bathroom-group2";
 import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 

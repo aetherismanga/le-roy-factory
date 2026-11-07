@@ -348,7 +348,7 @@
       const module = document.createElement('script');
       module.id = 'lrf-pro-access-direct';
       module.type = 'module';
-      module.src = 'assets/js/tarifs-pro-client-access.js?v=20260901-profix1';
+      module.src = 'assets/js/tarifs-pro-client-access.js?v=20261107-bathroom-group2';
       document.body.appendChild(module);
     }
 
