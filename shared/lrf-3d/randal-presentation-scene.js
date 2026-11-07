@@ -21,14 +21,16 @@ export function createRandalPresentationScene({scene,renderer,floor,wall,getItem
  const enclosure=new T.Group();enclosure.name='Présentation · environnement';
  const enclosureMaterial=new T.MeshPhysicalMaterial({color:'#eeeae2',roughness:.92,metalness:0});
  const windowMaterial=new T.MeshPhysicalMaterial({color:'#f7f5ef',roughness:.3,emissive:'#fff6e6',emissiveIntensity:3});
- function plane(width,height,position,rotation,material=enclosureMaterial){const mesh=new T.Mesh(new T.PlaneGeometry(width,height),material);mesh.position.set(...position);mesh.rotation.set(...rotation);mesh.receiveShadow=true;enclosure.add(mesh);}
+ function plane(width,height,position,rotation,material=enclosureMaterial){const mesh=new T.Mesh(new T.PlaneGeometry(width,height),material);mesh.position.set(...position);mesh.rotation.set(...rotation);mesh.receiveShadow=true;enclosure.add(mesh);return mesh;}
  plane(10.26,6,[-7,3,4.87],[0,Math.PI/2,0]);plane(10.26,6,[7,3,4.87],[0,-Math.PI/2,0]);
  plane(14,6,[0,3,10],[0,Math.PI,0]);plane(14,10.26,[0,6,4.87],[Math.PI/2,0,0]);
  for(const x of [-2.1,-.95]){
-  plane(1.1,2.5,[x,2.6,9.99],[0,Math.PI,0],windowMaterial);
-  // Sample the broad luminous aperture explicitly in both rendering engines.
-  // The enclosing walls remain opaque; light comes from these real sources.
-  const daylight=new T.RectAreaLight('#fff4e4',6,1.1,2.5);daylight.name='Présentation_fenêtre_lumineuse';daylight.position.set(x,2.6,9.98);daylight.lookAt(x,1.1,0);enclosure.add(daylight);
+  const panel=plane(1.1,2.5,[x,2.6,9.99],[0,Math.PI,0],windowMaterial);panel.name='Présentation_fenêtre_raster';panel.userData.presentationRasterOnly=true;
+  // The raster mirror needs a visible aperture. In the photo the matching
+  // area light is sampled and reflected directly; a second emissive panel
+  // would add the same light twice, with unstructured emissive-mesh noise.
+  // Keep the whole aperture parallel to, and inside, the opaque back wall.
+  const daylight=new T.RectAreaLight('#fff4e4',6,1.1,2.5);daylight.name='Présentation_fenêtre_lumineuse';daylight.position.set(x,2.6,9.98);daylight.lookAt(x,2.6,0);enclosure.add(daylight);
  }
  scene.add(enclosure);
  const editing=createPresentationEditing({scene,camera,controls,canvas,getItems,getProject,invalidate});

@@ -1,3 +1,4 @@
+import {FINISHES as PRESENTATION_FINISHES} from '../finishes.js';
 import {isRandalPresentation} from '../../../shared/lrf-3d/randal-client-access.js';
 import {createRandalPresentation} from '../../../shared/lrf-3d/randal-presentation-ui.js';
 import {initI18n,onLocaleChange,translateText as t,translateDOM} from '../../../shared/lrf-3d/i18n/index.js';
@@ -32,7 +33,7 @@ let draft=initialDraft(),view='home',step=0,project=null,projectTitle=t('Ma sall
 let preview=null,previewPromise=null,previewFailed=false,previewTurn=0,lastPreviewProject=null,identityStarted=false;
 const identity=createIdentity(()=>currentComposition(),state=>{session=state;renderAccount();});
 let presentationActive=false;
-const randalPresentation=createRandalPresentation({products:{catalog:C,normalizeDraft,draftProject,initialDraft},onVisibility:active=>{presentationActive=active;previewTurn++;preview?.setActive(!active);if(!active&&view==='quote')updatePreview(project);},getIdentity:()=>identity.state,getProject:currentComposition,createPreview:(host,options)=>import('./live-preview.js').then(m=>m.createPreview(host,options)),onChange:data=>{project=checkedProject(data);storeQuote(localStorage,project,quoteMode);if(view==='quote'&&!presentationActive)updatePreview(project);projectWorkspace.checkpoint();}});
+const randalPresentation=createRandalPresentation({products:{catalog:C,finishes:PRESENTATION_FINISHES,normalizeDraft,draftProject,initialDraft},onVisibility:active=>{presentationActive=active;previewTurn++;preview?.setActive(!active);if(!active&&view==='quote')updatePreview(project);},getIdentity:()=>identity.state,getProject:currentComposition,createPreview:(host,options)=>import('./live-preview.js').then(m=>m.createPreview(host,options)),onChange:data=>{project=checkedProject(data);storeQuote(localStorage,project,quoteMode);if(view==='quote'&&!presentationActive)updatePreview(project);projectWorkspace.checkpoint();}});
 document.body.classList.add('randal-access-pending');
 const routeCollection=C.collections.find(c=>c.id===routeParams.get('collection')||c.name.toLowerCase()===(routeParams.get('collection')||'').toLowerCase());
 try{draft=normalizeDraft(read(DRAFT_KEY,initialDraft(routeCollection?.id)));const prior=read(QUOTE_KEY);if(prior){projectTitle=prior.title||projectTitle;siteReference=prior.siteReference||'';}}catch{}

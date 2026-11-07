@@ -25,7 +25,7 @@ export function createPathTracingScene(source,{environment=null}={}){
  source.traverseVisible(object=>{
   if(object.isMesh){
    const originals=Array.isArray(object.material)?object.material:[object.material];
-   if(!object.geometry?.attributes.position||!originals.length||!object.isReflector&&originals.every(m=>m?.isShaderMaterial||!m||m.visible===false))return;
+   if(object.userData.presentationRasterOnly||!object.geometry?.attributes.position||!originals.length||!object.isReflector&&originals.every(m=>m?.isShaderMaterial||!m||m.visible===false))return;
    const geometry=object.geometry.clone();geometries.add(geometry);
    const materials=originals.map(m=>materialFor(m,object)),mesh=new T.Mesh(geometry,Array.isArray(object.material)?materials:materials[0]);
    mesh.name=object.name;mesh.matrix.copy(object.matrixWorld);mesh.matrixAutoUpdate=false;mesh.castShadow=object.castShadow;mesh.receiveShadow=object.receiveShadow;scene.add(mesh);
