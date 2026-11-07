@@ -9,7 +9,9 @@ export const RANDAL_FLOORS=Object.freeze([
 ]);
 const PAINT_COLORS=['white','ivory','sand','sage','clay','grey','dark'];
 export const RANDAL_WALLS=Object.freeze([
- ...PAINT_COLORS.map(id=>COLLECTIONS.Peinture.colors.find(c=>c.id===id)).map(c=>({id:'paint-'+c.id,name:c.name,collection:'Peinture',color:c.id}))
+ ...PAINT_COLORS.map(id=>COLLECTIONS.Peinture.colors.find(c=>c.id===id)).map(c=>({id:'paint-'+c.id,name:c.name,collection:'Peinture',color:c.id})),
+ {id:'stone-icon-leccese',name:'Stone Icon Leccese · 60 × 90',collection:'Stone Icon',color:'leccese',format:'60x90',width:.9,height:.6,pattern:'straight'},
+ ...COLLECTIONS.Allure.colors.filter(c=>c.available3d!==false&&c.file).map(c=>({id:'allure-'+c.id,name:c.name+' · 60 × 120',collection:'Allure',color:c.id,format:'60x120',width:1.2,height:.6,pattern:'straight',decor:!!c.continuousDecor}))
 ]);
 export const presentationChoice=(kind,id)=>(kind==='floor'?RANDAL_FLOORS:RANDAL_WALLS).find(c=>c.id===id)||null;
 export function presentationChoices(project){
