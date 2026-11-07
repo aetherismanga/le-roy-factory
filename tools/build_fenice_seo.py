@@ -15,7 +15,7 @@ from urllib.parse import quote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = 'https://leroyfactory.fr/'
-BRAND = '/assets/img/performance-20261027/brand-wordmark-wine.svg'
+BRAND = '/assets/img/logo03lrf.png'
 INDEX = 'carrelage-la-fenice.html'
 
 def esc(value):
@@ -133,8 +133,8 @@ def page(title, description, path, content, image, crumbs, schema_extra=None):
     return f'''<!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} | LE ROY FACTORY</title><meta name="description" content="{esc(description)}"><meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="canonical" href="{esc(url)}"><meta property="og:type" content="website"><meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="LE ROY FACTORY"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(description)}"><meta property="og:url" content="{esc(url)}"><meta property="og:image" content="{esc(image if image.startswith('https:') else ORIGIN.rstrip('/') + image)}"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="{BRAND}"><link rel="stylesheet" href="/assets/css/seo-editorial.css?v=20261101-fenice1"><style>{CSS}</style><script type="application/ld+json">{schema_json}</script></head>
-<body class="seo-page"><a class="skip-link" href="#contenu">Aller au contenu</a><header class="seo-header"><div class="seo-shell seo-header-inner"><a class="seo-brand" href="/"><img src="{BRAND}" alt="LE ROY FACTORY" width="150" height="52"></a><nav class="seo-nav" aria-label="Navigation principale"><a href="/univers.html?partner=la-fenice">Sélection La Fenice</a><a href="/{INDEX}">Collections et formats</a><a href="/catalogues.html">Catalogues</a><a href="/contact.html">Contact</a></nav></div></header>
+<link rel="canonical" href="{esc(url)}"><meta property="og:type" content="website"><meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="LE ROY FACTORY"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(description)}"><meta property="og:url" content="{esc(url)}"><meta property="og:image" content="{esc(image if image.startswith('https:') else ORIGIN.rstrip('/') + image)}"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="{BRAND}"><link rel="stylesheet" href="/assets/css/seo-editorial.css?v=20261107-logo-rond1"><style>{CSS}</style><script type="application/ld+json">{schema_json}</script></head>
+<body class="seo-page"><a class="skip-link" href="#contenu">Aller au contenu</a><header class="seo-header"><div class="seo-shell seo-header-inner"><a class="seo-brand" href="/"><img src="{BRAND}" alt="LE ROY FACTORY" width="72" height="72"></a><nav class="seo-nav" aria-label="Navigation principale"><a href="/univers.html?partner=la-fenice">Sélection La Fenice</a><a href="/{INDEX}">Collections et formats</a><a href="/catalogues.html">Catalogues</a><a href="/contact.html">Contact</a></nav></div></header>
 <main id="contenu" class="seo-shell">{breadcrumb(crumbs)}{content}</main>
 <footer class="seo-footer"><div class="seo-shell"><nav aria-label="Pour poursuivre"><a href="/{INDEX}">Collections La Fenice</a><a href="/carrelage-elios.html">Elios</a><a href="/carrelage-view.html">VIEW</a><a href="/agence-carrelage-languedoc-paca.html">Notre agence</a><a href="/mentions-legales.html">Mentions légales</a></nav><p>© 2026 LE ROY FACTORY · Visuels et caractéristiques La Fenice Ceramiche. Les ambiances fabricant illustrent les collections.</p></div></footer></body></html>'''
 

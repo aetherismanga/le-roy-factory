@@ -2,6 +2,13 @@
 
 Ces règles s'appliquent à toute nouvelle page, tout nouveau module, tout correctif et toute refonte du site ou du CRM.
 
+## Logo officiel LRF — instruction de Jérôme du 7 novembre 2026
+
+- Conserver le logo rond officiel `assets/img/logo03lrf.png` uniquement en haut à gauche des pages du site, ainsi que pour les icônes. Ne pas ajouter de logo rond au centre de l’accueil ni dans les pieds de page ; conserver la présentation centrale existante.
+- Son feuillage et sa fleur font partie du logo validé ; cette image précise est explicitement autorisée et ne doit pas être confondue avec les anciens décors floraux interdits ci-dessous.
+- Ne jamais le remplacer par une signature texte « LE ROY factory », un wordmark SVG ou un logo recréé, y compris lors d'une optimisation ou d'une stabilisation du chargement.
+- Les gabarits HTML, scripts d'hydratation et générateurs de pages doivent conserver la même image et ses proportions carrées dès le premier affichage.
+
 ## Interdiction absolue des motifs floraux
 
 - Ne jamais utiliser de fleurs, motifs floraux, cadres fleuris, fonds fleuris ou illustrations florales dans l'interface LE ROY FACTORY.

@@ -447,6 +447,15 @@
       "staticThemeTemplates": 13,
       "selectionRouteBeforeRender": true,
       "opalStableMount": true
+    },
+    "branding": {
+      "releaseId": "20261107-logo-rond1",
+      "logo": "assets/img/logo03lrf.png",
+      "roundLogo": true,
+      "textReplacement": false,
+      "placement": "header-top-left-only",
+      "homeCentralPresentation": "preserved",
+      "footerBrand": false
     }
   }
 }
