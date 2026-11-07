@@ -39,12 +39,13 @@ function createStudioApplicationLoader({readAsset}) {
   };
 }
 
-function createNeobathAnimaHandler({getAgent, loadApplication, projectStore}) {
+function createNeobathAnimaHandler({getAgent, loadApplication, projectStore, releaseId}) {
   return async (req, res) => {
     const origin = String(req.headers?.origin || '');
     res.set('Cache-Control', 'private, no-store, max-age=0');
     res.set('X-Content-Type-Options', 'nosniff');
     res.set('Vary', 'Origin, Authorization');
+    if (releaseId) res.set('X-LRF-Anima-Version', releaseId);
     if (origin && !ORIGINS.has(origin)) return res.status(403).json({success: false, error: 'Origine non autorisée.'});
     if (origin) res.set('Access-Control-Allow-Origin', origin);
     res.set('Access-Control-Allow-Methods', 'POST, OPTIONS');

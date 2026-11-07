@@ -323,7 +323,7 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261105-neobath-anima-studio-one-niches-rugs-apron-faces-18",
+      "releaseId": "20261107-neobath-anima-studio-one-segmento-19",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true
@@ -463,7 +463,8 @@
     "applications": [
       "schemas-elios",
       "studio-one",
-      "randal-general"
+      "randal-general",
+      "neobath-anima"
     ],
     "references": 16,
     "patterns": 12,
@@ -479,6 +480,8 @@
     "source": "ELIOS_FLYER-SEGMENTO.pdf",
     "webglVisualVerification": false,
     "studioAppSha256": "7c2ecc5152ef6033bc307b5e5fc5b7c349fe0406e3c87013963b6285d95a4fd8",
-    "generalAppSha256": "e7c4f0792892d7259f25fa772e69cdb9a24511b25e3e29bb013fb2bc59fb0891"
+    "generalAppSha256": "e7c4f0792892d7259f25fa772e69cdb9a24511b25e3e29bb013fb2bc59fb0891",
+    "animaAppSha256": "fd9ce30072fe19d715ce388882106852341290b421690fc5bbdecffaa1e930b8",
+    "animaReleaseId": "20261107-neobath-anima-studio-one-segmento-19"
   }
 }

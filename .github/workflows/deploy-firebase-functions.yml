@@ -296,10 +296,12 @@ jobs:
           node - <<'JS'
           (async()=>{
             const url='https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication';
+            const expectedVersion=JSON.parse(require('node:fs').readFileSync('functions/neobath-anima/studio-dist/release.json','utf8')).id;
             for(const action of ['authorize','application','projects-list','projects-save','projects-delete'])for(const auth of ['', 'Bearer forged-agent-token']){
               const r=await fetch(url,{method:'POST',headers:{Origin:'https://leroyfactory.fr','Content-Type':'application/json',...(auth?{Authorization:auth}:{})},body:JSON.stringify({action,isAdmin:true,email:'jerome@leroyfactory.fr'})});
               const data=await r.json();
               if(r.status!==401||data.success!==false||data.html||data.module||data.catalogue||data.projects)throw Error('Neobath Anima access check failed: '+r.status);
+              if(r.headers.get('x-lrf-anima-version')!==expectedVersion)throw Error('Neobath Anima release version mismatch');
             }
             console.log('Neobath Anima private endpoint ready; anonymous requests and forged agent flags rejected.');
           })().catch(e=>{console.error(e.message);process.exit(1);});
