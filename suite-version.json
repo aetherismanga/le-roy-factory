@@ -517,6 +517,8 @@
     "filterByColor": true,
     "searchByReference": true,
     "preserveFiltersAfterSelection": true,
-    "meshRasterVerification": true
+    "meshRasterVerification": true,
+    "rendererSourceCommit": "06c3506053f6ad4fefed3aeee63c905ad7569bf3",
+    "pagesPublication": "20261107-segmento2-retry"
   }
 }

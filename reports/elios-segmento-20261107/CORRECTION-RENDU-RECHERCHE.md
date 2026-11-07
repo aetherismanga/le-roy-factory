@@ -15,3 +15,5 @@ Les 48 compositions sont regroupées sous les 12 motifs. Le sélecteur affiche l
 Le composant réel a été vérifié dans une fenêtre mobile de 390 px : motif 11, recherche 04I15D0, application S11-G, maintien du filtre et de la recherche. Les calculs, l’accès privé et les compilations font partie des contrôles de publication. WebGL 2 reste indisponible dans ce navigateur ; aucune validation de la scène éclairée par GPU n’est revendiquée.
 
 Validation finale : noyau et contrôles des deux ateliers réussis ; 15 tests ciblés Segmento, 88 tests Anima et 589 tests PLAN & POSE/sécurité réussis (1 test ignoré). Les trois applications et le site ont été compilés.
+
+Publication Pages : la première synchronisation a dépassé les 10 minutes ; la relance du même identifiant a été annulée. Un nouvel envoi exclut uniquement les quatre PNG sources des ambiances extérieures (13 955 686 octets), conservés dans Git. Leurs WebP lossless actifs, 1536 × 1024, sont identiques pixel pour pixel. Aucun nouveau déploiement des ateliers ni de la fonction privée n’est nécessaire pour cet ajustement de publication.

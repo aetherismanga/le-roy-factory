@@ -24,6 +24,11 @@ exclude:
   - shared/lrf-3d/package.json
   - shared/lrf-3d/README.md
   - shared/lrf-3d/extraction-provenance.json
+  # Lossless WebP variants are the runtime images; retain PNG originals in Git.
+  - shared/lrf-3d/media/window-ambiences/coast.png
+  - shared/lrf-3d/media/window-ambiences/forest-lake.png
+  - shared/lrf-3d/media/window-ambiences/mountains.png
+  - shared/lrf-3d/media/window-ambiences/contemporary-garden.png
   - review-studio/app.js
   - review-studio/accueil.js
   - review-studio/maison.js
