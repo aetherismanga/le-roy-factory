@@ -5,7 +5,7 @@ import {applyTileColors} from './tile-colors.js';
 import {resolveSurfaceTexture} from './surface-texture-selection.js';
 import {applySurfaceTextureMapping} from './surface-appearance.js';
 import {surfaceAssetURL,loadQueuedTexture} from './texture-loader.js';
-import {applyMirrorLighting} from './mirror-lighting.js';
+import {applyPresentationMirrorLighting} from './randal-presentation-lighting.js';
 import {mirrorSpec} from './mirrors.js';
 import {presentationChoice} from './randal-presentation-catalog.js';
 import {createPresentationEditing} from './randal-presentation-editing.js';
@@ -19,11 +19,16 @@ export function createRandalPresentationScene({scene,renderer,floor,wall,getItem
  // coherent to reflect. These are physical planes, never a baked room image.
  const enclosure=new T.Group();enclosure.name='Présentation · environnement';
  const enclosureMaterial=new T.MeshPhysicalMaterial({color:'#eeeae2',roughness:.92,metalness:0});
- const windowMaterial=new T.MeshBasicMaterial({color:'#f7f5ef'});
+ const windowMaterial=new T.MeshPhysicalMaterial({color:'#f7f5ef',roughness:.3,emissive:'#fff6e6',emissiveIntensity:3});
  function plane(width,height,position,rotation,material=enclosureMaterial){const mesh=new T.Mesh(new T.PlaneGeometry(width,height),material);mesh.position.set(...position);mesh.rotation.set(...rotation);mesh.receiveShadow=true;enclosure.add(mesh);}
  plane(10.26,6,[-7,3,4.87],[0,Math.PI/2,0]);plane(10.26,6,[7,3,4.87],[0,-Math.PI/2,0]);
  plane(14,6,[0,3,10],[0,Math.PI,0]);plane(14,10.26,[0,6,4.87],[Math.PI/2,0,0]);
- for(const x of [-2.1,-.95])plane(1.1,2.5,[x,2.6,9.99],[0,Math.PI,0],windowMaterial);
+ for(const x of [-2.1,-.95]){
+  plane(1.1,2.5,[x,2.6,9.99],[0,Math.PI,0],windowMaterial);
+  // Sample the broad luminous aperture explicitly in both rendering engines.
+  // The enclosing walls remain opaque; light comes from these real sources.
+  const daylight=new T.RectAreaLight('#fff4e4',6,1.1,2.5);daylight.name='Présentation_fenêtre_lumineuse';daylight.position.set(x,2.6,9.98);daylight.lookAt(x,1.1,0);enclosure.add(daylight);
+ }
  scene.add(enclosure);
  const editing=createPresentationEditing({scene,camera,controls,canvas,getItems,getProject,invalidate});
  function face(kind){
@@ -61,7 +66,7 @@ export function createRandalPresentationScene({scene,renderer,floor,wall,getItem
  function releaseUnused(){const used=new Set([...Object.values(selectedResources).flat(),...Array.from(pendingResources.values()).flat()]);for(const [key,promise]of resources)if(!used.has(key)){resources.delete(key);promise.then(t=>t.dispose()).catch(()=>{});}}
  function hasLED(item){if(item.type!=='mirror')return false;const spec=mirrorSpec(item.settings),eligible=spec.led||spec.metal&&(item.settings.led||ledMirrors.get(item.id)===spec.id);if(eligible)ledMirrors.set(item.id,spec.id);else ledMirrors.delete(item.id);return !!eligible;}
  function capabilities(){const items=getItems()||[],led=items.filter(hasLED);return {openable:items.some(i=>i.asset.drawers?.length||i.asset.door||i.asset.doors?.length),led:led.length>0,ledOn:led.length>0&&led.every(i=>!!i.settings.led),opened};}
- function setLED(enabled){for(const item of getItems()||[])if(hasLED(item)){item.settings={...item.settings,led:!!enabled};applyMirrorLighting(item,innerWidth<700);}invalidate();}
+ function setLED(enabled){for(const item of getItems()||[])if(hasLED(item)){item.settings={...item.settings,led:!!enabled};applyPresentationMirrorLighting(item);}invalidate();}
  function setOpened(value){
   opened=!!value;cancelAnimationFrame(animation);const changes=[];
   for(const item of getItems()||[]){const asset=item.asset;

@@ -1,3 +1,4 @@
+import {buildPresentationAssets} from '../scripts/build-randal-presentation-assets.mjs';
 import {cpSync} from 'node:fs';
 import {build} from 'esbuild';
 import {readFileSync,writeFileSync,copyFileSync,rmSync,readdirSync} from 'node:fs';
@@ -40,3 +41,6 @@ cpSync('../shared/lrf-3d/media/window-ambiences','dist/assets/exterior',{recursi
 
 // Authentic sample used only by the restricted RANDAL presentation.
 cpSync('../shared/lrf-3d/media/randal-presentation','dist/assets/randal-presentation',{recursive:true});
+
+// Progressive fullscreen resources and third-party license notices.
+await buildPresentationAssets();
