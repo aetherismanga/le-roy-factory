@@ -1,3 +1,4 @@
+import {configuratorAccess} from '../../shared/lrf-3d/randal-client-access.js';
 // Same-origin gateway. All PRO amounts and roles require live server verification.
 import {purchaseQuote} from '../server/purchase.js';
 import {commercialReference} from '../../shared/lrf-server/commercial-reference.mjs';
@@ -40,6 +41,6 @@ export default async function handler(req,res){
   }else return json(res,400,{error:'Action inconnue.'});
   if(!identity){const c=data?.client;if(!c||!/^LRF-\d{5}$/.test(c.codeClient||''))throw fail('Compte LRF non vérifié.');const allowed=(c.partenaires||[]).some(p=>['randal','randalpro'].includes(String(p).toLowerCase().replace(/[^a-z]/g,'')));identity={client:await customer(c),isAdmin:false,randalAllowed:allowed};}
   let quote=null;if(body.project&&identity.randalAllowed===true){try{quote=purchaseQuote(body.project);}catch{throw fail('La composition ne peut pas être chiffrée.',400);}}
-  return json(res,200,{...identity,...(['identify','exchange','admin','admin-token'].includes(body.action)?{accessToken:identity.isAdmin?adminToken:token}:{}),...commercialReference(identity,quote)});
+  return json(res,200,{...identity,...(['identify','exchange','admin','admin-token'].includes(body.action)?{accessToken:identity.isAdmin?adminToken:token}:{}),...commercialReference(identity,quote),configuratorAccess:configuratorAccess(identity)});
  }catch(e){return json(res,e.status||503,{error:e.status===401?e.message:e.status===400?e.message:'Connexion au service LRF indisponible. Réessayez.',client:null,proHT:null,isAdmin:false});}
 }

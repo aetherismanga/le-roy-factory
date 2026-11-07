@@ -1,3 +1,6 @@
+import {mountRandalWorkshopAccess} from '../../shared/lrf-3d/randal-workshop-access.js';
+import {createIdentity as createAccessIdentity} from './commerce/identity.js';
+mountRandalWorkshopAccess(createAccessIdentity);
 import {APRON_FACES,apronFinish,collectApronFinishes,applyBathApron,selectApronFace,renderApronPicker} from '../../shared/lrf-3d/bath-apron.js';
 import './facade-i18n.js';
 import {initI18n,onLocaleChange,translateText as t} from '../../shared/lrf-3d/i18n/index.js';

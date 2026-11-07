@@ -1,3 +1,5 @@
+import {mountRandalWorkshopAccess} from '../../../shared/lrf-3d/randal-workshop-access.js';
+mountRandalWorkshopAccess(createIdentity);
 import {initI18n} from '../../../shared/lrf-3d/i18n/index.js';
 initI18n();
 import {localStorage,demoRoute,isRandalDemo} from '../../../shared/lrf-3d/demo-session.js';

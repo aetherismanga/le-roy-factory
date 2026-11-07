@@ -1,0 +1,27 @@
+import {COLLECTIONS} from './surface-catalog.js';
+
+// These are presentation modules only; they do not create commercial SKUs,
+// prices or packaging for a nominal format requested for the showroom.
+export const RANDAL_FLOORS=Object.freeze([
+ {id:'yosemite-honey',name:'Yosemite Honey · 20 × 120 · pose 1/3',collection:'Yosemite',color:'honey',format:'20x120',width:1.2,height:.2,pattern:'third'},
+ {id:'creta-caramello',name:'Creta Caramello · 60 × 120',collection:'Creta',color:'caramello',format:'60x120',width:1.2,height:.6,pattern:'straight'},
+ {id:'slate-beige',name:'Slate Gold (beige) · 60 × 60',collection:'Slate',color:'gold',format:'60x60',width:.6,height:.6,pattern:'straight'}
+]);
+export const RANDAL_WALLS=Object.freeze([
+ ...COLLECTIONS.Peinture.colors.map(c=>({id:'paint-'+c.id,name:c.name,collection:'Peinture',color:c.id})),
+ {id:'stone-icon-leccese',name:'Stone Icon Leccese · 60 × 90',collection:'Stone Icon',color:'leccese',format:'60x90',width:.9,height:.6,pattern:'straight'},
+ ...COLLECTIONS.Allure.colors.map(c=>({id:'allure-'+c.id,name:'Allure '+c.name+(c.continuousDecor?' · décor':' · uni'),collection:'Allure',color:c.id,format:'60x120',width:1.2,height:.6,pattern:'straight',decor:!!c.continuousDecor}))
+]);
+export const presentationChoice=(kind,id)=>(kind==='floor'?RANDAL_FLOORS:RANDAL_WALLS).find(c=>c.id===id)||null;
+export function presentationChoices(project){
+ const floor=project?.floor,wall=project?.walls?.[0];
+ return {floor:RANDAL_FLOORS.find(c=>c.collection===floor?.collection&&c.color===floor?.color)?.id||RANDAL_FLOORS[0].id,wall:RANDAL_WALLS.find(c=>c.collection===wall?.collection&&c.color===wall?.color)?.id||'paint-white'};
+}
+export function withPresentationSurface(project,kind,id){
+ const choice=presentationChoice(kind,id);if(!choice)throw Error('Revêtement non autorisé.');
+ const result=structuredClone(project),finish={collection:choice.collection,color:choice.color,...(choice.format?{format:choice.format}:{}),groutColor:'Beige'},layout={width:choice.width||1.2,height:choice.height||.6,direction:'horizontal',pattern:choice.pattern||'straight',x:0,y:0,groutWidth:2,shape:'rectangle'};
+ result.layouts??={};
+ if(kind==='floor'){result.floor=finish;result.layouts.floor=layout;}
+ else{const count=result.walls?.length||result.room.points.length;result.walls=Array.from({length:count},()=>({...finish}));result.layouts.walls=Array.from({length:count},()=>({...layout}));}
+ return result;
+}

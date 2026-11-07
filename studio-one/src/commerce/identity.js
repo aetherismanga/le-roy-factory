@@ -13,7 +13,7 @@ export function createIdentity(getProject,changed=()=>{}){
  const controller=createIdentityState({getProject,getKey:p=>{if(!p)return 'none';try{const q=quoteProject(p);return JSON.stringify(q.rows.map(r=>[r.ref,r.publicTTC]));}catch{return JSON.stringify(p.items||[]);}},request:commercialRequest,changed,settled:notify});
  function finishParent(){clearTimeout(parentTimer);resolveParent?.();resolveParent=null;waiting=null;}
  function requestParent(){if(!embedded||manualLogout)return Promise.resolve();if(waiting)return waiting;waiting=new Promise(resolve=>{resolveParent=resolve;parentTimer=setTimeout(finishParent,2500);});parent.postMessage({type:'lrf-configurator-session-needed'},host);return waiting;}
- addEventListener('message',e=>{
+ const receiveSession=e=>{
   if(e.source!==parent||!origins.includes(e.origin))return;const d=e.data;
   if(d?.type==='lrf-configurator-session-absent'){finishParent();return;}
   if(d?.type!=='lrf-configurator-session'||manualLogout)return;
@@ -22,9 +22,10 @@ export function createIdentity(getProject,changed=()=>{}){
   // from the official site. The server still verifies the received credential.
   try{sessionStorage.removeItem('studio-one-auth-manual');}catch{}
   controller.authenticate(action,payload).finally(finishParent);
- });
+ };
+ addEventListener('message',receiveSession);
  if(embedded)parent.postMessage({type:'lrf-configurator-ready'},host);
- return {get state(){return controller.state;},async reconnect(){manualLogout=false;await requestParent();return controller.load();},async load(){if(embedded&&!controller.state.client){await requestParent();}let token='';try{if(!embedded&&sessionStorage.getItem('studio-one-auth-manual')!=='1')token=sessionStorage.getItem('lrfProSessionToken')||localStorage.getItem('lrfProRememberToken')||'';}catch{}return token&&!controller.state.known?controller.authenticate('exchange',{sessionToken:token}):controller.load();},refresh:controller.refresh,schedule:controller.schedule,async authenticate(action,payload){manualLogout=false;const result=await controller.authenticate(action,payload);if(result.client){try{sessionStorage.removeItem('studio-one-auth-manual');localStorage.setItem('studio-one-auth-revision',Date.now()+':'+Math.random());}catch{}}return result;},resync:controller.resync,async logout(){manualLogout=true;await controller.logout();try{sessionStorage.setItem('studio-one-auth-manual','1');sessionStorage.removeItem('lrfProSessionToken');localStorage.removeItem('lrfProRememberToken');localStorage.setItem('studio-one-auth-revision',Date.now()+':'+Math.random());}catch{}}};
+ return {dispose(){removeEventListener('message',receiveSession);finishParent();},get state(){return controller.state;},async reconnect(){manualLogout=false;await requestParent();return controller.load();},async load(){if(embedded&&!controller.state.client){await requestParent();}let token='';try{if(!embedded&&sessionStorage.getItem('studio-one-auth-manual')!=='1')token=sessionStorage.getItem('lrfProSessionToken')||localStorage.getItem('lrfProRememberToken')||'';}catch{}return token&&!controller.state.known?controller.authenticate('exchange',{sessionToken:token}):controller.load();},refresh:controller.refresh,schedule:controller.schedule,async authenticate(action,payload){manualLogout=false;const result=await controller.authenticate(action,payload);if(result.client){try{sessionStorage.removeItem('studio-one-auth-manual');localStorage.setItem('studio-one-auth-revision',Date.now()+':'+Math.random());}catch{}}return result;},resync:controller.resync,async logout(){manualLogout=true;await controller.logout();try{sessionStorage.setItem('studio-one-auth-manual','1');sessionStorage.removeItem('lrfProSessionToken');localStorage.removeItem('lrfProRememberToken');localStorage.setItem('studio-one-auth-revision',Date.now()+':'+Math.random());}catch{}}};
 }
 // Read the existing site's Firebase persistence only on explicit account access.
 // A different preview origin cannot read the production site's browser storage.
