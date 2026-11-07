@@ -1,4 +1,4 @@
-import {COUNTRIES,calculate,calculateQuick,matchesSearch,resolveSelection,numberValue,jointRangeLabel,productCompatibility}from'./joints-core.mjs?v=20261107-joints2';
+import {COUNTRIES,calculate,calculateQuick,matchesSearch,resolveSelection,numberValue,jointRangeLabel,productCompatibility,groupManufacturers,preferredCatalogue}from'./joints-core.mjs?v=20261107-joints3';
 const $=id=>document.getElementById(id),form=$('project-form'),quickForm=$('quick-form');
 const projectKey='lrf-joints-project-v1',favoriteKey='lrf-joints-favorite-v1',quickKey='lrf-joints-quick-v1';
 const dimensions=['area','length','width','thickness','joint'],fields=[...dimensions,'kind','location','packageKg','margin','manualGrams'];
@@ -12,22 +12,24 @@ const countryLabel=id=>COUNTRIES.find(c=>c.id===id)?.label||id;
 const kindLabel=kind=>({ciment:'Ciment / résine-ciment',epoxy:'Époxy',ready:'Prêt à l’emploi',acrylique:'Prêt à l’emploi',dispersion:'Prêt à l’emploi'}[kind]||'Joint');
 const family=kind=>['acrylique','dispersion'].includes(kind)?'ready':kind;
 const scrollTo=element=>element?.scrollIntoView({behavior:'instant',block:'start'});
-let BRANDS=[],mode='',country='fr',brand=null,product=null,favorite=null,entered=false,lastResult=null,timer,quickTimer,catalogueError=false,notice='',transfer=null;
+let BRANDS=[],manufacturers=[],mode='',country='fr',manufacturerCountry='fr',brand=null,product=null,favorite=null,entered=false,lastResult=null,timer,quickTimer,catalogueError=false,notice='',transfer=null;
+const currentManufacturer=()=>manufacturers.find(m=>m.id===brand?.manufacturerId)||null;
+const isFavorite=()=>!!brand&&BRANDS.find(b=>b.id===favorite?.brand)?.manufacturerId===brand.manufacturerId;
 function bindImages(root){root.querySelectorAll('img').forEach(img=>img.addEventListener('error',()=>{img.hidden=true;const note=document.createElement('span');note.className='image-unavailable';note.textContent='Visuel indisponible';img.parentElement?.append(note);},{once:true}));}
 function applyFields(values,keys=fields){if(!values||typeof values!=='object')return;for(const key of keys){const control=$(key);if(!control||values[key]==null||typeof values[key]==='object')continue;const value=String(values[key]).slice(0,50);if(control.tagName==='SELECT'){if([...control.options].some(o=>o.value===value))control.value=value;}else control.value=value;}}
 function input(){return {...Object.fromEntries(new FormData(form)),country,brand:brand?.id||'',productId:product?.id||'',mode:'precise'};}
 function quickInput(){return Object.fromEntries(new FormData(quickForm));}
 function renderBrands(){
-  const visible=BRANDS.filter(b=>b.country===country&&matchesSearch(b.name,$('brand-search').value));
-  $('brands-status').textContent=catalogueError?'Catalogue fabricant momentanément indisponible.':visible.length?`${visible.length} fabricant${visible.length>1?'s':''} · catalogue ${countryLabel(country)}`:'Aucun fabricant ne correspond à votre recherche.';
-  $('brand-grid').innerHTML=visible.map(b=>`<button type="button" class="brand-card${brand?.id===b.id?' selected':''}" data-brand-id="${esc(b.id)}" aria-pressed="${brand?.id===b.id}"><span class="brand-image${b.logoTone==='light-on-dark'?' brand-logo-dark':''}">${image(b.logoPath,b.name)}</span><strong>${esc(b.name)}</strong><small>${b.products.length} référence${b.products.length>1?'s':''}</small>${favorite?.brand===b.id?'<span class="brand-favorite" aria-label="Favori">★</span>':''}</button>`).join('');
+  const visible=manufacturers.filter(m=>m.country===manufacturerCountry&&matchesSearch(m.name,$('brand-search').value)),favoriteManufacturer=BRANDS.find(b=>b.id===favorite?.brand)?.manufacturerId;
+  $('brands-status').textContent=catalogueError?'Catalogue fabricant momentanément indisponible.':visible.length?`${visible.length} fabricant${visible.length>1?'s':''} · ${countryLabel(manufacturerCountry)}`:'Aucun fabricant ne correspond à votre recherche.';
+  $('brand-grid').innerHTML=visible.map(m=>{const b=preferredCatalogue(m),counts=m.catalogues.map(c=>c.products.length),min=Math.min(...counts),max=Math.max(...counts),selected=brand?.manufacturerId===m.id;return `<button type="button" class="brand-card${selected?' selected':''}" data-manufacturer-id="${esc(m.id)}" aria-pressed="${selected}"><span class="brand-image${b.logoTone==='light-on-dark'?' brand-logo-dark':''}">${image(b.logoPath,m.name)}</span><strong>${esc(m.name)}</strong><small>${min===max?min:min+' à '+max} référence${max>1?'s':''}${min!==max?' selon le pays de vente':''}</small>${favoriteManufacturer===m.id?'<span class="brand-favorite" aria-label="Favori">★</span>':''}</button>`;}).join('');
   $('favorite-shortcut').hidden=!favorite;$('start-calculator').disabled=!brand;
   $('start-calculator').innerHTML=brand?`Continuer avec ${esc(brand.name)} <span aria-hidden="true">→</span>`:'Choisissez un fabricant <span aria-hidden="true">→</span>';
   bindImages($('brand-grid'));
 }
-function renderIdentity(){if(!brand)return;$('selected-brand-identity').innerHTML=`${image(brand.logoPath,brand.name,brand.logoTone==='light-on-dark'?'brand-logo-dark':'')}<div><span class="small-label">VOTRE FABRICANT · ${esc(countryLabel(country))}</span><strong>${esc(brand.name)}</strong></div>`;$('favorite-toggle').textContent=favorite?.brand===brand.id?'★ Mon fabricant favori':'☆ Mémoriser ce fabricant';$('favorite-toggle').setAttribute('aria-pressed',String(favorite?.brand===brand.id));bindImages($('selected-brand-identity'));}
-function save(){if(!entered||!brand)return;write(projectKey,input());if(favorite?.brand===brand.id){const next={country,brand:brand.id,productId:product?.id||''};if(write(favoriteKey,next))favorite=next;}}
-function sourceLinks(){$('technical-sources').innerHTML=(brand?.products||[]).map(p=>`<li><a href="${esc(p.technicalUrl)}" target="_blank" rel="noopener noreferrer">${esc(brand.name+' — '+p.name)} · fiche technique ↗</a><br>${esc(p.coefficientNote)}</li>`).join('');}
+function renderIdentity(){if(!brand)return;const m=currentManufacturer();$('selected-brand-identity').innerHTML=`${image(brand.logoPath,brand.name,brand.logoTone==='light-on-dark'?'brand-logo-dark':'')}<div><span class="small-label">FABRICANT · ${esc(countryLabel(m.country))}</span><strong>${esc(brand.name)}</strong><span class="catalogue-identity-note">Fiches et conditionnements : ${esc(countryLabel(country))}</span></div>`;$('favorite-toggle').textContent=isFavorite()?'★ Mon fabricant favori':'☆ Mémoriser ce fabricant';$('favorite-toggle').setAttribute('aria-pressed',String(isFavorite()));$('catalogue-market-control').hidden=m.catalogues.length<2;$('catalogue-market').innerHTML=m.catalogues.map(b=>`<option value="${esc(b.id)}"${b.id===brand.id?' selected':''}>${esc(countryLabel(b.country))}</option>`).join('');bindImages($('selected-brand-identity'));}
+function save(){if(!entered||!brand)return;write(projectKey,input());if(isFavorite()){const next={country,brand:brand.id,productId:product?.id||''};if(write(favoriteKey,next))favorite=next;}}
+function sourceLinks(){$('technical-sources').innerHTML=(brand?`<li><a href="${esc(brand.manufacturerSource)}" target="_blank" rel="noopener noreferrer">Pays du fabricant : ${esc(countryLabel(brand.manufacturerCountry))} · source officielle ↗</a></li>`:'')+(brand?.products||[]).map(p=>`<li><a href="${esc(p.technicalUrl)}" target="_blank" rel="noopener noreferrer">${esc(brand.name+' — '+p.name)} · fiche technique ↗</a><br>${esc(p.coefficientNote)}</li>`).join('');}
 function productCard(p,reasons=[]){
   const disabled=reasons.length>0,chosen=product?.id===p.id;
   return `<article class="joint-product-card${chosen?' is-selected':''}${disabled?' is-unavailable':''}"><button type="button" class="product-select" data-product-id="${esc(p.id)}" aria-pressed="${chosen}"${disabled?' disabled':''}><span class="joint-product-image">${image(p.imagePath,p.name+' — visuel fabricant')}</span><span class="product-kind">${esc(kindLabel(p.kind))}</span><strong>${esc(p.name)}</strong><span class="product-description">${esc(p.description)}</span><span class="product-range">Joints : ${esc(jointRangeLabel(p))}<br>${p.packages.map(n=>fmt(n)+' kg').join(' · ')}</span>${p.legacy?'<span class="usage-note">Ancienne gamme · disponibilité à confirmer</span>':''}${p.usageNote?`<span class="usage-note">${esc(p.usageNote)}</span>`:''}<span class="product-picked">${disabled?'Autres critères requis':chosen?'✓ Référence sélectionnée':'Choisir ce joint →'}</span></button>${disabled?`<ul class="product-exclusions">${items(reasons)}</ul>`:''}<a class="card-technical-link" href="${esc(p.technicalUrl)}" target="_blank" rel="noopener noreferrer">Fiche technique ↗</a></article>`;
@@ -37,7 +39,7 @@ function renderProducts(){
   const data=input(),query=$('product-search').value,matching=[],excluded=[];
   for(const p of brand.products){if(!matchesSearch(p.name+' '+p.description,query))continue;const reasons=productCompatibility(p,data);reasons.length?excluded.push({p,reasons}):matching.push(p);}
   $('criteria-summary').textContent=`${kindLabel(data.kind)} · ${data.location==='inside'?'intérieur':'extérieur'} · joint ${data.joint||'à préciser'} mm`;
-  $('product-count').textContent=`${matching.length} référence${matching.length>1?'s':''} correspondant à vos critères · ${brand.products.length} au catalogue ${brand.name}`;
+  $('product-count').textContent=`${matching.length} référence${matching.length>1?'s':''} correspondant à vos critères · ${brand.products.length} au catalogue ${brand.name} · ${countryLabel(country)}`;
   const familyNote=brand.missingFamilies?.[data.kind];
   $('product-grid').innerHTML=matching.map(p=>productCard(p)).join('')||(familyNote?`<p class="empty-products">${esc(familyNote.note)} <a href="${esc(familyNote.sourceUrl)}" target="_blank" rel="noopener noreferrer">Consulter le catalogue fabricant ↗</a></p>`:'<p class="empty-products">Aucune référence ne correspond à ces critères. Vérifiez le type, l’usage et la largeur du joint. Les autres références restent consultables ci-dessous.</p>');
   $('other-products').hidden=!excluded.length;$('other-products-title').textContent=`Autres références de ${brand.name} (${excluded.length})`;
@@ -64,7 +66,7 @@ function render(){
   const values=input(),r=calculate(values,BRANDS);lastResult=r;$('manual-field').hidden=values.method!=='manual';
   $('margin-help').textContent=values.method==='manual'?'Réserve ajoutée à votre consommation saisie.':product.consumptionIncludesWaste?'La méthode fabricant inclut déjà des déchets. Réserve complémentaire facultative.':'Ajoutée séparément pour les pertes de mise en œuvre.';
   for(const key of dimensions)$(key).removeAttribute('aria-invalid');for(const key of dimensions)if(numberValue(values[key])===null||numberValue(values[key])<=0)$(key).setAttribute('aria-invalid','true');
-  const identity=`<div class="joint-selected-product">${image(product.imagePath,product.name)}<div><span class="small-label">${esc(brand.name)} · ${esc(countryLabel(country))}</span><h3>${esc(product.name)}</h3><p>${esc(kindLabel(product.kind))}</p></div></div><a class="result-source" href="${esc(product.technicalUrl)}" target="_blank" rel="noopener noreferrer">Ouvrir la fiche technique ↗</a>`;
+  const identity=`<div class="joint-selected-product">${image(product.imagePath,product.name)}<div><span class="small-label">${esc(brand.name)} · fabricant ${esc(countryLabel(brand.manufacturerCountry))}</span><h3>${esc(product.name)}</h3><p>${esc(kindLabel(product.kind))}<br>Fiches et conditionnements : ${esc(countryLabel(country))}</p></div></div><a class="result-source" href="${esc(product.technicalUrl)}" target="_blank" rel="noopener noreferrer">Ouvrir la fiche technique ↗</a>`;
   if(!r.valid||r.blocked){$('status-label').textContent='Saisie à compléter';$('result-body').innerHTML=identity+`<div class="result-block"><h3>Précisons votre estimation.</h3><ul>${items(r.blocked?r.blocks:r.errors)}</ul></div>`;}
   else{
     $('status-label').textContent='Calcul en direct';$('print').disabled=false;
@@ -77,7 +79,7 @@ function render(){
   bindImages($('result-body'));save();
 }
 function enterCalculator({remember=false,scroll=true,restore=null}={}){
-  if(!brand)return;mode='precise';entered=true;displayMode();notice='';
+  if(!brand)return;manufacturerCountry=brand.manufacturerCountry;mode='precise';entered=true;displayMode();notice='';
   if(remember){const next={country,brand:brand.id,productId:product?.id||''};if(write(favoriteKey,next))favorite=next;else $('action-status').textContent='La mémorisation est bloquée dans ce navigateur.';}
   if(restore){applyFields(restore,dimensions.concat(['kind','location']));if(!restore.kind&&product)$('kind').value=family(product.kind);}
   if(transfer){applyFields(transfer,dimensions.concat(['kind']));transfer=null;}
@@ -108,18 +110,19 @@ function restoreState(){
   const selected=resolveSelection(saved,BRANDS);if(selected){country=selected.country;brand=selected.brand;product=selected.product;enterCalculator({scroll:false,restore:saved});}
   else{mode='precise';displayMode();renderBrands();}
 }
-async function load(){try{({BRANDS}=await import('./joints-catalog.mjs?v=20261107-joints2'));if(!BRANDS.length)throw Error('Empty catalogue');catalogueError=false;restoreState();}catch{catalogueError=true;renderBrands();displayMode();}}
+async function load(){try{({BRANDS}=await import('./joints-catalog.mjs?v=20261107-joints3'));if(!BRANDS.length)throw Error('Empty catalogue');manufacturers=groupManufacturers(BRANDS);catalogueError=false;restoreState();}catch{catalogueError=true;renderBrands();displayMode();}}
 $('mode-choice').addEventListener('click',event=>{const button=event.target.closest('[data-mode]');if(button)chooseMode(button.dataset.mode);});
 $('change-mode').addEventListener('click',()=>{mode='';displayMode();scrollTo($('mode-choice'));});
 $('refine-quick').addEventListener('click',()=>{transfer=quickInput();chooseMode('precise');});
 $('retry-load').addEventListener('click',()=>location.reload());
-$('brand-grid').addEventListener('click',event=>{const button=event.target.closest('[data-brand-id]');if(!button)return;brand=BRANDS.find(b=>b.id===button.dataset.brandId&&b.country===country)||null;product=null;renderBrands();});
-document.querySelectorAll('input[name="catalogue-country"]').forEach(control=>control.addEventListener('change',()=>{country=control.value;brand=null;product=null;$('brand-search').value='';renderBrands();}));
+$('brand-grid').addEventListener('click',event=>{const button=event.target.closest('[data-manufacturer-id]');if(!button)return;const m=manufacturers.find(m=>m.id===button.dataset.manufacturerId&&m.country===manufacturerCountry);brand=preferredCatalogue(m);if(brand)country=brand.country;product=null;renderBrands();});
+document.querySelectorAll('input[name="manufacturer-country"]').forEach(control=>control.addEventListener('change',()=>{manufacturerCountry=control.value;brand=null;product=null;$('brand-search').value='';renderBrands();}));
 $('brand-search').addEventListener('input',renderBrands);
-$('start-calculator').addEventListener('click',()=>{if(!$('remember-brand').checked&&favorite?.brand===brand?.id){if(write(favoriteKey,null))favorite=null;}enterCalculator({remember:$('remember-brand').checked});});
+$('start-calculator').addEventListener('click',()=>{if(!$('remember-brand').checked&&isFavorite()){if(write(favoriteKey,null))favorite=null;}enterCalculator({remember:$('remember-brand').checked});});
 $('favorite-shortcut').addEventListener('click',()=>{const next=resolveSelection(favorite,BRANDS);if(next){country=next.country;brand=next.brand;product=next.product;const saved=read(projectKey);enterCalculator({restore:saved?.brand===brand.id?saved:null});}});
-$('favorite-toggle').addEventListener('click',()=>{const next=favorite?.brand===brand.id?null:{country,brand:brand.id,productId:product?.id||''};if(write(favoriteKey,next)){favorite=next;renderIdentity();$('action-status').textContent=next?'Fabricant mémorisé sur cet appareil.':'Favori retiré.';}else $('action-status').textContent='La mémorisation est bloquée dans ce navigateur.';});
-$('change-manufacturer').addEventListener('click',()=>{entered=false;displayMode();document.querySelector(`input[name="catalogue-country"][value="${country}"]`).checked=true;$('brand-search').value='';$('remember-brand').checked=true;renderBrands();scrollTo($('manufacturer-choice'));});
+$('favorite-toggle').addEventListener('click',()=>{const next=isFavorite()?null:{country,brand:brand.id,productId:product?.id||''};if(write(favoriteKey,next)){favorite=next;renderIdentity();$('action-status').textContent=next?'Fabricant mémorisé sur cet appareil.':'Favori retiré.';}else $('action-status').textContent='La mémorisation est bloquée dans ce navigateur.';});
+$('change-manufacturer').addEventListener('click',()=>{entered=false;manufacturerCountry=brand.manufacturerCountry;displayMode();document.querySelector(`input[name="manufacturer-country"][value="${manufacturerCountry}"]`).checked=true;$('brand-search').value='';$('remember-brand').checked=true;renderBrands();scrollTo($('manufacturer-choice'));});
+$('catalogue-market').addEventListener('change',()=>{const next=BRANDS.find(b=>b.id===$('catalogue-market').value&&b.manufacturerId===brand?.manufacturerId);if(!next)return;brand=next;country=next.country;configureProduct(null);notice='Fiches et conditionnements mis à jour : '+countryLabel(country)+'. Choisissez une référence de ce catalogue.';$('product-search').value='';renderIdentity();sourceLinks();render();});
 $('product-grid').addEventListener('click',event=>{const button=event.target.closest('[data-product-id]');if(!button||button.disabled)return;const next=brand.products.find(p=>p.id===button.dataset.productId);if(next&&next.id!==product?.id){notice='';configureProduct(next);render();}if(next)scrollTo($('product-settings'));});
 $('product-search').addEventListener('input',renderProducts);
 $('show-products').addEventListener('click',()=>{render();scrollTo($('products-panel'));});

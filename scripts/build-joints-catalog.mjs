@@ -15,6 +15,14 @@ for(const file of sources){const data=JSON.parse(readFileSync(resolve(root,'asse
 }}
 const brands=[...byId.values()];
 for(const update of updates){const target=brands.flatMap(b=>b.products).find(p=>p.id===update.id);if(!target)throw Error(`Unknown product update ${update.id}`);Object.assign(target,update);}
+const manufacturers=JSON.parse(readFileSync(resolve(root,'assets/data/joints/manufacturers.json'),'utf8')).manufacturers;
+const assigned=new Set(),manufacturerIds=new Set();
+for(const m of manufacturers){
+  if(manufacturerIds.has(m.id)||!['fr','it','es','ch'].includes(m.country)||!/^https:\/\//.test(m.sourceUrl||'')||!m.catalogueIds?.length)throw Error(`Invalid manufacturer identity ${m.id}`);
+  manufacturerIds.add(m.id);
+  for(const id of m.catalogueIds){const b=byId.get(id);if(!b||assigned.has(id))throw Error(`Missing or duplicate manufacturer assignment ${id}`);assigned.add(id);Object.assign(b,{manufacturerId:m.id,manufacturerCountry:m.country,manufacturerSource:m.sourceUrl});}
+}
+if(assigned.size!==brands.length)throw Error('Every national catalogue must belong to exactly one manufacturer');
 const ids=new Set();
 for(const b of brands){
   if(ids.has(b.id)||!['fr','it','es'].includes(b.country)||!b.products.length)throw Error(`Invalid brand ${b.id}`);ids.add(b.id);

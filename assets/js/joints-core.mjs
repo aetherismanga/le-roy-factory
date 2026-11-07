@@ -1,4 +1,20 @@
-export const COUNTRIES=[{id:'fr',label:'France',flag:'🇫🇷'},{id:'es',label:'Espagne',flag:'🇪🇸'},{id:'it',label:'Italie',flag:'🇮🇹'}];
+export const COUNTRIES=[{id:'fr',label:'France',flag:'🇫🇷'},{id:'es',label:'Espagne',flag:'🇪🇸'},{id:'it',label:'Italie',flag:'🇮🇹'},{id:'ch',label:'Suisse',flag:'🇨🇭'}];
+// A brand appears once, independently of its national technical catalogues.
+export function groupManufacturers(brands){
+  const grouped=new Map();
+  for(const catalogue of brands){
+    if(!catalogue.manufacturerId||!catalogue.manufacturerCountry)throw Error(`Missing manufacturer identity: ${catalogue.id}`);
+    let manufacturer=grouped.get(catalogue.manufacturerId);
+    if(!manufacturer){manufacturer={id:catalogue.manufacturerId,name:catalogue.name,country:catalogue.manufacturerCountry,sourceUrl:catalogue.manufacturerSource,catalogues:[]};grouped.set(manufacturer.id,manufacturer);}
+    if(manufacturer.country!==catalogue.manufacturerCountry||manufacturer.name!==catalogue.name)throw Error(`Conflicting manufacturer identity: ${catalogue.id}`);
+    manufacturer.catalogues.push(catalogue);
+  }
+  return [...grouped.values()].sort((a,b)=>a.name.localeCompare(b.name,'fr'));
+}
+export function preferredCatalogue(manufacturer,preferredCountry='fr'){
+  if(!manufacturer)return null;
+  return manufacturer.catalogues.find(b=>b.country===preferredCountry)||manufacturer.catalogues.find(b=>b.country===manufacturer.country)||manufacturer.catalogues[0]||null;
+}
 export function numberValue(value){
   if(typeof value==='number')return Number.isFinite(value)?value:null;
   const text=String(value??'').trim().replace(/[\s\u00a0\u202f]/g,'');

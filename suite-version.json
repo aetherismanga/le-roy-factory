@@ -294,7 +294,7 @@
       "agencyPresentWithReviglass": true
     },
     "joints": {
-      "releaseId": "20261107-joints-complet2",
+      "releaseId": "20261107-joints-fabricants-pays3",
       "page": "configurateur-joints.html",
       "countries": [
         "fr",
@@ -316,7 +316,16 @@
       "usageFiltering": true,
       "cementAndEpoxyRanges": true,
       "technicalDocumentOnEveryCard": true,
-      "productPhotos": 180
+      "productPhotos": 180,
+      "manufacturerCountries": [
+        "fr",
+        "es",
+        "it",
+        "ch"
+      ],
+      "manufacturers": 20,
+      "manufacturerCountryClassification": true,
+      "nationalTechnicalCataloguesPreserved": true
     }
   },
   "configurators": {

@@ -1,0 +1,175 @@
+{
+  "checkedAt": "2026-11-07",
+  "classification": "Pays du fabricant ou de la marque. Indépendant du marché commercial de la fiche, du groupe actionnaire et du pays de fabrication de chaque lot.",
+  "manufacturers": [
+    {
+      "id": "bostik",
+      "country": "fr",
+      "catalogueIds": [
+        "fr-bostik"
+      ],
+      "sourceUrl": "https://www.bostik.com/france/fr/legal-information/",
+      "note": "Classement du fabricant actuel : Bostik SA est domiciliée en France. L’origine historique de Boston Blacking (Chelsea, Massachusetts, 1889) n’est pas utilisée comme pays de classement."
+    },
+    {
+      "id": "cegecol",
+      "country": "fr",
+      "catalogueIds": [
+        "fr-cegecol"
+      ],
+      "sourceUrl": "https://www.cegecol.com/fr/politiquedeconfidentialite/"
+    },
+    {
+      "id": "parexlanko",
+      "country": "fr",
+      "catalogueIds": [
+        "fr-parexlanko"
+      ],
+      "sourceUrl": "https://www.parexlanko.com/info/mentions"
+    },
+    {
+      "id": "prb",
+      "country": "fr",
+      "catalogueIds": [
+        "fr-prb"
+      ],
+      "sourceUrl": "https://www.holcim.com/media/media-releases/holcim-completes-acquisition-prb"
+    },
+    {
+      "id": "vpi",
+      "country": "fr",
+      "catalogueIds": [
+        "fr-vpi"
+      ],
+      "sourceUrl": "https://www.vpi.vicat.fr/L-entreprise/Services"
+    },
+    {
+      "id": "weber",
+      "country": "fr",
+      "catalogueIds": [
+        "fr-weber",
+        "es-weber"
+      ],
+      "sourceUrl": "https://www.fr.weber/qui-sommes-nous/weber-notre-histoire"
+    },
+    {
+      "id": "mapei",
+      "country": "it",
+      "catalogueIds": [
+        "fr-mapei",
+        "it-mapei",
+        "es-mapei"
+      ],
+      "sourceUrl": "https://cdnmedia.mapei.com/docs/librariesprovider2/master-collection/company-profile_2025_gb.pdf?sfvrsn=57544e8b_2"
+    },
+    {
+      "id": "kerakoll",
+      "country": "it",
+      "catalogueIds": [
+        "fr-kerakoll",
+        "it-kerakoll",
+        "es-kerakoll"
+      ],
+      "sourceUrl": "https://www.kerakollgroup.com/it/chi-siamo"
+    },
+    {
+      "id": "litokol",
+      "country": "it",
+      "catalogueIds": [
+        "fr-litokol",
+        "it-litokol"
+      ],
+      "sourceUrl": "https://www.litokol.com/it-it/contatti/"
+    },
+    {
+      "id": "fassa",
+      "country": "it",
+      "catalogueIds": [
+        "it-fassa"
+      ],
+      "sourceUrl": "https://www.fassabortolo.it/azienda/"
+    },
+    {
+      "id": "technokolla",
+      "country": "it",
+      "catalogueIds": [
+        "it-technokolla"
+      ],
+      "sourceUrl": "https://www.technokolla.com/about-us"
+    },
+    {
+      "id": "benfer",
+      "country": "it",
+      "catalogueIds": [
+        "it-benfer"
+      ],
+      "sourceUrl": "https://www.benfer.it/company/"
+    },
+    {
+      "id": "index",
+      "country": "it",
+      "catalogueIds": [
+        "it-index"
+      ],
+      "sourceUrl": "https://www.indexspa.it/it/dove-siamo.asp",
+      "note": "Marque italienne historique désormais intégrée à Sika Italia ; les références anciennes restent signalées comme telles."
+    },
+    {
+      "id": "puma",
+      "country": "es",
+      "catalogueIds": [
+        "es-puma"
+      ],
+      "sourceUrl": "https://www.grupopuma.com/es-ES/info/legal"
+    },
+    {
+      "id": "propam-molins",
+      "country": "es",
+      "catalogueIds": [
+        "es-propam-molins"
+      ],
+      "sourceUrl": "https://www.molins.es/politica-de-privacidad/"
+    },
+    {
+      "id": "gecol",
+      "country": "es",
+      "catalogueIds": [
+        "es-gecol"
+      ],
+      "sourceUrl": "https://www.gecol.com/fr/gecol/notre-entreprise/a-propos"
+    },
+    {
+      "id": "capa",
+      "country": "es",
+      "catalogueIds": [
+        "es-capa"
+      ],
+      "sourceUrl": "https://capa.es/politica-de-privacidad/"
+    },
+    {
+      "id": "fixcer",
+      "country": "es",
+      "catalogueIds": [
+        "es-fixcer"
+      ],
+      "sourceUrl": "https://fixcer.com/contacto/"
+    },
+    {
+      "id": "solbau",
+      "country": "es",
+      "catalogueIds": [
+        "es-solbau"
+      ],
+      "sourceUrl": "https://solbaumorteros.com/aviso-legal/"
+    },
+    {
+      "id": "sika",
+      "country": "ch",
+      "catalogueIds": [
+        "fr-sika",
+        "es-sika"
+      ],
+      "sourceUrl": "https://www.sika.com/en/investors/contact.html"
+    }
+  ]
+}

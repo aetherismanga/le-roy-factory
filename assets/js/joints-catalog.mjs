@@ -326,7 +326,10 @@ export const BRANDS=[
         ],
         "usageNote": "Intérieur uniquement ; pour plus de 2 mm ou à l’extérieur, la fiche oriente vers CapaColor."
       }
-    ]
+    ],
+    "manufacturerId": "capa",
+    "manufacturerCountry": "es",
+    "manufacturerSource": "https://capa.es/politica-de-privacidad/"
   },
   {
     "id": "es-fixcer",
@@ -542,7 +545,10 @@ export const BRANDS=[
         ],
         "usageNote": "Sols et murs intérieurs et extérieurs ; propriétés photoluminescentes pour applications décoratives et de repérage."
       }
-    ]
+    ],
+    "manufacturerId": "fixcer",
+    "manufacturerCountry": "es",
+    "manufacturerSource": "https://fixcer.com/contacto/"
   },
   {
     "id": "es-gecol",
@@ -706,7 +712,10 @@ export const BRANDS=[
           "outside"
         ]
       }
-    ]
+    ],
+    "manufacturerId": "gecol",
+    "manufacturerCountry": "es",
+    "manufacturerSource": "https://www.gecol.com/fr/gecol/notre-entreprise/a-propos"
   },
   {
     "id": "es-puma",
@@ -800,7 +809,10 @@ export const BRANDS=[
       }
     ],
     "logoTone": "light-on-dark",
-    "logoSource": "https://www.grupopuma.com/es-ES/empresa"
+    "logoSource": "https://www.grupopuma.com/es-ES/empresa",
+    "manufacturerId": "puma",
+    "manufacturerCountry": "es",
+    "manufacturerSource": "https://www.grupopuma.com/es-ES/info/legal"
   },
   {
     "id": "es-kerakoll",
@@ -1002,7 +1014,10 @@ export const BRANDS=[
         ],
         "checkedAt": "2026-11-07"
       }
-    ]
+    ],
+    "manufacturerId": "kerakoll",
+    "manufacturerCountry": "it",
+    "manufacturerSource": "https://www.kerakollgroup.com/it/chi-siamo"
   },
   {
     "id": "es-mapei",
@@ -1337,7 +1352,10 @@ export const BRANDS=[
           "En extérieur, uniquement pour les murs : ne pas utiliser sur un sol extérieur."
         ]
       }
-    ]
+    ],
+    "manufacturerId": "mapei",
+    "manufacturerCountry": "it",
+    "manufacturerSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/master-collection/company-profile_2025_gb.pdf?sfvrsn=57544e8b_2"
   },
   {
     "id": "es-propam-molins",
@@ -1458,7 +1476,10 @@ export const BRANDS=[
         ],
         "usageNote": "Sols et murs sur supports fixes non déformables ; essai préalable sur pierres et surfaces poreuses."
       }
-    ]
+    ],
+    "manufacturerId": "propam-molins",
+    "manufacturerCountry": "es",
+    "manufacturerSource": "https://www.molins.es/politica-de-privacidad/"
   },
   {
     "id": "es-sika",
@@ -1616,7 +1637,10 @@ export const BRANDS=[
         "locations": [],
         "usageNote": "Sols, murs et piscines, y compris eau de mer. La fiche espagnole ne distingue pas explicitement intérieur et extérieur : confirmer ce critère auprès de Sika avant sélection automatique."
       }
-    ]
+    ],
+    "manufacturerId": "sika",
+    "manufacturerCountry": "ch",
+    "manufacturerSource": "https://www.sika.com/en/investors/contact.html"
   },
   {
     "id": "es-solbau",
@@ -1681,7 +1705,10 @@ export const BRANDS=[
         ]
       }
     ],
-    "logoSource": "https://solbaumorteros.com/wp-content/uploads/2024/06/Logo-optimizado.webp"
+    "logoSource": "https://solbaumorteros.com/wp-content/uploads/2024/06/Logo-optimizado.webp",
+    "manufacturerId": "solbau",
+    "manufacturerCountry": "es",
+    "manufacturerSource": "https://solbaumorteros.com/aviso-legal/"
   },
   {
     "id": "es-weber",
@@ -1893,7 +1920,10 @@ export const BRANDS=[
         "usageNote": "Intérieur uniquement, sols et murs, chauffage au sol compris. Profondeur de joint supérieure à 3 mm.",
         "jointDepthMin": 3
       }
-    ]
+    ],
+    "manufacturerId": "weber",
+    "manufacturerCountry": "fr",
+    "manufacturerSource": "https://www.fr.weber/qui-sommes-nous/weber-notre-histoire"
   },
   {
     "id": "fr-bostik",
@@ -2167,7 +2197,10 @@ export const BRANDS=[
         "technicalEdition": "16/07/2025",
         "checkedAt": "2026-11-07"
       }
-    ]
+    ],
+    "manufacturerId": "bostik",
+    "manufacturerCountry": "fr",
+    "manufacturerSource": "https://www.bostik.com/france/fr/legal-information/"
   },
   {
     "id": "fr-cegecol",
@@ -2325,7 +2358,10 @@ export const BRANDS=[
           "outside"
         ]
       }
-    ]
+    ],
+    "manufacturerId": "cegecol",
+    "manufacturerCountry": "fr",
+    "manufacturerSource": "https://www.cegecol.com/fr/politiquedeconfidentialite/"
   },
   {
     "id": "fr-kerakoll",
@@ -2461,7 +2497,10 @@ export const BRANDS=[
         ],
         "checkedAt": "2026-11-07"
       }
-    ]
+    ],
+    "manufacturerId": "kerakoll",
+    "manufacturerCountry": "it",
+    "manufacturerSource": "https://www.kerakollgroup.com/it/chi-siamo"
   },
   {
     "id": "fr-litokol",
@@ -2618,7 +2657,10 @@ export const BRANDS=[
           "outside"
         ]
       }
-    ]
+    ],
+    "manufacturerId": "litokol",
+    "manufacturerCountry": "it",
+    "manufacturerSource": "https://www.litokol.com/it-it/contatti/"
   },
   {
     "id": "fr-mapei",
@@ -2880,7 +2922,10 @@ export const BRANDS=[
         ],
         "checkedAt": "2026-11-07"
       }
-    ]
+    ],
+    "manufacturerId": "mapei",
+    "manufacturerCountry": "it",
+    "manufacturerSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/master-collection/company-profile_2025_gb.pdf?sfvrsn=57544e8b_2"
   },
   {
     "id": "fr-parexlanko",
@@ -3448,7 +3493,10 @@ export const BRANDS=[
           "inside"
         ]
       }
-    ]
+    ],
+    "manufacturerId": "parexlanko",
+    "manufacturerCountry": "fr",
+    "manufacturerSource": "https://www.parexlanko.com/info/mentions"
   },
   {
     "id": "fr-prb",
@@ -4105,7 +4153,10 @@ export const BRANDS=[
       "https://www.prb.fr/fr/categories/colle-sol/finitions/joints-resine",
       "https://www.prb.fr/fr/categories/colle-sol/pose-du-carrelage/mortiers-colles-et-joints-base-epoxy",
       "https://www.prb.fr/fr/categories/libre-service/carrelage/jointoiement-du-carrelage"
-    ]
+    ],
+    "manufacturerId": "prb",
+    "manufacturerCountry": "fr",
+    "manufacturerSource": "https://www.holcim.com/media/media-releases/holcim-completes-acquisition-prb"
   },
   {
     "id": "fr-sika",
@@ -4221,7 +4272,10 @@ export const BRANDS=[
       "https://fra.sika.com/fr/construction/preparation-supports-collage-revetements/pose-carrelage.html",
       "https://fra.sika.com/dam/dms/fr01/x/fr-bro-sikaceram-joints-carrelage-gp.pdf",
       "https://fra.sika.com/content/sika-webdms/fr01.sitemap-seo.xml"
-    ]
+    ],
+    "manufacturerId": "sika",
+    "manufacturerCountry": "ch",
+    "manufacturerSource": "https://www.sika.com/en/investors/contact.html"
   },
   {
     "id": "fr-vpi",
@@ -4441,7 +4495,10 @@ export const BRANDS=[
           "outside"
         ]
       }
-    ]
+    ],
+    "manufacturerId": "vpi",
+    "manufacturerCountry": "fr",
+    "manufacturerSource": "https://www.vpi.vicat.fr/L-entreprise/Services"
   },
   {
     "id": "fr-weber",
@@ -4974,7 +5031,10 @@ export const BRANDS=[
         "checkedAt": "2026-11-07",
         "coefficientMethod": "published-consumption-table-with-depth"
       }
-    ]
+    ],
+    "manufacturerId": "weber",
+    "manufacturerCountry": "fr",
+    "manufacturerSource": "https://www.fr.weber/qui-sommes-nous/weber-notre-histoire"
   },
   {
     "id": "it-benfer",
@@ -5094,7 +5154,10 @@ export const BRANDS=[
         "checkedAt": "2026-11-07",
         "components": 2
       }
-    ]
+    ],
+    "manufacturerId": "benfer",
+    "manufacturerCountry": "it",
+    "manufacturerSource": "https://www.benfer.it/company/"
   },
   {
     "id": "it-fassa",
@@ -5269,7 +5332,10 @@ export const BRANDS=[
         "checkedAt": "2026-11-07",
         "components": 2
       }
-    ]
+    ],
+    "manufacturerId": "fassa",
+    "manufacturerCountry": "it",
+    "manufacturerSource": "https://www.fassabortolo.it/azienda/"
   },
   {
     "id": "it-index",
@@ -5399,7 +5465,10 @@ export const BRANDS=[
         "checkedAt": "2026-11-07"
       }
     ],
-    "legacy": true
+    "legacy": true,
+    "manufacturerId": "index",
+    "manufacturerCountry": "it",
+    "manufacturerSource": "https://www.indexspa.it/it/dove-siamo.asp"
   },
   {
     "id": "it-kerakoll",
@@ -5567,7 +5636,10 @@ export const BRANDS=[
         ],
         "checkedAt": "2026-11-07"
       }
-    ]
+    ],
+    "manufacturerId": "kerakoll",
+    "manufacturerCountry": "it",
+    "manufacturerSource": "https://www.kerakollgroup.com/it/chi-siamo"
   },
   {
     "id": "it-litokol",
@@ -5713,7 +5785,10 @@ export const BRANDS=[
         "checkedAt": "2026-11-07",
         "components": 2
       }
-    ]
+    ],
+    "manufacturerId": "litokol",
+    "manufacturerCountry": "it",
+    "manufacturerSource": "https://www.litokol.com/it-it/contatti/"
   },
   {
     "id": "it-mapei",
@@ -6047,7 +6122,10 @@ export const BRANDS=[
           "En extérieur, uniquement pour les murs : ne pas utiliser sur un sol extérieur."
         ]
       }
-    ]
+    ],
+    "manufacturerId": "mapei",
+    "manufacturerCountry": "it",
+    "manufacturerSource": "https://cdnmedia.mapei.com/docs/librariesprovider2/master-collection/company-profile_2025_gb.pdf?sfvrsn=57544e8b_2"
   },
   {
     "id": "it-technokolla",
@@ -6191,6 +6269,9 @@ export const BRANDS=[
         "locationNote": "Sols, murs et piscines mentionnés par le fabricant ; répartition intérieur/extérieur à confirmer.",
         "components": 2
       }
-    ]
+    ],
+    "manufacturerId": "technokolla",
+    "manufacturerCountry": "it",
+    "manufacturerSource": "https://www.technokolla.com/about-us"
   }
 ];
