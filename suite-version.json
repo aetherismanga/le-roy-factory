@@ -165,7 +165,7 @@
       "privateApplicationEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/planPoseApplication"
     },
     "neobathAnima": {
-      "releaseId": "20261107-neobath-anima-studio-one-visual-choices-22",
+      "releaseId": "20261107-neobath-anima-studio-one-visual-choices-23",
       "page": "neobath-anima-configurateur.html",
       "access": "agents-only",
       "modules": 42,
@@ -174,7 +174,7 @@
       "products": 257,
       "compositions": 16,
       "projectSync": "shared-agent-private-api",
-      "appSha256": "6630ad6966427be50d9ac9b5f79134436dcf865d419a863bc800dedd29aab1d3",
+      "appSha256": "a4f0b1528a00925acbe56f02e30630772a3f4a24278ec7a5dbc7ee102721c155",
       "engine": "studio-one",
       "homeSha256": "5db10d0991a1f55b1da51d33905f3ea221aab4f38d4286ffec43e006746844ff",
       "photographs": 155,
@@ -357,7 +357,7 @@
       "access": "owner-only"
     },
     "neobathAnima": {
-      "releaseId": "20261107-neobath-anima-studio-one-visual-choices-22",
+      "releaseId": "20261107-neobath-anima-studio-one-visual-choices-23",
       "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication",
       "access": "jerome-coryne-only",
       "serverTokenRevocationCheck": true
@@ -507,7 +507,7 @@
     }
   },
   "segmento": {
-    "releaseId": "20261107-segmento-visual-choices-4",
+    "releaseId": "20261107-segmento-visual-choices-5",
     "applications": [
       "schemas-elios",
       "studio-one",
@@ -527,10 +527,10 @@
     "multicolorQuantities": true,
     "source": "ELIOS_FLYER-SEGMENTO.pdf",
     "webglVisualVerification": false,
-    "studioAppSha256": "e2e551c22a5a46691dd090122a2ebff3ff556a56ba4e481e66d9e9ac391af80e",
-    "generalAppSha256": "7ff1091d012be6409895ac3f3b5608a167bdf85e1e7a0a5e79808477ec6892f1",
-    "animaAppSha256": "6630ad6966427be50d9ac9b5f79134436dcf865d419a863bc800dedd29aab1d3",
-    "animaReleaseId": "20261107-neobath-anima-studio-one-visual-choices-22",
+    "studioAppSha256": "e4d7cd929af30f0705996496d940e705be1f0e6de7c762777f9bb82e45d6c8b3",
+    "generalAppSha256": "19c9ab8f3b97d616a8f58a30352adb904fd6e686142c08b6880b6a2fea9741c6",
+    "animaAppSha256": "a4f0b1528a00925acbe56f02e30630772a3f4a24278ec7a5dbc7ee102721c155",
+    "animaReleaseId": "20261107-neobath-anima-studio-one-visual-choices-23",
     "dataVersion": "20261107-2",
     "correctedCompositions": 9,
     "correctedColorCells": 147,
@@ -547,7 +547,7 @@
     "illustratedReferenceAndColorChoices": true
   },
   "surfaceVisualChoices": {
-    "releaseId": "20261107-visual-tile-choices-1",
+    "releaseId": "20261107-visual-tile-choices-2",
     "applications": [
       "studio-one",
       "randal-general",
@@ -561,9 +561,10 @@
     "separateTouchPreview": true,
     "previewPreservesProject": true,
     "nativeDialogCompatible": true,
-    "studioAppSha256": "e2e551c22a5a46691dd090122a2ebff3ff556a56ba4e481e66d9e9ac391af80e",
-    "generalAppSha256": "7ff1091d012be6409895ac3f3b5608a167bdf85e1e7a0a5e79808477ec6892f1",
-    "animaAppSha256": "6630ad6966427be50d9ac9b5f79134436dcf865d419a863bc800dedd29aab1d3",
-    "animaReleaseId": "20261107-neobath-anima-studio-one-visual-choices-22"
+    "studioAppSha256": "e4d7cd929af30f0705996496d940e705be1f0e6de7c762777f9bb82e45d6c8b3",
+    "generalAppSha256": "19c9ab8f3b97d616a8f58a30352adb904fd6e686142c08b6880b6a2fea9741c6",
+    "animaAppSha256": "a4f0b1528a00925acbe56f02e30630772a3f4a24278ec7a5dbc7ee102721c155",
+    "animaReleaseId": "20261107-neobath-anima-studio-one-visual-choices-23",
+    "nativeFieldIdentityPreserved": true
   }
 }

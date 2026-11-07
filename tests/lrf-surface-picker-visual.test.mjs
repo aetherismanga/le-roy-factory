@@ -20,7 +20,7 @@ test('illustrated Segmento motifs preserve native contracts and browse all 12 pa
  const h=fixture();
  try{
   assert.equal(compIds(h.root).length,48);const native=descendants(h.root).find(element=>element.tagName==='SELECT'&&element.dataset.segmentoFilter==='pattern');assert.equal(native.hidden,true);assert.equal(native.options.filter(option=>option.value).length,12);
-  const widget=h.widget('pattern'),trigger=find(widget,'visualChoiceTrigger','true');assert.equal(trigger.dataset.surfaceField,'segmento-pattern','Inspector focus can target the visible control');
+  const widget=h.widget('pattern'),trigger=find(widget,'visualChoiceTrigger','true');assert.equal(trigger.dataset.surfaceFocusField,'segmento-pattern','Inspector focus can target the visible control');
   const popup=h.open(widget),choices=descendants(popup).filter(element=>element.dataset?.visualChoiceValue);assert.equal(choices.length,12);
   const preview=find(popup,'visualChoicePreview','S11');preview.click();const modal=find(h.document.body,'visualPreview','true');assert.equal(modal.querySelector('img').src,asset('compositions/s11-a.webp'));modal.querySelector('button').click();
   assert.equal(compIds(h.root).length,48);assert.deepEqual(h.calls,[],'Previewing a motif never changes the applied composition or filters');
@@ -35,7 +35,7 @@ test('illustrated colour filtering and exact single-reference selection remain i
   let popup=h.open(h.widget('color'));assert.equal(descendants(popup).filter(element=>element.dataset?.visualChoiceValue).length,16);
   find(popup,'visualChoicePreview','coelestis').click();let modal=find(h.document.body,'visualPreview','true');assert.equal(modal.querySelector('img').src,asset('coelestis.webp'));assert.match(modal.textContent,/04I1530/);modal.querySelector('button').click();
   find(popup,'visualChoiceValue','coelestis').click();assert.deepEqual(compIds(h.root),['S01-C','S08-A','S11-C','S11-E']);assert.deepEqual(h.calls,[]);
-  const reference=h.widget('segmento-reference');assert.equal(find(reference,'visualChoiceTrigger','true').dataset.surfaceField,'segmento-reference');popup=h.open(reference);
+  const reference=h.widget('segmento-reference');assert.equal(find(reference,'visualChoiceTrigger','true').dataset.surfaceFocusField,'segmento-reference');popup=h.open(reference);
   const duplex=find(popup,'visualChoiceValue','duplex-c');assert.match(duplex.textContent,/04I15C0/);find(popup,'visualChoicePreview','duplex-c').click();modal=find(h.document.body,'visualPreview','true');assert.equal(modal.querySelector('img').src,asset('duplex-c.webp'));modal.querySelector('button').click();assert.deepEqual(h.calls,[]);
   duplex.click();assert.deepEqual(h.calls,[{type:'color',id:'duplex-c'}]);assert.match(find(h.root,'segmentoCurrent','true').textContent,/Carreau seul · Duplex C · 04I15C0/);
   assert.equal(find(h.root,'segmentoCurrent','true').querySelector('img').src,asset('duplex-c.webp'),'The applied single-tile preview uses the same canonical public asset as the enlarged reference');
@@ -59,7 +59,7 @@ test('illustrated RAL choices track native search results and apply the selected
  const h=fixture({collection:'Peinture',color:'ral-1000',format:'',layout:{},onSegmento:undefined});
  try{
   const search=descendants(h.root).find(element=>element.tagName==='INPUT'&&element.dataset.surfaceField==='ral-search');search.value='3020';fire(search,'input');
-  const widget=h.widget('ral');assert.equal(find(widget,'visualChoiceTrigger','true').dataset.surfaceField,'ral');let popup=h.open(widget);const choices=descendants(popup).filter(element=>element.dataset?.visualChoiceValue);assert.equal(choices.length,1);assert.equal(choices[0].dataset.visualChoiceValue,'ral-3020');
+  const widget=h.widget('ral');assert.equal(find(widget,'visualChoiceTrigger','true').dataset.surfaceFocusField,'ral');let popup=h.open(widget);const choices=descendants(popup).filter(element=>element.dataset?.visualChoiceValue);assert.equal(choices.length,1);assert.equal(choices[0].dataset.visualChoiceValue,'ral-3020');
   find(popup,'visualChoicePreview','ral-3020').click();const modal=find(h.document.body,'visualPreview','true');assert(modal);assert.match(modal.textContent,/3020/);modal.querySelector('button').click();assert.deepEqual(h.calls,[]);
   choices[0].click();assert.deepEqual(h.calls,[{type:'color',id:'ral-3020'}]);
   search.value='1000';fire(search,'input');popup=h.open(h.widget('ral'));assert.deepEqual(descendants(popup).filter(element=>element.dataset?.visualChoiceValue).map(element=>element.dataset.visualChoiceValue),['ral-1000'],'A later RAL search replaces the illustrated results');
@@ -69,9 +69,25 @@ test('illustrated RAL choices track native search results and apply the selected
 test('illustrated collection selection preserves native collection identity and applies only on the explicit label',()=>{
  const h=fixture({collection:'Creta',color:'avena',format:'60x120',layout:{},onSegmento:undefined});
  try{
-  const widget=h.widget('collection');assert.equal(find(widget,'visualChoiceTrigger','true').dataset.surfaceField,'collection');const popup=h.open(widget);
+  const widget=h.widget('collection');assert.equal(find(widget,'visualChoiceTrigger','true').dataset.surfaceFocusField,'collection');const popup=h.open(widget);
   find(popup,'visualChoicePreview','Segmento').click();const modal=find(h.document.body,'visualPreview','true');assert.equal(modal.querySelector('img').src,asset('albus.webp'));modal.querySelector('button').click();assert.deepEqual(h.calls,[]);
   find(popup,'visualChoiceValue','Segmento').click();assert.deepEqual(h.calls,[{type:'collection',id:'Segmento'}]);assert.equal(descendants(h.root).find(element=>element.tagName==='SELECT'&&element.dataset.surfaceField==='collection').value,'Segmento');
+ }finally{h.cleanup();}
+});
+
+test('native surface-field identifiers remain unique while illustrated triggers use a separate focus identifier',()=>{
+ const h=fixture();
+ try{
+  for(const field of ['collection','format','ral','ral-search','segmento-search']){
+   const matches=descendants(h.root).filter(element=>element.dataset?.surfaceField===field);
+   assert.equal(matches.length,1,field+' identifies one native control');
+   assert(['SELECT','INPUT'].includes(matches[0].tagName),field+' stays on its native control');
+  }
+  const native=descendants(h.root).find(element=>element.dataset?.surfaceField==='collection');
+  assert.equal(native.tagName,'SELECT');assert.equal(native.value,'Segmento');
+  const trigger=find(h.widget('collection'),'visualChoiceTrigger','true');
+  assert.equal(trigger.dataset.surfaceField,undefined);assert.equal(trigger.dataset.surfaceFocusField,'collection');
+  trigger.focus();assert.equal(h.document.activeElement,trigger,'Inspector restoration can focus the illustrated trigger without selecting the hidden native field');
  }finally{h.cleanup();}
 });
 
@@ -87,7 +103,7 @@ test('real inspector replacement keeps illustrated filters and removes the aband
   assert.deepEqual(compIds(current),['S11-G']);assert.equal(find(current,'segmentoComposition','S11-G').getAttribute('aria-pressed'),'true');
   for(const [field,value]of [['pattern','S11'],['color','duplex-d']]){
    const native=descendants(current).find(element=>element.tagName==='SELECT'&&element.dataset.segmentoFilter===field);assert.equal(native.value,value);assert.equal(native.hidden,true);
-   assert.equal(find(find(current,'surfaceVisualField',field),'visualChoiceTrigger','true').dataset.surfaceField,'segmento-'+field);
+   assert.equal(find(find(current,'surfaceVisualField',field),'visualChoiceTrigger','true').dataset.surfaceFocusField,'segmento-'+field);
   }
   assert.equal(descendants(current).find(element=>element.tagName==='INPUT'&&element.dataset.segmentoFilter==='search').value,'04I15D0');
   assert.deepEqual(h.calls,[{type:'composition',id:'S11-G'}],'Refreshing the inspector never reapplies another composition');

@@ -41,11 +41,11 @@ test('filtering by a reference or accents, keyboard navigation and disabled entr
 });
 
 test('native select adapter retains its callbacks, metadata labels, value, dataset and mutability',t=>{
- const {document,host,element}=setup(t),select=element('select');select.dataset.referencePicker='wall-2';
+ const {document,host,element}=setup(t),select=element('select');select.dataset.referencePicker='wall-2';select.dataset.surfaceField='collection';
  for(const entry of entries){const option=element('option');option.value=entry.value;option.textContent=entry.label+' · native count';option.disabled=!!entry.disabled;select.append(option);}select.value='sku-a';host.append(select);
  let calls=0;select.onchange=()=>calls++;
  const choice=enhanceVisualSelect(select,{entries,label:'Référence'});
- assert.equal(select.hidden,true);assert.equal(choice.element.dataset.referencePicker,'wall-2');choice.open();document.querySelector('[data-visual-choice-value="sku-b"]').click();assert.equal(select.value,'sku-b');assert.equal(calls,1);assert(!choice.trigger.textContent.includes('native count'),'sync keeps the explicit label and detail, rather than repeating native counts');
+ assert.equal(select.hidden,true);assert.equal(choice.element.dataset.referencePicker,undefined);assert.equal(select.dataset.referencePicker,'wall-2');assert.deepEqual(document.querySelectorAll('[data-surface-field="collection"]'),[select],'The native field identity must remain unique');choice.open();document.querySelector('[data-visual-choice-value="sku-b"]').click();assert.equal(select.value,'sku-b');assert.equal(calls,1);assert(!choice.trigger.textContent.includes('native count'),'sync keeps the explicit label and detail, rather than repeating native counts');
  select.disabled=true;choice.sync();assert.equal(choice.trigger.disabled,true);select.disabled=false;select.value='sku-a';choice.sync();assert.equal(choice.value,'sku-a');assert.equal(choice.trigger.disabled,false);
  choice.update({value:'sku-b'});assert.equal(select.value,'sku-b');assert.equal(calls,1);choice.value='sku-a';assert.equal(select.value,'sku-a');assert.equal(calls,1,'Programmatic refreshes do not apply a product');
  choice.destroy();assert.equal(select.hidden,false);assert.equal(select.getAttribute('aria-hidden'),null);

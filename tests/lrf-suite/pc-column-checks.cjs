@@ -76,7 +76,15 @@ async function verifyPCColumns({page,kind,root,output,pass,restoration}){
  await page.waitForFunction(before=>studioOnePrototype.getDiagnostics().frames>before,frames);
  assert(await panel.isVisible(),'Scene controls remain usable while the column editor is open');
  await panel.locator('[name=width]').fill('90');await panel.locator('#tile-zone-options > summary').click();await panel.locator('[name=x]').fill('150');
- await panel.locator('[name=color]').selectOption('avena');await panel.locator('[name=profile]').selectOption('Argent');
+ const beforePreview=await zoneState(page,id);
+ await panel.locator('[data-zone-visual="color"] [data-visual-choice-trigger]').click();
+ const colors=page.locator('[data-visual-choice-popup]:visible');
+ await colors.locator('[data-visual-choice-preview="avena"]').click();
+ const preview=page.locator('[data-visual-preview]:visible');
+ assert.match(await preview.locator('img').getAttribute('src'),/creta-avena\.webp$/,'The illustrated colour previews the reviewed Avena image');
+ assert.deepEqual(await zoneState(page,id),beforePreview,'Previewing a column colour must not save a material change');
+ await preview.getByRole('button',{name:'Fermer l’aperçu',exact:true}).click();
+ await colors.locator('[data-visual-choice-value="avena"]').click();await panel.locator('[name=profile]').selectOption('Argent');
  await page.waitForFunction(id=>{const z=studioOnePrototype.exportProject().walls[0].zones?.find(z=>z.id===id);return z?.width===90&&z.x===150&&z.color==='avena'&&z.profileEdges?.left==='Argent'&&z.profileEdges?.right==='Argent';},id);
  await page.evaluate(()=>studioOnePrototype.waitForTextures());
  const live=await zoneScreen(page,id);assert.equal(live.width,90);assert.equal(live.x,150);assert(live.tiles>0&&live.faces>0,'Live edits must have visible tiled geometry and a loaded material');

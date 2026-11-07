@@ -11,6 +11,7 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
  fs.mkdirSync(output,{recursive:true});for(const dir of Object.values(roots))assert(fs.existsSync(path.join(dir,'app.js'))&&fs.existsSync(path.join(dir,'atelier.html')),'Build both active ateliers before running this regression: '+dir);
  const core=await import(pathToFileURL(path.join(root,'assets/js/lrf-plan-pose/core.mjs')).href);
  const {surfaceSeries}=await import(pathToFileURL(path.join(root,'shared/lrf-3d/surface-picker.js')).href);
+ const {surfaceReferencePreview}=await import(pathToFileURL(path.join(root,'shared/lrf-3d/surface-reference-picker.js')).href);
  const expectedCollections=surfaceSeries('ELIOS','floor').map(([name])=>name);
  const products=JSON.parse(fs.readFileSync(path.join(root,'assets/js/lrf-plan-pose/catalogue.json'))).products;
  const product=products.find(p=>p.collection==='Creta'&&p.colorId==='caramello'&&p.format==='60x120');assert(product,'Official Creta Caramello reference must exist');
@@ -92,7 +93,15 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
    assert(actual.textures.some(texture=>texture.collection===surface.collection&&texture.id===surface.color&&texture.width>32&&texture.height>32),kind+': selected '+surface.collection+' image must be decoded and loaded');
    if(surface.collection==='Stone Icon'){
     const chosen=products.find(p=>p.collection==='Stone Icon'&&p.colorId==='campaspero'&&p.format==='60x60'&&p.finish.includes('Tumbled Grip'));assert(chosen);
-    await page.locator('#floor-commercial select').selectOption(chosen.key);
+    const beforeChoice=await page.evaluate(()=>JSON.stringify(studioOnePrototype.exportProject()));
+    await page.locator('#floor-commercial [data-visual-choice-trigger]').click();
+    const choices=page.locator('[data-visual-choice-popup]:visible'),key=JSON.stringify(chosen.key);
+    await choices.locator('[data-visual-choice-preview='+key+']').click();
+    const preview=page.locator('[data-visual-preview]:visible');
+    assert.equal(await preview.locator('img').getAttribute('src'),surfaceReferencePreview(chosen),'The candidate photograph belongs to the exact Grip SKU');
+    assert.equal(await page.evaluate(()=>JSON.stringify(studioOnePrototype.exportProject())),beforeChoice,'Previewing the SKU must not apply it');
+    await preview.getByRole('button',{name:'Fermer l’aperçu',exact:true}).click();
+    await choices.locator('[data-visual-choice-value='+key+']').click();
     const saved=await page.evaluate(()=>studioOnePrototype.exportProject());assert.equal(saved.floor.catalogueKey,chosen.key);assert.equal(saved.floor.finish,chosen.finish);assert.equal(saved.floor.reference,chosen.reference);
     assert.equal(await page.evaluate(data=>studioOnePrototype.restoreProject(data),saved),true);await page.evaluate(()=>studioOnePrototype.waitForTextures());
     assert.equal(await page.evaluate(()=>studioOnePrototype.exportProject().floor.catalogueKey),chosen.key);
