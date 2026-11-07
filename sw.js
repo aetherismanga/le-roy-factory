@@ -1,4 +1,4 @@
-const CACHE='lrf-pwa-v15-plan-pose-private-20261102';
+const CACHE='lrf-pwa-v16-logo-rond-20261107';
 const CORE=['/','/index.html','/assets/img/logo03lrf.png'];
 
 self.addEventListener('install',event=>{

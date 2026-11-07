@@ -3,5 +3,3 @@
 @media(max-width:900px){body.insp-v2 .hero-banner .container{width:100%!important;box-sizing:border-box!important}body.insp-v2 .hero-banner p{max-width:100%!important}}
 
 .view-safe-card>img{height:auto;aspect-ratio:4/3}
-
-body.insp-v2 a.logo>div:has(img[src*="brand-wordmark"]){width:180px!important;height:65px!important;border-radius:10px!important;background:#fbf9f5!important}body.insp-v2 a.logo img[src*="brand-wordmark"]{object-fit:contain!important;transform:none!important}
