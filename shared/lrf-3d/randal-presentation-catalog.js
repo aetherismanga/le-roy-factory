@@ -5,12 +5,11 @@ import {COLLECTIONS} from './surface-catalog.js';
 export const RANDAL_FLOORS=Object.freeze([
  {id:'yosemite-honey',name:'Yosemite Honey · 20 × 120 · pose 1/3',collection:'Yosemite',color:'honey',format:'20x120',width:1.2,height:.2,pattern:'third'},
  {id:'creta-caramello',name:'Creta Caramello · 60 × 120',collection:'Creta',color:'caramello',format:'60x120',width:1.2,height:.6,pattern:'straight'},
- {id:'slate-beige',name:'Slate Gold (beige) · 60 × 60',collection:'Slate',color:'gold',format:'60x60',width:.6,height:.6,pattern:'straight'}
+ {id:'slate-beige',name:'Slate Gold Elios · 60 × 60',collection:'Slate',color:'gold',format:'60x60',width:.6,height:.6,pattern:'straight',texture:{file:'randal-presentation/slate-gold-elios.jpg',physicalSize:[1.2,.6],source:'https://eliosceramica.com/wp-content/uploads/2023/05/slate_gold_zoom.jpg'}}
 ]);
+const PAINT_COLORS=['white','ivory','sand','sage','clay','grey','dark'];
 export const RANDAL_WALLS=Object.freeze([
- ...COLLECTIONS.Peinture.colors.map(c=>({id:'paint-'+c.id,name:c.name,collection:'Peinture',color:c.id})),
- {id:'stone-icon-leccese',name:'Stone Icon Leccese · 60 × 90',collection:'Stone Icon',color:'leccese',format:'60x90',width:.9,height:.6,pattern:'straight'},
- ...COLLECTIONS.Allure.colors.map(c=>({id:'allure-'+c.id,name:'Allure '+c.name+(c.continuousDecor?' · décor':' · uni'),collection:'Allure',color:c.id,format:'60x120',width:1.2,height:.6,pattern:'straight',decor:!!c.continuousDecor}))
+ ...PAINT_COLORS.map(id=>COLLECTIONS.Peinture.colors.find(c=>c.id===id)).map(c=>({id:'paint-'+c.id,name:c.name,collection:'Peinture',color:c.id}))
 ]);
 export const presentationChoice=(kind,id)=>(kind==='floor'?RANDAL_FLOORS:RANDAL_WALLS).find(c=>c.id===id)||null;
 export function presentationChoices(project){

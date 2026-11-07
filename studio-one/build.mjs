@@ -39,3 +39,6 @@ writeFileSync('dist/demo.html',readFileSync('../shared/lrf-3d/demo/demo.html','u
 
 // Preserve the native outdoor views; only runtime WebP images enter the build.
 cpSync('../shared/lrf-3d/media/window-ambiences','dist/assets/exterior',{recursive:true,filter:source=>!source.endsWith('.png')&&!source.endsWith('.json')});
+
+// Authentic sample used only by the restricted RANDAL presentation.
+cpSync('../shared/lrf-3d/media/randal-presentation','dist/assets/randal-presentation',{recursive:true});
