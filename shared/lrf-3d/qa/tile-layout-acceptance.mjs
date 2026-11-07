@@ -69,7 +69,7 @@ grout.children[2].children[0].checked=true;grout.children[2].children[0].onchang
 const flattened=root=>[root,...root.children.flatMap(flattened)];
 const paint=renderSurfacePicker(new Element('div'),{kind:'wall',collection:'Peinture',color:'ral-7016',urlFor:x=>x,onColor:id=>chosen=id,onPaint:()=>{}}),els=flattened(paint),samples=els.filter(e=>e.className==='surface-color');
 assert.equal(samples.length,7,'The RAL catalogue must not flood a mobile panel with hundreds of swatches');
-const ral=els.find(e=>e.dataset.surfaceField==='ral'),search=els.find(e=>e.type==='search');assert.equal(ral.value,'ral-7016');assert(ral.children.length>200);
+const ral=els.find(e=>e.dataset.surfaceField==='ral'),search=els.find(e=>e.dataset.surfaceField==='ral-search');assert.equal(ral.value,'ral-7016');assert(ral.children.length>200);
 search.value='7016';search.oninput();assert.equal(ral.children.length,2);assert.equal(ral.children[1].value,'ral-7016');
 ral.value='ral-7016';ral.onchange();assert.equal(chosen,'ral-7016');
 console.log(JSON.stringify({passed:true,checks:['third stagger positive and negative rows','documented per-format Opus eligibility','continuous decor stays straight','mitred chevron tessellation without overlap','chevron 30/45/60 degree clipping, area, directions, plan axes and UVs','visible checked grout colour','compact searchable RAL choice']}));

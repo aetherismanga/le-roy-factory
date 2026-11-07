@@ -1,5 +1,5 @@
 {
-  "version": "20261107-1",
+  "version": "20261107-2",
   "manufacturer": "Elios Ceramica",
   "collection": "Segmento",
   "source": "https://eliosceramica.com/wp-content/uploads/2026/02/ELIOS_FLYER-SEGMENTO.pdf",
@@ -851,7 +851,7 @@
         822.1799926757812,
         396.9720153808594
       ],
-      "description": "Duplex C 56 % · Lapis 19 % · Coelestis 25 %",
+      "description": "Duplex C 56 % · Coelestis 44 %",
       "preview": "assets/img/elios-segmento-20261107/compositions/s01-c.webp",
       "tiles": [
         {
@@ -863,7 +863,7 @@
         {
           "col": 1,
           "row": 0,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
@@ -881,7 +881,7 @@
         {
           "col": 4,
           "row": 0,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
@@ -911,7 +911,7 @@
         {
           "col": 3,
           "row": 1,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
@@ -935,7 +935,7 @@
         {
           "col": 1,
           "row": 2,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
@@ -953,7 +953,7 @@
         {
           "col": 4,
           "row": 2,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
@@ -1001,7 +1001,7 @@
         {
           "col": 0,
           "row": 4,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
@@ -1043,7 +1043,7 @@
         {
           "col": 1,
           "row": 5,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
@@ -1553,14 +1553,14 @@
         370.1672668457031,
         373.6394958496094
       ],
-      "description": "Nigrum 22 % · Duplex F 78 %",
+      "description": "Duplex F 100 %",
       "preview": "assets/img/elios-segmento-20261107/compositions/s02-b.webp",
       "tiles": [
         {
           "col": 0,
           "row": 0,
-          "color": "nigrum",
-          "rotation": 90
+          "color": "duplex-f",
+          "rotation": 0
         },
         {
           "col": 1,
@@ -1577,8 +1577,8 @@
         {
           "col": 3,
           "row": 0,
-          "color": "nigrum",
-          "rotation": 90
+          "color": "duplex-f",
+          "rotation": 0
         },
         {
           "col": 4,
@@ -1589,8 +1589,8 @@
         {
           "col": 5,
           "row": 0,
-          "color": "nigrum",
-          "rotation": 90
+          "color": "duplex-f",
+          "rotation": 0
         },
         {
           "col": 0,
@@ -1667,8 +1667,8 @@
         {
           "col": 0,
           "row": 3,
-          "color": "nigrum",
-          "rotation": 90
+          "color": "duplex-f",
+          "rotation": 0
         },
         {
           "col": 1,
@@ -1727,14 +1727,14 @@
         {
           "col": 4,
           "row": 4,
-          "color": "nigrum",
-          "rotation": 90
+          "color": "duplex-f",
+          "rotation": 0
         },
         {
           "col": 5,
           "row": 4,
-          "color": "nigrum",
-          "rotation": 90
+          "color": "duplex-f",
+          "rotation": 0
         },
         {
           "col": 0,
@@ -1757,8 +1757,8 @@
         {
           "col": 3,
           "row": 5,
-          "color": "nigrum",
-          "rotation": 90
+          "color": "duplex-f",
+          "rotation": 0
         },
         {
           "col": 4,
@@ -1769,8 +1769,8 @@
         {
           "col": 5,
           "row": 5,
-          "color": "nigrum",
-          "rotation": 90
+          "color": "duplex-f",
+          "rotation": 0
         }
       ]
     },
@@ -5063,7 +5063,7 @@
         397.40301513671875,
         397.3130187988281
       ],
-      "description": "Duplex C 89 % · Nox 11 %",
+      "description": "Duplex C 89 % · Caeruleus 11 %",
       "preview": "assets/img/elios-segmento-20261107/compositions/s05-d.webp",
       "tiles": [
         {
@@ -5111,7 +5111,7 @@
         {
           "col": 1,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
@@ -5129,7 +5129,7 @@
         {
           "col": 4,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
@@ -5219,7 +5219,7 @@
         {
           "col": 1,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
@@ -5237,7 +5237,7 @@
         {
           "col": 4,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
@@ -6935,31 +6935,31 @@
         166.19606018066406,
         373.6250305175781
       ],
-      "description": "Lapis 72 % · Coelestis 28 %",
+      "description": "Coelestis 100 %",
       "preview": "assets/img/elios-segmento-20261107/compositions/s08-a.webp",
       "tiles": [
         {
           "col": 0,
           "row": 0,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
           "col": 1,
           "row": 0,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
           "col": 2,
           "row": 0,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
           "col": 3,
           "row": 0,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 90
         },
         {
@@ -6971,7 +6971,7 @@
         {
           "col": 5,
           "row": 0,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
@@ -6983,85 +6983,85 @@
         {
           "col": 1,
           "row": 1,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
           "col": 2,
           "row": 1,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
           "col": 3,
           "row": 1,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
           "col": 4,
           "row": 1,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
           "col": 5,
           "row": 1,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
           "col": 0,
           "row": 2,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
           "col": 1,
           "row": 2,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
           "col": 2,
           "row": 2,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 90
         },
         {
           "col": 3,
           "row": 2,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
           "col": 4,
           "row": 2,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
           "col": 5,
           "row": 2,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 90
         },
         {
           "col": 0,
           "row": 3,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 90
         },
         {
           "col": 1,
           "row": 3,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
           "col": 2,
           "row": 3,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
@@ -7079,13 +7079,13 @@
         {
           "col": 5,
           "row": 3,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
           "col": 0,
           "row": 4,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
@@ -7097,7 +7097,7 @@
         {
           "col": 2,
           "row": 4,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 90
         },
         {
@@ -7109,13 +7109,13 @@
         {
           "col": 4,
           "row": 4,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
           "col": 5,
           "row": 4,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
@@ -7127,13 +7127,13 @@
         {
           "col": 1,
           "row": 5,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
           "col": 2,
           "row": 5,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
@@ -7637,7 +7637,7 @@
         165.76284790039062,
         373.14984130859375
       ],
-      "description": "Albus 67 % · Nox 31 % · Caeruleus 3 %",
+      "description": "Albus 67 % · Caeruleus 33 %",
       "preview": "assets/img/elios-segmento-20261107/compositions/s09-a.webp",
       "tiles": [
         {
@@ -7655,13 +7655,13 @@
         {
           "col": 2,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
           "col": 3,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
@@ -7691,13 +7691,13 @@
         {
           "col": 2,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
           "col": 3,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
@@ -7727,13 +7727,13 @@
         {
           "col": 2,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 3,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
@@ -7763,13 +7763,13 @@
         {
           "col": 2,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
           "col": 3,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
@@ -7799,7 +7799,7 @@
         {
           "col": 2,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
@@ -7835,13 +7835,13 @@
         {
           "col": 2,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
           "col": 3,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
@@ -8807,55 +8807,55 @@
         370.10400390625,
         373.3194885253906
       ],
-      "description": "Nox 86 % · Coelestis 6 % · Caeruleus 8 %",
+      "description": "Caeruleus 100 %",
       "preview": "assets/img/elios-segmento-20261107/compositions/s10-b.webp",
       "tiles": [
         {
           "col": 0,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 1,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
           "col": 2,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 3,
           "row": 0,
-          "color": "coelestis",
-          "rotation": 180
+          "color": "caeruleus",
+          "rotation": 270
         },
         {
           "col": 4,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 5,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
           "col": 0,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
           "col": 1,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
@@ -8867,13 +8867,13 @@
         {
           "col": 3,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 4,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
@@ -8885,103 +8885,103 @@
         {
           "col": 0,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 1,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
           "col": 2,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
           "col": 3,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 4,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
           "col": 5,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
           "col": 0,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
           "col": 1,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
           "col": 2,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
           "col": 3,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
           "col": 4,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
           "col": 5,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
           "col": 0,
           "row": 4,
-          "color": "coelestis",
-          "rotation": 0
+          "color": "caeruleus",
+          "rotation": 90
         },
         {
           "col": 1,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
           "col": 2,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
           "col": 3,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 4,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
@@ -8993,37 +8993,37 @@
         {
           "col": 0,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
           "col": 1,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
           "col": 2,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
           "col": 3,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 4,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
           "col": 5,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         }
       ]
@@ -9743,7 +9743,7 @@
         821.6649780273438,
         396.8374938964844
       ],
-      "description": "Albus 25 % · Nox 50 % · Lapis 14 % · Coelestis 11 %",
+      "description": "Albus 25 % · Caeruleus 50 % · Coelestis 25 %",
       "preview": "assets/img/elios-segmento-20261107/compositions/s11-c.webp",
       "tiles": [
         {
@@ -9755,7 +9755,7 @@
         {
           "col": 1,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
@@ -9767,7 +9767,7 @@
         {
           "col": 3,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
@@ -9779,43 +9779,43 @@
         {
           "col": 5,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 0,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
           "col": 1,
           "row": 1,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
           "col": 2,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 3,
           "row": 1,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
           "col": 4,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 5,
           "row": 1,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
@@ -9827,7 +9827,7 @@
         {
           "col": 1,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
@@ -9839,7 +9839,7 @@
         {
           "col": 3,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
@@ -9851,37 +9851,37 @@
         {
           "col": 5,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
           "col": 0,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 1,
           "row": 3,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
           "col": 2,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 3,
           "row": 3,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
           "col": 4,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
@@ -9899,7 +9899,7 @@
         {
           "col": 1,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
@@ -9911,7 +9911,7 @@
         {
           "col": 3,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
@@ -9923,13 +9923,13 @@
         {
           "col": 5,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
           "col": 0,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
@@ -9941,7 +9941,7 @@
         {
           "col": 2,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
@@ -9953,7 +9953,7 @@
         {
           "col": 4,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
@@ -10211,25 +10211,25 @@
         396.52801513671875,
         396.43798828125
       ],
-      "description": "Nox 47 % · Lapis 19 % · Coelestis 33 %",
+      "description": "Caeruleus 50 % · Coelestis 50 %",
       "preview": "assets/img/elios-segmento-20261107/compositions/s11-e.webp",
       "tiles": [
         {
           "col": 0,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
           "col": 1,
           "row": 0,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
           "col": 2,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
@@ -10241,31 +10241,31 @@
         {
           "col": 4,
           "row": 0,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
           "col": 5,
           "row": 0,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
           "col": 0,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
           "col": 1,
           "row": 1,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 0
         },
         {
           "col": 2,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
@@ -10277,7 +10277,7 @@
         {
           "col": 4,
           "row": 1,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
@@ -10289,19 +10289,19 @@
         {
           "col": 0,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
           "col": 1,
           "row": 2,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 270
         },
         {
           "col": 2,
           "row": 2,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 180
         },
         {
@@ -10313,8 +10313,8 @@
         {
           "col": 4,
           "row": 2,
-          "color": "coelestis",
-          "rotation": 90
+          "color": "caeruleus",
+          "rotation": 180
         },
         {
           "col": 5,
@@ -10325,7 +10325,7 @@
         {
           "col": 0,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
@@ -10337,7 +10337,7 @@
         {
           "col": 2,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
@@ -10349,19 +10349,19 @@
         {
           "col": 4,
           "row": 3,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 5,
           "row": 3,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
           "col": 0,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
@@ -10373,7 +10373,7 @@
         {
           "col": 2,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
@@ -10385,7 +10385,7 @@
         {
           "col": 4,
           "row": 4,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 0
         },
         {
@@ -10397,31 +10397,31 @@
         {
           "col": 0,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
           "col": 1,
           "row": 5,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
           "col": 2,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 90
         },
         {
           "col": 3,
           "row": 5,
-          "color": "lapis",
+          "color": "coelestis",
           "rotation": 180
         },
         {
           "col": 4,
           "row": 5,
-          "color": "nox",
+          "color": "caeruleus",
           "rotation": 270
         },
         {
@@ -10445,14 +10445,14 @@
         706.4749755859375,
         385.3068542480469
       ],
-      "description": "Nigrum 28 % · Duplex F 72 %",
+      "description": "Duplex F 100 %",
       "preview": "assets/img/elios-segmento-20261107/compositions/s11-f.webp",
       "tiles": [
         {
           "col": 0,
           "row": 0,
-          "color": "nigrum",
-          "rotation": 90
+          "color": "duplex-f",
+          "rotation": 0
         },
         {
           "col": 1,
@@ -10469,8 +10469,8 @@
         {
           "col": 3,
           "row": 0,
-          "color": "nigrum",
-          "rotation": 180
+          "color": "duplex-f",
+          "rotation": 90
         },
         {
           "col": 4,
@@ -10493,8 +10493,8 @@
         {
           "col": 1,
           "row": 1,
-          "color": "nigrum",
-          "rotation": 270
+          "color": "duplex-f",
+          "rotation": 180
         },
         {
           "col": 2,
@@ -10517,14 +10517,14 @@
         {
           "col": 5,
           "row": 1,
-          "color": "nigrum",
-          "rotation": 270
+          "color": "duplex-f",
+          "rotation": 180
         },
         {
           "col": 0,
           "row": 2,
-          "color": "nigrum",
-          "rotation": 90
+          "color": "duplex-f",
+          "rotation": 0
         },
         {
           "col": 1,
@@ -10535,14 +10535,14 @@
         {
           "col": 2,
           "row": 2,
-          "color": "nigrum",
-          "rotation": 90
+          "color": "duplex-f",
+          "rotation": 0
         },
         {
           "col": 3,
           "row": 2,
-          "color": "nigrum",
-          "rotation": 180
+          "color": "duplex-f",
+          "rotation": 90
         },
         {
           "col": 4,
@@ -10553,8 +10553,8 @@
         {
           "col": 5,
           "row": 2,
-          "color": "nigrum",
-          "rotation": 180
+          "color": "duplex-f",
+          "rotation": 90
         },
         {
           "col": 0,
@@ -10565,8 +10565,8 @@
         {
           "col": 1,
           "row": 3,
-          "color": "nigrum",
-          "rotation": 270
+          "color": "duplex-f",
+          "rotation": 180
         },
         {
           "col": 2,
@@ -10661,8 +10661,8 @@
         {
           "col": 5,
           "row": 5,
-          "color": "nigrum",
-          "rotation": 270
+          "color": "duplex-f",
+          "rotation": 180
         }
       ]
     },

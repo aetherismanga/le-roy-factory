@@ -11,13 +11,13 @@ const files=[
 'assets/js/elios-pose-v2-base.js?v=20260911-pose3',
 'assets/js/elios-pose-v2-finishes.js?v=20260911-pose3',
 'assets/js/elios-pose-v2-selection.js?v=20260911-pose3',
-'assets/js/elios-pose-v2-calc.js?v=20261107-segmento1',
+'assets/js/elios-pose-v2-calc.js?v=20261107-segmento2',
 'assets/js/elios-pose-v2-order-style.js?v=20260911-pose3',
 'assets/js/elios-pose-v2-order-summary.js?v=20260911-pose3',
 'assets/js/elios-pose-v2-order-context.js?v=20260911-pose3',
 'assets/js/elios-pose-v2-order-send.js?v=20260911-pose3',
 'assets/js/elios-pose-v2-init.js?v=20260911-pose3',
-'assets/js/elios-pose-segmento.js?v=20261107-1'];
+'assets/js/elios-pose-segmento.js?v=20261107-2'];
 const load=src=>new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=()=>reject(Error(`Chargement impossible : ${src}`));document.head.appendChild(s)});
 files.reduce((p,src)=>p.then(()=>load(src)),Promise.resolve()).then(()=>setTimeout(()=>document.querySelector('#ep-pattern-grid .ep-pattern')?.click(),250)).catch(e=>{console.error(e);root.innerHTML='<div style="padding:18px;background:#fff3cd;border:1px solid #e1c56e;border-radius:12px">Le configurateur n’a pas pu se charger. Actualisez la page.</div>'});
 })();
