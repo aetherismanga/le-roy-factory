@@ -3,7 +3,7 @@ import {COLLECTIONS} from './surface-catalog.js';
 // These are presentation modules only; they do not create commercial SKUs,
 // prices or packaging for a nominal format requested for the showroom.
 export const RANDAL_FLOORS=Object.freeze([
- {id:'yosemite-honey',name:'Yosemite Honey · 20 × 120 · pose 1/3',collection:'Yosemite',color:'honey',format:'20x120',width:1.2,height:.2,pattern:'third'},
+ {id:'yosemite-honey',name:'Yosemite Honey · 20 × 120 · pose 2/3',collection:'Yosemite',color:'honey',format:'20x120',width:1.2,height:.2,pattern:'two-thirds'},
  {id:'creta-caramello',name:'Creta Caramello · 60 × 120',collection:'Creta',color:'caramello',format:'60x120',width:1.2,height:.6,pattern:'straight'},
  {id:'slate-beige',name:'Slate Gold Elios · 60 × 60',collection:'Slate',color:'gold',format:'60x60',width:.6,height:.6,pattern:'straight',texture:{file:'randal-presentation/slate-gold-elios.jpg',physicalSize:[1.2,.6],source:'https://eliosceramica.com/wp-content/uploads/2023/05/slate_gold_zoom.jpg'}}
 ]);
@@ -16,7 +16,7 @@ export const RANDAL_WALLS=Object.freeze([
 export const presentationChoice=(kind,id)=>(kind==='floor'?RANDAL_FLOORS:RANDAL_WALLS).find(c=>c.id===id)||null;
 export function presentationChoices(project){
  const floor=project?.floor,wall=project?.walls?.[0];
- return {floor:RANDAL_FLOORS.find(c=>c.collection===floor?.collection&&c.color===floor?.color)?.id||RANDAL_FLOORS[0].id,wall:RANDAL_WALLS.find(c=>c.collection===wall?.collection&&c.color===wall?.color)?.id||'paint-white'};
+ return {floor:RANDAL_FLOORS.find(c=>c.collection===floor?.collection&&c.color===floor?.color)?.id||RANDAL_FLOORS[0].id,wall:RANDAL_WALLS.find(c=>c.collection===wall?.collection&&c.color===wall?.color)?.id||'paint-grey'};
 }
 export function withPresentationSurface(project,kind,id){
  const choice=presentationChoice(kind,id);if(!choice)throw Error('Revêtement non autorisé.');
@@ -24,5 +24,15 @@ export function withPresentationSurface(project,kind,id){
  result.layouts??={};
  if(kind==='floor'){result.floor=finish;result.layouts.floor=layout;}
  else{const count=result.walls?.length||result.room.points.length;result.walls=Array.from({length:count},()=>({...finish}));result.layouts.walls=Array.from({length:count},()=>({...layout}));}
+ return result;
+}
+
+// Apply the revised showroom defaults once, including projects saved before
+// this version. Later explicit user choices remain part of the composition.
+export const RANDAL_PRESENTATION_DEFAULTS_VERSION=2;
+export function presentationDefaults(project){
+ if(project?.presentation?.defaultsVersion===RANDAL_PRESENTATION_DEFAULTS_VERSION)return structuredClone(project);
+ const result=withPresentationSurface(withPresentationSurface(project,'floor','yosemite-honey'),'wall','paint-grey');
+ result.presentation={...result.presentation,defaultsVersion:RANDAL_PRESENTATION_DEFAULTS_VERSION,dimensions:false};
  return result;
 }

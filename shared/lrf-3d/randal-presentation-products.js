@@ -46,6 +46,22 @@ export function createPresentationProducts({catalog:C,finishes=C.finishes,normal
   const boxes=items.map(item=>{const d=dimensions(item),p=item.placement,wall=presentationWall(project.room,p.wall);if(!wall||p.u-d.w/2<1||p.u+d.w/2>wall.length-1||p.height-(d.center?d.h/2:0)<0||p.height+(d.center?d.h/2:d.h)>project.room.height-1)throw Error('Déplacez les éléments pour libérer la place nécessaire.');return {id:item.id,wall:p.wall,left:p.u-d.w/2,right:p.u+d.w/2,bottom:p.height-(d.center?d.h/2:0),top:p.height+(d.center?d.h/2:d.h)};});
   for(let a=0;a<boxes.length;a++)for(let b=a+1;b<boxes.length;b++){const x=boxes[a],y=boxes[b];if(x.wall===y.wall&&Math.min(x.right,y.right)-Math.max(x.left,y.left)>.5&&Math.min(x.top,y.top)-Math.max(x.bottom,y.bottom)>.5)throw Error('Déplacez les éléments pour libérer la place nécessaire.');}
  }
+ function reflowResizedCabinet(project,id){
+  const item=project.items.find(i=>i.id===id),d=dimensions(item),p=item.placement,wall=presentationWall(project.room,p.wall);
+  if(!wall)throw Error('Le mur du meuble n’est plus disponible.');
+  const min=1+d.w/2,max=wall.length-1-d.w/2,bottom=p.height,top=bottom+d.h;
+  const obstacles=project.items.filter(i=>i.id!==id&&['cabinet','column','mirror'].includes(i.type)&&i.placement.wall===p.wall).map(i=>{const s=dimensions(i),q=i.placement,b=q.height-(s.center?s.h/2:0);return {left:q.u-s.w/2,right:q.u+s.w/2,bottom:b,top:b+s.h};}).filter(b=>Math.min(top,b.top)-Math.max(bottom,b.bottom)>.5);
+  const fits=u=>u>=min&&u<=max&&obstacles.every(b=>Math.min(u+d.w/2,b.right)-Math.max(u-d.w/2,b.left)<=.5);
+  if(fits(p.u))return;
+  // Keep every neighbouring item and its identity untouched. Only the resized
+  // cabinet slides to the nearest free position on its existing wall.
+  const candidates=[Math.max(min,Math.min(max,p.u)),min,max,...obstacles.flatMap(b=>[b.left-d.w/2-1,b.right+d.w/2+1])].filter(fits).sort((a,b)=>Math.abs(a-p.u)-Math.abs(b-p.u)||a-b);
+  if(!candidates.length)throw Error('Le mur ne dispose pas de la place nécessaire pour cette largeur. Déplacez les éléments avant de réessayer.');
+  p.u=candidates[0];
+ }
+ function cabinetHeight(old,d,current){
+  const previous=modelOf(old),m=modelOf(d);return general?m.base:m.legHeight?0:previous.legHeight?28:current;
+ }
  function normalizedCandidate(state,patch){
   const d={...state.d,...patch};
   if(Object.hasOwn(patch,'mirror'))d.mirrorSize=0;
@@ -59,22 +75,37 @@ export function createPresentationProducts({catalog:C,finishes=C.finishes,normal
    const colors=[...new Set([d.basinColor,'gloss',...C.insetColors.map(c=>c.code),...C.vesselColors.map(c=>c.code)])];
    let failure;for(const color of colors){try{return normalizeDraft({...d,basinColor:color});}catch(e){failure=e;}}throw failure;
   }
-  return normalizeDraft(d);
+  try{return normalizeDraft(d);}catch(error){
+   if(!Object.hasOwn(patch,'basinLayout')&&['width','format'].some(key=>Object.hasOwn(patch,key))&&['sella','tampa','neris','torne'].includes(d.top)){
+    // A 100 cm centred Sella has no centred 120 cm SKU. Preserve an existing
+    // compatible layout; otherwise prefer a real 120 cm double, then let the
+    // native catalogue resolve its own compatible layout at the chosen width.
+    const options=['neris','torne'].includes(d.top)?vesselLayoutOptions(d.top,d.width):integratedOptions(d.top,d.width,d.basinColor);
+    const layouts=[...(d.width>=120&&options.some(o=>o.layout==='double')?['double']:[]),undefined,...options.map(o=>o.layout)];
+    for(const basinLayout of layouts){try{return normalizeDraft({...d,basinLayout});}catch{}}
+   }
+   throw error;
+  }
  }
  function apply(project,patch,context={}){
   const {validateOnly=false}=context,state=read(project,context),keys=Object.keys(patch);
   const allowed=context.itemId?(state.selected.type==='column'?columnKeys:state.selected.type==='mirror'?mirrorKeys:cabinetKeys):[...cabinetKeys,...columnKeys,...mirrorKeys];
   if(!keys.length||keys.some(key=>!allowed.includes(key)))throw Error('Ce choix ne correspond pas à l’élément sélectionné.');
-  const old=state.d,normalized=normalizedCandidate(state,patch);if(validateOnly)return true;
+  const old=state.d,normalized=normalizedCandidate(state,patch),resizing=keys.some(k=>['format','width'].includes(k));
+  if(validateOnly){
+   if(resizing){const candidate=structuredClone(project),item=candidate.items.find(i=>i.id===state.cabinet.id);Object.assign(item.settings,{format:normalized.format,width:normalized.width});if(Object.hasOwn(patch,'format'))item.placement.height=cabinetHeight(old,normalized,item.placement.height);reflowResizedCabinet(candidate,item.id);placementValid(candidate);}
+   return true;
+  }
   const generated=draftProject(normalized),next=structuredClone(project),changed={cabinet:keys.some(k=>cabinetKeys.includes(k)),column:keys.some(k=>columnKeys.includes(k)),mirror:keys.some(k=>mirrorKeys.includes(k))};
   for(const type of ['cabinet','column','mirror']){
    if(!changed[type])continue;const current=state[type],replacement=generated.items.find(i=>i.type===type);
    if(!replacement){if(current)next.items=next.items.filter(i=>i.id!==current.id);continue;}
    const item=structuredClone(replacement);item.id=current?.id||'randal-presentation-'+type;if(!current){const base=item.id;let serial=1;while(next.items.some(i=>i.id===item.id))item.id=base+'-'+serial++;}
-   if(current){item.settings={...current.settings,...item.settings};if(type==='column'){item.settings.hingeSide=current.settings.hingeSide||'left';item.settings.doorOpen=current.settings.doorOpen||false;}if(type==='mirror'&&current.settings.mirrorModel===item.settings.mirrorModel)item.settings.led=current.settings.led;if(type==='cabinet'){item.settings.tap=current.settings.tap??item.settings.tap;item.settings.decor=current.settings.decor??item.settings.decor;if(current.settings.format===item.settings.format)item.settings.drawers=current.settings.drawers;}item.placement={...current.placement};if(type==='cabinet'&&Object.hasOwn(patch,'format')){const previous=modelOf(old),m=modelOf(normalized);if(general)item.placement.height=m.base;else if(m.legHeight)item.placement.height=0;else if(previous.legHeight)item.placement.height=28;}}
+   if(current){item.settings={...current.settings,...item.settings};if(type==='column'){item.settings.hingeSide=current.settings.hingeSide||'left';item.settings.doorOpen=current.settings.doorOpen||false;}if(type==='mirror'&&current.settings.mirrorModel===item.settings.mirrorModel)item.settings.led=current.settings.led;if(type==='cabinet'){item.settings.tap=current.settings.tap??item.settings.tap;item.settings.decor=current.settings.decor??item.settings.decor;if(current.settings.format===item.settings.format)item.settings.drawers=current.settings.drawers;}item.placement={...current.placement};if(type==='cabinet'&&Object.hasOwn(patch,'format'))item.placement.height=cabinetHeight(old,normalized,item.placement.height);}
    else{const origin=generated.items.find(i=>i.type==='cabinet');item.placement={...item.placement,wall:state.cabinet.placement.wall,u:item.placement.u+state.cabinet.placement.u-origin.placement.u,height:item.placement.height+(type==='mirror'?state.cabinet.placement.height-origin.placement.height:0)};}
    const index=next.items.findIndex(i=>i.id===item.id);if(index>=0)next.items[index]=item;else next.items.push(item);
   }
+  if(resizing)reflowResizedCabinet(next,state.cabinet.id);
   if(keys.some(k=>['format','width','column','columnModel','mirror','mirrorSize'].includes(k)))placementValid(next);return next;
  }
  function fields(project,context={}){

@@ -10,29 +10,14 @@ import {mirrorSpec} from './mirrors.js';
 import {presentationChoice} from './randal-presentation-catalog.js';
 import {createPresentationEditing} from './randal-presentation-editing.js';
 import {createPresentationMotion,presentationDrawerTravel} from './randal-presentation-motion.js';
+import {createPresentationReflectionRoom} from './randal-presentation-reflection-room.js';
 
 // Adds presentation controls to the genuine, existing furniture preview.
 // Furniture movement stays on its existing wall, with bounded positions.
-export function createRandalPresentationScene({scene,renderer,floor,wall,getItems,getProject=()=>null,camera,controls,canvas,invalidate,loadTexture=loadQueuedTexture,quality={},drawerTravel=presentationDrawerTravel}){
+export function createRandalPresentationScene({scene,renderer,floor,wall,getItems,getProject=()=>null,camera,controls,canvas,invalidate,loadTexture=loadQueuedTexture,loadExteriorTexture=loadQueuedTexture,quality={},drawerTravel=presentationDrawerTravel}){
  let disposed=false;const faces={},revisions={floor:0,wall:0},resources=new Map(),selected={},selectedResources={},pendingResources=new Map(),ledMirrors=new Map();
  const paintTexture=paintBump();
- // A simple architectural enclosure gives the real planar mirrors something
- // coherent to reflect. These are physical planes, never a baked room image.
- const enclosure=new T.Group();enclosure.name='Présentation · environnement';
- const enclosureMaterial=new T.MeshPhysicalMaterial({color:'#eeeae2',roughness:.92,metalness:0});
- const windowMaterial=new T.MeshPhysicalMaterial({color:'#f7f5ef',roughness:.3,emissive:'#fff6e6',emissiveIntensity:3});
- function plane(width,height,position,rotation,material=enclosureMaterial){const mesh=new T.Mesh(new T.PlaneGeometry(width,height),material);mesh.position.set(...position);mesh.rotation.set(...rotation);mesh.receiveShadow=true;enclosure.add(mesh);return mesh;}
- plane(10.26,6,[-7,3,4.87],[0,Math.PI/2,0]);plane(10.26,6,[7,3,4.87],[0,-Math.PI/2,0]);
- plane(14,6,[0,3,10],[0,Math.PI,0]);plane(14,10.26,[0,6,4.87],[Math.PI/2,0,0]);
- for(const x of [-2.1,-.95]){
-  const panel=plane(1.1,2.5,[x,2.6,9.99],[0,Math.PI,0],windowMaterial);panel.name='Présentation_fenêtre_raster';panel.userData.presentationRasterOnly=true;
-  // The raster mirror needs a visible aperture. In the photo the matching
-  // area light is sampled and reflected directly; a second emissive panel
-  // would add the same light twice, with unstructured emissive-mesh noise.
-  // Keep the whole aperture parallel to, and inside, the opaque back wall.
-  const daylight=new T.RectAreaLight('#fff4e4',6,1.1,2.5);daylight.name='Présentation_fenêtre_lumineuse';daylight.position.set(x,2.6,9.98);daylight.lookAt(x,2.6,0);enclosure.add(daylight);
- }
- scene.add(enclosure);
+ const reflectionRoom=createPresentationReflectionRoom({loadTexture:loadExteriorTexture,invalidate,maxAnisotropy:Math.min(quality.anisotropy||8,renderer.capabilities.getMaxAnisotropy())});scene.add(reflectionRoom.root);void reflectionRoom.ready();
  const editing=createPresentationEditing({scene,camera,controls,canvas,getItems,getProject,invalidate});
  const motion=createPresentationMotion({getItems,invalidate,refresh:()=>editing.refresh(),drawerTravel});
  function face(kind){
@@ -54,16 +39,15 @@ export function createRandalPresentationScene({scene,renderer,floor,wall,getItem
     if(!resources.has(key)){const promise=loadTexture(surfaceAssetURL(file),{maxDimension:quality.maxTextureDimension||2048}).then(t=>{t.colorSpace=T.SRGBColorSpace;t.wrapS=t.wrapT=T.RepeatWrapping;t.center.set(.5,.5);t.rotation=(Number(resolved.rotation)||0)*Math.PI/180;t.anisotropy=Math.min(quality.anisotropy||8,renderer.capabilities.getMaxAnisotropy());return t;}).catch(e=>{if(resources.get(key)===promise)resources.delete(key);throw e;});resources.set(key,promise);}return resources.get(key);
    }));
    if(disposed||revision!==revisions[kind])return false;
-   const s=face(kind);s.setLayout(layout);s.setPaint(!resolved);
+   const surfaces=kind==='wall'?[face(kind),...reflectionRoom.wallSurfaces]:[face(kind)];
    function materialFor(material,map){
     material.color.set(resolved?'#ffffff':color.hex);material.roughness=definition.roughness??.85;material.clearcoat=0;material.metalness=0;
     // Manufacturer colour photos are not measured height fields. Only paint
     // receives a generic submillimetre microstructure; never fake tile relief.
-    applySurfaceTextureMapping(material,{map,bumpMap:resolved?null:paintTexture,choice:color,layout:s.layout,mapped:resolved?.mapped,rotation:resolved?.rotation});
+    applySurfaceTextureMapping(material,{map,bumpMap:resolved?null:paintTexture,choice:color,layout,mapped:resolved?.mapped,rotation:resolved?.rotation});
     material.bumpScale=resolved?0:.00015;material.needsUpdate=true;return material;
    }
-   materialFor(s.material,maps[0]||null);s.material.userData.lrfTextureFaceCount=maps.length||1;
-   applyTileColors(s,choice,(_color,index)=>materialFor(s.material.clone(),maps[index%maps.length]||null));
+   for(const s of surfaces){s.setLayout(layout);s.setPaint(!resolved);materialFor(s.material,maps[0]||null);s.material.userData.lrfTextureFaceCount=maps.length||1;applyTileColors(s,choice,(_color,index)=>materialFor(s.material.clone(),maps[index%maps.length]||null));}
    selected[kind]=id;selectedResources[kind]=keys;invalidate();return true;
   }finally{pendingResources.delete(pendingKey);releaseUnused();}
  }
@@ -71,5 +55,5 @@ export function createRandalPresentationScene({scene,renderer,floor,wall,getItem
  function hasLED(item){if(item.type!=='mirror')return false;const spec=mirrorSpec(item.settings),eligible=spec.led||spec.metal&&(item.settings.led||ledMirrors.get(item.id)===spec.id);if(eligible)ledMirrors.set(item.id,spec.id);else ledMirrors.delete(item.id);return !!eligible;}
  function capabilities(){const items=getItems()||[],led=items.filter(hasLED);return {openable:items.some(i=>i.asset.drawers?.length||i.asset.door||i.asset.doors?.length),led:led.length>0,ledOn:led.length>0&&led.every(i=>!!i.settings.led),opened:motion.opened};}
  function setLED(enabled){for(const item of getItems()||[])if(hasLED(item)){item.settings={...item.settings,led:!!enabled};applyPresentationMirrorLighting(item);}invalidate();}
- return {editing,setSurface,setLED,setOpened:motion.setOpened,capabilities,diagnostics:()=>({selected:{...selected},...capabilities(),editing:editing.state(),textureCount:resources.size,layouts:Object.fromEntries(Object.entries(faces).map(([kind,s])=>[kind,{...s.layout}]))}),dispose(){disposed=true;editing.dispose();motion.dispose();for(const s of Object.values(faces)){scene.remove(s.group);const materials=new Set();s.group.traverse(o=>{o.geometry?.dispose();for(const m of o.material?Array.isArray(o.material)?o.material:[o.material]:[])materials.add(m);});for(const m of materials)m.dispose();}scene.remove(enclosure);enclosure.traverse(o=>o.geometry?.dispose());enclosureMaterial.dispose();windowMaterial.dispose();paintTexture.dispose();for(const p of resources.values())p.then(t=>t.dispose()).catch(()=>{});resources.clear();floor.visible=wall.visible=true;}};
+ return {editing,setSurface,setLED,setOpened:motion.setOpened,capabilities,diagnostics:()=>({selected:{...selected},...capabilities(),editing:editing.state(),reflection:reflectionRoom.diagnostics(),textureCount:resources.size,layouts:Object.fromEntries(Object.entries(faces).map(([kind,s])=>[kind,{...s.layout}]))}),dispose(){if(disposed)return;disposed=true;editing.dispose();motion.dispose();for(const s of Object.values(faces)){scene.remove(s.group);const materials=new Set();s.group.traverse(o=>{o.geometry?.dispose();for(const m of o.material?Array.isArray(o.material)?o.material:[o.material]:[])materials.add(m);});for(const m of materials)m.dispose();}reflectionRoom.dispose();paintTexture.dispose();for(const p of resources.values())p.then(t=>t.dispose()).catch(()=>{});resources.clear();floor.visible=wall.visible=true;}};
 }
