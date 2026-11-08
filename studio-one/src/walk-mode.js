@@ -1,3 +1,5 @@
+import {createShowroomVisit,showroomMoveAllowed} from '../../shared/lrf-3d/showroom-visit.js';
+import {mountVisitMobileControls} from '../../shared/lrf-3d/visit-mobile-controls.js';
 import {createVisitTapGesture} from '../../shared/lrf-3d/visit-interactions.js';
 import {boundsOnWall} from './composition.js';
 import * as T from 'three';
@@ -5,6 +7,7 @@ import * as T from 'three';
 // Visite à hauteur humaine : caméra indépendante des objets et des contrôles d'édition.
 export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,onMove,onEnter,onExit,onTap}){
   const taps=createVisitTapGesture();
+  let mobileMove={forward:0,strafe:0};
   const keys=new Set();const eye=1.58,radius=.20,speed=1.7,turn=1.8;
   let viewMode='first',walker=new T.Vector3(),moving=false;
   let active=false,forward=new T.Vector3(0,0,-1),panel=null,button=null,pitch=0,touchMove={x:0,y:0},mouseLook=false;
@@ -22,6 +25,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     }return hit;
   };
   function passable(x,z){
+    const exhibition=showroomMoveAllowed(getItems()||[],walker,new T.Vector3(x,eye,z),radius);if(exhibition!==null)return exhibition;
     const room=getRoom();if(!room)return true;
     const pts=room.points;
     const insideRoom=[[-radius,0],[radius,0],[0,-radius],[0,radius],[0,0]].every(([dx,dz])=>inside(x+dx,z+dz,pts));
@@ -59,14 +63,15 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
       // wall never pushes the camera into the character's head or shoulders.
       camera.position.copy(walker).addScaledVector(forward,-3.1).addScaledVector(side,1.2);camera.position.y=3.3;controls.target.copy(target);
     }else{camera.position.copy(walker);controls.target.copy(goal);}
-    controls.update();
+    controls.update();showroomVisit.update(walker);
   }
 
+  let entryPose=null;
   function setActive(next){
     if(active===next)return;active=next;resetInput();
     stage.classList.toggle('walk-active',active);
     if(active){
-      onEnter?.();
+      entryPose={position:camera.position.clone(),target:controls.target.clone()};onEnter?.();
       pitch=0;
       const room=getRoom();const center=room?.bounds?.getCenter(new T.Vector3())||new T.Vector3();
       const p=camera.position.clone();if(!inside(p.x,p.z,room?.points)){camera.position.set(center.x,eye,center.z);}
@@ -74,10 +79,11 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
       walker.copy(camera.position);forward.set(controls.target.x-camera.position.x,0,controls.target.z-camera.position.z);
       if(forward.lengthSq()<.001)forward.set(0,0,-1);forward.normalize();
       controls.enabled=false;view();onMove();
-    }else{controls.enabled=true;onExit?.();onMove();}
+    }else{showroomVisit.exit();controls.enabled=true;if(entryPose){camera.position.copy(entryPose.position);controls.target.copy(entryPose.target);controls.update();}onExit?.();onMove();}
     button.textContent=active?'Quitter la visite':'Visite 3D';
     button.setAttribute('aria-pressed',String(active));
-    panel.textContent=touchDevice()?'Touchez pour ouvrir · 1 doigt : regarder · 2 doigts : se déplacer':'Cliquez pour ouvrir · ZQSD / flèches : marcher · Maj : courir · Échap : quitter';
+    mobileControls.setActive(active);
+    panel.textContent=touchDevice()?'Croix : marcher · Glisser : regarder · Toucher : ouvrir':'Cliquez pour ouvrir · ZQSD / flèches : marcher · Maj : courir · Échap : quitter';
     panel.hidden=!active;clearTimeout(hintTimer);
     if(active)hintTimer=setTimeout(()=>{panel.hidden=true;},6000);
   }
@@ -88,6 +94,8 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   panel=document.createElement('div');panel.className='walk-hint';panel.hidden=true;panel.setAttribute('aria-label','Commandes de visite');panel.setAttribute('role','status');
   Object.assign(panel.style,{position:'absolute',left:'12px',bottom:'calc(110px + env(safe-area-inset-bottom,0px))',zIndex:'41',background:'rgba(17,42,37,.88)',color:'white',borderRadius:'10px',padding:'8px',fontSize:'12px',maxWidth:'55%'});
   stage.append(panel);
+  const mobileControls=mountVisitMobileControls({stage,onInput:value=>{mobileMove=value;},onInvalidate:onMove});
+  const showroomVisit=createShowroomVisit({stage,canvas,camera,getItems,onInvalidate:onMove,onOverlay:()=>{keys.clear();mobileControls.reset();touchMove={x:0,y:0};}});
   const supported=new Set(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyS','KeyA','KeyD','KeyQ','KeyE','KeyZ','ShiftLeft','ShiftRight']);
   document.addEventListener('keydown',e=>{
     if(!active||editable(e.target)||e.altKey||e.ctrlKey||e.metaKey||!supported.has(e.code))return;
@@ -115,16 +123,16 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     if(touches.size===1)look(e.clientX-prior.x,e.clientY-prior.y);
     else if(moveOrigin){const p=center(),limit=90;touchMove={x:T.MathUtils.clamp((p.x-moveOrigin.x)/limit,-1,1),y:T.MathUtils.clamp((p.y-moveOrigin.y)/limit,-1,1)};onMove();}
   });
-  function release(e){if(!active||(!mouseLook&&!touches.has(e.pointerId))){taps.cancel(e);return;}const tapped=e.type==='pointerup'&&taps.up(e);if(e.type!=='pointerup')taps.cancel(e);mouseLook=false;touches.delete(e.pointerId);if(touches.size<2){moveOrigin=null;touchMove={x:0,y:0};}if(tapped&&onTap?.(e)){e.preventDefault();e.stopImmediatePropagation();}onMove();}
+  function release(e){if(!active||(!mouseLook&&!touches.has(e.pointerId))){taps.cancel(e);return;}const tapped=e.type==='pointerup'&&taps.up(e);if(e.type!=='pointerup')taps.cancel(e);mouseLook=false;touches.delete(e.pointerId);if(touches.size<2){moveOrigin=null;touchMove={x:0,y:0};}if(tapped&&(showroomVisit.tap(e)||onTap?.(e))){e.preventDefault();e.stopImmediatePropagation();}onMove();}
   for(const event of ['pointerup','pointercancel'])window.addEventListener(event,release,true);
   canvas.addEventListener('lostpointercapture',event=>{taps.cancel(event);mouseLook=false;touches.delete(event.pointerId);if(touches.size<2){moveOrigin=null;touchMove={x:0,y:0};}});
   function tick(dt){
-    moving=false;if(!active)return false;
+    moving=false;if(!active||showroomVisit.blocked)return false;
     const left=keys.has('ArrowLeft'),right=keys.has('ArrowRight');
     const rotation=(Number(left)-Number(right))*turn*dt;
     if(rotation)forward.applyAxisAngle(new T.Vector3(0,1,0),rotation).normalize();
-    const f=Number(keys.has('ArrowUp')||keys.has('KeyW')||keys.has('KeyZ'))-Number(keys.has('ArrowDown')||keys.has('KeyS'))-touchMove.y;
-    const strafe=Number(keys.has('KeyD')||keys.has('KeyE'))-Number(keys.has('KeyA')||keys.has('KeyQ'))+touchMove.x;
+    const f=Number(keys.has('ArrowUp')||keys.has('KeyW')||keys.has('KeyZ'))-Number(keys.has('ArrowDown')||keys.has('KeyS'))-touchMove.y+mobileMove.forward;
+    const strafe=Number(keys.has('KeyD')||keys.has('KeyE'))-Number(keys.has('KeyA')||keys.has('KeyQ'))+touchMove.x+mobileMove.strafe;
     const side=new T.Vector3(-forward.z,0,forward.x);
     const move=forward.clone().multiplyScalar(f).addScaledVector(side,strafe);
     if(move.lengthSq()>0){move.normalize().multiplyScalar(speed*(keys.has('ShiftLeft')||keys.has('ShiftRight')?1.6:1)*dt);const p=walker,before=p.clone();
@@ -135,5 +143,5 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     if(rotation||move.lengthSq()>0){taps.cancel();view();return true}if(viewMode==='third'){view();return true}
     return false;
   }
-  return {tick,get active(){return active},setActive,get position(){return walker;},get heading(){return Math.atan2(forward.x,forward.z);},get moving(){return moving;},get running(){return keys.has('ShiftLeft')||keys.has('ShiftRight');},get view(){return viewMode;},setView(mode){viewMode=mode==='third'?'third':'first';if(active)view();onMove();}};
+  return {tick,get interiorId(){return showroomVisit.occupiedId},get active(){return active},setActive,get position(){return walker;},get heading(){return Math.atan2(forward.x,forward.z);},get moving(){return moving;},get running(){return keys.has('ShiftLeft')||keys.has('ShiftRight');},get view(){return viewMode;},setView(mode){viewMode=mode==='third'?'third':'first';if(active)view();onMove();}};
 }

@@ -109,7 +109,7 @@ export function makeOpening(type,settings={}){
   const pose=()=>{const sign=side==='left'?1:-1;door.scale.x=sign;door.position.set((-w/2+f)*sign,0,z+.013);door.rotation.y=-progress*Math.PI/2*sign;interior.setVisible(interiorEnabled&&progress>.001);root.updateMatrixWorld(true);};
   const setHingeSide=value=>{if(!['left','right'].includes(value))return false;side=value;pose();return true;};
   const setOpenProgress=value=>{progress=T.MathUtils.clamp(value,0,1);pose();};setHingeSide(settings.hingeSide||'left');
-  return {root,frame,door,interior:interior.root,setHingeSide,getHingeSide:()=>side,setOpenProgress,getOpenProgress:()=>progress,setInteriorVisible:value=>{interiorEnabled=!!value;interior.setVisible(interiorEnabled&&progress>.001);},setColor:value=>frame.color.set(frameHex(value))};
+  return {root,frame,door,interior:interior.root,visitInterior:interior,get interiorEnabled(){return interiorEnabled},setHingeSide,getHingeSide:()=>side,setOpenProgress,getOpenProgress:()=>progress,setInteriorVisible:value=>{interiorEnabled=!!value;interior.setVisible(interiorEnabled&&progress>.001);},setColor:value=>frame.color.set(frameHex(value))};
  }
  return {root,frame,setColor:value=>frame.color.set(frameHex(value))};
 }

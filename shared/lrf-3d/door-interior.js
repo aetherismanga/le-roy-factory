@@ -3,6 +3,8 @@ import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js'
 import {COLLECTIONS} from './surface-catalog.js';
 import {buildTileGeometry} from './tile-layout.js';
 import {loadQueuedTexture,surfaceAssetURL} from './texture-loader.js';
+import {makeShowroomHall} from './showroom-hall.js';
+import {SHOWROOM_MANUFACTURERS} from './showroom-catalog.js';
 
 // A small adjoining hall, modeled in metres behind the doorway. It is scenery,
 // never another editable room or part of the opening's commercial dimensions.
@@ -79,10 +81,16 @@ export function makeDoorInterior({width=.83,height=2.04,loadTexture=null,onReady
   box(.09,hallHeight,depth,sign*(hallWidth/2+.045),hallHeight/2,(front+back)/2,wall,'Mur_lateral_hall');
   box(.015,.075,depth,sign*(hallWidth/2-.0075),.0375,(front+back)/2,plaster,'Plinthe_hall');
  }
- box(hallWidth+.18,hallHeight,.09,0,hallHeight/2,back-.045,wall,'Mur_fond_hall');
+ // The second doorway is a real cut in the wall, allowing a continuous visit
+ // from the bathroom, through this vestibule, into the exhibition hall.
+ const innerDoorWidth=.73,innerDoorHeight=Math.min(2.08,hallHeight-.25),doorX=hallWidth*.19,doorZ=back+.035;
+ const leftEdge=-hallWidth/2-.09,rightEdge=hallWidth/2+.09;
+ box(doorX-innerDoorWidth/2-leftEdge,hallHeight,.09,(leftEdge+doorX-innerDoorWidth/2)/2,hallHeight/2,back-.045,wall,'Mur_fond_hall');
+ box(rightEdge-doorX-innerDoorWidth/2,hallHeight,.09,(rightEdge+doorX+innerDoorWidth/2)/2,hallHeight/2,back-.045,wall,'Mur_fond_hall');
+ box(innerDoorWidth,hallHeight-innerDoorHeight,.09,doorX,(hallHeight+innerDoorHeight)/2,back-.045,wall,'Linteau_porte_exposition');
  box(hallWidth,hallHeight-(height-.05),.26,0,(hallHeight+height-.05)/2,-.40,plaster,'Linteau_interieur_hall');
  box(hallWidth+.16,.08,depth+.09,0,hallHeight+.04,(front+back)/2,plaster,'Plafond_hall');
- box(hallWidth,.075,.015,0,.0375,back+.0075,plaster,'Plinthe_fond_hall');
+ for(const [a,b]of [[-hallWidth/2,doorX-innerDoorWidth/2],[doorX+innerDoorWidth/2,hallWidth/2]])box(b-a,.075,.015,(a+b)/2,.0375,back+.0075,plaster,'Plinthe_fond_hall');
  // Manufacturer-sized, mitred chevrons share one material and only two
  // batched geometries. Both parts use the same world grid across the passage.
  box(hallWidth,.018,depth,0,-.010,(front+back)/2,dark,'Support_sol_hall');
@@ -95,13 +103,43 @@ export function makeDoorInterior({width=.83,height=2.04,loadTexture=null,onReady
  const passageFront=-.22,passageBack=front;
  chevrons([[-clearWidth/2,-passageFront],[clearWidth/2,-passageFront],[clearWidth/2,-passageBack],[-clearWidth/2,-passageBack]],'Sol_continu_passage');
  box(clearWidth+.010,.003,.035,0,.0015,-.23,metal,'Seuil_transition_interieur',.0005);
- // A closed inner door establishes a believable house interior and scale.
- const innerDoorWidth=.73,innerDoorHeight=Math.min(2.08,hallHeight-.25),doorX=hallWidth*.19,doorZ=back+.035;
+ // Opening this leaf constructs the showroom once. Closed doors keep the
+ // original small scenery and do not allocate exhibition geometry or images.
  for(const sign of [-1,1])box(.043,innerDoorHeight,.055,doorX+sign*(innerDoorWidth/2+.0215),innerDoorHeight/2,doorZ,plaster,'Huisserie_porte_hall');
  box(innerDoorWidth+.086,.043,.055,doorX,innerDoorHeight+.0215,doorZ,plaster,'Traverse_porte_hall');
- box(innerDoorWidth-.008,innerDoorHeight-.006,.040,doorX,innerDoorHeight/2,doorZ+.004,oak,'Porte_interieure_hall',.003);
- box(.020,.115,.008,doorX+innerDoorWidth/2-.075,1.03,doorZ+.029,metal,'Rosace_poignee_hall');
- box(.085,.012,.018,doorX+innerDoorWidth/2-.104,1.04,doorZ+.046,metal,'Poignee_porte_hall');
+ const innerLeaf=new T.Group();innerLeaf.name='Porte_vers_exposition';innerLeaf.position.set(doorX-innerDoorWidth/2,0,doorZ+.004);root.add(innerLeaf);
+ box(innerDoorWidth-.008,innerDoorHeight-.006,.040,innerDoorWidth/2,innerDoorHeight/2,0,oak,'Porte_interieure_hall',.003,innerLeaf);
+ box(.020,.115,.008,innerDoorWidth-.075,1.03,.025,metal,'Rosace_poignee_hall',.002,innerLeaf);
+ box(.085,.012,.018,innerDoorWidth-.104,1.04,.042,metal,'Poignee_porte_hall',.002,innerLeaf);
+ innerLeaf.userData.showroomAction={kind:'inner-door'};
+ box(innerDoorWidth,.018,.15,doorX,-.010,back-.06,honey,'Seuil_sas_exposition');
+ let showroom=null,innerOpen=false,occupied=false;
+ const wake=()=>{onReady();if(typeof window!=='undefined')window.dispatchEvent(new Event('lrf-door-interior-ready'));};
+ const ensureShowroom=()=>{
+  if(disposed)return null;
+  if(!showroom){showroom=makeShowroomHall({manufacturers:SHOWROOM_MANUFACTURERS,onReady:wake,loadTexture:loadTexture||undefined});showroom.root.position.set(doorX,0,back-.09);root.add(showroom.root);}
+  return showroom;
+ };
+ const setInnerOpen=value=>{innerOpen=!!value;if(innerOpen)ensureShowroom();innerLeaf.rotation.y=innerOpen?Math.PI/2:0;if(showroom)showroom.root.visible=innerOpen;root.updateMatrixWorld(true);wake();return true;};
+ // Local, metre-based navigation excludes the console and both solid walls.
+ const canWalk=(point,radius=.20)=>{
+  const {x,z}=point,margin=Math.max(0,radius);
+  if(z>-.20)return null;
+  if(z>=front-margin){return Math.abs(x)<=clearWidth/2-margin*.65&&z>=front-margin;}
+  if(z>back+margin){
+   if(Math.abs(x)>hallWidth/2-margin)return false;
+   if(x>-hallWidth*.30-.27-margin&&x<-hallWidth*.30+.27+margin&&z<back+.33+margin)return false;
+   return true;
+  }
+  if(!innerOpen)return false;
+  const hallStart=back-.09;
+  if(z>hallStart-margin)return Math.abs(x-doorX)<innerDoorWidth/2-margin;
+  const local={x:x-doorX,z:z-hallStart},bounds=showroom?.navigableBounds;
+  if(!bounds||local.x<bounds.minX+margin||local.x>bounds.maxX-margin||local.z<bounds.minZ+margin||local.z>bounds.maxZ)return false;
+  return !showroom.colliders.some(box=>local.x>box.minX-margin&&local.x<box.maxX+margin&&local.z>box.minZ-margin&&local.z<box.maxZ+margin);
+ };
+ const visit={root,canWalk,get innerOpen(){return innerOpen},get occupied(){return occupied},setOccupied:value=>{occupied=!!value;},setInnerOpen,toggleInner:()=>setInnerOpen(!innerOpen),get showroom(){return showroom},prepareNear:point=>{if(showroom&&innerOpen)showroom.prepareNear(new T.Vector3(point.x-doorX,1.58,point.z-back+.09));},endVisit(){occupied=false;innerOpen=false;innerLeaf.rotation.y=0;showroom?.dispose();showroom=null;root.updateMatrixWorld(true);}};
+ honey.addEventListener('dispose',()=>showroom?.dispose());
  // A narrow, grounded console and a tactile plaster relief remain well beyond
  // the passage. Every object has a physical support; there are no floating props.
  const consoleWidth=.54,consoleX=-hallWidth*.30,consoleZ=back+.19,top=.79;
@@ -125,5 +163,5 @@ export function makeDoorInterior({width=.83,height=2.04,loadTexture=null,onReady
  }
  const fill=new T.PointLight('#ffecd1',4,1.55,2);fill.position.set(-.20,hallHeight-.25,-2.35);fill.name='Lumiere_interieure_hall';fill.castShadow=false;root.add(fill);
  root.visible=false;
- return {root,dimensions:{width:hallWidth,height:hallHeight,depth:Math.abs(back+.23)},prepareFloor,setVisible:value=>{root.visible=!!value;if(root.visible)prepareFloor();}};
+ return {...visit,root,canWalk,get innerOpen(){return innerOpen},get occupied(){return occupied},get showroom(){return showroom},dimensions:{width:hallWidth,height:hallHeight,depth:Math.abs(back+.23)},prepareFloor,setVisible:value=>{root.visible=!!value||occupied;if(root.visible)prepareFloor();}};
 }
