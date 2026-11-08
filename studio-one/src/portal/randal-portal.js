@@ -11,7 +11,7 @@ function translate(){
  const w=words(),mapping={'header-label':'header',choose:'choose',logout:'logout',eyebrow:'eyebrow',intro:'intro','private-label':'private','login-title':'loginTitle','login-help':'help','code-label':'code','postal-label':'postal','login-submit':'submit','chooser-title':'chooser','studio-label':'studioLabel','studio-description':'studioDescription','studio-action':'studioAction','general-label':'generalLabel','general-title':'generalTitle','general-description':'generalDescription','general-action':'generalAction','image-note':'imageNote',footer:'footer'};
  for(const [id,key]of Object.entries(mapping))$(id).textContent=w[key];$('title').innerHTML=w.title;const identifier=document.querySelector?.('[name=codeClient]');if(identifier)identifier.placeholder=w.identifier;const key=document.querySelector?.('[name=departement]');if(key)key.placeholder=w.postal;globalThis.dispatchEvent?.(new Event('randal-portal-language'));
 }
-function showChooser(){active=null;document.body.classList.remove('in-workspace');$('workspace').hidden=true;$('landing').hidden=false;for(const frame of frames.values())frame.hidden=true;$('choose').hidden=true;}
+function showChooser(){active=null;document.body.classList.remove('in-workspace','randal-view-fullscreen');$('workspace').hidden=true;$('landing').hidden=false;for(const frame of frames.values())frame.hidden=true;$('choose').hidden=true;}
 function render(state){
  const allowed=session.allowed();$('login-submit').disabled=state.pending;
  $('login-status').textContent=state.pending?words().waiting:state.error?(lang==='es'?words().refused:state.error):'';
@@ -54,6 +54,7 @@ addEventListener('message',event=>{
  if(data?.type==='lrf-portal-session-ended'){
   const pending=pendingEnd.get(data.requestId);if(pending?.frame===frame&&pending.variant===variant)pending.resolve();return;
  }
+ if(data?.type==='lrf-portal-presentation'&&typeof data.open==='boolean'){if(variant===active)document.body.classList.toggle('randal-view-fullscreen',data.open);return;}
  if(data?.type==='lrf-portal-exit'){showChooser();return;}
  if(data?.type==='lrf-portal-logout'||data?.type==='lrf-portal-auth-required'){void endSession(data.type==='lrf-portal-auth-required');return;}
  // Public-gallery requests can only switch between the two fixed applications.

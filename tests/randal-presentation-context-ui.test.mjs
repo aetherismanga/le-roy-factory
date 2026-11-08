@@ -12,8 +12,9 @@ import {buildPreview} from '../studio-one/src/commerce/preview-model.js';
 import {checkedProject as studioChecked} from '../studio-one/src/commerce/flow.js';
 import {checkedProject as generalChecked} from '../randal-general/src/commerce/flow.js';
 import * as generalAdapter from '../randal-general/src/commerce/guided.js';
-async function fixture({preferences,legacy=false,initialSurfaceResult=true,expectedOpen=true,transformProject}={}){
+async function fixture({preferences,legacy=false,initialSurfaceResult=true,expectedOpen=true,transformProject,viewport}={}){
  const dom=installVisualDOM();let source=adapter.draftProject({...adapter.initialDraft(),column:true,mirror:'ilse',top:'sella'});const saved=[],scene=new T.Scene(),openStates=new Map(),itemOpeningCalls=[],compositionOpeningCalls=[];let current,project,disposed=0,previewOptions,starts=0,cancels=0,deferred=null,updateResult=true,surfaceResult=initialSurfaceResult,updates=0,brightness=100,dimensionsVisible=true;
+ if(viewport)Object.assign(window,{innerWidth:viewport.width,innerHeight:viewport.height});
  if(!legacy)source.presentation={defaultsVersion:DEFAULTS_VERSION,...preferences};else if(preferences!==undefined)source.presentation=preferences;if(transformProject)source=transformProject(source);
  const editing=createPresentationEditing({scene,controls:{enabled:true},getItems:()=>current?.items||[],getProject:()=>project,invalidate(){}});
  const itemCapabilities=id=>({openable:['cabinet','column'].includes((project||source).items.find(item=>item.id===id)?.type),opened:openStates.get(id)===true});
@@ -157,4 +158,8 @@ test('column hinge reversal stays immediately beneath its opening action before 
   assertActionOrder();document.querySelector('#randal-item-open').onclick();assert.equal(document.querySelector('#randal-item-open').textContent,'Fermer cette colonne');assertActionOrder();
   const finish=document.querySelector('#randal-product-columnFinish');finish.value=finish.options.find(option=>!option.disabled&&option.value!==finish.value).value;await finish.onchange();assertActionOrder();
  }finally{f.close();}
+});
+
+test('mobile selection reveals contextual options and rotating does not rebuild or save the composition',async()=>{
+ const f=await fixture({viewport:{width:390,height:844}});try{const controls=document.querySelector('.randal-presentation-controls');assert.equal(controls.inert,true);f.editing.selectItem(f.source.items.find(i=>i.type==='column').id,'column');assert.equal(controls.inert,false);assert.equal(document.querySelector('#randal-options-toggle').getAttribute('aria-expanded'),'true');const updates=f.updates;Object.assign(window,{innerWidth:844,innerHeight:390});for(const fn of window.listeners.get('resize')||[])fn();assert.equal(controls.inert,false);assert.equal(f.updates,updates);assert.equal(f.saved.length,0);}finally{f.close();}
 });

@@ -37,3 +37,22 @@
 .randal-presentation-controls .randal-item-open{width:100%;font-weight:600}
 .randal-item-open[hidden]{display:none}
 .randal-item-open:focus-visible{outline:2px solid #a78a55;outline-offset:3px}
+
+/* Mobile presentation only. Desktop keeps its original right-hand controls. */
+.randal-presentation-options-toggle{display:none}
+.randal-presentation.randal-mobile-view .randal-presentation-header{padding:5px max(8px,env(safe-area-inset-right));padding-top:max(5px,env(safe-area-inset-top));gap:8px;min-height:42px}
+.randal-presentation.randal-mobile-view .randal-presentation-header strong{font-size:12px}
+.randal-presentation.randal-mobile-view .randal-presentation-header button{min-height:34px;padding:5px 10px;font-size:12px}
+.randal-presentation-body.randal-mobile-view{position:relative;grid-template-columns:minmax(0,1fr) clamp(200px,28vw,260px);grid-template-rows:minmax(0,1fr);overflow:hidden}
+.randal-mobile-view .randal-presentation-controls{display:flex;max-height:none;min-height:0;border-top:0;border-left:1px solid #d7d4c8;gap:10px;padding:12px;padding-bottom:max(12px,env(safe-area-inset-bottom))}
+.randal-mobile-view .randal-presentation-controls label{font-size:12px}
+.randal-mobile-view .randal-presentation-controls button{font-size:12px;min-height:40px;padding:8px 10px}
+.randal-mobile-view .randal-presentation-controls select{font-size:12px;min-height:42px;padding:8px}
+.randal-mobile-view .randal-presentation-product>h2{font-size:12px;padding:10px}
+.randal-presentation-body.randal-mobile-portrait{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+.randal-mobile-portrait .randal-presentation-stage{grid-column:1;grid-row:1}
+.randal-mobile-portrait .randal-presentation-controls{position:absolute;z-index:3;inset:0 0 0 auto;width:min(78vw,300px);max-height:none;box-sizing:border-box;transform:translateX(100%);visibility:hidden;pointer-events:none;transition:transform .2s ease,visibility .2s;box-shadow:-12px 0 32px #1c332326;touch-action:pan-y}
+.randal-mobile-portrait.randal-mobile-controls-open .randal-presentation-controls{transform:translateX(0);visibility:visible;pointer-events:auto}
+.randal-mobile-portrait .randal-presentation-options-toggle{display:block;position:absolute;z-index:4;right:0;top:14px;width:36px;min-width:36px;min-height:88px;padding:10px 6px;border-right:0;border-radius:9px 0 0 9px;background:#fffefbf5;box-shadow:-2px 3px 12px #1c33231a;font-size:12px;font-weight:600;writing-mode:vertical-rl;transition:right .2s ease;touch-action:manipulation}
+.randal-mobile-portrait.randal-mobile-controls-open .randal-presentation-options-toggle{right:min(78vw,300px);background:#293a2f;color:#fff}
+@media(prefers-reduced-motion:reduce){.randal-mobile-portrait .randal-presentation-controls,.randal-mobile-portrait .randal-presentation-options-toggle{transition:none}}

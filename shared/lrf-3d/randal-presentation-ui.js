@@ -1,10 +1,11 @@
+import {mountPresentationOptions,notifyPortalPresentation} from './randal-presentation-responsive.js';
 import {isRandalPresentation} from './randal-client-access.js';
 
 export function createRandalPresentation({getIdentity,getProject,createPreview,products,onVisibility=()=>{},onChange=()=>{}}){
- let dialog=null,engine=null,catalog=null,project=null,selection=null,opening=0,previousFocus=null,wasRestricted=false,originalOrigin='';
+ let responsiveOptions=null,dialog=null,engine=null,catalog=null,project=null,selection=null,opening=0,previousFocus=null,wasRestricted=false,originalOrigin='';
  const element=(tag,text)=>{const e=document.createElement(tag);if(text)e.textContent=text;return e;};
  const button=(id,text)=>{const e=element('button',text);e.id=id;e.type='button';return e;};
- function close(){const visible=!!dialog;opening++;if(document.fullscreenElement===dialog)document.exitFullscreen?.().catch(()=>{});if(dialog?.open)dialog.close();engine?.dispose();engine=null;dialog?.remove();dialog=null;if(visible)onVisibility(false);previousFocus?.focus?.();}
+ function close(){const visible=!!dialog;responsiveOptions?.dispose();responsiveOptions=null;opening++;if(document.fullscreenElement===dialog)document.exitFullscreen?.().catch(()=>{});if(dialog?.open)dialog.close();engine?.dispose();engine=null;dialog?.remove();dialog=null;if(visible){onVisibility(false);notifyPortalPresentation(false);}previousFocus?.focus?.();}
  function sync(){const restricted=isRandalPresentation(getIdentity()),pending=!getIdentity()?.known;
   document.body.classList.toggle('randal-access-pending',pending);document.body.classList.toggle('randal-client-presentation',restricted);
   const direct=document.querySelector('#direct-atelier');if(direct)direct.hidden=restricted;
@@ -20,7 +21,7 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
   dialog=element('dialog');dialog.className='randal-presentation';dialog.id='randal-presentation';dialog.setAttribute('aria-label','Votre composition en plein écran');
   const header=element('header');header.className='randal-presentation-header';header.append(element('strong','Votre composition RANDAL'));const exit=button('randal-presentation-close','Fermer ✕');header.append(exit);
   const body=element('div');body.className='randal-presentation-body';const stage=element('div');stage.className='randal-presentation-stage';stage.id='randal-presentation-stage';const controls=element('aside');controls.className='randal-presentation-controls';controls.setAttribute('aria-label','Personnaliser la présentation');const status=element('p','Préparation de votre composition…');status.className='randal-presentation-status';status.setAttribute('role','status');stage.append(status);body.append(stage,controls);dialog.append(header,body);document.body.append(dialog);
-  exit.onclick=close;dialog.addEventListener('cancel',e=>{e.preventDefault();close();});dialog.showModal();onVisibility(true);
+  responsiveOptions=mountPresentationOptions({dialog,body,controls});exit.onclick=close;dialog.addEventListener('cancel',e=>{e.preventDefault();if(!responsiveOptions?.hide())close();});dialog.showModal();onVisibility(true);notifyPortalPresentation(true);
   // Native fullscreen must be requested during the click. The modal fills the
   // available viewport as well on iPhone and other browsers without this API.
   try{const native=dialog.requestFullscreen?.();native?.catch(()=>{});}catch{}
@@ -91,7 +92,7 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
    }
    engine.presentation.editing.setListener(edit=>{
     if(turn!==opening)return;
-    if(edit.kind==='selection'){context=edit.itemId?{itemId:edit.itemId,part:edit.part||edit.state?.part}:null;renderProducts();status.textContent='';return;}
+    if(edit.kind==='selection'){context=edit.itemId?{itemId:edit.itemId,part:edit.part||edit.state?.part}:null;if(context)responsiveOptions?.reveal();renderProducts();status.textContent='';return;}
     if(edit.kind==='invalid'){status.textContent=edit.message;return;}
     if(!['placement','hinge'].includes(edit.kind))return;
     status.textContent='';const item=project.items.find(i=>i.id===edit.itemId);if(!item)return;
