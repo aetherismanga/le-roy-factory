@@ -29,10 +29,11 @@ export function withPresentationSurface(project,kind,id){
 
 // Apply the revised showroom defaults once, including projects saved before
 // this version. Later explicit user choices remain part of the composition.
-export const RANDAL_PRESENTATION_DEFAULTS_VERSION=2;
+export const RANDAL_PRESENTATION_DEFAULTS_VERSION=3;
 export function presentationDefaults(project){
- if(project?.presentation?.defaultsVersion===RANDAL_PRESENTATION_DEFAULTS_VERSION)return structuredClone(project);
- const result=withPresentationSurface(withPresentationSurface(project,'floor','yosemite-honey'),'wall','paint-grey');
- result.presentation={...result.presentation,defaultsVersion:RANDAL_PRESENTATION_DEFAULTS_VERSION,dimensions:false};
+ const version=Number(project?.presentation?.defaultsVersion)||0;
+ if(version>=RANDAL_PRESENTATION_DEFAULTS_VERSION)return structuredClone(project);
+ const result=version>=2?structuredClone(project):withPresentationSurface(withPresentationSurface(project,'floor','yosemite-honey'),'wall','paint-grey');
+ result.presentation={...result.presentation,...(version<2?{dimensions:false}:{}),brightness:71,defaultsVersion:RANDAL_PRESENTATION_DEFAULTS_VERSION};
  return result;
 }

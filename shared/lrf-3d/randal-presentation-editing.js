@@ -45,15 +45,16 @@ export function presentationHitPart(object,item){
 }
 export function createPresentationEditing({scene,camera,controls,canvas,getItems,getProject,invalidate}){
  if(controls)configurePresentationCamera(controls);
- let selectedId=null,selectedPart=null,gesture=null,listener=()=>{},helper=null,disposed=false,enabled=true,multitouch=false,handingOver=false,releasing=false;
+ let selectedId=null,selectedPart=null,gesture=null,listener=()=>{},disposed=false,enabled=true,multitouch=false,handingOver=false,releasing=false;
  const raycaster=new T.Raycaster(),pointer=new T.Vector2(),pointers=new Map();
  const items=()=>getItems()||[];
  const selected=()=>items().find(i=>i.id===selectedId)||items().find(i=>i.type==='cabinet')||items()[0]||null;
- function refresh(){if(helper){const item=items().find(i=>i.id===selectedId);helper.visible=!!item&&enabled;if(helper.visible)helper.setFromObject(item.wrapper);}}
- function ensureHelper(){if(!helper){helper=new T.BoxHelper(selected()?.wrapper,0xa78a55);helper.raycast=()=>{};helper.name='Présentation_selection';scene.add(helper);}refresh();}
+ // Selection is logical only: keep the product context and direct gestures
+ // without drawing a bounding frame over the client's composition.
+ function refresh(){}
  function notify(event={}){refresh();listener({...event,state:state()});invalidate();}
  function state(){const item=selected();return {selected:selectedId||null,part:selectedPart||item?.type||null,moving:!!gesture?.dragged,canMove:!!item,vertical:!!item&&!presentationItemSize(item).floorStanding,canReverse:!!item?.asset.setHingeSide&&item.asset.canReverseHinge!==false,hingeSide:item?.settings.hingeSide||item?.asset.getHingeSide?.()||'left',items:items().map((i,index)=>({id:i.id,label:(i.type==='cabinet'?'Meuble':i.type==='column'?'Colonne':'Miroir')+' '+(index+1)}))};}
- function selectItem(id,part){const item=items().find(i=>i.id===id);if(!item)return false;selectedId=id;selectedPart=part||item.type;ensureHelper();notify({kind:'selection',itemId:id,part:selectedPart});return true;}
+ function selectItem(id,part){const item=items().find(i=>i.id===id);if(!item)return false;selectedId=id;selectedPart=part||item.type;notify({kind:'selection',itemId:id,part:selectedPart});return true;}
  function clearSelection(){selectedId=selectedPart=null;notify({kind:'selection',itemId:null,part:null});}
  function moveItem(item,proposal,{commit=true}={}){
   const room=getProject()?.room;if(!room||!item||disposed)return false;
@@ -97,7 +98,7 @@ export function createPresentationEditing({scene,camera,controls,canvas,getItems
   if(disposed||!enabled||multitouch)return;
   if(!gesture){if(event.pointerType!=='touch'&&canvas)canvas.style.cursor=hit(event)?'grab':'';return;}
   if(event.pointerId!==gesture.id)return;const current=gesture;
-  if(!current.dragged&&Math.hypot(event.clientX-current.x,event.clientY-current.y)>6){current.dragged=true;ensureHelper();notify({kind:'dragstart',itemId:current.item.id,part:current.part});canvas.style.cursor='grabbing';}
+  if(!current.dragged&&Math.hypot(event.clientX-current.x,event.clientY-current.y)>6){current.dragged=true;notify({kind:'dragstart',itemId:current.item.id,part:current.part});canvas.style.cursor='grabbing';}
   if(current.dragged){const point=ray(event).intersectPlane(current.plane,new T.Vector3());if(point){const delta=point.sub(current.start);moveItem(current.item,{...current.placement,u:current.placement.u+delta.dot(current.tangent)*100,height:current.placement.height+delta.y*100},{commit:false});}}
   stop(event);
  }
@@ -115,5 +116,5 @@ export function createPresentationEditing({scene,camera,controls,canvas,getItems
  for(const [name,handler]of listeners)canvas?.addEventListener(name,handler,{capture:true});
  // setMoving remains a compatibility no-op for older embedded consumers.
  // Object dragging itself is always direct and needs no mode or extra button.
- return {state,selectItem,clearSelection,setMoving(){},setEnabled(value){enabled=!!value;if(!enabled)cancelGesture();refresh();},nudge,reverseHinge,refresh,setListener(fn){listener=typeof fn==='function'?fn:()=>{};},dispose(){cancelGesture();disposed=true;for(const [name,handler]of listeners)canvas?.removeEventListener(name,handler,{capture:true});pointers.clear();if(helper){scene.remove(helper);helper.geometry.dispose();helper.material.dispose();}listener=()=>{};}};
+ return {state,selectItem,clearSelection,setMoving(){},setEnabled(value){enabled=!!value;if(!enabled)cancelGesture();refresh();},nudge,reverseHinge,refresh,setListener(fn){listener=typeof fn==='function'?fn:()=>{};},dispose(){cancelGesture();disposed=true;for(const [name,handler]of listeners)canvas?.removeEventListener(name,handler,{capture:true});pointers.clear();listener=()=>{};}};
 }

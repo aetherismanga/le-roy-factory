@@ -13,7 +13,7 @@ for(const variant of ['studio-one','randal-general'])test(variant+': revised ful
  assert.deepEqual(presentationChoices(view),{floor:'yosemite-honey',wall:'paint-grey'});
  assert.equal(view.floor.collection,'Yosemite');assert.equal(view.floor.color,'honey');assert.equal(view.layouts.floor.pattern,'two-thirds');
  assert(view.walls.every(w=>w.collection==='Peinture'&&w.color==='grey'));
- assert.deepEqual(view.presentation,{brightness:51,dimensions:false,cameraPreference:'preserved',defaultsVersion:2});
+ assert.deepEqual(view.presentation,{brightness:71,dimensions:false,cameraPreference:'preserved',defaultsVersion:3});
  const saved=checkedProject(view);assert.deepEqual(saved.presentation,view.presentation);
  const changed=withPresentationSurface(withPresentationSurface(saved,'floor','creta-caramello'),'wall','paint-sage');changed.presentation.dimensions=true;
  const reopened=presentationDefaults(changed);assert.deepEqual(reopened,changed);assert.notEqual(reopened,changed);

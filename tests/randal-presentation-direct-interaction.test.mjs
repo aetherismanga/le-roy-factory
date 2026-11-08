@@ -22,8 +22,8 @@ class Surface {
  hasPointerCapture(id){return this.captured.has(id);}
  releasePointerCapture(id){this.captured.delete(id);this.dispatchEvent(new Pointer('lostpointercapture',{pointerId:id}));}
 }
-function fixture({realOrbit=false}={}){
- const project=draftProject(initialDraft()),preview=buildPreview(project),scene=new T.Scene();scene.add(preview.group);const cabinet=preview.items[0],bounds=new T.Box3().setFromObject(cabinet.wrapper),centre=bounds.getCenter(new T.Vector3()),camera=new T.PerspectiveCamera(36,4/3,.05,100);camera.position.copy(centre).add(new T.Vector3(0,.1,3));camera.lookAt(centre);camera.updateMatrixWorld();
+function fixture({realOrbit=false,mirror=false}={}){
+ const project=draftProject({...initialDraft(),...(mirror?{mirror:'ilse'}:{})}),preview=buildPreview(project),scene=new T.Scene();scene.add(preview.group);const cabinet=preview.items[0],bounds=new T.Box3().setFromObject(cabinet.wrapper),centre=bounds.getCenter(new T.Vector3()),camera=new T.PerspectiveCamera(36,4/3,.05,100);camera.position.copy(centre).add(new T.Vector3(0,.1,3));camera.lookAt(centre);camera.updateMatrixWorld();
  const canvas=new Surface(),controls=realOrbit?new OrbitControls(camera,canvas):{enabled:true};if(realOrbit){controls.target.copy(centre);controls.update();}
  const events=[],editing=createPresentationEditing({scene,camera,canvas,controls,getItems:()=>preview.items,getProject:()=>project,invalidate(){}});editing.setListener(event=>events.push(event));
  const send=(type,values={})=>canvas.dispatchEvent(new Pointer(type,values));
@@ -69,4 +69,18 @@ test('real model names and inherited edit targets distinguish basin, plan and bo
 });
 test('disabled or disposed interaction never intercepts gestures and removes every listener it owns',()=>{
  const f=fixture();f.editing.setEnabled(false);f.send('pointerdown');assert.equal(f.controls.enabled,true);assert.equal(f.events.length,0);f.editing.setEnabled(true);f.send('pointerdown');f.send('pointermove',{clientX:350});f.editing.dispose();assert.equal(f.controls.enabled,true);assert.equal(f.canvas.captured.size,0);assert.ok([...f.canvas.listeners.values()].every(list=>list.length===0));
+});
+
+for(const pointerType of ['mouse','touch'])test(pointerType+': mirror selection and dragging emit their real context without adding any visible frame',()=>{
+ const f=fixture({mirror:true}),mirror=f.preview.items.find(item=>item.type==='mirror'),beforeChildren=[...f.scene.children];
+ const centre=new T.Box3().setFromObject(mirror.wrapper).getCenter(new T.Vector3());f.camera.position.copy(centre).add(new T.Vector3(0,.1,3));f.camera.lookAt(centre);f.camera.updateMatrixWorld();
+ const assertNoFrame=()=>{assert.deepEqual(f.scene.children,beforeChildren,'selection must not add renderable geometry to the scene');f.scene.traverse(object=>assert.notEqual(object.type,'BoxHelper'));};
+ try{
+  f.send('pointerdown',{pointerType});f.send('pointerup',{pointerType});
+  const selection=f.events.find(event=>event.kind==='selection');assert.equal(selection.itemId,mirror.id);assert.equal(selection.part,'mirror');assert.equal(selection.state.selected,mirror.id);assertNoFrame();
+  f.editing.refresh();f.editing.setEnabled(false);f.editing.setEnabled(true);assertNoFrame();
+  const original=mirror.placement.u;f.send('pointerdown',{pointerType});f.send('pointermove',{pointerType,clientX:350});assert.notEqual(mirror.placement.u,original);assertNoFrame();f.send('pointerup',{pointerType,clientX:350});
+  const commit=f.events.find(event=>event.kind==='placement');assert.equal(commit.itemId,mirror.id);assert.equal(commit.part,'mirror');assertNoFrame();
+  f.editing.clearSelection();assertNoFrame();
+ }finally{f.dispose();}
 });

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as T from 'three';
 import {installVisualDOM} from './helpers/visual-choice-dom.mjs';
+import {RANDAL_PRESENTATION_DEFAULTS_VERSION as DEFAULTS_VERSION,withPresentationSurface} from '../shared/lrf-3d/randal-presentation-catalog.js';
 import {createRandalPresentation} from '../shared/lrf-3d/randal-presentation-ui.js';
 import {createPresentationEditing} from '../shared/lrf-3d/randal-presentation-editing.js';
 import {CATALOG} from '../studio-one/src/commerce/catalog.js';
@@ -11,14 +12,16 @@ import {buildPreview} from '../studio-one/src/commerce/preview-model.js';
 import {checkedProject as studioChecked} from '../studio-one/src/commerce/flow.js';
 import {checkedProject as generalChecked} from '../randal-general/src/commerce/flow.js';
 import * as generalAdapter from '../randal-general/src/commerce/guided.js';
-async function fixture({preferences,legacy=false,initialSurfaceResult=true,expectedOpen=true}={}){
- const dom=installVisualDOM(),source=adapter.draftProject({...adapter.initialDraft(),column:true,mirror:'ilse',top:'sella'}),saved=[],scene=new T.Scene();let current,project,disposed=0,previewOptions,starts=0,cancels=0,deferred=null,updateResult=true,surfaceResult=initialSurfaceResult,updates=0,brightness=100,dimensionsVisible=true;
- if(!legacy)source.presentation={defaultsVersion:2,...preferences};else if(preferences!==undefined)source.presentation=preferences;
+async function fixture({preferences,legacy=false,initialSurfaceResult=true,expectedOpen=true,transformProject}={}){
+ const dom=installVisualDOM();let source=adapter.draftProject({...adapter.initialDraft(),column:true,mirror:'ilse',top:'sella'});const saved=[],scene=new T.Scene(),openStates=new Map(),itemOpeningCalls=[],compositionOpeningCalls=[];let current,project,disposed=0,previewOptions,starts=0,cancels=0,deferred=null,updateResult=true,surfaceResult=initialSurfaceResult,updates=0,brightness=100,dimensionsVisible=true;
+ if(!legacy)source.presentation={defaultsVersion:DEFAULTS_VERSION,...preferences};else if(preferences!==undefined)source.presentation=preferences;if(transformProject)source=transformProject(source);
  const editing=createPresentationEditing({scene,controls:{enabled:true},getItems:()=>current?.items||[],getProject:()=>project,invalidate(){}});
- const engine={dimensions:{setVisible(value){dimensionsVisible=!!value;},isVisible:()=>dimensionsVisible},setBrightness(value){brightness=value;},getBrightness:()=>brightness,presentation:{editing,capabilities:()=>({opened:false,openable:true,led:false}),setOpened(){},setLED(){},async setSurface(){return surfaceResult;}},async update(input){updates++;if(deferred){const wait=deferred;deferred=null;await wait;}project=structuredClone(input);if(current)scene.remove(current.group);current=buildPreview(project);scene.add(current.group);return updateResult;},async startPhotoRender(){starts++;return true;},cancelPhotoRender(){cancels++;},reset(){},dispose(){disposed++;editing.dispose();}};
+ const itemCapabilities=id=>({openable:['cabinet','column'].includes((project||source).items.find(item=>item.id===id)?.type),opened:openStates.get(id)===true});
+ const compositionCapabilities=()=>{const items=(project||source).items.filter(item=>itemCapabilities(item.id).openable),opened=items.length>0&&items.every(item=>itemCapabilities(item.id).opened);return {openable:items.length>0,opened,partlyOpened:!opened&&items.some(item=>itemCapabilities(item.id).opened),led:false};};
+ const engine={dimensions:{setVisible(value){dimensionsVisible=!!value;},isVisible:()=>dimensionsVisible},setBrightness(value){brightness=value;},getBrightness:()=>brightness,presentation:{editing,capabilities:compositionCapabilities,itemCapabilities,setItemOpened(id,value){if(!itemCapabilities(id).openable)return false;itemOpeningCalls.push([id,value]);openStates.set(id,!!value);return true;},setOpened(value){compositionOpeningCalls.push(value);for(const item of (project||source).items)if(itemCapabilities(item.id).openable)openStates.set(item.id,!!value);},setLED(){},async setSurface(){return surfaceResult;}},async update(input){updates++;if(deferred){const wait=deferred;deferred=null;await wait;}project=structuredClone(input);if(current)scene.remove(current.group);current=buildPreview(project);scene.add(current.group);return updateResult;},async startPhotoRender(){starts++;return true;},cancelPhotoRender(){cancels++;},reset(){},dispose(){disposed++;editing.dispose();}};
  const ui=createRandalPresentation({getIdentity:()=>({known:true,isAdmin:false,client:{codeClient:'LRF-00321'},configuratorAccess:{mode:'presentation',allowWorkshop:false}}),getProject:()=>source,products:{...adapter,catalog:CATALOG,finishes:FINISHES},onChange:p=>saved.push(p),createPreview:async(_host,options)=>{previewOptions=options;return engine;}});
  assert.equal(await ui.open(),expectedOpen);
- return {dom,source,saved,engine,editing,ui,get previewOptions(){return previewOptions;},get starts(){return starts;},get cancels(){return cancels;},rejectUpdate(value=false){updateResult=value;},rejectSurface(value=false){surfaceResult=value;},get disposed(){return disposed;},get updates(){return updates;},deferNext(promise){deferred=promise;},close(){ui.close();dom.restore();}};
+ return {dom,source,saved,engine,editing,ui,itemOpeningCalls,compositionOpeningCalls,get previewOptions(){return previewOptions;},get starts(){return starts;},get cancels(){return cancels;},rejectUpdate(value=false){updateResult=value;},rejectSurface(value=false){surfaceResult=value;},get disposed(){return disposed;},get updates(){return updates;},deferNext(promise){deferred=promise;},close(){ui.close();dom.restore();}};
 }
 test('contextual fullscreen has no distance buttons, movement mode or item dropdown',async()=>{
  const f=await fixture();try{for(const id of ['randal-move-left','randal-move-right','randal-move-up','randal-move-down','randal-move-mode','randal-selected-item'])assert.equal(document.querySelector('#'+id),null);assert.equal(document.querySelector('#randal-product-format'),null);assert.match(document.querySelector('.randal-presentation-products').textContent,/Cliquez sur un meuble/);assert.equal(document.querySelectorAll('#randal-floor-choice').length,1);assert.equal(document.querySelectorAll('#randal-wall-choice').length,1);}finally{f.close();}
@@ -45,12 +48,12 @@ test('closing during an asynchronous product change prevents late persistence or
  const f=await fixture();let release;
  try{f.editing.selectItem(f.source.items[0].id,'cabinet');const select=document.querySelector('#randal-product-finish');select.value=select.options.find(o=>o.value!==select.value&&!o.disabled).value;f.deferNext(new Promise(resolve=>release=resolve));const pending=select.onchange();f.ui.close();release();await pending;assert.equal(f.saved.length,0);assert.equal(document.querySelector('#randal-presentation'),null);assert.equal(f.disposed,1);assert.equal(document.querySelector('.randal-render-quality'),null);}finally{f.close();}
 });
-test('display controls start with dimensions off and neutral brightness without saving or rebuilding',async()=>{
+test('display controls start with dimensions off and brightness at 71 percent without saving or rebuilding',async()=>{
  const f=await fixture();try{
   const toggle=document.querySelector('#randal-dimensions-toggle'),slider=document.querySelector('#randal-brightness');
   assert.equal(toggle.textContent,'Cotes');assert.equal(toggle.getAttribute('aria-pressed'),'false');assert.equal(f.engine.dimensions.isVisible(),false);
-  assert.equal(slider.type,'range');assert.equal(slider.min,'25');assert.equal(slider.max,'150');assert.equal(slider.value,'100');assert.equal(slider.getAttribute('aria-valuetext'),'100 %');
-  assert.equal(document.querySelector('#randal-brightness-value').textContent,'100 %');assert.equal(f.engine.getBrightness(),100);assert.equal(f.saved.length,0);assert.equal(f.updates,1);
+  assert.equal(slider.type,'range');assert.equal(slider.min,'25');assert.equal(slider.max,'150');assert.equal(slider.value,'71');assert.equal(slider.getAttribute('aria-valuetext'),'71 %');
+  assert.equal(document.querySelector('#randal-brightness-value').textContent,'71 %');assert.equal(f.engine.getBrightness(),71);assert.equal(f.saved.length,0);assert.equal(f.updates,1);
   assert.equal(document.querySelector('.randal-presentation-header').textContent.includes('version de test'),false);
  }finally{f.close();}
 });
@@ -58,26 +61,26 @@ test('brightness changes immediately, persists on completion and preserves unrel
  const f=await fixture({preferences:{brightness:84,dimensions:false,custom:'preserved'}});try{
   const slider=document.querySelector('#randal-brightness');assert.equal(slider.value,'84');assert.equal(f.engine.dimensions.isVisible(),false);
   slider.value='125';slider.oninput();assert.equal(f.engine.getBrightness(),125);assert.equal(document.querySelector('#randal-brightness-value').textContent,'125 %');assert.equal(f.saved.length,0);assert.equal(f.updates,1);
-  slider.onchange();assert.equal(f.saved.length,1);assert.deepEqual(f.saved[0].presentation,{defaultsVersion:2,brightness:125,dimensions:false,custom:'preserved'});assert.deepEqual(f.saved[0].items,f.source.items);assert.equal(f.updates,1);
+  slider.onchange();assert.equal(f.saved.length,1);assert.deepEqual(f.saved[0].presentation,{defaultsVersion:DEFAULTS_VERSION,brightness:125,dimensions:false,custom:'preserved'});assert.deepEqual(f.saved[0].items,f.source.items);assert.equal(f.updates,1);
   slider.value='900';slider.onchange();assert.equal(f.engine.getBrightness(),150);assert.equal(slider.value,'150');assert.equal(f.saved.at(-1).presentation.brightness,150);
-  slider.value='invalid';slider.onchange();assert.equal(f.engine.getBrightness(),100);
+  slider.value='invalid';slider.onchange();assert.equal(f.engine.getBrightness(),71);
  }finally{f.close();}
 });
 test('dimensions toggle persists alongside brightness and restores when opening the saved composition',async()=>{
  const f=await fixture({preferences:{brightness:77,dimensions:true,custom:4}});try{
   const toggle=document.querySelector('#randal-dimensions-toggle');toggle.onclick();assert.equal(toggle.getAttribute('aria-pressed'),'false');assert.equal(f.engine.dimensions.isVisible(),false);assert.equal(f.updates,1);
-  const saved=f.saved.at(-1);assert.deepEqual(saved.presentation,{defaultsVersion:2,brightness:77,dimensions:false,custom:4});
+  const saved=f.saved.at(-1);assert.deepEqual(saved.presentation,{defaultsVersion:DEFAULTS_VERSION,brightness:77,dimensions:false,custom:4});
   f.ui.close();assert.equal(await f.ui.open(saved),true);assert.equal(document.querySelector('#randal-brightness').value,'77');assert.equal(document.querySelector('#randal-dimensions-toggle').getAttribute('aria-pressed'),'false');assert.equal(f.engine.getBrightness(),77);assert.equal(f.engine.dimensions.isVisible(),false);
  }finally{f.close();}
 });
 test('detached display controls never mutate a closed presentation',async()=>{
  const f=await fixture();try{
-  const slider=document.querySelector('#randal-brightness'),toggle=document.querySelector('#randal-dimensions-toggle');f.ui.close();slider.value='60';slider.oninput();slider.onchange();toggle.onclick();assert.equal(f.saved.length,0);assert.equal(f.engine.getBrightness(),100);assert.equal(f.engine.dimensions.isVisible(),false);
+  const slider=document.querySelector('#randal-brightness'),toggle=document.querySelector('#randal-dimensions-toggle');f.ui.close();slider.value='60';slider.oninput();slider.onchange();toggle.onclick();assert.equal(f.saved.length,0);assert.equal(f.engine.getBrightness(),71);assert.equal(f.engine.dimensions.isVisible(),false);
  }finally{f.close();}
 });
 test('both configurators preserve display preferences through their actual project validator',()=>{
  const fixtures=[[adapter.draftProject(adapter.initialDraft()),studioChecked],[generalAdapter.draftProject(generalAdapter.initialDraft('aruba')),generalChecked]];
- for(const [project,checked]of fixtures){project.presentation={defaultsVersion:2,brightness:125,dimensions:false};assert.deepEqual(checked(project).presentation,project.presentation);}
+ for(const [project,checked]of fixtures){project.presentation={defaultsVersion:DEFAULTS_VERSION,brightness:125,dimensions:false};assert.deepEqual(checked(project).presentation,project.presentation);}
 });
 test('the exact selected finish image appears immediately and rolls back if the product cannot load',async()=>{
  const f=await fixture();let release;try{
@@ -97,16 +100,49 @@ test('selected floor images and paint colors are visible and failed surface choi
 });
 test('the updated fullscreen migrates its base view once and preserves later choices',async()=>{
  const f=await fixture({legacy:true,preferences:{brightness:77,dimensions:true,custom:'preserved'}});try{
-  assert.equal(f.saved.length,1);assert.equal(f.saved[0].presentation.defaultsVersion,2);assert.equal(f.saved[0].presentation.dimensions,false);assert.equal(f.saved[0].presentation.brightness,77);assert.equal(f.saved[0].presentation.custom,'preserved');
+  assert.equal(f.saved.length,1);assert.equal(f.saved[0].presentation.defaultsVersion,DEFAULTS_VERSION);assert.equal(f.saved[0].presentation.dimensions,false);assert.equal(f.saved[0].presentation.brightness,71);assert.equal(f.saved[0].presentation.custom,'preserved');
   assert.equal(document.querySelector('#randal-floor-choice').value,'yosemite-honey');assert.equal(document.querySelector('#randal-wall-choice').value,'paint-grey');assert.equal(document.querySelector('#randal-dimensions-toggle').getAttribute('aria-pressed'),'false');
   assert.equal(f.saved[0].layouts.floor.pattern,'two-thirds');assert.match(document.querySelector('#randal-floor-choice').textContent,/pose 2\/3/);assert.deepEqual(f.saved[0].items,f.source.items);
   const toggle=document.querySelector('#randal-dimensions-toggle');toggle.onclick();assert.equal(f.saved.at(-1).presentation.dimensions,true);
   const floor=document.querySelector('#randal-floor-choice');floor.value='creta-caramello';await floor.onchange();const saved=f.saved.at(-1),count=f.saved.length;
-  f.ui.close();assert.equal(await f.ui.open(saved),true);assert.equal(f.saved.length,count);assert.equal(document.querySelector('#randal-dimensions-toggle').getAttribute('aria-pressed'),'true');assert.equal(document.querySelector('#randal-floor-choice').value,'creta-caramello');assert.equal(document.querySelector('#randal-wall-choice').value,'paint-grey');assert.equal(document.querySelector('#randal-brightness').value,'77');
+  f.ui.close();assert.equal(await f.ui.open(saved),true);assert.equal(f.saved.length,count);assert.equal(document.querySelector('#randal-dimensions-toggle').getAttribute('aria-pressed'),'true');assert.equal(document.querySelector('#randal-floor-choice').value,'creta-caramello');assert.equal(document.querySelector('#randal-wall-choice').value,'paint-grey');assert.equal(document.querySelector('#randal-brightness').value,'71');
  }finally{f.close();}
 });
 test('an unsuccessful initial surface load never persists the defaults migration',async()=>{
  const f=await fixture({legacy:true,initialSurfaceResult:false,expectedOpen:false});try{
   assert.equal(f.saved.length,0);assert.equal(f.disposed,1);assert.match(document.querySelector('.randal-presentation-status').textContent,/revêtement n’a pas pu être chargé/);assert.equal(document.querySelector('#randal-dimensions-toggle'),null);
+ }finally{f.close();}
+});
+test('the selected cabinet opens and closes alone without changing the column or project data',async()=>{
+ const f=await fixture();try{
+  const cabinet=f.source.items.find(item=>item.type==='cabinet'),column=f.source.items.find(item=>item.type==='column');f.editing.selectItem(cabinet.id,'cabinet');
+  const action=document.querySelector('#randal-item-open'),global=document.querySelector('#randal-composition-open');assert.equal(action.hidden,false);assert.equal(action.textContent,'Ouvrir ce meuble');assert.equal(action.getAttribute('aria-pressed'),'false');
+  action.onclick();assert.deepEqual(f.itemOpeningCalls,[[cabinet.id,true]]);assert.equal(f.engine.presentation.itemCapabilities(cabinet.id).opened,true);assert.equal(f.engine.presentation.itemCapabilities(column.id).opened,false);assert.equal(action.textContent,'Fermer ce meuble');assert.equal(action.getAttribute('aria-pressed'),'true');assert.equal(global.textContent,'Ouvrir toute la composition');assert.equal(global.getAttribute('aria-pressed'),'false');assert.equal(f.saved.length,0);
+  action.onclick();assert.deepEqual(f.itemOpeningCalls,[[cabinet.id,true],[cabinet.id,false]]);assert.equal(f.engine.presentation.itemCapabilities(column.id).opened,false);assert.equal(action.textContent,'Ouvrir ce meuble');assert.equal(global.textContent,'Ouvrir la composition');assert.equal(f.compositionOpeningCalls.length,0);assert.equal(f.updates,1);
+ }finally{f.close();}
+});
+test('the contextual column control leaves the cabinet closed and the global action opens mixed compositions',async()=>{
+ const f=await fixture();try{
+  const cabinet=f.source.items.find(item=>item.type==='cabinet'),column=f.source.items.find(item=>item.type==='column');f.editing.selectItem(column.id,'column');const action=document.querySelector('#randal-item-open'),global=document.querySelector('#randal-composition-open');
+  assert.equal(action.textContent,'Ouvrir cette colonne');action.onclick();assert.deepEqual(f.itemOpeningCalls,[[column.id,true]]);assert.equal(action.textContent,'Fermer cette colonne');assert.equal(f.engine.presentation.itemCapabilities(cabinet.id).opened,false);assert.equal(global.textContent,'Ouvrir toute la composition');
+  global.onclick();assert.deepEqual(f.compositionOpeningCalls,[true]);assert.equal(f.engine.presentation.itemCapabilities(cabinet.id).opened,true);assert.equal(f.engine.presentation.itemCapabilities(column.id).opened,true);assert.equal(global.textContent,'Fermer la composition');assert.equal(global.getAttribute('aria-pressed'),'true');assert.equal(action.textContent,'Fermer cette colonne');
+  action.onclick();assert.equal(f.engine.presentation.itemCapabilities(cabinet.id).opened,true);assert.equal(f.engine.presentation.itemCapabilities(column.id).opened,false);assert.equal(global.textContent,'Ouvrir toute la composition');global.onclick();global.onclick();assert.deepEqual(f.compositionOpeningCalls,[true,true,false]);assert.equal(action.textContent,'Ouvrir cette colonne');assert.equal(f.saved.length,0);
+ }finally{f.close();}
+});
+test('basin, top, tap and mirror contexts never offer a furniture opening control',async()=>{
+ const f=await fixture();try{
+  const cabinet=f.source.items.find(item=>item.type==='cabinet'),mirror=f.source.items.find(item=>item.type==='mirror');
+  for(const part of ['basin','top','tap']){f.editing.selectItem(cabinet.id,part);assert.equal(document.querySelector('#randal-item-open').hidden,true);}
+  f.editing.selectItem(mirror.id,'mirror');assert.equal(document.querySelector('#randal-item-open').hidden,true);assert.equal(f.itemOpeningCalls.length,0);assert.equal(f.compositionOpeningCalls.length,0);
+ }finally{f.close();}
+});
+test('detached contextual opening control never changes a closed presentation',async()=>{
+ const f=await fixture();try{const cabinet=f.source.items.find(item=>item.type==='cabinet');f.editing.selectItem(cabinet.id,'cabinet');const action=document.querySelector('#randal-item-open');f.ui.close();action.onclick();assert.equal(f.itemOpeningCalls.length,0);assert.equal(f.compositionOpeningCalls.length,0);}finally{f.close();}
+});
+test('version 2 upgrades brightness once while preserving surfaces, dimensions and later brightness choices',async()=>{
+ const f=await fixture({legacy:true,preferences:{defaultsVersion:2,brightness:125,dimensions:true,custom:'preserved'},transformProject:project=>withPresentationSurface(withPresentationSurface(project,'floor','creta-caramello'),'wall','paint-sage')});try{
+  assert.equal(f.saved.length,1);assert.equal(f.saved[0].presentation.defaultsVersion,DEFAULTS_VERSION);assert.equal(f.saved[0].presentation.brightness,71);assert.equal(f.saved[0].presentation.dimensions,true);assert.equal(f.saved[0].presentation.custom,'preserved');assert.deepEqual(f.saved[0].floor,f.source.floor);assert.deepEqual(f.saved[0].walls,f.source.walls);assert.deepEqual(f.saved[0].layouts,f.source.layouts);assert.deepEqual(f.saved[0].items,f.source.items);
+  assert.equal(document.querySelector('#randal-floor-choice').value,'creta-caramello');assert.equal(document.querySelector('#randal-wall-choice').value,'paint-sage');assert.equal(document.querySelector('#randal-dimensions-toggle').getAttribute('aria-pressed'),'true');assert.equal(document.querySelector('#randal-brightness').value,'71');
+  const slider=document.querySelector('#randal-brightness');slider.value='85';slider.onchange();const saved=f.saved.at(-1),count=f.saved.length;f.ui.close();assert.equal(await f.ui.open(saved),true);assert.equal(f.saved.length,count);assert.equal(document.querySelector('#randal-brightness').value,'85');assert.equal(document.querySelector('#randal-floor-choice').value,'creta-caramello');assert.equal(document.querySelector('#randal-dimensions-toggle').getAttribute('aria-pressed'),'true');
  }finally{f.close();}
 });
