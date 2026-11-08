@@ -5,7 +5,7 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
  let responsiveOptions=null,dialog=null,engine=null,catalog=null,project=null,selection=null,opening=0,previousFocus=null,wasRestricted=false,originalOrigin='';
  const element=(tag,text)=>{const e=document.createElement(tag);if(text)e.textContent=text;return e;};
  const button=(id,text)=>{const e=element('button',text);e.id=id;e.type='button';return e;};
- function close(){const visible=!!dialog;responsiveOptions?.dispose();responsiveOptions=null;opening++;if(document.fullscreenElement===dialog)document.exitFullscreen?.().catch(()=>{});if(dialog?.open)dialog.close();engine?.dispose();engine=null;dialog?.remove();dialog=null;if(visible){onVisibility(false);notifyPortalPresentation(false);}previousFocus?.focus?.();}
+ function close(){const visible=!!dialog;responsiveOptions?.dispose();responsiveOptions=null;opening++;if(document.fullscreenElement===dialog)document.exitFullscreen?.().catch(()=>{});if(dialog?.open)dialog.close();engine?.dispose();engine=null;dialog?.remove();dialog=null;if(visible){onVisibility(false);globalThis.dispatchEvent?.(new CustomEvent('lrf-randal-presentation',{detail:{open:false}}));notifyPortalPresentation(false);}previousFocus?.focus?.();}
  function sync(){const restricted=isRandalPresentation(getIdentity()),pending=!getIdentity()?.known;
   document.body.classList.toggle('randal-access-pending',pending);document.body.classList.toggle('randal-client-presentation',restricted);
   const direct=document.querySelector('#direct-atelier');if(direct)direct.hidden=restricted;
@@ -21,7 +21,7 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
   dialog=element('dialog');dialog.className='randal-presentation';dialog.id='randal-presentation';dialog.setAttribute('aria-label','Votre composition en plein écran');
   const header=element('header');header.className='randal-presentation-header';header.append(element('strong','Votre composition RANDAL'));const exit=button('randal-presentation-close','Fermer ✕');header.append(exit);
   const body=element('div');body.className='randal-presentation-body';const stage=element('div');stage.className='randal-presentation-stage';stage.id='randal-presentation-stage';const controls=element('aside');controls.className='randal-presentation-controls';controls.setAttribute('aria-label','Personnaliser la présentation');const status=element('p','Préparation de votre composition…');status.className='randal-presentation-status';status.setAttribute('role','status');stage.append(status);body.append(stage,controls);dialog.append(header,body);document.body.append(dialog);
-  responsiveOptions=mountPresentationOptions({dialog,body,controls});exit.onclick=close;dialog.addEventListener('cancel',e=>{e.preventDefault();if(!responsiveOptions?.hide())close();});dialog.showModal();onVisibility(true);notifyPortalPresentation(true);
+  responsiveOptions=mountPresentationOptions({dialog,body,controls});exit.onclick=close;dialog.addEventListener('cancel',e=>{e.preventDefault();if(!responsiveOptions?.hide())close();});dialog.showModal();onVisibility(true);globalThis.dispatchEvent?.(new CustomEvent('lrf-randal-presentation',{detail:{open:true}}));notifyPortalPresentation(true);
   // Native fullscreen must be requested during the click. The modal fills the
   // available viewport as well on iPhone and other browsers without this API.
   try{const native=dialog.requestFullscreen?.();native?.catch(()=>{});}catch{}
