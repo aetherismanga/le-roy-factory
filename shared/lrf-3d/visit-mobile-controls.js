@@ -9,27 +9,23 @@ export function createVisitPadState(onChange=()=>{}){
  return {press(id,direction){if(!DIRECTIONS[direction])return false;pointers.set(id,DIRECTIONS[direction]);emit();return true;},release(id){if(pointers.delete(id))emit();},reset(){pointers.clear();emit();},get size(){return pointers.size;}};
 }
 
-export async function requestVisitLandscape({stage,document:doc=globalThis.document,screen:display=globalThis.screen,lockOrientation=true}={}){
- let fullscreen=false,locked=false;
+// Rotation controls the layout. Native fullscreen is requested only from a
+// visit/pad gesture; the phone orientation is never locked by this helper.
+export async function requestVisitLandscape({stage,document:doc=globalThis.document}={}){
+ let fullscreen=false;
  try{if(doc?.fullscreenElement===stage||doc?.webkitFullscreenElement===stage)fullscreen=true;else{const request=stage?.requestFullscreen||stage?.webkitRequestFullscreen;if(request){await request.call(stage);fullscreen=doc?.fullscreenElement===stage||doc?.webkitFullscreenElement===stage;}}}catch{}
- // Orientation locking is available on Android fullscreen and some tablets.
- // Browsers which refuse it keep their normal physical orientation handling.
- if(fullscreen&&lockOrientation&&display?.orientation?.lock)try{await display.orientation.lock('landscape');locked=true;}catch{}
- return {fullscreen,locked};
+ return {fullscreen,locked:false};
 }
 
 const STYLE=`
 .lrf-visit-mobile-controls{display:none;position:absolute;inset:0;z-index:46;pointer-events:none}
 .lrf-visit-mobile-controls[hidden]{display:none!important}
 .lrf-visit-mobile-pad{position:absolute;left:max(12px,env(safe-area-inset-left));bottom:max(12px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(3,34px);grid-template-rows:repeat(3,34px);gap:2px;pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none}
-.lrf-visit-mobile-pad button,.lrf-visit-landscape{box-sizing:border-box;border:1px solid #d4c3a1;background:rgba(30,34,31,.83);color:#fffaf0;box-shadow:0 2px 8px #0002;touch-action:none;font:18px/1 Arial,sans-serif;border-radius:9px;padding:0;min-width:0;min-height:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lrf-visit-mobile-pad button{box-sizing:border-box;border:1px solid #d4c3a1;background:rgba(30,34,31,.83);color:#fffaf0;box-shadow:0 2px 8px #0002;touch-action:none;font:18px/1 Arial,sans-serif;border-radius:9px;padding:0;min-width:0;min-height:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .lrf-visit-mobile-pad button[aria-pressed=true]{background:#ae8e52;color:#111}
-.lrf-visit-mobile-pad button:focus-visible,.lrf-visit-landscape:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.lrf-visit-mobile-pad button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .lrf-visit-mobile-pad [data-direction=forward]{grid-area:1/2}.lrf-visit-mobile-pad [data-direction=left]{grid-area:2/1}.lrf-visit-mobile-pad [data-direction=right]{grid-area:2/3}.lrf-visit-mobile-pad [data-direction=back]{grid-area:3/2}
 .lrf-visit-mobile-pad .lrf-visit-pad-exit{grid-area:2/2;border:0;background:transparent;box-shadow:none;color:#d4c3a1;font-size:10px}
-.lrf-visit-landscape{position:absolute;top:114px;right:max(12px,env(safe-area-inset-right));min-height:34px;padding:7px 11px;font-size:12px;pointer-events:auto;touch-action:manipulation}
-.lrf-visit-orientation-hint{position:absolute;left:130px;right:12px;bottom:max(16px,env(safe-area-inset-bottom));max-width:270px;justify-self:end;margin:0;padding:8px 10px;border-radius:9px;background:#202820e8;color:#fffaf0;font:12px/1.4 Arial,sans-serif;pointer-events:none}
-.lrf-visit-orientation-hint[hidden]{display:none!important}
 .lrf-visit-expanded,#viewer.lrf-visit-expanded,.lrf-visit-immersive,#viewer.lrf-visit-immersive{position:fixed!important;inset:auto!important;left:var(--lrf-visit-left,0px)!important;top:var(--lrf-visit-top,0px)!important;width:var(--lrf-visit-width,100vw)!important;min-width:0!important;max-width:none!important;height:var(--lrf-visit-height,100dvh)!important;min-height:0!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;transform:none!important;filter:none!important;contain:none!important;z-index:2147483000!important;overflow:hidden!important}
 body.lrf-visit-viewport>:not(.lrf-visit-expanded):not(.lrf-visit-immersive):not(dialog[open]):not(script):not(style){visibility:hidden!important;pointer-events:none!important}
 .lrf-visit-immersive>canvas,.lrf-visit-expanded>canvas{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important;touch-action:none!important}
@@ -43,7 +39,7 @@ body.lrf-visit-viewport>:not(.lrf-visit-expanded):not(.lrf-visit-immersive):not(
  .lrf-visit-stage.walk-active .viewer-top>:not(#fullscreen){display:none!important}
  #viewer.lrf-visit-stage.walk-active .walk-hint,.lrf-visit-stage.walk-active .walk-hint{left:130px!important;right:12px!important;bottom:16px!important;max-width:270px!important;font-size:11px!important;padding:8px!important}
 }
-@media(pointer:coarse) and (max-height:500px){.lrf-visit-landscape{top:108px}.lrf-visit-mobile-pad{grid-template-columns:repeat(3,32px);grid-template-rows:repeat(3,32px)}}
+@media(pointer:coarse) and (max-height:500px){.lrf-visit-mobile-pad{grid-template-columns:repeat(3,32px);grid-template-rows:repeat(3,32px)}}
 `;
 
 export function mountVisitMobileControls({stage,onInput=()=>{},onInvalidate=()=>{},onExitRequest=()=>{}}){
@@ -52,15 +48,14 @@ export function mountVisitMobileControls({stage,onInput=()=>{},onInvalidate=()=>
  stage.classList.add('lrf-visit-stage');
  const root=doc.createElement('div');root.className='lrf-visit-mobile-controls';root.hidden=true;
  const pad=doc.createElement('div');pad.className='lrf-visit-mobile-pad';pad.setAttribute('role','group');pad.setAttribute('aria-label','Se déplacer dans la visite 3D');
- const held=new Map(),buttons=new Map();let active=false,expanded=false,requesting=false,ownsFullscreen=false,ownsOrientation=false,savedOverflow=null,hintTimer=null,immersive=false,portal=null,exitHold=null,wasFullscreen=false,disposed=false,portalPresented=false;
+ const held=new Map(),buttons=new Map();let active=false,requesting=false,ownsFullscreen=false,savedOverflow=null,immersive=false,portal=null,exitHold=null,wasFullscreen=false,disposed=false,portalPresented=false;
  const state=createVisitPadState(value=>{onInput(value);onInvalidate();});
  function release(id){const direction=held.get(id);held.delete(id);state.release(id);if(direction&&!Array.from(held.values()).includes(direction))buttons.get(direction)?.setAttribute('aria-pressed','false');}
  function reset(){held.clear();state.reset();for(const button of buttons.values())button.setAttribute('aria-pressed','false');}
  for(const [direction,label,symbol]of [['forward','Avancer','▲'],['left','Aller à gauche','◀'],['right','Aller à droite','▶'],['back','Reculer','▼']]){
   const button=doc.createElement('button');button.type='button';button.dataset.direction=direction;button.textContent=symbol;button.setAttribute('aria-label',label);button.setAttribute('aria-pressed','false');buttons.set(direction,button);
-  button.addEventListener('pointerdown',event=>{if(!active||event.button>0)return;event.preventDefault();event.stopPropagation();if(immersive&&!isFullscreen()&&!requesting)requestNative(false);held.set(event.pointerId,direction);state.press(event.pointerId,direction);button.setAttribute('aria-pressed','true');button.setPointerCapture?.(event.pointerId);});
+  button.addEventListener('pointerdown',event=>{if(!active||event.button>0)return;event.preventDefault();event.stopPropagation();if(immersive&&!isFullscreen()&&!requesting)requestNative();held.set(event.pointerId,direction);state.press(event.pointerId,direction);button.setAttribute('aria-pressed','true');button.setPointerCapture?.(event.pointerId);});
   for(const type of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(type,event=>{event.preventDefault();event.stopPropagation();release(event.pointerId);});
-  // Keyboard users can also operate the focused pad without a held pointer.
   button.addEventListener('keydown',event=>{if(!active||![' ','Enter'].includes(event.key))return;event.preventDefault();held.set('key-'+direction,direction);state.press('key-'+direction,direction);button.setAttribute('aria-pressed','true');});
   button.addEventListener('keyup',event=>{if(![' ','Enter'].includes(event.key))return;event.preventDefault();release('key-'+direction);});button.addEventListener('blur',()=>release('key-'+direction));pad.append(button);
  }
@@ -69,14 +64,10 @@ export function mountVisitMobileControls({stage,onInput=()=>{},onInvalidate=()=>
  exit.addEventListener('pointerdown',event=>{event.preventDefault();event.stopPropagation();cancelExitHold();exit.setPointerCapture?.(event.pointerId);exitHold=win.setTimeout(()=>{exitHold=null;if(active)onExitRequest();},700);});
  for(const type of ['pointerup','pointercancel','lostpointercapture'])exit.addEventListener(type,cancelExitHold);
  exit.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();if(event.detail===0&&active)onExitRequest();});pad.append(exit);
- const landscape=doc.createElement('button');landscape.type='button';landscape.className='lrf-visit-landscape';landscape.textContent='↔ Horizontal';landscape.setAttribute('aria-label','Visiter en plein écran horizontal');landscape.setAttribute('aria-pressed','false');
- const hint=doc.createElement('p');hint.className='lrf-visit-orientation-hint';hint.hidden=true;hint.setAttribute('role','status');
- function showHint(message){clearTimeout(hintTimer);hint.textContent=message;hint.hidden=false;hintTimer=win.setTimeout(()=>{hint.hidden=true;},6000);}
  const isFullscreen=()=>doc.fullscreenElement===stage||doc.webkitFullscreenElement===stage;
  const viewport=()=>({width:win.visualViewport?.width||win.innerWidth,height:win.visualViewport?.height||win.innerHeight,left:win.visualViewport?.offsetLeft||0,top:win.visualViewport?.offsetTop||0});
  const touchDevice=()=>win.matchMedia?!!(win.matchMedia('(pointer:coarse)').matches||win.navigator?.maxTouchPoints>0&&win.matchMedia('(hover:none)').matches):win.navigator?.maxTouchPoints>0;
  const putVariable=(name,value)=>{if(stage.style.setProperty)stage.style.setProperty(name,value);else stage.style[name]=value;};
- function resize(){onInvalidate();}
  function takeStage(){
   if(portal)return;
   const parent=stage.parentNode||stage.parentElement,placeholder=doc.createElement('span');placeholder.hidden=true;placeholder.setAttribute('aria-hidden','true');
@@ -90,55 +81,31 @@ export function mountVisitMobileControls({stage,onInput=()=>{},onInvalidate=()=>
  }
  function syncPortalPresentation(open){if(portalPresented===!!open)return;portalPresented=!!open;notifyPortalPresentation(portalPresented,{view:win,document:doc});}
  function syncLayout(){
-  const box=viewport(),next=active&&touchDevice()&&box.width>box.height;
-  immersive=!!next;
-  if(active&&(expanded||immersive)){
-   takeStage();stage.classList.add('lrf-visit-expanded');
-   if(immersive)stage.classList.add('lrf-visit-immersive');else stage.classList.remove('lrf-visit-immersive');
-   for(const [key,value]of Object.entries(box))putVariable('--lrf-visit-'+key,value+'px');
-  }else{stage.classList.remove('lrf-visit-expanded','lrf-visit-immersive');restoreStage();}
-  // The private RANDAL entrance embeds this app below its own header. Reuse
-  // its reviewed fixed-origin bridge so denied native fullscreen still fills
-  // the parent frame, and normal navigation returns on portrait or exit.
-  syncPortalPresentation(active&&(expanded||immersive));resize();
+  const box=viewport();immersive=!!(active&&touchDevice()&&box.width>box.height);
+  if(immersive){takeStage();stage.classList.add('lrf-visit-immersive');for(const [key,value]of Object.entries(box))putVariable('--lrf-visit-'+key,value+'px');}
+  else{stage.classList.remove('lrf-visit-expanded','lrf-visit-immersive');restoreStage();}
+  // Keep the private RANDAL parent chrome in step with physical phone rotation.
+  syncPortalPresentation(immersive);onInvalidate();
  }
  async function releaseNative(){
-  if(ownsOrientation)try{win.screen?.orientation?.unlock?.();}catch{}ownsOrientation=false;
   const exitOwned=ownsFullscreen;ownsFullscreen=false;
   if(exitOwned&&isFullscreen())try{await (doc.exitFullscreen||doc.webkitExitFullscreen)?.call(doc);}catch{}
  }
- async function collapse(){
-  expanded=false;landscape.textContent='↔ Horizontal';landscape.setAttribute('aria-pressed','false');hint.hidden=true;
-  await releaseNative();syncLayout();
+ async function requestNative(){
+  if(requesting||disposed||!active||!immersive)return;requesting=true;
+  const alreadyFullscreen=isFullscreen(),result=await requestVisitLandscape({stage,document:doc});requesting=false;
+  if(!active||disposed||!immersive){if(result.fullscreen&&!alreadyFullscreen)try{await (doc.exitFullscreen||doc.webkitExitFullscreen)?.call(doc);}catch{}return;}
+  ownsFullscreen=ownsFullscreen||result.fullscreen&&!alreadyFullscreen;wasFullscreen=isFullscreen();syncLayout();
  }
- async function requestNative(lockOrientation){
-  if(requesting||disposed||!active)return;requesting=true;landscape.disabled=true;
-  const alreadyFullscreen=isFullscreen(),result=await requestVisitLandscape({stage,document:doc,screen:win.screen,lockOrientation});
-  requesting=false;landscape.disabled=false;
-  if(!active||disposed){if(result.locked)try{win.screen?.orientation?.unlock?.();}catch{}if(result.fullscreen&&!alreadyFullscreen)try{await (doc.exitFullscreen||doc.webkitExitFullscreen)?.call(doc);}catch{}return;}
-  ownsFullscreen=ownsFullscreen||result.fullscreen&&!alreadyFullscreen;ownsOrientation=ownsOrientation||result.locked;wasFullscreen=isFullscreen();
-  if(lockOrientation){expanded=true;landscape.textContent='↙ Réduire';landscape.setAttribute('aria-pressed','true');if(!result.locked&&viewport().height>viewport().width)showHint('Tournez votre téléphone à l’horizontale.');}
-  syncLayout();
- }
- landscape.addEventListener('click',async event=>{
-  event.preventDefault();event.stopPropagation();if(requesting)return;reset();if(expanded){await collapse();return;}
-  // Move the existing canvas before the native request: fullscreen must not be
-  // lost by subsequently reparenting its element out of a clipped editor grid.
-  expanded=true;syncLayout();await requestNative(true);
- });
  function syncFullscreen(){
   const present=isFullscreen(),left=wasFullscreen&&!present;wasFullscreen=present;
-  if(left){ownsFullscreen=false;if(active&&immersive){onExitRequest();return;}collapse();}
+  if(left){ownsFullscreen=false;if(active&&immersive)onExitRequest();}
  }
- function syncViewport(){
-  const priorImmersive=immersive;syncLayout();
-  // Automatic landscape never locks orientation: turning the phone upright is
-  // an exit route even when the browser's fullscreen API is unavailable.
-  if(priorImmersive&&!immersive&&!expanded)releaseNative();
- }
- function visibility(){if(doc.hidden){reset();cancelExitHold();}}
- root.append(pad,landscape,hint);stage.append(root);win.addEventListener('blur',reset);win.addEventListener('resize',syncViewport);win.addEventListener('orientationchange',syncViewport);
+ function syncViewport(){const wasImmersive=immersive;syncLayout();if(wasImmersive&&!immersive)releaseNative();}
+ function blur(){reset();cancelExitHold();}
+ function visibility(){if(doc.hidden)blur();}
+ root.append(pad);stage.append(root);win.addEventListener('blur',blur);win.addEventListener('resize',syncViewport);win.addEventListener('orientationchange',syncViewport);
  win.visualViewport?.addEventListener('resize',syncViewport);win.visualViewport?.addEventListener('scroll',syncViewport);
  doc.addEventListener('visibilitychange',visibility);doc.addEventListener('fullscreenchange',syncFullscreen);doc.addEventListener('webkitfullscreenchange',syncFullscreen);
- return {setActive(value){active=!!value;root.hidden=!active;reset();cancelExitHold();if(!active){expanded=false;collapse();}syncLayout();if(active&&immersive)requestNative(false);},reset,get immersive(){return immersive;},dispose(){disposed=true;active=false;reset();cancelExitHold();clearTimeout(hintTimer);expanded=false;syncLayout();collapse();root.remove();stage.classList.remove('lrf-visit-stage');win.removeEventListener('blur',reset);win.removeEventListener('resize',syncViewport);win.removeEventListener('orientationchange',syncViewport);win.visualViewport?.removeEventListener('resize',syncViewport);win.visualViewport?.removeEventListener('scroll',syncViewport);doc.removeEventListener('visibilitychange',visibility);doc.removeEventListener('fullscreenchange',syncFullscreen);doc.removeEventListener('webkitfullscreenchange',syncFullscreen);}};
+ return {setActive(value){active=!!value;root.hidden=!active;reset();cancelExitHold();syncLayout();if(!active)releaseNative();else if(immersive)requestNative();},reset,get immersive(){return immersive;},dispose(){disposed=true;active=false;reset();cancelExitHold();syncLayout();releaseNative();root.remove();stage.classList.remove('lrf-visit-stage');win.removeEventListener('blur',blur);win.removeEventListener('resize',syncViewport);win.removeEventListener('orientationchange',syncViewport);win.visualViewport?.removeEventListener('resize',syncViewport);win.visualViewport?.removeEventListener('scroll',syncViewport);doc.removeEventListener('visibilitychange',visibility);doc.removeEventListener('fullscreenchange',syncFullscreen);doc.removeEventListener('webkitfullscreenchange',syncFullscreen);}};
 }

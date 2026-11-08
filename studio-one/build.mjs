@@ -56,3 +56,6 @@ writeFileSync('dist/randal.html',portal);
 
 // Real photographic sky used only during an exhibition visit.
 cpSync('../shared/lrf-3d/media/showroom','dist/assets/showroom',{recursive:true});
+
+// Shared native bath geometry for the staged showroom vignettes.
+cpSync('../review-studio/assets/bathroom','dist/assets/bathroom',{recursive:true});

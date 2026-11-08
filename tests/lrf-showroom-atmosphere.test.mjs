@@ -17,7 +17,8 @@ const isBlocked=(hall,x,z,r=.20)=>hall.colliders.some(box=>x+r>box.minX&&x-r<box
 test('the roof and side windows reveal the photographic sky through real glazing instead of an opaque ceiling',()=>{
  const hall=makeShowroomHall({manufacturers});hall.root.visible=true;
  try{
-  for(const [origin,direction,name]of [[[1.8,1.58,-2.2],[0,1,0],'Plafond_vitre_panoramique'],[[14,1.58,-2.2],[1,0,0],'Grande_baie_vitree'],[[-14,1.58,-2.2],[-1,0,0],'Grande_baie_vitree']]){
+  const windowX=hall.dimensions.width/2-.6;
+  for(const [origin,direction,name]of [[[1.8,1.58,-2.2],[0,1,0],'Plafond_vitre_panoramique'],[[windowX,1.58,-2.2],[1,0,0],'Grande_baie_vitree'],[[-windowX,1.58,-2.2],[-1,0,0],'Grande_baie_vitree']]){
    const hits=nativeHits(hall.root,origin,direction);assert(hits.length>=2);
    assert.equal(hits[0].object.name,name);assert.equal(hits[0].object.material.transparent,true);assert(hits[0].object.material.opacity<.4);
    const sky=hits.find(hit=>hit.object.name==='Panorama_ciel_nuages_reels');assert(sky,'the native camera ray reaches the real sky surface');
@@ -28,20 +29,31 @@ test('the roof and side windows reveal the photographic sky through real glazing
  }finally{hall.dispose();}
 });
 
-test('stand floors use canonical physical tile formats and the wall colours and BioPietra stone are bound to architecture',()=>{
+test('stand floors and low collection walls use varied native materials at canonical physical formats',()=>{
  const hall=makeShowroomHall({manufacturers});
  try{
-  const floor=hall.root.getObjectByName('Dallage_pierre_120x120');assert(floor?.isInstancedMesh);assert.equal(floor.material.userData.showroomRecipe.collection,'Creta');assert.equal(floor.material.userData.showroomRecipe.format,'120x120');
+  const floor=hall.root.getObjectByName('Dallage_Yosemite_Honey_tiers');assert(floor?.isGroup);assert.equal(floor.userData.showroomRecipe.collection,'Yosemite');assert.equal(floor.userData.showroomRecipe.pattern,'third');
   const standColors=new Set(),standRecipes=new Set();
   for(const stand of hall.stands){
-   const walls=stand.group.children.filter(object=>object.userData.architecturalParts?.includes('Mur_collections_fond'));assert(walls.length);
-   standColors.add(walls[0].material.color.getHexString());
-   const surfaces=stand.group.children.filter(object=>object.isMesh&&object.material.userData.showroomRecipe);assert(surfaces.length);
-   for(const mesh of surfaces){const recipe=mesh.material.userData.showroomRecipe,color=COLLECTIONS[recipe.collection]?.colors.find(value=>value.id===recipe.colorId),format=formatsForColor(recipe.collection,recipe.colorId).find(value=>value.id===recipe.format);assert(color?.nativeFaces,'actual native manufacturer sample');assert(format);assert.equal(format.width,recipe.width);assert.equal(format.height,recipe.height);standRecipes.add(recipe.collection+'/'+recipe.colorId+'/'+recipe.format);}
+   assert.equal(stand.walls.length,3,'a collection covers each complete booth wall');
+   const surfaces=stand.group.children.filter(object=>object.userData.showroomRecipe);assert.equal(surfaces.length,4,'one native floor zone and three full-scale walls');
+   for(const wall of stand.walls){assert.equal(wall.userData.wallHeight,2.3);standColors.add(wall.userData.showroomRecipe.colorId);}
+   for(const surface of surfaces){
+    const recipe=surface.userData.showroomRecipe;assert.equal(recipe.nativeFaces,true);assert.equal(recipe.generated,false);
+    const color=COLLECTIONS[recipe.collection]?.colors.find(value=>value.id===recipe.colorId),format=formatsForColor(recipe.collection,recipe.colorId).find(value=>value.id===recipe.format);
+    if(recipe.manufacturer==='Elios Ceramica'){
+     if(recipe.collection==='Yosemite'){assert.equal(recipe.provenance.resized,false);assert(recipe.provenance.faces.length>=4);assert(recipe.provenance.faces.every(face=>face.width===1000&&face.height===200&&face.sha256),'original manufacturer plank faces replace the canonical reconstructed sample');}
+     else assert(color?.nativeFaces||(color?.source===color?.file&&/^https:\/\/eliosceramica.com\//.test(color?.source||'')),'actual native manufacturer sample');
+     assert(format);assert.equal(format.width,recipe.width);assert.equal(format.height,recipe.height);
+    }
+    assert(surface.userData.cells.length);assert(surface.userData.cells.every(cell=>cell.width===recipe.width&&cell.height===recipe.height),'physical tile pieces retain their actual manufacturer dimensions');
+    for(const mesh of surface.children.filter(child=>child.name.startsWith('Surface_')))assert.equal(mesh.material.userData.showroomRecipe,recipe);
+    standRecipes.add(recipe.collection+'/'+recipe.colorId+'/'+recipe.format);
+   }
   }
-  assert.equal(standColors.size,4,'individually coloured exhibition walls');assert.equal(standRecipes.size,3,'three physically different tile schemes');
-  const stone=[];hall.root.traverse(object=>{if(object.isMesh&&object.material.userData.showroomRecipe?.manufacturer==='BioPietra')stone.push(object);});
-  assert(stone.length,'the tactile wall actually uses the BioPietra material');for(const mesh of stone){assert.equal(mesh.material.userData.showroomRecipe.collection,'Borgo Antico');assert.match(mesh.material.userData.showroomRecipe.original,/Borgo-Antico_muro/);assert(mesh.material.bumpScale>.002);}
+  assert(standColors.size>=6,'contrasting warm, grey, green and dark ceramic walls');assert(standRecipes.size>=8,'distinct physical tile schemes fill the room scenes');
+  const stone=hall.walls.filter(wall=>wall.userData.showroomRecipe.manufacturer==='BioPietra');
+  assert(stone.length,'the reception and stands actually use the BioPietra collection');for(const wall of stone){const recipe=wall.userData.showroomRecipe;assert.equal(recipe.collection,'Borgo Antico');assert.match(recipe.hdImage,/Borgo-Antico_muro/);assert(recipe.roughness>.9);assert.equal(recipe.width,2.4,'stone uses a room-scale native face instead of a tiny repeating stamp');}
  }finally{hall.dispose();}
 });
 

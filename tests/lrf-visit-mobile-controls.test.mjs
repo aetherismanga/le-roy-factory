@@ -12,10 +12,10 @@ test('direction pad preserves multiple held fingers and cancels opposing motion'
  assert.equal(pad.press(4,'unknown'),false);assert.equal(pad.size,0);
 });
 
-test('landscape enters fullscreen before locking orientation',async()=>{
+test('native fullscreen never locks physical phone orientation',async()=>{
  const events=[],doc={fullscreenElement:null},stage={async requestFullscreen(){events.push('fullscreen');doc.fullscreenElement=stage;}};
  const result=await requestVisitLandscape({stage,document:doc,screen:{orientation:{async lock(value){events.push(value);}}}});
- assert.deepEqual(events,['fullscreen','landscape']);assert.deepEqual(result,{fullscreen:true,locked:true});
+ assert.deepEqual(events,['fullscreen']);assert.deepEqual(result,{fullscreen:true,locked:false});
 });
 
 test('unsupported orientation and fullscreen leave normal device rotation available',async()=>{
@@ -59,13 +59,16 @@ test('mounted pad releases cancelled pointers, lost capture, blur, visibility an
  assert.equal(root.hidden,true);ui.dispose();assert.equal(root.removed,true);assert.equal(doc.body.style.overflow,'auto');
 });
 
-test('mobile landscape fallback expands and restores the same visit stage',async()=>{
- const {doc,stage}=environment(),ui=mountVisitMobileControls({stage});ui.setActive(true);
- const landscape=stage.children[0].children[1];await landscape.emit('click');
- assert.equal(landscape.attrs['aria-pressed'],'true');assert.equal(doc.body.style.overflow,'hidden');
- await landscape.emit('click');assert.equal(landscape.attrs['aria-pressed'],'false');assert.equal(doc.body.style.overflow,'auto');ui.dispose();
+test('rotating a visit enters and leaves immersive layout without a manual orientation control',async()=>{
+ const {doc,win,stage,editor}=environment();win.navigator={maxTouchPoints:5};win.matchMedia=()=>({matches:true});
+ const ui=mountVisitMobileControls({stage});ui.setActive(true);const root=stage.children[0];
+ assert.equal(root.children.length,1,'the only control group is the directional cross');assert.equal(root.children[0].children.length,5,'four directions and the centre hold target');
+ assert.equal(ui.immersive,false);assert.equal(stage.parentNode,editor);
+ win.innerWidth=900;win.innerHeight=420;await win.emit('orientationchange');
+ assert.equal(ui.immersive,true);assert.equal(stage.parentNode,doc.body);assert.equal(doc.body.style.overflow,'hidden');
+ win.innerWidth=420;win.innerHeight=900;await win.emit('orientationchange');
+ assert.equal(ui.immersive,false);assert.equal(stage.parentNode,editor);assert.equal(doc.body.style.overflow,'auto');ui.dispose();
 });
-
 
 test('touch landscape above desktop breakpoints fills the visual viewport and escapes clipped editor ancestors',async()=>{
  const {doc,win,stage,editor,after}=environment();win.innerWidth=1536;win.innerHeight=709;win.navigator={maxTouchPoints:5};win.matchMedia=()=>({matches:true});
@@ -96,12 +99,12 @@ test('pad centre hold provides an exit while a short touch cannot accidentally l
 });
 
 
-test('immersive and expanded visits notify only the validated RANDAL portal and restore it on exit',async()=>{
+test('rotation notifies only the validated RANDAL portal and restores it on exit',async()=>{
  const {doc,win,stage}=environment(),sent=[];win.innerWidth=1536;win.innerHeight=709;win.navigator={maxTouchPoints:1};win.matchMedia=()=>({matches:true});win.location={href:'https://randal-catalogue-general-3d.vercel.app/atelier.html?entry=randal&standalone=1'};win.parent={postMessage:(...args)=>sent.push(args)};doc.referrer='https://studio-one-beta-test-v2.vercel.app/randal.html';
  const ui=mountVisitMobileControls({stage});ui.setActive(true);await win.emit('resize');await win.emit('resize');
  assert.deepEqual(sent,[[{type:'lrf-portal-presentation',open:true},'https://studio-one-beta-test-v2.vercel.app']],'one transition expands the parent, even without native fullscreen');
  win.innerWidth=400;win.innerHeight=800;await win.emit('orientationchange');assert.equal(sent.at(-1)[0].open,false,'portrait restores the parent header');
- const landscape=stage.children[0].children[1];await landscape.emit('click');assert.equal(sent.at(-1)[0].open,true,'explicit expanded presentation also covers the parent');
+ win.innerWidth=900;win.innerHeight=420;await win.emit('orientationchange');assert.equal(sent.at(-1)[0].open,true,'turning the phone back expands its parent again');
  ui.setActive(false);assert.equal(sent.at(-1)[0].open,false,'leaving the visit restores normal parent navigation');ui.dispose();assert.equal(sent.length,4);
  const foreign=environment(),rejected=[];foreign.win.innerWidth=900;foreign.win.innerHeight=420;foreign.win.matchMedia=()=>({matches:true});foreign.win.location=win.location;foreign.win.parent={postMessage:(...args)=>rejected.push(args)};foreign.doc.referrer='https://untrusted.example/';const foreignUI=mountVisitMobileControls({stage:foreign.stage});foreignUI.setActive(true);foreignUI.setActive(false);foreignUI.dispose();assert.deepEqual(rejected,[],'a foreign parent never receives presentation messages');
 });

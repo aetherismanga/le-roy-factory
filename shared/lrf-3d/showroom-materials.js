@@ -57,9 +57,9 @@ export function createShowroomMaterials({onReady=()=>{},loadTexture=loadQueuedTe
  let disposed=false,task=null;const controller=new AbortController(),ownedTextures=new Set(),state={};
  const plaster=microFinish(),mineral=microFinish('stone'),grain=microFinish('wood');for(const texture of [plaster,mineral,grain])ownedTextures.add(texture);
  const materials={
-  floor:new T.MeshPhysicalMaterial({color:'#c9bda8',roughness:.63,clearcoat:.13,clearcoatRoughness:.53,bumpMap:mineral,bumpScale:.0005}),
-  darkFloor:new T.MeshPhysicalMaterial({color:'#373c38',roughness:.71,clearcoat:.07,bumpMap:mineral,bumpScale:.001}),
-  sageFloor:new T.MeshPhysicalMaterial({color:'#737c5b',roughness:.76,clearcoat:.07,bumpMap:mineral,bumpScale:.0006}),
+  floor:new T.MeshPhysicalMaterial({color:'#c9bda8',roughness:.63,clearcoat:.13,clearcoatRoughness:.73,bumpMap:null,bumpScale:0}),
+  darkFloor:new T.MeshPhysicalMaterial({color:'#373c38',roughness:.81,clearcoat:.03,bumpMap:null,bumpScale:0}),
+  sageFloor:new T.MeshPhysicalMaterial({color:'#737c5b',roughness:.83,clearcoat:.03,bumpMap:null,bumpScale:0}),
   stone:new T.MeshStandardMaterial({color:'#a9a491',roughness:.96,bumpMap:mineral,bumpScale:.0035}),
   terracotta:new T.MeshStandardMaterial({color:'#b56548',roughness:.88,bumpMap:plaster,bumpScale:.0008}),
   sage:new T.MeshStandardMaterial({color:'#728778',roughness:.86,bumpMap:plaster,bumpScale:.0007}),

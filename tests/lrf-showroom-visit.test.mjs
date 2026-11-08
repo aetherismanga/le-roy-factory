@@ -24,7 +24,8 @@ test('the exhibition is lazy, retains an isolated project footprint, and uses ev
   space.setInnerOpen(true);const hall=space.showroom;
   assert.equal(hall.root.parent,space.root);assert.equal(hall.root.visible,true);
   assert.equal(hall.stands.length,SHOWROOM_MANUFACTURERS.length);
-  assert(hall.dimensions.width>=25&&hall.dimensions.depth>=40,'the hall has physical exhibition scale');
+  assert.equal(hall.dimensions.width,22);assert.equal(hall.dimensions.wallHeight,2.3);
+  assert(hall.dimensions.depth>=40&&hall.dimensions.depth<60,'the complete exhibition fits a compact walkable salon');
   space.setInnerOpen(false);space.setInnerOpen(true);assert.equal(space.showroom,hall,'the same architecture is reused');
   assert.equal(JSON.stringify(item.settings),initial,'visit state is absent from commercial project settings');
   assert.equal(space.root.userData.excludeFromProductBounds,true);

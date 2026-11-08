@@ -148,12 +148,14 @@ export function makeShowroomGreenery({width=30,depth=45,stands=[],onReady=()=>{}
   const radius=species==='monstera'?.31:.37,base=pot(x,z,{radius,height:species==='monstera'?.53:.66,material});
   ({ficus,olive,areca,monstera}[species])(x,z,{height,base});plants.push({species,x,z,height,exterior:false});
  }
- const edge=width/2-2;
+ const edge=width/2-1.0;
  plant('areca',-edge,-3.4,2.9,palette.terracotta);plant('ficus',edge,-3.7,2.7,palette.darkPot);
- plant('monstera',-9.7,-4.1,1.6,palette.ivory);plant('olive',10.9,-5.4,2.75,palette.terracotta);
+ plant('monstera',-Math.min(9.7,width/2-.7),-4.1,1.6,palette.ivory);plant('olive',Math.min(10.9,width/2-.7),-5.4,2.55,palette.terracotta);
  const rows=Math.max(1,Math.ceil(stands.length/2));
  for(let row=0;row<rows-1;row++){
-  const z=-17.95-row*10.7;if(z<-depth+3)break;
+  const thisRow=stands.filter(s=>Math.floor(s.index/2)===row),nextRow=stands.filter(s=>Math.floor(s.index/2)===row+1);
+  const currentBack=thisRow[0]?.bounds?.minZ,nextFront=nextRow[0]?.bounds?.maxZ;
+  const z=Number.isFinite(currentBack)&&Number.isFinite(nextFront)?(currentBack+nextFront)/2:-17.95-row*10.7;if(z<-depth+3)break;
   plant(row%2?'ficus':'olive',-edge,z,row%2?2.4:2.55,row%2?palette.darkPot:palette.ivory);
   plant(row%2?'monstera':'areca',edge,z,row%2?1.55:2.7,row%2?palette.terracotta:palette.ivory);
  }

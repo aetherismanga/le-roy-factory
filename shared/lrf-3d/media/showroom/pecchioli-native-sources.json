@@ -1,0 +1,30 @@
+[
+  {
+    "manufacturer": "Pecchioli Firenze",
+    "collection": "Specchi Oro",
+    "collectionId": "pecchioli-chini-specchi-oro",
+    "collectionSlug": "chini-specchi-oro",
+    "color": "Oro su fondo nero",
+    "format": "20x20",
+    "file": "pecchioli-specchi-oro-native.jpg",
+    "source": "https://www.pecchiolifirenze.com/wp-content/uploads/2025/12/ceramiche-chini-5.jpg",
+    "productSource": "https://www.pecchiolifirenze.com/portfolio/ceramiche-di-chini/",
+    "catalogueRecord": "assets/data/pecchioli-catalogue.json#chini-specchi-oro",
+    "width": 1614,
+    "height": 1604,
+    "sha256": "8a878e806deef2c82955627b2c7ee2ad0ade68ed1a4166469ed2c709dd96ec50",
+    "bytes": 559122,
+    "generated": false,
+    "resized": false,
+    "module": {
+      "width": 0.4,
+      "height": 0.4,
+      "columns": 2,
+      "rows": 2,
+      "subtileWidth": 0.2,
+      "subtileHeight": 0.2,
+      "label": "Module de 4 carreaux 20 × 20 cm"
+    },
+    "inspection": "Original manufacturer photograph, front-facing 2 × 2 tile composition with no room, perspective furniture or invented graphic; retain the 40 × 40 cm module footprint."
+  }
+]
