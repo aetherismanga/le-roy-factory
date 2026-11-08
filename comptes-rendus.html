@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type="image/png" href="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1">
+  <link rel="icon" type="image/png" href="assets/img/logo03lrf.png?v=20261107-logo-rond1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comptes-Rendus de Visites — LE ROY FACTORY CRM</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -48,7 +48,7 @@
 </head>
 <body class="crm-body">
   <aside class="crm-sidebar">
-    <div class="sidebar-brand"><a href="index.html" class="logo-link"><div class="logo-circle" style="width:60px;height:60px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/brand-v2/lrf-logo-officiel-2026.png?v=20260918-crm-floral-1" alt="LE ROY FACTORY" style="width:100%;height:100%;object-fit:cover"></div></a></div>
+    <div class="sidebar-brand"><a href="index.html" class="logo-link"><div class="logo-circle" style="width:60px;height:60px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4);border:2px solid #D4AF37;background:#000"><img src="assets/img/logo03lrf.png?v=20261107-logo-rond1" alt="LE ROY FACTORY" style="width:100%;height:100%;object-fit:cover"></div></a></div>
     <ul class="sidebar-menu">
       <li><a href="dashboard.html"><span class="icon">🏠</span><span class="menu-text">Accueil</span></a></li>
       <li><a href="clients.html"><span class="icon">👥</span><span class="menu-text">Clients</span></a></li>
@@ -109,6 +109,7 @@
     import { collection, doc, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     import { localDate, reportField, reportFingerprint, unchangedReportIndex } from "./assets/js/crm-report-core.mjs?v=20261105-audit1";
+    import { reportPartnerLabel, reportPartnerChoices, reportMatchesPartner, withReportPartners } from "./assets/js/crm-report-partners.mjs?v=20261108-partners1";
 
     document.addEventListener("DOMContentLoaded",()=>{
       if(!localStorage.getItem("agentLoggedIn")){location.href="agent.html";return;}
@@ -117,7 +118,6 @@
       const modal=$("cr-modal"),form=$("form-new-cr"),clientSelect=$("cr-select-client"),dateInput=$("cr-input-date"),authorSelect=$("cr-select-author"),usineInput=$("cr-input-usine"),textInput=$("cr-input-text");
       const searchInput=$("cr-search-input"),filterAgent=$("cr-filter-agent"),filterUsine=$("cr-filter-usine"),filterDate=$("cr-filter-date"),sortSelect=$("cr-sort"),feed=$("cr-feed-container");
       const currentAgent=localStorage.getItem("agentName")||"Jérôme Hugol";
-      const defaultUsines=["Elios","BILT","View","Randal","OPAL","Aquahome","Neobath","Uptrend","Bulbo","Reviglass","Koibath"];
       let globalCRs=[],allCRs=[],editing=null,clientCache=new Map(),crSnapshotVersion=0,saving=false;
 
       const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
@@ -126,11 +126,7 @@
       dateTime();setInterval(dateTime,1000);
       $("logout-btn")?.addEventListener("click",()=>{localStorage.removeItem("agentLoggedIn");location.href="agent.html"});
 
-      function detectUsine(raw){
-        if(raw.usine||raw.factory||raw.partenaire)return String(raw.usine||raw.factory||raw.partenaire).trim();
-        const txt=String(raw.text||raw.texte||raw.notes||"").toLowerCase();
-        return defaultUsines.find(u=>txt.includes(u.toLowerCase()))||"";
-      }
+      const detectUsine=reportPartnerLabel;
 
       function parseCrDate(value){
         const raw=String(value||"").trim();
@@ -173,14 +169,14 @@
       modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});
 
       function refreshUsineChoices(){
-        const set=new Set(defaultUsines);allCRs.concat(globalCRs).forEach(cr=>{if(cr.usine)set.add(cr.usine)});const names=[...set].sort((a,b)=>a.localeCompare(b,"fr",{sensitivity:"base"}));
+        const names=reportPartnerChoices(allCRs.concat(globalCRs));
         const selected=filterUsine.value;filterUsine.innerHTML='<option value="">🏭 Toutes les usines</option>'+names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join("");if(names.includes(selected))filterUsine.value=selected;
         $("cr-usines-list").innerHTML=names.map(n=>`<option value="${esc(n)}"></option>`).join("");
       }
       const norm=v=>String(v||"").toLocaleLowerCase("fr").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
       function filteredSorted(){
         const q=norm(searchInput.value.trim()),agent=norm(filterAgent.value),usine=norm(filterUsine.value),date=filterDate.value;
-        const arr=allCRs.concat(globalCRs).filter(cr=>(!agent||norm(cr.author).includes(agent))&&(!usine||norm(cr.usine)===usine)&&(!date||isoDate(cr.date)===date)&&(!q||[cr.societe,cr.ville,cr.code_postal,cr.text,cr.usine,cr.author].some(v=>norm(v).includes(q))));
+        const arr=allCRs.concat(globalCRs).filter(cr=>(!agent||norm(cr.author).includes(agent))&&reportMatchesPartner(cr,usine)&&(!date||isoDate(cr.date)===date)&&(!q||[cr.societe,cr.ville,cr.code_postal,cr.text,cr.usine,cr.author].some(v=>norm(v).includes(q))));
         const mode=sortSelect.value;
         arr.sort((a,b)=>mode==="date-asc"?compareOld(a,b):mode==="usine-asc"?(a.usine||"zzz").localeCompare(b.usine||"zzz","fr",{sensitivity:"base"})||compareRecent(a,b):mode==="client-asc"?(a.societe||"").localeCompare(b.societe||"","fr",{sensitivity:"base"})||compareRecent(a,b):compareRecent(a,b));
         return arr;
@@ -234,7 +230,7 @@
         saving=true;
         const btn=$("btn-save-cr");btn.disabled=true;btn.textContent=edit?"Modification…":"Enregistrement…";
         try{
-          const newCR={...(edit?.raw||{}),date,author,text,usine};
+          const newCR=withReportPartners({...edit?.raw,date,author,text},usine);
           if(edit)newCR.updatedAt=new Date().toISOString();
           else {newCR.createdAt=new Date().toISOString();newCR.id=globalThis.crypto?.randomUUID?.()||`cr-${Date.now()}-${Math.random().toString(36).slice(2)}`;}
           await runTransaction(db,async tx=>{

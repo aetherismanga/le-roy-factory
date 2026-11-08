@@ -2,6 +2,8 @@
 // Objectif : un seul formulaire Firestore pour créer/modifier les comptes-rendus,
 // quel que soit le point d'entrée (page CMR, fiche client ou bouton mobile +).
 
+import { REPORT_PARTNERS, canonicalReportPartner, normalizeReportPartners } from './crm-report-partners.mjs?v=20261108-partners1';
+
 const page = (location.pathname.split('/').pop() || '').toLowerCase();
 
 const norm = (value) => String(value || '')
@@ -173,18 +175,7 @@ function installPartnerMultiSelect() {
   const modal = document.getElementById('cr-modal');
   if (!input || !form || !modal || document.getElementById('lrf-cr-partners')) return;
 
-  const partners = [
-    'Elios Ceramica', 'View Ceramica', 'La Fenice', "Petracer's", 'Pecchioli Firenze',
-    'Bulbo', 'Reviglass', 'Biopietra', 'Neobath', 'Randal Pro', 'Aquahome', 'Opal',
-    'Koibath', 'Bilt', 'UPTREND'
-  ];
-  const aliases = new Map([
-    ['elios', 'Elios Ceramica'], ['helios', 'Elios Ceramica'], ['elios ceramica', 'Elios Ceramica'],
-    ['view', 'View Ceramica'], ['view ceramica', 'View Ceramica'],
-    ['randal', 'Randal Pro'], ['randal pro', 'Randal Pro'],
-    ['opal', 'Opal'], ['aquahome', 'Aquahome'], ['bilt', 'Bilt'], ['uptrend', 'UPTREND']
-  ]);
-  partners.forEach(name => aliases.set(norm(name), name));
+  const partners = REPORT_PARTNERS;
 
   const style = document.createElement('style');
   style.id = 'lrf-cr-partners-style';
@@ -232,14 +223,14 @@ function installPartnerMultiSelect() {
   const selected = new Set();
   let legacy = [];
 
-  const canonical = value => aliases.get(norm(value)) || '';
-  const splitValue = value => String(value || '').split(/\s*(?:,|;|\||\+)\s*/).map(v => v.trim()).filter(Boolean);
+  const canonical = canonicalReportPartner;
+  const splitValue = normalizeReportPartners;
   const closePanel = () => { panel.classList.remove('open'); trigger.setAttribute('aria-expanded', 'false'); };
   const openPanel = () => { panel.classList.add('open'); trigger.setAttribute('aria-expanded', 'true'); };
 
   function writeInput() {
     const values = [...selected, ...legacy];
-    input.value = values.join(', ');
+    input.value = normalizeReportPartners(values).join(', ');
     input.dispatchEvent(new Event('input', { bubbles: true }));
   }
 

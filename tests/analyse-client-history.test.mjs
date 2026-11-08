@@ -20,7 +20,7 @@ test('legacy fields are preserved and the existing editor precedence prevents du
     { date:'2026-11-02', auteur:'Coryne', texte:'Besoin à confirmer', partenaire:'View' }
   ] });
   assert.equal(legacy.sourceField, 'comptesRendus');
-  assert.equal(legacy.latest.usine, 'View');
+  assert.equal(legacy.latest.usine, 'View Ceramica');
   assert.equal(legacy.latest.clientId, 'exact-id');
   assert.equal(normalizeClientHistory('exact-id', { comptes_rendus:[], comptesRendus:[{text:'Ancienne copie'}] }).count, 0);
 });

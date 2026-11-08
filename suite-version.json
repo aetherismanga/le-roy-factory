@@ -375,6 +375,16 @@
       "modularProductOptions": 12,
       "verifiedHistoricalConfigurations": 300,
       "verifiedMaterialLines": 775
+    },
+    "crmReportPartners": {
+      "releaseId": "20261108-crm-partners1",
+      "page": "comptes-rendus.html",
+      "canonicalPartners": 16,
+      "randalCanonicalName": "Randal",
+      "legacyAliasesGrouped": true,
+      "multiPartnerFilters": true,
+      "sharedEditorVocabulary": true,
+      "originalReportTextPreserved": true
     }
   },
   "configurators": {
