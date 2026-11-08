@@ -1,17 +1,20 @@
+import {createRandalActivityTracker} from '../../../shared/lrf-3d/randal-activity.js';
 import {sessionStorage,isRandalDemo,anonymousDemoState} from '../../../shared/lrf-3d/demo-session.js';
 // Verified credentials stay in this tab and are never included in project files.
 let credential='',credentialVersion=0;try{credential=sessionStorage.getItem('randal-general-session')||'';}catch{}
 export const getSessionCredential=()=>credential;
-export function clearSessionCredential(){credentialVersion++;credential='';try{sessionStorage.removeItem('randal-general-session');}catch{}}
+const activity=globalThis.document?.body&&globalThis.window?.location&&globalThis.window?.crypto?.randomUUID?createRandalActivityTracker({source:globalThis.window.location.pathname.endsWith('/randal.html')?'portal':'randal-general',getCredential:getSessionCredential}):null;
+export function clearSessionCredential(){activity?.stop();credentialVersion++;credential='';try{sessionStorage.removeItem('randal-general-session');}catch{}}
 async function request(url,body){
  if(isRandalDemo()){if(url==='/api/commercial')return anonymousDemoState();throw Object.assign(Error('Les envois sont indisponibles dans la démonstration. Exportez votre projet sur cet appareil.'),{status:403});}
  const changesIdentity=url==='/api/commercial'&&['identify','exchange','admin','admin-token','logout'].includes(body.action),turn=changesIdentity?++credentialVersion:credentialVersion;
- if(url==='/api/commercial'&&body.action==='logout'){credential='';try{sessionStorage.removeItem('randal-general-session');}catch{}}
+ if(url==='/api/commercial'&&body.action==='logout'){activity?.stop();credential='';try{sessionStorage.removeItem('randal-general-session');}catch{}}
  const response=await fetch(url,{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json',...(credential?{'Authorization':'Bearer '+credential}:{})},body:JSON.stringify(body),signal:AbortSignal.timeout(url.includes('projects')?(body.action==='save'?12000:65000):30000),keepalive:url.includes('projects')&&body.action==='save'&&new Blob([JSON.stringify(body)]).size<60000});
  const result=await response.json().catch(()=>({error:'Réponse du service indisponible.'}));
  if(!response.ok)throw Object.assign(Error(result.error||'Le service LRF est indisponible. Réessayez.'),{status:response.status});
  if(result.accessToken){if(turn===credentialVersion){credential=result.accessToken;try{sessionStorage.setItem('randal-general-session',credential);}catch{}}delete result.accessToken;}
  if(url==='/api/commercial'&&body.action==='logout'&&turn===credentialVersion){credential='';try{sessionStorage.removeItem('randal-general-session');}catch{}}
+ if(url==='/api/commercial')activity?.setIdentity(result);
  return result;
 }
 export const commercialRequest=(action,payload={})=>request('/api/commercial',{action,...payload});

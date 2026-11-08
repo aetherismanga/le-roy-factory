@@ -11,7 +11,8 @@ function translate(){
  const w=words(),mapping={'header-label':'header',choose:'choose',logout:'logout',eyebrow:'eyebrow',intro:'intro','private-label':'private','login-title':'loginTitle','login-help':'help','code-label':'code','postal-label':'postal','login-submit':'submit','chooser-title':'chooser','studio-label':'studioLabel','studio-description':'studioDescription','studio-action':'studioAction','general-label':'generalLabel','general-title':'generalTitle','general-description':'generalDescription','general-action':'generalAction','image-note':'imageNote',footer:'footer'};
  for(const [id,key]of Object.entries(mapping))$(id).textContent=w[key];$('title').innerHTML=w.title;const identifier=document.querySelector?.('[name=codeClient]');if(identifier)identifier.placeholder=w.identifier;const key=document.querySelector?.('[name=departement]');if(key)key.placeholder=w.postal;globalThis.dispatchEvent?.(new Event('randal-portal-language'));
 }
-function showChooser(){active=null;document.body.classList.remove('in-workspace','randal-view-fullscreen');$('workspace').hidden=true;$('landing').hidden=false;for(const frame of frames.values())frame.hidden=true;$('choose').hidden=true;}
+function shareActivity(){for(const [variant,frame]of frames)frame.contentWindow?.postMessage({type:'lrf-portal-activity',active:variant===active},RANDAL_PORTAL_ORIGINS[variant]);}
+function showChooser(){active=null;document.body.classList.remove('in-workspace','randal-view-fullscreen');$('workspace').hidden=true;$('landing').hidden=false;for(const frame of frames.values())frame.hidden=true;$('choose').hidden=true;shareActivity();}
 function render(state){
  const allowed=session.allowed();$('login-submit').disabled=state.pending;
  $('login-status').textContent=state.pending?words().waiting:state.error?(lang==='es'?words().refused:state.error):'';
@@ -30,7 +31,7 @@ function openConfigurator(variant){
   frame.src=randalPortalFrameURL(variant,lang);frames.set(variant,frame);$('workspace').append(frame);
  }
  for(const [key,value]of frames)value.hidden=key!==variant;
- active=variant;$('workspace').hidden=false;$('landing').hidden=true;$('choose').hidden=false;document.body.classList.add('in-workspace');
+ active=variant;$('workspace').hidden=false;$('landing').hidden=true;$('choose').hidden=false;document.body.classList.add('in-workspace');shareActivity();
 }
 async function endSession(expired=false){
  if(ending)return;ending=true;showChooser();
@@ -49,7 +50,7 @@ async function endSession(expired=false){
 addEventListener('message',event=>{
  const match=[...frames].find(([variant,frame])=>event.source===frame.contentWindow&&event.origin===RANDAL_PORTAL_ORIGINS[variant]);
  if(!match)return;const [variant,frame]=match,data=event.data;
- if(session.sendSession(event,frame,variant)){frame.contentWindow.postMessage({type:'lrf-portal-language',locale:lang},RANDAL_PORTAL_ORIGINS[variant]);return;}
+ if(session.sendSession(event,frame,variant)){shareActivity();frame.contentWindow.postMessage({type:'lrf-portal-language',locale:lang},RANDAL_PORTAL_ORIGINS[variant]);return;}
  if(data?.type==='lrf-ui-language'&&['fr','es'].includes(data.locale)){changeLanguage(data.locale);return;}
  if(data?.type==='lrf-portal-session-ended'){
   const pending=pendingEnd.get(data.requestId);if(pending?.frame===frame&&pending.variant===variant)pending.resolve();return;

@@ -35,7 +35,9 @@ function dedupeConfirmedOrders(events) {
 
 function cors(req, res, agent = false) {
   const origin = String(req.headers.origin || '');
-  res.set('Access-Control-Allow-Origin', ALLOWED_ORIGINS.includes(origin) ? origin : 'https://leroyfactory.fr');
+  const allowed = [...ALLOWED_ORIGINS, ...(!agent ? ['https://studio-one-beta-test-v2.vercel.app','https://randal-catalogue-general-3d.vercel.app'] : [])];
+  if(origin && !allowed.includes(origin)){res.status(403).json({success:false});return true;}
+  res.set('Access-Control-Allow-Origin', allowed.includes(origin) ? origin : 'https://leroyfactory.fr');
   res.set('Vary', 'Origin');
   res.set('Access-Control-Allow-Headers', agent ? 'Content-Type, Authorization' : 'Content-Type');
   res.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -154,11 +156,18 @@ function inferSessions(events) {
 }
 
 const trackLrfActivity = onRequest({timeoutSeconds:30,memory:'256MiB'}, async (req,res) => {
+  res.set('X-LRF-Activity-Version','20261108-randal-activity1');
   if (cors(req,res,false)) return;
   if (req.method !== 'POST') return res.status(405).json({success:false});
   try {
+    if(JSON.stringify(req.body||{}).length>8192)return res.status(413).json({success:false});
     const result = await clientFromSessionToken(req.body?.sessionToken, {renew:false});
     if (!result?.client) return res.status(401).json({success:false});
+    if(req.body?.scope==='randal'){
+      const {recordActivity}=require('./randal-activity-core.cjs');
+      try{const recorded=await recordActivity(db,admin,result.client,req.body);return res.status(recorded?200:403).json({success:recorded});}
+      catch(error){if(/invalide|incohérente/.test(error.message))return res.status(400).json({success:false});throw error;}
+    }
     const action = clean(req.body?.action || 'page_view', 40);
     if (!TRACK_ACTIONS.has(action)) return res.status(400).json({success:false});
     await writeTrackedActivity(result.client, {

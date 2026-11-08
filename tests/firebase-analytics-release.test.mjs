@@ -18,10 +18,11 @@ function selected(changed,{event='push',group='affected'}={}){
   }finally{rmSync(dir,{recursive:true,force:true});}
 }
 
-test('analytics-only publication deploys just the read endpoint',()=>{
-  assert.equal(selected(['functions/lrf-analytics.js']).only,'functions:getLrfAnalytics');
-  assert.equal(selected(['functions/lrf-analytics.js'],{event:'workflow_dispatch',group:'analytics'}).only,'functions:getLrfAnalytics');
-  assert.equal(selected([],{event:'workflow_dispatch',group:'analytics'}).only,'functions:getLrfAnalytics');
+test('analytics-only publication deploys the tracking and read endpoints',()=>{
+  assert.equal(selected(['functions/randal-activity-core.cjs','functions/test/randal-activity.test.cjs','functions/lrf-analytics.js']).only,'functions:trackLrfActivity,functions:getLrfAnalytics');
+  assert.equal(selected(['functions/lrf-analytics.js']).only,'functions:trackLrfActivity,functions:getLrfAnalytics');
+  assert.equal(selected(['functions/lrf-analytics.js'],{event:'workflow_dispatch',group:'analytics'}).only,'functions:trackLrfActivity,functions:getLrfAnalytics');
+  assert.equal(selected([],{event:'workflow_dispatch',group:'analytics'}).only,'functions:trackLrfActivity,functions:getLrfAnalytics');
 });
 
 test('existing deployment groups retain their exact targets',()=>{

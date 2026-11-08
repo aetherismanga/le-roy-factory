@@ -5,6 +5,8 @@
 
   const ENDPOINT = 'https://us-central1-le-roy-factory.cloudfunctions.net/trackLrfActivity';
   const recent = new Map();
+  let randalActivity=null;
+  import('../../shared/lrf-3d/randal-activity.js?v=20261108-activity1').then(({createRandalActivityTracker})=>{randalActivity=createRandalActivityTracker({source:'site',getCredential:()=>currentSession()?.sessionToken||'',getIdentity:()=>{const session=currentSession();return session?{client:session,isAdmin:session.isAdmin}:null;}});}).catch(()=>{});
   const clean = (v, max = 180) => String(v ?? '').trim().slice(0, max);
 
   function deviceType() {
@@ -54,6 +56,7 @@
   }
 
   function ensureSessionStart() {
+    if(randalActivity){const state=currentSession();randalActivity.setIdentity(state?{client:state,isAdmin:state.isAdmin}:null);}
     const session = currentSession();
     if (!session || session.isAdmin || !session.sessionToken || !session.codeClient) return;
     const now = Date.now();

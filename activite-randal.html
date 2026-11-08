@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Activité RANDAL — CRM Le Roy Factory</title><link rel="icon" href="assets/img/logo03lrf.png"><link rel="stylesheet" href="assets/css/randal-activity.css?v=20261108-activity1"></head>
+<body><header><a href="parametres.html" class="brand"><img src="assets/img/logo03lrf.png" alt="Le Roy Factory"><span>CRM · espace privé</span></a><a class="back" href="parametres.html">← Paramètres</a></header>
+<main><div class="heading"><div><p class="eyebrow">SUIVI DU COMPTE CLIENT</p><h1>Activité RANDAL</h1><p class="muted">Site, lien privé et configurateurs · LRF-00321</p></div><button id="refresh" type="button" disabled>Actualiser</button></div>
+<p id="status" role="status" aria-live="polite">Vérification de votre connexion administrateur…</p>
+<section id="content" hidden>
+<div class="filters"><label>Période<select id="period"><option value="7">7 derniers jours</option><option value="30" selected>30 derniers jours</option><option value="90">90 derniers jours</option><option value="366">Dernière année</option></select></label><label>Espace<select id="source"><option value="">Tous les espaces</option value="site">Site Le Roy Factory</option><option value="portal">Lien privé RANDAL</option><option value="studio-one">STUDIO ONE</option><option value="randal-general">Catalogue général</option></select></label><span id="updated" class="muted"></span></div>
+<div id="kpis" class="kpis"></div><div id="sources" class="sources"></div>
+<p class="note">Horaires : heure de Paris. Le temps de présence correspond à une page visible ; le temps actif exclut les onglets masqués, les pages sans focus et les pauses de plus de 90 secondes. Relevé environ toutes les 15 secondes, donc durées indicatives. Le suivi est lié au compte RANDAL connecté ; une visite anonyme ne permet pas d’identifier la personne.</p>
+<p class="note" id="coverage" hidden></p>
+<nav aria-label="Vues de l’activité"><button type="button" data-tab="sessions" aria-pressed="true">Sessions</button><button type="button" data-tab="events" aria-pressed="false">Chronologie</button></nav>
+<section id="sessions-panel"><h2>Sessions par espace</h2><p class="muted">Dépliez une session pour voir les pages et les durées relevées.</p><div id="sessions"></div></section>
+<section id="events-panel" hidden><h2>Chronologie des activités</h2><div id="events"></div></section>
+<p class="note">Les anciennes consultations déjà enregistrées sont présentées dans la chronologie. Leurs durées n’étaient pas mesurées : elles ne sont pas reconstituées. Aucun identifiant secret, contenu de projet ou saisie de formulaire n’est enregistré ici.</p>
+</section></main><script type="module" src="assets/js/randal-activity-page.js?v=20261108-activity1"></script></body></html>
