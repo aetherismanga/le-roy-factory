@@ -1,0 +1,76 @@
+{
+  "version": "20261108-compact-slideshow2",
+  "note": "Original manufacturer JPEG bytes, without upscaling or recompression. Desktop-only slideshow.",
+  "photos": [
+    {
+      "id": "midas",
+      "name": "MIDAS",
+      "source": "https://reviglass.es/wp-content/uploads/2026/03/RV_Midas_03.jpg",
+      "path": "assets/img/reviglass-2026/home-originals/midas.jpg",
+      "width": 700,
+      "height": 525,
+      "bytes": 440442,
+      "sha256": "862dadcff457967de2a1611fcc997bfcc21b4805d394064d8a1f0a5e0aeba4ef"
+    },
+    {
+      "id": "st-01-carrara",
+      "name": "ST-01 CARRARA",
+      "source": "https://reviglass.es/wp-content/uploads/2026/09/RV_Carrara_03.jpg",
+      "path": "assets/img/reviglass-2026/home-originals/st-01-carrara.jpg",
+      "width": 700,
+      "height": 539,
+      "bytes": 330209,
+      "sha256": "9e4d7b04710e246b6b4a82bd4ebaaa50684e8f438f76d0a2b4b0423ab4fd1689"
+    },
+    {
+      "id": "st-02-taj-mahal",
+      "name": "ST-02 TAJ MAHAL",
+      "source": "https://reviglass.es/wp-content/uploads/2026/09/RV_TAJ-MAHAL_02.jpg",
+      "path": "assets/img/reviglass-2026/home-originals/st-02-taj-mahal.jpg",
+      "width": 700,
+      "height": 525,
+      "bytes": 491434,
+      "sha256": "68aa1b606d2b521f685d22bd5715748520e63c6ac44c2b61c78d1cb300ec7d80"
+    },
+    {
+      "id": "st-03-coto",
+      "name": "ST-03 COTO",
+      "source": "https://reviglass.es/wp-content/uploads/2026/09/RV_COTO_01.jpg",
+      "path": "assets/img/reviglass-2026/home-originals/st-03-coto.jpg",
+      "width": 700,
+      "height": 525,
+      "bytes": 480325,
+      "sha256": "50deca82009c52a5628b0a2308e0b3a2bb28434f07fd8a9f3a0c06342293728e"
+    },
+    {
+      "id": "st-04-sukabumi",
+      "name": "ST-04 SUKABUMI",
+      "source": "https://reviglass.es/wp-content/uploads/2026/09/RV_SUKABUMI_01-1.jpg",
+      "path": "assets/img/reviglass-2026/home-originals/st-04-sukabumi.jpg",
+      "width": 700,
+      "height": 451,
+      "bytes": 452864,
+      "sha256": "9b4766d0c8604f7dfd518079dd3e78133191c3d97d77674907e278633ebaffe4"
+    },
+    {
+      "id": "st-05-sumatra",
+      "name": "ST-05 SUMATRA",
+      "source": "https://reviglass.es/wp-content/uploads/2026/09/RV_SUMATRA_02.jpg",
+      "path": "assets/img/reviglass-2026/home-originals/st-05-sumatra.jpg",
+      "width": 700,
+      "height": 525,
+      "bytes": 461641,
+      "sha256": "6adb75dd68dcf2b8d5f340c4ae52d979721ebe90fbf970ac55767fda44fd9aaa"
+    },
+    {
+      "id": "st-06-vulcano",
+      "name": "ST-06 VULCANO",
+      "source": "https://reviglass.es/wp-content/uploads/2026/09/RV_VULCANO_01.jpg",
+      "path": "assets/img/reviglass-2026/home-originals/st-06-vulcano.jpg",
+      "width": 700,
+      "height": 445,
+      "bytes": 296870,
+      "sha256": "e52c6989af0992dc260c3a6536ef95679d6a372d69129bac3bdf0dd0836b3541"
+    }
+  ]
+}

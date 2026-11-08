@@ -1,104 +1,67 @@
-/* Homepage invitation. Existing header and collection pages keep their own styles. */
-.revi-home-invitation {margin:0;padding:20px clamp(16px,3vw,48px) 24px;background:#f5f3ec;color:#fff}
-.revi-invitation-shell {position:relative;max-width:1440px;margin-inline:auto}
+/* Compact desktop invitation. Mobile retains the original header promotion. */
+.revi-home-invitation {margin:0;padding:9px clamp(16px,3vw,48px) 11px;background:#f5f3ec;color:#fff}
+.revi-invitation-shell {--revi-photo-width:clamp(200px,21vw,270px);position:relative;max-width:1440px;margin-inline:auto}
 html body.lrf-page-index.lrf-premium-v2 .revi-home-invitation .revi-home-banner {
-  display:grid!important;grid-template-columns:minmax(210px,.9fr) minmax(0,1.75fr) auto;
-  align-items:center;gap:clamp(24px,3vw,44px);min-height:182px;padding:0 36px 0 0;
-  overflow:hidden;isolation:isolate;border:1px solid #b4a470;border-radius:20px;
+  display:grid!important;grid-template-columns:var(--revi-photo-width) minmax(0,1fr) 236px;
+  align-items:center;gap:24px;height:96px;min-height:96px;padding:0 24px 0 0;
+  box-sizing:border-box;overflow:hidden;isolation:isolate;border:1px solid #b4a470;border-radius:14px;
   background:linear-gradient(110deg,#123d3d,#164a48 65%,#103634);
-  box-shadow:0 8px 24px #173c3514;text-decoration:none!important;color:#fff!important;
-  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+  box-shadow:0 4px 16px #173c3514;text-decoration:none!important;color:#fff!important;
+  transition:box-shadow .2s ease,border-color .2s ease;
 }
-.revi-home-invitation .revi-home-banner:hover {transform:translateY(-3px);box-shadow:0 14px 30px #173c3526!important;border-color:#d0bb7f!important}
-.revi-home-invitation .revi-home-banner:focus-visible {outline:3px solid #926e21;outline-offset:5px}
+.revi-home-invitation .revi-home-banner:hover {box-shadow:0 7px 20px #173c3526!important;border-color:#d0bb7f!important}
+.revi-home-invitation .revi-home-banner:focus-visible {outline:3px solid #926e21;outline-offset:3px}
 .revi-banner-visual {position:relative;display:block;align-self:stretch;min-width:0;overflow:hidden;background:#157b83}
-.revi-home-invitation .revi-banner-pool {display:block;width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:50% 60%;transform:scale(1.02)}
-.revi-banner-visual::after {content:"";position:absolute;inset:0;background:linear-gradient(0deg,#082d3bc9,transparent 55%);pointer-events:none}
-.revi-banner-visual::before {content:"";position:absolute;inset:-35%;z-index:1;background:linear-gradient(115deg,transparent 38%,#ffffff22 49%,transparent 61%);opacity:0;pointer-events:none}
-.revi-banner-visual-caption {position:absolute;z-index:2;left:20px;right:44px;bottom:17px;color:#fff;font:italic 500 13px/1.4 Georgia,serif}
-.revi-banner-copy {display:block;min-width:0;padding-block:23px}
-.revi-banner-heading {display:flex;align-items:center;gap:18px;margin-bottom:11px}
-.revi-home-invitation .revi-banner-brand {display:block;position:static;width:112px;height:32px;object-fit:contain}
-.revi-banner-kicker {padding-left:18px;border-left:1px solid #d2c28a70;color:#eedbaa;font:700 10px/1.4 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
-.revi-home-invitation .revi-banner-title {display:block;margin:0;color:#fff8eb;font:400 clamp(23px,2.05vw,32px)/1.15 Georgia,serif;letter-spacing:-.02em}
-.revi-banner-description {display:block;margin-top:9px;color:#e2eeea;font:400 12px/1.5 Arial,sans-serif}
-.revi-banner-facts {display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;color:#c3d9d4;font:400 11px/1.4 Arial,sans-serif}
+.revi-banner-slide {position:absolute;inset:0;display:block;opacity:0;transition:opacity .65s ease}
+.revi-banner-slide.is-visible {opacity:1}
+.revi-home-invitation .revi-banner-pool {display:block;width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:50% 54%;transform:none}
+.revi-banner-visual::after {content:"";position:absolute;inset:0;background:linear-gradient(0deg,#082d3bd9,transparent 64%);pointer-events:none}
+.revi-banner-visual-caption {position:absolute;z-index:1;left:12px;right:100px;bottom:10px;color:#fff;font:600 9px/1.4 Arial,sans-serif}
+.revi-banner-photo-name,.revi-banner-photo-count {display:block}
+.revi-banner-photo-count {font-size:8px;letter-spacing:.12em;color:#e7efeb;margin-top:3px}
+.revi-banner-copy {display:block;min-width:0;padding-block:6px}
+.revi-banner-heading {display:flex;align-items:center;gap:13px;margin-bottom:4px}
+.revi-home-invitation .revi-banner-brand {display:block;position:static;width:94px;height:25px;object-fit:contain}
+.revi-banner-kicker {padding-left:13px;border-left:1px solid #d2c28a70;color:#eedbaa;font:700 9px/1.4 Arial,sans-serif;letter-spacing:.07em;text-transform:uppercase}
+.revi-home-invitation .revi-banner-title {display:block;margin:0;color:#fff8eb;font:400 clamp(21px,1.75vw,26px)/1.1 Georgia,serif;letter-spacing:-.02em}
+.revi-banner-facts {display:flex;flex-wrap:wrap;gap:3px 12px;margin-top:6px;color:#c3d9d4;font:400 10px/1.4 Arial,sans-serif}
 .revi-banner-facts>span:first-child {color:#f3e3b8;font-weight:700}
-.revi-banner-action {display:flex;flex-direction:column;align-items:center;gap:10px;padding-block:22px;min-width:238px}
-.revi-banner-ticket-label {color:#f3e3b8;font:700 10px/1.4 Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase}
+.revi-banner-action {display:flex;flex-direction:column;align-items:center;gap:4px;padding-block:7px;min-width:0}
+.revi-banner-ticket-label {color:#f3e3b8;font:700 8px/1.4 Arial,sans-serif;letter-spacing:.09em;text-transform:uppercase}
 .revi-home-invitation .revi-banner-cta {
-  display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:65px;
-  box-sizing:border-box;width:100%;padding:13px 19px;background:#fbf4e3;color:#173e38;
-  border:1px solid #ecd7a0;border-radius:12px;box-shadow:0 4px 16px #041c3126;
-  font:700 13px/1.45 Arial,sans-serif;white-space:normal;text-align:left;
-  transition:background .25s ease,box-shadow .25s ease;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;
+  box-sizing:border-box;width:100%;padding:7px 12px;background:#fbf4e3;color:#173e38;
+  border:1px solid #ecd7a0;border-radius:10px;box-shadow:0 3px 12px #041c3126;
+  font:700 11px/1.4 Arial,sans-serif;white-space:normal;text-align:left;transition:background .2s ease;
 }
-.revi-banner-arrow {display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;flex:0 0 32px;border:1px solid #b0bfa7;border-radius:50%;font-size:22px;line-height:1;transition:transform .25s ease}
 .revi-home-invitation .revi-banner-cta::after {content:none!important;display:none}
-.revi-home-banner:hover .revi-banner-cta {background:#fffaf0;box-shadow:0 5px 22px #e6d7ae26}
+.revi-banner-arrow {display:inline-flex;align-items:center;justify-content:center;width:27px;height:27px;flex:0 0 27px;border:1px solid #b0bfa7;border-radius:50%;font-size:19px;line-height:1;transition:transform .2s ease}
+.revi-home-banner:hover .revi-banner-cta {background:#fffaf0}
 .revi-home-banner:hover .revi-banner-arrow,.revi-home-banner:focus-visible .revi-banner-arrow {transform:translate(2px,-2px)}
-.revi-banner-action-note {color:#bed3ce;font:400 9px/1.5 Arial,sans-serif;text-align:center}
-.revi-banner-motion-toggle {position:absolute;left:clamp(176px,18.5%,258px);bottom:12px;z-index:2;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid #ffffff88;border-radius:50%;background:#113d3bd9;color:#fff;cursor:pointer;padding:5px}
-.revi-banner-motion-toggle[hidden] {display:none}
-.revi-banner-motion-toggle svg {display:block;width:18px;height:18px}
+.revi-banner-action-note {color:#bed3ce;font:400 8px/1.4 Arial,sans-serif;text-align:center}
+.revi-banner-controls {position:absolute;left:calc(var(--revi-photo-width) - 96px);bottom:3px;z-index:2;display:flex;gap:0}
+.revi-banner-controls[hidden] {display:none}
+.revi-banner-controls button {appearance:none;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:8px;border:0;border-radius:50%;background:transparent;color:#fff;cursor:pointer}
+.revi-banner-controls button:hover {background:#113d3ba6}
+.revi-banner-controls svg {display:block;width:16px;height:16px;filter:drop-shadow(0 1px 2px #102f35)}
 .revi-banner-motion-toggle .revi-motion-play,.revi-banner-motion-toggle[aria-pressed="true"] .revi-motion-pause {display:none}
 .revi-banner-motion-toggle[aria-pressed="true"] .revi-motion-play {display:block}
-.revi-banner-motion-toggle:focus-visible {outline:3px solid #e6c675;outline-offset:3px}
-.revi-home-invitation[data-revi-motion] .revi-banner-pool {animation:reviPoolDrift 14s ease-in-out infinite alternate}
-.revi-home-invitation[data-revi-motion] .revi-banner-visual::before {animation:reviWaterGleam 8s ease-in-out infinite}
-.revi-home-invitation[data-revi-motion="paused"] .revi-banner-pool,
-.revi-home-invitation[data-revi-motion="paused"] .revi-banner-visual::before,
-.revi-home-invitation[data-revi-active="false"] .revi-banner-pool,
-.revi-home-invitation[data-revi-active="false"] .revi-banner-visual::before {animation-play-state:paused}
-@keyframes reviPoolDrift {from {transform:scale(1.02) translateX(-.5%)} to {transform:scale(1.1) translateX(.5%)}}
-@keyframes reviWaterGleam {0%,18% {opacity:0;transform:translateX(-55%)} 40% {opacity:.65} 70%,100% {opacity:0;transform:translateX(55%)}}
+.revi-banner-controls button:focus-visible {outline:2px solid #e6c675;outline-offset:-3px}
 @media (min-width:901px) and (max-width:1150px) {
-  html body.lrf-page-index.lrf-premium-v2 .revi-home-invitation .revi-home-banner {grid-template-columns:190px minmax(0,1fr) 220px;gap:24px;padding-right:24px}
-  .revi-banner-action {min-width:0}
-  .revi-banner-motion-toggle {left:148px}
-  .revi-banner-heading {gap:12px}
-  .revi-banner-kicker {padding-left:12px;letter-spacing:.06em}
-  .revi-home-invitation .revi-banner-brand {width:95px}
+  .revi-invitation-shell {--revi-photo-width:180px}
+  html body.lrf-page-index.lrf-premium-v2 .revi-home-invitation .revi-home-banner {grid-template-columns:var(--revi-photo-width) minmax(0,1fr) 206px;gap:18px;padding-right:18px}
+  .revi-banner-heading {gap:9px}
+  .revi-banner-kicker {padding-left:9px;font-size:8px;letter-spacing:0}
+  .revi-home-invitation .revi-banner-brand {width:80px}
+  .revi-banner-facts {font-size:9px;gap:3px 9px}
+  .revi-home-invitation .revi-banner-cta {font-size:10px;padding-inline:10px}
+  .revi-banner-visual-caption {font-size:8px}
 }
 @media (max-width:900px) {
-  /* The existing Elios promotion overflows the compact mobile header by 53px. */
-  .revi-home-invitation {padding:69px 16px 20px}
-  html body.lrf-page-index.lrf-premium-v2 .revi-home-invitation .revi-home-banner {grid-template-columns:minmax(120px,.65fr) minmax(0,1.35fr);gap:0 22px;padding:0 22px 0 0;border-radius:16px;min-height:0}
-  .revi-banner-visual {grid-column:1;grid-row:1 / 3}
-  .revi-banner-copy {grid-column:2;grid-row:1;padding:19px 0 0}
-  .revi-banner-action {grid-column:2;grid-row:2;align-items:flex-start;gap:7px;min-width:0;padding:15px 0 18px}
-  .revi-banner-ticket-label {font-size:9px;letter-spacing:.06em}
-  .revi-home-invitation .revi-banner-cta {min-height:48px;padding:9px 13px;font-size:12px;gap:12px;width:auto}
-  .revi-banner-cta br {display:none}
-  .revi-banner-action-note {text-align:left;font-size:9px}
-  .revi-banner-heading {gap:12px;margin-bottom:10px}
-  .revi-home-invitation .revi-banner-title {font-size:26px}
-  .revi-banner-description {font-size:11px}
-  .revi-banner-facts {font-size:10px;gap:4px 10px;margin-top:9px}
-  .revi-banner-visual-caption {left:14px;right:14px;bottom:53px;font-size:13px}
-  .revi-banner-motion-toggle {left:24px;bottom:13px}
-}
-@media (max-width:520px) {
-  .revi-home-invitation {padding:65px 12px 16px}
-  html body.lrf-page-index.lrf-premium-v2 .revi-home-invitation .revi-home-banner {grid-template-columns:80px minmax(0,1fr);gap:0 14px;padding-right:14px}
-  .revi-banner-copy {padding-top:15px}
-  .revi-banner-heading {flex-wrap:wrap;gap:5px 10px;margin-bottom:8px}
-  .revi-home-invitation .revi-banner-brand {width:87px;height:24px}
-  .revi-banner-kicker {padding:0;border:0;font-size:8px;letter-spacing:.04em}
-  .revi-home-invitation .revi-banner-title {font-size:23px;line-height:1.13}
-  .revi-banner-description {margin-top:7px;font-size:10px}
-  .revi-banner-facts {font-size:9px;gap:3px 8px;margin-top:8px}
-  .revi-banner-facts>span {display:block}
-  .revi-banner-action {padding:12px 0 15px;gap:6px}
-  .revi-home-invitation .revi-banner-cta {width:100%;gap:8px;font-size:11px;padding:9px 11px;min-height:47px}
-  .revi-banner-arrow {width:26px;height:26px;flex-basis:26px;font-size:19px}
-  .revi-banner-action-note {font-size:8px}
-  .revi-banner-visual-caption {display:none}
-  .revi-banner-motion-toggle {left:24px;bottom:14px}
+  html body.lrf-page-index.lrf-premium-v2 .revi-home-invitation {display:none!important}
 }
 @media (prefers-reduced-motion:reduce) {
-  .revi-home-invitation .revi-banner-pool,.revi-home-invitation .revi-banner-visual::before {animation:none!important}
-  .revi-home-invitation .revi-home-banner,.revi-home-invitation .revi-banner-cta,.revi-home-invitation .revi-banner-arrow {transition:none!important}
-  .revi-home-invitation .revi-home-banner:hover,.revi-home-invitation .revi-banner-arrow {transform:none!important}
-  .revi-home-invitation .revi-banner-motion-toggle {display:none}
+  .revi-home-invitation .revi-banner-slide,.revi-home-invitation .revi-home-banner,
+  .revi-home-invitation .revi-banner-cta,.revi-home-invitation .revi-banner-arrow {transition:none!important}
+  .revi-home-invitation .revi-banner-arrow {transform:none!important}
 }
