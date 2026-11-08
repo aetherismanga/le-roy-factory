@@ -95,7 +95,18 @@
       "module": "commerce/navigation.js",
       "sha256": "ca0212a0c3de94826396c297ec6c3bd3c596d8effb17085704f37c2ee4bccf76",
       "bytes": 799,
-      "originalsIdentical": true
+      "originalsIdentical": true,
+      "current": {
+        "changeType": "functional-update-20261108",
+        "reason": "Preserve the existing checkpoint and save flow while returning authenticated RANDAL portal sessions to their two-configurator chooser instead of the public LRF website. Standard sessions retain their original navigation.",
+        "sha256": "a08ecb274786bd9af7c062afcc812c4ca1ccb6474648c68d367408120a1817cd",
+        "bytes": 932,
+        "validation": [
+          "tests/randal-portal-navigation.test.mjs",
+          "tests/randal-portal-session.test.mjs",
+          "tests/randal-presentation-context-ui.test.mjs"
+        ]
+      }
     },
     {
       "module": "equipment-collision.js",

@@ -1,6 +1,8 @@
 // Demo is an anonymous presentation context, never an authorization mechanism.
 // All normal credentials and project keys remain untouched in the standard app.
+import {isRandalPortal,portalRoute} from './randal-portal-context.js';
 export function isRandalDemo(url=globalThis.location?.href){
+ if(isRandalPortal(url))return false;
  try{return new URL(url).searchParams.get('demo')==='randal';}catch{return false;}
 }
 const memory=()=>{const values=new Map();return {get length(){return values.size;},key:i=>[...values.keys()][i]??null,getItem:k=>values.get(String(k))??null,setItem:(k,v)=>values.set(String(k),String(v)),removeItem:k=>values.delete(String(k)),clear:()=>values.clear()};};
@@ -23,6 +25,7 @@ export function demoPreviewOrigin(input){
  try{const url=new URL(input);return url.protocol==='https:'&&/^(?:studio-one-beta-test-v2|randal-catalogue-general-3d)-[a-z0-9-]+-hugol-trading\.vercel\.app$/.test(url.hostname)&&!url.username&&!url.password?url.origin:null;}catch{return null;}
 }
 export function demoRoute(path,base=globalThis.location?.href){
+ if(isRandalPortal(base))return portalRoute(path,base);
  try{const current=new URL(base),target=new URL(path,current);if(current.searchParams.get('demo')!=='randal')return path;if(target.origin!==current.origin&&!demoPreviewOrigin(target.href))return path;if(target.pathname.endsWith('/maison.html'))target.pathname=target.pathname.replace(/maison\.html$/,'demo.html');target.searchParams.set('demo','randal');target.searchParams.set('lang',current.searchParams.get('lang')==='fr'?'fr':'es');for(const key of ['studio','general']){const origin=demoPreviewOrigin(current.searchParams.get(key));if(origin)target.searchParams.set(key,origin);}return target.href;}catch{return path;}
 }
 let configuredVariant=null;
