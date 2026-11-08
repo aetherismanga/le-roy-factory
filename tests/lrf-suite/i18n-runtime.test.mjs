@@ -71,3 +71,21 @@ test('Only the trusted site parent receives the language preference, without pro
   document.referrer='https://untrusted.example/';i18n.setLocale('fr');assert.equal(messages.length,1);
  `});assert.equal(child.status,0,child.stderr);
 });
+
+test('RANDAL presentation actions switch language without changing product data',()=>{assert.equal(t('Ouvrir cette colonne','es'),'Abrir esta columna');assert.equal(t('Ouvrir cette colonne','fr'),'Ouvrir cette colonne');assert.equal(t('Ouverture à droite · inverser','es'),'Apertura a la derecha · invertir');assert.equal(t('Votre composition RANDAL','es'),'Su composición RANDAL');});
+
+test('Portal child language messages require exact parent, origin, context and supported locale',()=>{
+ const moduleURL=new URL('../../shared/lrf-3d/i18n/index.js',import.meta.url).href;
+ const child=spawnSync(process.execPath,['--input-type=module'],{encoding:'utf8',input:`
+ import assert from 'node:assert/strict';const handlers={},sent=[],origin='https://studio-one-beta-test-v2.vercel.app';
+ globalThis.location={href:'https://randal-catalogue-general-3d.vercel.app/index.html?entry=randal&standalone=1&lang=es',search:'?entry=randal&standalone=1&lang=es'};
+ globalThis.parent={postMessage:(...args)=>sent.push(args)};globalThis.history={replaceState(){}};
+ globalThis.document={referrer:origin+'/randal.html',documentElement:{},head:{append(){}},createElement:()=>({dataset:{}}),createTreeWalker:()=>({nextNode:()=>null}),addEventListener(){}};
+ globalThis.NodeFilter={SHOW_ELEMENT:1,SHOW_TEXT:4};globalThis.MutationObserver=class{observe(){}};globalThis.addEventListener=(type,fn)=>handlers[type]=fn;
+ const i18n=await import(${JSON.stringify(moduleURL)});i18n.initI18n({selector:false});
+ const message={source:parent,origin,data:{type:'lrf-portal-language',locale:'fr'}};
+ handlers.message({...message,source:{}});assert.equal(i18n.getLocale(),'es');handlers.message({...message,origin:'https://evil.example'});assert.equal(i18n.getLocale(),'es');
+ handlers.message(message);assert.equal(i18n.getLocale(),'fr');const count=sent.length;handlers.message(message);assert.equal(sent.length,count);
+ handlers.message({...message,data:{type:'lrf-portal-language',locale:'es'}});assert.equal(i18n.getLocale(),'es');assert(sent.every(([,target])=>target===origin));
+ `});assert.equal(child.status,0,child.stderr);
+});

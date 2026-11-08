@@ -1,3 +1,5 @@
+import {isRandalPortal,PORTAL_ORIGIN} from '../randal-portal-context.js';
+import {ES_RANDAL} from './es-randal.js';
 import {ES_UI,ES_PATTERNS} from './es-ui.js';
 
 // This boundary only presents text. It never translates a project, a settings
@@ -7,7 +9,7 @@ export const FR_UI=Object.freeze(Object.fromEntries(Object.keys(ES_UI).map(key=>
 const listeners=new Set(),textSources=new WeakMap(),attributeSources=new WeakMap();
 const supported=value=>value==='fr'||value==='es';
 const normalize=value=>value.replace(/\u00a0/g,' ').replace(/\s+/g,' ').trim();
-const dictionary=new Map(Object.entries(ES_UI).map(([fr,es])=>[normalize(fr),es]));
+const dictionary=new Map([...Object.entries(ES_UI),...Object.entries(ES_RANDAL)].map(([fr,es])=>[normalize(fr),es]));
 let locale='fr',initialized=false,observer,selector;
 let requested=null;
 try{requested=typeof location==='object'?new URLSearchParams(location.search).get('lang'):null;}catch{}
@@ -66,7 +68,7 @@ export function withLocaleURL(value){
 }
 function publishLocaleToSite(){
  if(!globalThis.document||!globalThis.parent||globalThis.parent===globalThis)return;
- try{const origin=new URL(document.referrer).origin;if(['https://leroyfactory.fr','https://www.leroyfactory.fr'].includes(origin))parent.postMessage({type:'lrf-ui-language',locale},origin);}catch{}
+ try{const origin=new URL(document.referrer).origin;if(['https://leroyfactory.fr','https://www.leroyfactory.fr'].includes(origin)||(isRandalPortal()&&origin===PORTAL_ORIGIN))parent.postMessage({type:'lrf-ui-language',locale},origin);}catch{}
 }
 function preserveLinkLocale(event){
  const anchor=event.target.closest?.('a[href]');if(!anchor||anchor.hasAttribute('download'))return;
@@ -97,5 +99,10 @@ export function initI18n({selector:showSelector=true}={}){
  observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['title','aria-label','placeholder','alt']});
  document.addEventListener('click',preserveLinkLocale,true);
  addEventListener('storage',event=>{if(event.key===LANGUAGE_KEY&&supported(event.newValue)&&event.newValue!==locale)setLocale(event.newValue);});
+ addEventListener('message',event=>{
+  if(!isRandalPortal()||event.source!==parent||event.origin!==PORTAL_ORIGIN||event.data?.type!=='lrf-portal-language'||!supported(event.data.locale)||event.data.locale===locale)return;
+  try{if(new URL(document.referrer).origin!==PORTAL_ORIGIN)return;}catch{return;}
+  setLocale(event.data.locale);
+ });
  addEventListener('beforeprint',()=>translateDOM(document));
 }

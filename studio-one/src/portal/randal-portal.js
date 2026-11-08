@@ -3,7 +3,7 @@ import {createRandalPortalSession,randalPortalFrameURL,RANDAL_PORTAL_ORIGINS} fr
 const $=id=>document.getElementById(id),frames=new Map(),pendingEnd=new Map();
 let active=null,ending=false;
 const text={fr:{header:'Votre espace de composition',choose:'Les deux configurateurs',logout:'Se déconnecter',eyebrow:'Les ateliers RANDAL',title:'Votre espace.<br><em>Votre signature.</em>',intro:'Deux configurateurs, un seul espace pour composer vos projets.',private:'Accès réservé',loginTitle:'Connectez votre compte LRF',help:'Utilisez les identifiants de votre compte client RANDAL.',code:'Code client LRF',postal:'Code postal ou département',submit:'Se connecter',waiting:'Vérification de votre compte…',chooser:'Choisissez votre configurateur',studioLabel:'Sur mesure',studioDescription:'Vos dimensions, vos finitions, votre composition.',studioAction:'Entrer dans STUDIO ONE',generalLabel:'Les collections RANDAL',generalTitle:'Catalogue général',generalDescription:'Composez avec les collections, matières et finitions RANDAL.',generalAction:'Découvrir les collections',imageNote:'Visuels d’inspiration. Les produits et options se choisissent dans les configurateurs.',footer:'RANDAL · Conception des configurateurs : LE ROY FACTORY',expired:'Votre session a expiré. Reconnectez votre compte LRF RANDAL.',refused:'Connexion refusée. Vérifiez vos identifiants LRF RANDAL.'},es:{header:'Su espacio de diseño',choose:'Los dos configuradores',logout:'Cerrar sesión',eyebrow:'Los talleres RANDAL',title:'Su espacio.<br><em>Su estilo.</em>',intro:'Dos configuradores, un solo espacio para crear sus proyectos.',private:'Acceso reservado',loginTitle:'Conecte su cuenta LRF',help:'Utilice los datos de acceso de su cuenta de cliente RANDAL.',code:'Código de cliente LRF',postal:'Código postal o departamento',submit:'Iniciar sesión',waiting:'Verificando su cuenta…',chooser:'Elija su configurador',studioLabel:'A medida',studioDescription:'Sus medidas, sus acabados, su composición.',studioAction:'Entrar en STUDIO ONE',generalLabel:'Las colecciones RANDAL',generalTitle:'Catálogo general',generalDescription:'Combine las colecciones, los materiales y los acabados RANDAL.',generalAction:'Descubrir las colecciones',imageNote:'Imágenes de inspiración. Los productos y las opciones se eligen en los configuradores.',footer:'RANDAL · Desarrollo de los configuradores: LE ROY FACTORY',expired:'Su sesión ha caducado. Conecte de nuevo su cuenta LRF RANDAL.',refused:'Acceso rechazado. Compruebe sus datos LRF RANDAL.'}};
-let lang=new URLSearchParams(location.search).get('lang')==='es'?'es':'fr';
+let lang=new URLSearchParams(location.search).get('lang')==='fr'?'fr':'es';
 const words=()=>text[lang];
 function translate(){
  document.documentElement.lang=lang;$('language').value=lang;
@@ -48,7 +48,8 @@ async function endSession(expired=false){
 addEventListener('message',event=>{
  const match=[...frames].find(([variant,frame])=>event.source===frame.contentWindow&&event.origin===RANDAL_PORTAL_ORIGINS[variant]);
  if(!match)return;const [variant,frame]=match,data=event.data;
- if(session.sendSession(event,frame,variant))return;
+ if(session.sendSession(event,frame,variant)){frame.contentWindow.postMessage({type:'lrf-portal-language',locale:lang},RANDAL_PORTAL_ORIGINS[variant]);return;}
+ if(data?.type==='lrf-ui-language'&&['fr','es'].includes(data.locale)){changeLanguage(data.locale);return;}
  if(data?.type==='lrf-portal-session-ended'){
   const pending=pendingEnd.get(data.requestId);if(pending?.frame===frame&&pending.variant===variant)pending.resolve();return;
  }
@@ -63,7 +64,11 @@ addEventListener('message',event=>{
 });
 $('login-form').addEventListener('submit',async event=>{event.preventDefault();if(ending||session.state.pending)return;const form=new FormData(event.currentTarget);await session.connect({codeClient:String(form.get('codeClient')).trim().toUpperCase(),departement:String(form.get('departement')).trim().toUpperCase()});});
 $('open-studio').onclick=()=>openConfigurator('studio');$('open-general').onclick=()=>openConfigurator('general');$('choose').onclick=showChooser;$('logout').onclick=()=>void endSession();
-$('language').onchange=()=>{lang=$('language').value==='es'?'es':'fr';const url=new URL(location.href);url.searchParams.set('lang',lang);history.replaceState(null,'',url);translate();render(session.state);};
+function changeLanguage(next){
+ if(!['fr','es'].includes(next)||next===lang)return;lang=next;const url=new URL(location.href);url.searchParams.set('lang',lang);history.replaceState(null,'',url);translate();render(session.state);
+ for(const [variant,frame]of frames)frame.contentWindow?.postMessage({type:'lrf-portal-language',locale:lang},RANDAL_PORTAL_ORIGINS[variant]);
+}
+$('language').addEventListener('change',()=>changeLanguage($('language').value));
 translate();render(session.state);void session.resume();
 // Revalidate a restored browser page rather than restoring a cached identity.
 addEventListener('pageshow',event=>{if(event.persisted){void endSession(true);}});
