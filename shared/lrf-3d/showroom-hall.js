@@ -2,22 +2,13 @@ import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {loadQueuedTexture,surfaceAssetURL} from './texture-loader.js';
+import {createShowroomMaterials,applyShowroomSurfaceUV} from './showroom-materials.js';
+import {makeShowroomGreenery} from './showroom-greenery.js';
+import {makeShowroomSky} from './showroom-sky.js';
 
 const NO_RAYCAST=()=>{};
 const PANEL_PAGE_SIZE=16;
 const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
-
-function mineralTexture(){
- const edge=128,data=new Uint8Array(edge*edge*4);let seed=91831;
- for(let y=0;y<edge;y++)for(let x=0;x<edge;x++){
-  seed=(seed*1664525+1013904223)>>>0;
-  const n=(seed>>>24)/255,vein=Math.sin(x*.075+Math.sin(y*.036)*2)*.9;
-  const value=clamp(218+vein+(n-.5)*9,0,255),i=(y*edge+x)*4;
-  data[i]=value;data[i+1]=value-3;data[i+2]=value-8;data[i+3]=255;
- }
- const map=new T.DataTexture(data,edge,edge,T.RGBAFormat);map.colorSpace=T.SRGBColorSpace;
- map.wrapS=map.wrapT=T.RepeatWrapping;map.repeat.set(1,1);map.needsUpdate=true;return map;
-}
 
 // Every sign uses ordinary canvas type. Images of the collections are loaded
 // separately, so no part of a manufacturer's visual is replaced or invented.
@@ -50,11 +41,13 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
  const dimensions={width,height,depth};
  let disposed=false,lastPosition=new T.Vector3(),hasPosition=false;
  const geometries=new Map(),materials=new Set(),textureRecords=new Set();
- const floorMap=mineralTexture();
+ const surfaceMaterials=createShowroomMaterials({onReady});
+ const photographicSky=makeShowroomSky({onReady});root.add(photographicSky.root);
+ let greenery=null;
  const palette={
   wall:new T.MeshStandardMaterial({color:'#ded9cf',roughness:.86,emissive:'#c9c0af',emissiveIntensity:.08}),
   ceiling:new T.MeshStandardMaterial({color:'#e9e7df',roughness:.88,emissive:'#d4cfc3',emissiveIntensity:.12,side:T.DoubleSide}),
-  floor:new T.MeshPhysicalMaterial({color:'#ffffff',map:floorMap,roughness:.43,metalness:.02,clearcoat:.12}),
+  floor:surfaceMaterials.materials.floor,
   grout:new T.MeshStandardMaterial({color:'#a8a59c',roughness:.86}),
   dark:new T.MeshStandardMaterial({color:'#292c2b',roughness:.51,metalness:.12}),
   metal:new T.MeshStandardMaterial({color:'#938779',metalness:.82,roughness:.29}),
@@ -64,15 +57,24 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
   diffuser:new T.MeshBasicMaterial({color:'#fff1d9',toneMapped:false}),
   sky:new T.MeshBasicMaterial({color:'#d2e1e5',toneMapped:false})
  };
+ Object.assign(palette,surfaceMaterials.materials);
+ const glass=new T.MeshPhysicalMaterial({color:'#d5e9e8',roughness:.035,metalness:.08,transparent:true,opacity:.19,depthWrite:false,side:T.DoubleSide,clearcoat:1,clearcoatRoughness:.025});materials.add(glass);
+ glass.userData.architecturalGlass=true;
  Object.values(palette).forEach(material=>materials.add(material));
- palette.floor.addEventListener('dispose',()=>floorMap.dispose());
+ const key=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
+ function collectionForRecipe(recipe){
+  if(!recipe)return null;
+  const manufacturer=manufacturers.find(m=>key(m.name).includes(key(recipe.manufacturer))&&key(recipe.manufacturer));
+  const collection=manufacturer?.collections?.find(c=>key(c.name)===key(recipe.collection));
+  return collection?{manufacturer,collection}:null;
+ }
  const geometry=(w,h,d,bevel=0)=>{
   const key=[w,h,d,bevel].join(',');if(!geometries.has(key))geometries.set(key,bevel?new RoundedBoxGeometry(w,h,d,2,bevel):new T.BoxGeometry(w,h,d));return geometries.get(key);
  };
  function mesh(geom,material,x,y,z,name,parent=root){
   const object=new T.Mesh(geom,material);object.position.set(x,y,z);object.name=name;
   object.castShadow=false;object.receiveShadow=true;object.raycast=NO_RAYCAST;
-  object.userData={visualOnly:true,excludeFromProductBounds:true};parent.add(object);return object;
+  object.userData={visualOnly:true,excludeFromProductBounds:true};const entry=collectionForRecipe(material.userData?.showroomRecipe);if(entry)object.userData.showroomCollection=entry;parent.add(object);return object;
  }
  const box=(w,h,d,x,y,z,material,name,parent=root,bevel=0)=>mesh(geometry(w,h,d,bevel),material,x,y,z,name,parent);
  // Architectural pieces share a handful of physical materials. Baking their
@@ -103,21 +105,30 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
  // Only the actual entrance is open: the outside hallway cannot be walked
  // through any of the perimeter walls. Parent handles the passage into the sas.
  box(width,.12,depth,0,-.075,-depth/2,palette.grout,'Dalle_hall');
- const tileGeometry=geometry(1.194,.018,1.194),columns=Math.ceil(width/1.2),tileRows=Math.ceil(depth/1.2);
+ const tileGeometry=geometry(1.196,.018,1.196),columns=Math.ceil(width/1.2),tileRows=Math.ceil(depth/1.2);
  const tiles=new T.InstancedMesh(tileGeometry,palette.floor,columns*tileRows);tiles.name='Dallage_pierre_120x120';tiles.raycast=NO_RAYCAST;
- tiles.userData={visualOnly:true,excludeFromProductBounds:true};tiles.receiveShadow=true;const matrix=new T.Matrix4();
+ tiles.userData={visualOnly:true,excludeFromProductBounds:true,showroomRecipe:surfaceMaterials.recipes.floor};const floorEntry=collectionForRecipe(surfaceMaterials.recipes.floor);if(floorEntry)tiles.userData.showroomCollection=floorEntry;tiles.receiveShadow=true;const matrix=new T.Matrix4();
  for(let r=0,i=0;r<tileRows;r++)for(let c=0;c<columns;c++,i++){matrix.makeTranslation(-width/2+.6+c*1.2,-.006,-.6-r*1.2);tiles.setMatrixAt(i,matrix);}
  tiles.instanceMatrix.needsUpdate=true;root.add(tiles);
  for(const side of [-1,1]){
-  box(.18,height,depth,side*(half+.09),height/2,-depth/2,palette.wall,'Mur_longitudinal_hall');
+  // Full-height picture windows: masonry only below the sill and above the glass.
+  const sill=box(.18,.60,depth,side*(half+.09),.30,-depth/2,palette.stone,'Soubassement_parement_baie');sill.geometry=sill.geometry.clone();applyShowroomSurfaceUV(sill.geometry,{plane:'wallX',width:1.2,height:1.2});geometries.set('stone-sill-'+side,sill.geometry);
+  box(.18,.52,depth,side*(half+.09),height-.26,-depth/2,palette.ivory,'Linteau_baie_vitree');
+  const facade=mesh(new T.PlaneGeometry(depth,4.88),glass,side*half,3.04,-depth/2,'Grande_baie_vitree');geometries.set('facade-glass-'+side,facade.geometry);facade.rotation.y=Math.PI/2;facade.castShadow=false;facade.receiveShadow=false;facade.userData.glazing=true;
+  for(let z=0;z>=-depth;z-=3.6)box(.09,5.5,.075,side*(half-.015),2.75,z,palette.dark,'Montant_baie_vitree');
+  for(const y of [.62,3.25,5.48])box(.08,.055,depth,side*(half-.015),y,-depth/2,palette.dark,'Traverse_baie_vitree');
   collider(side*(half+.09),-depth/2,.18,depth);
   const wing=(width-.98)/2;
-  box(wing,height,.18,side*(.49+wing/2),height/2,.09,palette.wall,'Mur_entree_hall');collider(side*(.49+wing/2),.09,wing,.18);
+  box(wing,height,.18,side*(.49+wing/2),height/2,.09,side<0?palette.sage:palette.petrol,'Mur_entree_hall');collider(side*(.49+wing/2),.09,wing,.18);
   box(.025,.095,depth,side*(half-.012),.0475,-depth/2,palette.brass,'Plinthe_peripherique');
  }
  box(.98,height-2.12,.18,0,(height+2.12)/2,.09,palette.wall,'Linteau_entree_hall');
- box(width,height,.18,0,height/2,-depth-.09,palette.wall,'Mur_fond_salon');collider(0,-depth-.09,width,.18);
- box(width,.10,depth,0,height+.05,-depth/2,palette.ceiling,'Plafond_hall');
+ box(width,height,.18,0,height/2,-depth-.09,palette.petrol,'Mur_fond_salon');collider(0,-depth-.09,width,.18);
+ // The ceiling is genuinely open to a glazed roof and the real photographic sky.
+ for(const x of [-half+.22,half-.22])box(.44,.18,depth,x,height,-depth/2,palette.ivory,'Rive_toiture_verriere');
+ const roof=mesh(new T.PlaneGeometry(width-.88,depth),glass,0,height,-depth/2,'Plafond_vitre_panoramique');geometries.set('roof-glass',roof.geometry);roof.rotation.x=-Math.PI/2;roof.receiveShadow=false;roof.userData.glazing=true;
+ for(let z=0;z>=-depth;z-=3.6)box(width-.8,.075,.06,0,5.98,z,palette.metal,'Profil_verriere_transversale');
+ for(const x of [-10,-5,0,5,10])box(.06,.085,depth,x,5.98,-depth/2,palette.metal,'Profil_verriere_longitudinale');
  // Exposed rafters, skylights and suspended tracks give the hall a true scale.
  for(let z=-5;z>-depth;z-=10.7){
   box(width,.15,.15,0,5.74,z,palette.dark,'Poutre_charpente');
@@ -126,7 +137,6 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
    box(.026,.018,7.4,x,5.53,z-2.5,palette.diffuser,'Ligne_LED');
   }
   for(const x of [-8,8]){
-   box(5.4,.035,4.1,x,5.97,z-2,palette.sky,'Verriere_ciel');
    for(const dx of [-2.75,2.75])box(.06,.08,4.25,x+dx,5.92,z-2,palette.metal,'Cadre_verriere');
    for(const dz of [-2.1,0,2.1])box(5.55,.08,.06,x,5.92,z-2+dz,palette.metal,'Traverse_verriere');
   }
@@ -136,7 +146,7 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
  }
  // Reception stays beside the arrival axis; a four metre central aisle runs
  // uninterrupted between every stand and makes return navigation unambiguous.
- box(4.6,.98,.72,-6.1,.49,-3.25,palette.booth,'Comptoir_accueil',root,.035);collider(-6.1,-3.25,4.6,.72);
+ box(4.6,.98,.72,-6.1,.49,-3.25,palette.terracotta,'Comptoir_accueil',root,.035);collider(-6.1,-3.25,4.6,.72);
  box(4.7,.07,.85,-6.1,1.015,-3.25,palette.oak,'Plan_comptoir',root,.012);
  box(4.35,.045,.025,-6.1,.12,-2.875,palette.brass,'Socle_accueil');
  sign('LE ROY FACTORY',3.8,.46,-6.1,.58,-2.878,{background:'#f1eee7',color:'#303630',size:42});
@@ -145,9 +155,13 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
  sign('LE ROY FACTORY',6.8,.68,0,4.58,-6.34,{background:'#292c2b',color:'#f1e5cf',size:48,textureWidth:1024,textureHeight:128});
  sign('LE SALON DES MATIÈRES',5.8,.32,0,3.98,-6.34,{background:'#292c2b',color:'#d8c9ad',size:32,textureWidth:1024,textureHeight:96});
  sign('ACCUEIL',1.6,.24,-6.1,1.4,-3.23,{background:'#ded9cf',size:32});
+ const stoneWall=geometry(5.1,3.4,.09).clone();geometries.set('reception-stone',stoneWall);applyShowroomSurfaceUV(stoneWall,{plane:'wall',width:1.2,height:1.2});mesh(stoneWall,palette.stone,-6.1,1.7,-.055,'Mur_parement_BioPietra_Borgo_Antico');
+ // Vertical oak slats and a bronze skirting ground the tactile reception wall.
+ for(let x=-8.9;x<-3.25;x+=.145)if(x<-8.65||x>-3.55)box(.055,3.65,.055,x,1.825,-.14,palette.oak,'Lame_chene_accueil');
  // Exit sign is legible from the salon side and leads back to the user's room.
  sign('RETOUR AU CONFIGURATEUR',3.4,.3,0,2.58,-.014,{background:'#292c2b',color:'#f5e9d4',size:34});
  for(const x of [-2.28,2.28])box(.018,.008,depth-6,x,.009,-(depth+6)/2,palette.brass,'Liseret_allee');
+ const daylight=new T.DirectionalLight('#eef5ff',1.65);daylight.position.set(-18,32,-10);daylight.target.position.set(0,0,-18);daylight.castShadow=false;root.add(daylight,daylight.target);
  const entranceLight=new T.PointLight('#fff0d7',22,12,2);entranceLight.position.set(0,4.8,-4.7);entranceLight.castShadow=false;root.add(entranceLight);
  // Four short-range lights, rather than a light per panel, keep the shader and
  // scene costs bounded even when the supplier catalogue contains many pages.
@@ -194,12 +208,18 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
   const side=index%2===0?-1:1,row=Math.floor(index/2),front=-8-row*rowPitch,back=front-boothDepth;
   const minX=side<0?-13.7:3.05,maxX=side<0?-3.05:13.7,centerX=(minX+maxX)/2,boothWidth=maxX-minX;
   const group=new T.Group();group.name='Stand_'+manufacturer.id;group.userData={visualOnly:true,excludeFromProductBounds:true,showroomManufacturer:manufacturer.id};root.add(group);
-  box(boothWidth,.042,boothDepth,centerX,.013,(front+back)/2,palette.booth,'Sol_box_exposition',group);
-  box(boothWidth,3.12,.10,centerX,1.56,back,palette.booth,'Mur_collections_fond',group);collider(centerX,back,boothWidth,.10);
+  const standFloor=surfaceMaterials.materialForStand(manufacturer,index),recipe=standFloor.userData.showroomRecipe;
+  const floorGeometry=geometry(boothWidth,.024,boothDepth).clone();geometries.set('stand-floor-'+index,floorGeometry);applyShowroomSurfaceUV(floorGeometry,{width:recipe.width,height:recipe.height,offsetX:centerX,offsetY:-(front+back)/2});
+  mesh(floorGeometry,standFloor,centerX,.018,(front+back)/2,'Sol_box_'+recipe.collection+'_'+recipe.format,group).userData.showroomRecipe=recipe;
+  // Thin physical grout lines retain the actual60/120cm format at human scale.
+  for(let x=minX+recipe.width;x<maxX;x+=recipe.width)box(.0025,.001,boothDepth,x,.031,(front+back)/2,palette.grout,'Joint_sol_box',group);
+  for(let z=front-recipe.height;z>back;z-=recipe.height)box(boothWidth,.001,.0025,centerX,.031,z,palette.grout,'Joint_sol_box',group);
+  const standPaint=[palette.sage,palette.terracotta,palette.petrol,palette.ivory][index%4];
+  box(boothWidth,3.12,.10,centerX,1.56,back,standPaint,'Mur_collections_fond',group);collider(centerX,back,boothWidth,.10);
   // Side partitions stop short of the main aisle and allow an open, legible
   // entrance to every booth. Panels face inward on each side.
   for(const x of [minX,maxX]){
-   box(.10,3.12,boothDepth,x,1.56,(front+back)/2,palette.booth,'Cloison_stand',group);collider(x,(front+back)/2,.10,boothDepth);
+   box(.10,3.12,boothDepth,x,1.56,(front+back)/2,standPaint,'Cloison_stand',group);collider(x,(front+back)/2,.10,boothDepth);
   }
   box(boothWidth,.36,.12,centerX,3.33,front,palette.dark,'Enseigne_stand',group);
   sign(manufacturer.name.toUpperCase(),boothWidth-.35,.29,centerX,3.33,front+.068,{background:'#292c2b',color:'#f1e5ce',size:48,textureWidth:1024,textureHeight:96},group);
@@ -229,6 +249,7 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
   catalogue.userData.showroomAction={kind:'catalogue',manufacturerId:manufacturer.id};interactions.push(catalogue);
   setPage(stand,0);mergeArchitecture(group);
  }
+ greenery=makeShowroomGreenery({width,depth,stands});root.add(greenery.root);colliders.push(...greenery.colliders);
  mergeArchitecture(root);
  function textureURL(collection){const image=String(collection?.image||collection?.preview||'');return image?surfaceAssetURL(image):'';}
  async function loadRecord(record){
@@ -261,6 +282,7 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
  cullDetails(new T.Vector3());
  function prepareNear(position){
   if(disposed||!position)return Promise.resolve([]);lastPosition.copy(position);hasPosition=true;cullDetails(position);
+  surfaceMaterials.prepareNear(position);photographicSky.prepareNear(position);greenery?.prepareNear(position);daylight.visible=position.z<-.1;
   const candidates=[];
   for(const record of textureRecords){
    if(!record.collection)continue;
@@ -277,13 +299,13 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
   return stand?setPage(stand,stand.page+(action.direction<0?-1:1)):false;
  }
  function dispose(){
-  if(disposed)return;disposed=true;for(const record of textureRecords)clearRecord(record);
+  if(disposed)return;disposed=true;for(const record of textureRecords)clearRecord(record);surfaceMaterials.dispose();photographicSky.dispose();greenery?.dispose();
   for(const material of materials)material.dispose();for(const geom of geometries.values())geom.dispose();
   for(const record of panels)record.mesh.geometry.dispose();root.removeFromParent();
  }
  // Removing a door through the editor's normal disposal also aborts the hall's
  // pending transfers, even when the caller does not invoke dispose explicitly.
  palette.wall.addEventListener('dispose',()=>{if(!disposed){disposed=true;for(const record of textureRecords)clearRecord(record);}});
- return {root,dimensions,navigableBounds,colliders,panels,interactions,stands,prepareNear,activateAction,dispose,
+ return {root,dimensions,navigableBounds,get skyTexture(){return photographicSky.texture},surfaceRecipes:surfaceMaterials.recipes,greenery,sky:photographicSky,colliders,panels,interactions,stands,prepareNear,activateAction,dispose,
   diagnostics:()=>({manufacturers:stands.length,collections:manufacturers.reduce((n,m)=>n+(m.collections?.length||0),0),panels:panels.filter(p=>p.collection).length,loaded:[...textureRecords].filter(p=>p.texture).length,loading:[...textureRecords].filter(p=>p.controller).length,maxTextures,textureSize,visibleStands:stands.filter(s=>s.group.visible).length,visiblePanels:panels.filter(p=>p.collection&&p.mount.visible&&p.mount.parent.visible).length,architectureBatches:mergedSequence})};
 }

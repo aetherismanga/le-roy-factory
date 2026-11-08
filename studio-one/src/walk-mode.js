@@ -94,7 +94,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   panel=document.createElement('div');panel.className='walk-hint';panel.hidden=true;panel.setAttribute('aria-label','Commandes de visite');panel.setAttribute('role','status');
   Object.assign(panel.style,{position:'absolute',left:'12px',bottom:'calc(110px + env(safe-area-inset-bottom,0px))',zIndex:'41',background:'rgba(17,42,37,.88)',color:'white',borderRadius:'10px',padding:'8px',fontSize:'12px',maxWidth:'55%'});
   stage.append(panel);
-  const mobileControls=mountVisitMobileControls({stage,onInput:value=>{mobileMove=value;},onInvalidate:onMove});
+  const mobileControls=mountVisitMobileControls({stage,onInput:value=>{mobileMove=value;},onInvalidate:onMove,onExitRequest:()=>setActive(false)});
   const showroomVisit=createShowroomVisit({stage,canvas,camera,getItems,onInvalidate:onMove,onOverlay:()=>{keys.clear();mobileControls.reset();touchMove={x:0,y:0};}});
   const supported=new Set(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyS','KeyA','KeyD','KeyQ','KeyE','KeyZ','ShiftLeft','ShiftRight']);
   document.addEventListener('keydown',e=>{

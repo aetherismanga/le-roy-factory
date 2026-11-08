@@ -53,3 +53,6 @@ copyFileSync('src/portal/randal-portal.css','dist/randal-portal.css');
 let portal=readFileSync('src/portal/randal.html','utf8');
 for(const file of ['randal-portal.js','randal-portal.css']){const hash=createHash('sha256').update(readFileSync('dist/'+file)).digest('hex').slice(0,12);portal=portal.replaceAll('"'+file+'"','"'+file+'?v='+hash+'"');}
 writeFileSync('dist/randal.html',portal);
+
+// Real photographic sky used only during an exhibition visit.
+cpSync('../shared/lrf-3d/media/showroom','dist/assets/showroom',{recursive:true});

@@ -24,7 +24,7 @@ for(const app of ['studio-one','randal-general']){
    renderActivity:new RenderActivity(),applyRenderPhase:()=>phases.push('phase'),renderProfile:()=>context.quality.profile,dragController:null,partitionDragController:null,productDragController:null,isMobile:false,
    state:{ready:true,orbit:false},quality:{profile:{id:'fluid'},sample:()=>false,pause:()=>counts.pause++},
    running:false,captureBusy:false,document:{hidden:false},lastTime:0,lastMove:0,frames:0,
-   shadowsDirty:false,sceneRevision:0,scene:{},camera:{position:{z:1}},roomGroup:{},roomScene:null,wall:{},
+   shadowsDirty:false,sceneRevision:0,scene:{},camera:{position:{z:1}},roomGroup:{},roomScene:null,showroomLighting:null,wall:{},
    composition:{items:[]},viewTween:null,controls:{update:()=>false},walkMode:{active:true,tick:()=>false},
    visitorAvatar:{tick:()=>false},renderDimensions(){},ultraPipeline:null,renderer:{render:()=>counts.render++}
   });

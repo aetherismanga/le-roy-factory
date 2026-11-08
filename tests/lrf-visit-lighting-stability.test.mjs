@@ -36,7 +36,7 @@ for(const [name,source,Quality] of variants){
    quality,renderActivity:new RenderActivity(),interactionProfile,captureBusy:false,isMobile:false,
    renderer:{shadowMap:{enabled:true,autoUpdate:false,needsUpdate:false},transmissionResolutionScale:quality.profile.transmission,toneMappingExposure:.84,render:()=>draw('render')},
    ultraPipeline:{render:()=>draw('ultra')},
-   scene:{environmentIntensity:.351},camera:{position:new T.Vector3(0,1.5,1)},roomGroup:{visible:true},roomScene:null,wall:{visible:true},
+   scene:{environmentIntensity:.351},camera:{position:new T.Vector3(0,1.5,1)},roomGroup:{visible:true},roomScene:null,showroomLighting:null,wall:{visible:true},
    composition:{items:[]},profileAsset:null,plinthAsset:null,
    applyArchitecturalGlass:()=>counts.glass++,fitCompositionLights:()=>counts.lights++,
    shadowsDirty:false,sceneRevision:7,

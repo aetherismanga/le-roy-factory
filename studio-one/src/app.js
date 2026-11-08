@@ -1,3 +1,4 @@
+import {createShowroomLighting} from '../../shared/lrf-3d/showroom-lighting.js';
 import {mountRandalWorkshopAccess} from '../../shared/lrf-3d/randal-workshop-access.js';
 import {createIdentity as createAccessIdentity} from './commerce/identity.js';
 mountRandalWorkshopAccess(createAccessIdentity);
@@ -119,7 +120,7 @@ const state={format:'two',facadeMode:'overlay',finish:'ROBLE',light:'day',drawer
 let currentDrawers=[0,0];const tiledSurfaces={};const surfaceTextures={floor:{},wall:{}};const envs={};const finishTextures={};let viewTween=null;
 let captureBusy=false,lastCapture=null,textureRefresh=Promise.resolve();const textureCache=new Map(),textureFlights=new Map();
 const mobileViewport=()=>matchMedia('(max-width:760px), (pointer:coarse) and (max-width:1024px)').matches;
-let isMobile=mobileViewport();const quality=new AdaptiveQuality({mobile:isMobile});let activePixelRatio=1,shadowsDirty=true,sceneRevision=0;let ultraPipeline=null;const lightweightMaterials=createLightweightMaterials();const renderActivity=new RenderActivity();
+let isMobile=mobileViewport();const quality=new AdaptiveQuality({mobile:isMobile});let activePixelRatio=1,shadowsDirty=true,sceneRevision=0;let ultraPipeline=null,showroomLighting=null;const lightweightMaterials=createLightweightMaterials();const renderActivity=new RenderActivity();
 try{const saved=localStorage.getItem('studio-one-render-quality');if(saved)quality.setMode(saved);}catch{}
 let frames=0,lastTime=0,lastMove=0,running=true,startedAt=performance.now();
 let walkMode=null,visitorAvatar=null,visitInteractions=null;
@@ -709,7 +710,7 @@ function animate(time){if(captureBusy||document.hidden){running=false;lastTime=0
  if(roomScene){roomScene.updateCutaway(camera.position);renovation?.updateVisibility?.();for(const group of [...(profileAsset?.group.children||[]),...(plinthAsset?.group.children||[])])group.visible=roomScene.walls[group.userData.wallIndex]?.group.visible!==false;for(const item of composition?.items||[])if(isOpening(item.type)){const visible=walkMode?.interiorId===item.id||roomScene.walls[item.placement.wall].group.visible;if(item.root.visible!==visible){item.root.visible=visible;}}}else wall.visible=camera.position.z>-.10;
  roomGroup.visible=camera.position.z<2.9;
  if(geometryMoving){shadowsDirty=true;sceneRevision++;}if(renderer.shadowMap){renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=shadowsDirty;shadowsDirty=false;}
- renderDimensions();if(ultraPipeline&&renderProfile().ao)ultraPipeline.render(dt);else renderer.render(scene,camera);const qualityChanged=!phaseChanged&&renderActivity.active?quality.sample(time):false;if(qualityChanged)applyQuality();
+ showroomLighting?.update();renderDimensions();if(ultraPipeline&&renderProfile().ao)ultraPipeline.render(dt);else renderer.render(scene,camera);const qualityChanged=!phaseChanged&&renderActivity.active?quality.sample(time):false;if(qualityChanged)applyQuality();
  if(qualityChanged||moving||walking||avatarMoving||state.orbit||cameraMoved||renderActivity.active||time-lastMove<250){requestAnimationFrame(animate);}else{running=false;lastTime=0;quality.pause();}
 }
 async function start(){
@@ -719,6 +720,7 @@ async function start(){
   renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance',alpha:false});activePixelRatio=renderPixelRatio(quality.profile,stage.clientWidth,stage.clientHeight,Math.min(devicePixelRatio||1,isMobile?1.7:2.5));renderer.setPixelRatio(activePixelRatio);configureColourRendering(renderer);renderer.shadowMap.enabled=true;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
   scene=new T.Scene();scene.background=new T.Color('#e5e3dc');scene.fog=new T.Fog('#e5e3dc',15,55);
   camera=new T.PerspectiveCamera(42,1,.035,120);camera.position.set(1.1,1.3,2);
+  showroomLighting=createShowroomLighting({scene,renderer,camera,getHall:()=>composition?.items.find(item=>item.id===walkMode?.interiorId)?.asset.visitInterior?.showroom});
   controls=new OrbitControls(camera,canvas);controls.target.set(0,.99,0);controls.enableDamping=true;controls.dampingFactor=.085;controls.minDistance=.65;controls.maxDistance=4.8;controls.maxPolarAngle=1.6;controls.minPolarAngle=.18;controls.autoRotateSpeed=.6;controls.screenSpacePanning=true;configureNavigation(controls,state.navigationInverted);controls.zoomSpeed=.7;
   controls.addEventListener('start',()=>{viewTween=null;stopOrbit();closeInspector();});controls.addEventListener('change',()=>{lastMove=performance.now();invalidate(false,false);});
   model=makeModel();scene.add(model.root);grain=noiseTexture();buildRoom();setupLights();addContactShadows();

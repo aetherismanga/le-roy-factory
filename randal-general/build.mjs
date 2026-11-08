@@ -44,3 +44,6 @@ cpSync('../shared/lrf-3d/media/randal-presentation','dist/assets/randal-presenta
 
 // Progressive fullscreen resources and third-party license notices.
 await buildPresentationAssets();
+
+// Real photographic sky used only during an exhibition visit.
+cpSync('../shared/lrf-3d/media/showroom','dist/assets/showroom',{recursive:true});
