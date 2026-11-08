@@ -14,7 +14,7 @@ const declaration=entry.body.body.find(n=>n.type==='FunctionDeclaration'&&n.id.n
 const updateSource=source.slice(declaration.start,declaration.end);
 function fixture(){
  const scene=new T.Scene(),pending=[];let renders=0,prunes=0;
- const make=Function('deps',`const {scene,buildPreview,pending,pruneTextures,invalidate}=deps;let lastProject=null,revision=0,disposed=false,current=null,lastShape='',pendingTextureUpdate;const premium={prepareModel(){}},dimensions={setVisible(){}},options={presentation:true};function texture(){return pending.length?pending.shift():Promise.resolve(null);}function disposeCurrent(){if(current)scene.remove(current.group);}function fit(){}async function applyTextures(){}${updateSource};return {update,dispose(){disposed=true;revision++;},current:()=>current};`);
+ const make=Function('deps',`const {scene,buildPreview,pending,pruneTextures,invalidate}=deps;let lastProject=null,revision=0,disposed=false,current=null,lastShape='',pendingTextureUpdate;const premium={prepareModel(){}},presentation={refreshOpening(){}},dimensions={setVisible(){}},options={presentation:true};function texture(){return pending.length?pending.shift():Promise.resolve(null);}function disposeCurrent(){if(current)scene.remove(current.group);}function fit(){}async function applyTextures(){}${updateSource};return {update,dispose(){disposed=true;revision++;},current:()=>current};`);
  const api=make({scene,buildPreview,pending,pruneTextures(){prunes++;},invalidate(){renders++;}});
  return {...api,pending,scene,counts:()=>({renders,prunes})};
 }

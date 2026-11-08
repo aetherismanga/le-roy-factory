@@ -14,11 +14,24 @@ test('the actual white configurator window has glazing, hardware and the existin
  try{
   assert.equal(await room.ready(),true);assert.equal(await room.ready(),true);assert.equal(calls.length,1);
   assert.equal(calls[0][0],'assets/exterior/mediterranean-garden.webp');assert.equal(map.colorSpace,T.SRGBColorSpace);
+  assert.equal(calls[0][1].maxDimension,undefined,'the genuine panorama is never resized to an arbitrary presentation cap');
   assert.equal(room.window.frame.color.getHexString(),new T.Color(OPENING_COLORS.find(c=>c.id==='white').hex).getHexString());
+  assert.equal(room.window.frame.metalness,0,'white PVC does not acquire a silver metallic response');
   assert(room.root.getObjectByName('Dormant_vertical'));assert(room.root.getObjectByName('Poignee_fenetre'));
-  const panes=[];room.window.root.traverse(o=>{if(o.name==='Double_vitrage')panes.push(o);});assert.equal(panes.length,4);assert(panes.every(o=>o.material.userData.architecturalGlass));
+  const panes=[];room.window.root.traverse(o=>{if(o.name==='Double_vitrage')panes.push(o);});assert.equal(panes.length,4);assert(panes.every(o=>o.material.userData.architecturalGlass&&o.material.transmission===.86&&o.material.roughness===.028),'the genuine glazing is preserved');
   const garden=room.root.getObjectByName('Vue_exterieure_jardin');assert.equal(garden.material.map,map);assert.equal(garden.material.toneMapped,false);assert.equal(room.diagnostics().exteriorReady,true);assert.equal(redraws,1);
   assert.equal(room.root.getObjectByName('Présentation_fenêtre_raster'),undefined,'no white emissive rectangle replaces the landscape');
+ }finally{room.dispose();}
+});
+
+test('native panorama sampling retains source detail and crops without a UV reversal or artificial upscale',async()=>{
+ const map=new T.Texture({width:3072,height:2048});map.userData.sourceDimensions=[3072,2048];const room=createPresentationReflectionRoom({loadTexture:async()=>map,maxAnisotropy:32});
+ try{
+  assert.equal(await room.ready(),true);assert.deepEqual([map.image.width,map.image.height],[3072,2048]);assert.equal(map.minFilter,T.LinearMipmapLinearFilter);assert.equal(map.magFilter,T.LinearFilter);assert.equal(map.generateMipmaps,true);assert.equal(map.anisotropy,16);assert.equal(map.wrapS,T.ClampToEdgeWrapping);assert.equal(map.wrapT,T.ClampToEdgeWrapping);
+  assert.equal(map.rotation,0);assert.deepEqual(map.repeat.toArray(),[1,1]);assert.equal(map.flipY,true);
+  const garden=room.root.getObjectByName('Vue_exterieure_jardin'),uv=garden.geometry.attributes.uv,{width,height}=garden.geometry.parameters;
+  assert(uv.getX(1)>uv.getX(0),'the source remains left-to-right before physical mirror projection');assert(uv.getY(0)>uv.getY(2),'the source remains upright');assert.ok(Math.abs((uv.getX(1)-uv.getX(0))*1.5/(uv.getY(0)-uv.getY(2))-width/height)<1e-6,'center crop preserves the real image aspect');
+  assert.deepEqual(room.diagnostics().exteriorTexture,{url:'assets/exterior/mediterranean-garden.webp',width:3072,height:2048,sourceWidth:3072,sourceHeight:2048,anisotropy:16,mipmaps:true});
  }finally{room.dispose();}
 });
 

@@ -16,7 +16,7 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
  }
  async function open(input=getProject()){
   if(!isRandalPresentation(getIdentity())||!input)return false;
-  if(dialog)close();previousFocus=document.activeElement;project=structuredClone(input);const migrateDefaults=project.presentation?.defaultsVersion!==2,turn=++opening;
+  if(dialog)close();previousFocus=document.activeElement;project=structuredClone(input);const turn=++opening;
   dialog=element('dialog');dialog.className='randal-presentation';dialog.id='randal-presentation';dialog.setAttribute('aria-label','Votre composition en plein écran');
   const header=element('header');header.className='randal-presentation-header';header.append(element('strong','Votre composition RANDAL'));const exit=button('randal-presentation-close','Fermer ✕');header.append(exit);
   const body=element('div');body.className='randal-presentation-body';const stage=element('div');stage.className='randal-presentation-stage';stage.id='randal-presentation-stage';const controls=element('aside');controls.className='randal-presentation-controls';controls.setAttribute('aria-label','Personnaliser la présentation');const status=element('p','Préparation de votre composition…');status.className='randal-presentation-status';status.setAttribute('role','status');stage.append(status);body.append(stage,controls);dialog.append(header,body);document.body.append(dialog);
@@ -28,12 +28,13 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
    const settled=await Promise.allSettled([import('./randal-presentation-catalog.js'),createPreview(stage,{presentation:true}),import('./randal-presentation-products.js'),import('./randal-presentation-choice-previews.js')]),failure=settled.find(r=>r.status==='rejected');
    if(failure){if(settled[1].status==='fulfilled')settled[1].value.dispose();throw failure.reason;}
    const results=settled.map(r=>r.value);catalog=results[0];const next=results[1],productCatalog=products?results[2].createPresentationProducts(products):null,mirrorSpec=results[2].mirrorSpec,choicePreview=results[3].presentationChoicePreview;
+   const migrateDefaults=project.presentation?.defaultsVersion!==(catalog.RANDAL_PRESENTATION_DEFAULTS_VERSION??3);
    if(turn!==opening){next.dispose();return false;}engine=next;project=catalog.presentationDefaults?.(project)??project;await engine.update(project);if(turn!==opening)return false;
    selection=catalog.presentationChoices(project);
    const openButton=button('randal-composition-open','Ouvrir la composition'),ledButton=button('randal-mirror-led','Allumer le miroir'),reset=button('randal-presentation-reset','Vue initiale');
    controls.append(openButton,ledButton);
-   const boundedBrightness=value=>Number.isFinite(Number(value))?Math.min(150,Math.max(25,Math.round(Number(value)))):100;
-   let brightnessValue=boundedBrightness(project.presentation?.brightness??100),dimensionsVisible=project.presentation?.dimensions===true;
+   const boundedBrightness=value=>Number.isFinite(Number(value))?Math.min(150,Math.max(25,Math.round(Number(value)))):71;
+   let brightnessValue=boundedBrightness(project.presentation?.brightness??71),dimensionsVisible=project.presentation?.dimensions===true;
    engine.setBrightness?.(brightnessValue);engine.dimensions?.setVisible(dimensionsVisible);
    const displayControls=element('div');displayControls.className='randal-presentation-display';
    const dimensionButton=button('randal-dimensions-toggle','Cotes');dimensionButton.setAttribute('aria-pressed',String(dimensionsVisible));dimensionButton.title='Afficher ou masquer les dimensions du mobilier';
@@ -46,14 +47,17 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
    brightness.onchange=()=>{if(brightness.oninput())saveDisplay();};
    dimensionButton.onclick=()=>{if(turn!==opening||!engine)return;dimensionsVisible=!dimensionsVisible;engine.dimensions?.setVisible(dimensionsVisible);dimensionButton.setAttribute('aria-pressed',String(dimensionsVisible));saveDisplay();};
    reflectBrightness();brightnessLabel.append(brightnessHeading,brightness);displayControls.append(dimensionButton,brightnessLabel);controls.append(displayControls);
-   function reflect(){if(!engine)return;const state=engine.presentation.capabilities();openButton.hidden=!state.openable;openButton.textContent=state.opened?'Fermer la composition':'Ouvrir la composition';openButton.setAttribute('aria-pressed',String(state.opened));ledButton.hidden=!state.led;ledButton.textContent=state.ledOn?'Éteindre le miroir':'Allumer le miroir';ledButton.setAttribute('aria-pressed',String(state.ledOn));}
-   openButton.onclick=()=>{if(turn!==opening||!engine)return;const state=engine.presentation.capabilities();engine.presentation.setOpened(!state.opened);reflect();};
+   function reflect(){if(!engine)return;const state=engine.presentation.capabilities();openButton.hidden=!state.openable;openButton.textContent=state.opened?'Fermer la composition':state.partlyOpened?'Ouvrir toute la composition':'Ouvrir la composition';openButton.setAttribute('aria-pressed',String(state.opened));ledButton.hidden=!state.led;ledButton.textContent=state.ledOn?'Éteindre le miroir':'Allumer le miroir';ledButton.setAttribute('aria-pressed',String(state.ledOn));}
+   openButton.onclick=()=>{if(turn!==opening||!engine)return;const state=engine.presentation.capabilities();engine.presentation.setOpened(!state.opened);reflect();reflectContext();};
    const ledEligible=new Set(),ledModels=new Map();
    function rememberLED(){for(const item of project.items)if(item.type==='mirror'){if(ledModels.get(item.id)!==item.settings.mirrorModel)ledEligible.delete(item.id);ledModels.set(item.id,item.settings.mirrorModel);const spec=mirrorSpec(item.settings);if(spec.led||spec.metal&&item.settings.led)ledEligible.add(item.id);else if(!spec.metal)ledEligible.delete(item.id);}}
    rememberLED();ledButton.onclick=()=>{if(turn!==opening||!engine)return;const enabled=!engine.presentation.capabilities().ledOn;engine.presentation.setLED(enabled);for(const item of project.items)if(ledEligible.has(item.id))item.settings={...item.settings,led:enabled};onChange(structuredClone(project));reflect();};reset.onclick=()=>{if(turn!==opening||!engine)return;engine.reset();};reflect();
    const productControls=element('div');productControls.className='randal-presentation-products';controls.append(productControls);let productBusy=false,surfaceBusy=0,context=null;
    const hingeButton=button('randal-reverse-hinge','Inverser l’ouverture');hingeButton.hidden=true;hingeButton.onclick=()=>{if(turn!==opening||!engine)return;engine.presentation.editing.reverseHinge();};
-   function reflectContext(){if(!engine)return;const state=engine.presentation.editing.state();hingeButton.hidden=!context||state.selected!==context.itemId||!state.canReverse;hingeButton.textContent='Ouverture à '+(state.hingeSide==='right'?'droite':'gauche')+' · inverser';}
+   const itemButton=button('randal-item-open','Ouvrir ce meuble');itemButton.className='randal-item-open';itemButton.hidden=true;
+   function contextItem(){const item=project.items.find(i=>i.id===context?.itemId);return item&&['cabinet','column'].includes(item.type)&&!['basin','top','tap','mirror'].includes(context?.part)?item:null;}
+   function reflectContext(){if(!engine)return;const state=engine.presentation.editing.state();hingeButton.hidden=!context||state.selected!==context.itemId||!state.canReverse;hingeButton.textContent='Ouverture à '+(state.hingeSide==='right'?'droite':'gauche')+' · inverser';const item=contextItem(),opening=item&&engine.presentation.itemCapabilities?.(item.id);itemButton.hidden=!opening?.openable||typeof engine.presentation.setItemOpened!=='function';itemButton.textContent=(opening?.opened?'Fermer ':'Ouvrir ')+(item?.type==='column'?'cette colonne':'ce meuble');itemButton.setAttribute('aria-pressed',String(!!opening?.opened));}
+   itemButton.onclick=()=>{if(turn!==opening||!engine||productBusy||surfaceBusy)return;const item=contextItem(),state=item&&engine.presentation.itemCapabilities?.(item.id);if(!state?.openable)return;engine.presentation.setItemOpened?.(item.id,!state.opened);reflect();reflectContext();};
    function choiceFigure(){const figure=element('figure');figure.className='randal-choice-preview';figure.hidden=true;return figure;}
    function showChoicePreview(figure,preview){
     figure.replaceChildren();figure.hidden=!preview;if(!preview)return;figure.dataset.type=preview.type;
@@ -65,7 +69,7 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
    function renderProducts(){
     productControls.replaceChildren();
     if(!context||!project.items.some(i=>i.id===context.itemId)){context=null;const hint=element('p','Cliquez sur un meuble, une vasque, une colonne ou un miroir pour le personnaliser.');hint.className='randal-presentation-help randal-context-hint';productControls.append(hint);reflectContext();return;}
-    if(!productCatalog)return;
+    productControls.append(itemButton);if(!productCatalog){reflectContext();return;}
     try{const state=productCatalog.fields(project,context);for(const group of state.groups){
      const section=element('section');section.className='randal-presentation-product';section.dataset.family=group.id;const heading=element('h2',group.label);section.append(heading);const fields=element('div');
      for(const field of group.fields){const label=element('label',field.label),select=element('select');select.id='randal-product-'+field.key;label.htmlFor=select.id;select.setAttribute('aria-label',field.label);for(const choice of field.choices){const option=element('option',choice.label+(choice.disabled?' · indisponible':''));option.value=choice.value;option.disabled=choice.disabled;if(choice.reason)option.title=choice.reason;select.append(option);}select.value=field.value;const visual=choiceFigure(),selectedPreview=value=>field.choices.find(choice=>String(choice.value)===String(value))?.preview;showChoicePreview(visual,selectedPreview(field.value)||field.preview);label.append(select,visual);fields.append(label);
