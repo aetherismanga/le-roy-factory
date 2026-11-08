@@ -1,5 +1,8 @@
 // Presentation interface only; manufacturer references and project values remain unchanged.
 export const ES_RANDAL = Object.freeze({
+  "Options": "Opciones",
+  "Afficher les options": "Mostrar las opciones",
+  "Masquer les options": "Ocultar las opciones",
   "Votre composition RANDAL": "Su composición RANDAL",
   "Votre composition en plein écran": "Su composición a pantalla completa",
   "Personnaliser la présentation": "Personalizar la presentación",
