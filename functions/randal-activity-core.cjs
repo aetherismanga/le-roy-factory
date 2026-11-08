@@ -14,6 +14,7 @@ function normalizeActivity(client,body){
  const field=FIELDS.has(body.field)?body.field:'';
  return {clientId:String(client.id),codeClient:CODE,source:body.source,visitId:body.visitId,pageId:body.pageId,seq,event:body.event||'view',page,view:clean(body.view,40),visible:body.visible===true,device:['mobile','tablet','desktop'].includes(body.device)?body.device:'unknown',foregroundMs:Math.floor(foregroundMs),activeMs:Math.floor(activeMs),field,value:field?clean(String(body.value??''),100):''};
 }
+// Retry-safe counters use the server clock; the browser never chooses the account.
 async function recordActivity(db,admin,client,body,now=Date.now()){
  const item=normalizeActivity(client,body);if(!item)return false;
  const id=createHash('sha256').update(item.clientId+'|'+item.pageId).digest('hex');

@@ -35,13 +35,15 @@ test('a slower previous Firestore snapshot cannot duplicate or replace the curre
   assert.deepEqual(renders.map(ids => [...ids]), [['current']]);
 });
 
-test('the global campaign appears once in search and renders without a fictitious client link', () => {
+test('the global campaign appears once in search and renders without a fictitious client link', async () => {
+  const {reportMatchesPartner} = await import('../assets/js/crm-report-partners.mjs');
   const html = fs.readFileSync(path.join(__dirname, '../comptes-rendus.html'), 'utf8');
   const filterBody = html.match(/function filteredSorted\(\)\{([\s\S]*?)\n      \}\n      function render/)[1];
   const renderBody = html.match(/function render\(\)\{([\s\S]*?)\n      \}\n\n      const cpCache/)[1];
   const global = { globalId: 'campaign', societe: 'Tous les clients', text: 'Envoi d’un mail groupé concernant RANDAL Studio One.', date: '2026-11-02', author: 'Jérôme Hugol', usine: 'RANDAL' };
   const cards = [], counter = {};
   const context = vm.createContext({
+    reportMatchesPartner,
     allCRs: [{ clientId: 'real-client', text: 'Visite commerciale', date: '2026-11-02' }], globalCRs: [global],
     searchInput: { value: 'Studio One' }, filterAgent: { value: '' }, filterUsine: { value: '' }, filterDate: { value: '2026-11-02' }, sortSelect: { value: 'date-desc' },
     norm: v => String(v || '').toLowerCase(), isoDate: v => v, compareRecent: () => 0, compareOld: () => 0,
