@@ -1,5 +1,6 @@
 // Partner attribution is public presentation data, never an account or an entitlement.
 import {sessionStorage} from '../../../shared/lrf-3d/demo-session.js';
+import {isRandalPortal} from '../../../shared/lrf-3d/randal-portal-context.js';
 
 const KEY='studio-one-partner-entry-v1';
 const MAX_AGE=4*60*60*1000;
@@ -9,6 +10,7 @@ const PARTNERS=Object.freeze({
 export const knownPartner=id=>typeof id==='string'?PARTNERS[id.toLowerCase()]||null:null;
 
 export function createPartnerContext({url=globalThis.location?.href,storage=sessionStorage,now=()=>Date.now()}={}){
+ if(isRandalPortal(url))return null;
  let partner=null;
  try{
   const params=new URL(url).searchParams;
@@ -37,6 +39,7 @@ export function callbackRecipients(project,fallback){const partner=partnerForPro
 // Keep the shared project checkpoint, then return to the approved partner.
 // Setting href alone is insufficient: the normal exit handler cancels the link.
 export function mountPartnerReturn(navigation,{partner=context,document=globalThis.document,window=globalThis.window}={}){
+ if(isRandalPortal(window?.location?.href))return false;
  const approved=partner&&knownPartner(partner.id),back=document?.getElementById('quit-configurator');
  if(!approved||!back||typeof navigation?.request!=='function')return false;
  back.href=approved.returnURL;back.target='_top';
@@ -44,6 +47,7 @@ export function mountPartnerReturn(navigation,{partner=context,document=globalTh
  return true;
 }
 export function mountPartnerBranding(){
+ if(isRandalPortal())return;
  const partner=context;if(!partner||typeof document==='undefined')return;
  const description=document.querySelector('.landing-description');
  if(description)description.textContent=partner.name+' vous accompagne dans votre projet de salle de bains.';

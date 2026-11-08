@@ -46,3 +46,10 @@ cpSync('../shared/lrf-3d/media/randal-presentation','dist/assets/randal-presenta
 
 // Progressive fullscreen resources and third-party license notices.
 await buildPresentationAssets();
+
+// Authenticated RANDAL-only entry; no site wrapper or demo authorization.
+await build({entryPoints:['src/portal/randal-portal.js'],bundle:true,format:'esm',target:['es2020'],minify:true,outfile:'dist/randal-portal.js',legalComments:'eof'});
+copyFileSync('src/portal/randal-portal.css','dist/randal-portal.css');
+let portal=readFileSync('src/portal/randal.html','utf8');
+for(const file of ['randal-portal.js','randal-portal.css']){const hash=createHash('sha256').update(readFileSync('dist/'+file)).digest('hex').slice(0,12);portal=portal.replaceAll('"'+file+'"','"'+file+'?v='+hash+'"');}
+writeFileSync('dist/randal.html',portal);

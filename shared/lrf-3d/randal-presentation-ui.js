@@ -69,7 +69,7 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
    function renderProducts(){
     productControls.replaceChildren();
     if(!context||!project.items.some(i=>i.id===context.itemId)){context=null;const hint=element('p','Cliquez sur un meuble, une vasque, une colonne ou un miroir pour le personnaliser.');hint.className='randal-presentation-help randal-context-hint';productControls.append(hint);reflectContext();return;}
-    productControls.append(itemButton);if(!productCatalog){reflectContext();return;}
+    productControls.append(itemButton,hingeButton);if(!productCatalog){reflectContext();return;}
     try{const state=productCatalog.fields(project,context);for(const group of state.groups){
      const section=element('section');section.className='randal-presentation-product';section.dataset.family=group.id;const heading=element('h2',group.label);section.append(heading);const fields=element('div');
      for(const field of group.fields){const label=element('label',field.label),select=element('select');select.id='randal-product-'+field.key;label.htmlFor=select.id;select.setAttribute('aria-label',field.label);for(const choice of field.choices){const option=element('option',choice.label+(choice.disabled?' · indisponible':''));option.value=choice.value;option.disabled=choice.disabled;if(choice.reason)option.title=choice.reason;select.append(option);}select.value=field.value;const visual=choiceFigure(),selectedPreview=value=>field.choices.find(choice=>String(choice.value)===String(value))?.preview;showChoicePreview(visual,selectedPreview(field.value)||field.preview);label.append(select,visual);fields.append(label);
@@ -79,7 +79,7 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
        finally{productBusy=false;controls.inert=false;if(turn===opening){preview.presentation.editing.setEnabled?.(true);reflectContext();}}
       };
      }section.append(fields);productControls.append(section);
-    }productControls.append(hingeButton);reflectContext();}
+    }reflectContext();}
     catch(e){const note=element('p',e.message);note.className='randal-presentation-help';productControls.append(note);}
    }
 

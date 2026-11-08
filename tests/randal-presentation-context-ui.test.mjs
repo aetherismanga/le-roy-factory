@@ -146,3 +146,15 @@ test('version 2 upgrades brightness once while preserving surfaces, dimensions a
   const slider=document.querySelector('#randal-brightness');slider.value='85';slider.onchange();const saved=f.saved.at(-1),count=f.saved.length;f.ui.close();assert.equal(await f.ui.open(saved),true);assert.equal(f.saved.length,count);assert.equal(document.querySelector('#randal-brightness').value,'85');assert.equal(document.querySelector('#randal-floor-choice').value,'creta-caramello');assert.equal(document.querySelector('#randal-dimensions-toggle').getAttribute('aria-pressed'),'true');
  }finally{f.close();}
 });
+
+test('column hinge reversal stays immediately beneath its opening action before all model and finish fields',async()=>{
+ const f=await fixture();try{
+  const column=f.source.items.find(item=>item.type==='column');f.editing.selectItem(column.id,'column');
+  function assertActionOrder(){
+   const panel=document.querySelector('.randal-presentation-products'),open=document.querySelector('#randal-item-open'),hinge=document.querySelector('#randal-reverse-hinge'),model=document.querySelector('#randal-product-columnModel'),finish=document.querySelector('#randal-product-columnFinish');
+   assert.equal(open.hidden,false);assert.equal(hinge.hidden,false);assert.equal(panel.children[0],open);assert.equal(panel.children[1],hinge);assert.ok(model&&finish);assert.equal(panel.children[2].contains(model),true);assert.equal(panel.children[2].contains(finish),true);
+  }
+  assertActionOrder();document.querySelector('#randal-item-open').onclick();assert.equal(document.querySelector('#randal-item-open').textContent,'Fermer cette colonne');assertActionOrder();
+  const finish=document.querySelector('#randal-product-columnFinish');finish.value=finish.options.find(option=>!option.disabled&&option.value!==finish.value).value;await finish.onchange();assertActionOrder();
+ }finally{f.close();}
+});

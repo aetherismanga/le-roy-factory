@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="strict-origin-when-cross-origin"><meta name="theme-color" content="#f5f3ed">
+<title>RANDAL · Vos configurateurs</title>
+<link rel="icon" href="assets/randal-partner.webp"><link rel="stylesheet" href="randal-portal.css">
+</head>
+<body>
+<header class="portal-header"><img src="assets/randal-partner.webp" alt="RANDAL" width="148" height="52"><span id="header-label">Votre espace de composition</span><nav aria-label="Votre espace RANDAL"><button id="choose" hidden>Les deux configurateurs</button><label class="language"><span class="sr-only">Langue</span><select id="language" aria-label="Langue"><option value="fr">Français</option><option value="es">Español</option></select></label><button id="logout" hidden>Se déconnecter</button></nav></header>
+<main id="landing">
+<section class="welcome"><p class="eyebrow" id="eyebrow">Les ateliers RANDAL</p><h1 id="title">Votre espace.<br><em>Votre signature.</em></h1><p id="intro">Deux configurateurs, un seul espace pour composer vos projets.</p></section>
+<section id="login" class="login-panel" aria-labelledby="login-title"><p class="eyebrow" id="private-label">Accès réservé</p><h2 id="login-title">Connectez votre compte LRF</h2><p id="login-help">Utilisez les identifiants de votre compte client RANDAL.</p><form id="login-form"><label><span id="code-label">Code client LRF</span><input name="codeClient" autocomplete="username" placeholder="LRF-XXXXX" pattern="LRF-[0-9]{5}" maxlength="9" required autocapitalize="characters" spellcheck="false"></label><label><span id="postal-label">Code postal ou département</span><input name="departement" autocomplete="postal-code" pattern="[0-9]{2,3}|[0-9]{5}|2A|2B" maxlength="5" required></label><button id="login-submit" class="primary" type="submit">Se connecter</button></form><p id="login-status" role="status" aria-live="polite"></p></section>
+<section id="configurators" hidden aria-labelledby="chooser-title"><div class="chooser-heading"><h2 id="chooser-title">Choisissez votre configurateur</h2><p id="account-name"></p></div><div class="cards"><article class="card"><img src="assets/demo/randal-studio-one-photoreal-v1-small.webp" width="768" height="512" alt="Ambiance de salle de bains Studio One" decoding="async"><div><p class="eyebrow" id="studio-label">Sur mesure</p><h3>STUDIO ONE</h3><p id="studio-description">Vos dimensions, vos finitions, votre composition.</p><button id="open-studio" class="primary"><span id="studio-action">Entrer dans STUDIO ONE</span><span aria-hidden="true">→</span></button></div></article><article class="card"><img src="assets/demo/randal-general-photoreal-v1-small.webp" width="768" height="512" alt="Ambiance de salle de bains RANDAL" loading="lazy" decoding="async"><div><p class="eyebrow" id="general-label">Les collections RANDAL</p><h3 id="general-title">Catalogue général</h3><p id="general-description">Composez avec les collections, matières et finitions RANDAL.</p><button id="open-general" class="primary"><span id="general-action">Découvrir les collections</span><span aria-hidden="true">→</span></button></div></article></div><p id="image-note" class="small-note">Visuels d’inspiration. Les produits et options se choisissent dans les configurateurs.</p></section>
+</main>
+<section id="workspace" hidden aria-label="Configurateur RANDAL"></section>
+<footer id="footer">RANDAL · Conception des configurateurs : LE ROY FACTORY</footer>
+<script type="module" src="randal-portal.js"></script>
+</body></html>

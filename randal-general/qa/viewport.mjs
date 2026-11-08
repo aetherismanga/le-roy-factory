@@ -1,13 +1,16 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
+import {buildSync} from 'esbuild';
+import {fileURLToPath} from 'node:url';
 
-const source=readFileSync(new URL('../src/viewport.js',import.meta.url),'utf8');
+const source=buildSync({entryPoints:[fileURLToPath(new URL('../src/viewport.js',import.meta.url))],bundle:true,format:'iife',write:false,target:['es2020']}).outputFiles[0].text;
 function screen(embedded=false){
  const styles=new Map(),events={},visualEvents={},sent=[];
- const window={innerHeight:844,visualViewport:{height:844,scale:1,addEventListener:(name,fn)=>visualEvents[name]=fn}};
+ const location={href:'https://viewport.test/index.html',hostname:'viewport.test',search:''};
+ const window={location,innerHeight:844,visualViewport:{height:844,scale:1,addEventListener:(name,fn)=>visualEvents[name]=fn}};
  const parent=embedded?{postMessage:(...args)=>sent.push(args)}:window;
- vm.runInNewContext(source,{__LRF_STANDALONE_PREVIEW__:true,window,parent,URL,document:{referrer:embedded?'https://leroyfactory.fr/randal-configurateur.html':'',documentElement:{style:{setProperty:(name,value)=>styles.set(name,value)}}},addEventListener:(name,fn)=>events[name]=fn,requestAnimationFrame:fn=>fn()});
+ vm.runInNewContext(source,{__LRF_STANDALONE_PREVIEW__:true,window,parent,location,URL,URLSearchParams,document:{referrer:embedded?'https://leroyfactory.fr/randal-configurateur.html':'',documentElement:{style:{setProperty:(name,value)=>styles.set(name,value)}}},addEventListener:(name,fn)=>events[name]=fn,requestAnimationFrame:fn=>fn()});
  return {window,parent,styles,events,visualEvents,sent,height:()=>styles.get('--app-height')};
 }
 const direct=screen();assert.equal(direct.height(),'844px');

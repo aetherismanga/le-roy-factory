@@ -1,6 +1,10 @@
+import {PORTAL_ORIGIN,isRandalPortal,mountRandalPortalNavigation} from '../../shared/lrf-3d/randal-portal-context.js';
+import {mountRandalPortalGate,trustedRandalPortalParent,redirectRandalPortal} from '../../shared/lrf-3d/randal-portal-gate.js';
+const portalEntry=isRandalPortal(),portalRequested=new URLSearchParams(location.search).get('entry')==='randal';
+if(portalEntry||portalRequested){mountRandalPortalGate();mountRandalPortalNavigation();if(!trustedRandalPortalParent())redirectRandalPortal();}
 // Keep the official site as the first-party session host, including old direct links.
 // Local previews can stay standalone; credentials are never put in URLs.
-if(globalThis.__LRF_STANDALONE_PREVIEW__!==true&&parent===window&&location.hostname==='randal-catalogue-general-3d.vercel.app'&&new URLSearchParams(location.search).get('standalone')!=='1'){
+if(!portalEntry&&!portalRequested&&globalThis.__LRF_STANDALONE_PREVIEW__!==true&&parent===window&&location.hostname==='randal-catalogue-general-3d.vercel.app'&&new URLSearchParams(location.search).get('standalone')!=='1'){
  const destination=new URL('https://leroyfactory.fr/randal-configurateur.html');for(const key of ['collection','view','step','account','new','guided','plans','project','template']){const value=new URLSearchParams(location.search).get(key);if(value!==null)destination.searchParams.set(key,value);}
  const page=location.pathname.split('/').filter(Boolean).at(-1)||'index.html';
  if(['index.html','atelier.html','maison.html'].includes(page))destination.searchParams.set('page',page);
@@ -10,7 +14,7 @@ if(globalThis.__LRF_STANDALONE_PREVIEW__!==true&&parent===window&&location.hostn
 // viewport than 100vh. Both screens share this measurement, without reloading
 // the configuration or resizing the layout while the visitor pinch-zooms.
 const root=document.documentElement;
-const hostOrigins=['https://leroyfactory.fr','https://www.leroyfactory.fr'];
+const hostOrigins=['https://leroyfactory.fr','https://www.leroyfactory.fr',...(portalEntry&&trustedRandalPortalParent()?[PORTAL_ORIGIN]:[])];
 let hostHeight=0,scheduled=false;
 function updateViewport(){
  scheduled=false;
