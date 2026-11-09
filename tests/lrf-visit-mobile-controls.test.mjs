@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {visitJoystickInput,mountVisitMobileControls,requestVisitLandscape} from '../shared/lrf-3d/visit-mobile-controls.js';
+import {visitJoystickInput,visitGravityOrientation,visitLocalPoint,visitLocalDelta,mountVisitMobileControls,requestVisitLandscape} from '../shared/lrf-3d/visit-mobile-controls.js';
 
 const zero={forward:0,strafe:0,speed:0};
 test('analog deflection preserves progressive strength with a faster outer upper sector',()=>{
@@ -124,4 +124,70 @@ test('a portrait onscreen keyboard does not masquerade as phone rotation',()=>{
  const {doc,win,stage,orientation}=environment({width:400,height:250});orientation.type='portrait-primary';win.screen.width=400;win.screen.height=800;doc.activeElement={closest:()=>({tagName:'INPUT'})};
  const visual=new Element(doc);Object.assign(visual,{width:400,height:250});win.visualViewport=visual;
  const ui=mountVisitMobileControls({stage});ui.setActive(true);assert.equal(ui.immersive,false);ui.dispose();
+});
+
+test('gravity classification ignores unavailable, flat and diagonal readings',()=>{
+ assert.equal(visitGravityOrientation({x:0,y:9.8,z:0}),0);
+ assert.equal(visitGravityOrientation({x:9.8,y:0,z:0}),90);
+ assert.equal(visitGravityOrientation({x:-9.8,y:0,z:0}),-90);
+ for(const value of [{x:null,y:9.8,z:0},{x:NaN,y:0,z:0},{x:0,y:0,z:9.8},{x:6.9,y:6.9,z:0},{x:0,y:0,z:0}])assert.equal(visitGravityOrientation(value),null);
+});
+
+const gravity=async(win,x,y,z=0,time=0)=>{await win.emit('devicemotion',{accelerationIncludingGravity:{x,y,z},timeStamp:time});await win.emit('devicemotion',{accelerationIncludingGravity:{x,y,z},timeStamp:time+100});};
+
+test('physical landscape rotates a portrait-locked viewport and restores exact placement and styles in portrait',async()=>{
+ const {doc,win,stage,editor,after}=environment(),inputs=[];stage.style['--lrf-visit-width']='321px';stage.style.color='red';
+ const originalStyle={...stage.style},ui=mountVisitMobileControls({stage,onInput:value=>inputs.push(value)});ui.setActive(true);
+ assert.equal(win.listeners.get('devicemotion').length,1);await win.emit('devicemotion',{accelerationIncludingGravity:{x:9.8,y:0,z:0},timeStamp:0});assert.equal(ui.immersive,false,'one noisy sample cannot rotate the visit');
+ await win.emit('devicemotion',{accelerationIncludingGravity:{x:9.8,y:0,z:0},timeStamp:100});
+ assert.equal(ui.immersive,true);assert.equal(stage.parentNode,doc.body);assert.equal(stage.style['--lrf-visit-width'],'800px');assert.equal(stage.style['--lrf-visit-height'],'400px');assert.equal(stage.style['--lrf-visit-left'],'-200px');assert.equal(stage.style['--lrf-visit-top'],'200px');assert.equal(stage.style['--lrf-visit-rotation'],'90deg');assert.equal(stage.classList.contains('lrf-visit-rotated'),true);
+ // The physical screen remains 400×800: a rightward drag is logical forward
+ // after a +90° turn, rather than unwanted sideways movement.
+ await ui.joystick.emit('pointerdown',at(1,86,52));assert.equal(inputs.at(-1).forward,1);assert.equal(inputs.at(-1).strafe,0);assert.equal(inputs.at(-1).speed,2.1);
+ await gravity(win,0,9.8,0,200);assert.equal(ui.immersive,false);assert.deepEqual(inputs.at(-1),zero);assert.equal(stage.parentNode,editor);assert.deepEqual(editor.children,[stage,after]);assert.deepEqual(stage.style,originalStyle);assert.equal(stage.classList.contains('lrf-visit-rotated'),false);assert.equal(doc.body.style.overflow,'auto');
+ await gravity(win,-9.8,0,0,400);assert.equal(stage.style['--lrf-visit-rotation'],'-90deg');ui.setActive(false);assert.deepEqual(stage.style,originalStyle);assert.equal(win.listeners.get('deviceorientation').length,0);assert.equal(win.listeners.get('devicemotion').length,0);ui.dispose();
+});
+
+test('inverse quarter-turn coordinates preserve full canvas rays and camera deltas',async()=>{
+ const {win,stage}=environment(),ui=mountVisitMobileControls({stage});ui.setActive(true);stage.rect={left:10,top:20,width:400,height:800};stage.clientWidth=800;stage.clientHeight=400;
+ await gravity(win,9.8,0);
+ assert.deepEqual(visitLocalPoint(stage,{clientX:410,clientY:20}),{x:0,y:0,width:800,height:400});
+ assert.deepEqual(visitLocalPoint(stage,{clientX:10,clientY:820}),{x:800,y:400,width:800,height:400});
+ assert.deepEqual(visitLocalDelta(stage,12,23),{x:23,y:-12});
+ await gravity(win,-9.8,0,0,200);
+ assert.deepEqual(visitLocalPoint(stage,{clientX:10,clientY:820}),{x:0,y:0,width:800,height:400});
+ assert.deepEqual(visitLocalPoint(stage,{clientX:410,clientY:20}),{x:800,y:400,width:800,height:400});
+ assert.deepEqual(visitLocalDelta(stage,12,23),{x:-23,y:12});
+ ui.setActive(false);assert.deepEqual(visitLocalDelta(stage,12,23),{x:12,y:23});ui.dispose();
+});
+
+test('device orientation fallback works without motion samples and never rotates a desktop or native landscape twice',async()=>{
+ const phone=environment(),ui=mountVisitMobileControls({stage:phone.stage});ui.setActive(true);
+ for(const timeStamp of [0,100])await phone.win.emit('deviceorientation',{beta:0,gamma:-90,timeStamp});assert.equal(phone.stage.style['--lrf-visit-rotation'],'90deg');
+ phone.win.innerWidth=800;phone.win.innerHeight=400;await phone.win.emit('resize');assert.equal(ui.immersive,true);assert.equal(phone.stage.style['--lrf-visit-rotation'],'0deg');assert.equal(phone.stage.style['--lrf-visit-width'],'800px');ui.dispose();
+ const desktop=environment({touch:false}),desktopUI=mountVisitMobileControls({stage:desktop.stage});desktopUI.setActive(true);assert.equal(desktop.win.listeners.get('devicemotion'),undefined);await gravity(desktop.win,9.8,0);assert.equal(desktopUI.immersive,false);assert.equal(desktop.stage.parentNode,desktop.editor);desktopUI.dispose();
+});
+
+test('sensor permission is requested from visit activation only and denial leaves native rotation usable',async()=>{
+ const granted=environment();let requests=0;granted.win.DeviceOrientationEvent={requestPermission:async()=>{requests++;return 'granted';}};
+ const ui=mountVisitMobileControls({stage:granted.stage});assert.equal(requests,0);assert.equal(granted.win.listeners.get('deviceorientation'),undefined);ui.setActive(true);await Promise.resolve();assert.equal(requests,1);await gravity(granted.win,9.8,0);assert.equal(ui.immersive,true);
+ ui.setActive(false);ui.setActive(true);await Promise.resolve();assert.equal(requests,1,'a granted permission is reused');ui.dispose();
+ const denied=environment();let deniedRequests=0;denied.win.DeviceMotionEvent={requestPermission:async()=>{deniedRequests++;return 'denied';}};const deniedUI=mountVisitMobileControls({stage:denied.stage});deniedUI.setActive(true);await Promise.resolve();assert.equal(deniedRequests,1);assert.equal(denied.win.listeners.get('devicemotion'),undefined);await gravity(denied.win,9.8,0);assert.equal(deniedUI.immersive,false);
+ denied.win.innerWidth=800;denied.win.innerHeight=400;await denied.win.emit('resize');assert.equal(deniedUI.immersive,true);deniedUI.setActive(false);deniedUI.setActive(true);assert.equal(deniedRequests,1,'denial is not repeatedly prompted');deniedUI.dispose();
+});
+
+test('document-root fullscreen keeps the landscape stage transformable on portrait-locked phones',async()=>{
+ const {doc,win,stage,editor}=environment(),calls=[];doc.documentElement=new Element(doc);doc.fullscreenElement=stage;
+ doc.exitFullscreen=async()=>{calls.push('exit-stage');doc.fullscreenElement=null;await doc.emit('fullscreenchange');};
+ doc.documentElement.requestFullscreen=async()=>{calls.push('root-fullscreen');doc.fullscreenElement=doc.documentElement;await doc.emit('fullscreenchange');};
+ let exits=0;const ui=mountVisitMobileControls({stage,onExitRequest:()=>exits++});ui.setActive(true);await Promise.resolve();await Promise.resolve();await Promise.resolve();
+ assert.deepEqual(calls,['exit-stage','root-fullscreen']);assert.equal(doc.fullscreenElement,doc.documentElement);assert.equal(exits,0,'moving fullscreen to the root does not end the visit');
+ await gravity(win,9.8,0);assert.equal(stage.style['--lrf-visit-rotation'],'90deg');assert.equal(doc.fullscreenElement,doc.documentElement);ui.setActive(false);await Promise.resolve();assert.equal(doc.fullscreenElement,null);assert.equal(stage.parentNode,editor);ui.dispose();
+});
+
+test('backgrounding drops sensor listeners and pending permission cannot revive an exited visit',async()=>{
+ const phone=environment(),ui=mountVisitMobileControls({stage:phone.stage});ui.setActive(true);await gravity(phone.win,9.8,0);assert.equal(ui.immersive,true);
+ phone.doc.hidden=true;await phone.doc.emit('visibilitychange');assert.equal(ui.immersive,false);assert.equal(phone.stage.parentNode,phone.editor);assert.equal(phone.win.listeners.get('devicemotion').length,0);
+ phone.doc.hidden=false;await phone.doc.emit('visibilitychange');assert.equal(phone.win.listeners.get('devicemotion').length,1);assert.equal(ui.immersive,false,'resume requires fresh physical readings');await gravity(phone.win,-9.8,0);assert.equal(ui.immersive,true);ui.dispose();assert.equal(phone.win.listeners.get('devicemotion').length,0);
+ const pending=environment();let grant;pending.win.DeviceOrientationEvent={requestPermission:()=>new Promise(resolve=>{grant=resolve;})};const pendingUI=mountVisitMobileControls({stage:pending.stage});pendingUI.setActive(true);pendingUI.dispose();grant('granted');await Promise.resolve();assert.equal(pending.win.listeners.get('deviceorientation'),undefined);assert.equal(pending.stage.parentNode,pending.editor);
 });

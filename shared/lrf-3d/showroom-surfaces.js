@@ -5,6 +5,7 @@ import {buildTileGeometry} from './tile-layout.js';
 import {loadQueuedTexture,surfaceAssetURL} from './texture-loader.js';
 import {SHOWROOM_MANUFACTURERS} from './showroom-catalog.js';
 import yosemiteSources from './media/showroom/yosemite-native-sources.json' with {type:'json'};
+import slateSources from './media/showroom/slate-native-sources.json' with {type:'json'};
 import manufacturerSources from './media/showroom/manufacturer-photo-sources.json' with {type:'json'};
 import pecchioliSources from './media/showroom/pecchioli-native-sources.json' with {type:'json'};
 
@@ -38,6 +39,11 @@ function yosemiteRecipe(colorId){
  if(!color||!size||sources.some(source=>!source))throw Error('Les planches originales Yosemite sont indisponibles.');
  return Object.freeze({id:'yosemite-'+colorId,manufacturer:'Elios Ceramica',collection:'Yosemite',color:color.name,colorId,format:size.id,width:size.width,height:size.height,pattern:'third',direction:'vertical',images,image:images[0],hdImage:images[0],hdImages:yosemiteSources.map(s=>({url:'assets/showroom/'+s.file,label:'Yosemite · '+s.color+' · '+s.reference+' · face '+s.file.match(/-(\d+)\.jpg$/)?.[1],kind:'tile',native:true,generated:false,width:s.width,height:s.height,source:s.source})),source:sources[0].productSource,nativeFaces:true,generated:false,fallback:colorId==='honey'?'#b69466':'#97816a',grout:colorId==='honey'?'#a48b69':'#897865',roughness:.84,clearcoat:.005,provenance:{kind:'manufacturer-brand-product-platform-native-tile',generated:false,resized:false,reference:sources[0].reference,source:sources[0].productSource,selection:'two-tonally-close-native-faces',faces:sources.map(s=>({source:s.source,width:s.width,height:s.height,sha256:s.sha256}))}});
 }
+function slateRecipe(colorId,options){
+ const recipe=nativeRecipe('Slate',colorId,'60x120',options),sources=slateSources.filter(source=>source.color===colorId),images=sources.map(source=>'assets/showroom/'+source.file);
+ if(sources.length<2)throw Error('Les dalles originales Slate sont indisponibles.');
+ return Object.freeze({...recipe,images,image:images[0],hdImage:images[0],hdImages:slateSources.map(source=>({url:'assets/showroom/'+source.file,label:'Slate · '+source.color+' · '+source.reference+' · face '+source.file.match(/-(\d+)\.jpg$/)?.[1],kind:'tile',native:true,generated:false,width:source.width,height:source.height,source:source.source})),orientToFormat:true,provenance:{kind:'manufacturer-brand-product-platform-native-tile',generated:false,resized:false,reference:sources[0].reference,source:sources[0].productSource,faces:sources.map(source=>({source:source.source,width:source.width,height:source.height,sha256:source.sha256})),orientation:'native-portrait-face-rotated-to-physical-landscape-format'}});
+}
 export const SHOWROOM_SURFACE_RECIPES=Object.freeze({
  'yosemite-honey':yosemiteRecipe('honey'),
  'yosemite-natural':yosemiteRecipe('natural'),
@@ -48,8 +54,9 @@ export const SHOWROOM_SURFACE_RECIPES=Object.freeze({
  'creta-malto':nativeRecipe('Creta','malto','120x120',{fallback:'#8e6d4e',grout:'#755c46'}),
  'creta-avena':nativeRecipe('Creta','avena','120x120',{fallback:'#b8a98b',grout:'#998d78'}),
  'shell-grey':nativeRecipe('Shell','grey','60x120',{fallback:'#767b77',grout:'#5a625c'}),
- 'slate-dark':nativeRecipe('Slate','dark','60x120',{fallback:'#343d3b',grout:'#2e3431'}),
- 'slate-river':nativeRecipe('Slate','river','60x120',{fallback:'#787c78',grout:'#555d56'}),
+ 'slate-dark':slateRecipe('dark',{fallback:'#343d3b',grout:'#2e3431'}),
+ 'slate-river':slateRecipe('river',{fallback:'#5b6a71',grout:'#555d56'}),
+ 'slate-gold':slateRecipe('gold',{fallback:'#b2a388',grout:'#93866e'}),
  'roma-palatino':nativeRecipe('Roma','palatino','61x61',{fallback:'#af9c83',grout:'#91836f'}),
  'view-corso-beige':nativeRecipe('Corso','beige','60x120',{id:'view-corso-beige',fallback:'#b5a388',grout:'#98896f'}),
  'view-golden-carbon':nativeRecipe('Golden Stone','carbon','120x120',{id:'view-golden-carbon',fallback:'#575a53',grout:'#464a43'}),
@@ -86,10 +93,11 @@ function cladBothSides(front){
  combined.userData={...front.userData,faceCells:[...front.userData.faceCells,...front.userData.faceCells],surfaceSides:2};combined.computeBoundingBox();combined.computeBoundingSphere();front.dispose();rear.dispose();return combined;
 }
 function fitSample(texture,recipe){
- const image=texture.image,w=image?.naturalWidth||image?.width||1,h=image?.naturalHeight||image?.height||1,aspect=w/h,target=recipe.width/recipe.height;
- texture.colorSpace=T.SRGBColorSpace;texture.wrapS=texture.wrapT=T.ClampToEdgeWrapping;texture.repeat.set(1,1);texture.offset.set(0,0);
- if(aspect>target){texture.repeat.x=target/aspect;texture.offset.x=(1-texture.repeat.x)/2;}
- else if(aspect<target){texture.repeat.y=aspect/target;texture.offset.y=(1-texture.repeat.y)/2;}
+ const image=texture.image,w=image?.naturalWidth||image?.width||1,h=image?.naturalHeight||image?.height||1,target=recipe.width/recipe.height,portrait=w/h,rotate=recipe.orientToFormat&&Math.abs(Math.log(portrait/target))>Math.abs(Math.log(1/portrait/target)),aspect=rotate?1/portrait:portrait;
+ let repeatX=1,repeatY=1;if(aspect>target)repeatX=target/aspect;else if(aspect<target)repeatY=aspect/target;
+ texture.colorSpace=T.SRGBColorSpace;texture.wrapS=texture.wrapT=T.ClampToEdgeWrapping;
+ if(rotate){texture.center.set(.5,.5);texture.rotation=Math.PI/2;texture.repeat.set(repeatY,repeatX);texture.offset.set(0,0);}
+ else{texture.center.set(0,0);texture.rotation=0;texture.repeat.set(repeatX,repeatY);texture.offset.set((1-repeatX)/2,(1-repeatY)/2);}
  texture.anisotropy=8;texture.minFilter=T.LinearMipmapLinearFilter;texture.magFilter=T.LinearFilter;texture.generateMipmaps=true;texture.needsUpdate=true;
  texture.userData.showroomRecipe=recipe.id;texture.userData.nativeSource=true;
 }

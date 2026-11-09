@@ -27,7 +27,7 @@ function openConfigurator(variant){
  if(!frame){
   frame=document.createElement('iframe');frame.title=variant==='studio'?'RANDAL STUDIO ONE':'RANDAL Catalogue général';
   frame.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-downloads allow-modals');
-  frame.setAttribute('allow','fullscreen');frame.setAttribute('allowfullscreen','');frame.referrerPolicy='strict-origin-when-cross-origin';
+  frame.setAttribute('allow','fullscreen; accelerometer; gyroscope');frame.setAttribute('allowfullscreen','');frame.referrerPolicy='strict-origin-when-cross-origin';
   frame.src=randalPortalFrameURL(variant,lang);frames.set(variant,frame);$('workspace').append(frame);
  }
  for(const [key,value]of frames)value.hidden=key!==variant;

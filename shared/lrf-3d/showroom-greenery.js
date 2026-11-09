@@ -46,7 +46,7 @@ function leafGeometry(kind='broad'){
 
 /** Native botanical geometry and a grounded reception lounge. No network or
  * browser APIs are needed. Planting follows the open plan's reserved pockets. */
-export function makeShowroomGreenery({width,depth,stands=[],layout,onReady=()=>{}}={}){
+export function makeShowroomGreenery({width,depth,stands=[],layout,plantsOnly=false,exteriorSides=[-1,1],onReady=()=>{}}={}){
  const root=new T.Group();root.name='Paysage_et_salon_accueil';root.userData={visualOnly:true,excludeFromProductBounds:true,botanical:true};
  const colliders=[],random=seeded(),geometries=new Set(),materials=new Set(),textures=new Set(),parts=new Map(),foliage=new Map(),plants=[];
  const plan={...makeShowroomLayout(stands.map(stand=>stand.manufacturer).filter(Boolean)),...layout};
@@ -155,21 +155,23 @@ export function makeShowroomGreenery({width,depth,stands=[],layout,onReady=()=>{
  const approaches=stands.map(stand=>stand.approach||stand.layout?.approach).filter(Boolean),clearApproach=(x,z,radius=.41)=>approaches.every(point=>Math.hypot(point.x-x,point.z-z)>radius+.65);
  zones.forEach((zone,index)=>{
   const kind=zone.species||species[index%species.length],height=zone.height||heights[index%heights.length];
-  plant(kind,zone.x,zone.z,height,index%3===0?palette.terracotta:index%3===1?palette.ivory:palette.darkPot);
+  if(zone.grounded){({ficus,olive,areca,monstera}[kind])(zone.x,zone.z,{height,base:0,exterior:true});plants.push({species:kind,x:zone.x,z:zone.z,height,exterior:true});colliders.push({minX:zone.x-.17,maxX:zone.x+.17,minZ:zone.z-.17,maxZ:zone.z+.17});}
+  else plant(kind,zone.x,zone.z,height,index%3===0?palette.terracotta:index%3===1?palette.ivory:palette.darkPot);
   // Only corner zones receive a low companion; the loop and each scene's
   // entrance stay clear. Pairing follows the zone rather than a booth row.
-  if(index===0||index===zones.length-1){const x=zone.x+(zone.x<0?-.75:.75),z=zone.z-.45;if(Math.abs(x)<width/2-.6&&z>-depth+.7&&clearApproach(x,z,.35))plant('monstera',x,z,1.25,palette.ivory);}
+  if(!plantsOnly&&(index===0||index===zones.length-1)){const x=zone.x+(zone.x<0?-.75:.75),z=zone.z-.45;if(Math.abs(x)<width/2-.6&&z>-depth+.7&&clearApproach(x,z,.35))plant('monstera',x,z,1.25,palette.ivory);}
  });
  // Garden trees are outside the glazed hall. They do not contribute indoor
  // collision footprints and make the photographic sky read as an exterior.
- for(const side of [-1,1]){box(side*(width/2+3.8),-.075,-depth/2,6.6,.15,depth-2,palette.soil,.01);}
- for(const side of [-1,1])for(let i=0;i<4;i++){
+ for(const side of exteriorSides){box(side*(width/2+3.8),-.075,-depth/2,6.6,.15,depth-2,palette.soil,.01);}
+ for(const side of exteriorSides)for(let i=0;i<4;i++){
   const x=side*(width/2+3.0+i%2*1.2),z=-3-i*(depth-6)/3;
   olive(x,z,{height:3.8+random()*.5,base:0,exterior:true});plants.push({species:'olive',x,z,height:4,exterior:true});
  }
  // The lounge is authored in its own compact frame, then baked into the
  // shared material batches. Collision rectangles use that exact same frame.
- const lounge={...plan.lounge},loungeColliders=[];
+ const lounge=plantsOnly?null:{...plan.lounge},loungeColliders=[];
+ if(lounge){
  frame=new T.Matrix4().makeRotationY(lounge.rotation||0).setPosition(lounge.x,0,lounge.z);
  function loungeCollider(minX,maxX,minZ,maxZ){
   const corners=[[minX,minZ],[maxX,minZ],[maxX,maxZ],[minX,maxZ]].map(([x,z])=>showroomPoint({...lounge,rotation:lounge.rotation||0},x,z));
@@ -193,6 +195,7 @@ export function makeShowroomGreenery({width,depth,stands=[],layout,onReady=()=>{
  const vasePoints=[[0,0],[.10,0],[.13,.05],[.15,.22],[.10,.37],[.065,.45],[.062,.48],[.045,.48],[.045,.43],[.075,.35],[.12,.20],[.08,.04],[0,.04]].map(p=>new T.Vector2(...p));
  const vase=new T.LatheGeometry(vasePoints,40);put(vase,palette.darkPot,pose(1.49,.018,-.10));put(vase,palette.terracotta,pose(1.49,.018,.25,.78,.75,.78));vase.dispose();
  loungeCollider(1.31,1.68,-.28,.42);shadow(1.49,.07,.75,1.0);frame=null;
+ }
 
  for(const [material,pieces]of parts){
   const combined=mergeGeometries(pieces,false);for(const piece of pieces)piece.dispose();if(!combined)continue;geometries.add(combined);
@@ -202,7 +205,7 @@ export function makeShowroomGreenery({width,depth,stands=[],layout,onReady=()=>{
   const mesh=new T.InstancedMesh(leafGeometries[kind],palette[kind],instances.length);mesh.name='Feuillage_modele_'+kind;
   instances.forEach((instance,i)=>{mesh.setMatrixAt(i,instance.matrix);mesh.setColorAt(i,instance.color);});mesh.instanceMatrix.needsUpdate=true;mesh.instanceColor.needsUpdate=true;mesh.computeBoundingBox();mesh.computeBoundingSphere();mesh.receiveShadow=true;mesh.castShadow=false;mesh.raycast=noRaycast;mesh.userData={visualOnly:true,excludeFromProductBounds:true,botanicalLeaves:instances.length};root.add(mesh);
  }
- root.userData.plants=plants.map(p=>({...p}));root.userData.lounge={...lounge,colliders:loungeColliders.map(bounds=>({...bounds}))};root.updateMatrixWorld(true);
+ root.userData.plants=plants.map(p=>({...p}));root.userData.lounge=lounge?{...lounge,colliders:loungeColliders.map(bounds=>({...bounds}))}:null;root.updateMatrixWorld(true);
  function dispose(){if(disposed)return;disposed=true;for(const geometry of geometries)geometry.dispose();for(const material of materials)material.dispose();for(const texture of textures)texture.dispose();root.removeFromParent();}
  // Normal editor disposal follows the existing material lifecycle as well.
  palette.soil.addEventListener('dispose',dispose);

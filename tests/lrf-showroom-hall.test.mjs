@@ -10,7 +10,7 @@ const blocked=(hall,x,z,r=.2)=>hall.colliders.some(b=>x+r>b.minX&&x-r<b.maxX&&z+
 test('hall contains one open display per supplier with accessible approaches and colliding backdrops',()=>{
  const hall=makeShowroomHall({manufacturers:suppliers()});
  assert.equal(hall.root.visible,false);assert.equal(hall.stands.length,17);assert.equal(hall.interactions.length,51);
- assert.equal(hall.dimensions.width,28);assert.equal(hall.dimensions.height,4.4);assert.equal(hall.dimensions.wallHeight,2.25);
+ assert.equal(hall.dimensions.width,28);assert.equal(hall.dimensions.height,3.6);assert.equal(hall.dimensions.wallHeight,2.25);
  assert.equal(blocked(hall,hall.layout.arrival.x,hall.layout.arrival.z),false);
  assert.equal(blocked(hall,-9.2,-2.05),true,'reception counter');
  // A backdrop remains physical while the open, rotated front stays reachable.

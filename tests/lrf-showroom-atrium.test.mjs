@@ -14,7 +14,7 @@ function nativeHits(root,origin,direction,far=100){
 function walkingGrid(hall,start){
  const b=hall.navigableBounds,step=.2,minX=b.minX+.22,minZ=b.minZ+.22,cols=Math.floor((b.maxX-.22-minX)/step)+1,rows=Math.floor((b.maxZ-.22-minZ)/step)+1;
  const open=new Uint8Array(cols*rows),reached=new Uint8Array(cols*rows),index=(x,z)=>z*cols+x;
- for(let z=0;z<rows;z++)for(let x=0;x<cols;x++)open[index(x,z)]=!blocked(hall,minX+x*step,minZ+z*step);
+ for(let z=0;z<rows;z++)for(let x=0;x<cols;x++)open[index(x,z)]=hall.canWalk?hall.canWalk({x:minX+x*step,z:minZ+z*step},.2):!blocked(hall,minX+x*step,minZ+z*step);
  function nearest(point){let result=-1,distance=Infinity;for(let dz=-2;dz<=2;dz++)for(let dx=-2;dx<=2;dx++){const x=Math.round((point.x-minX)/step)+dx,z=Math.round((point.z-minZ)/step)+dz;if(x<0||x>=cols||z<0||z>=rows)continue;const n=index(x,z),d=Math.hypot(minX+x*step-point.x,minZ+z*step-point.z);if(open[n]&&d<distance){distance=d;result=n;}}return {index:result,distance};}
  const first=nearest(start);assert(first.index>=0&&first.distance<.3,'the arrival has a real human-width floor position');
  const queue=[first.index];reached[first.index]=1;
@@ -25,7 +25,7 @@ function walkingGrid(hall,start){
 test('the complete supplier exhibition forms a wide atrium of open islands with accessible approaches',()=>{
  const hall=makeShowroomHall({manufacturers:SHOWROOM_MANUFACTURERS}),layout=makeShowroomLayout(SHOWROOM_MANUFACTURERS);
  try{
-  assert.equal(hall.stands.length,17);assert.equal(hall.dimensions.width,28);assert.equal(hall.dimensions.height,4.4);assert(hall.dimensions.depth<=34);
+  assert.equal(hall.stands.length,17);assert.equal(hall.dimensions.width,28);assert.equal(hall.dimensions.height,3.6);assert(hall.dimensions.depth<=34);
   assert(hall.dimensions.width/hall.dimensions.depth>.8,'arrival opens into a wide room');
   for(const stand of hall.stands){assert(stand.walls.length>=1&&stand.walls.length<=2,'each island has a backdrop and at most one short return');for(const wall of stand.walls)assert(wall.userData.wallHeight<=2.25);}
   const grid=walkingGrid(hall,layout.arrival);assert(grid.area>450,'a broad connected floor loop surrounds the displays');

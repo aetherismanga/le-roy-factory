@@ -14,16 +14,16 @@ function nativeHits(root,origin,direction){
 }
 const isBlocked=(hall,x,z,r=.20)=>hall.colliders.some(box=>x+r>box.minX&&x-r<box.maxX&&z+r>box.minZ&&z-r<box.maxZ);
 
-test('the roof and side windows reveal the photographic sky through real glazing instead of an opaque ceiling',()=>{
+test('two roof skylights and three small windows are real openings through the solid architecture',()=>{
  const hall=makeShowroomHall({manufacturers});hall.root.visible=true;
  try{
-  const windowX=hall.dimensions.width/2-.6;
-  for(const [origin,direction,name]of [[[1.8,1.58,-2.2],[0,1,0],'Plafond_vitre_panoramique'],[[windowX,1.58,-2.2],[1,0,0],'Grande_baie_vitree'],[[-windowX,1.58,-2.2],[-1,0,0],'Grande_baie_vitree']]){
+  const windowX=hall.dimensions.width/2-.5;
+  for(const [origin,direction,name]of [[[-3,3.3,-8],[0,1,0],'Lanterneau_atrium'],[[4.5,3.3,-23],[0,1,0],'Lanterneau_atrium'],[[-windowX,1.8,-6.5],[-1,0,0],'Fenetre_atrium'],[[-windowX,1.8,-24],[-1,0,0],'Fenetre_atrium'],[[windowX,1.8,-25.25],[1,0,0],'Fenetre_atrium']]){
    const hits=nativeHits(hall.root,origin,direction);assert(hits.length>=2);
    assert.equal(hits[0].object.name,name);assert.equal(hits[0].object.material.transparent,true);assert(hits[0].object.material.opacity<.4);
    const sky=hits.find(hit=>hit.object.name==='Panorama_ciel_nuages_reels');assert(sky,'the native camera ray reaches the real sky surface');
-   const opaqueBeforeSky=hits.filter(hit=>hit.distance<sky.distance&&hit.object.material.transparent!==true);
-   assert.equal(opaqueBeforeSky.length,0,'no hidden ceiling or masonry backs the glass');
+   const backing=hits.filter(hit=>hit.distance>hits[0].distance&&hit.distance<hits[0].distance+.12&&hit.object.material.transparent!==true);
+   assert.equal(backing.length,0,'no hidden ceiling or masonry backs the glass');
   }
   const sky=hall.root.getObjectByName('Panorama_ciel_nuages_reels');assert.equal(sky.material.fog,false);assert.equal(sky.material.depthWrite,false);assert.equal(sky.material.side,T.BackSide);
  }finally{hall.dispose();}
@@ -68,7 +68,7 @@ test('vegetation and lounge retain their collisions while the arrival and displa
 });
 
 test('hall disposal releases both architectural window panes and the complete roof geometry',()=>{
- const hall=makeShowroomHall({manufacturers:[]}),glazing=[];hall.root.traverse(object=>{if(object.userData.glazing)glazing.push(object);});assert.equal(glazing.length,3);
+ const hall=makeShowroomHall({manufacturers:[]}),glazing=[];hall.root.traverse(object=>{if(object.userData.glazing)glazing.push(object);});assert.equal(glazing.length,5);
  const disposed=new Map(glazing.map(object=>[object.geometry,0]));for(const geometry of disposed.keys())geometry.addEventListener('dispose',()=>disposed.set(geometry,disposed.get(geometry)+1));
  hall.dispose();for(const count of disposed.values())assert.equal(count,1,'unique glazing geometry is released with the hall');
 });

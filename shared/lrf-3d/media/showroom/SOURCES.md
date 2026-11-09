@@ -73,3 +73,35 @@ Fenice et Bulbo correspondent aux fiches publiques déjà conservées dans
 quatre carreaux ; l'image entière n'est pas présentée comme un seul carreau de
 20 cm. Aucun de ces fichiers n'est agrandi ou généré. Les murs ouvrent la
 collection de leur propre fabricant et les photos HD originales.
+
+## Dalles Slate du jardin et du bassin
+
+Les six JPEG `slate-{gold,river,dark}-03f6a{10,60,90}-*.jpg` sont les faces
+originales publiées pour les produits Elios Slate **60 × 120 cm** sur Tilelook :
+Gold **03F6A10**, River **03F6A60**, Dark **03F6A90**. Définition native :
+**500 × 1000 px**, sans génération, agrandissement ou rééchantillonnage. Le
+manifeste `slate-native-sources.json` conserve chaque URL, fiche produit,
+dimension et SHA-256. Ils remplacent dans le salon les petits échantillons de
+catalogue d'environ 297 × 594 px.
+
+Les photos représentent les dalles en portrait. Le matériau tourne les UV de
+90° autour du centre pour les placer sur la géométrie 120 × 60 cm ; il conserve
+l'image entière au lieu de recadrer son quart central. Deux faces sont partagées
+par le fond et les quatre parois du bassin, soit deux textures résidentes.
+
+Sources de gamme contrôlées le 9 novembre 2026 :
+
+- Slate : https://eliosceramica.com/collezione/slate/ — gamme outdoor R11 ; le
+  catalogue https://eliosceramica.com/wp-content/uploads/2023/05/Elios_SLATE_web.pdf
+  présente la variante outdoor 60 × 120 cm en 20 mm et une piscine River.
+- Roma : https://eliosceramica.com/collezione/roma/ — formats outdoor R11,
+  notamment 40,6 × 40,6, 20,3 × 40,6 et 20,3 × 20,3 cm.
+- Creta : https://eliosceramica.com/collezione/creta/ — R9/R10 observés ; ne pas
+  présenter les recettes Creta du salon comme une variante R11.
+- Yosemite : le format 23,4 × 119,5 cm du catalogue canonique est Naturel R10 B ;
+  la recette ne porte pas d'étiquette R11.
+
+Les références photographiques Slate ci-dessus identifient les faces de la
+gamme naturelle. La disponibilité d'une finition outdoor est documentée
+séparément ; aucune photo n'est présentée comme une certification d'une autre
+référence commerciale.

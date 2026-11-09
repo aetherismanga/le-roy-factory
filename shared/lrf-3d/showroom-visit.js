@@ -1,3 +1,4 @@
+import {visitLocalPoint} from './visit-mobile-controls.js';
 import {resolveShowroomHDGallery} from './showroom-hd-gallery.js';
 import * as T from 'three';
 
@@ -70,6 +71,31 @@ export function createShowroomVisit({stage,canvas,camera,getItems,onInvalidate=(
   }
   stage.append(dialog);dialog.addEventListener('cancel',event=>{event.preventDefault();close();});dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)close();}});dialog.showModal();exit.focus();onOverlay(true);onInvalidate();
  }
+ function openPoolChooser(hall){
+  const garden=hall?.garden;if(!garden)return false;
+  close();previousFocus=document.activeElement;
+  dialog=element('dialog',undefined,'lrf-showroom-dialog lrf-pool-chooser');dialog.setAttribute('role','dialog');dialog.setAttribute('aria-modal','true');dialog.setAttribute('aria-label','Choisir le revêtement de la piscine');
+  const chooser=dialog,style=element('style');style.textContent=`
+   .lrf-pool-chooser{box-sizing:border-box;width:min(960px,calc(100vw - 24px));max-width:none;max-height:calc(100dvh - 24px);padding:0;overflow:auto;border:1px solid #b9aa8b;border-radius:15px;background:#f5f2eb;color:#26382f;font:14px/1.45 system-ui;overscroll-behavior:contain}.lrf-pool-chooser::backdrop{background:#15251fb8;backdrop-filter:blur(5px)}.lrf-pool-chooser header{display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:1;padding:15px 18px;background:#f5f2eb;border-bottom:1px solid #d2ccbe}.lrf-pool-chooser h2{flex:1;font-size:21px;line-height:1.2;margin:0}.lrf-pool-chooser button{font:inherit;cursor:pointer}.lrf-pool-close{width:38px;height:38px;flex:0 0 38px;border:1px solid #bcb7a8;border-radius:50%;background:#fff;color:#243d31;font-size:24px!important}.lrf-pool-content{padding:16px 18px}.lrf-pool-status{margin:0 0 15px;color:#5a665e}.lrf-pool-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}.lrf-pool-choice{overflow:hidden;border:1px solid #d1c9b8;border-radius:10px;background:#fff}.lrf-pool-apply{display:block;width:100%;padding:0;border:0;color:#243c30;background:#fff;text-align:left}.lrf-pool-apply[aria-pressed=true]{box-shadow:inset 0 0 0 3px #a88d56}.lrf-pool-apply:disabled{opacity:.65;cursor:wait}.lrf-pool-apply img{display:block;width:100%;aspect-ratio:1.4;object-fit:cover}.lrf-pool-label{display:block;padding:11px 12px 4px;font-weight:700}.lrf-pool-note{display:block;padding:0 12px 12px;color:#5a695e;font-size:12px}.lrf-pool-hd{display:block;margin:0 12px 12px;padding:7px 0;border:0;background:transparent;color:#315e4b;text-decoration:underline;text-align:left;font-size:12px!important}.lrf-pool-chooser button:focus-visible{outline:3px solid #a98e57;outline-offset:-3px}@media(max-width:600px){.lrf-pool-chooser header{padding:11px 13px}.lrf-pool-chooser h2{font-size:18px}.lrf-pool-content{padding:12px}.lrf-pool-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.lrf-pool-label{padding:9px 9px 3px;font-size:12px}.lrf-pool-note{padding:0 9px 9px;font-size:11px}.lrf-pool-hd{margin:0 9px 9px;font-size:11px!important}}`;
+  style.textContent+=`\n.lrf-visit-rotated .lrf-pool-choices{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.lrf-visit-rotated .lrf-pool-apply img{height:56px;aspect-ratio:auto}.lrf-visit-rotated .lrf-pool-chooser header{padding:8px 12px}.lrf-visit-rotated .lrf-pool-content{padding:8px 12px}.lrf-visit-rotated .lrf-pool-status{margin-bottom:7px}.lrf-visit-rotated .lrf-pool-label{padding:5px 8px 2px}.lrf-visit-rotated .lrf-pool-note{padding:0 8px 5px}.lrf-visit-rotated .lrf-pool-hd{margin:0 8px 6px}@media(orientation:landscape) and (max-height:600px){.lrf-pool-choices{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.lrf-pool-apply img{height:56px;aspect-ratio:auto}.lrf-pool-chooser header{padding:8px 12px}.lrf-pool-content{padding:8px 12px}.lrf-pool-status{margin-bottom:7px}.lrf-pool-label{padding:5px 8px 2px}.lrf-pool-note{padding:0 8px 5px}.lrf-pool-hd{margin:0 8px 6px}}`;
+  const header=element('header'),title=element('h2','Le revêtement de votre piscine'),exit=element('button','×','lrf-pool-close');exit.type='button';exit.setAttribute('aria-label','Fermer les revêtements de piscine');exit.addEventListener('click',close);header.append(title,exit);
+  const content=element('div',undefined,'lrf-pool-content'),status=element('p',undefined,'lrf-pool-status'),grid=element('div',undefined,'lrf-pool-choices'),buttons=[];status.setAttribute('role','status');status.setAttribute('aria-live','polite');
+  const current=garden.choices?.find(choice=>choice.id===garden.selectedCollectionId);status.textContent=current?'Revêtement actuel : '+current.label:'Touchez un revêtement pour l’appliquer à la piscine.';
+  for(const choice of garden.choices||[]){
+   const card=element('div',undefined,'lrf-pool-choice'),apply=element('button',undefined,'lrf-pool-apply');apply.type='button';apply.dataset.poolFinish=choice.id;apply.setAttribute('aria-label','Appliquer '+choice.label);apply.setAttribute('aria-pressed',String(choice.id===garden.selectedCollectionId));
+   const preview=choice.preview||choice.collection?.image;if(preview){const image=element('img');image.src=preview;image.alt=choice.label;image.loading='lazy';apply.append(image);}
+   apply.append(element('strong',choice.label,'lrf-pool-label'),element('span','Appliquer ce revêtement','lrf-pool-note'));buttons.push(apply);
+   apply.addEventListener('click',async()=>{
+    for(const button of buttons)button.disabled=true;status.textContent='Application du revêtement…';
+    try{const applied=await garden.setPoolCollection(choice.id);if(dialog!==chooser)return;if(applied===false)throw Error('Ce revêtement est indisponible.');close();onInvalidate();}
+    catch{if(dialog!==chooser)return;status.textContent='Le revêtement n’a pas pu être chargé. Réessayez ou choisissez un autre coloris.';for(const button of buttons)button.disabled=false;}
+   });card.append(apply);
+   if(choice.manufacturer&&choice.collection){const hd=element('button','Voir la collection en HD','lrf-pool-hd');hd.type='button';hd.addEventListener('click',()=>openCollection(choice.manufacturer,choice.collection));card.append(hd);}
+   grid.append(card);
+  }
+  if(!buttons.length)status.textContent='Les revêtements de piscine sont momentanément indisponibles.';
+  content.append(status,grid);chooser.append(style,header,content);stage.append(chooser);chooser.addEventListener('cancel',event=>{event.preventDefault();close();});chooser.showModal();exit.focus();onOverlay(true);onInvalidate();return true;
+ }
  function update(position){
   occupiedId=null;
   for(const item of getItems().filter(eligible)){
@@ -77,13 +103,20 @@ export function createShowroomVisit({stage,canvas,camera,getItems,onInvalidate=(
    space.setOccupied(occupied);if(occupied){occupiedId=item.id;item.root.visible=true;space.root.visible=true;space.prepareNear(local);}
   }
  }
+ function animate(position,time){
+  const item=getItems().find(value=>value.id===occupiedId),hall=item?.asset?.visitInterior?.showroom;
+  if(typeof hall?.animate!=='function')return false;
+  hall.root.updateWorldMatrix(true,false);return hall.animate(hall.root.worldToLocal(position.clone()),time)===true;
+ }
  function tap(event){
   const items=getItems().filter(eligible),current=items.find(item=>item.id===occupiedId);
   if(!current)return false;
-  const r=canvas.getBoundingClientRect();ray.setFromCamera(new T.Vector2((event.clientX-r.left)/r.width*2-1,-(event.clientY-r.top)/r.height*2+1),camera);ray.far=7;
+  const pointer=visitLocalPoint(canvas,event,{stage});ray.setFromCamera(new T.Vector2(pointer.x/pointer.width*2-1,-pointer.y/pointer.height*2+1),camera);ray.far=16;
   const space=current.asset.visitInterior,hit=nearestPhysicalHit(space.root,ray);if(!hit)return false;
   for(let object=hit.object;object&&object!==space.root.parent;object=object.parent){
    const action=object.userData.showroomAction;
+   if(action?.kind==='pool-finish')return openPoolChooser(space.showroom);
+   if(action&&hit.distance>7)return false;
    if(action?.kind==='inner-door'){
     // Keep an occupied exhibition visible; the door can be closed on returning
     // to the vestibule without making the hall vanish under the visitor.
@@ -91,9 +124,9 @@ export function createShowroomVisit({stage,canvas,camera,getItems,onInvalidate=(
     space.toggleInner();onInvalidate();return true;
    }
    if(action){const hall=space.showroom;if(action.kind==='catalogue'){const manufacturer=hall?.panels.find(p=>p.manufacturer.id===action.manufacturerId)?.manufacturer;if(manufacturer)openCollection(manufacturer);}else hall?.activateAction?.(action);onInvalidate();return true;}
-   const entry=object.userData.showroomCollection;if(entry){openCollection(entry.manufacturer,entry.collection);return true;}
+   const entry=object.userData.showroomCollection;if(entry){if(hit.distance>7)return false;openCollection(entry.manufacturer,entry.collection);return true;}
   }
   return false;
  }
- return {update,tap,get occupiedId(){return occupiedId},get blocked(){return !!dialog},close,exit(){close();occupiedId=null;for(const item of getItems().filter(eligible)){item.asset.visitInterior.endVisit();item.asset.visitInterior.setVisible(item.settings?.doorOpen===true);}},openCollection};
+ return {update,animate,tap,get occupiedId(){return occupiedId},get blocked(){return !!dialog},close,exit(){close();occupiedId=null;for(const item of getItems().filter(eligible)){item.asset.visitInterior.endVisit();item.asset.visitInterior.setVisible(item.settings?.doorOpen===true);}},openCollection,openPoolChooser};
 }

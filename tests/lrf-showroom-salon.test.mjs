@@ -19,7 +19,7 @@ function nativeHits(root,origin,direction){
 test('the seventeen supplier salon uses room-scale volumes instead of a long empty warehouse',()=>{
  const hall=makeShowroomHall({manufacturers:SHOWROOM_MANUFACTURERS});
  try{
-  assert.equal(hall.stands.length,17);assert.equal(hall.dimensions.width,28);assert.equal(hall.dimensions.height,4.4);
+  assert.equal(hall.stands.length,17);assert.equal(hall.dimensions.width,28);assert.equal(hall.dimensions.height,3.6);
   assert(hall.dimensions.depth<34,'the walk is compact enough to keep products in the foreground');
   assert(hall.dimensions.width*hall.dimensions.depth<1000,'the wide atrium remains compact');
   for(const stand of hall.stands){

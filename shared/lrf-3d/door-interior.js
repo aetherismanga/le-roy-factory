@@ -136,6 +136,7 @@ export function makeDoorInterior({width=.83,height=2.04,loadTexture=null,onReady
   if(z>hallStart-margin)return Math.abs(x-doorX)<innerDoorWidth/2-margin;
   const local={x:x-doorX,z:z-hallStart},bounds=showroom?.navigableBounds;
   if(!bounds||local.x<bounds.minX+margin||local.x>bounds.maxX-margin||local.z<bounds.minZ+margin||local.z>bounds.maxZ)return false;
+  if(showroom.canWalk)return showroom.canWalk(local,margin);
   return !showroom.colliders.some(box=>local.x>box.minX-margin&&local.x<box.maxX+margin&&local.z>box.minZ-margin&&local.z<box.maxZ+margin);
  };
  const visit={root,canWalk,get innerOpen(){return innerOpen},get occupied(){return occupied},setOccupied:value=>{occupied=!!value;},setInnerOpen,toggleInner:()=>setInnerOpen(!innerOpen),get showroom(){return showroom},prepareNear:point=>{if(showroom&&innerOpen)showroom.prepareNear(new T.Vector3(point.x-doorX,1.58,point.z-back+.09));},endVisit(){occupied=false;innerOpen=false;innerLeaf.rotation.y=0;showroom?.dispose();showroom=null;root.updateMatrixWorld(true);}};

@@ -25,7 +25,7 @@ export function showroomPoint(layout,x,z){
  return {x:layout.x+c*x+s*z,z:layout.z-s*x+c*z};
 }
 export function makeShowroomLayout(manufacturers=[]){
- const width=28,height=4.4,depth=33.4;
+ const width=28,height=3.6,depth=33.4;
  const displays=manufacturers.map((manufacturer,index)=>{
   const source=DISPLAYS[index]||{x:-11+(index%5)*5.5,z:-33-Math.floor((index-17)/5)*4,rotation:0,width:3.6,depth:2.2,floor:'creta-pepe'};
   const layout={...source,index,manufacturer,height:source.height||2.25};

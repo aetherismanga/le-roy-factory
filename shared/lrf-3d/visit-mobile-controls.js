@@ -3,6 +3,25 @@ import {notifyPortalPresentation} from './randal-presentation-responsive.js';
 const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
 const smooth=(start,end,value)=>{const t=clamp((value-start)/(end-start),0,1);return t*t*(3-2*t);};
 const stopped=()=>({forward:0,strafe:0,speed:0});
+const stageRotations=new WeakMap();
+
+// A portrait-locked browser can display a landscape visit by rotating its
+// stage. Keep raycasts and gestures in the stage's logical, unrotated axes.
+export function visitLocalDelta(stage,x,y){const angle=stageRotations.get(stage)||0;return angle===90?{x:y,y:-x}:angle===-90?{x:-y,y:x}:{x,y};}
+export function visitLocalPoint(element,event,{stage=element}={}){
+ const box=element.getBoundingClientRect(),angle=stageRotations.get(stage)||0,width=element.clientWidth||(angle?box.height:box.width),height=element.clientHeight||(angle?box.width:box.height),delta=visitLocalDelta(stage,event.clientX-box.left-box.width/2,event.clientY-box.top-box.height/2);
+ return {x:delta.x+width/2,y:delta.y+height/2,width,height};
+}
+
+// Ignore a phone lying flat, diagonal transitions and absent sensor values.
+// The sign follows the device's x axis, independent of compass direction.
+export function visitGravityOrientation({x,y,z}){
+ if(![x,y,z].every(value=>typeof value==='number'&&Number.isFinite(value)))return null;
+ const total=Math.hypot(x,y,z),ax=Math.abs(x),ay=Math.abs(y);if(total<.5||Math.hypot(x,y)/total<.55)return null;
+ if(ax>ay*1.4&&ax/total>.55)return x>0?90:-90;
+ if(ay>ax*1.4&&ay/total>.55)return 0;
+ return null;
+}
 
 // Unit direction and independent strength: the walk engine must retain speed
 // after normalising its world-space direction. Only the outer forward sector
@@ -19,7 +38,10 @@ export function visitJoystickInput(x,y,{deadZone=.12,maxSpeed=2.1}={}){
 // gesture. This function never locks the phone's physical orientation.
 export async function requestVisitLandscape({stage,document:doc=globalThis.document}={}){
  let fullscreen=false;
- try{if(doc?.fullscreenElement===stage||doc?.webkitFullscreenElement===stage)fullscreen=true;else{const request=stage?.requestFullscreen||stage?.webkitRequestFullscreen;if(request){await request.call(stage);fullscreen=doc?.fullscreenElement===stage||doc?.webkitFullscreenElement===stage;}}}catch{}
+ // Fullscreen UA rules forbid transforming the fullscreen element itself.
+ // The document root leaves its child stage free to rotate on locked phones.
+ const root=doc?.documentElement,target=root&&(root.requestFullscreen||root.webkitRequestFullscreen)?root:stage;
+ try{if(doc?.fullscreenElement===target||doc?.webkitFullscreenElement===target)fullscreen=true;else{if(target!==stage&&(doc?.fullscreenElement===stage||doc?.webkitFullscreenElement===stage))await (doc.exitFullscreen||doc.webkitExitFullscreen)?.call(doc);const request=target?.requestFullscreen||target?.webkitRequestFullscreen;if(request){await request.call(target,{navigationUI:'hide'});fullscreen=doc?.fullscreenElement===target||doc?.webkitFullscreenElement===target;}}}catch{}
  return {fullscreen,locked:false};
 }
 
@@ -34,13 +56,14 @@ const STYLE=`
 .lrf-visit-joystick-forward{position:absolute;top:7px;left:0;width:100%;font:9px/1 Arial,sans-serif;text-align:center;color:#e0cc94c9;pointer-events:none}
 .lrf-visit-joystick-nub{position:absolute;left:50%;top:50%;width:40px;height:40px;box-sizing:border-box;border:1px solid #e0ce9e;border-radius:50%;background:radial-gradient(circle at 38% 30%,#acb4a0,#586651 75%);box-shadow:0 3px 8px #07120b70,inset 0 1px 3px #fff4cf66;transform:translate(calc(-50% + var(--lrf-stick-x,0px)),calc(-50% + var(--lrf-stick-y,0px)));pointer-events:none}
 .lrf-visit-joystick-nub::after{content:'';position:absolute;left:17px;top:17px;width:4px;height:4px;border-radius:50%;background:#f3e4b5}
-.lrf-visit-expanded,#viewer.lrf-visit-expanded,.lrf-visit-immersive,#viewer.lrf-visit-immersive{position:fixed!important;inset:auto!important;left:var(--lrf-visit-left,0px)!important;top:var(--lrf-visit-top,0px)!important;width:var(--lrf-visit-width,100vw)!important;min-width:0!important;max-width:none!important;height:var(--lrf-visit-height,100dvh)!important;min-height:0!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;transform:none!important;filter:none!important;contain:none!important;z-index:2147483000!important;overflow:hidden!important}
+.lrf-visit-expanded,#viewer.lrf-visit-expanded,.lrf-visit-immersive,#viewer.lrf-visit-immersive{position:fixed!important;inset:auto!important;left:var(--lrf-visit-left,0px)!important;top:var(--lrf-visit-top,0px)!important;width:var(--lrf-visit-width,100vw)!important;min-width:0!important;max-width:none!important;height:var(--lrf-visit-height,100dvh)!important;min-height:0!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;transform:rotate(var(--lrf-visit-rotation,0deg))!important;transform-origin:center center!important;filter:none!important;contain:none!important;z-index:2147483000!important;overflow:hidden!important}
 body.lrf-visit-viewport>:not(.lrf-visit-expanded):not(.lrf-visit-immersive):not(dialog[open]):not(script):not(style){visibility:hidden!important;pointer-events:none!important}
 .lrf-visit-immersive>canvas,.lrf-visit-expanded>canvas{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important;touch-action:none!important}
 .lrf-visit-immersive>:not(canvas):not(.lrf-visit-mobile-controls):not(dialog[open]):not(style){display:none!important}
 .lrf-visit-immersive .lrf-visit-mobile-controls{display:block!important}
 .lrf-visit-immersive .lrf-visit-mobile-controls>:not(.lrf-visit-joystick){display:none!important}
 .lrf-visit-immersive .lrf-visit-joystick{left:max(12px,env(safe-area-inset-left));bottom:max(12px,env(safe-area-inset-bottom))}
+.lrf-visit-rotated .lrf-showroom-dialog[open]{box-sizing:border-box!important;position:fixed!important;inset:auto!important;left:50%!important;top:50%!important;margin:0!important;width:min(1100px,calc(var(--lrf-visit-width) - 28px))!important;max-width:calc(var(--lrf-visit-width) - 28px)!important;max-height:calc(var(--lrf-visit-height) - 28px)!important;transform:translate(-50%,-50%) rotate(var(--lrf-visit-rotation))!important;transform-origin:center center!important;overflow:auto}
 @media(max-width:760px),(pointer:coarse){
  .lrf-visit-mobile-controls{display:block}
  .lrf-visit-stage.walk-active .scene-title,.lrf-visit-stage.walk-active .view-commands,.lrf-visit-stage.walk-active .viewer-footer{display:none!important}
@@ -60,16 +83,18 @@ export function mountVisitMobileControls({stage,onInput=()=>{},onInvalidate=()=>
  const nub=doc.createElement('span');nub.className='lrf-visit-joystick-nub';nub.setAttribute('aria-hidden','true');joystick.append(forwardMark,nub);root.append(joystick);
  const orientationQuery=win.matchMedia?.('(orientation: landscape)'),coarseQuery=win.matchMedia?.('(pointer:coarse)'),hoverQuery=win.matchMedia?.('(hover:none)'),orientation=win.screen?.orientation;
  let active=false,requesting=false,ownsFullscreen=false,savedOverflow=null,immersive=false,portal=null,exitHold=null,wasFullscreen=false,disposed=false,portalPresented=false,pointerId=null;
+ let physicalRotation=null,sensorCandidate=null,sensorsListening=false,sensorPermission='unknown',sensorRequesting=false;
+ const layoutVariables=['left','top','width','height','rotation'].map(name=>'--lrf-visit-'+name),savedVariables=new Map();
  const settleTimers=new Set(),setTimer=(fn,delay)=>win.setTimeout?.(fn,delay),clearTimer=id=>win.clearTimeout?.(id);
  const putVariable=(object,name,value)=>{if(object.style.setProperty)object.style.setProperty(name,value);else object.style[name]=value;};
  function emit(value,x=0,y=0){putVariable(joystick,'--lrf-stick-x',x+'px');putVariable(joystick,'--lrf-stick-y',y+'px');joystick.dataset.fast=value.speed>1?'true':'false';joystick.dataset.speed=value.speed.toFixed(3);onInput(value);onInvalidate();}
  const cancelExitHold=()=>{if(exitHold!==null){clearTimer(exitHold);exitHold=null;}};
  function reset(){pointerId=null;cancelExitHold();joystick.setAttribute('aria-pressed','false');emit(stopped());}
- function point(event){const box=joystick.getBoundingClientRect?.()||{left:0,top:0,width:104,height:104},radius=Math.max(12,Math.min(box.width,box.height)/2-18),x=(event.clientX-box.left-box.width/2)/radius,y=(event.clientY-box.top-box.height/2)/radius;return {x,y,radius,distance:Math.hypot(x,y)};}
+ function point(event){const box=visitLocalPoint(joystick,event,{stage}),radius=Math.max(12,Math.min(box.width,box.height)/2-18),x=(box.x-box.width/2)/radius,y=(box.y-box.height/2)/radius;return {x,y,radius,distance:Math.hypot(x,y)};}
  function moveStick(event){const value=point(event),amount=Math.max(1,value.distance);if(value.distance>.18)cancelExitHold();emit(visitJoystickInput(value.x,value.y),value.x/amount*value.radius,value.y/amount*value.radius);return value;}
  joystick.addEventListener('pointerdown',event=>{
   if(!active||event.button>0||pointerId!==null)return;event.preventDefault();event.stopPropagation();pointerId=event.pointerId;joystick.setPointerCapture?.(pointerId);joystick.setAttribute('aria-pressed','true');
-  if(immersive&&!isFullscreen()&&!requesting)requestNative();const value=moveStick(event);
+  startSensors(true);if(immersive&&!isFullscreen()&&!requesting)requestNative();const value=moveStick(event);
   if(value.distance<=.18)exitHold=setTimer(()=>{exitHold=null;if(active&&pointerId===event.pointerId)onExitRequest();},900);
  });
  joystick.addEventListener('pointermove',event=>{if(!active||event.pointerId!==pointerId)return;event.preventDefault();event.stopPropagation();moveStick(event);});
@@ -77,7 +102,7 @@ export function mountVisitMobileControls({stage,onInput=()=>{},onInvalidate=()=>
  for(const type of ['pointerup','pointercancel','lostpointercapture'])joystick.addEventListener(type,release);
  joystick.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();if(active&&event.detail===0)onExitRequest();});
  joystick.addEventListener('contextmenu',event=>event.preventDefault());
- const isFullscreen=()=>doc.fullscreenElement===stage||doc.webkitFullscreenElement===stage;
+ const isFullscreen=()=>[stage,doc.documentElement].some(element=>element&&(doc.fullscreenElement===element||doc.webkitFullscreenElement===element));
  function orientationState(){
   const type=String(orientation?.type||''),layout=win.innerWidth>0&&win.innerHeight>0?win.innerWidth>win.innerHeight:null,visual=win.visualViewport,actual=visual?.width>0&&visual?.height>0?visual.width>visual.height:layout,media=typeof orientationQuery?.matches==='boolean'?orientationQuery.matches:null;
   // A focused keyboard may shrink an otherwise portrait phone to a wide
@@ -101,25 +126,52 @@ export function mountVisitMobileControls({stage,onInput=()=>{},onInvalidate=()=>
   return {width,height,left:visual?.offsetLeft||0,top:visual?.offsetTop||0};
  }
  const touchDevice=()=>!!(coarseQuery?.matches||win.navigator?.maxTouchPoints>0&&(hoverQuery?.matches||win.navigator?.userAgentData?.mobile===true||/Android.*Mobile|iPhone|iPod/i.test(win.navigator?.userAgent||'')));
+ function gravitySample(gravity,event){
+  if(!active||doc.hidden||!touchDevice())return;const value=visitGravityOrientation(gravity);if(value===null){sensorCandidate=null;return;}
+  const time=Number.isFinite(event.timeStamp)?event.timeStamp:(win.performance?.now?.()??Date.now());
+  if(sensorCandidate?.value!==value)sensorCandidate={value,time,count:1};else sensorCandidate.count++;
+  // Several samples over at least 80ms reject handling jolts. A bounded sample
+  // count also works in WebViews that report a constant event timestamp.
+  if(sensorCandidate.count<2||(time-sensorCandidate.time<80&&sensorCandidate.count<5)||physicalRotation===value)return;
+  physicalRotation=value;reset();syncViewport();
+ }
+ function sensorOrientation(event){
+  if(typeof event.beta!=='number'||typeof event.gamma!=='number')return;
+  const beta=event.beta*Math.PI/180,gamma=event.gamma*Math.PI/180;
+  gravitySample({x:-Math.cos(beta)*Math.sin(gamma),y:Math.sin(beta),z:Math.cos(beta)*Math.cos(gamma)},event);
+ }
+ function sensorMotion(event){if(event.accelerationIncludingGravity)gravitySample(event.accelerationIncludingGravity,event);}
+ function attachSensors(){if(sensorsListening||!active||doc.hidden||disposed||!touchDevice())return;sensorsListening=true;win.addEventListener('deviceorientation',sensorOrientation);win.addEventListener('devicemotion',sensorMotion);}
+ function stopSensors(){if(sensorsListening){win.removeEventListener('deviceorientation',sensorOrientation);win.removeEventListener('devicemotion',sensorMotion);}sensorsListening=false;sensorCandidate=null;physicalRotation=null;}
+ async function startSensors(userGesture=false){
+  if(!active||disposed||doc.hidden||!touchDevice()||sensorPermission==='denied')return;
+  const sensorAPI=[win.DeviceOrientationEvent,win.DeviceMotionEvent].find(api=>typeof api?.requestPermission==='function');
+  if(!sensorAPI||sensorPermission==='granted'){attachSensors();return;}
+  if(!userGesture||sensorRequesting)return;sensorRequesting=true;
+  try{sensorPermission=await sensorAPI.requestPermission()==='granted'?'granted':'denied';}catch{sensorPermission='unknown';}finally{sensorRequesting=false;}
+  if(sensorPermission==='granted')attachSensors();
+ }
+ function saveLayoutVariables(){if(savedVariables.size)return;for(const name of layoutVariables)savedVariables.set(name,{value:stage.style.getPropertyValue?.(name)??stage.style[name],priority:stage.style.getPropertyPriority?.(name)||''});}
+ function restoreLayoutVariables(){for(const [name,{value,priority}]of savedVariables){if(value!==undefined&&value!==''){if(stage.style.setProperty)stage.style.setProperty(name,value,priority);else stage.style[name]=value;}else if(stage.style.removeProperty)stage.style.removeProperty(name);else delete stage.style[name];}savedVariables.clear();stageRotations.delete(stage);}
  function takeStage(){
-  if(portal)return;const parent=stage.parentNode||stage.parentElement,placeholder=doc.createElement('span');placeholder.hidden=true;placeholder.setAttribute('aria-hidden','true');portal={parent,placeholder};
+  if(portal)return;saveLayoutVariables();const parent=stage.parentNode||stage.parentElement,placeholder=doc.createElement('span');placeholder.hidden=true;placeholder.setAttribute('aria-hidden','true');portal={parent,placeholder};
   if(parent?.insertBefore)parent.insertBefore(placeholder,stage);doc.body.append(stage);if(savedOverflow===null)savedOverflow=doc.body.style.overflow;doc.body.style.overflow='hidden';doc.body.classList.add('lrf-visit-viewport');
  }
- function restoreStage(){if(!portal)return;const {parent,placeholder}=portal;portal=null;if(parent?.insertBefore)parent.insertBefore(stage,placeholder);placeholder.remove();if(savedOverflow!==null){doc.body.style.overflow=savedOverflow;savedOverflow=null;}doc.body.classList.remove('lrf-visit-viewport');}
+ function restoreStage(){restoreLayoutVariables();if(!portal)return;const {parent,placeholder}=portal;portal=null;if(parent?.insertBefore)parent.insertBefore(stage,placeholder);placeholder.remove();if(savedOverflow!==null){doc.body.style.overflow=savedOverflow;savedOverflow=null;}doc.body.classList.remove('lrf-visit-viewport');}
  function syncPortalPresentation(open){if(portalPresented===!!open)return;portalPresented=!!open;notifyPortalPresentation(portalPresented,{view:win,document:doc});}
  function syncLayout(){
-  if(disposed&&active)return;const box=viewport(),direction=orientationState();immersive=!!(active&&touchDevice()&&(direction===null?box.width>box.height:direction));
-  if(immersive){takeStage();stage.classList.add('lrf-visit-immersive');for(const [key,value]of Object.entries(box))putVariable(stage,'--lrf-visit-'+key,value+'px');}
-  else{stage.classList.remove('lrf-visit-expanded','lrf-visit-immersive');restoreStage();}
+  if(disposed&&active)return;const box=viewport(),direction=orientationState(),rotation=box.width<box.height&&physicalRotation?physicalRotation:0;immersive=!!(active&&touchDevice()&&(rotation||(direction===null?box.width>box.height:direction)));
+  if(immersive){takeStage();stage.classList.add('lrf-visit-immersive');if(rotation)stage.classList.add('lrf-visit-rotated');else stage.classList.remove('lrf-visit-rotated');stageRotations.set(stage,rotation);const logical=rotation?{width:box.height,height:box.width,left:box.left+(box.width-box.height)/2,top:box.top+(box.height-box.width)/2}:box;for(const [key,value]of Object.entries(logical))putVariable(stage,'--lrf-visit-'+key,value+'px');putVariable(stage,'--lrf-visit-rotation',rotation+'deg');}
+  else{stage.classList.remove('lrf-visit-expanded','lrf-visit-immersive','lrf-visit-rotated');restoreStage();}
   syncPortalPresentation(immersive);onInvalidate();
  }
  async function releaseNative(){const owned=ownsFullscreen;ownsFullscreen=false;if(owned&&isFullscreen())try{await (doc.exitFullscreen||doc.webkitExitFullscreen)?.call(doc);}catch{}}
- async function requestNative(){
-  if(requesting||disposed||!active||!immersive)return;requesting=true;const alreadyFullscreen=isFullscreen(),result=await requestVisitLandscape({stage,document:doc});requesting=false;
-  if(!active||disposed||!immersive){if(result.fullscreen&&!alreadyFullscreen)try{await (doc.exitFullscreen||doc.webkitExitFullscreen)?.call(doc);}catch{}return;}
-  ownsFullscreen=ownsFullscreen||result.fullscreen&&!alreadyFullscreen;wasFullscreen=isFullscreen();syncLayout();
+ async function requestNative(allowPortrait=false){
+  if(requesting||disposed||!active||(!immersive&&!allowPortrait))return;requesting=true;const previous=doc.fullscreenElement||doc.webkitFullscreenElement,alreadyFullscreen=isFullscreen(),result=await requestVisitLandscape({stage,document:doc});requesting=false;
+  if(!active||disposed||(!immersive&&!allowPortrait)){if(result.fullscreen&&!alreadyFullscreen)try{await (doc.exitFullscreen||doc.webkitExitFullscreen)?.call(doc);}catch{}return;}
+  ownsFullscreen=ownsFullscreen||result.fullscreen&&(!alreadyFullscreen||previous!==doc.fullscreenElement&&previous!==doc.webkitFullscreenElement);wasFullscreen=isFullscreen();syncLayout();
  }
- function syncFullscreen(){const present=isFullscreen(),left=wasFullscreen&&!present;wasFullscreen=present;if(left){ownsFullscreen=false;if(active&&immersive)onExitRequest();}}
+ function syncFullscreen(){const present=isFullscreen(),left=wasFullscreen&&!present;wasFullscreen=present;if(left&&!requesting){ownsFullscreen=false;if(active&&immersive)onExitRequest();}}
  function syncViewport(){const wasImmersive=immersive;syncLayout();if(wasImmersive&&!immersive){reset();releaseNative();}}
  function clearSettles(){for(const timer of settleTimers)clearTimer(timer);settleTimers.clear();}
  function settleRotation(){
@@ -128,11 +180,11 @@ export function mountVisitMobileControls({stage,onInput=()=>{},onInvalidate=()=>
   // separately. Reconcile their final geometry without requiring another tap.
   for(const delay of [0,80,220,500,1000]){let timer;timer=setTimer(()=>{settleTimers.delete(timer);if(active&&!disposed)syncViewport();},delay);if(timer!==undefined)settleTimers.add(timer);}
  }
- function visibility(){if(doc.hidden)reset();else if(active)settleRotation();}
+ function visibility(){if(doc.hidden){reset();stopSensors();syncViewport();}else if(active){startSensors();settleRotation();}}
  const listenQuery=(query,handler)=>{if(query?.addEventListener)query.addEventListener('change',handler);else query?.addListener?.(handler);};
  const unlistenQuery=(query,handler)=>{if(query?.removeEventListener)query.removeEventListener('change',handler);else query?.removeListener?.(handler);};
  stage.append(root);win.addEventListener('blur',reset);win.addEventListener('resize',syncViewport);win.addEventListener('orientationchange',settleRotation);win.addEventListener('pageshow',settleRotation);
  win.visualViewport?.addEventListener('resize',syncViewport);win.visualViewport?.addEventListener('scroll',syncViewport);orientation?.addEventListener?.('change',settleRotation);listenQuery(orientationQuery,settleRotation);listenQuery(coarseQuery,syncViewport);listenQuery(hoverQuery,syncViewport);
  doc.addEventListener('visibilitychange',visibility);doc.addEventListener('fullscreenchange',syncFullscreen);doc.addEventListener('webkitfullscreenchange',syncFullscreen);
- return {setActive(value){active=!!value;root.hidden=!active;reset();clearSettles();syncLayout();if(!active)releaseNative();else{if(immersive)requestNative();}},reset,get immersive(){return immersive;},get joystick(){return joystick;},dispose(){disposed=true;active=false;reset();clearSettles();syncLayout();releaseNative();root.remove();stage.classList.remove('lrf-visit-stage');win.removeEventListener('blur',reset);win.removeEventListener('resize',syncViewport);win.removeEventListener('orientationchange',settleRotation);win.removeEventListener('pageshow',settleRotation);win.visualViewport?.removeEventListener('resize',syncViewport);win.visualViewport?.removeEventListener('scroll',syncViewport);orientation?.removeEventListener?.('change',settleRotation);unlistenQuery(orientationQuery,settleRotation);unlistenQuery(coarseQuery,syncViewport);unlistenQuery(hoverQuery,syncViewport);doc.removeEventListener('visibilitychange',visibility);doc.removeEventListener('fullscreenchange',syncFullscreen);doc.removeEventListener('webkitfullscreenchange',syncFullscreen);}};
+ return {setActive(value){active=!!value;root.hidden=!active;reset();clearSettles();if(active)startSensors(true);else stopSensors();syncLayout();if(!active)releaseNative();else{if(immersive)requestNative();else if(touchDevice()&&(doc.fullscreenElement===stage||doc.webkitFullscreenElement===stage))requestNative(true);}},reset,get immersive(){return immersive;},get joystick(){return joystick;},dispose(){disposed=true;active=false;stopSensors();reset();clearSettles();syncLayout();releaseNative();root.remove();stage.classList.remove('lrf-visit-stage');win.removeEventListener('blur',reset);win.removeEventListener('resize',syncViewport);win.removeEventListener('orientationchange',settleRotation);win.removeEventListener('pageshow',settleRotation);win.visualViewport?.removeEventListener('resize',syncViewport);win.visualViewport?.removeEventListener('scroll',syncViewport);orientation?.removeEventListener?.('change',settleRotation);unlistenQuery(orientationQuery,settleRotation);unlistenQuery(coarseQuery,syncViewport);unlistenQuery(hoverQuery,syncViewport);doc.removeEventListener('visibilitychange',visibility);doc.removeEventListener('fullscreenchange',syncFullscreen);doc.removeEventListener('webkitfullscreenchange',syncFullscreen);}};
 }

@@ -7,6 +7,7 @@ import {COLLECTIONS,formatsForColor} from '../shared/lrf-3d/surface-catalog.js';
 import {rowShift} from '../shared/lrf-3d/tile-layout.js';
 import {makeShowroomSurfaces,SHOWROOM_SURFACE_RECIPES} from '../shared/lrf-3d/showroom-surfaces.js';
 import sources from '../shared/lrf-3d/media/showroom/yosemite-native-sources.json' with {type:'json'};
+import slateSources from '../shared/lrf-3d/media/showroom/slate-native-sources.json' with {type:'json'};
 import manufacturerSources from '../shared/lrf-3d/media/showroom/manufacturer-photo-sources.json' with {type:'json'};
 import pecchioliSources from '../shared/lrf-3d/media/showroom/pecchioli-native-sources.json' with {type:'json'};
 
@@ -86,6 +87,25 @@ test('whole low walls and all their visible meshes open the matching native coll
   wall.traverse(object=>{if(!object.isMesh)return;assert.equal(object.userData.showroomCollection,target);const hits=[];object.raycast({},hits);assert.equal(hits.length,0,'editor picking remains isolated');});
   wall.updateMatrixWorld(true);const box=new T.Box3().setFromObject(wall);assert(Math.abs(box.min.y)<1e-7&&Math.abs(box.max.y-2.3)<1e-6,'baseY convention and human-height wall');
  }finally{manager.dispose();}
+});
+
+test('Slate Gold, River and Dark use native 500x1000 product faces and preserve the whole portrait slab in a landscape format',async()=>{
+ assert.equal(slateSources.length,6);
+ for(const source of slateSources){const file=readFileSync(new URL('../shared/lrf-3d/media/showroom/'+source.file,import.meta.url));assert.equal(createHash('sha256').update(file).digest('hex'),source.sha256);assert.deepEqual(jpegSize(file),[500,1000]);assert.equal(source.generated,false);assert.equal(source.resized,false);assert.match(source.productSource,new RegExp(source.reference.toLowerCase()+'$'));}
+ for(const color of ['gold','river','dark']){
+  const id='slate-'+color,recipe=SHOWROOM_SURFACE_RECIPES[id],manager=makeShowroomSurfaces({loadTexture:async()=>new T.Texture({width:500,height:1000})}),wall=manager.createWall({recipeId:id,width:3,height:1.2});
+  try{
+   assert.equal(recipe.collection,'Slate');assert.equal(recipe.colorId,color);assert.equal(recipe.format,'60x120');assert.equal(recipe.images.length,2);assert.equal(recipe.hdImages.length,6);assert(recipe.provenance.reference.startsWith('03F6A'));await manager.prepareNear({x:0,z:1});
+   for(const surface of wall.children.filter(object=>object.name.startsWith('Surface_'))){const map=surface.material.map;assert.equal(map.rotation,Math.PI/2);assert.deepEqual(map.repeat.toArray(),[1,1],'the original slab is rotated whole rather than cropped to its central quarter');map.updateMatrix();const corners=[[0,0],[1,0],[1,1],[0,1]].map(point=>new T.Vector2(...point).applyMatrix3(map.matrix));assert(corners.every(point=>Math.abs(point.x-Math.round(point.x))<1e-7&&Math.abs(point.y-Math.round(point.y))<1e-7));assert(map.matrix.determinant()>.9999,'orientation preserves the original without a mirror');assert.equal(surface.userData.showroomCollection.collection.name,'Slate');assert.equal(surface.userData.showroomCollection.collection.selectedColor,recipe.color);}
+  }finally{manager.dispose();}
+ }
+});
+
+test('a dedicated pool lining shares two native maps across its floor and four walls and releases them once on replacement',async()=>{
+ let requests=0,released=0;const manager=makeShowroomSurfaces({maxResidentMaps:2,loadTexture:async()=>{requests++;const texture=new T.Texture({width:500,height:1000});texture.addEventListener('dispose',()=>released++);return texture;}}),lining=new T.Group();
+ lining.add(manager.createFloorPatch({bounds:{minX:-2,maxX:2,minZ:-3,maxZ:3},recipeId:'slate-gold',y:-1.25}));
+ for(const spec of [{width:4,position:[0,-1.25,-3],rotation:0},{width:4,position:[0,-1.25,3],rotation:Math.PI},{width:6,position:[-2,-1.25,0],rotation:Math.PI/2},{width:6,position:[2,-1.25,0],rotation:-Math.PI/2}])lining.add(manager.createWall({...spec,height:1.25,recipeId:'slate-gold'}));
+ try{await manager.prepareNear({x:0,z:0});assert.equal(requests,2);assert.equal(manager.diagnostics().residentMaps,2);const maps=new Set();lining.traverse(object=>{if(object.isMesh&&object.name.startsWith('Surface_')){maps.add(object.material.map);assert.equal(object.userData.showroomCollection.collection.selectedColor,'Gold');assert.equal(object.userData.showroomRecipe.format,'60x120');}});assert.equal(maps.size,2);manager.dispose();manager.dispose();assert.equal(released,2,'changing the selected lining can dispose one dedicated owner without leaking shared native maps');assert.equal(lining.children.length,0);}finally{manager.dispose();}
 });
 
 test('both sides of a booth wall expose native tile faces and the same HD collection with one batch per material',async()=>{

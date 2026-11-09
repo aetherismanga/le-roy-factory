@@ -1,5 +1,5 @@
 import {createShowroomVisit,showroomMoveAllowed} from '../../shared/lrf-3d/showroom-visit.js';
-import {mountVisitMobileControls} from '../../shared/lrf-3d/visit-mobile-controls.js';
+import {mountVisitMobileControls,visitLocalPoint,visitLocalDelta} from '../../shared/lrf-3d/visit-mobile-controls.js';
 import {createVisitTapGesture} from '../../shared/lrf-3d/visit-interactions.js';
 import {boundsOnWall} from './composition.js';
 import * as T from 'three';
@@ -99,13 +99,14 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   document.addEventListener('visibilitychange',()=>{if(document.hidden){keys.clear();taps.reset();mouseLook=false;touchLook=null;}});
   document.addEventListener('keydown',e=>{if(active&&e.key==='Escape'&&!editable(e.target)){setActive(false);e.stopImmediatePropagation()}},true);
 
-  stage.addEventListener('pointerdown',e=>{if(!active||e.target!==canvas)return;if(e.pointerType==='mouse'&&e.button!==0)return;taps.down(e);e.preventDefault();e.stopPropagation();canvas.setPointerCapture(e.pointerId);if(e.pointerType==='mouse'){mouseLook=true;return;}if(touchLook&&touchLook.id!==e.pointerId){taps.cancel(e);return;}touchLook={id:e.pointerId,x:e.clientX,y:e.clientY};},true);
+  stage.addEventListener('pointerdown',e=>{if(!active||e.target!==canvas)return;if(e.pointerType==='mouse'&&e.button!==0)return;taps.down(e);e.preventDefault();e.stopPropagation();canvas.setPointerCapture(e.pointerId);if(e.pointerType==='mouse'){mouseLook=true;return;}if(touchLook&&touchLook.id!==e.pointerId){taps.cancel(e);return;}const point=visitLocalPoint(canvas,e,{stage});touchLook={id:e.pointerId,x:point.x,y:point.y};},true);
   function look(dx,dy){forward.applyAxisAngle(new T.Vector3(0,1,0),-dx*.004).normalize();pitch=T.MathUtils.clamp(pitch-dy*.004,-1.35,1.35);view();onMove();}
-  stage.addEventListener('pointermove',e=>{if(!active)return;taps.move(e);if(e.pointerType==='mouse'&&mouseLook){look(e.movementX,e.movementY)}else if(touchLook?.id===e.pointerId){look(e.clientX-touchLook.x,e.clientY-touchLook.y);touchLook.x=e.clientX;touchLook.y=e.clientY;}});
+  stage.addEventListener('pointermove',e=>{if(!active)return;taps.move(e);if(e.pointerType==='mouse'&&mouseLook){(()=>{const delta=visitLocalDelta(stage,e.movementX||0,e.movementY||0);look(delta.x,delta.y);})()}else if(touchLook?.id===e.pointerId){const point=visitLocalPoint(canvas,e,{stage});look(point.x-touchLook.x,point.y-touchLook.y);touchLook.x=point.x;touchLook.y=point.y;}});
   function release(e){if(!active||(!mouseLook&&touchLook?.id!==e.pointerId)){taps.cancel(e);return;}const tapped=e.type==='pointerup'&&taps.up(e);if(e.type!=='pointerup')taps.cancel(e);mouseLook=false;touchLook=null;if(tapped&&(showroomVisit.tap(e)||onTap?.(e))){e.preventDefault();e.stopImmediatePropagation();}onMove();}
   window.addEventListener('pointerup',release,true);window.addEventListener('pointercancel',release,true);canvas.addEventListener('lostpointercapture',e=>{taps.cancel(e);mouseLook=false;touchLook=null;});
   function tick(dt){
     moving=false;if(!active||showroomVisit.blocked)return false;
+    const atmosphere=showroomVisit.animate?.(walker,performance.now()/1000)||false;
     const left=keys.has('ArrowLeft'),right=keys.has('ArrowRight');
     const rotation=(Number(left)-Number(right))*turn*dt;
     if(rotation)forward.applyAxisAngle(new T.Vector3(0,1,0),rotation).normalize();
@@ -124,7 +125,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
       p.y=eye;moving=p.distanceToSquared(before)>1e-8;
     }
     if(rotation||move.lengthSq()>0){taps.cancel();view();return true}if(viewMode==='third'){view();return true}
-    return false;
+    return atmosphere;
   }
   return {tick,get interiorId(){return showroomVisit.occupiedId},get active(){return active},setActive,get position(){return walker;},get heading(){return Math.atan2(forward.x,forward.z);},get moving(){return moving;},get running(){return keys.has('ShiftLeft')||keys.has('ShiftRight');},get view(){return viewMode;},setView(mode){viewMode=mode==='third'?'third':'first';if(active)view();onMove();}};
 }

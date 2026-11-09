@@ -23,7 +23,7 @@ export function createShowroomLighting({scene,renderer,camera,getHall,makeEnviro
  }
  function update(){
   const hall=getHall?.();let inside=false;
-  if(hall?.root){hall.root.updateWorldMatrix(true,false);local.copy(camera.position);hall.root.worldToLocal(local);const b=hall.navigableBounds;inside=!!b&&local.z<-.15&&local.z>b.minZ&&Math.abs(local.x)<hall.dimensions.width/2;}
+  if(hall?.root){hall.root.updateWorldMatrix(true,false);local.copy(camera.position);hall.root.worldToLocal(local);if(typeof hall.containsPoint==='function')inside=!!hall.containsPoint(local);else if(typeof hall.canWalk==='function')inside=hall.canWalk(local,0)===true;else{const b=hall.navigableBounds;inside=!!b&&local.z<-.15&&local.z>b.minZ&&Math.abs(local.x)<hall.dimensions.width/2;}}
   if(!inside){restore();return false;}
   if(activeHall&&activeHall!==hall)restore();activeHall=hall;
   if(!saved)saved={environment:scene.environment,intensity:scene.environmentIntensity,exposure:renderer.toneMappingExposure,toneMapping:renderer.toneMapping,shadowEnabled:renderer.shadowMap?.enabled,fog:scene.fog?{near:scene.fog.near,far:scene.fog.far,color:scene.fog.color.clone()}:null};

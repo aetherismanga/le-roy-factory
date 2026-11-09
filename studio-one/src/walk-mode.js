@@ -1,5 +1,5 @@
 import {createShowroomVisit,showroomMoveAllowed} from '../../shared/lrf-3d/showroom-visit.js';
-import {mountVisitMobileControls} from '../../shared/lrf-3d/visit-mobile-controls.js';
+import {mountVisitMobileControls,visitLocalPoint,visitLocalDelta} from '../../shared/lrf-3d/visit-mobile-controls.js';
 import {createVisitTapGesture} from '../../shared/lrf-3d/visit-interactions.js';
 import {boundsOnWall} from './composition.js';
 import * as T from 'three';
@@ -112,16 +112,16 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     if(!active||e.target!==canvas)return;if(e.pointerType==='mouse'&&e.button!==0)return;
     taps.down(e);e.preventDefault();e.stopPropagation();canvas.setPointerCapture(e.pointerId);
     if(e.pointerType==='mouse'){mouseLook=true;return;}
-    touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    const point=visitLocalPoint(canvas,e,{stage});touches.set(e.pointerId,{x:point.x,y:point.y});
     if(touches.size===2)moveOrigin=center();
   },true);
   function look(dx,dy){forward.applyAxisAngle(new T.Vector3(0,1,0),-dx*.004).normalize();pitch=T.MathUtils.clamp(pitch-dy*.004,-1.35,1.35);view();onMove();}
   stage.addEventListener('pointermove',e=>{
     if(!active)return;taps.move(e);
-    if(e.pointerType==='mouse'&&mouseLook){look(e.movementX,e.movementY);return;}
+    if(e.pointerType==='mouse'&&mouseLook){(()=>{const delta=visitLocalDelta(stage,e.movementX||0,e.movementY||0);look(delta.x,delta.y);})();return;}
     const prior=touches.get(e.pointerId);if(!prior)return;
-    touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
-    if(touches.size===1)look(e.clientX-prior.x,e.clientY-prior.y);
+    const point=visitLocalPoint(canvas,e,{stage});touches.set(e.pointerId,{x:point.x,y:point.y});
+    if(touches.size===1)look(point.x-prior.x,point.y-prior.y);
     else if(moveOrigin){const p=center(),limit=90;touchMove={x:T.MathUtils.clamp((p.x-moveOrigin.x)/limit,-1,1),y:T.MathUtils.clamp((p.y-moveOrigin.y)/limit,-1,1)};onMove();}
   });
   function release(e){if(!active||(!mouseLook&&!touches.has(e.pointerId))){taps.cancel(e);return;}const tapped=e.type==='pointerup'&&taps.up(e);if(e.type!=='pointerup')taps.cancel(e);mouseLook=false;touches.delete(e.pointerId);if(touches.size<2){moveOrigin=null;touchMove={x:0,y:0};}if(tapped&&(showroomVisit.tap(e)||onTap?.(e))){e.preventDefault();e.stopImmediatePropagation();}onMove();}
@@ -129,6 +129,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
   canvas.addEventListener('lostpointercapture',event=>{taps.cancel(event);mouseLook=false;touches.delete(event.pointerId);if(touches.size<2){moveOrigin=null;touchMove={x:0,y:0};}});
   function tick(dt){
     moving=false;if(!active||showroomVisit.blocked)return false;
+    const atmosphere=showroomVisit.animate?.(walker,performance.now()/1000)||false;
     const left=keys.has('ArrowLeft'),right=keys.has('ArrowRight');
     const rotation=(Number(left)-Number(right))*turn*dt;
     if(rotation)forward.applyAxisAngle(new T.Vector3(0,1,0),rotation).normalize();
@@ -147,7 +148,7 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
       p.y=eye;moving=p.distanceToSquared(before)>1e-8;
     }
     if(rotation||move.lengthSq()>0){taps.cancel();view();return true}if(viewMode==='third'){view();return true}
-    return false;
+    return atmosphere;
   }
   return {tick,get interiorId(){return showroomVisit.occupiedId},get active(){return active},setActive,get position(){return walker;},get heading(){return Math.atan2(forward.x,forward.z);},get moving(){return moving;},get running(){return keys.has('ShiftLeft')||keys.has('ShiftRight');},get view(){return viewMode;},setView(mode){viewMode=mode==='third'?'third':'first';if(active)view();onMove();}};
 }

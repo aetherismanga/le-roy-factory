@@ -7,6 +7,8 @@ import {makeShowroomFixtures} from './showroom-fixtures.js';
 import {makeShowroomGreenery} from './showroom-greenery.js';
 import {makeShowroomSky} from './showroom-sky.js';
 import {makeShowroomLayout,showroomPoint} from './showroom-layout.js';
+import {makeShowroomGarden} from './showroom-garden.js';
+import {GARDEN_LAYOUT,subtractGardenRect} from './showroom-garden-layout.js';
 
 const NO_RAYCAST=()=>{},PAGE_SIZE=4;
 const WALL_SCHEMES=[['creta-ginepro','creta-biscotto'],['creta-pepe','roma-palatino'],['creta-caramello','shell-grey'],['biopietra-borgo','creta-malto'],['slate-dark','creta-ginepro'],['slate-river','creta-caramello']];
@@ -26,12 +28,13 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
  const root=new T.Group();root.name='Hall_exposition_Le_Roy_Factory';root.visible=false;root.userData={visualOnly:true,excludeFromProductBounds:true,showroom:true};
  const layout=makeShowroomLayout(manufacturers),{width,height,depth}=layout,half=width/2;
  const dimensions={width,height,depth,wallHeight:layout.wallHeight,layout:'open-atrium'};
- const navigableBounds={minX:-half+.12,maxX:half-.12,minZ:-depth+.14,maxZ:.02};
+ const walkableRegions=[{minX:-half,maxX:half,minZ:-depth,maxZ:0},{...GARDEN_LAYOUT.bounds}];
+ const navigableBounds={minX:-half,maxX:GARDEN_LAYOUT.bounds.maxX,minZ:-depth,maxZ:0};
  const colliders=[],panels=[],interactions=[],stands=[],walls=[],floorPatches=[];
  const geometries=new Set(),materials=new Set(),textureRecords=new Set();let disposed=false,mergedSequence=0,lastPosition=new T.Vector3(),hasPosition=false,shadowDirty=true,lightFocus=null;
  const invalidate=()=>{shadowDirty=true;onReady();};
  const surfaces=makeShowroomSurfaces({manufacturers,onReady:invalidate,coordinateRoot:root}),sky=makeShowroomSky({onReady:invalidate});root.add(sky.root);
- const palette={charcoal:new T.MeshStandardMaterial({color:'#292f2b',roughness:.64,metalness:.10}),bronze:new T.MeshStandardMaterial({color:'#8d7958',roughness:.42,metalness:.7}),oak:new T.MeshStandardMaterial({color:'#76634b',roughness:.75}),edge:new T.MeshStandardMaterial({color:'#d0c4b1',roughness:.87}),diffuser:new T.MeshBasicMaterial({color:'#ffe5b9',toneMapped:false})};
+ const palette={charcoal:new T.MeshStandardMaterial({color:'#292f2b',roughness:.64,metalness:.10}),bronze:new T.MeshStandardMaterial({color:'#8d7958',roughness:.42,metalness:.7}),oak:new T.MeshStandardMaterial({color:'#76634b',roughness:.75}),edge:new T.MeshStandardMaterial({color:'#d0c4b1',roughness:.87}),ceiling:new T.MeshStandardMaterial({color:'#d8d2c4',roughness:.94}),diffuser:new T.MeshBasicMaterial({color:'#ffe5b9',toneMapped:false})};
  for(const mat of Object.values(palette))materials.add(mat);const staticMaterials=new Set(Object.values(palette));
  const glass=new T.MeshPhysicalMaterial({color:'#dce7e4',transparent:true,opacity:.045,roughness:.045,metalness:0,depthWrite:false,side:T.DoubleSide});glass.userData.architecturalGlass=true;materials.add(glass);
  const mesh=(geometry,material,x,y,z,name,parent=root)=>{geometries.add(geometry);const object=new T.Mesh(geometry,material);object.position.set(x,y,z);object.name=name;object.castShadow=false;object.receiveShadow=true;object.raycast=NO_RAYCAST;object.userData={visualOnly:true,excludeFromProductBounds:true};parent.add(object);return object;};
@@ -45,11 +48,11 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
  function sign(text,w,h,x,y,z,{rotation=0,...options}={},parent=root){const mat=textMaterial(text,options);materials.add(mat);const object=mesh(new T.BoxGeometry(w,h,.006),mat,x,y,z,'Signaletique_'+text,parent);object.rotation.y=rotation;return object;}
  function mergeArchitecture(parent){
   const batches=new Map();for(const object of [...parent.children])if(object.isMesh&&!object.isInstancedMesh&&staticMaterials.has(object.material)&&!object.userData.showroomAction){const parts=batches.get(object.material)||[];parts.push(object);batches.set(object.material,parts);}
-  for(const [material,objects]of batches){if(objects.length<2)continue;const pieces=objects.map(object=>{object.updateMatrix();const piece=object.geometry.index?object.geometry.toNonIndexed():object.geometry.clone();piece.applyMatrix4(object.matrix);return piece;});const combined=mergeGeometries(pieces,false);for(const piece of pieces)piece.dispose();if(!combined)continue;combined.computeBoundingSphere();combined.computeBoundingBox();const batch=mesh(combined,material,0,0,0,'Architecture_groupee',parent);batch.userData.architecturalParts=objects.map(o=>o.name);for(const object of objects)object.removeFromParent();mergedSequence++;}
+  for(const [material,objects]of batches){if(objects.length<2)continue;const pieces=objects.map(object=>{object.updateMatrix();const piece=object.geometry.index?object.geometry.toNonIndexed():object.geometry.clone();piece.applyMatrix4(object.matrix);return piece;});const combined=mergeGeometries(pieces,false);for(const piece of pieces)piece.dispose();if(!combined)continue;combined.computeBoundingSphere();combined.computeBoundingBox();const batch=mesh(combined,material,0,0,0,'Architecture_groupee',parent);batch.castShadow=objects.some(object=>object.castShadow);batch.receiveShadow=objects.some(object=>object.receiveShadow);batch.userData.architecturalParts=objects.map(o=>o.name);for(const object of objects)object.removeFromParent();mergedSequence++;}
  }
  function floor(bounds,recipeId,y=.002){const patch=surfaces.createFloorPatch({bounds,recipeId,y,direction:recipeId.startsWith('yosemite')?'vertical':undefined});patch.userData.architecturalPersistent=true;floorPatches.push(patch);root.add(patch);return patch;}
- function wall(w,h,recipeId,x,z,rotation=0,parent=root,{boundary=false}={}){
-  const group=surfaces.createWall({width:w,height:h,recipeId,position:[x,0,z],rotation});group.name='Mur_collection_'+recipeId;group.userData.wallHeight=h;group.userData.exhibitionWall=true;group.userData.architecturalPersistent=true;group.traverse(o=>{if(o.isMesh)o.castShadow=true;});parent.add(group);walls.push(group);collider(x,z,w,.09,parent,rotation);
+ function wall(w,h,recipeId,x,z,rotation=0,parent=root,{boundary=false,y=0,collision=true}={}){
+  const group=surfaces.createWall({width:w,height:h,recipeId,position:[x,y,z],rotation});group.name='Mur_collection_'+recipeId;group.userData.wallHeight=h;group.userData.exhibitionWall=true;group.userData.architecturalPersistent=true;group.traverse(o=>{if(o.isMesh)o.castShadow=true;});parent.add(group);walls.push(group);if(collision)collider(x,z,w,.09,parent,rotation);
   if(!boundary){const recipe=surfaces.recipes[recipeId];sign(recipe.manufacturer+' · '+recipe.collection+' · '+recipe.color,Math.min(w-.14,3),.105,x+Math.sin(rotation)*.057,h-.12,z+Math.cos(rotation)*.057,{rotation,size:27,width:768,height:64},parent);}
   return group;
  }
@@ -57,18 +60,35 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
  // collection floors are shallow inlays, without holes or a timber runway.
  const mainFloor=floor({minX:-half,maxX:half,minZ:-depth,maxZ:0},'creta-biscotto',.002);mainFloor.name='Dallage_continu_Creta_Biscotto_120';
  const portalHalf=.49,wing=half-portalHalf;
- for(const side of [-1,1])wall(wing,2.35,side<0?'creta-caramello':'creta-ginepro',side*(portalHalf+wing/2),-.12,Math.PI,root,{boundary:true});
+ for(const side of [-1,1])wall(wing,2.7,side<0?'creta-caramello':'creta-ginepro',side*(portalHalf+wing/2),-.12,Math.PI,root,{boundary:true});
  box(.98,.22,.1,0,2.19,-.12,palette.oak,'Linteau_portail');sign('RETOUR AU CONFIGURATEUR',2.1,.16,0,2.48,-.18,{size:28,width:768});
- wall(width,2.65,'creta-pepe',0,-depth,0,root,{boundary:true});
+ wall(width,2.7,'creta-pepe',0,-depth,0,root,{boundary:true});
+ const windows=[{side:-1,minZ:-8,maxZ:-5,bottom:1.3,top:2.35},{side:-1,minZ:-25.5,maxZ:-22.5,bottom:1.3,top:2.35},{side:1,minZ:-27,maxZ:-23.5,bottom:1.3,top:2.35}];
+ const entrance={minZ:GARDEN_LAYOUT.entrance.z-GARDEN_LAYOUT.entrance.width/2,maxZ:GARDEN_LAYOUT.entrance.z+GARDEN_LAYOUT.entrance.width/2};
  for(const side of [-1,1]){
-  wall(depth,.32,'slate-river',side*half,-depth/2,-side*Math.PI/2,root,{boundary:true});
-  const facade=mesh(new T.PlaneGeometry(depth,height-.34),glass,side*half,(height+.34)/2,-depth/2,'Grande_baie_vitree');facade.rotation.y=Math.PI/2;facade.receiveShadow=false;facade.userData.glazing=true;
-  for(let z=0;z>=-depth;z-=8.3)box(.065,height,.065,side*(half-.015),height/2,z,palette.charcoal,'Montant_baie_vitree');
-  for(const y of [.33,height-.04])box(.07,.055,depth,side*(half-.015),y,-depth/2,palette.charcoal,'Traverse_baie_vitree');
+  const holes=windows.filter(window=>window.side===side).map(window=>({minX:window.minZ,maxX:window.maxZ,minZ:window.bottom,maxZ:window.top}));
+  if(side===1)holes.push({minX:entrance.minZ,maxX:entrance.maxZ,minZ:0,maxZ:2.7});
+  let faces=[{minX:-depth,maxX:0,minZ:0,maxZ:2.7}];for(const hole of holes)faces=faces.flatMap(face=>subtractGardenRect(face,hole));
+  for(const face of faces)wall(face.maxX-face.minX,face.maxZ-face.minZ,side<0?'creta-ginepro':'creta-biscotto',side*half,(face.minX+face.maxX)/2,-side*Math.PI/2,root,{boundary:true,y:face.minZ,collision:false});
+  const boundaries=side===1?[{minZ:-depth,maxZ:entrance.minZ},{minZ:entrance.maxZ,maxZ:0}]:[{minZ:-depth,maxZ:0}];
+  for(const segment of boundaries)collider(side*half,(segment.minZ+segment.maxZ)/2,.12,segment.maxZ-segment.minZ);
+  const cap=box(.14,height-2.7,depth,side*half,(height+2.7)/2,-depth/2,palette.ceiling,'Frise_opaque_facade');cap.castShadow=true;
  }
- const roof=mesh(new T.PlaneGeometry(width,depth),glass,0,height,-depth/2,'Plafond_vitre_panoramique');roof.rotation.x=-Math.PI/2;roof.userData.glazing=true;roof.receiveShadow=false;
- for(let z=-.15;z>=-depth;z-=8.3)box(width,.12,.085,0,height-.06,z,palette.charcoal,'Poutre_verriere_atrium');
- for(const x of [-half,-6.6,6.6,half])box(.055,.065,depth,x,height-.025,-depth/2,palette.charcoal,'Profil_verriere');
+ for(const window of windows){
+  const pane=mesh(new T.PlaneGeometry(window.maxZ-window.minZ,window.top-window.bottom),glass,window.side*half,(window.top+window.bottom)/2,(window.minZ+window.maxZ)/2,'Fenetre_atrium');pane.rotation.y=Math.PI/2;pane.receiveShadow=false;pane.userData.glazing=true;
+  for(const z of [window.minZ,window.maxZ])box(.10,window.top-window.bottom+.12,.055,window.side*(half-.025),(window.top+window.bottom)/2,z,palette.charcoal,'Cadre_fenetre_atrium');
+  for(const y of [window.bottom,window.top])box(.10,.055,window.maxZ-window.minZ+.08,window.side*(half-.025),y,(window.minZ+window.maxZ)/2,palette.charcoal,'Cadre_fenetre_atrium');
+ }
+ for(const z of [-.12,-depth]){const cap=box(width,height-2.7,.14,0,(height+2.7)/2,z,palette.ceiling,'Frise_opaque_facade');cap.castShadow=true;}
+ const roofBounds={minX:-half,maxX:half,minZ:-depth,maxZ:0},skylights=[{minX:-5,maxX:-1,minZ:-12,maxZ:-4},{minX:2,maxX:7,minZ:-27,maxZ:-19}];
+ let roofPanels=[roofBounds];for(const opening of skylights)roofPanels=roofPanels.flatMap(panel=>subtractGardenRect(panel,opening));
+ for(const panel of roofPanels){const roof=box(panel.maxX-panel.minX,.10,panel.maxZ-panel.minZ,(panel.minX+panel.maxX)/2,height+.025,(panel.minZ+panel.maxZ)/2,palette.ceiling,'Plafond_opaque_atrium');roof.castShadow=true;roof.userData.architecturalRoof=true;}
+ for(const opening of skylights){
+  const w=opening.maxX-opening.minX,d=opening.maxZ-opening.minZ,x=(opening.minX+opening.maxX)/2,z=(opening.minZ+opening.maxZ)/2,pane=mesh(new T.PlaneGeometry(w,d),glass,x,height+.02,z,'Lanterneau_atrium');pane.rotation.x=-Math.PI/2;pane.receiveShadow=false;pane.userData.glazing=true;pane.userData.architecturalRoof=true;
+  for(const edgeX of [opening.minX,opening.maxX])box(.055,.075,d,edgeX,height+.01,z,palette.charcoal,'Cadre_lanterneau');
+  for(const edgeZ of [opening.minZ,opening.maxZ])box(w,.075,.055,x,height+.01,edgeZ,palette.charcoal,'Cadre_lanterneau');
+ }
+ sign('LE JARDIN · PISCINES & MATIÈRES',2.9,.15,half-.1,2.86,GARDEN_LAYOUT.entrance.z,{rotation:-Math.PI/2,size:27,width:1024});
  // Welcome is offset so the first sightline reaches furnished scenes.
  const welcomeX=-9.2,welcomeZ=-2.05;
  box(2.5,.87,.66,welcomeX,.435,welcomeZ,palette.oak,'Comptoir_accueil',root,.035);collider(welcomeX,welcomeZ,2.5,.70);
@@ -118,10 +138,12 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
   setPage(stand,0);mergeArchitecture(group);
  }
  const fixtures=makeShowroomFixtures({stands,onReady:invalidate});root.add(fixtures.root);colliders.push(...fixtures.colliders);
- const greenery=makeShowroomGreenery({width,depth,stands,layout,onReady:invalidate});root.add(greenery.root);colliders.push(...greenery.colliders);mergeArchitecture(root);
+ const greenery=makeShowroomGreenery({width,depth,stands,layout,exteriorSides:[-1],onReady:invalidate});root.add(greenery.root);colliders.push(...greenery.colliders);
+ const garden=makeShowroomGarden({layout:GARDEN_LAYOUT,onReady:invalidate});root.add(garden.root);colliders.push(...garden.colliders);mergeArchitecture(root);
  // One coherent daylight shadow, rather than two rooms' overlapping light rigs.
- const hemi=new T.HemisphereLight('#e9f0f0','#807564',.68);hemi.name='Lumiere_diffuse_atrium';root.add(hemi);
- const sun=new T.DirectionalLight('#fff2df',1.5);sun.name='Soleil_atrium';sun.position.set(-15,22,8);sun.target.position.set(1,0,-16);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-21,right:21,top:23,bottom:-23,near:1,far:75});sun.shadow.camera.updateProjectionMatrix();sun.shadow.bias=-.00016;sun.shadow.normalBias=.018;sun.shadow.radius=3;root.add(sun,sun.target);
+ const hemi=new T.HemisphereLight('#e9f0f0','#807564',.9);hemi.name='Lumiere_diffuse_atrium';root.add(hemi);
+ for(const [x,z]of [[-4,-11],[4,-24]]){const fill=new T.RectAreaLight('#fff4e3',1.1,9,7);fill.name='Eclairage_plafond_diffus';fill.position.set(x,3.4,z);fill.lookAt(x,0,z);root.add(fill);}
+ const sun=new T.DirectionalLight('#fff2df',1.5);sun.name='Soleil_atrium';sun.position.set(-5,24,6);sun.target.position.set(10.5,0,-16.7);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-34,right:34,top:29,bottom:-29,near:1,far:95});sun.shadow.camera.updateProjectionMatrix();sun.shadow.bias=-.00016;sun.shadow.normalBias=.018;sun.shadow.radius=3;root.add(sun,sun.target);
  const spots=[];for(let i=0;i<2;i++){const light=new T.SpotLight(i?'#f5efe2':'#ffe6c7',i?14:18,9,.82,.65,2);light.name='Accent_collection_'+i;light.castShadow=false;root.add(light,light.target);spots.push(light);}
  function updateLighting(position,renderer){
   const nearest=layout.displays.filter(d=>d.index<6).sort((a,b)=>Math.hypot(a.approach.x-position.x,a.approach.z-position.z)-Math.hypot(b.approach.x-position.x,b.approach.z-position.z)).slice(0,2);
@@ -139,10 +161,17 @@ export function makeShowroomHall({manufacturers=[],onReady=()=>{},loadTexture=lo
   for(const record of textureRecords){record.distance=Math.hypot(record.localPosition.x-position.x,record.localPosition.z-position.z);record.mount.visible=!!record.collection&&record.distance<18;}
  }
  cullDetails(new T.Vector3());
- function prepareNear(position){if(disposed||!position)return Promise.resolve([]);lastPosition.copy(position);hasPosition=true;cullDetails(position);surfaces.prepareNear(position);sky.prepareNear(position);fixtures.prepareNear(position);greenery.prepareNear(position);
+ function prepareNear(position){if(disposed||!position)return Promise.resolve([]);lastPosition.copy(position);hasPosition=true;cullDetails(position);surfaces.prepareNear(position);sky.prepareNear(position);fixtures.prepareNear(position);greenery.prepareNear(position);garden.prepareNear(position);
   const selected=[...textureRecords].filter(p=>p.collection&&p.distance<18).sort((a,b)=>a.distance-b.distance).slice(0,maxTextures),keep=new Set(selected);for(const record of textureRecords){record.mount.visible=keep.has(record);if(!keep.has(record)&&(record.texture||record.controller))clearRecord(record);}return Promise.all(selected.map(loadRecord));}
  function activateAction(action){if(action?.kind!=='page')return false;const stand=stands.find(s=>s.manufacturer.id===action.manufacturerId);return stand?setPage(stand,stand.page+(action.direction<0?-1:1)):false;}
- function dispose(){if(disposed)return;disposed=true;for(const record of textureRecords)clearRecord(record);fixtures.dispose();greenery.dispose();surfaces.dispose();sky.dispose();for(const material of materials)material.dispose();for(const geometry of geometries)geometry.dispose();sun.dispose();for(const light of spots)light.dispose();root.removeFromParent();}
+ function containsPoint(point,radius=0){
+  if(!point||![point.x,point.z,radius].every(Number.isFinite))return false;const inside=(x,z)=>walkableRegions.some(region=>x>=region.minX&&x<=region.maxX&&z>=region.minZ&&z<=region.maxZ);
+  if(!inside(point.x,point.z))return false;const r=Math.max(0,radius);if(!r)return true;
+  for(let i=0;i<8;i++){const angle=i*Math.PI/4;if(!inside(point.x+Math.cos(angle)*r,point.z+Math.sin(angle)*r))return false;}return true;
+ }
+ function canWalk(point,radius=.20){const r=Math.max(0,radius);return containsPoint(point,r)&&!colliders.some(box=>point.x>box.minX-r&&point.x<box.maxX+r&&point.z>box.minZ-r&&point.z<box.maxZ+r);}
+ function animate(position,seconds){if(disposed||!position)return false;const b=garden.bounds,dx=Math.max(b.minX-position.x,0,position.x-b.maxX),dz=Math.max(b.minZ-position.z,0,position.z-b.maxZ);return Math.hypot(dx,dz)<=3&&!!garden.update(seconds);}
+ function dispose(){if(disposed)return;disposed=true;for(const record of textureRecords)clearRecord(record);fixtures.dispose();greenery.dispose();garden.dispose();surfaces.dispose();sky.dispose();for(const material of materials)material.dispose();for(const geometry of geometries)geometry.dispose();sun.dispose();for(const light of spots)light.dispose();root.removeFromParent();}
  palette.charcoal.addEventListener('dispose',()=>{if(!disposed)dispose();});
- return {root,dimensions,layout,navigableBounds,colliders,panels,interactions,stands,walls,floorPatches,prepareNear,activateAction,dispose,greenery,fixtures,sky,surfaces,updateLighting,get skyTexture(){return sky.texture},surfaceRecipes:surfaces.recipes,appearance:{environmentIntensity:.58,exposure:.92,toneMapping:T.ACESFilmicToneMapping,fogNear:27,fogFar:90,fogColor:'#7c837c'},diagnostics:()=>({manufacturers:stands.length,collections:manufacturers.reduce((n,m)=>n+(m.collections?.length||0),0),panels:panels.filter(p=>p.collection).length,pageSize:PAGE_SIZE,loaded:[...textureRecords].filter(p=>p.texture).length,loading:[...textureRecords].filter(p=>p.controller).length,maxTextures,textureSize,visibleStands:stands.filter(s=>s.group.visible).length,visiblePanels:panels.filter(p=>p.collection&&p.mount.visible).length,architectureBatches:mergedSequence,wallHeight:layout.wallHeight,layout:'open-atrium',fixtures:fixtures.diagnostics(),surfaces:surfaces.diagnostics()})};
+ return {root,dimensions,layout,navigableBounds,walkableRegions,containsPoint,canWalk,animate,colliders,panels,interactions,stands,walls,floorPatches,prepareNear,activateAction,dispose,greenery,fixtures,garden,sky,surfaces,updateLighting,get skyTexture(){return sky.texture},surfaceRecipes:surfaces.recipes,appearance:{environmentIntensity:.58,exposure:.92,toneMapping:T.ACESFilmicToneMapping,fogNear:27,fogFar:90,fogColor:'#7c837c'},diagnostics:()=>({manufacturers:stands.length,collections:manufacturers.reduce((n,m)=>n+(m.collections?.length||0),0),panels:panels.filter(p=>p.collection).length,pageSize:PAGE_SIZE,loaded:[...textureRecords].filter(p=>p.texture).length,loading:[...textureRecords].filter(p=>p.controller).length,maxTextures,textureSize,visibleStands:stands.filter(s=>s.group.visible).length,visiblePanels:panels.filter(p=>p.collection&&p.mount.visible).length,architectureBatches:mergedSequence,wallHeight:layout.wallHeight,layout:'open-atrium',fixtures:fixtures.diagnostics(),garden:garden.diagnostics(),surfaces:surfaces.diagnostics()})};
 }
