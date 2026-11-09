@@ -32,17 +32,17 @@ test('the roof and side windows reveal the photographic sky through real glazing
 test('stand floors and low collection walls use varied native materials at canonical physical formats',()=>{
  const hall=makeShowroomHall({manufacturers});
  try{
-  const floor=hall.root.getObjectByName('Dallage_Yosemite_Honey_tiers');assert(floor?.isGroup);assert.equal(floor.userData.showroomRecipe.collection,'Yosemite');assert.equal(floor.userData.showroomRecipe.pattern,'third');
+  const floor=hall.root.getObjectByName('Dallage_continu_Creta_Biscotto_120');assert(floor?.isGroup);assert.equal(floor.userData.showroomRecipe.collection,'Creta');assert.equal(floor.userData.showroomRecipe.format,'120x120');
   const standColors=new Set(),standRecipes=new Set();
-  for(const stand of hall.stands){
-   assert.equal(stand.walls.length,3,'a collection covers each complete booth wall');
-   const surfaces=stand.group.children.filter(object=>object.userData.showroomRecipe);assert.equal(surfaces.length,4,'one native floor zone and three full-scale walls');
-   for(const wall of stand.walls){assert.equal(wall.userData.wallHeight,2.3);standColors.add(wall.userData.showroomRecipe.colorId);}
+  for(const [index,stand]of hall.stands.entries()){
+   assert(stand.walls.length>=1&&stand.walls.length<=2,'a collection backdrop keeps the room open');
+   const surfaces=[hall.floorPatches[index+1],...stand.walls];
+   for(const wall of stand.walls){assert(wall.userData.wallHeight<=2.25);standColors.add(wall.userData.showroomRecipe.colorId);}
    for(const surface of surfaces){
     const recipe=surface.userData.showroomRecipe;assert.equal(recipe.nativeFaces,true);assert.equal(recipe.generated,false);
     const color=COLLECTIONS[recipe.collection]?.colors.find(value=>value.id===recipe.colorId),format=formatsForColor(recipe.collection,recipe.colorId).find(value=>value.id===recipe.format);
     if(recipe.manufacturer==='Elios Ceramica'){
-     if(recipe.collection==='Yosemite'){assert.equal(recipe.provenance.resized,false);assert(recipe.provenance.faces.length>=4);assert(recipe.provenance.faces.every(face=>face.width===1000&&face.height===200&&face.sha256),'original manufacturer plank faces replace the canonical reconstructed sample');}
+     if(recipe.collection==='Yosemite'){assert.equal(recipe.provenance.resized,false);assert.equal(recipe.provenance.faces.length,2);assert.equal(recipe.hdImages.length,8);assert(recipe.provenance.faces.every(face=>face.width===1000&&face.height===200&&face.sha256),'original manufacturer plank faces replace the canonical reconstructed sample');}
      else assert(color?.nativeFaces||(color?.source===color?.file&&/^https:\/\/eliosceramica.com\//.test(color?.source||'')),'actual native manufacturer sample');
      assert(format);assert.equal(format.width,recipe.width);assert.equal(format.height,recipe.height);
     }
@@ -57,11 +57,11 @@ test('stand floors and low collection walls use varied native materials at canon
  }finally{hall.dispose();}
 });
 
-test('vegetation and lounge retain their collisions while all central walking routes remain open',()=>{
+test('vegetation and lounge retain their collisions while the arrival and display approaches remain open',()=>{
  const hall=makeShowroomHall({manufacturers});
  try{
   assert(hall.greenery.diagnostics().interiorPlants>=6);assert(hall.greenery.diagnostics().leaves>1000);
-  for(let z=-.4;z>-hall.dimensions.depth+.5;z-=.1)for(const x of [-1.5,0,1.5])assert.equal(isBlocked(hall,x,z),false,'uninterrupted aisle at '+x+','+z);
+  for(const point of [hall.layout.arrival,...hall.stands.map(stand=>stand.approach)])assert.equal(isBlocked(hall,point.x,point.z),false,'clear approach at '+point.x+','+point.z);
   for(const box of hall.greenery.colliders){assert(hall.colliders.includes(box),'navigation uses the actual landscape footprints');assert.equal(isBlocked(hall,(box.minX+box.maxX)/2,(box.minZ+box.maxZ)/2),true);}
   const foliage=[];hall.greenery.root.traverse(object=>{if(object.isInstancedMesh)foliage.push(object);});assert(foliage.length>=4);for(const leaf of foliage){assert.equal(leaf.material.transparent,false);assert.equal(leaf.material.alphaTest,0,'foliage has curved geometry instead of alpha cards');}
  }finally{hall.dispose();}

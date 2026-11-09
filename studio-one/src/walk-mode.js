@@ -63,7 +63,8 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
       // wall never pushes the camera into the character's head or shoulders.
       camera.position.copy(walker).addScaledVector(forward,-3.1).addScaledVector(side,1.2);camera.position.y=3.3;controls.target.copy(target);
     }else{camera.position.copy(walker);controls.target.copy(goal);}
-    controls.update();showroomVisit.update(walker);
+    // OrbitControls clamps pitch even when disabled. The visit owns its camera.
+    camera.lookAt(controls.target);camera.updateMatrixWorld(true);showroomVisit.update(walker);
   }
 
   let entryPose=null;
@@ -131,11 +132,16 @@ export function createWalkMode({stage,canvas,camera,controls,getRoom,getItems,on
     const left=keys.has('ArrowLeft'),right=keys.has('ArrowRight');
     const rotation=(Number(left)-Number(right))*turn*dt;
     if(rotation)forward.applyAxisAngle(new T.Vector3(0,1,0),rotation).normalize();
-    const f=Number(keys.has('ArrowUp')||keys.has('KeyW')||keys.has('KeyZ'))-Number(keys.has('ArrowDown')||keys.has('KeyS'))-touchMove.y+mobileMove.forward;
-    const strafe=Number(keys.has('KeyD')||keys.has('KeyE'))-Number(keys.has('KeyA')||keys.has('KeyQ'))+touchMove.x+mobileMove.strafe;
+    const directForward=Number(keys.has('ArrowUp')||keys.has('KeyW')||keys.has('KeyZ'))-Number(keys.has('ArrowDown')||keys.has('KeyS'))-touchMove.y;
+    const directStrafe=Number(keys.has('KeyD')||keys.has('KeyE'))-Number(keys.has('KeyA')||keys.has('KeyQ'))+touchMove.x;
+    const f=directForward+mobileMove.forward,strafe=directStrafe+mobileMove.strafe;
+    // Joystick speed already includes radial deflection and its fast sector.
+    // Keyboard and two-finger walking retain their established pace and Shift.
+    const directInput=!!(directForward||directStrafe),mobileSpeed=Number.isFinite(mobileMove.speed)?mobileMove.speed:Math.hypot(mobileMove.forward,mobileMove.strafe);
+    const pace=directInput?(keys.has('ShiftLeft')||keys.has('ShiftRight')?1.6:1):T.MathUtils.clamp(mobileSpeed,0,2.1);
     const side=new T.Vector3(-forward.z,0,forward.x);
     const move=forward.clone().multiplyScalar(f).addScaledVector(side,strafe);
-    if(move.lengthSq()>0){move.normalize().multiplyScalar(speed*(keys.has('ShiftLeft')||keys.has('ShiftRight')?1.6:1)*dt);const p=walker,before=p.clone();
+    if(move.lengthSq()>0){move.normalize().multiplyScalar(speed*pace*dt);const p=walker,before=p.clone();
       if(passable(p.x+move.x,p.z))p.x+=move.x;
       if(passable(p.x,p.z+move.z))p.z+=move.z;
       p.y=eye;moving=p.distanceToSquared(before)>1e-8;

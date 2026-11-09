@@ -12,7 +12,12 @@
     "sha256": "f4b1a96fe6dc087d42ab2e147015f1bf78a66786bc3df77972bd5790eeb67bd1",
     "bytes": 35716,
     "generated": false,
-    "resized": false
+    "resized": false,
+    "meanSRGB": [
+      184.711,
+      142.588,
+      94.298
+    ]
   },
   {
     "collection": "Yosemite",
@@ -27,7 +32,12 @@
     "sha256": "5f480a0a74ff0a5f93a116e0ce31e56563c7aade47ef4bd943bd311a1a5f3274",
     "bytes": 49943,
     "generated": false,
-    "resized": false
+    "resized": false,
+    "meanSRGB": [
+      212.08,
+      175.991,
+      131.715
+    ]
   },
   {
     "collection": "Yosemite",
@@ -42,7 +52,12 @@
     "sha256": "2fa879e29edd9e6b183ebe8e47da216277254431592cddfa36c89299defb6a80",
     "bytes": 52544,
     "generated": false,
-    "resized": false
+    "resized": false,
+    "meanSRGB": [
+      199.642,
+      159.862,
+      112.835
+    ]
   },
   {
     "collection": "Yosemite",
@@ -57,7 +72,12 @@
     "sha256": "4be8e78d1d7ac4fba6e52e1c5f9d71c284bd65db17c26f96de34888614072cda",
     "bytes": 49542,
     "generated": false,
-    "resized": false
+    "resized": false,
+    "meanSRGB": [
+      218.53,
+      183.126,
+      138.668
+    ]
   },
   {
     "collection": "Yosemite",
@@ -72,7 +92,12 @@
     "sha256": "f6452c964110940a207c75f6ca0b56aa8619dd6eab9c03241d90c0e10ca61d33",
     "bytes": 41006,
     "generated": false,
-    "resized": false
+    "resized": false,
+    "meanSRGB": [
+      176.951,
+      149.698,
+      122.902
+    ]
   },
   {
     "collection": "Yosemite",
@@ -87,7 +112,12 @@
     "sha256": "47d023a58f916fccfec992b12f1c4409b3ec16c9e9ccdabcd35864e9d9693cf6",
     "bytes": 48251,
     "generated": false,
-    "resized": false
+    "resized": false,
+    "meanSRGB": [
+      198.852,
+      170.98,
+      142.642
+    ]
   },
   {
     "collection": "Yosemite",
@@ -102,7 +132,12 @@
     "sha256": "de95bd8d884f995db987794baaaa0420b4e0a295349e282b920b0e10f8f06733",
     "bytes": 48765,
     "generated": false,
-    "resized": false
+    "resized": false,
+    "meanSRGB": [
+      204.298,
+      179.052,
+      152.465
+    ]
   },
   {
     "collection": "Yosemite",
@@ -117,6 +152,11 @@
     "sha256": "f6951ebaf2162ad4a239facfb70f2cc6ab916c95f4fc89a0a9d3e5fc85d7fe11",
     "bytes": 51882,
     "generated": false,
-    "resized": false
+    "resized": false,
+    "meanSRGB": [
+      172.708,
+      146.988,
+      121.154
+    ]
   }
 ]

@@ -7,6 +7,7 @@ import {makeDoorInterior} from '../shared/lrf-3d/door-interior.js';
 import {makeShowroomSurfaces,SHOWROOM_SURFACE_RECIPES} from '../shared/lrf-3d/showroom-surfaces.js';
 import {disposeObject} from '../studio-one/src/composition.js';
 import {createShowroomLighting} from '../shared/lrf-3d/showroom-lighting.js';
+import {showroomPoint} from '../shared/lrf-3d/showroom-layout.js';
 
 const blocked=(hall,x,z,r=.2)=>hall.colliders.some(b=>x+r>b.minX&&x-r<b.maxX&&z+r>b.minZ&&z-r<b.maxZ);
 function nativeHits(root,origin,direction){
@@ -18,26 +19,22 @@ function nativeHits(root,origin,direction){
 test('the seventeen supplier salon uses room-scale volumes instead of a long empty warehouse',()=>{
  const hall=makeShowroomHall({manufacturers:SHOWROOM_MANUFACTURERS});
  try{
-  assert.equal(hall.stands.length,17);assert.equal(hall.dimensions.width,22);assert.equal(hall.dimensions.height,3.8);
-  assert(hall.dimensions.depth<60,'the walk is compact enough to keep products in the foreground');
-  assert(hall.dimensions.width*hall.dimensions.depth<1350,'showroom footprint is less than half the former3249m²');
+  assert.equal(hall.stands.length,17);assert.equal(hall.dimensions.width,28);assert.equal(hall.dimensions.height,4.4);
+  assert(hall.dimensions.depth<34,'the walk is compact enough to keep products in the foreground');
+  assert(hall.dimensions.width*hall.dimensions.depth<1000,'the wide atrium remains compact');
   for(const stand of hall.stands){
-   const bounds=stand.bounds;assert(bounds.maxX-bounds.minX<8);assert(bounds.maxZ-bounds.minZ<5.1);
+   assert(stand.layout.width<=6);assert(stand.layout.depth<=3.4);assert(stand.walls.length<=2);
   }
  }finally{hall.dispose();}
 });
 
-test('both central walking lanes and the front entrances of every compact booth remain clear',async()=>{
+test('arrival and the human-width front approaches of every rotated display remain clear',async()=>{
  const hall=makeShowroomHall({manufacturers:SHOWROOM_MANUFACTURERS});
  try{
   await hall.prepareNear(new T.Vector3(0,1.58,-12));
-  for(let z=-.6;z>-hall.dimensions.depth+.6;z-=.12)for(const x of [-1.25,0,1.25])assert.equal(blocked(hall,x,z),false,`continuous main route ${x},${z}`);
+  for(let z=-.4;z>-2;z-=.12)for(const x of [-.2,0,.2])assert.equal(blocked(hall,x,z),false,`open arrival ${x},${z}`);
   for(const stand of hall.stands){
-   const front=stand.front??stand.bounds.maxZ,side=(stand.bounds.minX+stand.bounds.maxX)<0?-1:1;
-   // Enter across the front, then move behind the aisle partition. This tests
-   // a complete human-width turn rather than a single isolated clear point.
-   for(let x=side*.4;Math.abs(x)<=3.15;x+=side*.1)assert.equal(blocked(hall,x,front+.35),false,`approach ${stand.manufacturer.id}`);
-   for(let z=front+.3;z>front-1.2;z-=.1)assert.equal(blocked(hall,side*3.0,z),false,`booth turn ${stand.manufacturer.id}`);
+   for(let step=0;step<=.9;step+=.1){const point=showroomPoint(stand.layout,0,stand.layout.depth+.65-step);assert.equal(blocked(hall,point.x,point.z),false,`display entry ${stand.manufacturer.id}`);}
   }
  }finally{hall.dispose();}
 });
@@ -55,12 +52,12 @@ test('the return doorway has no coincident visible vestibule and salon wall face
  }finally{disposeObject(vestibule.root);}
 });
 
-test('Yosemite uses four native plank faces with real one-third staggering across neighbouring rows',()=>{
+test('Yosemite uses two coherent native plank faces with real one-third staggering across neighbouring rows',()=>{
  const surfaces=makeShowroomSurfaces(),recipe=SHOWROOM_SURFACE_RECIPES['yosemite-honey'];
  try{
   const floor=surfaces.createFloorPatch({bounds:{minX:-1.5,maxX:1.5,minZ:-6,maxZ:0},recipeId:recipe.id});
   assert.equal(recipe.collection,'Yosemite');assert.equal(recipe.pattern,'third');assert.equal(recipe.width,1.195);assert.equal(recipe.height,.234);
-  assert.equal(recipe.images.length,4);assert(recipe.images.every(image=>!/(reconstruct|generated|synthetic)/i.test(image)));
+  assert.equal(recipe.images.length,2);assert(recipe.images.every(image=>!/(reconstruct|generated|synthetic)/i.test(image)));assert.equal(recipe.hdImages.length,8,'all original supplier faces remain available in the HD collection');
   assert.equal(recipe.provenance.generated,false);assert.equal(recipe.provenance.resized,false);
   assert(recipe.provenance.faces.every(face=>face.width===1000&&face.height===200));
   const cells=floor.userData.cells;assert(cells.length>40);assert(cells.every(cell=>cell.width===recipe.width&&cell.height===recipe.height));
@@ -69,7 +66,7 @@ test('Yosemite uses four native plank faces with real one-third staggering acros
   const rows=new Map();for(const cell of cells){const [column,row]=cell.key.split(':').map(Number);if(column===0)rows.set(row,cell.center[1]);}
   const ordered=[...rows.entries()].sort((a,b)=>a[0]-b[0]);assert(ordered.length>=4);
   for(let i=1;i<ordered.length;i++)if(ordered[i][0]===ordered[i-1][0]+1){const delta=((ordered[i][1]-ordered[i-1][1])%recipe.width+recipe.width)%recipe.width;assert(Math.abs(delta-recipe.width/3)<1e-8,'adjacent plank rows are staggered by39.83cm');}
-  const faces=floor.children.filter(child=>child.name.startsWith('Surface_'));assert.equal(faces.length,4);
+  const faces=floor.children.filter(child=>child.name.startsWith('Surface_'));assert.equal(faces.length,2);
   for(const face of faces){const uv=face.geometry.attributes.uv;for(const value of uv.array)assert(value>=-1e-6&&value<=1+1e-6,'each tile samples a native plank instead of stretching a room photo across the hall');}
  }finally{surfaces.dispose();}
 });
@@ -96,7 +93,7 @@ test('the real salon applies ACES contrast and restores the exact bathroom rende
  const lighting=createShowroomLighting({scene,renderer,camera,getHall:()=>hall,makeEnvironment:()=>{throw Error('sky is not loaded in this CPU test');}});
  try{
   camera.position.copy(hall.root.localToWorld(new T.Vector3(0,1.58,-4)));assert.equal(lighting.update(),true);
-  assert.equal(renderer.toneMapping,T.ACESFilmicToneMapping);assert.equal(renderer.toneMappingExposure,.90);assert.equal(scene.environmentIntensity,.58);
+  assert.equal(renderer.toneMapping,T.ACESFilmicToneMapping);assert.equal(renderer.toneMappingExposure,.92);assert.equal(scene.environmentIntensity,.58);
   assert.equal(scene.fog.near,hall.appearance.fogNear);assert.equal(scene.fog.far,hall.appearance.fogFar);assert(scene.fog.color.equals(new T.Color(hall.appearance.fogColor)));
   assert.equal(renderer.shadowMap.enabled,true);assert.equal(renderer.shadowMap.autoUpdate,false);assert.equal(renderer.shadowMap.type,T.BasicShadowMap);
   camera.position.copy(hall.root.localToWorld(new T.Vector3(0,1.58,1)));assert.equal(lighting.update(),false);
@@ -106,21 +103,22 @@ test('the real salon applies ACES contrast and restores the exact bathroom rende
  }finally{lighting.dispose();hall.dispose();originalEnvironment.dispose();}
 });
 
-test('nearby spotlights keep a bounded shadow budget, update by row and release each GPU target once',()=>{
+test('one fixed daylight shadow has a bounded budget while unshadowed accents follow reached displays',()=>{
  const hall=makeShowroomHall({manufacturers:SHOWROOM_MANUFACTURERS}),spots=[],shadowLights=[];
  hall.root.traverse(object=>{if(object.isSpotLight)spots.push(object);if(object.isLight&&object.castShadow)shadowLights.push(object);});
  const renderer={shadowMap:{enabled:false,needsUpdate:false}},disposed=[];
  try{
-  assert.equal(spots.length,3);assert.equal(shadowLights.length,2,'only the two nearby display walls render shadow maps');
-  assert.equal(shadowLights.reduce((sum,light)=>sum+light.shadow.mapSize.x*light.shadow.mapSize.y,0),2*512*512);
+  assert.equal(spots.length,2);assert(spots.every(light=>!light.castShadow));assert.equal(shadowLights.length,1);assert.equal(shadowLights[0].isDirectionalLight,true);
+  assert.equal(shadowLights.reduce((sum,light)=>sum+light.shadow.mapSize.x*light.shadow.mapSize.y,0),1024*1024);
   assert.equal(hall.updateLighting(new T.Vector3(0,1.58,-4),renderer),true);assert.equal(renderer.shadowMap.needsUpdate,true);
-  const first=spots.map(light=>light.position.clone());renderer.shadowMap.needsUpdate=false;
-  assert.equal(hall.updateLighting(new T.Vector3(.3,1.58,-4.1),renderer),false);assert.equal(renderer.shadowMap.needsUpdate,false,'walking within a booth row does not request new static shadow maps');
-  assert.equal(hall.updateLighting(new T.Vector3(0,1.58,-15),renderer),true);assert.equal(renderer.shadowMap.needsUpdate,true);
-  for(const [i,light]of spots.entries()){assert(light.position.z<first[i].z-5,'the same small light rig follows the reached scenes');assert(light.position.y<hall.dimensions.height);}
+  const first=spots.map(light=>light.position.clone()),sunPosition=shadowLights[0].position.clone();renderer.shadowMap.needsUpdate=false;
+  hall.updateLighting(new T.Vector3(.3,1.58,-4.1),renderer);assert.equal(renderer.shadowMap.needsUpdate,false,'nearby movement and accent ordering do not request a new static sun shadow map');
+  assert.equal(hall.updateLighting(new T.Vector3(0,1.58,-25),renderer),true);assert.equal(renderer.shadowMap.needsUpdate,false,'moving unshadowed accents across the atrium reuses the fixed daylight shadow');
+  assert(spots.some((light,i)=>light.position.distanceTo(first[i])>5),'the accent rig follows the reached displays');for(const light of spots)assert(light.position.y<hall.dimensions.height);
+  assert(shadowLights[0].position.equals(sunPosition),'daylight direction remains fixed during the walk');
   for(const [i,light]of shadowLights.entries()){
    light.shadow.map={dispose(){disposed.push('map-'+i);}};light.shadow.mapPass={dispose(){disposed.push('pass-'+i);}};
   }
-  hall.dispose();hall.dispose();assert.equal(disposed.length,4);assert.equal(new Set(disposed).size,4,'each shadow target is released exactly once, including repeated cleanup');
+  hall.dispose();hall.dispose();assert.equal(disposed.length,2);assert.equal(new Set(disposed).size,2,'each shadow target is released exactly once, including repeated cleanup');
  }finally{hall.dispose();}
 });

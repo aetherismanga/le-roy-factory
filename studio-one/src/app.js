@@ -704,7 +704,7 @@ function animate(time){if(captureBusy||document.hidden){running=false;lastTime=0
  }
  const geometryMoving=moving||avatarMoving;
  if(viewTween){const p=Math.min(1,(time-viewTween.start)/viewTween.duration),e=1-Math.pow(1-p,3);camera.position.lerpVectors(viewTween.from,viewTween.to,e);controls.target.lerpVectors(viewTween.fromTarget,viewTween.toTarget,e);if(p>=1)viewTween=null;moving=true;}
- const cameraMoved=controls.update(dt);
+ const cameraMoved=walkMode?.active?false:controls.update(dt);
  const phaseChanged=renderActivity.update(time,!!(moving||walking||avatarMoving||state.orbit||cameraMoved||dragController?.getActive()?.dragging||partitionDragController?.getActive()?.dragging||productDragController?.getActive()?.dragging));if(phaseChanged)applyRenderPhase();
  // The support wall cuts away behind the cabinet to allow a real 360-degree inspection.
  if(roomScene){roomScene.updateCutaway(camera.position);renovation?.updateVisibility?.();for(const group of [...(profileAsset?.group.children||[]),...(plinthAsset?.group.children||[])])group.visible=roomScene.walls[group.userData.wallIndex]?.group.visible!==false;for(const item of composition?.items||[])if(isOpening(item.type)){const visible=walkMode?.interiorId===item.id||roomScene.walls[item.placement.wall].group.visible;if(item.root.visible!==visible){item.root.visible=visible;}}}else wall.visible=camera.position.z>-.10;

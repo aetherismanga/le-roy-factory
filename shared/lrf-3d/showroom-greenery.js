@@ -1,6 +1,7 @@
 import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+import {makeShowroomLayout,showroomPoint} from './showroom-layout.js';
 
 const noRaycast=()=>{};
 const up=new T.Vector3(0,1,0);
@@ -44,11 +45,13 @@ function leafGeometry(kind='broad'){
 }
 
 /** Native botanical geometry and a grounded reception lounge. No network or
- * browser APIs are needed. Everything stays outside the uninterrupted aisle. */
-export function makeShowroomGreenery({width=30,depth=45,stands=[],onReady=()=>{}}={}){
+ * browser APIs are needed. Planting follows the open plan's reserved pockets. */
+export function makeShowroomGreenery({width,depth,stands=[],layout,onReady=()=>{}}={}){
  const root=new T.Group();root.name='Paysage_et_salon_accueil';root.userData={visualOnly:true,excludeFromProductBounds:true,botanical:true};
  const colliders=[],random=seeded(),geometries=new Set(),materials=new Set(),textures=new Set(),parts=new Map(),foliage=new Map(),plants=[];
- let disposed=false;
+ const plan={...makeShowroomLayout(stands.map(stand=>stand.manufacturer).filter(Boolean)),...layout};
+ width=Number.isFinite(width)?width:plan.width;depth=Number.isFinite(depth)?depth:plan.depth;
+ let disposed=false,frame=null;
  const grain=surfaceTexture('mineral'),fabric=surfaceTexture('fabric'),contact=contactTexture();textures.add(grain);textures.add(fabric);textures.add(contact);
  const mat=(name,options)=>{const material=new T.MeshStandardMaterial(options);material.name=name;materials.add(material);return material;};
  const palette={
@@ -74,7 +77,7 @@ export function makeShowroomGreenery({width=30,depth=45,stands=[],onReady=()=>{}
  const cylinder=new T.CylinderGeometry(1,1,1,12),pebble=new T.IcosahedronGeometry(1,1);geometries.add(cylinder);geometries.add(pebble);
  const matrix=new T.Matrix4(),quaternion=new T.Quaternion(),scale=new T.Vector3(),position=new T.Vector3();
  function put(geometry,material,pose){
-  const list=parts.get(material)||[];const piece=(geometry.index?geometry.toNonIndexed():geometry.clone());piece.applyMatrix4(pose);list.push(piece);parts.set(material,list);
+  const list=parts.get(material)||[];const piece=(geometry.index?geometry.toNonIndexed():geometry.clone());piece.applyMatrix4(pose);if(frame)piece.applyMatrix4(frame);list.push(piece);parts.set(material,list);
  }
  function pose(x,y,z,sx=1,sy=1,sz=1,rotation=0){return matrix.compose(position.set(x,y,z),quaternion.setFromAxisAngle(up,rotation),scale.set(sx,sy,sz)).clone();}
  function box(x,y,z,w,h,d,material,radius=.02,rotation=0){
@@ -148,47 +151,48 @@ export function makeShowroomGreenery({width=30,depth=45,stands=[],onReady=()=>{}
   const radius=species==='monstera'?.31:.37,base=pot(x,z,{radius,height:species==='monstera'?.53:.66,material});
   ({ficus,olive,areca,monstera}[species])(x,z,{height,base});plants.push({species,x,z,height,exterior:false});
  }
- const edge=width/2-1.0;
- plant('areca',-edge,-3.4,2.9,palette.terracotta);plant('ficus',edge,-3.7,2.7,palette.darkPot);
- plant('monstera',-Math.min(9.7,width/2-.7),-4.1,1.6,palette.ivory);plant('olive',Math.min(10.9,width/2-.7),-5.4,2.55,palette.terracotta);
- const rows=Math.max(1,Math.ceil(stands.length/2));
- for(let row=0;row<rows-1;row++){
-  const thisRow=stands.filter(s=>Math.floor(s.index/2)===row),nextRow=stands.filter(s=>Math.floor(s.index/2)===row+1);
-  const currentBack=thisRow[0]?.bounds?.minZ,nextFront=nextRow[0]?.bounds?.maxZ;
-  const z=Number.isFinite(currentBack)&&Number.isFinite(nextFront)?(currentBack+nextFront)/2:-17.95-row*10.7;if(z<-depth+3)break;
-  plant(row%2?'ficus':'olive',-edge,z,row%2?2.4:2.55,row%2?palette.darkPot:palette.ivory);
-  plant(row%2?'monstera':'areca',edge,z,row%2?1.55:2.7,row%2?palette.terracotta:palette.ivory);
- }
- for(const side of [-1,1])plant('ficus',side*(width/2-2.0),-depth+2.0,2.8,palette.terracotta);
+ const zones=plan.plantZones||[],species=['areca','olive','ficus','monstera','olive','ficus'],heights=[2.7,2.45,2.5,1.5,2.55,2.5];
+ const approaches=stands.map(stand=>stand.approach||stand.layout?.approach).filter(Boolean),clearApproach=(x,z,radius=.41)=>approaches.every(point=>Math.hypot(point.x-x,point.z-z)>radius+.65);
+ zones.forEach((zone,index)=>{
+  const kind=zone.species||species[index%species.length],height=zone.height||heights[index%heights.length];
+  plant(kind,zone.x,zone.z,height,index%3===0?palette.terracotta:index%3===1?palette.ivory:palette.darkPot);
+  // Only corner zones receive a low companion; the loop and each scene's
+  // entrance stay clear. Pairing follows the zone rather than a booth row.
+  if(index===0||index===zones.length-1){const x=zone.x+(zone.x<0?-.75:.75),z=zone.z-.45;if(Math.abs(x)<width/2-.6&&z>-depth+.7&&clearApproach(x,z,.35))plant('monstera',x,z,1.25,palette.ivory);}
+ });
  // Garden trees are outside the glazed hall. They do not contribute indoor
  // collision footprints and make the photographic sky read as an exterior.
- for(const side of [-1,1]){box(side*(width/2+3.8),-.075,-17.2,6.6,.15,36,palette.soil,.01);}
+ for(const side of [-1,1]){box(side*(width/2+3.8),-.075,-depth/2,6.6,.15,depth-2,palette.soil,.01);}
  for(const side of [-1,1])for(let i=0;i<4;i++){
-  const x=side*(width/2+3.0+i%2*1.2),z=-5-i*8.3;
+  const x=side*(width/2+3.0+i%2*1.2),z=-3-i*(depth-6)/3;
   olive(x,z,{height:3.8+random()*.5,base:0,exterior:true});plants.push({species:'olive',x,z,height:4,exterior:true});
  }
- // Reception lounge: softened upholstery, separate cushions, visible legs and
- // a coffee table with real tabletop, books and porcelain instead of decals.
- const loungeX=7.0,loungeZ=-4.85;
- for(const x of [loungeX-1.32,loungeX+1.32])for(const z of [loungeZ-.29,loungeZ+.29])put(cylinder,palette.metal,pose(x,.13,z,.035,.25,.035));
- box(loungeX,.36,loungeZ,3.30,.30,.92,palette.sofa,.13);
- box(loungeX,.84,loungeZ-.34,3.24,.74,.26,palette.sofa,.10);
- for(const x of [loungeX-1.54,loungeX+1.54])box(x,.61,loungeZ,.25,.63,.91,palette.sofa,.11);
- for(let i=0;i<3;i++){const x=loungeX-1.02+i*1.02;box(x,.57,loungeZ+.08,.98,.20,.71,palette.sofaLight,.075);box(x,.93,loungeZ-.18,.94,.52,.15,palette.sofaLight,.065);}
- shadow(loungeX,loungeZ,3.8,1.9);colliders.push({minX:loungeX-1.73,maxX:loungeX+1.73,minZ:loungeZ-.55,maxZ:loungeZ+.56});
- const tableX=7.0,tableZ=-2.9;
- for(const x of [tableX-.57,tableX+.57])for(const z of [tableZ-.24,tableZ+.24])put(cylinder,palette.metal,pose(x,.20,z,.025,.40,.025));
- box(tableX,.43,tableZ,1.58,.075,.84,palette.wood,.06);shadow(tableX,tableZ,2.05,1.28);colliders.push({minX:tableX-.84,maxX:tableX+.84,minZ:tableZ-.46,maxZ:tableZ+.46});
- box(tableX-.31,.49,tableZ,.43,.045,.31,palette.paper,.002,.12);box(tableX-.31,.514,tableZ,.44,.009,.32,palette.book,.002,.12);
- box(tableX-.28,.54,tableZ+.02,.38,.038,.27,palette.paper,.002,-.08);box(tableX-.28,.563,tableZ+.02,.39,.009,.28,palette.terracotta,.002,-.08);
- const cupProfile=[[0,0],[.035,0],[.042,.008],[.047,.075],[.043,.078],[.038,.015],[0,.012]].map(p=>new T.Vector2(...p));const cupGeometry=new T.LatheGeometry(cupProfile,32);put(cupGeometry,palette.cup,pose(tableX+.40,.472,tableZ+.12));cupGeometry.dispose();
- const handle=new T.TorusGeometry(.023,.006,8,20);put(handle,palette.cup,pose(tableX+.45,.514,tableZ+.12));handle.dispose();
- const saucer=new T.CylinderGeometry(.078,.077,.008,32);put(saucer,palette.cup,pose(tableX+.40,.474,tableZ+.12));saucer.dispose();
- // A small sculptural grouping is grounded beside the sofa, without filling
- // the walking lane or introducing any decorative flower pattern.
+ // The lounge is authored in its own compact frame, then baked into the
+ // shared material batches. Collision rectangles use that exact same frame.
+ const lounge={...plan.lounge},loungeColliders=[];
+ frame=new T.Matrix4().makeRotationY(lounge.rotation||0).setPosition(lounge.x,0,lounge.z);
+ function loungeCollider(minX,maxX,minZ,maxZ){
+  const corners=[[minX,minZ],[maxX,minZ],[maxX,maxZ],[minX,maxZ]].map(([x,z])=>showroomPoint({...lounge,rotation:lounge.rotation||0},x,z));
+  const bounds={minX:Math.min(...corners.map(p=>p.x)),maxX:Math.max(...corners.map(p=>p.x)),minZ:Math.min(...corners.map(p=>p.z)),maxZ:Math.max(...corners.map(p=>p.z))};colliders.push(bounds);loungeColliders.push(bounds);return bounds;
+ }
+ for(const x of [-.97,.97])for(const z of [-.27,.27])put(cylinder,palette.metal,pose(x,.13,z,.035,.25,.035));
+ box(0,.36,0,2.45,.30,.86,palette.sofa,.13);
+ box(0,.84,-.30,2.39,.74,.26,palette.sofa,.10);
+ for(const x of [-1.10,1.10])box(x,.61,0,.25,.63,.85,palette.sofa,.11);
+ for(const x of [-.53,.53]){box(x,.57,.06,1.02,.20,.65,palette.sofaLight,.075);box(x,.93,-.15,.99,.52,.15,palette.sofaLight,.065);}
+ shadow(0,0,2.9,1.65);loungeCollider(-1.27,1.27,-.48,.48);
+ const tableX=0,tableZ=1.18;
+ for(const x of [-.43,.43])for(const z of [tableZ-.23,tableZ+.23])put(cylinder,palette.metal,pose(x,.20,z,.025,.40,.025));
+ box(tableX,.43,tableZ,1.24,.075,.70,palette.wood,.055);shadow(tableX,tableZ,1.65,1.10);loungeCollider(-.67,.67,tableZ-.39,tableZ+.39);
+ box(-.20,.49,tableZ,.40,.045,.28,palette.paper,.002,.12);box(-.20,.514,tableZ,.41,.009,.29,palette.book,.002,.12);
+ box(-.18,.54,tableZ+.02,.35,.038,.25,palette.paper,.002,-.08);box(-.18,.563,tableZ+.02,.36,.009,.26,palette.terracotta,.002,-.08);
+ const cupProfile=[[0,0],[.035,0],[.042,.008],[.047,.075],[.043,.078],[.038,.015],[0,.012]].map(p=>new T.Vector2(...p));const cupGeometry=new T.LatheGeometry(cupProfile,32);put(cupGeometry,palette.cup,pose(.37,.472,tableZ+.07));cupGeometry.dispose();
+ const handle=new T.TorusGeometry(.023,.006,8,20);put(handle,palette.cup,pose(.42,.514,tableZ+.07));handle.dispose();
+ const saucer=new T.CylinderGeometry(.078,.077,.008,32);put(saucer,palette.cup,pose(.37,.474,tableZ+.07));saucer.dispose();
+ // A modest vase pair follows the sofa frame and stays within the side gap.
  const vasePoints=[[0,0],[.10,0],[.13,.05],[.15,.22],[.10,.37],[.065,.45],[.062,.48],[.045,.48],[.045,.43],[.075,.35],[.12,.20],[.08,.04],[0,.04]].map(p=>new T.Vector2(...p));
- const vase=new T.LatheGeometry(vasePoints,40);put(vase,palette.darkPot,pose(9.35,.018,-4.7));put(vase,palette.terracotta,pose(9.72,.018,-4.9,.78,.75,.78));vase.dispose();
- colliders.push({minX:9.15,maxX:9.95,minZ:-5.13,maxZ:-4.47});shadow(9.5,-4.8,1.15,.94);
+ const vase=new T.LatheGeometry(vasePoints,40);put(vase,palette.darkPot,pose(1.49,.018,-.10));put(vase,palette.terracotta,pose(1.49,.018,.25,.78,.75,.78));vase.dispose();
+ loungeCollider(1.31,1.68,-.28,.42);shadow(1.49,.07,.75,1.0);frame=null;
 
  for(const [material,pieces]of parts){
   const combined=mergeGeometries(pieces,false);for(const piece of pieces)piece.dispose();if(!combined)continue;geometries.add(combined);
@@ -198,7 +202,7 @@ export function makeShowroomGreenery({width=30,depth=45,stands=[],onReady=()=>{}
   const mesh=new T.InstancedMesh(leafGeometries[kind],palette[kind],instances.length);mesh.name='Feuillage_modele_'+kind;
   instances.forEach((instance,i)=>{mesh.setMatrixAt(i,instance.matrix);mesh.setColorAt(i,instance.color);});mesh.instanceMatrix.needsUpdate=true;mesh.instanceColor.needsUpdate=true;mesh.computeBoundingBox();mesh.computeBoundingSphere();mesh.receiveShadow=true;mesh.castShadow=false;mesh.raycast=noRaycast;mesh.userData={visualOnly:true,excludeFromProductBounds:true,botanicalLeaves:instances.length};root.add(mesh);
  }
- root.userData.plants=plants.map(p=>({...p}));root.userData.lounge={x:loungeX,z:loungeZ};root.updateMatrixWorld(true);
+ root.userData.plants=plants.map(p=>({...p}));root.userData.lounge={...lounge,colliders:loungeColliders.map(bounds=>({...bounds}))};root.updateMatrixWorld(true);
  function dispose(){if(disposed)return;disposed=true;for(const geometry of geometries)geometry.dispose();for(const material of materials)material.dispose();for(const texture of textures)texture.dispose();root.removeFromParent();}
  // Normal editor disposal follows the existing material lifecycle as well.
  palette.soil.addEventListener('dispose',dispose);

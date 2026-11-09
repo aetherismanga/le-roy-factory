@@ -2,25 +2,22 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as T from 'three';
 import {makeShowroomHall} from '../shared/lrf-3d/showroom-hall.js';
+import {showroomPoint} from '../shared/lrf-3d/showroom-layout.js';
 
 const suppliers=(count=17,collections=35)=>Array.from({length:count},(_,i)=>({id:`supplier-${i}`,name:`Fournisseur ${i}`,category:'Carrelage',href:'https://leroyfactory.fr/selections.html',collections:Array.from({length:collections},(_,j)=>({id:`collection-${j}`,name:`Collection ${j}`,image:`https://leroyfactory.fr/collection-${i}-${j}.webp`,href:`https://leroyfactory.fr/collection-${j}.html`}))}));
 const blocked=(hall,x,z,r=.2)=>hall.colliders.some(b=>x+r>b.minX&&x-r<b.maxX&&z+r>b.minZ&&z-r<b.maxZ);
 
-test('hall contains one real stand per supplier, a clear central aisle and colliding booth partitions',()=>{
+test('hall contains one open display per supplier with accessible approaches and colliding backdrops',()=>{
  const hall=makeShowroomHall({manufacturers:suppliers()});
  assert.equal(hall.root.visible,false);assert.equal(hall.stands.length,17);assert.equal(hall.interactions.length,51);
- assert.equal(hall.dimensions.width,22);assert.equal(hall.dimensions.height,3.8);assert.equal(hall.dimensions.wallHeight,2.3);
- for(let z=-.4;z>-hall.dimensions.depth+.5;z-=.1)assert.equal(blocked(hall,0,z),false,`central aisle ${z}`);
- assert.equal(blocked(hall,-5.7,-2.1),true,'reception counter');
- // Low booth walls remain solid while the front gives access to the samples
- // and the inner passage, including the furnished bathroom scenes.
+ assert.equal(hall.dimensions.width,28);assert.equal(hall.dimensions.height,4.4);assert.equal(hall.dimensions.wallHeight,2.25);
+ assert.equal(blocked(hall,hall.layout.arrival.x,hall.layout.arrival.z),false);
+ assert.equal(blocked(hall,-9.2,-2.05),true,'reception counter');
+ // A backdrop remains physical while the open, rotated front stays reachable.
  for(const stand of hall.stands){
-  const {minX,maxX}=stand.bounds,side=minX<0?-1:1;
-  assert.equal(blocked(hall,minX,(stand.front+stand.back)/2),true);
-  assert.equal(blocked(hall,maxX,(stand.front+stand.back)/2),true);
-  assert.equal(blocked(hall,(minX+maxX)/2,stand.back),true);
-  assert.equal(blocked(hall,side*3,stand.front-.35),false);
-  assert.equal(blocked(hall,(minX+maxX)/2,stand.front-.35),false);
+  const back=showroomPoint(stand.layout,0,0);assert.equal(blocked(hall,back.x,back.z),true);
+  assert.equal(blocked(hall,stand.approach.x,stand.approach.z),false);
+  assert(stand.walls.length>=1&&stand.walls.length<=2);
  }
  hall.root.traverse(object=>{if(object.isMesh){assert.equal(object.userData.visualOnly,true);const hits=[];object.raycast({},hits);assert.equal(hits.length,0,'editing picker must ignore every showroom mesh');}});
  hall.dispose();
@@ -62,21 +59,20 @@ test('late image completions after disposal are discarded',async()=>{
  await ready;assert.equal(disposed,2);assert.equal(hall.diagnostics().loaded,0);
 });
 
-test('distance culling reduces live detail meshes and restores stands and pages on approach',async()=>{
+test('distance culling affects sample detail while permanent displays and selected pages survive the walk',async()=>{
  const hall=makeShowroomHall({manufacturers:suppliers()});hall.root.visible=true;
- const collisionSnapshot=JSON.stringify(hall.colliders),last=hall.stands.at(-1);
+ const collisionSnapshot=JSON.stringify(hall.colliders),last=[...hall.stands].sort((a,b)=>b.panels[0].localPosition.length()-a.panels[0].localPosition.length())[0];
  await hall.prepareNear(new T.Vector3(0,1.58,-1));
- assert.equal(last.group.visible,false);assert.ok(last.panels.every(p=>!p.mount.visible));
- let allMeshes=0,visibleMeshes=0;for(const stand of hall.stands){stand.group.traverse(o=>{if(o.isMesh)allMeshes++;});stand.group.traverseVisible(o=>{if(o.isMesh)visibleMeshes++;});}
- assert.ok(visibleMeshes<allMeshes/2,'most stand detail remains outside the live draw list at the entrance');
- assert.ok(hall.diagnostics().visibleStands<=Math.ceil(hall.stands.length/2),'nearby room-scale stands alone are active');
+ assert.equal(last.group.visible,true);assert.ok(last.panels.every(p=>!p.mount.visible));
+ assert.ok(hall.panels.filter(p=>p.mount.visible).length<hall.panels.length,'distant sample detail stays outside the live draw list');
+ assert.equal(hall.diagnostics().visibleStands,hall.stands.length,'architecture never disappears into empty floor gaps');
  assert.ok(hall.diagnostics().architectureBatches>0,'static architecture shares material batches');
- const near=new T.Vector3((last.bounds.minX+last.bounds.maxX)/2,1.58,last.bounds.maxZ-4);
+ const near=last.panels[0].localPosition.clone();near.y=1.58;
  await hall.prepareNear(near);assert.equal(last.group.visible,true);
  assert.ok(last.panels.filter(p=>p.collection).every(p=>p.mount.visible));
  hall.activateAction({kind:'page',manufacturerId:last.manufacturer.id,direction:1});
  assert.equal(last.panels[0].collection.id,'collection-4');
- await hall.prepareNear(new T.Vector3(0,1.58,-1));assert.equal(last.group.visible,false);
+ await hall.prepareNear(new T.Vector3(0,1.58,-1));assert.equal(last.group.visible,true);assert.equal(last.panels[0].mount.visible,false);
  await hall.prepareNear(near);assert.equal(last.group.visible,true);assert.equal(last.panels[0].mount.visible,true);
  assert.equal(last.panels[0].mesh.userData.showroomCollection.collection.id,'collection-4');
  assert.equal(JSON.stringify(hall.colliders),collisionSnapshot,'render culling never changes physical boundaries');

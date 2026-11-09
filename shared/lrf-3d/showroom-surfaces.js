@@ -31,9 +31,12 @@ function manufacturerRecipe(id){
  return Object.freeze({...source,image,images:[image],hdImage:image,hdImages:[{url:image,label:source.manufacturer+' · '+source.collection+' · '+source.color+(source.formatLabel?' · '+source.formatLabel:''),kind:'tile',native:true,generated:false,width:source.pixelWidth,height:source.pixelHeight,source:source.source}],pattern:'straight',direction:'horizontal',nativeFaces:true,generated:false,provenance:{kind:'manufacturer-front-facing-product-photograph',generated:false,resized:false,source:source.source,productSource:source.productSource,width:source.pixelWidth,height:source.pixelHeight,sha256:source.sha256,...(source.module?{module:source.module}:{})}});
 }
 function yosemiteRecipe(colorId){
- const color=COLLECTIONS.Yosemite.colors.find(c=>c.id===colorId),size=formatsForColor('Yosemite',colorId).find(f=>f.id==='23.4x119.5'),sources=yosemiteSources.filter(s=>s.color===colorId),images=sources.map(s=>'assets/showroom/'+s.file);
- if(!color||!size||sources.length<4)throw Error('Les planches originales Yosemite sont indisponibles.');
- return Object.freeze({id:'yosemite-'+colorId,manufacturer:'Elios Ceramica',collection:'Yosemite',color:color.name,colorId,format:size.id,width:size.width,height:size.height,pattern:'third',direction:'vertical',images,image:images[0],hdImage:images[0],hdImages:yosemiteSources.map(s=>({url:'assets/showroom/'+s.file,label:'Yosemite · '+s.color+' · '+s.reference+' · face '+s.file.match(/-(\d+)\.jpg$/)?.[1],kind:'tile',native:true,generated:false,width:s.width,height:s.height,source:s.source})),source:sources[0].productSource,nativeFaces:true,generated:false,fallback:colorId==='honey'?'#967448':'#ad9876',grout:'#746452',roughness:.73,provenance:{kind:'manufacturer-brand-product-platform-native-tile',generated:false,resized:false,reference:sources[0].reference,source:sources[0].productSource,faces:sources.map(s=>({source:s.source,width:s.width,height:s.height,sha256:s.sha256}))}});
+ // The published range includes strong natural shade variation. A small wood
+ // inset uses two observed, tonally close faces rather than the full shade mix;
+ // the complete, untouched originals remain available in the HD gallery.
+ const selected=colorId==='honey'?['02','05']:['04','12'],color=COLLECTIONS.Yosemite.colors.find(c=>c.id===colorId),size=formatsForColor('Yosemite',colorId).find(f=>f.id==='23.4x119.5'),sources=selected.map(face=>yosemiteSources.find(s=>s.color===colorId&&s.file.endsWith('-'+face+'.jpg'))),images=sources.filter(Boolean).map(s=>'assets/showroom/'+s.file);
+ if(!color||!size||sources.some(source=>!source))throw Error('Les planches originales Yosemite sont indisponibles.');
+ return Object.freeze({id:'yosemite-'+colorId,manufacturer:'Elios Ceramica',collection:'Yosemite',color:color.name,colorId,format:size.id,width:size.width,height:size.height,pattern:'third',direction:'vertical',images,image:images[0],hdImage:images[0],hdImages:yosemiteSources.map(s=>({url:'assets/showroom/'+s.file,label:'Yosemite · '+s.color+' · '+s.reference+' · face '+s.file.match(/-(\d+)\.jpg$/)?.[1],kind:'tile',native:true,generated:false,width:s.width,height:s.height,source:s.source})),source:sources[0].productSource,nativeFaces:true,generated:false,fallback:colorId==='honey'?'#b69466':'#97816a',grout:colorId==='honey'?'#a48b69':'#897865',roughness:.84,clearcoat:.005,provenance:{kind:'manufacturer-brand-product-platform-native-tile',generated:false,resized:false,reference:sources[0].reference,source:sources[0].productSource,selection:'two-tonally-close-native-faces',faces:sources.map(s=>({source:s.source,width:s.width,height:s.height,sha256:s.sha256}))}});
 }
 export const SHOWROOM_SURFACE_RECIPES=Object.freeze({
  'yosemite-honey':yosemiteRecipe('honey'),
@@ -63,13 +66,16 @@ function entryFor(recipe,manufacturers){
  if(!manufacturer||!source)return null;
  return {manufacturer,collection:{...source,hdImage:recipe.hdImage,hdImages:recipe.hdImages,selectedColor:recipe.color,selectedFormat:recipe.formatLabel||recipe.format,surfaceRecipe:recipe}};
 }
-const hashFace=(cell,count)=>{let n=0;for(const c of cell)n=(Math.imul(n,31)+c.charCodeAt(0))|0;return (n>>>0)%count;};
-function splitFaces(geometry,count){
+// Mix all coordinate bits before selecting a face. A low-bit string modulo
+// repeats the same shade along diagonals and makes an artificial checkerboard.
+const hashCell=(cell,seed=2166136261)=>{let n=seed;for(const c of cell)n=Math.imul(n^c.charCodeAt(0),16777619);n=Math.imul(n^(n>>>16),0x7feb352d);n=Math.imul(n^(n>>>15),0x846ca68b);return (n^(n>>>16))>>>0;};
+function splitFaces(geometry,count,wood=false){
  if(count===1)return [geometry];
  const records=Array.from({length:count},()=>({position:[],normal:[],uv:[],faceCells:[]})),attributes=geometry.attributes,cells=geometry.userData.faceCells;
  for(let triangle=0;triangle<cells.length;triangle++){
-  const record=records[hashFace(cells[triangle],count)];record.faceCells.push(cells[triangle]);
-  for(const name of ['position','normal','uv']){const attribute=attributes[name],begin=triangle*3*attribute.itemSize,end=begin+3*attribute.itemSize;for(let i=begin;i<end;i++)record[name].push(attribute.array[i]);}
+  const cell=cells[triangle],record=records[hashCell(cell)%count];record.faceCells.push(cell);
+  const [col,row]=cell.split(':').map(Number),rotate=wood&&((Math.abs(col*13+row*7)%2===1)!==(hashCell(cell,0x9e3779b9)%2===1));
+  for(const name of ['position','normal','uv']){const attribute=attributes[name],begin=triangle*3*attribute.itemSize,end=begin+3*attribute.itemSize;for(let i=begin;i<end;i++)record[name].push(name==='uv'&&rotate?1-attribute.array[i]:attribute.array[i]);}
  }
  const result=records.map((record,index)=>{const part=new T.BufferGeometry();for(const [name,size]of [['position',3],['normal',3],['uv',2]])part.setAttribute(name,new T.Float32BufferAttribute(record[name],size));part.userData={...geometry.userData,faceCells:record.faceCells,faceIndex:index};part.computeBoundingBox();part.computeBoundingSphere();return part;});
  geometry.dispose();return result;
@@ -91,12 +97,12 @@ function fitSample(texture,recipe){
 /** Full-scale ceramic and stone surfaces. Every rendered cell carries local
  * 0..1 UVs, its real manufacturer format and the same HD collection target.
  * Texture maps stay bounded by proximity; no enlarged thumbnails or AI faces. */
-export function makeShowroomSurfaces({manufacturers=SHOWROOM_MANUFACTURERS,onReady=()=>{},loadTexture=loadQueuedTexture,maxResidentMaps=20}={}){
+export function makeShowroomSurfaces({manufacturers=SHOWROOM_MANUFACTURERS,onReady=()=>{},loadTexture=loadQueuedTexture,maxResidentMaps=20,coordinateRoot=null}={}){
  let disposed=false;const records=new Map(),objects=[],geometries=new Set(),backings=new Map(),ownedTextures=new Set();
  const getRecord=id=>{
   const recipe=SHOWROOM_SURFACE_RECIPES[id];if(!recipe)throw Error('Revêtement de salon inconnu : '+id);
   if(records.has(id))return records.get(id);
-  const materials=recipe.images.map(()=>new T.MeshPhysicalMaterial({color:recipe.fallback,roughness:recipe.roughness,metalness:0,clearcoat:recipe.collection==='Yosemite'?.025:.04,clearcoatRoughness:.72}));
+  const materials=recipe.images.map(()=>new T.MeshPhysicalMaterial({color:recipe.fallback,roughness:recipe.roughness,metalness:0,clearcoat:recipe.clearcoat??.04,clearcoatRoughness:.78}));
   for(const material of materials){material.name=recipe.manufacturer+' · '+recipe.collection+' · '+recipe.color;material.userData.showroomRecipe=recipe;}
   const record={recipe,materials,patches:[],textures:[],controller:null,task:null,generation:0,state:'idle',distance:Infinity};records.set(id,record);return record;
  };
@@ -107,7 +113,7 @@ export function makeShowroomSurfaces({manufacturers=SHOWROOM_MANUFACTURERS,onRea
  function patch({recipeId,polygon,floor=false,y=0,width,height,position=[0,0,0],rotation=0,direction}){
   const record=getRecord(recipeId),recipe=record.recipe,entry=entryFor(recipe,manufacturers),root=new T.Group();root.name=(floor?'Sol_':'Mur_')+recipe.collection+'_'+recipe.color;root.userData={visualOnly:true,excludeFromProductBounds:true,showroomRecipe:recipe,showroomLayout:{pattern:recipe.pattern,direction:direction||recipe.direction,width:recipe.width,height:recipe.height},...(entry?{showroomCollection:entry}:{})};
   const layout={width:recipe.width,height:recipe.height,pattern:recipe.pattern,direction:direction||recipe.direction,groutWidth:2};
-  const geometry=buildTileGeometry(polygon,layout),parts=splitFaces(geometry,record.materials.length);
+  const geometry=buildTileGeometry(polygon,layout),parts=splitFaces(geometry,record.materials.length,recipe.collection==='Yosemite');
   root.userData.tileCount=geometry.userData.tileCount;root.userData.cells=geometry.userData.cells;
   for(const [index,part]of parts.entries()){if(floor)part.rotateX(-Math.PI/2);const visible=floor?part:cladBothSides(part);root.add(mesh(visible,record.materials[index],'Surface_'+recipe.id+'_face_'+index,entry,recipe));}
   const xs=polygon.map(p=>p[0]),ys=polygon.map(p=>p[1]),minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys),w=maxX-minX,h=maxY-minY;
@@ -136,7 +142,7 @@ export function makeShowroomSurfaces({manufacturers=SHOWROOM_MANUFACTURERS,onRea
  function prepareNear(position){
   if(disposed)return Promise.resolve([]);
   const p=new T.Vector3(position.x,position.y||0,position.z),ordered=[...records.values()];
-  for(const record of ordered)record.distance=Math.min(...record.patches.map(({root,center,radius})=>Math.max(0,Math.hypot(p.x-root.position.x-center.x,p.z-root.position.z-center.z)-radius)));
+  for(const record of ordered)record.distance=Math.min(...record.patches.map(({root,center,radius})=>{const actual=root.localToWorld(center.clone());if(coordinateRoot)coordinateRoot.worldToLocal(actual);return Math.max(0,Math.hypot(p.x-actual.x,p.z-actual.z)-radius);}));
   ordered.sort((a,b)=>a.distance-b.distance);let count=0;const keep=new Set();
   for(const record of ordered)if(record.distance<24&&count+record.materials.length<=maxResidentMaps){keep.add(record);count+=record.materials.length;}
   for(const record of ordered)if(!keep.has(record)&&(record.textures.length||record.controller||record.state==='error'))clear(record);

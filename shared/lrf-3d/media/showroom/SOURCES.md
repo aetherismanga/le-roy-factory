@@ -30,6 +30,24 @@ remplacent, uniquement dans le salon, les anciennes reconstitutions graphiques
 et l'échantillon fabricant 416 × 208 px. La géométrie de pose applique un vrai
 décalage d'un tiers (39,83 cm), avec joints et coupes physiques.
 
+### Sélection pour les petits îlots bois
+
+Le salon utilise désormais seulement les faces **Honey 02 et 05**, ou **Natural
+04 et 12**, photographies natives non retouchées. Les huit originaux restent
+dans la galerie HD. Le manifeste conserve également les moyennes RVB calculées
+sur les pixels originaux : l'écart maximal entre les deux faces sélectionnées
+est de **7,1 / 255** pour Honey et **4,3 / 255** pour Natural, contre jusqu'à
+40 points environ avec l'ancien mélange Honey de quatre faces.
+
+La sélection réduit le damier clair/foncé sans recolorer les carreaux. La
+répartition des faces et leurs rotations de 180° sont déterministes et
+irrégulières ; aucune rotation de 90°, aucun miroir du veinage. Le grain reste
+aligné sur les 119,5 cm de longueur, avec le vrai décalage d'un tiers. Les
+matériaux sont mats, filtrés par mipmaps et anisotropie ; la légère différence
+entre l'aspect photographique 5:1 et le format réel est recadrée plutôt
+qu'étirée. Le coloris Natural est prévu pour des îlots limités, le sol minéral
+Creta restant la surface principale.
+
 ## Revêtements des stands fabricants
 
 Les trois matières **VIEW** proviennent des faces natives du catalogue de

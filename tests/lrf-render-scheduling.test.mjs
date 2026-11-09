@@ -43,10 +43,14 @@ for(const app of ['studio-one','randal-general']){
   f.run('walkMode.tick=()=>true;invalidate(false,false);animate(1100)');
   assert.equal(f.counts.render,2);assert.equal(f.counts.raf,2);assert.equal(f.counts.commerce,0);
  });
- test(app+': motion keeps one final settled frame then sleeps without perpetual rendering',()=>{
-  const f=fixture();f.run('controls.update=()=>true;running=true;animate(1000)');
+ for(const mode of ['editing orbit','first-person walking'])test(app+': '+mode+' keeps one final settled frame then sleeps without perpetual rendering',()=>{
+  const f=fixture();
+  // Orbit motion belongs to the editor. A visit owns its camera and reports
+  // movement through tick(), while disabled OrbitControls stay untouched.
+  f.run(mode==='editing orbit'?'walkMode.active=false;controls.update=()=>true':'walkMode.tick=()=>true');
+  f.run('running=true;animate(1000)');
   assert.equal(f.context.renderActivity.active,true);assert.equal(f.phases.length,1);assert.equal(f.counts.raf,1);
-  f.run('controls.update=()=>false;animate(1179)');assert.equal(f.context.renderActivity.active,true);assert.equal(f.counts.raf,2);
+  f.run('controls.update=()=>false;walkMode.tick=()=>false;animate(1179)');assert.equal(f.context.renderActivity.active,true);assert.equal(f.counts.raf,2);
   f.run('animate(1180)');assert.equal(f.context.renderActivity.active,false);assert.equal(f.phases.length,2,'one transition refreshes final optical detail');assert.equal(f.counts.render,3);assert.equal(f.counts.raf,2,'the final settled frame schedules no more work');assert.equal(f.context.running,false);assert.equal(f.counts.commerce,0);assert.equal(f.counts.checkpoint,0);
  });
  test(app+': avatar animation and orbit keep drawing',()=>{

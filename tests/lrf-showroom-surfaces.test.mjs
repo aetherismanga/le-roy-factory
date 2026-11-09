@@ -45,8 +45,36 @@ test('Yosemite floor has clipped physical plank cuts, metre scale, per-tile UV a
   const rows=[...groups.values()].find(list=>list.length>6).sort((a,b)=>a.row-b.row);let offsets=0;
   for(let index=1;index<rows.length;index++)if(rows[index].row===rows[index-1].row+1){const a=rows[index-1],b=rows[index];assert(Math.abs((b.cell.center[1]-a.cell.center[1])-(rowShift('third',b.row,recipe.width)-rowShift('third',a.row,recipe.width)))<1e-8);offsets++;}
   assert(offsets>=6,'multiple continuous rows carry the real third-plank displacement');
-  const surfaces=floor.children.filter(object=>object.name.startsWith('Surface_'));assert.equal(surfaces.length,4,'four original plank faces share four bounded batches');
+  const surfaces=floor.children.filter(object=>object.name.startsWith('Surface_'));assert.equal(surfaces.length,2,'two tonally close original plank faces share two bounded batches');
   for(const mesh of surfaces){const position=mesh.geometry.attributes.position,uv=mesh.geometry.attributes.uv;for(let i=0;i<position.count;i++){assert(position.getX(i)>=bounds.minX-1e-6&&position.getX(i)<=bounds.maxX+1e-6);assert(position.getZ(i)>=bounds.minZ-1e-6&&position.getZ(i)<=bounds.maxZ+1e-6);assert(uv.getX(i)>-1e-6&&uv.getX(i)<1+1e-6);assert(uv.getY(i)>-1e-6&&uv.getY(i)<1+1e-6);}}
+ }finally{manager.dispose();}
+});
+
+test('Yosemite inset faces retain their native colour with a close shade range and an irregular distribution',()=>{
+ for(const color of ['honey','natural']){
+  const recipe=SHOWROOM_SURFACE_RECIPES['yosemite-'+color],selected=recipe.images.map(url=>sources.find(source=>url.endsWith('/'+source.file)));
+  assert.equal(selected.length,2);assert(selected.every(source=>source.color===color));assert.equal(recipe.hdImages.length,8,'all unmodified supplier faces stay available for HD inspection');
+  for(let channel=0;channel<3;channel++)assert(Math.max(...selected.map(source=>source.meanSRGB[channel]))-Math.min(...selected.map(source=>source.meanSRGB[channel]))<8,'native mean channel difference stays below8/255 rather than creating light/dark plank blocks');
+  const manager=makeShowroomSurfaces(),floor=manager.createFloorPatch({bounds:{minX:-4,maxX:4,minZ:-5,maxZ:5},recipeId:recipe.id});
+  try{
+   const assignments=new Map();for(const surface of floor.children.filter(object=>object.name.startsWith('Surface_')))for(const cell of surface.geometry.userData.faceCells)assignments.set(cell,surface.geometry.userData.faceIndex);
+   let equal=0,total=0;for(const [cell,face]of assignments){const [col,row]=cell.split(':').map(Number),next=assignments.get((col+1)+':'+(row+1));if(next===undefined)continue;total++;if(face===next)equal++;}assert(total>100);assert(equal/total>.25&&equal/total<.75,'adjacent diagonals cannot repeat a shade lattice');
+  }finally{manager.dispose();}
+ }
+});
+
+test('the wood grain follows the physical long plank axis and native maps use cropped aspect, mipmaps and restrained matt response',async()=>{
+ const manager=makeShowroomSurfaces({loadTexture:async()=>new T.Texture({width:1000,height:200})}),floor=manager.createFloorPatch({bounds:{minX:-2,maxX:2,minZ:-3,maxZ:1},recipeId:'yosemite-natural'});
+ try{
+  await manager.prepareNear({x:0,z:-1});let checked=0;
+  for(const surface of floor.children.filter(object=>object.name.startsWith('Surface_'))){
+   const {position,normal,uv}=surface.geometry.attributes,map=surface.material.map;assert(map);assert.equal(map.colorSpace,T.SRGBColorSpace);assert.equal(map.minFilter,T.LinearMipmapLinearFilter);assert.equal(map.magFilter,T.LinearFilter);assert.equal(map.generateMipmaps,true);assert.equal(map.wrapS,T.ClampToEdgeWrapping);assert.equal(map.wrapT,T.ClampToEdgeWrapping);assert.equal(map.repeat.x,1);assert(Math.abs(map.repeat.y-5/(1.195/.234))<1e-8);assert.equal(map.offset.y,(1-map.repeat.y)/2);assert(surface.material.roughness>=.8);assert(surface.material.clearcoat<.01);
+   for(let i=0;i<position.count;i+=3){if(normal.getY(i)<.99)continue;const ax=position.getX(i+1)-position.getX(i),az=position.getZ(i+1)-position.getZ(i),bx=position.getX(i+2)-position.getX(i),bz=position.getZ(i+2)-position.getZ(i),det=ax*bz-bx*az;if(Math.abs(det)<1e-6)continue;
+    const au=uv.getX(i+1)-uv.getX(i),bu=uv.getX(i+2)-uv.getX(i),av=uv.getY(i+1)-uv.getY(i),bv=uv.getY(i+2)-uv.getY(i),dux=(au*bz-bu*az)/det,duz=(ax*bu-bx*au)/det,dvx=(av*bz-bv*az)/det,dvz=(ax*bv-bx*av)/det;
+    assert(Math.abs(dux)<2e-4&&Math.abs(dvz)<2e-4,'grain never turns90degrees across the plank');assert(Math.abs(Math.abs(duz)-1/1.195)<2e-4);assert(Math.abs(Math.abs(dvx)-1/.234)<2e-4);checked++;
+   }
+  }
+  assert(checked>30,'real clipped triangles preserve metre-based native grain mapping');
  }finally{manager.dispose();}
 });
 
@@ -101,8 +129,8 @@ test('native map loading is lazy, proximity-bounded and releases maps while the 
  let loads=0,released=0;const requests=[];
  const manager=makeShowroomSurfaces({maxResidentMaps:6,loadTexture:async(url,options)=>{loads++;requests.push({url,options});const texture=new T.Texture({width:1000,height:200});texture.addEventListener('dispose',()=>released++);return texture;}});
  manager.createFloorPatch({bounds:{minX:-2,maxX:2,minZ:-4,maxZ:0},recipeId:'yosemite-honey'});manager.createWall({width:4,height:2.3,recipeId:'creta-ginepro'});manager.createWall({width:4,height:2.3,recipeId:'slate-dark',position:[100,0,-3]});
- assert.equal(loads,0);await manager.prepareNear({x:0,z:-2});assert.equal(manager.diagnostics().residentMaps,5);assert(requests.every(r=>r.options.maxDimension===2048));assert(requests.every(r=>!r.url.includes('reconstructed')));
- await manager.prepareNear({x:100,z:-3});assert(released>=5);assert(manager.diagnostics().residentMaps<=6);
+ assert.equal(loads,0);await manager.prepareNear({x:0,z:-2});assert.equal(manager.diagnostics().residentMaps,3);assert(requests.every(r=>r.options.maxDimension===2048));assert(requests.every(r=>!r.url.includes('reconstructed')));
+ await manager.prepareNear({x:100,z:-3});assert(released>=3);assert(manager.diagnostics().residentMaps<=6);
  manager.dispose();assert.equal(released,loads,'each owned native bitmap is disposed once');
 });
 
@@ -110,7 +138,7 @@ test('leaving the exhibition aborts pending native downloads and late completion
  const resolvers=[];let released=0,wakes=0;
  const manager=makeShowroomSurfaces({onReady:()=>wakes++,loadTexture:(_url,options)=>new Promise(resolve=>resolvers.push({resolve,signal:options.signal}))});
  manager.createFloorPatch({bounds:{minX:-2,maxX:2,minZ:-4,maxZ:0},recipeId:'yosemite-honey'});const task=manager.prepareNear({x:0,z:-2});manager.dispose();assert(resolvers.every(r=>r.signal.aborted));
- for(const pending of resolvers){const texture=new T.Texture();texture.addEventListener('dispose',()=>released++);pending.resolve(texture);}await task;assert.equal(released,4);assert.equal(wakes,0);assert.equal(manager.diagnostics().residentMaps,0);
+ for(const pending of resolvers){const texture=new T.Texture();texture.addEventListener('dispose',()=>released++);pending.resolve(texture);}await task;assert.equal(released,2);assert.equal(wakes,0);assert.equal(manager.diagnostics().residentMaps,0);
 });
 
 test('a transient complete download failure is retried after leaving and returning to that exhibition area',async()=>{
@@ -118,4 +146,21 @@ test('a transient complete download failure is retried after leaving and returni
  const manager=makeShowroomSurfaces({loadTexture:async()=>{requests++;if(fail)throw Error('temporary connection failure');return new T.Texture({width:1400,height:700});}});
  manager.createWall({width:4,height:2.3,recipeId:'creta-ginepro'});await manager.prepareNear({x:0,z:-2});assert.equal(requests,1);assert.equal(manager.diagnostics().residentMaps,0);
  await manager.prepareNear({x:0,z:-2});assert.equal(requests,1,'holding the view must not storm the network');await manager.prepareNear({x:100,z:-2});fail=false;await manager.prepareNear({x:0,z:-2});assert.equal(requests,2);assert.equal(manager.diagnostics().residentMaps,1);manager.dispose();
+});
+
+test('nested rotated islands load in hall coordinates, evict at the real distance and retry a late failure on return',async()=>{
+ const world=new T.Group(),hall=new T.Group(),island=new T.Group();world.position.set(130,0,-80);world.rotation.y=.6;hall.position.set(-7,0,12);hall.rotation.y=-.4;world.add(hall);island.position.set(60,0,-5);island.rotation.y=Math.PI/2;hall.add(island);
+ let requests=0,releases=0,wakes=0,finish;const manager=makeShowroomSurfaces({coordinateRoot:hall,onReady:()=>wakes++,loadTexture:()=>{requests++;return new Promise((resolve,reject)=>{finish={resolve,reject};});}}),wall=manager.createWall({width:4,height:2.3,recipeId:'creta-ginepro',position:[0,0,-3]});island.add(wall);
+ try{
+  await manager.prepareNear({x:0,z:-3});assert.equal(requests,0,'the untransformed local origin must not load a distant island');
+  const task=manager.prepareNear({x:57,z:-5});assert.equal(requests,1,'the actual rotated island is near in hall coordinates');finish.reject(Error('late native download failure'));await task;assert.equal(manager.diagnostics().residentMaps,0);assert.equal(wakes,0);
+  await manager.prepareNear({x:57,z:-5});assert.equal(requests,1,'a held view cannot retry every frame');await manager.prepareNear({x:0,z:-3});const retry=manager.prepareNear({x:57,z:-5});assert.equal(requests,2);
+  const texture=new T.Texture({width:1400,height:700});texture.addEventListener('dispose',()=>releases++);finish.resolve(texture);await retry;assert.equal(manager.diagnostics().residentMaps,1);assert.equal(wakes,1);
+  await manager.prepareNear({x:0,z:-3});assert.equal(manager.diagnostics().residentMaps,0);assert.equal(releases,1,'walking away from the real transformed zone releases its GPU map');
+ }finally{manager.dispose();}
+});
+
+test('an independent surface manager measures a nested patch in world coordinates without a coordinate root',async()=>{
+ let requests=0;const parent=new T.Group();parent.position.set(-50,0,20);parent.rotation.y=Math.PI/2;const manager=makeShowroomSurfaces({loadTexture:async()=>{requests++;return new T.Texture({width:1400,height:700});}}),wall=manager.createWall({width:4,height:2.3,recipeId:'creta-ginepro',position:[0,0,-4]});parent.add(wall);
+ try{await manager.prepareNear({x:0,z:-4});assert.equal(requests,0);await manager.prepareNear({x:-54,z:20});assert.equal(requests,1);assert.equal(manager.diagnostics().residentMaps,1);}finally{manager.dispose();}
 });
