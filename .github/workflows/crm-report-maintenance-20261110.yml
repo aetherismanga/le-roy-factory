@@ -1,0 +1,33 @@
+name: CRM report separation maintenance
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/crm-report-maintenance-20261110.yml'
+      - 'scripts/crm-report-maintenance.mjs'
+      - 'scripts/crm-report-split-plan.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: crm-report-separation-20261110
+  cancel-in-progress: false
+jobs:
+  maintenance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install existing CRM server dependencies
+        working-directory: functions
+        run: npm ci --omit=dev --ignore-scripts
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
+      - name: Inspect multi-factory reports privately
+        run: node scripts/crm-report-maintenance.mjs
