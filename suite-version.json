@@ -634,5 +634,16 @@
     "animaAppSha256": "a4f0b1528a00925acbe56f02e30630772a3f4a24278ec7a5dbc7ee102721c155",
     "animaReleaseId": "20261107-neobath-anima-studio-one-visual-choices-23",
     "nativeFieldIdentityPreserved": true
+  },
+  "crm": {
+    "reportExport": {
+      "releaseId": "20261110-export1",
+      "page": "comptes-rendus.html",
+      "factoryFilter": true,
+      "inclusiveDateRange": true,
+      "clientSummaryPDF": true,
+      "printPDF": true,
+      "emailPDFAttachment": true
+    }
   }
 }

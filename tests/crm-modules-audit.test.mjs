@@ -154,7 +154,7 @@ test('missing report mail recipients are rejected before storing a visit',async(
 function reportSubmitHarness({editing=null,target='A',data=new Map(),failRead=''}) {
   const html=readFileSync(new URL('../comptes-rendus.html',import.meta.url),'utf8');
   const start=html.indexOf('      form.addEventListener("submit",async e=>{');
-  const end=html.indexOf('      [searchInput,filterDate]',start);
+  const end=html.indexOf('      [searchInput,filterDate,filterEnd]',start);
   assert.ok(start>=0&&end>start,'active report form submit handler found');
   const writes=[],alerts=[];
   const button=element();

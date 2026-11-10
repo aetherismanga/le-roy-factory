@@ -17,9 +17,23 @@
     .crm-topbar h1,.crm-topbar p,.welcome-box h1,.welcome-box p{color:#fff!important;text-shadow:0 1px 4px rgba(0,0,0,.9)}
     .crm-toolbar{align-items:stretch!important;flex-wrap:wrap!important;gap:.8rem!important}
     .search-wrapper{flex:1 1 270px!important}.search-box{width:100%;box-sizing:border-box}.search-box input{width:100%}
-    .cr-filter-grid{display:grid;grid-template-columns:repeat(4,minmax(145px,1fr));gap:.65rem;flex:2 1 600px}
+    .cr-filter-grid{display:grid;grid-template-columns:repeat(3,minmax(145px,1fr));gap:.65rem;flex:2 1 600px}
     .cr-filter-grid .crm-select{width:100%;min-width:0}
     .cr-reset-btn{white-space:nowrap}
+    .cr-filter-grid label{display:flex;flex-direction:column;gap:.3rem;font-size:.8rem;font-weight:700}
+    .cr-export-bar{margin:0 0 1rem;padding:1rem;background:#fff;border:1px solid #e2d6b1;border-radius:12px;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+    .cr-export-bar p{margin:.35rem 0;color:#667085;font-size:.84rem}
+    .cr-export-bar button{margin-left:auto}
+    #cr-export-feedback{color:#9d2525;font-size:.85rem}
+    #cr-export-dialog{width:min(690px,calc(100% - 2rem));box-sizing:border-box;max-height:90dvh;overflow:auto;border:1px solid #e2d6b1;border-radius:14px;padding:1.4rem;color:#1A2530;background:#FBF9F5}
+    #cr-export-dialog::backdrop{background:rgba(0,0,0,.55)}
+    #cr-export-dialog h2{margin:0 0 .7rem}#cr-export-dialog label{display:block;font-weight:700;margin:.8rem 0 .3rem}
+    #cr-export-dialog input,#cr-export-dialog textarea{width:100%;box-sizing:border-box;padding:.7rem;font:inherit;border:1px solid #c9c6be;border-radius:7px;background:white}
+    #cr-export-clients{max-height:130px;overflow:auto;padding-left:1.3rem;font-size:.88rem}
+    .cr-export-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+    #cr-export-status{white-space:pre-wrap;font-size:.9rem}#cr-export-filename{overflow-wrap:anywhere;font-size:.8rem}
+    @media(max-width:900px){.cr-export-bar{margin:0 1rem 1rem}.cr-export-bar button{width:100%;margin:0;justify-content:center}}
+
     .cr-results-info{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin:0 0 1rem;padding:.65rem .85rem;border-radius:9px;background:#fff;border:1px solid rgba(0,0,0,.07);font-size:.83rem;color:#667085}
     .cr-card{position:relative;background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.08);border-left:4px solid #D4AF37;box-shadow:0 4px 15px rgba(0,0,0,.03);padding:1.35rem;margin-bottom:1rem;transition:.2s ease;cursor:pointer}
     .cr-card:hover,.cr-card:focus-visible{box-shadow:0 8px 24px rgba(212,175,55,.17);transform:translateY(-2px);outline:none;border-color:rgba(212,175,55,.45)}
@@ -75,14 +89,19 @@
       <button id="btn-open-cr-modal" class="btn-primary-gold">➕ Rédiger un compte-rendu</button>
       <div class="search-wrapper"><div class="search-box"><span>🔍</span><input type="text" id="cr-search-input" placeholder="Rechercher un client, une ville, un mot-clé..."></div></div>
       <div class="cr-filter-grid" id="cr-filter-grid">
-        <select id="cr-filter-usine" class="crm-select"><option value="">🏭 Toutes les usines</option></select>
+        <select id="cr-filter-usine" class="crm-select" aria-label="Usine"><option value="">🏭 Toutes les usines</option></select>
         <select id="cr-filter-agent" class="crm-select"><option value="">👤 Tous les agents</option><option value="Jérôme">Jérôme</option><option value="Coryne">Coryne</option></select>
-        <input type="date" id="cr-filter-date" class="crm-select" title="Filtrer par date">
+        <label for="cr-filter-date">Du<input type="date" id="cr-filter-date" class="crm-select"></label>
+        <label for="cr-filter-end">Au (inclus)<input type="date" id="cr-filter-end" class="crm-select"></label>
         <select id="cr-sort" class="crm-select"><option value="date-desc">📅 Plus récents</option><option value="date-asc">📅 Plus anciens</option><option value="usine-asc">🏭 Usine A → Z</option><option value="client-asc">🏢 Client A → Z</option></select>
       </div>
       <button id="cr-reset-filters" class="filter-btn cr-reset-btn" type="button">↺ Réinitialiser</button>
     </div>
 
+    <section class="cr-export-bar" aria-label="Export des comptes rendus">
+      <div><strong>Récapitulatif par usine</strong><p>Choisissez l’usine et les dates, puis préparez le PDF des résultats affichés. Les comptes rendus multi-usines sont inclus en entier.</p><span id="cr-export-feedback" role="status"></span></div>
+      <button id="cr-export-open" type="button" class="btn-primary-gold" disabled>Préparer le PDF / envoyer</button>
+    </section>
     <div class="cr-results-info"><span id="cr-results-count">Chargement…</span><span>💡 Touchez un compte-rendu pour le modifier</span></div>
     <div id="cr-feed-container"><div style="background:#FFF;padding:2rem;text-align:center;border-radius:8px;color:#666;border:1px solid rgba(0,0,0,.08)">Chargement des comptes-rendus...</div></div>
   </main>
@@ -104,21 +123,40 @@
     </div>
   </div>
 
+  <dialog id="cr-export-dialog" aria-labelledby="cr-export-title">
+    <div style="display:flex;justify-content:space-between;gap:1rem"><h2 id="cr-export-title">Exporter les comptes rendus</h2><button type="button" id="cr-export-close" class="filter-btn" aria-label="Fermer">✕</button></div>
+    <p id="cr-export-summary"></p><ul id="cr-export-clients"></ul>
+    <p id="cr-export-filename"></p>
+    <div class="cr-export-actions"><button type="button" id="cr-export-preview" class="filter-btn">Voir le PDF</button><button type="button" id="cr-export-download" class="filter-btn">Télécharger le PDF</button><button type="button" id="cr-export-print" class="filter-btn">Imprimer</button></div>
+    <form id="cr-export-mail">
+      <h3>Envoyer par e-mail</h3><p>Expéditeur : <strong id="cr-export-sender"></strong></p>
+      <label for="cr-export-recipient">Destinataire</label><input type="email" id="cr-export-recipient" required placeholder="contact@usine.fr">
+      <label for="cr-export-subject">Objet</label><input id="cr-export-subject" required maxlength="250">
+      <label for="cr-export-message">Message</label><textarea id="cr-export-message" rows="6" required></textarea>
+      <p>Le PDF ci-dessus sera joint à votre message.</p>
+      <button type="submit" id="cr-export-send" class="btn-primary-gold">Envoyer avec le PDF joint</button>
+    </form>
+    <p id="cr-export-status" role="status" aria-live="polite"></p>
+  </dialog>
+  <script defer src="assets/vendor/studio-one/jspdf.umd.min.js"></script>
   <script type="module">
-    import { db } from "./assets/js/firebase.js";
+    import { db, auth, getAgentProfile } from "./assets/js/firebase.js";
     import { collection, doc, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     import { localDate, reportField, reportFingerprint, unchangedReportIndex } from "./assets/js/crm-report-core.mjs?v=20261105-audit1";
     import { reportPartnerLabel, reportPartnerChoices, reportMatchesPartner, withReportPartners } from "./assets/js/crm-report-partners.mjs?v=20261108-partners1";
+
+    import { reportInPeriod } from "./assets/js/crm-report-export-core.mjs?v=20261110-export1";
+    import { initReportExport } from "./assets/js/crm-report-export.mjs?v=20261110-export1";
 
     document.addEventListener("DOMContentLoaded",()=>{
       if(!localStorage.getItem("agentLoggedIn")){location.href="agent.html";return;}
 
       const $=id=>document.getElementById(id);
       const modal=$("cr-modal"),form=$("form-new-cr"),clientSelect=$("cr-select-client"),dateInput=$("cr-input-date"),authorSelect=$("cr-select-author"),usineInput=$("cr-input-usine"),textInput=$("cr-input-text");
-      const searchInput=$("cr-search-input"),filterAgent=$("cr-filter-agent"),filterUsine=$("cr-filter-usine"),filterDate=$("cr-filter-date"),sortSelect=$("cr-sort"),feed=$("cr-feed-container");
+      const searchInput=$("cr-search-input"),filterAgent=$("cr-filter-agent"),filterUsine=$("cr-filter-usine"),filterDate=$("cr-filter-date"),filterEnd=$("cr-filter-end"),sortSelect=$("cr-sort"),feed=$("cr-feed-container");
       const currentAgent=localStorage.getItem("agentName")||"Jérôme Hugol";
-      let globalCRs=[],allCRs=[],editing=null,clientCache=new Map(),crSnapshotVersion=0,saving=false;
+      let globalCRs=[],allCRs=[],editing=null,clientCache=new Map(),crSnapshotVersion=0,saving=false,clientsReady=false,globalReady=false,loadFailed=false;
 
       const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
       const today=()=>localDate();
@@ -127,6 +165,8 @@
       $("logout-btn")?.addEventListener("click",()=>{localStorage.removeItem("agentLoggedIn");location.href="agent.html"});
 
       const detectUsine=reportPartnerLabel;
+      const getFilters=()=>({usine:filterUsine.value,start:filterDate.value,end:filterEnd.value,agent:filterAgent.value,search:searchInput.value.trim()});
+      initReportExport({getRows:filteredSorted,getFilters,auth,getAgentProfile});
 
       function parseCrDate(value){
         const raw=String(value||"").trim();
@@ -176,13 +216,17 @@
       const norm=v=>String(v||"").toLocaleLowerCase("fr").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
       function filteredSorted(){
         const q=norm(searchInput.value.trim()),agent=norm(filterAgent.value),usine=norm(filterUsine.value),date=filterDate.value;
-        const arr=allCRs.concat(globalCRs).filter(cr=>(!agent||norm(cr.author).includes(agent))&&reportMatchesPartner(cr,usine)&&(!date||isoDate(cr.date)===date)&&(!q||[cr.societe,cr.ville,cr.code_postal,cr.text,cr.usine,cr.author].some(v=>norm(v).includes(q))));
+        const arr=allCRs.concat(globalCRs).filter(cr=>(!agent||norm(cr.author).includes(agent))&&reportMatchesPartner(cr,usine)&&reportInPeriod(cr,date,filterEnd.value)&&(!q||[cr.societe,cr.ville,cr.code_postal,cr.text,cr.usine,cr.author].some(v=>norm(v).includes(q))));
         const mode=sortSelect.value;
         arr.sort((a,b)=>mode==="date-asc"?compareOld(a,b):mode==="usine-asc"?(a.usine||"zzz").localeCompare(b.usine||"zzz","fr",{sensitivity:"base"})||compareRecent(a,b):mode==="client-asc"?(a.societe||"").localeCompare(b.societe||"","fr",{sensitivity:"base"})||compareRecent(a,b):compareRecent(a,b));
         return arr;
       }
       function render(){
-        const rows=filteredSorted();$("cr-results-count").textContent=`${rows.length} compte${rows.length>1?"s":""}-rendu${rows.length>1?"s":""} trouvé${rows.length>1?"s":""}`;
+        const invalid=Boolean(filterDate.value&&filterEnd.value&&filterDate.value>filterEnd.value);
+        filterEnd.min=filterDate.value;
+        $("cr-export-feedback").textContent=invalid?"La date de fin doit être postérieure ou égale à la date de début.":loadFailed?"Chargement incomplet. Actualisez la page avant d’exporter.":"";
+        const rows=filteredSorted();
+        $("cr-export-open").disabled=invalid||loadFailed||!clientsReady||!globalReady||!rows.length;$("cr-results-count").textContent=`${rows.length} compte${rows.length>1?"s":""}-rendu${rows.length>1?"s":""} trouvé${rows.length>1?"s":""}`;
         if(!rows.length){feed.innerHTML='<div style="background:#FFF;padding:3rem;text-align:center;border-radius:8px;color:#666;border:1px solid rgba(0,0,0,.08)">Aucun compte-rendu ne correspond à vos critères.<br><small>Essayez de réinitialiser les filtres.</small></div>';return}
         feed.innerHTML="";
         rows.forEach(cr=>{
@@ -215,13 +259,13 @@
         }
         if(version!==crSnapshotVersion)return;
         const selected=clientSelect.value;allCRs=nextCRs;clientCache=nextClients;clientSelect.replaceChildren(nextOptions);if(nextClients.has(selected)||(editing?.globalId&&selected==="__global__"))clientSelect.value=selected;
-        refreshUsineChoices();render();
-      },err=>{console.error(err);feed.innerHTML='<div style="background:#fff;padding:2rem;border-radius:8px">Impossible de charger les comptes-rendus.</div>'});
+        clientsReady=true;refreshUsineChoices();render();
+      },err=>{loadFailed=true;render();console.error(err);feed.innerHTML='<div style="background:#fff;padding:2rem;border-radius:8px">Impossible de charger les comptes-rendus.</div>'});
 
       onSnapshot(collection(db,"comptes_rendus"),snap=>{
         globalCRs=snap.docs.map(ds=>{const raw=ds.data();return {globalId:ds.id,societe:raw.societe||"Tous les clients",author:raw.author||"Agent",date:raw.date||"",text:raw.text||"",usine:detectUsine(raw),createdAt:raw.createdAt||"",crIndex:0,raw};});
-        refreshUsineChoices();render();
-      },err=>{console.error("Chargement des comptes-rendus globaux",err);});
+        globalReady=true;refreshUsineChoices();render();
+      },err=>{loadFailed=true;render();console.error("Chargement des comptes-rendus globaux",err);});
 
       form.addEventListener("submit",async e=>{
         e.preventDefault();if(saving)return;
@@ -270,8 +314,8 @@
         finally{saving=false;btn.disabled=false;btn.textContent=editing?"✓ Enregistrer les modifications":"✓ Enregistrer"}
       });
 
-      [searchInput,filterDate].forEach(el=>el.addEventListener("input",render));[filterAgent,filterUsine,sortSelect].forEach(el=>el.addEventListener("change",render));
-      $("cr-reset-filters").addEventListener("click",()=>{searchInput.value="";filterAgent.value="";filterUsine.value="";filterDate.value="";sortSelect.value="date-desc";render();searchInput.focus()});
+      [searchInput,filterDate,filterEnd].forEach(el=>el.addEventListener("input",render));[filterAgent,filterUsine,sortSelect].forEach(el=>el.addEventListener("change",render));
+      $("cr-reset-filters").addEventListener("click",()=>{searchInput.value="";filterAgent.value="";filterUsine.value="";filterDate.value="";filterEnd.value="";sortSelect.value="date-desc";render();searchInput.focus()});
       resetForm();
       if(new URLSearchParams(location.search).get("new")==="1")openNew();
     });

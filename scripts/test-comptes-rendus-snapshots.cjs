@@ -17,6 +17,7 @@ test('a slower previous Firestore snapshot cannot duplicate or replace the curre
   const context = vm.createContext({
     document: { createElement: element, createDocumentFragment: element }, clientSelect,
     reportField, reportFingerprint,
+    clientsReady:false,
     villeFromCP: () => delayedCity, detectUsine: () => 'RANDAL', refreshUsineChoices() {},
     render: () => renders.push(context.inspect().reports.map(item => item.clientId))
   });
@@ -36,6 +37,7 @@ test('a slower previous Firestore snapshot cannot duplicate or replace the curre
 });
 
 test('the global campaign appears once in search and renders without a fictitious client link', async () => {
+  const { reportInPeriod } = await import('../assets/js/crm-report-export-core.mjs');
   const {reportMatchesPartner} = await import('../assets/js/crm-report-partners.mjs');
   const html = fs.readFileSync(path.join(__dirname, '../comptes-rendus.html'), 'utf8');
   const filterBody = html.match(/function filteredSorted\(\)\{([\s\S]*?)\n      \}\n      function render/)[1];
@@ -43,9 +45,9 @@ test('the global campaign appears once in search and renders without a fictitiou
   const global = { globalId: 'campaign', societe: 'Tous les clients', text: 'Envoi d’un mail groupé concernant RANDAL Studio One.', date: '2026-11-02', author: 'Jérôme Hugol', usine: 'RANDAL' };
   const cards = [], counter = {};
   const context = vm.createContext({
-    reportMatchesPartner,
+    reportMatchesPartner,reportInPeriod,clientsReady:true,globalReady:true,loadFailed:false,
     allCRs: [{ clientId: 'real-client', text: 'Visite commerciale', date: '2026-11-02' }], globalCRs: [global],
-    searchInput: { value: 'Studio One' }, filterAgent: { value: '' }, filterUsine: { value: '' }, filterDate: { value: '2026-11-02' }, sortSelect: { value: 'date-desc' },
+    searchInput: { value: 'Studio One' }, filterAgent: { value: '' }, filterUsine: { value: '' }, filterDate: { value: '2026-11-02' }, filterEnd: {value:'2026-11-02'}, sortSelect: { value: 'date-desc' },
     norm: v => String(v || '').toLowerCase(), isoDate: v => v, compareRecent: () => 0, compareOld: () => 0,
     $: () => counter, feed: { innerHTML: '', appendChild: card => cards.push(card) },
     formatCrDate: v => v, esc: v => String(v || ''), openEdit() {},
