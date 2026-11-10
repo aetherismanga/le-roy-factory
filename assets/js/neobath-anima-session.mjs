@@ -13,7 +13,7 @@ export function createAnimaSession({request, mount, unmount, status}) {
   }
   return async function refresh(user, {force = false} = {}) {
     const current = ++generation;
-    const identity = isAnimaAgent(user) ? user.uid + ':' + user.email.toLowerCase() : '';
+    const identity = isAnimaAgent(user) ? user.uid + ':' + user.email.toLowerCase() : user?.clientSessionToken ? user.uid+':client' : '';
     if (force || !identity || (mountedIdentity && mountedIdentity !== identity)) close();
     if (!identity) {status('Connectez-vous avec votre compte agent pour accéder à cet atelier privé.'); return;}
     status(mountedIdentity ? '' : 'Ouverture de votre atelier privé…');

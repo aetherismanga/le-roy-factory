@@ -39,7 +39,7 @@ function createStudioApplicationLoader({readAsset}) {
   };
 }
 
-function createNeobathAnimaHandler({getAgent, loadApplication, projectStore, releaseId}) {
+function createNeobathAnimaHandler({getAgent, getClient=async()=>null, quoteClient, publicCatalogue, loadApplication, projectStore, releaseId}) {
   return async (req, res) => {
     const origin = String(req.headers?.origin || '');
     res.set('Cache-Control', 'private, no-store, max-age=0');
@@ -55,13 +55,17 @@ function createNeobathAnimaHandler({getAgent, loadApplication, projectStore, rel
     try {
       // getAgent verifies the Firebase token with revocation checking. Neither
       // PRO sessions nor client-supplied roles/email addresses grant access.
-      const agent = await getAgent(req);
-      if (!agent) return res.status(401).json({success: false, error: 'Connectez-vous à votre espace agent.'});
-      if (!AGENTS.has(agent.email)) return res.status(403).json({success: false, error: 'Atelier réservé à Jérôme et Coryne.'});
-      if (Buffer.byteLength(JSON.stringify(req.body || {}), 'utf8') > 1048576) return res.status(413).json({success: false, error: 'Le projet dépasse la taille autorisée.'});
       const action = req.body?.action || 'application';
+      if(action === 'catalogue' && publicCatalogue)return res.json({success:true,...await publicCatalogue()});
+      const agent = await getAgent(req);
+      const client = agent ? null : await getClient(req);
+      if (!agent && !client) return res.status(401).json({success: false, error: 'Connectez-vous à votre espace agent.'});
+      if (agent && !AGENTS.has(agent.email)) return res.status(403).json({success: false, error: 'Atelier réservé à Jérôme et Coryne.'});
+      if (Buffer.byteLength(JSON.stringify(req.body || {}), 'utf8') > 1048576) return res.status(413).json({success: false, error: 'Le projet dépasse la taille autorisée.'});
+      if (action === 'quote' && client && quoteClient)return res.json({success:true,...await quoteClient(req.body,client)});
       if (action === 'authorize') return res.json({success: true});
       if (PROJECT_ACTIONS.has(action)) {
+        if(!agent)return res.status(403).json({success:false,error:'Les projets de l’équipe sont réservés aux agents. Votre projet reste sur cet appareil.'});
         if (!projectStore || typeof projectStore[action] !== 'function') throw Error('Project store unavailable');
         try {
           return res.json(await projectStore[action](req.body, agent));
@@ -75,7 +79,7 @@ function createNeobathAnimaHandler({getAgent, loadApplication, projectStore, rel
       const view = req.body?.view || 'home';
       if (!['home', 'atelier'].includes(view)) return res.status(400).json({success: false, error: 'Vue Anima inconnue.'});
       const application = await loadApplication(view);
-      return res.json({success: true, html: application.html, css: application.css, module: application.module, catalogue: application.catalogue, visuals: application.visuals || {}, view, engine: 'studio-one', assetBase: 'https://studio-one-beta-test-v2.vercel.app/', release: application.release || null, identity: {uid: agent.uid, email: agent.email}});
+      return res.json({success: true, html: application.html, css: application.css, module: application.module, catalogue: application.catalogue, visuals: application.visuals || {}, view, engine: 'studio-one', assetBase: 'https://studio-one-beta-test-v2.vercel.app/', release: application.release || null, identity: agent ? {uid: agent.uid, email: agent.email} : {uid:'client-'+client.id,client:{id:client.id,codeClient:client.codeClient,societe:client.societe||'',email:client.email||''},neobathAllowed:true}});
     } catch (_) {
       return res.status(503).json({success: false, error: 'Atelier momentanément indisponible. Réessayez dans un instant.'});
     }

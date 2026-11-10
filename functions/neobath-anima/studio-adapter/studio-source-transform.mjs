@@ -30,7 +30,7 @@ const __animaHistory={state:null,replaceState(state,_title,url){this.state=state
 `;
 
 export function transformCommonStudioSource(input,relativePath){
- let source=input.replace(/(['"])studio-one(?=[-'"])/g,'$1neobath-anima-studio').replaceAll('STUDIO ONE','NEOBATH ANIMA').replaceAll('RANDAL','NEOBATH').replaceAll("'ROBLE'","'rovere-alba'").replaceAll('https://leroyfactory.fr/configurateurs-randal.html','https://leroyfactory.fr/configurateurs.html');
+ let source=input.replaceAll(' TTC','').replace(/(['"])studio-one(?=[-'"])/g,'$1neobath-anima-studio').replaceAll('STUDIO ONE','NEOBATH ANIMA').replaceAll('RANDAL','NEOBATH').replaceAll("'ROBLE'","'rovere-alba'").replaceAll('https://leroyfactory.fr/configurateurs-randal.html','https://leroyfactory.fr/configurateurs.html');
  if(relativePath==='composition.js'){
   const start='validate(item,p=item.placement,d=item.dimensions,items=this.items,room=this.room){';
   if(!source.includes(start))throw Error('Anima wall mixer lock guard contract changed.');
@@ -42,7 +42,7 @@ export function transformCommonStudioSource(input,relativePath){
  }
  if(relativePath==='commerce/live-preview.js'){
   source=source.replace("'assets/'+(definition.textureVariants?.[profile]||definition.texture)","__animaAsset(definition.textureVariants?.[profile]||definition.texture)")
-   .replace(')).then(t=>{t.colorSpace=T.SRGBColorSpace;',')).then(async t=>{t.colorSpace=T.SRGBColorSpace;')
+   .replace(')).then(t=>{',')).then(async t=>{')
    .replace('const front=t.clone();','const front=definition.frontTexture?await new T.TextureLoader().loadAsync(__animaAsset(definition.frontTexture)):t.clone();front.colorSpace=T.SRGBColorSpace;front.wrapS=front.wrapT=T.RepeatWrapping;')
    .replaceAll("[item.asset.frontWood,item.type==='cabinet']","[item.asset.frontWood,['cabinet','column'].includes(item.type)]");source=assetPrelude+source;
  }
@@ -176,7 +176,7 @@ export function transformSharedStudioSource(input,path){
 
 export function studioBody(source,formats=[]){
  const body=source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1];if(body===undefined)throw Error('Studio One template body not found.');
- let html=body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'')
+ let html=body.replaceAll(' TTC','').replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'')
   .replace(/<img\b[^>]*class="randal-partner-logo"[^>]*>\s*<svg\b[^>]*class="studio-logo"[\s\S]*?<\/svg>/gi,'<span class="anima-maker">NEOBATH</span><span class="anima-collection">ANIMA</span>')
   .replaceAll('STUDIO ONE','NEOBATH ANIMA').replaceAll('Studio One','Anima').replaceAll('RANDAL','NEOBATH').replaceAll('configurateurs-randal.html','configurateurs.html');
  html=html.replaceAll('NEOBATH NEOBATH ANIMA','NEOBATH ANIMA').replace('<span class="loading-mark">s<span>o</span></span>','<span class="loading-mark">n<span>a</span></span>');

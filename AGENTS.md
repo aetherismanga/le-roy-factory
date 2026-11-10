@@ -69,6 +69,9 @@ dans `studio-adapter/materials-data.js` et `assets/data/neobath-anima-materials.
 
 Les sorties privées sont dans `functions/neobath-anima/studio-dist/`. Les deux
 bundles JavaScript sont conservés en gzip déterministe, décompressés et vérifiés
-par SHA-256 côté serveur. Ne jamais publier ce dossier sur Pages. L’API ne livre
-l’application et les projets partagés qu’aux identités Firebase vérifiées de
-Jérôme et Coryne. Les anciens projets restent conservés dans leur espace historique.
+par SHA-256 côté serveur. Ne jamais publier ce dossier sur Pages. L’API livre l’application aux identités Firebase vérifiées de Jérôme et Coryne
+ainsi qu’aux clients dont la session LRF et le partenaire Neobath sont vérifiés
+côté serveur (demande de Jérôme du 10 novembre 2026). Les projets partagés de
+l’équipe restent strictement réservés à Jérôme et Coryne. Les clients conservent
+leurs projets dans un espace local distinct. Les références d’achat sont calculées
+uniquement côté serveur à partir du projet canonique et effacées lors d’une modification. Les anciens projets restent conservés dans leur espace historique.

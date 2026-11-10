@@ -1,5 +1,5 @@
-import {createAnimaSession, isAnimaAgent} from './neobath-anima-session.mjs?v=20261104-anima13';
-import {animaFrameDocument, animaRoute} from './neobath-anima-document.mjs?v=20261104-anima13';
+import {createAnimaSession, isAnimaAgent} from './neobath-anima-session.mjs?v=20261110-anima24';
+import {animaFrameDocument, animaRoute} from './neobath-anima-document.mjs?v=20261110-anima24';
 
 const API = 'https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication';
 const shell = document.getElementById('anima-private-shell');
@@ -14,7 +14,9 @@ let currentUser = null;
 let moduleURL = '';
 let currentFrame = null;
 let signOutAgent = null;
-const PROJECT_ACTIONS = new Set(['projects-list', 'projects-save', 'projects-delete', 'projects-email', 'projects-order']);
+const isAnimaUser=user=>isAnimaAgent(user)||!!user?.clientSessionToken;
+function clientUser(){try{const token=sessionStorage.getItem('lrfProSessionToken')||localStorage.getItem('lrfProRememberToken');return token?{uid:'lrf-client-'+token,clientSessionToken:token,getIdToken:async()=>''}:null;}catch{return null;}}
+const PROJECT_ACTIONS = new Set(['quote','projects-list', 'projects-save', 'projects-delete', 'projects-email', 'projects-order']);
 const selectedView = () => new URL(location.href).searchParams.get('studioView') === 'atelier' ? 'atelier' : 'home';
 
 function unmount() {
@@ -35,7 +37,7 @@ const refresh = createAnimaSession({
     const token = await user.getIdToken();
     const response = await fetch(API, {method: 'POST', cache: 'no-store', headers: {
       'Content-Type': 'application/json', Authorization: 'Bearer ' + token
-    }, body: JSON.stringify({action: 'application', view}), signal: AbortSignal.timeout(45000)});
+    }, body: JSON.stringify({action: 'application', view,...(user.clientSessionToken?{sessionToken:user.clientSessionToken}:{})}), signal: AbortSignal.timeout(45000)});
     let data;
     try {data = await response.json();} catch (_) {throw Error('Atelier momentanément indisponible. Réessayez dans un instant.');}
     if (!response.ok || !data.success) throw Error(data.error || 'Accès refusé. Reconnectez-vous à votre espace agent.');
@@ -62,7 +64,7 @@ const refresh = createAnimaSession({
 addEventListener('message', async event => {
   const frame = currentFrame;
   const user = currentUser;
-  if (!frame || event.source !== frame.contentWindow || event.origin !== location.origin || !isAnimaAgent(user)) return;
+  if (!frame || event.source !== frame.contentWindow || event.origin !== location.origin || !isAnimaUser(user)) return;
   const data = event.data;
   if (data?.type === 'anima-history') {
     try {
@@ -82,6 +84,7 @@ addEventListener('message', async event => {
   }
   if (data?.type === 'anima-logout') {
     unmount();
+    currentUser=null;
     try {await signOutAgent?.();} catch (_) {status.textContent = 'Déconnexion indisponible. Fermez cet onglet puis reconnectez-vous.';}
     return;
   }
@@ -90,7 +93,7 @@ addEventListener('message', async event => {
   if (typeof requestId !== 'string' || requestId.length > 100 || !PROJECT_ACTIONS.has(action)) return;
   let result;
   try {
-    const body = {...(payload && typeof payload === 'object' && !Array.isArray(payload) ? payload : {}), action};
+    const body = {...(payload && typeof payload === 'object' && !Array.isArray(payload) ? payload : {}), action,...(user.clientSessionToken?{sessionToken:user.clientSessionToken}:{})};
     const encoded = JSON.stringify(body);
     if (new TextEncoder().encode(encoded).length > 1048576) throw Error('Le projet dépasse la taille autorisée.');
     const token = await user.getIdToken();
@@ -104,15 +107,16 @@ addEventListener('message', async event => {
   } catch (error) {
     result = {type: 'anima-api-result', requestId, ok: false, error: error?.message || 'Connexion au serveur impossible.'};
   }
-  if (frame === currentFrame && currentUser?.uid === user.uid && isAnimaAgent(currentUser)) frame.contentWindow.postMessage(result, location.origin);
+  if (frame === currentFrame && currentUser?.uid === user.uid && isAnimaUser(currentUser)) frame.contentWindow.postMessage(result, location.origin);
 });
 
 document.getElementById('anima-access-retry').addEventListener('click', () => refresh(currentUser, {force: true}));
 addEventListener('popstate', () => {
-  if (isAnimaAgent(currentUser)) {try {currentFrame?.contentWindow.LRF_PROJECT_WORKSPACE?.flush?.();} catch (_) {}}
+  if (isAnimaUser(currentUser)) {try {currentFrame?.contentWindow.LRF_PROJECT_WORKSPACE?.flush?.();} catch (_) {}}
   refresh(currentUser, {force: true});
 });
 addEventListener('pageshow', event => {if (event.persisted) refresh(currentUser, {force: true});});
+const restoredClient=clientUser();if(restoredClient){currentUser=restoredClient;refresh(restoredClient);}
 try {
   const [appSDK, authSDK] = await Promise.all([
     import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js'),
@@ -120,8 +124,8 @@ try {
   ]);
   const app = appSDK.getApps().find(app => app.options.projectId === config.projectId) || appSDK.initializeApp(config);
   const auth = authSDK.getAuth(app);
-  signOutAgent = () => authSDK.signOut(auth);
-  authSDK.onIdTokenChanged(auth, user => {currentUser = user; refresh(user);});
+  signOutAgent = async () => {sessionStorage.removeItem('lrfProSessionToken');localStorage.removeItem('lrfProRememberToken');await authSDK.signOut(auth);};
+  authSDK.onIdTokenChanged(auth, user => {currentUser = isAnimaAgent(user)?user:clientUser(); refresh(currentUser);});
 } catch (_) {
   unmount();
   status.textContent = 'Connexion indisponible. Vérifiez votre connexion puis réessayez.';

@@ -3,7 +3,8 @@
 const ENDPOINT='https://gettariffpdf-5m3lsyu7bq-uc.a.run.app';
 const FIREBASE_CONFIG={apiKey:'AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',authDomain:'le-roy-factory.firebaseapp.com',projectId:'le-roy-factory',storageBucket:'le-roy-factory.firebasestorage.app',messagingSenderId:'249878619253',appId:'1:249878619253:web:05f051710b6251dbfa843c'};
 const ADMIN_EMAILS=new Set(['jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
-const MAX=81;
+const DNA=location.pathname.endsWith('neobath-dna-interactif.html');
+let MAX=81;
 const sections=[
  ['Présentation','Introduction',3],['Finitions Pura & Ribelle','Finitions',4],['Toutes les compositions','Présentation',5],
  ['Composition 01 · Ribelle','Compositions',6],['Composition 02 · Pura & Ribelle','Compositions',10],
@@ -56,7 +57,7 @@ async function getAdminBearer(){
 }
 async function fetchSecurePdf(){
  const s=getSession();
- const body={tariffId:'neobath-anima'},headers={'Content-Type':'application/json'};
+ const body={tariffId:DNA?'neobath-dna-pdf':'neobath-anima'},headers={'Content-Type':'application/json'};
  if(s&&/^LRF-\d{5}$/i.test(String(s.codeClient||''))&&s.departement){
   body.codeClient=String(s.codeClient).toUpperCase();
   body.departement=s.departement;
@@ -102,7 +103,7 @@ function updateUI(){
  $('zoom').textContent=Math.round(zoom*100)+' %';
  const section=sectionAt(page);
  $('section-title').textContent=section?section.name:'Couverture ANIMA';
- $('caption').textContent='NEOBATH ANIMA · Page '+page+' sur '+MAX;
+ $('caption').textContent='NEOBATH '+(DNA?'DNA':'ANIMA')+' · Page '+page+' sur '+MAX;
  for(const item of document.querySelectorAll('[data-goto]')){
   const active=!!section&&Number(item.dataset.goto)===section.page;
   item.classList.toggle('active',active);
@@ -149,15 +150,16 @@ async function render(){
  }finally{if(id===ticket)frame.setAttribute('aria-busy','false');}
 }
 async function loadPdf(){
- setStatus('Ouverture du tarif ANIMA avec votre autorisation professionnelle…');
+ setStatus('Ouverture du catalogue '+(DNA?'DNA':'ANIMA')+' avec votre autorisation professionnelle…');
  try{
   sourceBlob=await fetchSecurePdf();
   blobUrl=URL.createObjectURL(sourceBlob);
-  const a=$('download');a.href=blobUrl;a.download='NEOBATH_ANIMA_2026.pdf';a.removeAttribute('aria-disabled');a.hidden=false;
+  const a=$('download');a.href=blobUrl;a.download=DNA?'NEOBATH_DNA_2026.pdf':'NEOBATH_ANIMA_2026.pdf';a.removeAttribute('aria-disabled');a.hidden=false;
   if(typeof window.pdfjsLib==='undefined'){await fallback();return;}
   pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
   const data=new Uint8Array(await sourceBlob.arrayBuffer());
   pdf=await pdfjsLib.getDocument({data,disableAutoFetch:true,isEvalSupported:false}).promise;
+  if(DNA){MAX=pdf.numPages;pageInput.max=String(MAX);sections.splice(0,sections.length,...Array.from({length:MAX},(_,i)=>({name:'DNA · Page '+(i+1),group:'Catalogue DNA',page:i+1})));buildIndex();page=clamp(page);updateUI();}
   if(pdf.numPages!==MAX){
    $('total').textContent='/ '+pdf.numPages;
    setStatus('Attention : le tarif sécurisé ne correspond pas aux 81 pages du catalogue ANIMA transmis. Veuillez vérifier la version du document.',true);

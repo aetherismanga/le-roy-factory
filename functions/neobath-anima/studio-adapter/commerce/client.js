@@ -2,6 +2,7 @@ import {animaIdentityState} from './identity.js';
 const mailOperations=new Map();
 export async function commercialRequest(){return animaIdentityState();}
 export async function projectRequest(action,payload={}) {
+  if(globalThis.NEOBATH_ANIMA_AGENT?.neobathAllowed===true){if(action==='list')return {projects:[],deletedIds:[]};throw Object.assign(Error('Votre projet est conservé sur cet appareil. Utilisez l’export pour le partager.'),{status:403});}
   if(typeof globalThis.animaAPI!=='function')throw Object.assign(Error('Synchronisation indisponible. Votre projet reste sur cet appareil.'),{status:503});
   const kind={list:'projects-list',save:'projects-save',delete:'projects-delete','local-email':'projects-email','local-administrator':'projects-email','local-order':'projects-order',email:'projects-email',administrator:'projects-email',order:'projects-order'}[action];
   if(!kind)throw Object.assign(Error('Action de projet Anima inconnue.'),{status:400});

@@ -3,7 +3,7 @@
 function once(source,needle,replacement){if(!source.includes(needle))throw Error('Studio One workspace contract changed: '+needle.slice(0,70));return source.replace(needle,replacement);}
 export function transformWorkspace(source){
   source=once(source,"const VARIANT='studio-one';","const VARIANT='neobath-anima';");
-  source=once(source,"const owner=()=>account?.client?.codeClient||account?.client?.email||'';","const owner=()=>account?.client?'neobath-anima-team':'';");
+  source=once(source,"const owner=()=>account?.client?.codeClient||account?.client?.email||'';","const owner=()=>account?.client?(account.isAdmin?'neobath-anima-team':account.client.codeClient):'';");
   source=once(source,"status('Projet enregistré sur cet appareil.');lock();return r;",`try {
     const snapshot=clone(r),result=await projectRequest('save',{record:snapshot}),server=result.record||result.project;
     if(!server)throw Error('Le serveur n’a pas confirmé la sauvegarde.');

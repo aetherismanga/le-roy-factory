@@ -55,6 +55,7 @@ writeFileSync(join(output,'accueil.css'),readFileSync(join(studio,'commerce/home
 writeFileSync(join(output,'atelier.css'),[readFileSync(join(root,'studio-one/dist/style.css'),'utf8'),readFileSync(join(studio,'commerce/atelier.css'),'utf8'),readFileSync(join(studio,'mobile.css'),'utf8'),brandCSS].join('\n'));
 writeFileSync(join(output,'catalogue.json'),readFileSync(join(root,'functions/neobath-anima/catalogue.json')));
 writeFileSync(join(output,'visuals.json'),readFileSync(join(root,'assets/data/neobath-anima-visuals.json')));
+await build({entryPoints:[join(adapter,'commerce/server.mjs')],bundle:true,platform:'node',format:'cjs',target:'node22',outfile:join(output,'commerce-server.cjs'),logLevel:'warning'});
 const assets={};for(const name of ['accueil.html','accueil.css','accueil.js','atelier.html','atelier.css','app.js','catalogue.json','visuals.json'])assets[name]=sha(readFileSync(join(output,name)));
 for(const name of ['accueil.js','app.js'])writeFileSync(join(output,name+'.gz'),gzipSync(readFileSync(join(output,name)),{level:9,mtime:0}));
 writeFileSync(join(output,'.gitignore'),'/app.js\n/accueil.js\n');
