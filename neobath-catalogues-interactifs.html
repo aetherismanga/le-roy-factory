@@ -1,3 +1,57 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Neobath · Catalogues interactifs | LE ROY FACTORY</title><link rel="icon" href="assets/img/logo03lrf.png"><style>
-*{box-sizing:border-box}body{margin:0;background:#f5f3ee;color:#282e2b;font:16px/1.5 system-ui,sans-serif}header{padding:16px 5%;background:#fff;display:flex;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:1px solid #ddd}header img{width:52px;height:52px}header a{color:inherit}main{max-width:1400px;margin:auto;padding:24px}h1{font:36px Georgia,serif}nav{display:flex;gap:12px;flex-wrap:wrap}nav a,button{display:inline-block;padding:12px 18px;border:1px solid #b9b6ab;border-radius:8px;background:#fff;color:inherit;text-decoration:none;cursor:pointer}nav .active{background:#334b43;color:white}.filters{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}.filters input,.filters select{padding:13px;border:1px solid #b9b6ab;border-radius:8px;font:inherit;max-width:100%}.filters input{flex:1;min-width:200px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}article{background:#fff;border:1px solid #dedbd2;border-radius:12px;padding:18px;overflow:hidden}article img{width:100%;height:190px;object-fit:contain}article h2{font:24px Georgia,serif;margin:12px 0 5px}article small{display:block;color:#68746e}ul{list-style:none;padding:0}li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid #eee}strong{white-space:nowrap}.notice{padding:14px 0;color:#5c665f}#status{padding:22px 0}footer{padding:24px;text-align:center;color:#68746e}
-</style></head><body><header><a href="index.html"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY"></a><b>NEOBATH · Catalogues interactifs</b><a href="univers.html?category=meubles&partner=neobath">← Sélection · Meubles</a></header><main><h1>ANIMA & DNA</h1><nav><a href="neobath-catalogues-interactifs.html" class="active">ANIMA · Meubles, plans et vasques</a><a href="neobath-dna-interactif.html">DNA · Catalogue à feuilleter</a><a href="neobath-anima-configurateur.html">Configurer ANIMA en 3D ↗</a></nav><p class="notice">Choisissez une famille ou recherchez une référence. Prix de vente, TVA de 20 % incluse. Les plans sur mesure se chiffrent selon leur longueur et leurs options.</p><div class="filters"><input id="search" type="search" placeholder="Référence, meuble, miroir, vasque…" aria-label="Rechercher"><select id="category" aria-label="Famille de produits"><option value="">Toutes les familles</option></select></div><p id="status" role="status">Chargement du catalogue ANIMA…</p><div class="grid" id="products"></div></main><footer>LE ROY FACTORY · NEOBATH ANIMA 2026</footer><script type="module" src="assets/js/neobath-catalogue-public.mjs?v=20261110-anima24"></script></body></html>
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5f4ee">
+  <title>ANIMA · Catalogue interactif Neobath | LE ROY FACTORY</title>
+  <meta name="description" content="Découvrez les meubles, plans, vasques et miroirs ANIMA. Sélection visuelle, recherche et navigation entre les références Neobath.">
+  <link rel="icon" href="assets/img/logo03lrf.png">
+  <link rel="stylesheet" href="assets/css/neobath-product-gallery.css?v=20261110-gallery2">
+</head>
+<body>
+  <header class="catalogue-header">
+    <a class="lrf-brand" href="index.html" aria-label="Accueil LE ROY FACTORY"><img src="assets/img/logo03lrf.png" width="44" height="44" alt="LE ROY FACTORY"></a>
+    <div class="header-title"><strong>NEOBATH</strong><span>Les collections</span></div>
+    <nav class="collection-tabs" aria-label="Collection"><a href="neobath-catalogues-interactifs.html" aria-current="page">ANIMA</a><a href="neobath-dna-interactif.html">DNA</a></nav>
+    <a class="back-link" href="univers.html?category=meubles&amp;partner=neobath">Retour à la sélection</a>
+  </header>
+  <main class="catalogue-main">
+    <section class="catalogue-intro" aria-labelledby="catalogue-title">
+      <div><span class="eyebrow">Collection 2026</span><h1 id="catalogue-title">À chacun son <em>Anima.</em></h1><p>Meubles, matières et détails. Touchez un visuel pour découvrir la référence et passer d’un modèle à l’autre.</p></div>
+      <div class="intro-actions"><a href="neobath-anima-configurateur.html" class="button primary">Composer en 3D <span aria-hidden="true">↗</span></a><a href="neobath-anima-interactif.html" class="document-link">Feuilleter ANIMA · document fabricant</a></div>
+    </section>
+    <div class="family-strip" id="families" aria-label="Choisir une famille avec son visuel" hidden></div>
+    <section class="catalogue-controls" aria-label="Rechercher et filtrer les produits">
+      <label class="search-field"><span aria-hidden="true">⌕</span><input id="search" type="search" autocomplete="off" placeholder="Une référence, un meuble, une vasque…" aria-label="Rechercher dans ANIMA"></label>
+      <label class="category-field"><span class="sr-only">Famille de produits</span><select id="category" aria-label="Famille de produits"><option value="">Toutes les familles</option></select></label>
+    </section>
+    <div class="catalogue-meta"><p id="status" role="status" aria-live="polite">Chargement du catalogue ANIMA…</p><p class="tax-note">Prix de vente · TVA de 20 % incluse</p></div>
+    <div class="product-grid" id="products" aria-label="Produits ANIMA"></div>
+    <p class="catalogue-note">Les plans sur mesure se chiffrent selon leur longueur et leurs options. Les références non chiffrées restent sur devis.</p>
+  </main>
+  <footer class="catalogue-footer"><span>NEOBATH · ANIMA 2026</span><a href="neobath-dna-interactif.html">Découvrir DNA <span aria-hidden="true">↗</span></a></footer>
+
+  <dialog class="product-dialog" id="product-dialog" aria-labelledby="detail-title">
+    <div class="detail-shell">
+      <header class="detail-header"><span>ANIMA <span class="detail-position" id="detail-position"></span></span><button type="button" class="icon-button" id="detail-close" aria-label="Fermer la fiche produit">×</button></header>
+      <div class="detail-body">
+        <div class="detail-stage" id="detail-stage" aria-label="Visuel du produit. Glissez à gauche ou à droite pour changer de référence.">
+          <div class="detail-image-wrap"><img id="detail-image" alt="" draggable="false"><span class="image-unavailable" hidden>Visuel à venir</span></div>
+          <button type="button" class="stage-arrow previous" id="detail-prev" aria-label="Produit précédent">‹</button>
+          <button type="button" class="stage-arrow next" id="detail-next" aria-label="Produit suivant">›</button>
+          <p class="gesture-hint">Glissez ou utilisez les flèches</p>
+        </div>
+        <section class="detail-info" aria-label="Référence et prix">
+          <p class="eyebrow" id="detail-family"></p><h2 id="detail-title"></h2><p class="detail-reference" id="detail-reference"></p><p class="detail-dimensions" id="detail-dimensions"></p>
+          <ul class="price-list" id="detail-prices"></ul>
+          <p class="detail-note">Prix de vente, TVA de 20 % incluse. Les options et dimensions sur mesure sont à confirmer avant commande.</p>
+        </section>
+      </div>
+      <nav class="detail-thumbnails" id="detail-thumbnails" aria-label="Choisir un produit avec son image"></nav>
+      <p class="detail-live sr-only" id="detail-live" role="status" aria-live="polite"></p>
+    </div>
+  </dialog>
+  <script type="module" src="assets/js/neobath-catalogue-public.mjs?v=20261110-gallery2"></script>
+</body>
+</html>

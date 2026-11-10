@@ -1,7 +1,7 @@
 {
   "schema": "lrf-suite-release",
   "version": 1,
-  "releaseId": "20261110-neobath-catalogues-acces-prix-1",
+  "releaseId": "20261110-neobath-readers-visual-2",
   "baselineMain": "8571318620b70a7d7c0c9a0580b1d65bdc32db5e",
   "baselineStudio": "4668cd99df55734a46fcd3bd330acb60da53d3f5",
   "applications": [
@@ -11,7 +11,7 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261110-neobath-catalogues-acces-prix-1",
+    "releaseId": "20261110-neobath-readers-visual-2",
     "baselineCommit": "0a116a66e4fb03522876be09d417f853bb3b2ed9",
     "pages": [
       "configurateur-salle-de-bain-3d.html",
