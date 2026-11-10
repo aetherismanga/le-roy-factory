@@ -3,6 +3,7 @@ import {drawerFrontAttachment,drawerFloorOutline} from '../../shared/lrf-3d/draw
 import {resolveBasinLayout,basinReference} from './basins.js';
 import {basinCenters} from './integrated-basins.js';
 import {createIntegratedBasin} from './ceramic-basins.js';
+import {createLessBasin,LESS_BASIN} from './less-basin.js';
 import {panelThickness,joineryLayout} from './general-specs.js';
 import {adaptGeneralModel} from './general-details.js';
 import * as T from 'three';
@@ -93,6 +94,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
   screw(cabinet,s*(W/2-.058),topY-.044,-.183);
  }
  const insets={};for(const kind of ['sella','tampa'])insets[kind]=createIntegratedBasin({parent:root,W,kind,layout:resolveBasinLayout(kind,widthCm,format,basinLayout)||chosenLayout,ceramic,chrome,dark,roundedRect,mesh,box});
+ if(form.collection==='less')insets.compact=createLessBasin({parent:root,W,depth:form.depth,ceramic,chrome,roundedRect,mesh});
  const insetGroup=insets.sella;
  // Generic demonstration mixer. Not asserted to be a RANDAL catalogue reference.
  const faucet=new T.Group();faucet.name='Mitigeur_illustratif';root.add(faucet);
@@ -104,6 +106,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  box(.018,.006,.071,chrome,'Levier_mitigeur',faucet,0,.985,-.182,.002);
  const secondFaucet=faucet.clone(true);secondFaucet.name='Mitigeur_illustratif_double';root.add(secondFaucet);
  const getBasinCenters=mode=>insets[mode]?.userData.basinCenters||(['neris','torne'].includes(mode)?basinCenters(chosenLayout,W):[0]);
+ const getTapPlacements=mode=>mode==='compact'&&form.collection==='less'?[{x:LESS_BASIN.tapX,y:topY+.024,z:(form.depth-.46)/2+LESS_BASIN.tapZ,rotationY:LESS_BASIN.tapRotation}]:getBasinCenters(mode).map(x=>({x,y:topY+.024,z:['neris','torne'].includes(mode)?-.19:-.173,rotationY:0}));
  const mirror=includeMirror?makeMirrorFrame():null;if(mirror)root.add(mirror);
  const topWood=frontWood.clone();const tops=createTopSet({wood:topWood,ceramic,chrome,roundedRect,woodUV,width:W,basinLayout:chosenLayout});root.add(tops.root);
  cabinet.userData.editTarget='furniture';faucet.userData.editTarget='basin';
@@ -126,7 +129,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  }
  setTop(topAvailable('sella',widthCm,format)?'sella':'plain');for(const group of [...Object.values(insets),tops.root,faucet,secondFaucet])group.position.y+=topY-.82;
  // The live Reflector disk is supplied by the renderer, keeping the model testable without WebGL.
- const asset=adaptGeneralModel({root,cabinet,drawers,mirror,format:form,wood,frontWood,topWood,drawerMetal:inner,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,faucets:[faucet,secondFaucet],getBasinCenters,basinLayout:chosenLayout,setTop,setTopDrawer,getTopDrawer:()=>drawerMode,getTop:()=>topMode},{form,W,H,B,topY,layout});asset.setTop(basinTop);asset.setTopDrawer(form.drawers?topDrawer:'siphon');return asset;
+ const asset=adaptGeneralModel({root,cabinet,drawers,mirror,format:form,wood,frontWood,topWood,drawerMetal:inner,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,faucets:[faucet,secondFaucet],getBasinCenters,getTapPlacements,basinLayout:chosenLayout,setTop,setTopDrawer,getTopDrawer:()=>drawerMode,getTop:()=>topMode},{form,W,H,B,topY,layout});asset.setTop(basinTop);asset.setTopDrawer(form.drawers?topDrawer:'siphon');return asset;
 }
 
 export function makeMirrorFrame(){

@@ -194,8 +194,11 @@ function openIndex(){
  clearPendingTap();
  if(!drawer.hidden)return;
  returnFocus=document.activeElement;drawer.hidden=false;document.querySelector('.masthead').inert=true;document.querySelector('.catalogue-app').inert=true;$('open-index').setAttribute('aria-expanded','true');
- const search=drawer.querySelector('input');search.focus({preventScroll:true});refreshThumbnails();
- const active=drawer.querySelector('.active');if(active)active.scrollIntoView({block:'nearest'});
+ const search=drawer.querySelector('input');
+ search.value='';search.dispatchEvent(new Event('input'));
+ // Toujours retrouver le début des collections (Harmony), même après une recherche.
+ drawer.querySelector('[data-index-list]').scrollTop=0;
+ search.focus({preventScroll:true});refreshThumbnails();
 }
 function closeIndex(){
  if(drawer.hidden)return;drawer.hidden=true;document.querySelector('.masthead').inert=false;document.querySelector('.catalogue-app').inert=false;$('open-index').setAttribute('aria-expanded','false');

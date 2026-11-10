@@ -72,12 +72,12 @@ export function adaptGeneralModel(asset,{form,W,H,B,topY,layout}){
  if(form.counter){cabinet.clear();box(cabinet,W,H,.46,wood,0,B+H/2,0,'Plateau_SIMA_100mm');}
  const depth=form.depth,zShift=(depth-.46)/2;
  for(const part of [cabinet,tops.root]){part.scale.z=depth/.46;part.position.z+=zShift;}
- for(const part of [...Object.values(insets),...(asset.faucets||[faucet])]){if(form.collection==='less')part.scale.z=depth/.46;part.position.z+=zShift;}
+ for(const part of [...Object.values(insets),...(asset.faucets||[faucet])]){if(form.collection==='less'&&part!==insets.compact)part.scale.z=depth/.46;part.position.z+=zShift;}
  if(form.counter)tops.root.position.y-=.02;
  const baseSet=asset.setTop;let mode=asset.getTop();
  asset.setTop=next=>{
   if(next==='none'){asset.setTopDrawer('siphon');for(const g of Object.values(insets))g.visible=false;tops.root.visible=false;faucet.visible=false;mode=next;return true;}
-  if(next==='compact'&&form.collection==='less'){asset.setTopDrawer('siphon');for(const [key,g]of Object.entries(insets))g.visible=key==='sella';tops.root.visible=false;faucet.visible=false;mode=next;return true;}
+  if(next==='compact'&&form.collection==='less'){asset.setTopDrawer('siphon');for(const [key,g]of Object.entries(insets))g.visible=key==='compact';tops.root.visible=false;for(const f of asset.faucets)f.visible=false;mode=next;return true;}
   const result=baseSet(next);if(result){mode=next;if(form.counter){tops.solid.visible=false;tops.drilled.visible=false;}}
   return result;
  };
