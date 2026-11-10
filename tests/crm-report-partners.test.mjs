@@ -1,4 +1,4 @@
-import { reportInPeriod } from '../assets/js/crm-report-export-core.mjs';
+import { reportInPeriod, reportMatchesClient } from '../assets/js/crm-report-export-core.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -96,10 +96,10 @@ test('the active page filter includes legacy, global and multi-partner reports u
   const end = html.indexOf('function render()', start);
   const list = { innerHTML: '' };
   const context = vm.createContext({
-    reportPartnerChoices, reportMatchesPartner, reportInPeriod, esc: String,
+    reportPartnerChoices, reportMatchesPartner, reportInPeriod, reportMatchesClient, esc: String,
     allCRs: [{ usine: 'Randal', date: '2026-11-08' }, { usine: 'RANDALL PRO', date: '2026-11-07' }],
     globalCRs: [{ usine: 'Elios Ceramica, Randal Pro, View', date: '2026-11-06' }],
-    filterUsine: { value: 'Randal', innerHTML: '' }, filterAgent: { value: '' }, filterDate: { value: '' }, filterEnd: { value: '' },
+    filterUsine: { value: 'Randal', innerHTML: '' }, filterAgent: { value: '' }, filterDate: { value: '' }, filterEnd: { value: '' },filterClient:{value:''},
     searchInput: { value: '' }, sortSelect: { value: 'date-desc' }, $: () => list,
     isoDate: value => value, compareRecent: (a, b) => b.date.localeCompare(a.date), compareOld: (a, b) => a.date.localeCompare(b.date)
   });

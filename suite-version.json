@@ -637,13 +637,16 @@
   },
   "crm": {
     "reportExport": {
-      "releaseId": "20261110-export1",
+      "releaseId": "20261110-client2",
       "page": "comptes-rendus.html",
       "factoryFilter": true,
       "inclusiveDateRange": true,
       "clientSummaryPDF": true,
       "printPDF": true,
-      "emailPDFAttachment": true
+      "emailPDFAttachment": true,
+      "clientFilter": true,
+      "singleFactoryEditor": true,
+      "separationMigration": "20261110-single1"
     }
   }
 }

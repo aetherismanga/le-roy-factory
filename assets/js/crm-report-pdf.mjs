@@ -1,4 +1,4 @@
-import { shortReportDate, reportPeriodLabel } from './crm-report-export-core.mjs?v=20261110-export1';
+import { shortReportDate, reportPeriodLabel } from './crm-report-export-core.mjs?v=20261110-client2';
 
 // Local, text-based A4 PDF: searchable text, wrapped paragraphs and page numbers.
 export function createReportPDF(model, JsPDF = globalThis.jspdf?.jsPDF) {
@@ -27,6 +27,7 @@ export function createReportPDF(model, JsPDF = globalThis.jspdf?.jsPDF) {
   text('Comptes-rendus commerciaux', 14, true); y += 3;
   text(`Usine : ${model.filters.usine || 'Toutes les usines'}`, 11, true);
   text(reportPeriodLabel(model.filters));
+  if (model.filters.clientLabel) text(`Client : ${model.filters.clientLabel}`);
   if (model.filters.agent) text(`Agent : ${model.filters.agent}`);
   if (model.filters.search) text(`Recherche : ${model.filters.search}`);
   text(`${model.count} compte(s)-rendu(s) | ${model.clients.length} client(s) | ${model.campaigns.length} action(s) générale(s)`);

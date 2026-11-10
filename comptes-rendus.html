@@ -90,6 +90,7 @@
       <div class="search-wrapper"><div class="search-box"><span>🔍</span><input type="text" id="cr-search-input" placeholder="Rechercher un client, une ville, un mot-clé..."></div></div>
       <div class="cr-filter-grid" id="cr-filter-grid">
         <select id="cr-filter-usine" class="crm-select" aria-label="Usine"><option value="">🏭 Toutes les usines</option></select>
+        <select id="cr-filter-client" class="crm-select" aria-label="Client"><option value="">🏢 Tous les clients</option><option value="__global__">Actions générales / campagnes</option></select>
         <select id="cr-filter-agent" class="crm-select"><option value="">👤 Tous les agents</option><option value="Jérôme">Jérôme</option><option value="Coryne">Coryne</option></select>
         <label for="cr-filter-date">Du<input type="date" id="cr-filter-date" class="crm-select"></label>
         <label for="cr-filter-end">Au (inclus)<input type="date" id="cr-filter-end" class="crm-select"></label>
@@ -99,7 +100,7 @@
     </div>
 
     <section class="cr-export-bar" aria-label="Export des comptes rendus">
-      <div><strong>Récapitulatif par usine</strong><p>Choisissez l’usine et les dates, puis préparez le PDF des résultats affichés. Les comptes rendus multi-usines sont inclus en entier.</p><span id="cr-export-feedback" role="status"></span></div>
+      <div><strong>Récapitulatif par usine</strong><p>Choisissez l’usine et les dates, puis préparez le PDF des résultats affichés. Vous pouvez combiner usine, client et période.</p><span id="cr-export-feedback" role="status"></span></div>
       <button id="cr-export-open" type="button" class="btn-primary-gold" disabled>Préparer le PDF / envoyer</button>
     </section>
     <div class="cr-results-info"><span id="cr-results-count">Chargement…</span><span>💡 Touchez un compte-rendu pour le modifier</span></div>
@@ -144,17 +145,17 @@
     import { collection, doc, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     import { localDate, reportField, reportFingerprint, unchangedReportIndex } from "./assets/js/crm-report-core.mjs?v=20261105-audit1";
-    import { reportPartnerLabel, reportPartnerChoices, reportMatchesPartner, withReportPartners } from "./assets/js/crm-report-partners.mjs?v=20261108-partners1";
+    import { reportPartnerLabel, reportPartnerChoices, reportMatchesPartner, withReportPartners, reportPartners } from "./assets/js/crm-report-partners.mjs?v=20261108-partners1";
 
-    import { reportInPeriod } from "./assets/js/crm-report-export-core.mjs?v=20261110-export1";
-    import { initReportExport } from "./assets/js/crm-report-export.mjs?v=20261110-export1";
+    import { reportInPeriod, reportMatchesClient } from "./assets/js/crm-report-export-core.mjs?v=20261110-client2";
+    import { initReportExport } from "./assets/js/crm-report-export.mjs?v=20261110-client2";
 
     document.addEventListener("DOMContentLoaded",()=>{
       if(!localStorage.getItem("agentLoggedIn")){location.href="agent.html";return;}
 
       const $=id=>document.getElementById(id);
       const modal=$("cr-modal"),form=$("form-new-cr"),clientSelect=$("cr-select-client"),dateInput=$("cr-input-date"),authorSelect=$("cr-select-author"),usineInput=$("cr-input-usine"),textInput=$("cr-input-text");
-      const searchInput=$("cr-search-input"),filterAgent=$("cr-filter-agent"),filterUsine=$("cr-filter-usine"),filterDate=$("cr-filter-date"),filterEnd=$("cr-filter-end"),sortSelect=$("cr-sort"),feed=$("cr-feed-container");
+      const searchInput=$("cr-search-input"),filterAgent=$("cr-filter-agent"),filterUsine=$("cr-filter-usine"),filterClient=$("cr-filter-client"),filterDate=$("cr-filter-date"),filterEnd=$("cr-filter-end"),sortSelect=$("cr-sort"),feed=$("cr-feed-container");
       const currentAgent=localStorage.getItem("agentName")||"Jérôme Hugol";
       let globalCRs=[],allCRs=[],editing=null,clientCache=new Map(),crSnapshotVersion=0,saving=false,clientsReady=false,globalReady=false,loadFailed=false;
 
@@ -165,7 +166,7 @@
       $("logout-btn")?.addEventListener("click",()=>{localStorage.removeItem("agentLoggedIn");location.href="agent.html"});
 
       const detectUsine=reportPartnerLabel;
-      const getFilters=()=>({usine:filterUsine.value,start:filterDate.value,end:filterEnd.value,agent:filterAgent.value,search:searchInput.value.trim()});
+      const getFilters=()=>({usine:filterUsine.value,start:filterDate.value,end:filterEnd.value,agent:filterAgent.value,search:searchInput.value.trim(),clientId:filterClient.value,clientLabel:filterClient.value?filterClient.selectedOptions[0]?.textContent||"":""});
       initReportExport({getRows:filteredSorted,getFilters,auth,getAgentProfile});
 
       function parseCrDate(value){
@@ -216,7 +217,7 @@
       const norm=v=>String(v||"").toLocaleLowerCase("fr").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
       function filteredSorted(){
         const q=norm(searchInput.value.trim()),agent=norm(filterAgent.value),usine=norm(filterUsine.value),date=filterDate.value;
-        const arr=allCRs.concat(globalCRs).filter(cr=>(!agent||norm(cr.author).includes(agent))&&reportMatchesPartner(cr,usine)&&reportInPeriod(cr,date,filterEnd.value)&&(!q||[cr.societe,cr.ville,cr.code_postal,cr.text,cr.usine,cr.author].some(v=>norm(v).includes(q))));
+        const arr=allCRs.concat(globalCRs).filter(cr=>(!agent||norm(cr.author).includes(agent))&&reportMatchesPartner(cr,usine)&&reportMatchesClient(cr,filterClient.value)&&reportInPeriod(cr,date,filterEnd.value)&&(!q||[cr.societe,cr.ville,cr.code_postal,cr.text,cr.usine,cr.author].some(v=>norm(v).includes(q))));
         const mode=sortSelect.value;
         arr.sort((a,b)=>mode==="date-asc"?compareOld(a,b):mode==="usine-asc"?(a.usine||"zzz").localeCompare(b.usine||"zzz","fr",{sensitivity:"base"})||compareRecent(a,b):mode==="client-asc"?(a.societe||"").localeCompare(b.societe||"","fr",{sensitivity:"base"})||compareRecent(a,b):compareRecent(a,b));
         return arr;
@@ -259,6 +260,10 @@
         }
         if(version!==crSnapshotVersion)return;
         const selected=clientSelect.value;allCRs=nextCRs;clientCache=nextClients;clientSelect.replaceChildren(nextOptions);if(nextClients.has(selected)||(editing?.globalId&&selected==="__global__"))clientSelect.value=selected;
+        const selectedFilter=filterClient.value;
+        const choices=[...new Map(allCRs.map(cr=>[cr.clientId,cr])).values()].sort((a,b)=>a.societe.localeCompare(b.societe,"fr"));
+        filterClient.innerHTML='<option value="">🏢 Tous les clients</option><option value="__global__">Actions générales / campagnes</option>'+choices.map(cr=>`<option value="${esc(cr.clientId)}">${esc(cr.societe)}${cr.ville||cr.code_postal?` (${esc([cr.code_postal,cr.ville].filter(Boolean).join(" "))})`:""}</option>`).join("");
+        if(selectedFilter==="__global__"||choices.some(cr=>cr.clientId===selectedFilter))filterClient.value=selectedFilter;
         clientsReady=true;refreshUsineChoices();render();
       },err=>{loadFailed=true;render();console.error(err);feed.innerHTML='<div style="background:#fff;padding:2rem;border-radius:8px">Impossible de charger les comptes-rendus.</div>'});
 
@@ -275,6 +280,7 @@
         const btn=$("btn-save-cr");btn.disabled=true;btn.textContent=edit?"Modification…":"Enregistrement…";
         try{
           const newCR=withReportPartners({...edit?.raw,date,author,text},usine);
+          if(reportPartners(newCR).length>1)throw new Error("Choisissez une seule usine par compte-rendu. Rédigez un compte-rendu distinct pour chaque usine.");
           if(edit)newCR.updatedAt=new Date().toISOString();
           else {newCR.createdAt=new Date().toISOString();newCR.id=globalThis.crypto?.randomUUID?.()||`cr-${Date.now()}-${Math.random().toString(36).slice(2)}`;}
           await runTransaction(db,async tx=>{
@@ -314,8 +320,8 @@
         finally{saving=false;btn.disabled=false;btn.textContent=editing?"✓ Enregistrer les modifications":"✓ Enregistrer"}
       });
 
-      [searchInput,filterDate,filterEnd].forEach(el=>el.addEventListener("input",render));[filterAgent,filterUsine,sortSelect].forEach(el=>el.addEventListener("change",render));
-      $("cr-reset-filters").addEventListener("click",()=>{searchInput.value="";filterAgent.value="";filterUsine.value="";filterDate.value="";filterEnd.value="";sortSelect.value="date-desc";render();searchInput.focus()});
+      [searchInput,filterDate,filterEnd].forEach(el=>el.addEventListener("input",render));[filterAgent,filterUsine,filterClient,sortSelect].forEach(el=>el.addEventListener("change",render));
+      $("cr-reset-filters").addEventListener("click",()=>{searchInput.value="";filterAgent.value="";filterUsine.value="";filterClient.value="";filterDate.value="";filterEnd.value="";sortSelect.value="date-desc";render();searchInput.focus()});
       resetForm();
       if(new URLSearchParams(location.search).get("new")==="1")openNew();
     });

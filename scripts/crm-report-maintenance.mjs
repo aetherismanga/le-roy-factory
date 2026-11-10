@@ -1,6 +1,7 @@
 import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import { randomBytes, createCipheriv, publicEncrypt } from 'node:crypto';
+import { migrateReportSeparation } from './crm-report-split-store.mjs';
 import { reportPartners } from '../assets/js/crm-report-partners.mjs';
 const require = createRequire(import.meta.url);
 const admin = require('../functions/node_modules/firebase-admin');
@@ -11,6 +12,11 @@ if (database.type !== 'FIRESTORE_NATIVE' || database.databaseEdition === 'ENTERP
 console.log(JSON.stringify({database:database.name,type:database.type,edition:database.databaseEdition||'STANDARD_LEGACY'}));
 admin.initializeApp({projectId:'le-roy-factory'});
 const db = admin.firestore();
+if (process.env.CRM_REPORT_MAINTENANCE_MODE === 'apply-reviewed') {
+  const plans=JSON.parse(readFileSync(new URL('./crm-report-split-plan.json',import.meta.url),'utf8'));
+  console.log('CRM_REPORT_SPLIT_RESULT '+JSON.stringify(await migrateReportSeparation(db,plans)));
+  await db.terminate();
+} else {
 const reports = [], directory = [];
 for (const collection of ['clients','comptes_rendus']) {
   const snapshot = await db.collection(collection).get();
@@ -31,3 +37,6 @@ const encrypted=Buffer.concat([cipher.update(JSON.stringify({reports,directory})
 const payload=Buffer.from(JSON.stringify({key:publicEncrypt({key:readFileSync(new URL('./crm-report-audit-public.pem',import.meta.url)),oaepHash:'sha256'},key).toString('base64'),iv:iv.toString('base64'),tag:cipher.getAuthTag().toString('base64'),data:encrypted.toString('base64')})).toString('base64');
 for(let i=0;i<payload.length;i+=3500)console.log('CRM_REPORT_AUDIT_CHUNK '+(i/3500)+' '+payload.slice(i,i+3500));
 console.log('CRM_REPORT_AUDIT_SUMMARY '+JSON.stringify({multiFactoryEntries:reports.length,documents:new Set(reports.map(r=>r.path)).size}));
+
+await db.terminate();
+}

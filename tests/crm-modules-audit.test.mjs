@@ -3,7 +3,7 @@ import test from 'node:test';
 import vm from 'node:vm';
 import { readFileSync } from 'node:fs';
 import { localDate, reportField, reportFingerprint, unchangedReportIndex } from '../assets/js/crm-report-core.mjs';
-import { withReportPartners } from '../assets/js/crm-report-partners.mjs';
+import { withReportPartners, reportPartners } from '../assets/js/crm-report-partners.mjs';
 
 const quiet = { log(){}, warn(){}, error(){} };
 const deferred = () => { let resolve, reject; const promise = new Promise((a,b) => { resolve=a; reject=b; }); return {promise,resolve,reject}; };
@@ -158,7 +158,7 @@ function reportSubmitHarness({editing=null,target='A',data=new Map(),failRead=''
   assert.ok(start>=0&&end>start,'active report form submit handler found');
   const writes=[],alerts=[];
   const button=element();
-  const context=vm.createContext({console:quiet,Date,Math,localDate,reportField,reportFingerprint,unchangedReportIndex,withReportPartners,
+  const context=vm.createContext({console:quiet,Date,Math,localDate,reportField,reportFingerprint,unchangedReportIndex,withReportPartners,reportPartners,
     saving:false,editing,clientSelect:{value:target},dateInput:{value:'2026-11-05'},authorSelect:{value:'Jérôme'},textInput:{value:'Compte-rendu corrigé'},usineInput:{value:''},
     db:{},doc:(_db,collection,id)=>({collection,id}),$:()=>button,closeModal:noop,alert:message=>alerts.push(message),
     form:{addEventListener(_event,callback){context.submitReport=callback}},
@@ -184,13 +184,13 @@ test('editing a visit finds the unchanged original after another visit has been 
 test('active editor saves canonical partners in both legacy report mirrors without duplicating visits',async()=>{
   const raw={id:'cr-randal',date:'2026-11-04',text:'Texte conservé',factory:'RANDALL PRO',partenaires:['randal-pro'],tourId:'tour-X'};
   const h=reportSubmitHarness({editing:{clientId:'A',crField:'comptes_rendus',raw},data:new Map([['A',{comptes_rendus:[raw],comptesRendus:[raw]}]])});
-  h.context.usineInput.value='RANDAL, Randal Pro, View';h.context.textInput.value=raw.text;
+  h.context.usineInput.value='RANDAL, Randal Pro';h.context.textInput.value=raw.text;
   await h.submit();
   assert.deepEqual(h.alerts,[]);assert.equal(h.writes.length,1);
   for(const field of ['comptes_rendus','comptesRendus']){
     const visits=h.writes[0].payload[field];assert.equal(visits.length,1);
-    assert.equal(visits[0].usine,'Randal, View Ceramica');assert.equal(visits[0].factory,'Randal, View Ceramica');
-    assert.deepEqual(visits[0].partenaires,['Randal','View Ceramica']);assert.equal(visits[0].id,raw.id);
+    assert.equal(visits[0].usine,'Randal');assert.equal(visits[0].factory,'Randal');
+    assert.deepEqual(visits[0].partenaires,['Randal']);assert.equal(visits[0].id,raw.id);
     assert.equal(visits[0].text,raw.text);assert.equal(visits[0].tourId,raw.tourId);
   }
 });
@@ -260,4 +260,12 @@ test('opening two client requests cannot show the stale first client after the s
   b.resolve({id:'client-B',exists:()=>true,data:()=>({societe:'Magasin Beta'})});await second;
   a.resolve({id:'client-A',exists:()=>true,data:()=>({societe:'Magasin Alpha'})});await first;
   assert.equal(h.run('current.id'),'B');assert.equal(h.run('currentClient.id'),'client-B');assert.match(h.fields.get('#panel-title').textContent,/Magasin Beta/);
+});
+
+
+test('the active editor refuses a multi-factory report before any write',async()=>{
+  const h=reportSubmitHarness({data:new Map([['A',{comptes_rendus:[]}]])});
+  h.context.usineInput.value='Randal, View';
+  await h.submit();
+  assert.equal(h.writes.length,0);assert.match(h.alerts[0],/une seule usine/);
 });

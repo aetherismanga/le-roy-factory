@@ -106,7 +106,7 @@ document.addEventListener("click", e => {
 import("./account-requests-nav.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement navigation demandes clients :", err));
 import("./crm-settings-nav.js?v=20260904-1").catch(err => console.error("Erreur chargement sous-menu Paramètres :", err));
 if (currentPage === "clients.html" || currentPage === "comptes-rendus.html") {
-  import("./cmr-unified.js?v=20261108-partners1").catch(err => console.error("Erreur chargement CMR unifié :", err));
+  import("./cmr-unified.js?v=20261110-single1").catch(err => console.error("Erreur chargement CMR unifié :", err));
 }
 if (currentPage === "clients.html") {
   import("./crm-smart-search.js?v=20261106-crm-unified2").catch(err => console.error("Recherche clients :", err));

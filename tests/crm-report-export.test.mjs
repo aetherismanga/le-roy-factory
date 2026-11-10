@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 import { inflateSync } from 'node:zlib';
 import { createRequire } from 'node:module';
-import { reportDateISO, reportInPeriod, buildReportExport } from '../assets/js/crm-report-export-core.mjs';
+import { reportDateISO, reportInPeriod, reportMatchesClient, buildReportExport } from '../assets/js/crm-report-export-core.mjs';
 import { createReportPDF } from '../assets/js/crm-report-pdf.mjs';
 const { jsPDF } = createRequire(import.meta.url)('../assets/vendor/studio-one/jspdf.umd.min.js');
 const rows = [
@@ -76,4 +76,16 @@ test('mail action uses the signed-in sender and attaches the prepared PDF with n
 test('expired authentication blocks network delivery and server refusal leaves the action retryable', async () => {
   const absent=harness({user:false});await absent.send();assert.equal(absent.requests.length,0);assert.match(absent.$('cr-export-status').textContent,/session a expiré/);
   const refused=harness({success:false});await refused.send();assert.match(refused.$('cr-export-status').textContent,/Session non autorisée/);assert.equal(refused.$('cr-export-send').disabled,false);
+});
+
+
+test('client filtering uses stable IDs and combines with factory and period in the PDF model',()=>{
+  assert.equal(reportMatchesClient(rows[0],'A'),true);
+  assert.equal(reportMatchesClient(rows[2],'A'),false);
+  assert.equal(reportMatchesClient(rows[3],'__global__'),true);
+  assert.equal(reportMatchesClient(rows[0],'__global__'),false);
+  const model=buildReportExport(rows,{...filters,clientId:'A',clientLabel:'Éco Céramique Montpellier'});
+  assert.equal(model.clients.length,1);assert.equal(model.count,2);assert.equal(model.campaigns.length,0);
+  assert.match(model.filename,/Eco-Ceramique-Montpellier/);
+  assert.equal(buildReportExport(rows,{...filters,clientId:'__global__'}).campaigns.length,1);
 });

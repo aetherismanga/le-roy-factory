@@ -19,10 +19,12 @@ export function reportInPeriod(report, start = '', end = '') {
   return (!start && !end) || Boolean(date && (!start || date >= start) && (!end || date <= end));
 }
 
+export const reportMatchesClient = (report, selected = '') => !selected || (selected === '__global__' ? Boolean(report.globalId) : !report.globalId && report.clientId === selected);
+
 export function buildReportExport(rows, filters = {}) {
   const { start = '', end = '', usine = '' } = filters;
   if (start && end && start > end) throw new Error('La date de fin doit être postérieure ou égale à la date de début.');
-  const selected = rows.filter(row => reportInPeriod(row, start, end) && reportMatchesPartner(row, usine)).map(row => ({ ...row }));
+  const selected = rows.filter(row => reportInPeriod(row, start, end) && reportMatchesPartner(row, usine) && reportMatchesClient(row, filters.clientId)).map(row => ({ ...row }));
   if (!selected.length) throw new Error('Aucun compte-rendu ne correspond à cette sélection.');
   const groups = new Map(), campaigns = [];
   for (const report of selected) {
@@ -37,7 +39,8 @@ export function buildReportExport(rows, filters = {}) {
   clients.forEach(client => client.reports.sort(oldestFirst));
   campaigns.sort(oldestFirst);
   const slug = (usine || 'toutes-usines').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '');
-  return { clients, campaigns, count: selected.length, filters: { ...filters }, filename: `LRF_Comptes-rendus_${slug}_${start || 'origine'}_${end || 'toutes-dates'}.pdf` };
+  const clientSlug = filters.clientId ? '_' + String(filters.clientLabel || filters.clientId).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').slice(0,70) : '';
+  return { clients, campaigns, count: selected.length, filters: { ...filters }, filename: `LRF_Comptes-rendus_${slug}${clientSlug}_${start || 'origine'}_${end || 'toutes-dates'}.pdf` };
 }
 
 export const shortReportDate = value => {

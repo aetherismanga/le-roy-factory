@@ -1,0 +1,549 @@
+{
+  "21556f7fbd9b910a1e38b7e3f5a23c7aa2ccd59cb436a946c314c5cd87481224": {
+    "sourcePathHash": "7dc8ce828ebd1cd127cde95896bd80d4d7431a41f0d8be3962918aeac7d72839",
+    "originalHash": "a6d4501e339365cde9cf1f1ea77783564ca2fc704ef9a92e501072c1dadb7898",
+    "parts": [
+      {
+        "partner": "View Ceramica",
+        "paragraphs": [
+          [
+            [
+              0,
+              416
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "Randal",
+        "paragraphs": [
+          [
+            [
+              416,
+              678
+            ]
+          ]
+        ]
+      }
+    ]
+  },
+  "15cc7f086d25161469ea062cf9eea7946404cf4ab549c094934d0a8a59b41b86": {
+    "sourcePathHash": "103868d4b5d703dfa3ab184d281e981236da582200981d45323092d32edc89a3",
+    "originalHash": "46d088117d9e1bdf8552222733c9f5c09e1e6d3bb9eea85a72c1e68c1141f3ae",
+    "parts": [
+      {
+        "partner": "Elios Ceramica",
+        "paragraphs": [
+          [
+            [
+              0,
+              260
+            ]
+          ],
+          [
+            [
+              446,
+              778
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "Randal",
+        "paragraphs": [
+          [
+            [
+              0,
+              89
+            ]
+          ],
+          [
+            [
+              109,
+              213
+            ]
+          ],
+          [
+            [
+              261,
+              445
+            ]
+          ]
+        ]
+      }
+    ]
+  },
+  "c43fdcb66b1c5632e9659e25b8c16b28f5292077c1af0ec89efa261acbfca420": {
+    "sourcePathHash": "2d27d67c2e2313b8b00a0c85977b19f614b3a65aac30e02890372a9ee36ee850",
+    "originalHash": "6654cf50dc9604fa94e9a484ba131421ffb62b38345c049cd49f6de562bf8218",
+    "parts": [
+      {
+        "partner": "Aquahome",
+        "paragraphs": [
+          [
+            [
+              0,
+              29
+            ]
+          ],
+          [
+            [
+              30,
+              80
+            ]
+          ],
+          [
+            [
+              83,
+              106
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "Randal",
+        "paragraphs": [
+          [
+            [
+              0,
+              29
+            ]
+          ],
+          [
+            [
+              83,
+              106
+            ]
+          ],
+          [
+            [
+              108,
+              143
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "Reviglass",
+        "paragraphs": [
+          [
+            [
+              0,
+              29
+            ]
+          ],
+          [
+            [
+              83,
+              106
+            ]
+          ],
+          [
+            [
+              146,
+              172
+            ]
+          ]
+        ]
+      }
+    ]
+  },
+  "25dccbc446df6fa331333145579ea93bbd16066b55928813101d438f0b6e3453": {
+    "sourcePathHash": "cdbb949f073936dbb5d8358d6673102f0430f6b2f1dd825537959b3fbd31fc3c",
+    "originalHash": "d1bba8c6ebce0bf97a5203478702f8b3b0c278dab22e08b422004392d4a66ccd",
+    "parts": [
+      {
+        "partner": "Elios Ceramica",
+        "paragraphs": [
+          [
+            [
+              0,
+              62
+            ]
+          ],
+          [
+            [
+              64,
+              124
+            ],
+            [
+              124,
+              129
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "View Ceramica",
+        "paragraphs": [
+          [
+            [
+              0,
+              62
+            ]
+          ],
+          [
+            [
+              64,
+              124
+            ],
+            [
+              133,
+              138
+            ]
+          ],
+          [
+            [
+              140,
+              265
+            ]
+          ]
+        ]
+      }
+    ]
+  },
+  "169af8ecf20c393c67c15a23093a9397f6c57601babc2d76009a967051616f7c": {
+    "sourcePathHash": "40b16636805ad58a15859e99f1c83edf7fdf1907ce4be8e3fff4450dbe1c604a",
+    "originalHash": "a4accabf4f7894660b6986019b0134c51a48b61ebd507d9fd8877163288930a7",
+    "parts": [
+      {
+        "partner": "Elios Ceramica",
+        "paragraphs": [
+          [
+            [
+              0,
+              748
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "Elios Ceramica",
+        "paragraphs": [
+          [
+            [
+              0,
+              58
+            ]
+          ],
+          [
+            [
+              749,
+              823
+            ]
+          ],
+          [
+            [
+              1352,
+              1540
+            ]
+          ]
+        ],
+        "targetPathHash": "fe0b22abbb3b7ad853418373eaa874efadfff20e9b66829faebbf25309320307"
+      },
+      {
+        "partner": "View Ceramica",
+        "paragraphs": [
+          [
+            [
+              0,
+              58
+            ]
+          ],
+          [
+            [
+              749,
+              823
+            ]
+          ],
+          [
+            [
+              1007,
+              1351
+            ]
+          ]
+        ],
+        "targetPathHash": "fe0b22abbb3b7ad853418373eaa874efadfff20e9b66829faebbf25309320307"
+      },
+      {
+        "partner": "Reviglass",
+        "paragraphs": [
+          [
+            [
+              0,
+              58
+            ]
+          ],
+          [
+            [
+              749,
+              1223
+            ]
+          ]
+        ],
+        "targetPathHash": "fe0b22abbb3b7ad853418373eaa874efadfff20e9b66829faebbf25309320307"
+      }
+    ]
+  },
+  "15d8cf7a2a7e370cc2e49d834146120b2fef2e05259d7ac02c77cfddf4a26b4e": {
+    "sourcePathHash": "b976b18b1b37d86e2ed424c134a5663f4b89c14f1fe64fc2fa32c3bb9b79c38d",
+    "originalHash": "3ba00e1184b8e1d616f139e4dbc0a13f684fdd9663b91ccb1093d1a105275d37",
+    "parts": [
+      {
+        "partner": "Elios Ceramica",
+        "paragraphs": [
+          [
+            [
+              0,
+              190
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "Reviglass",
+        "paragraphs": [
+          [
+            [
+              191,
+              396
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "Propamsa",
+        "paragraphs": [
+          [
+            [
+              397,
+              586
+            ]
+          ]
+        ]
+      }
+    ]
+  },
+  "fa1db10907fca028698ec2f71dac08c458be08f5e9ed2b922738608fd3d4a819": {
+    "sourcePathHash": "d8981f844f0719920efb925a2709ce8b3b4d8225b8c124aecc9101ed03c3b66d",
+    "originalHash": "05f1ee5dbb523aa04b5b32f0dfc8a8d49a485ee2a36471f57a1701fa71cb906d",
+    "parts": [
+      {
+        "partner": "View Ceramica",
+        "paragraphs": [
+          [
+            [
+              0,
+              225
+            ]
+          ],
+          [
+            [
+              305,
+              372
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "BILT",
+        "paragraphs": [
+          [
+            [
+              0,
+              13
+            ],
+            [
+              226,
+              252
+            ]
+          ],
+          [
+            [
+              305,
+              372
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "La Fenice",
+        "paragraphs": [
+          [
+            [
+              0,
+              13
+            ],
+            [
+              253,
+              304
+            ]
+          ],
+          [
+            [
+              305,
+              372
+            ]
+          ]
+        ]
+      }
+    ]
+  },
+  "d211fe099ba0bce67e49f13afcf8c4cbd8dffabc84f262b15b880b6647c02841": {
+    "sourcePathHash": "8b20d440c6256033a6ec6a1af6fd8cc28ff22a459276d58770a4e1ea0e9edda0",
+    "originalHash": "53523aaaab585b719d73704b1876ef76d72d8c06391e57dffabc003c0d58a745",
+    "parts": [
+      {
+        "partner": "Elios Ceramica",
+        "paragraphs": [
+          [
+            [
+              0,
+              74
+            ]
+          ],
+          [
+            [
+              107,
+              168
+            ]
+          ],
+          [
+            [
+              219,
+              1077
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "Reviglass",
+        "paragraphs": [
+          [
+            [
+              0,
+              74
+            ]
+          ],
+          [
+            [
+              107,
+              218
+            ]
+          ],
+          [
+            [
+              448,
+              610
+            ]
+          ]
+        ]
+      }
+    ]
+  },
+  "a48a8a63b7932060eb6ae458926a45e37bedcfac698ece0e8675fac242998f00": {
+    "sourcePathHash": "1009766571547bd5b26db576fc947c847269742bd41a5ad6dc99e3eb173f2416",
+    "originalHash": "11b087f02e1eb1fef79f4c48783946cef1edd9b37316ed29e109016f3bfc5755",
+    "parts": [
+      {
+        "partner": "Elios Ceramica",
+        "paragraphs": [
+          [
+            [
+              0,
+              77
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "Randal",
+        "paragraphs": [
+          [
+            [
+              0,
+              77
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "Reviglass",
+        "paragraphs": [
+          [
+            [
+              0,
+              77
+            ]
+          ]
+        ]
+      }
+    ]
+  },
+  "2cd8502cf064e1087832d8933587e8c34e3a2a659acd85d16e584e0fa7ab905e": {
+    "sourcePathHash": "8ffd5c3308c19271f11fb9babf30161a5f6bd63836141ce4aec7f21ac49738c0",
+    "originalHash": "7d610847fe751e80f254a6cd45c4ccbf006a73bd9f6972bc720b2796097ba5fc",
+    "parts": [
+      {
+        "partner": "Elios Ceramica",
+        "paragraphs": [
+          [
+            [
+              0,
+              62
+            ]
+          ],
+          [
+            [
+              64,
+              212
+            ]
+          ],
+          [
+            [
+              214,
+              351
+            ],
+            [
+              351,
+              356
+            ]
+          ],
+          [
+            [
+              370,
+              851
+            ]
+          ]
+        ]
+      },
+      {
+        "partner": "Neobath",
+        "paragraphs": [
+          [
+            [
+              0,
+              62
+            ]
+          ],
+          [
+            [
+              64,
+              212
+            ]
+          ],
+          [
+            [
+              214,
+              351
+            ],
+            [
+              360,
+              368
+            ]
+          ]
+        ]
+      }
+    ]
+  }
+}

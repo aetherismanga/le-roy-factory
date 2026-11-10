@@ -29,5 +29,9 @@ jobs:
       - uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
-      - name: Inspect multi-factory reports privately
+      - name: Verify report separation and client filters
+        run: node --test tests/crm-report-split.test.mjs tests/crm-report-export.test.mjs tests/crm-report-partners.test.mjs scripts/test-comptes-rendus-snapshots.cjs tests/crm-modules-audit.test.mjs tests/crm-unified-editor.test.mjs
+      - name: Separate and verify reviewed CRM reports
+        env:
+          CRM_REPORT_MAINTENANCE_MODE: apply-reviewed
         run: node scripts/crm-report-maintenance.mjs

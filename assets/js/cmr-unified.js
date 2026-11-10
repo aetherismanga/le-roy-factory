@@ -2,7 +2,7 @@
 // Objectif : un seul formulaire Firestore pour créer/modifier les comptes-rendus,
 // quel que soit le point d'entrée (page CMR, fiche client ou bouton mobile +).
 
-import { REPORT_PARTNERS, canonicalReportPartner, normalizeReportPartners } from './crm-report-partners.mjs?v=20261108-partners1';
+import { REPORT_PARTNERS, normalizeReportPartners } from './crm-report-partners.mjs?v=20261108-partners1';
 
 const page = (location.pathname.split('/').pop() || '').toLowerCase();
 
@@ -169,142 +169,37 @@ function installVoiceCommand() {
   });
 }
 
-function installPartnerMultiSelect() {
+function installPartnerSingleSelect() {
   const input = document.getElementById('cr-input-usine');
   const form = document.getElementById('form-new-cr');
   const modal = document.getElementById('cr-modal');
-  if (!input || !form || !modal || document.getElementById('lrf-cr-partners')) return;
-
-  const partners = REPORT_PARTNERS;
-
-  const style = document.createElement('style');
-  style.id = 'lrf-cr-partners-style';
-  style.textContent = `
-    #lrf-cr-partners{display:flex;flex-direction:column;gap:8px}
-    .lrf-cr-partner-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:1px solid #D1D5DB;border-radius:9px;background:#fff;color:#1A2530;font:inherit;font-weight:700;text-align:left;cursor:pointer}
-    .lrf-cr-partner-trigger:hover,.lrf-cr-partner-trigger:focus{border-color:#D4AF37;outline:none;box-shadow:0 0 0 3px rgba(212,175,55,.12)}
-    .lrf-cr-partner-panel{display:none;border:1px solid #e2d6b1;border-radius:12px;background:#fffdf7;padding:12px;box-shadow:0 10px 28px rgba(0,0,0,.08)}
-    .lrf-cr-partner-panel.open{display:block}
-    .lrf-cr-partner-help{margin:0 0 10px;color:#6b7280;font-size:.78rem;line-height:1.4}
-    .lrf-cr-partner-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 10px;max-height:245px;overflow:auto;padding:2px}
-    .lrf-cr-partner-option{display:flex;align-items:center;gap:8px;padding:9px 10px;border:1px solid #ece5d7;border-radius:9px;background:#fff;cursor:pointer;font-size:.86rem;font-weight:650}
-    .lrf-cr-partner-option:hover{border-color:#d4af37;background:#fffaf0}.lrf-cr-partner-option input{accent-color:#b58e18;width:17px;height:17px;flex:0 0 auto}
-    .lrf-cr-partner-actions{display:flex;justify-content:flex-end;margin-top:10px}.lrf-cr-partner-clear{border:0;background:transparent;color:#8a6411;font-weight:800;cursor:pointer;padding:6px 2px}
-    .lrf-cr-partner-chips{display:flex;flex-wrap:wrap;gap:6px;min-height:0}.lrf-cr-partner-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:999px;background:#fff5cf;border:1px solid #e5ca72;color:#624d0b;font-size:.76rem;font-weight:800}
-    .lrf-cr-partner-chip button{border:0;background:transparent;color:#6d5612;cursor:pointer;font-weight:900;padding:0;line-height:1}
-    .lrf-cr-partner-chip.legacy{background:#f5f5f5;border-color:#ddd;color:#555}
-    @media(max-width:560px){.lrf-cr-partner-grid{grid-template-columns:1fr;max-height:285px}}
-  `;
-  document.head.appendChild(style);
-
-  input.style.display = 'none';
-  input.setAttribute('aria-hidden', 'true');
-
-  const root = document.createElement('div');
-  root.id = 'lrf-cr-partners';
-  root.innerHTML = `
-    <button type="button" class="lrf-cr-partner-trigger" aria-expanded="false">
-      <span class="lrf-cr-partner-trigger-label">🏭 Sélectionner un ou plusieurs partenaires</span><span>⌄</span>
-    </button>
-    <div class="lrf-cr-partner-chips" aria-live="polite"></div>
-    <div class="lrf-cr-partner-panel">
-      <p class="lrf-cr-partner-help">Vous pouvez sélectionner plusieurs partenaires pour le même compte-rendu.</p>
-      <div class="lrf-cr-partner-grid">${partners.map(name => `<label class="lrf-cr-partner-option"><input type="checkbox" value="${name.replace(/&/g, '&amp;').replace(/"/g, '&quot;')}"><span>${name}</span></label>`).join('')}</div>
-      <div class="lrf-cr-partner-actions"><button type="button" class="lrf-cr-partner-clear">Effacer la sélection</button></div>
-    </div>
-  `;
-  input.insertAdjacentElement('beforebegin', root);
-
-  const trigger = root.querySelector('.lrf-cr-partner-trigger');
-  const triggerLabel = root.querySelector('.lrf-cr-partner-trigger-label');
-  const panel = root.querySelector('.lrf-cr-partner-panel');
-  const chips = root.querySelector('.lrf-cr-partner-chips');
-  const boxes = [...root.querySelectorAll('input[type="checkbox"]')];
-  const selected = new Set();
-  let legacy = [];
-
-  const canonical = canonicalReportPartner;
-  const splitValue = normalizeReportPartners;
-  const closePanel = () => { panel.classList.remove('open'); trigger.setAttribute('aria-expanded', 'false'); };
-  const openPanel = () => { panel.classList.add('open'); trigger.setAttribute('aria-expanded', 'true'); };
-
-  function writeInput() {
-    const values = [...selected, ...legacy];
-    input.value = normalizeReportPartners(values).join(', ');
-    input.dispatchEvent(new Event('input', { bubbles: true }));
-  }
-
-  function renderSelection(write = true) {
-    boxes.forEach(box => { box.checked = selected.has(box.value); });
-    const names = [...selected];
-    if (!names.length && !legacy.length) triggerLabel.textContent = '🏭 Sélectionner un ou plusieurs partenaires';
-    else if (names.length + legacy.length <= 2) triggerLabel.textContent = `🏭 ${[...names, ...legacy].join(' + ')}`;
-    else triggerLabel.textContent = `🏭 ${names.length + legacy.length} partenaires sélectionnés`;
-
-    chips.innerHTML = '';
-    names.forEach(name => {
-      const chip = document.createElement('span');
-      chip.className = 'lrf-cr-partner-chip';
-      const label = document.createElement('span'); label.textContent=name;
-      const remove = document.createElement('button'); remove.type='button'; remove.setAttribute('aria-label',`Retirer ${name}`); remove.textContent='×';
-      chip.append(label,remove);
-      chip.querySelector('button').addEventListener('click', () => {
-        selected.delete(name);
-        renderSelection(true);
-      });
-      chips.appendChild(chip);
-    });
-    legacy.forEach(name => {
-      const chip = document.createElement('span');
-      chip.className = 'lrf-cr-partner-chip legacy';
-      const label = document.createElement('span'); label.textContent=name;
-      const remove = document.createElement('button'); remove.type='button'; remove.setAttribute('aria-label',`Retirer ${name}`); remove.textContent='×';
-      chip.append(label,remove);
-      chip.querySelector('button').addEventListener('click', () => {
-        legacy = legacy.filter(v => v !== name);
-        renderSelection(true);
-      });
-      chips.appendChild(chip);
-    });
-    if (write) writeInput();
-  }
-
-  function readInput() {
-    selected.clear();
-    legacy = [];
-    splitValue(input.value).forEach(value => {
-      const known = canonical(value);
-      if (known) selected.add(known);
-      else if (value) legacy.push(value);
-    });
-    renderSelection(false);
-  }
-
-  trigger.addEventListener('click', () => panel.classList.contains('open') ? closePanel() : openPanel());
-  boxes.forEach(box => box.addEventListener('change', () => {
-    if (box.checked) selected.add(box.value);
-    else selected.delete(box.value);
-    renderSelection(true);
-  }));
-  root.querySelector('.lrf-cr-partner-clear').addEventListener('click', () => {
-    selected.clear();
-    legacy = [];
-    renderSelection(true);
-  });
-
-  document.addEventListener('click', event => {
-    if (!root.contains(event.target)) closePanel();
-    if (event.target.closest('#btn-open-cr-modal, .cr-card, .cr-edit-btn')) setTimeout(readInput, 0);
-  });
-  document.addEventListener('keydown', event => { if (event.key === 'Escape') closePanel(); });
-  form.addEventListener('submit', () => writeInput(), true);
-
-  const observer = new MutationObserver(() => {
-    if (getComputedStyle(modal).display !== 'none') setTimeout(readInput, 0);
-    else closePanel();
-  });
-  observer.observe(modal, { attributes: true, attributeFilter: ['style', 'class'] });
-  readInput();
+  if (!input || !form || !modal || document.getElementById('lrf-cr-partner-select')) return;
+  const select = document.createElement('select');
+  select.id = 'lrf-cr-partner-select'; select.className = 'crm-select';
+  select.style.width = '100%'; select.setAttribute('aria-label', 'Usine du compte-rendu');
+  const help = document.createElement('p');
+  help.style.cssText = 'font-size:.8rem;color:#667085;margin:.4rem 0 0';
+  help.textContent = 'Un compte-rendu par usine. Pour une autre usine, rédigez un compte-rendu distinct.';
+  input.style.display = 'none'; input.setAttribute('aria-hidden', 'true');
+  input.insertAdjacentElement('beforebegin', select); input.insertAdjacentElement('afterend', help);
+  const read = () => {
+    const names = normalizeReportPartners(input.value);
+    const choices = [...new Set([...REPORT_PARTNERS, ...names])].sort((a,b)=>a.localeCompare(b,'fr'));
+    select.replaceChildren();
+    const placeholder = document.createElement('option');
+    placeholder.value = ''; placeholder.textContent = names.length > 1 ? '— Choisir une seule usine —' : '— Sans usine (note générale) —';
+    select.append(placeholder);
+    choices.forEach(name => { const option=document.createElement('option'); option.value=name; option.textContent=name; select.append(option); });
+    select.value = names.length === 1 ? names[0] : '';
+    select.required = names.length > 1;
+  };
+  select.addEventListener('change', () => { input.value=select.value; input.dispatchEvent(new Event('input',{bubbles:true})); });
+  // The field is written only on an explicit change, so an unresolved legacy
+  // multi-factory note cannot silently lose its original association.
+  const observer = new MutationObserver(() => { if (getComputedStyle(modal).display !== 'none') read(); });
+  observer.observe(modal,{attributes:true,attributeFilter:['style','class']});
+  document.addEventListener('click', event => { if(event.target.closest('#btn-open-cr-modal, .cr-card, .cr-edit-btn')) setTimeout(read,0); });
+  read();
 }
 
 function installWeekDisplay() {
@@ -382,6 +277,10 @@ function handleCentralCrDeepLink() {
         select.value = match.value;
         select.dispatchEvent(new Event('change', { bubbles: true }));
       }, 0);
+    } else if (document.getElementById('cr-filter-client')?.querySelector(`option[value="${CSS.escape(match.value)}"]`)) {
+      const filter = document.getElementById('cr-filter-client');
+      filter.value = match.value;
+      filter.dispatchEvent(new Event('change', { bubbles: true }));
     } else if (search) {
       const company = (match.textContent || wantedName).split('(')[0].trim();
       search.value = company;
@@ -420,7 +319,7 @@ function init() {
   }
   if (page === 'comptes-rendus.html') {
     installVoiceCommand();
-    installPartnerMultiSelect();
+    installPartnerSingleSelect();
     installWeekDisplay();
     handleCentralCrDeepLink();
   }

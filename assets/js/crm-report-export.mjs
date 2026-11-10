@@ -1,5 +1,5 @@
-import { buildReportExport, reportPeriodLabel } from './crm-report-export-core.mjs?v=20261110-export1';
-import { createReportPDF } from './crm-report-pdf.mjs?v=20261110-export1';
+import { buildReportExport, reportPeriodLabel } from './crm-report-export-core.mjs?v=20261110-client2';
+import { createReportPDF } from './crm-report-pdf.mjs?v=20261110-client2';
 
 const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -18,7 +18,7 @@ export function initReportExport({ getRows, getFilters, auth, getAgentProfile })
       const pdf = createReportPDF(model);
       prepared = { model, pdf };
       lastFocus = document.activeElement;
-      $('cr-export-summary').textContent = `${model.filters.usine || 'Toutes les usines'} · ${reportPeriodLabel(model.filters)} · ${model.clients.length} client(s) · ${model.count} compte(s)-rendu(s)`;
+      $('cr-export-summary').textContent = `${model.filters.usine || 'Toutes les usines'}${model.filters.clientLabel ? ` · ${model.filters.clientLabel}` : ''} · ${reportPeriodLabel(model.filters)} · ${model.clients.length} client(s) · ${model.count} compte(s)-rendu(s)`;
       $('cr-export-filename').textContent = model.filename;
       $('cr-export-clients').replaceChildren(...model.clients.map(client => {
         const li = document.createElement('li');
