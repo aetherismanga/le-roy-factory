@@ -5,7 +5,7 @@ const FIREBASE_CONFIG={apiKey:'AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',authDoma
 const ADMIN_EMAILS=new Set(['jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
 const DNA=location.pathname.endsWith('neobath-dna-interactif.html');
 let MAX=81;
-const sections=[
+const sections=(DNA?[]:[
  ['Présentation','Introduction',3],['Finitions Pura & Ribelle','Finitions',4],['Toutes les compositions','Présentation',5],
  ['Composition 01 · Ribelle','Compositions',6],['Composition 02 · Pura & Ribelle','Compositions',10],
  ['Composition 02b · Pura','Compositions',13],['Composition 03 · Ribelle','Compositions',14],
@@ -25,7 +25,7 @@ const sections=[
  ['Tarifs · Plans Ocritech','Tarifs (accès PRO)',72],['Tarifs · Vasques','Tarifs (accès PRO)',73],
  ['Tarifs · Plans HPL / Fenix','Tarifs (accès PRO)',74],['Tarifs · Vasques à poser','Tarifs (accès PRO)',75],
  ['Tarifs · Miroirs','Tarifs (accès PRO)',77],['Tarifs · Lampes','Tarifs (accès PRO)',80]
-].map(([name,group,page])=>({name,group,page}));
+]).map(([name,group,page])=>({name,group,page}));
 const $=id=>document.getElementById(id);
 const lists=[...document.querySelectorAll('[data-list]')];
 const status=$('status'),mount=$('mount'),frame=$('frame'),overlay=$('overlay');
@@ -102,7 +102,7 @@ function updateUI(){
  $('prev').disabled=page===1;$('next').disabled=page===MAX;
  $('zoom').textContent=Math.round(zoom*100)+' %';
  const section=sectionAt(page);
- $('section-title').textContent=section?section.name:'Couverture ANIMA';
+ $('section-title').textContent=section?section.name:DNA?'Couverture DNA':'Couverture ANIMA';
  $('caption').textContent='NEOBATH '+(DNA?'DNA':'ANIMA')+' · Page '+page+' sur '+MAX;
  for(const item of document.querySelectorAll('[data-goto]')){
   const active=!!section&&Number(item.dataset.goto)===section.page;
