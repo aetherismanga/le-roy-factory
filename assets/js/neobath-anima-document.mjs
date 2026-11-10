@@ -27,6 +27,7 @@ export function animaRoute(currentURL, {view, search, hash} = {}) {
 }
 
 export function animaFrameDocument(data, moduleURL, parentOrigin = 'https://leroyfactory.fr', routeURL = parentOrigin + '/neobath-anima-configurateur.html') {
+  const displayCatalogue={...data.catalogue,products:data.catalogue.products?.map(product=>({...product,prices:product.prices?.map(price=>({...price,label:String(price.label||'').replace(/\b(?:HT|TTC)\b/g,'').trim()}))}))};
   const css = data.css.replace(/<\/style/gi, '<\\/style');
   const studio = data.engine === 'studio-one';
   const view = data.view === 'atelier' ? 'atelier' : 'home';
@@ -78,5 +79,5 @@ export function animaFrameDocument(data, moduleURL, parentOrigin = 'https://lero
         window.animaNavigate(target.pathname.endsWith('atelier.html') || target.searchParams.get('studioView') === 'atelier' ? 'atelier' : 'home', target.search, target.hash);
       });
     })();`;
-  return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><base href="' + base + '"><style>' + css + '</style></head><body' + (studio && view === 'home' ? ' data-view="home"' : '') + '>' + data.html + '<script>window.NEOBATH_ANIMA_CATALOGUE=' + safeAnimaJSON(data.catalogue) + ';window.NEOBATH_ANIMA_VISUALS=' + safeAnimaJSON(data.visuals || {}) + ';window.NEOBATH_ANIMA_AGENT=' + safeAnimaJSON(data.identity) + ';window.__ANIMA_ROUTE_URL__=' + safeAnimaJSON(routeURL) + ';window.__ANIMA_VIEW__=' + safeAnimaJSON(view) + ';' + bridge + '<\/script>' + (studio ? '' : '<script src="https://leroyfactory.fr/assets/vendor/studio-one/three.min.js"><\/script>') + '<script type="module" src="' + moduleURL + '"><\/script></body></html>';
+  return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><base href="' + base + '"><style>' + css + '</style></head><body' + (studio && view === 'home' ? ' data-view="home"' : '') + '>' + data.html + '<script>window.NEOBATH_ANIMA_CATALOGUE=' + safeAnimaJSON(displayCatalogue) + ';window.NEOBATH_ANIMA_VISUALS=' + safeAnimaJSON(data.visuals || {}) + ';window.NEOBATH_ANIMA_AGENT=' + safeAnimaJSON(data.identity) + ';window.__ANIMA_ROUTE_URL__=' + safeAnimaJSON(routeURL) + ';window.__ANIMA_VIEW__=' + safeAnimaJSON(view) + ';' + bridge + '<\/script>' + (studio ? '' : '<script src="https://leroyfactory.fr/assets/vendor/studio-one/three.min.js"><\/script>') + '<script type="module" src="' + moduleURL + '"><\/script></body></html>';
 }
