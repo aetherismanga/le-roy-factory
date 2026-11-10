@@ -7,16 +7,17 @@ import * as model from '../assets/js/neobath-reader-model.mjs';
 const source=readFileSync(new URL('../assets/js/neobath-anima-interactif.js',import.meta.url),'utf8');
 function deferred(){let resolve,reject;const promise=new Promise((a,b)=>{resolve=a;reject=b;});return {promise,resolve,reject};}
 async function tick(){for(let i=0;i<8;i++)await Promise.resolve();}
-function readerHarness(){
+function readerHarness({collection='DNA'}={}){
  const elements=new Map(),canvases=[],renderRequests=[],pageRequests=new Map();let revocations=0,blobIds=0;
  function element(tag='DIV'){
-  return {tagName:tag,style:{},hidden:false,disabled:false,children:[],dataset:{},clientWidth:360,clientHeight:510,
-   classList:{toggle(){},add(){},remove(){}},setAttribute(){},removeAttribute(){},addEventListener(){},focus(){},blur(){},
-   replaceChildren(...items){this.children=items;},append(...items){this.children.push(...items);},querySelectorAll(){return [];},getContext(){return {};},toBlob(callback){callback({synthetic:true});}};
+  return {tagName:tag,listeners:new Map(),style:{},hidden:false,disabled:false,children:[],dataset:{},clientWidth:360,clientHeight:510,
+   classList:{toggle(){},add(){},remove(){}},setAttribute(){},removeAttribute(){},addEventListener(type,handler){this.listeners.set(type,handler);},focus(){},blur(){},
+   replaceChildren(...items){this.children=items;},append(...items){this.children.push(...items);},querySelectorAll(){return [];},closest(selector){return selector==='canvas'&&this.tagName==='CANVAS'?this:null;},contains(target){return target===this||this.children.includes(target);},getContext(){return {};},toBlob(callback){callback({synthetic:true});}};
  }
  const document={getElementById(id){if(!elements.has(id))elements.set(id,element());return elements.get(id);},querySelectorAll(){return [];},addEventListener(){},body:element(),createTextNode:text=>({textContent:text}),createElement(tag){const node=element(tag.toUpperCase());if(tag==='canvas')canvases.push(node);return node;}};
- const pdf={numPages:79,getPage(n){if(!pageRequests.has(n))pageRequests.set(n,deferred());return pageRequests.get(n).promise;}};
- const context={...model,document,location:{pathname:'/neobath-dna-interactif.html',hash:''},history:{replaceState(){}},window:{},innerHeight:700,devicePixelRatio:3,getComputedStyle:()=>({paddingLeft:'8px',paddingRight:'8px',paddingTop:'8px',paddingBottom:'8px'}),console,URL:{revokeObjectURL(){revocations++;},createObjectURL(){return 'blob:synthetic-'+(++blobIds);}},setTimeout,clearTimeout,addEventListener(){},AbortSignal};
+ document.getElementById('overlay').hidden=true;
+ const pdf={numPages:collection==='DNA'?79:81,getPage(n){if(!pageRequests.has(n))pageRequests.set(n,deferred());return pageRequests.get(n).promise;}};
+ const context={...model,document,location:{pathname:collection==='DNA'?'/neobath-dna-interactif.html':'/neobath-anima-interactif.html',hash:''},history:{replaceState(){}},window:{},innerHeight:700,devicePixelRatio:3,getComputedStyle:()=>({paddingLeft:'8px',paddingRight:'8px',paddingTop:'8px',paddingBottom:'8px'}),console,URL:{revokeObjectURL(){revocations++;},createObjectURL(){return 'blob:synthetic-'+(++blobIds);}},setTimeout,clearTimeout,addEventListener(){},AbortSignal};
  context.globalThis=context;
  const instrumented=source.replace(/^import[^\n]*\n/,'').replace(/updateUI\(\);loadPdf\(\);\s*$/,"updateUI(); globalThis.readerTest={render,navigate,updateUI,setPDF(value){pdf=value;total=value.numPages;},get page(){return page;},get mainBusy(){return mainBusy;},cache:canvasCache,queueThumbnail,visibleThumbnails,thumbnailCache};");
  vm.runInNewContext(instrumented,context,{filename:'neobath-anima-interactif.js'});
@@ -58,4 +59,45 @@ test('thumbnail rendering is lazy: offscreen pages allocate no PDF page or canva
  h.renderRequests[0].resolve();await tick();
  assert.equal(h.canvases.length,1);assert.equal(h.canvases[0].width,0,'temporary thumbnail canvas is released after image encoding');
  assert.equal(h.controls.thumbnailCache.size,1);assert.equal(preview.children[0].src,'blob:synthetic-1');
+});
+
+function fire(node,type,event={}){
+ const handler=node.listeners.get(type);assert.equal(typeof handler,'function',type+' is bound');
+ handler({target:node,button:0,detail:1,preventDefault(){},stopPropagation(){},...event});
+}
+async function firstRenderedPage(h){
+ const loading=h.controls.render();h.resolvePage(1);await tick();h.renderRequests[0].resolve();await loading;
+ return h.elements.get('mount').children[0];
+}
+
+for(const collection of ['ANIMA','DNA'])test(collection+': clicking the displayed PDF image advances exactly one page and stops at the last page',async()=>{
+ const h=readerHarness({collection}),image=await firstRenderedPage(h),mount=h.elements.get('mount');
+ fire(mount,'click',{target:image});assert.equal(h.controls.page,2);
+ h.controls.navigate(h.pdf.numPages);
+ fire(mount,'click',{target:image});assert.equal(h.controls.page,h.pdf.numPages);
+});
+
+test('swiping left then receiving the browser synthetic image click cannot advance a second page',async()=>{
+ const h=readerHarness(),image=await firstRenderedPage(h),frame=h.elements.get('frame'),mount=h.elements.get('mount');
+ fire(frame,'touchstart',{touches:[{clientX:280,clientY:100}]});
+ fire(frame,'touchmove',{touches:[{clientX:120,clientY:105}]});
+ fire(frame,'touchend',{changedTouches:[{clientX:100,clientY:105}]});
+ assert.equal(h.controls.page,2);
+ fire(mount,'click',{target:image});assert.equal(h.controls.page,2);
+});
+
+test('pinching or vertically scrolling on the page never turns a following synthetic click into navigation',async()=>{
+ for(const gesture of ['pinch','vertical']){
+  const h=readerHarness(),image=await firstRenderedPage(h),frame=h.elements.get('frame'),mount=h.elements.get('mount');
+  fire(frame,'touchstart',{touches:[{clientX:180,clientY:100}]});
+  fire(frame,'touchmove',{touches:gesture==='pinch'?[{clientX:100,clientY:110},{clientX:260,clientY:110}]:[{clientX:185,clientY:300}]});
+  fire(frame,'touchend',{changedTouches:[{clientX:185,clientY:300}]});
+  fire(mount,'click',{target:image});assert.equal(h.controls.page,1,gesture+' must not advance');
+ }
+});
+
+test('clicking a magnified page allows inspection without advancing',async()=>{
+ const h=readerHarness(),image=await firstRenderedPage(h),mount=h.elements.get('mount');
+ fire(h.elements.get('more'),'click');
+ fire(mount,'click',{target:image});assert.equal(h.controls.page,1);
 });

@@ -117,7 +117,7 @@ async function render(){
  const cached=canvasCache.get(key);if(cached){mount.replaceChildren(cached);status.hidden=true;mainBusy=false;frame.setAttribute('aria-busy','false');pumpThumbnails();return;}
  setStatus('Page '+n+'…');let canvas,pageProxy;
  try{const p=await pdf.getPage(n);pageProxy=p;if(turn!==renderTurn||disposed)return;const viewport=p.getViewport({scale:scaleFor(p)}),ratio=pixelRatio({width:viewport.width,height:viewport.height,dpr:devicePixelRatio||1});
-  canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.floor(viewport.width*ratio));canvas.height=Math.max(1,Math.floor(viewport.height*ratio));canvas.style.width=Math.round(viewport.width)+'px';canvas.style.height=Math.round(viewport.height)+'px';canvas.setAttribute('role','img');canvas.setAttribute('aria-label',collection+' · Page '+n);
+  canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.floor(viewport.width*ratio));canvas.height=Math.max(1,Math.floor(viewport.height*ratio));canvas.style.width=Math.round(viewport.width)+'px';canvas.style.height=Math.round(viewport.height)+'px';const clickable=zoom<=1.05&&n<total;canvas.setAttribute('role',clickable?'button':'img');canvas.tabIndex=clickable?0:-1;canvas.style.cursor=clickable?'pointer':'default';canvas.setAttribute('aria-label',collection+' · Page '+n+(clickable?' · Cliquer pour la page suivante':''));
   const task=p.render({canvasContext:canvas.getContext('2d',{alpha:false}),viewport,transform:ratio!==1?[ratio,0,0,ratio,0,0]:undefined,background:'#ffffff'});renderTask=task;await task.promise;
   if(turn!==renderTurn||disposed){canvas.width=0;canvas.height=0;return;}
   canvasCache.set(key,canvas);mount.replaceChildren(canvas);status.hidden=true;
@@ -166,11 +166,24 @@ document.addEventListener('keydown',event=>{
  if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName||'')||document.activeElement?.isContentEditable)return;
  if(event.key==='ArrowLeft'){event.preventDefault();navigate(page-1);}if(event.key==='ArrowRight'){event.preventDefault();navigate(page+1);}
 });
-let touch=null;
-frame.addEventListener('touchstart',event=>{if(event.touches.length!==1){if(touch)touch.multiTouch=true;return;}if(!touch)touch={startX:event.touches[0].clientX,startY:event.touches[0].clientY,multiTouch:false};},{passive:true});
-frame.addEventListener('touchmove',event=>{if(touch&&event.touches.length!==1)touch.multiTouch=true;},{passive:true});
-frame.addEventListener('touchend',event=>{if(!touch)return;const start=touch;touch=null;const end=event.changedTouches[0];if(!end)return;const step=swipeStep({...start,endX:end.clientX,endY:end.clientY,zoom});if(step)navigate(page+step);},{passive:true});
-frame.addEventListener('touchcancel',()=>{touch=null;},{passive:true});
+// A tap/click anywhere on the page advances once. Native click events that
+// follow swipes, scrolling, dragging or a pinch must never turn a second page.
+let touch=null,pointer=null,suppressImageClickUntil=0;
+const suppressImageClick=()=>{suppressImageClickUntil=Date.now()+700;};
+function advanceFromImage(event){
+ if(event.target?.tagName!=='CANVAS'||zoom>1.05||Date.now()<suppressImageClickUntil)return;
+ navigate(page+1);
+}
+mount.addEventListener('click',advanceFromImage);
+mount.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){if(event.target?.tagName==='CANVAS'){event.preventDefault();advanceFromImage(event);}}});
+frame.addEventListener('pointerdown',event=>{pointer={x:event.clientX,y:event.clientY};},{passive:true});
+frame.addEventListener('pointermove',event=>{if(pointer&&(Math.abs(event.clientX-pointer.x)>10||Math.abs(event.clientY-pointer.y)>10))suppressImageClick();},{passive:true});
+frame.addEventListener('pointerup',()=>{pointer=null;},{passive:true});
+frame.addEventListener('pointercancel',()=>{pointer=null;suppressImageClick();},{passive:true});
+frame.addEventListener('touchstart',event=>{if(event.touches.length!==1){if(touch)touch.multiTouch=true;suppressImageClick();return;}if(!touch)touch={startX:event.touches[0].clientX,startY:event.touches[0].clientY,multiTouch:false};},{passive:true});
+frame.addEventListener('touchmove',event=>{if(!touch)return;if(event.touches.length!==1){touch.multiTouch=true;suppressImageClick();return;}const point=event.touches[0];if(Math.abs(point.clientX-touch.startX)>10||Math.abs(point.clientY-touch.startY)>10)suppressImageClick();},{passive:true});
+frame.addEventListener('touchend',event=>{if(!touch)return;const start=touch;touch=null;const end=event.changedTouches[0];if(!end)return;if(start.multiTouch||Math.abs(end.clientX-start.startX)>10||Math.abs(end.clientY-start.startY)>10)suppressImageClick();const step=swipeStep({...start,endX:end.clientX,endY:end.clientY,zoom});if(step)navigate(page+step);},{passive:true});
+frame.addEventListener('touchcancel',()=>{touch=null;suppressImageClick();},{passive:true});
 let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{canvasCache.clear();if(pdf)render();},150);});
 addEventListener('hashchange',()=>{const n=location.hash.match(/page=(\d+)/)?.[1];if(n)navigate(n);});
 for(const list of document.querySelectorAll('[data-list]'))list.addEventListener('scroll',()=>{if(!observer)refreshVisibleThumbnails();},{passive:true});
