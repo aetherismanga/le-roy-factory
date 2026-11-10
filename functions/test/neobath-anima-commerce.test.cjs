@@ -9,7 +9,7 @@ function response(){return {code:200,set(){return this;},status(n){this.code=n;r
 test('public Anima catalogue converts each public HT price once, with no purchase fields',async()=>{
  const result=await publicCatalogue(),source=require('../neobath-anima/catalogue.json');
  assert.equal(result.products.length,source.products.length);
- for(const p of result.products){const original=source.products.find(s=>s.id===p.id);for(const v of p.prices){const amount=original.prices?.find(s=>s.key===v.key)?.price??original.pricePublicHT;assert.equal(v.publicTTC,typeof amount==='number'?Math.round(amount*120):null);}assert(!('pricePublicHT' in p));assert(!('proHT' in p));}
+ for(const p of result.products){const original=source.products.find(s=>s.id===p.id);for(const v of p.prices){const amount=original.prices?.find(s=>s.key===v.key)?.price??original.pricePublicHT;assert.equal(v.publicTTC,typeof amount==='number'?Math.round(amount*120):null);}assert(!('pricePublicHT' in p));assert(!('proHT' in p));assert(p.prices.every(v=>! /\bHT\b/.test(v.label)));}
 });
 test('Neobath purchase reference is quoted from canonical products, ignoring submitted totals',async()=>{
  const {initialDraft,draftProject}=await import(pathToFileURL(resolve(__dirname,'../neobath-anima/studio-adapter/commerce/guided.js')));
