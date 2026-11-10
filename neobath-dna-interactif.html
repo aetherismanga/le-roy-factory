@@ -92,7 +92,7 @@ footer{text-align:center;color:var(--muted);font-size:.77rem;padding:15px 12px 3
 <body>
 <header><div class="head"><a href="neobath-catalogues-interactifs.html" aria-label="Retour à l'accès PRO"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY"><span><strong>Catalogue interactif · DNA</strong><small>NEOBATH · DNA Collection 2026</small></span></a><span class="brand" aria-label="Neobath DNA">DNA</span><a class="back" href="neobath-catalogues-interactifs.html">← Mes tarifs</a></div></header>
 <nav class="bar" aria-label="Navigation du catalogue"><div class="bar-inner">
-<button class="primary" id="open-index" type="button">☰ Index des meubles et tarifs</button>
+<button class="primary" id="open-index" type="button">☰ Index du catalogue DNA</button>
 <div class="paging"><button id="prev" type="button" aria-label="Page précédente">‹</button><label>Page <input id="page" type="number" min="1" max="81" value="1" aria-label="Numéro de page" inputmode="numeric"></label><span id="total">/ 81</span><button id="next" type="button" aria-label="Page suivante">›</button></div>
 <div class="zoom"><button id="less" type="button" aria-label="Zoom arrière">−</button><output id="zoom">100 %</output><button id="more" type="button" aria-label="Zoom avant">+</button><button id="fit" type="button">Adapter</button></div>
 <form class="searchbox" id="search-form" role="search"><input id="search" type="search" placeholder="Rechercher référence, tarif, composition…" aria-label="Rechercher dans le catalogue" minlength="2"><button type="submit">Rechercher</button></form>
@@ -101,12 +101,12 @@ footer{text-align:center;color:var(--muted);font-size:.77rem;padding:15px 12px 3
 <main class="layout">
 <aside class="sidebar desktop" aria-label="Sommaire du catalogue"><div class="side-head"><span class="eyebrow">Accès direct</span><h2>Collections et tarifs</h2><input type="search" data-filter placeholder="Filtrer le sommaire…" aria-label="Filtrer l'index"></div><div class="index-list" data-list></div></aside>
 <section class="viewer" aria-label="Lecteur PDF sécurisé">
-<div class="viewer-intro"><div><span class="eyebrow">Catalogue officiel · 81 pages</span><h1 id="section-title">DNA Collection</h1><p id="caption">NEOBATH · Page 1 sur 81</p></div><span class="pill">Accès professionnel</span></div>
+<div class="viewer-intro"><div><span class="eyebrow">Catalogue officiel · DNA</span><h1 id="section-title">DNA Collection</h1><p id="caption">NEOBATH · Page 1 sur 81</p></div><span class="pill">Accès professionnel</span></div>
 <section class="search-results" id="results" aria-live="polite" hidden><div class="results-head"><h2 id="results-title">Résultats</h2><button id="results-close" type="button" aria-label="Fermer la recherche">×</button></div><div class="results-grid" id="results-list"></div></section>
 <div class="viewer-shell"><div id="frame" class="page-frame" aria-busy="true"><div id="status" class="status" role="status" aria-live="polite">Vérification de l'accès PRO sécurisé…</div><div id="mount" class="page-mount"></div></div></div>
-<div class="foot"><p>Sommaire cliquable · Compositions Pura & Ribelle · Tarifs et références officielles.</p><a href="neobath-catalogues-interactifs.html">Retour à mes tarifs PRO ↗</a></div>
+<div class="foot"><p>Sommaire cliquable · Recherche dans le catalogue · Références officielles.</p><a href="neobath-catalogues-interactifs.html">Retour à mes tarifs PRO ↗</a></div>
 </section></main>
-<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Index DNA" hidden><aside class="sidebar"><div class="side-head"><div class="overlay-header"><span class="eyebrow">NEOBATH DNA</span><button id="close-index" type="button" aria-label="Fermer l'index">×</button></div><h2>Aller à une composition ou un tarif</h2><input type="search" data-filter placeholder="Pura, Ribelle, miroirs…" aria-label="Filtrer l'index"></div><div class="index-list" data-list></div></aside></div>
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Index DNA" hidden><aside class="sidebar"><div class="side-head"><div class="overlay-header"><span class="eyebrow">NEOBATH DNA</span><button id="close-index" type="button" aria-label="Fermer l'index">×</button></div><h2>Aller à une page du catalogue</h2><input type="search" data-filter placeholder="Page du catalogue…" aria-label="Filtrer l'index"></div><div class="index-list" data-list></div></aside></div>
 <footer>LE ROY FACTORY · Catalogue DNA 2026 · Les prix et documents restent soumis à votre accès professionnel.</footer>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 <script src="assets/js/neobath-anima-interactif.js?v=20261110-dna1"></script>

@@ -125,7 +125,7 @@ try {
   const app = appSDK.getApps().find(app => app.options.projectId === config.projectId) || appSDK.initializeApp(config);
   const auth = authSDK.getAuth(app);
   signOutAgent = async () => {sessionStorage.removeItem('lrfProSessionToken');localStorage.removeItem('lrfProRememberToken');await authSDK.signOut(auth);};
-  authSDK.onIdTokenChanged(auth, user => {currentUser = isAnimaAgent(user)?user:clientUser(); refresh(currentUser);});
+  authSDK.onIdTokenChanged(auth, user => {const next=isAnimaAgent(user)?user:clientUser();if(next?.clientSessionToken&&currentUser?.uid===next.uid)return;currentUser=next;refresh(currentUser);});
 } catch (_) {
   unmount();
   status.textContent = 'Connexion indisponible. Vérifiez votre connexion puis réessayez.';
