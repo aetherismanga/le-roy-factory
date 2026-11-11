@@ -387,11 +387,16 @@
       "originalReportTextPreserved": true
     },
     "randalCatalogue": {
-      "releaseId": "20261110-randal-index-less-1",
+      "releaseId": "20261111-randal-reader-vessels-1",
       "indexStartsAt": "Harmony",
       "indexResetsSearch": true,
       "lessBasin": "compact-40x22-side-tap-right",
-      "generalAppSha256": "eaf361984a15ce83281170a12d8ab0f50735612b287274610845d96f4bb2686d"
+      "generalAppSha256": "81565cb3bbb582a3e3d6ce3bbe0425c0e6504f0b38aacca50b4f653485fc04c0",
+      "officialHeaderLogo": true,
+      "pdfRuntime": "same-origin library and worker, streaming retry",
+      "countertopBowls120": true,
+      "countertopLayoutChoice": true,
+      "generalHomeSha256": "d69a8e4a499bd99b0e8a7b028144006bf2af2f57058378e94418a69addc4db71"
     }
   },
   "configurators": {

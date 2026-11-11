@@ -314,11 +314,10 @@ async function loadDocument(){
  if(loader)return;
  $('viewer-error').hidden=true;viewer.setAttribute('aria-busy','true');status('Ouverture du catalogue RANDAL…');
  try{
-  if(!window.pdfjsLib)throw new Error('Visionneuse PDF indisponible');
-  pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
-  // Lecture par plages HTTP : ne pas télécharger le PDF complet à chaque ouverture.
-  loader=pdfjsLib.getDocument({url:PDF_URL,rangeChunkSize:131072,disableAutoFetch:true,disableStream:true});
-  pdf=await loader.promise;maxPage=pdf.numPages;page=clamp(page,1,maxPage);updateNavigation();
+  loader=true;
+  const {loadPdfRuntime,openPdfDocument}=await import('./randal-catalogue/pdf-runtime.mjs');
+  pdf=await openPdfDocument(await loadPdfRuntime(),PDF_URL);
+  maxPage=pdf.numPages;page=clamp(page,1,maxPage);updateNavigation();
   await render();refreshThumbnails();
  }catch(err){status('');$('viewer-error').hidden=false;viewer.setAttribute('aria-busy','false');console.warn('Catalogue RANDAL indisponible',err);}
  finally{loader=null;}

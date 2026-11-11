@@ -5,6 +5,19 @@ import {CATALOG as C} from './catalog.js';
 import {topAvailable,defaultTop} from '../configuration.js';
 export const DRAFT_KEY='randal-general-guided-v1',TRANSFER_KEY='randal-general-guided-transfer-v1';
 export const initialDraft=(collection='harmony')=>{const m=C.models.find(m=>m.collection===collection)||C.models[0];return {version:1,engaged:false,collection:m.collection,step:0,format:m.id,width:m.widths.includes(80)?80:m.widths[0],finish:m.finishes[0],top:defaultTop(m.id),basinColor:'gloss',topDrawer:'siphon',topFinish:'plan--blanco-mate',column:false,columnModel:C.columns.find(c=>c.collection===m.collection)?.id||null,columnFinish:m.finishes[0],mirror:null,mirrorSize:0,mirrorFinish:'Noir'};};
+export function updateDraft(input,patch){
+ const next={...input,...patch,engaged:true};
+ if(patch.format){const model=C.models.find(m=>m.id===patch.format);if(!model)throw Error('Choisissez un modèle du catalogue général RANDAL.');if(!model.widths.includes(next.width))next.width=model.widths[0];if(!model.finishes.includes(next.finish))next.finish=model.finishes[0];}
+ if(!topAvailable(next.top,next.width,next.format)){next.top=defaultTop(next.format);next.basinColor='gloss';}
+ if(next.top==='tampa'&&!C.inset.tampa[next.basinColor]?.[next.width===79?80:next.width])next.basinColor='gloss';
+ // An integrated double bowl is not a countertop-bowl placement. Resolve the
+ // previous choice against the new top before validating or updating the scene.
+ if(['sella','tampa','neris','torne'].includes(next.top)){
+  next.basinLayout=resolveBasinLayout(next.top,next.width,next.format,next.basinLayout);
+  if(!basinEntry(next.top,next.basinColor,next.width,next.format,next.basinLayout))next.basinColor='gloss';
+ }
+ return normalizeDraft(next);
+}
 export function normalizeDraft(input){
  const m=C.models.find(m=>m.id===input?.format);if(!m)throw Error('Choisissez un modèle du catalogue général RANDAL.');
  const d={...initialDraft(m.collection),...input,collection:m.collection};

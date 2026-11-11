@@ -11,4 +11,10 @@
 .viewer-page-prev{left:10px}.viewer-page-nav svg{width:25px;height:25px}.viewer-page-nav:hover:not(:disabled){background:#fff;border-color:var(--gold)}.viewer-page-nav:disabled{opacity:.3;box-shadow:none}.viewer-error{z-index:3}.reading-mode .viewer-page-nav{background:#f7f5f0e6}
 @media(max-width:599px){.viewer-page-nav{width:44px;height:44px}.viewer-page-prev{left:4px}}
 
+/* The official square logo keeps its proportions at every reader size. */
+.wordmark .lrf-logo{display:block;width:58px;height:58px;aspect-ratio:1;object-fit:contain}
+@media(max-width:899px){.wordmark .lrf-logo{width:46px;height:46px}}
+@media(max-width:599px){.wordmark .lrf-logo{width:42px;height:42px}}
+@media(max-height:500px) and (orientation:landscape){.wordmark .lrf-logo{width:35px;height:35px}}
+
 .page-frame{cursor:pointer}.page-frame.is-dragging{cursor:grabbing}
