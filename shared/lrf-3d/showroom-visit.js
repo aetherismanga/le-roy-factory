@@ -1,5 +1,6 @@
 import {visitLocalPoint} from './visit-mobile-controls.js';
 import {resolveShowroomHDGallery} from './showroom-hd-gallery.js';
+import {createShowroomAccess} from './showroom-access.js';
 import * as T from 'three';
 
 const localPoint=(item,point)=>{item.asset.visitInterior.root.updateWorldMatrix(true,false);return item.asset.visitInterior.root.worldToLocal(point.clone());};
@@ -26,8 +27,9 @@ function nearestPhysicalHit(root,ray){
  return hits.sort((a,b)=>a.distance-b.distance)[0]||null;
 }
 
-export function createShowroomVisit({stage,canvas,camera,getItems,onInvalidate=()=>{},onOverlay=()=>{}}){
+export function createShowroomVisit({stage,canvas,camera,getItems,onInvalidate=()=>{},onOverlay=()=>{},showroomAccess}){
  let occupiedId=null,dialog=null,previousFocus=null;
+ const access=showroomAccess||createShowroomAccess({stage,onOverlay,onInvalidate});
  const point=new T.Vector3(),ray=new T.Raycaster();ray.far=7;
  function close(){if(!dialog)return;dialog.close?.();dialog.remove();dialog=null;previousFocus?.focus?.();onOverlay(false);onInvalidate();}
  const element=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
@@ -121,12 +123,13 @@ export function createShowroomVisit({stage,canvas,camera,getItems,onInvalidate=(
     // Keep an occupied exhibition visible; the door can be closed on returning
     // to the vestibule without making the hall vanish under the visitor.
     const local=localPoint(current,point.copy(camera.position));if(space.innerOpen&&local.z<-3.1)return true;
-    space.toggleInner();onInvalidate();return true;
+    if(space.innerOpen){space.toggleInner();onInvalidate();return true;}
+    close();access.request().then(allowed=>{if(allowed&&occupiedId===current.id&&getItems().includes(current)){space.setInnerOpen(true);onInvalidate();}});return true;
    }
    if(action){const hall=space.showroom;if(action.kind==='catalogue'){const manufacturer=hall?.panels.find(p=>p.manufacturer.id===action.manufacturerId)?.manufacturer;if(manufacturer)openCollection(manufacturer);}else hall?.activateAction?.(action);onInvalidate();return true;}
    const entry=object.userData.showroomCollection;if(entry){if(hit.distance>7)return false;openCollection(entry.manufacturer,entry.collection);return true;}
   }
   return false;
  }
- return {update,animate,tap,get occupiedId(){return occupiedId},get blocked(){return !!dialog},close,exit(){close();occupiedId=null;for(const item of getItems().filter(eligible)){item.asset.visitInterior.endVisit();item.asset.visitInterior.setVisible(item.settings?.doorOpen===true);}},openCollection,openPoolChooser};
+ return {update,animate,tap,get occupiedId(){return occupiedId},get blocked(){return !!dialog||access.pending},close(){access.close();close();},exit(){access.close();close();occupiedId=null;for(const item of getItems().filter(eligible)){item.asset.visitInterior.endVisit();item.asset.visitInterior.setVisible(item.settings?.doorOpen===true);}},openCollection,openPoolChooser};
 }

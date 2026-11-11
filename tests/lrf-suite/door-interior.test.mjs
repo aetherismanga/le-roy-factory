@@ -57,19 +57,19 @@ test('the open passage contains real depth for front and oblique views but backd
  try{
   for(const x of [-.20,0,.20])for(const y of [.4,1.2,1.7]){
    const hits=hallHits(asset.interior,new T.Vector3(x,y,.4),new T.Vector3(x*.10,0,-1));
-   assert(hits.length,'There is a modeled house interior behind every part of the clear passage');assert(hits[0].point.z<-.5);assert(hits[0].object.name.includes('hall'));
+   assert(hits.length,'There is a modeled house interior behind every part of the clear passage');assert(hits[0].point.z<-.5);assert(hits[0].object.name.includes('hall')||hits[0].object.parent?.name==='Enseigne_LRF_Showrooms','The ray reaches architecture or the physical sign fixed to its back door');
   }
   const center=hallHits(asset.interior,new T.Vector3(0,1.15,.4),new T.Vector3(0,0,-1))[0];assert(center.distance>3,'A real back wall/inner door has perspective depth rather than a white plane at the opening');
   assert.equal(new T.Raycaster(new T.Vector3(0,1.2,1),new T.Vector3(0,0,-1)).intersectObject(asset.interior,true).length,0);
  }finally{disposeObject(asset.root);}
 });
 
-test('all supported door sizes retain bounded finite, locally owned scenery with no network or billboard dependency',()=>{
+test('all supported door sizes retain bounded physical scenery with flat graphics limited to the door sign',()=>{
  for(const [width,height]of [[60,180],[60,260],[140,180],[140,260],[83,204]]){
   const asset=makeOpening('door',{width,height});asset.setOpenProgress(1);
   try{
-   let meshes=0,triangles=0;asset.interior.traverse(object=>{if(!object.isMesh)return;meshes++;const geometry=object.geometry;assert(Array.from(geometry.attributes.position.array).every(Number.isFinite));triangles+=(geometry.index?.count||geometry.attributes.position.count)/3*(object.isInstancedMesh?object.count:1);assert.notEqual(geometry.type,'PlaneGeometry','The hall is physical architecture, not a flat image background');if(object.material.map)assert.fail('No external bitmap is required');});
-   assert(meshes<45);assert(triangles<18000);assert(new T.Box3().setFromObject(asset.interior).max.z<-.20,'Hall scenery stays beyond the doorway threshold');
+   let meshes=0,triangles=0;asset.interior.traverse(object=>{if(!object.isMesh)return;meshes++;const geometry=object.geometry;assert(Array.from(geometry.attributes.position.array).every(Number.isFinite));triangles+=(geometry.index?.count||geometry.attributes.position.count)/3*(object.isInstancedMesh?object.count:1);if(geometry.type==='PlaneGeometry'){assert(['Logo_officiel_LRF_porte','Inscription_Showrooms'].includes(object.name),'Only the logo and caption may use a flat graphic');assert.equal(object.parent.name,'Enseigne_LRF_Showrooms');assert.equal(object.parent.parent.name,'Porte_vers_exposition');}if(object.material.map)assert.fail('No bitmap is required to construct the physical hall');});
+   assert(meshes<=46,'43 vestibule meshes plus the plaque, logo and caption');assert(triangles<18000);assert(new T.Box3().setFromObject(asset.interior).max.z<-.20,'Hall scenery stays beyond the doorway threshold');
   }finally{disposeObject(asset.root);}
  }
  const a=makeDoorInterior(),b=makeDoorInterior(),mapA=a.root.getObjectByName('Mur_fond_hall').material.bumpMap,mapB=b.root.getObjectByName('Mur_fond_hall').material.bumpMap;assert.notEqual(mapA,mapB);

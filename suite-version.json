@@ -1,7 +1,7 @@
 {
   "schema": "lrf-suite-release",
   "version": 1,
-  "releaseId": "20261110-randal-index-less-1",
+  "releaseId": "20261111-hall-yosemite-showrooms-1",
   "baselineMain": "8571318620b70a7d7c0c9a0580b1d65bdc32db5e",
   "baselineStudio": "4668cd99df55734a46fcd3bd330acb60da53d3f5",
   "applications": [
@@ -11,7 +11,7 @@
   ],
   "sharedCatalogueVersion": "20261024-suite-1",
   "publicSite": {
-    "releaseId": "20261110-randal-index-less-1",
+    "releaseId": "20261111-hall-yosemite-showrooms-1",
     "baselineCommit": "0a116a66e4fb03522876be09d417f853bb3b2ed9",
     "pages": [
       "configurateur-salle-de-bain-3d.html",
@@ -404,6 +404,17 @@
     "randal-general": {
       "deployment": "dpl_8c84HVatzcvw7KQwrsUpNrFyojqW",
       "appSha256": "9573c44e5dd2717cc58bf2a5532fee19257cabca422486b540f42c40c27745d4"
+    },
+    "showroomEntrance": {
+      "releaseId": "20261111-hall-yosemite-showrooms-1",
+      "nativeHoneyPhoto": true,
+      "grainAspectPreserved": true,
+      "officialDoorLogo": true,
+      "doorLabel": "Showrooms",
+      "serverVerifiedPassword": true,
+      "sessionHours": 8,
+      "studioAppSha256": "19f428b7c219b32955501ae337fbb7f389f0e021ebb093cd2d356b3f2706a041",
+      "generalAppSha256": "81565cb3bbb582a3e3d6ce3bbe0425c0e6504f0b38aacca50b4f653485fc04c0"
     }
   },
   "privateServices": {

@@ -4,6 +4,10 @@ import * as T from 'three';
 import {makeDoorInterior,DOOR_INTERIOR_FLOOR} from '../shared/lrf-3d/door-interior.js';
 import {COLLECTIONS} from '../shared/lrf-3d/surface-catalog.js';
 import {disposeObject} from '../studio-one/src/composition.js';
+import {readFileSync} from 'node:fs';
+
+const nativeSources=JSON.parse(readFileSync(new URL('../shared/lrf-3d/media/showroom/yosemite-native-sources.json',import.meta.url)));
+const nativeHoney='assets/showroom/yosemite-honey-03h2d40-02.jpg';
 
 const topVertices=mesh=>{
  const p=mesh.geometry.attributes.position,n=mesh.geometry.attributes.normal,uv=mesh.geometry.attributes.uv,result=[];
@@ -20,7 +24,7 @@ test('the adjoining hall uses the real Yosemite Honey 15x85 mitred format and on
   try{
    const floor=hall.root.getObjectByName('Yosemite_Honey_chevron_hall'),passage=hall.root.getObjectByName('Sol_continu_passage');
    assert.equal(floor.material,passage.material,'one source recipe spans the hall and narrow passage');
-   assert.equal(hall.root.userData.hallFloor.source,record.manufacturerSample);assert.equal(hall.root.userData.hallFloor.fidelity,'manufacturer-sample');
+   assert.equal(hall.root.userData.hallFloor.source,nativeHoney);assert.equal(hall.root.userData.hallFloor.fidelity,'manufacturer-native-tile');
    assert(!hall.root.userData.hallFloor.source.includes('reconstructed'));
    assert(floor.geometry.userData.tileCount>40);assert(floor.geometry.userData.cells.every(c=>c.width===.85&&c.height===.15));
    const a=topVertices(floor),b=topVertices(passage);assert(a.length&&b.length);for(const v of [...a,...b])assert(Math.abs(v.y-.001)<1e-8,'the chevron face keeps the original finished floor elevation');
@@ -29,22 +33,37 @@ test('the adjoining hall uses the real Yosemite Honey 15x85 mitred format and on
    assert(compared>=2,'cut pieces retain identical material coordinates across the passage boundary');
    assert(a.every(v=>v.z<=-.53+1e-6));assert(b.every(v=>v.z>=-.53-1e-6&&v.z<=-.22+1e-6));
    const normals=floor.geometry.attributes.normal;assert([...normals.array].every(Number.isFinite));assert.equal(floor.castShadow,false);assert.equal(floor.receiveShadow,true);
-   let count=0,triangles=0;hall.root.traverse(o=>{if(o.isMesh){count++;triangles+=(o.geometry.index?.count||o.geometry.attributes.position.count)/3;}});assert(count<45);assert(triangles<18000);
+   let count=0,triangles=0;hall.root.traverse(o=>{if(o.isMesh){count++;triangles+=(o.geometry.index?.count||o.geometry.attributes.position.count)/3;}});assert(count<=46,'43 vestibule meshes plus the plaque, logo and caption');assert(triangles<18000);
    hall.root.updateMatrixWorld(true);assert.equal(new T.Raycaster(new T.Vector3(0,1,-1),new T.Vector3(0,-1,0)).intersectObject(hall.root,true).length,0,'backdrop never steals editing hits');
   }finally{disposeObject(hall.root);}
  }
 });
 
 test('the manufacturer bitmap loads once on reveal, wakes the view and is owned by that hall only',async()=>{
- let requests=0,ready=0,disposed=0;const texture=new T.Texture();texture.addEventListener('dispose',()=>disposed++);
- const hall=makeDoorInterior({loadTexture:async(url,options)=>{requests++;assert.match(url,/manufacturer-materials\/elios\/wp-content\/uploads\/2023\/05\/YOSEMITE_honey_zoom\.jpg$/);assert.equal(options.maxDimension,2048);assert(options.signal instanceof AbortSignal);return texture;},onReady:()=>ready++});
+ let requests=0,ready=0,disposed=0;const texture=new T.Texture({width:1000,height:200});texture.addEventListener('dispose',()=>disposed++);
+ const source=nativeSources.find(s=>s.file===nativeHoney.split('/').at(-1));assert.equal(source.generated,false);assert.equal(source.resized,false);assert.equal(source.color,'honey');assert.deepEqual([source.width,source.height],[1000,200]);
+ assert(readFileSync(new URL('../shared/lrf-3d/media/showroom/'+source.file,import.meta.url)).length>10000,'The original native photograph is actually packaged, not a network-only URL');
+ const hall=makeDoorInterior({loadTexture:async(url,options)=>{requests++;assert.equal(url,nativeHoney);assert.equal(options.maxDimension,2048);assert(options.signal instanceof AbortSignal);return texture;},onReady:()=>ready++});
  try{
   const floor=hall.root.getObjectByName('Yosemite_Honey_chevron_hall');assert.equal(requests,0);assert.equal(floor.material.map,null);
   hall.setVisible(true);hall.setVisible(true);assert.equal(await hall.prepareFloor(),true);assert.equal(requests,1);assert.equal(ready,1);
   assert.equal(floor.material.map,texture);assert.equal(texture.colorSpace,T.SRGBColorSpace);assert.equal(texture.anisotropy,8);assert.equal(floor.material.color.getHexString(),'ffffff');assert.equal(hall.root.userData.hallFloor.textureState,'ready');
+  assert.equal(floor.material.bumpMap,texture);assert(floor.material.bumpScale>0&&floor.material.bumpScale<.0005,'Only a shallow grain relief is added');
+  assert.equal(texture.repeat.x,1);assert(Math.abs(texture.repeat.y-15/17)<1e-12,'The 5:1 photograph is cropped to the 85:15 plank instead of stretched');assert(Math.abs(texture.offset.y-(1-15/17)/2)<1e-12);
   hall.setVisible(false);hall.setVisible(true);await hall.prepareFloor();assert.equal(requests,1);
  }finally{disposeObject(hall.root);}
  assert.equal(disposed,1);
+});
+
+test('a failed first photo falls back to another packaged Honey original and can recover after a failed reveal',async()=>{
+ const calls=[];let available=false,ready=0;const texture=new T.Texture({width:1000,height:200});
+ const hall=makeDoorInterior({loadTexture:async(url)=>{calls.push(url);if(available&&url.endsWith('-05.jpg'))return texture;throw Error('Temporary image download failure');},onReady:()=>ready++});
+ try{
+  assert.equal(await hall.prepareFloor(),false);assert.equal(calls.length,3);assert.equal(hall.root.userData.hallFloor.textureState,'error');
+  available=true;assert.equal(await hall.prepareFloor(),true);assert.equal(calls.length,5);assert.equal(ready,1);
+  assert.equal(hall.root.userData.hallFloor.source,'assets/showroom/yosemite-honey-03h2d40-05.jpg');assert.equal(hall.root.userData.hallFloor.textureState,'ready');assert.equal(hall.root.userData.hallFloor.error,undefined);
+  assert.equal(hall.root.getObjectByName('Yosemite_Honey_chevron_hall').material.map,texture);
+ }finally{disposeObject(hall.root);}
 });
 
 test('a disposed backdrop cannot attach a late texture or wake a destroyed renderer',async()=>{

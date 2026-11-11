@@ -47,6 +47,7 @@ await buildPresentationAssets();
 
 // Real photographic sky used only during an exhibition visit.
 cpSync('../shared/lrf-3d/media/showroom','dist/assets/showroom',{recursive:true});
+copyFileSync('../assets/img/logo03lrf.png','dist/assets/showroom/lrf-logo.png');
 
 // Shared native bath geometry for the staged showroom vignettes.
 cpSync('../review-studio/assets/bathroom','dist/assets/bathroom',{recursive:true});

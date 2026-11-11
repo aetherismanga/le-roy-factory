@@ -77,12 +77,17 @@ test('visit occupancy keeps the reached opening visible through cutaway and clea
  }finally{disposeObject(asset.root);}
 });
 
-test('a real centre-screen ray opens the reached second door without exposing it to the editing picker',()=>{
+test('a real centre-screen ray requires verified access before opening the reached second door',async()=>{
  const {asset,item,world}=doorFixture(),camera=new T.PerspectiveCamera(42,1,.035,120);
- const canvas={getBoundingClientRect:()=>({left:0,top:0,width:100,height:100})},visit=createShowroomVisit({stage:{},canvas,camera,getItems:()=>[item]});
+ let pending=null,requests=0,closed=0;
+ const showroomAccess={get pending(){return !!pending;},request(){if(pending)return pending.promise;requests++;let resolve;const promise=new Promise(done=>{resolve=done;});pending={promise,resolve};return promise;},complete(allowed){const state=pending;pending=null;state.resolve(allowed);},close(){closed++;if(pending)this.complete(false);}};
+ const canvas={getBoundingClientRect:()=>({left:0,top:0,width:100,height:100})},visit=createShowroomVisit({stage:{},canvas,camera,getItems:()=>[item],showroomAccess});
  try{
   camera.position.copy(world(0,-1.2));camera.lookAt(world(.3325,-3.41));camera.updateMatrixWorld(true);visit.update(camera.position);
-  assert.equal(asset.visitInterior.innerOpen,false);assert.equal(visit.tap({clientX:50,clientY:50}),true);assert.equal(asset.visitInterior.innerOpen,true);
+  assert.equal(asset.visitInterior.innerOpen,false);assert.equal(visit.tap({clientX:50,clientY:50}),true);assert.equal(asset.visitInterior.innerOpen,false,'the door stays closed while the server checks access');assert.equal(visit.blocked,true);
+  showroomAccess.complete(false);await Promise.resolve();assert.equal(asset.visitInterior.innerOpen,false,'refused access never opens the door');assert.equal(visit.blocked,false);
+  assert.equal(visit.tap({clientX:50,clientY:50}),true);showroomAccess.complete(true);await Promise.resolve();assert.equal(asset.visitInterior.innerOpen,true,'verified access opens the same physical doorway');assert.equal(requests,2);
+  asset.visitInterior.setInnerOpen(false);assert.equal(visit.tap({clientX:50,clientY:50}),true);showroomAccess.complete(true);visit.exit();await Promise.resolve();assert.equal(asset.visitInterior.innerOpen,false,'leaving the visit wins over an access result already queued for this door');assert.equal(visit.occupiedId,null);assert.equal(closed,1);
   visit.update(world(0,.1));assert.equal(visit.tap({clientX:50,clientY:50}),false,'unreached scenery cannot be clicked through the bathroom wall');
  }finally{visit.exit();disposeObject(asset.root);}
 });

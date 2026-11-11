@@ -87,3 +87,15 @@ annoncer une validation visuelle du rendu 3D.
 Une modification exclusivement Anima ne doit déployer que la fonction
 `neobathAnimaApplication` et les médias publics de Pages. Les deux configurateurs
 Randal ne sont pas modifiés ni redéployés pour cette adaptation.
+
+## Porte des showrooms LRF
+
+Le mot de passe de la porte est vérifié par `/api/showroom-access` dans chaque
+atelier. Définir `LRF_SHOWROOM_PASSWORD` et `LRF_SHOWROOM_SESSION_SECRET` comme
+secrets de production des deux projets Vercel avant publication. La clé de
+signature comporte au moins 32 octets ; une même clé permet de valider les
+sessions entre ateliers. Aucun mot de passe ne doit entrer dans les sources,
+les URL ou les projets sauvegardés. Les sessions signées expirent après huit
+heures et sont vérifiées à chaque réouverture. Une configuration absente refuse
+l'entrée. Le logo physique de la porte est copié depuis le fichier officiel
+`assets/img/logo03lrf.png` lors des deux constructions.

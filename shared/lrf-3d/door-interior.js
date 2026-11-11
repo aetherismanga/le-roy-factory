@@ -5,6 +5,7 @@ import {buildTileGeometry} from './tile-layout.js';
 import {loadQueuedTexture,surfaceAssetURL} from './texture-loader.js';
 import {makeShowroomHall} from './showroom-hall.js';
 import {SHOWROOM_MANUFACTURERS} from './showroom-catalog.js';
+import {makeShowroomDoorSign} from './showroom-door-sign.js';
 
 // A small adjoining hall, modeled in metres behind the doorway. It is scenery,
 // never another editable room or part of the opening's commercial dimensions.
@@ -25,13 +26,15 @@ export const DOOR_INTERIOR_FLOOR=Object.freeze({collection:'Yosemite',color:'hon
 function floorDefinition(){
  const collection=COLLECTIONS[DOOR_INTERIOR_FLOOR.collection],colour=collection?.colors.find(c=>c.id===DOOR_INTERIOR_FLOOR.color),format=collection?.formats.find(f=>f.id===DOOR_INTERIOR_FLOOR.format);
  if(!colour||!format||format.shape!=='chevron'||!colour.formats.includes(format.id))throw Error('La référence Yosemite Honey du couloir est indisponible.');
- // Existing reconstructed faces remain labeled as such in the catalogue. The
- // hall deliberately uses the observed native manufacturer sample instead.
- const source=colour.nativeFaces===true||colour.textureProvenance?.manufacturerOriginal===true
+ // Native plank photographs already ship with both ateliers. Opening a door
+ // must not depend on a live manufacturer proxy before its grain appears.
+ // Keep the original website sample as a final, observed-source fallback.
+ const original=colour.nativeFaces===true||colour.textureProvenance?.manufacturerOriginal===true
   ?colour.textureVariants?.balanced?.[0]||colour.faces?.[0]||colour.file
   :colour.manufacturerSample;
- if(!source)throw Error('Le visuel fabricant Yosemite Honey est indisponible.');
- return {source,roughness:collection.roughness,layout:{direction:'horizontal',pattern:'chevron',shape:'chevron',width:format.width,height:format.height,chevronAngle:format.chevronAngle,groutWidth:2}};
+ if(!original)throw Error('Le visuel fabricant Yosemite Honey est indisponible.');
+ const sources=['assets/showroom/yosemite-honey-03h2d40-02.jpg','assets/showroom/yosemite-honey-03h2d40-05.jpg',surfaceAssetURL(original)];
+ return {source:sources[0],sources,roughness:collection.roughness,layout:{direction:'horizontal',pattern:'chevron',shape:'chevron',width:format.width,height:format.height,chevronAngle:format.chevronAngle,groutWidth:2}};
 }
 
 export function makeDoorInterior({width=.83,height=2.04,loadTexture=null,onReady=()=>{}}={}){
@@ -42,7 +45,7 @@ export function makeDoorInterior({width=.83,height=2.04,loadTexture=null,onReady
  const wall=new T.MeshStandardMaterial({color:'#d6cebf',roughness:.87,bumpMap:mineral,bumpScale:.00035,emissive:'#c6b799',emissiveIntensity:.025});
  const plaster=new T.MeshStandardMaterial({color:'#e8e2d8',roughness:.83,bumpMap:mineral,bumpScale:.0003});
  const floorSpec=floorDefinition(),honey=new T.MeshStandardMaterial({color:'#a57d51',roughness:floorSpec.roughness??.82});
- const floorState={...DOOR_INTERIOR_FLOOR,source:floorSpec.source,fidelity:'manufacturer-sample',textureState:'pending'};root.userData.hallFloor=floorState;
+ const floorState={...DOOR_INTERIOR_FLOOR,source:floorSpec.source,fidelity:'manufacturer-native-tile',textureState:'pending'};root.userData.hallFloor=floorState;
  let disposed=false,textureTask=null,ownedFloorTexture=null;const textureAbort=new AbortController();
  const prepareFloor=()=>{
   if(disposed)return Promise.resolve(false);
@@ -50,10 +53,23 @@ export function makeDoorInterior({width=.83,height=2.04,loadTexture=null,onReady
   // Node geometry checks and closed doors do not require a network/browser.
   if(!loadTexture&&typeof Image==='undefined')return Promise.resolve(false);
   floorState.textureState='loading';
-  textureTask=Promise.resolve().then(()=>(loadTexture||loadQueuedTexture)(surfaceAssetURL(floorSpec.source),{signal:textureAbort.signal,maxDimension:2048})).then(texture=>{
+  textureTask=Promise.resolve().then(async()=>{
+   let failure;
+   for(const source of floorSpec.sources){
+    if(disposed||textureAbort.signal.aborted)return null;
+    try{const texture=await (loadTexture||loadQueuedTexture)(source,{signal:textureAbort.signal,maxDimension:2048,timeout:12000});return {texture,source};}
+    catch(error){failure=error;if(disposed||textureAbort.signal.aborted)throw error;}
+   }
+   throw failure||Error('Le veinage Yosemite est indisponible.');
+  }).then(result=>{
+   if(!result)return false;const {texture,source}=result;
    if(disposed){texture.dispose();return false;}
    ownedFloorTexture=texture;texture.colorSpace=T.SRGBColorSpace;texture.wrapS=texture.wrapT=T.ClampToEdgeWrapping;texture.minFilter=T.LinearMipmapLinearFilter;texture.magFilter=T.LinearFilter;texture.generateMipmaps=true;texture.anisotropy=8;texture.needsUpdate=true;
-   honey.map=texture;honey.color.set('#ffffff');honey.needsUpdate=true;floorState.textureState='ready';onReady();
+   // Crop the original plank to the chevron's real aspect, preserving its
+   // grain proportions rather than stretching the photo to fill each piece.
+   const image=texture.image,aspect=(image?.naturalWidth||image?.width||floorSpec.layout.width)/(image?.naturalHeight||image?.height||floorSpec.layout.height),target=floorSpec.layout.width/floorSpec.layout.height;
+   texture.repeat.set(Math.min(1,target/aspect),Math.min(1,aspect/target));texture.offset.set((1-texture.repeat.x)/2,(1-texture.repeat.y)/2);
+   honey.map=texture;honey.bumpMap=texture;honey.bumpScale=.00022;honey.color.set('#ffffff');honey.needsUpdate=true;floorState.source=source;floorState.textureState='ready';delete floorState.error;onReady();
    if(typeof window!=='undefined'&&typeof window.dispatchEvent==='function'&&typeof Event!=='undefined')window.dispatchEvent(new Event('lrf-door-interior-ready'));
    return true;
   }).catch(error=>{if(!disposed){floorState.textureState='error';floorState.error=String(error?.message||error);textureTask=null;}return false;});
@@ -112,6 +128,7 @@ export function makeDoorInterior({width=.83,height=2.04,loadTexture=null,onReady
  box(.020,.115,.008,innerDoorWidth-.075,1.03,.025,metal,'Rosace_poignee_hall',.002,innerLeaf);
  box(.085,.012,.018,innerDoorWidth-.104,1.04,.042,metal,'Poignee_porte_hall',.002,innerLeaf);
  innerLeaf.userData.showroomAction={kind:'inner-door'};
+ const showroomSign=makeShowroomDoorSign({width:innerDoorWidth,onReady});innerLeaf.add(showroomSign.root);
  box(innerDoorWidth,.018,.15,doorX,-.010,back-.06,honey,'Seuil_sas_exposition');
  let showroom=null,innerOpen=false,occupied=false;
  const wake=()=>{onReady();if(typeof window!=='undefined')window.dispatchEvent(new Event('lrf-door-interior-ready'));};
@@ -164,5 +181,5 @@ export function makeDoorInterior({width=.83,height=2.04,loadTexture=null,onReady
  }
  const fill=new T.PointLight('#ffecd1',4,1.55,2);fill.position.set(-.20,hallHeight-.25,-2.35);fill.name='Lumiere_interieure_hall';fill.castShadow=false;root.add(fill);
  root.visible=false;
- return {...visit,root,canWalk,get innerOpen(){return innerOpen},get occupied(){return occupied},get showroom(){return showroom},dimensions:{width:hallWidth,height:hallHeight,depth:Math.abs(back+.23)},prepareFloor,setVisible:value=>{root.visible=!!value||occupied;if(root.visible)prepareFloor();}};
+ return {...visit,root,canWalk,get innerOpen(){return innerOpen},get occupied(){return occupied},get showroom(){return showroom},dimensions:{width:hallWidth,height:hallHeight,depth:Math.abs(back+.23)},prepareFloor,setVisible:value=>{root.visible=!!value||occupied;if(root.visible){prepareFloor();showroomSign.prepare();}}};
 }
