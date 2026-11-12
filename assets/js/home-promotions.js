@@ -9,7 +9,7 @@
   const next = controls.querySelector('[data-home-promo-next]');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const dialog = document.querySelector('#elios-black-friday-details');
-  const READING_MS = 900;
+  const READING_MS = 1400;
   const SLIDE_MS = 3000;
   let current = 0, paused = false, focused = false, inView = true, changing = false;
   let timer, transitionTimer;
