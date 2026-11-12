@@ -35,7 +35,7 @@ for (const permission of permissions) {
 // Icône Android officielle LRF : on utilise directement le logo rond du site.
 const iconDir = join(androidRoot, 'app', 'src', 'main', 'res', 'drawable-nodpi');
 await mkdir(iconDir, { recursive: true });
-await cp(join(repoRoot, 'assets', 'brand-v2', 'logoLRF.png'), join(iconDir, 'lrf_launcher.png'));
+await cp(join(repoRoot, 'assets', 'img', 'logo03lrf.png'), join(iconDir, 'lrf_launcher.png'));
 manifest = manifest
   .replace(/android:icon="[^"]+"/g, 'android:icon="@drawable/lrf_launcher"')
   .replace(/android:roundIcon="[^"]+"/g, 'android:roundIcon="@drawable/lrf_launcher"');
