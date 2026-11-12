@@ -38,7 +38,7 @@ function cartonizeCatalog() {
   const snapshot = publicCatalog();
   for (const item of snapshot.products || []) {
     const product = productByRef(item.ref);
-    if (!product || product.__lrfCartonized) continue;
+    if (!product || product.ref === 'BSA203' || product.__lrfCartonized) continue;
 
     const oldMinQty = Math.max(1, Number(product.minQty) || 1);
     const oldMinUnit = String(product.minUnit || '');
@@ -147,6 +147,7 @@ exports.biltOrder = onRequest({
   memory: '256MiB',
   secrets: ['SMTP_PASSWORD_JEROME']
 }, async (req, res) => {
+  res.set('X-LRF-Bilt-Version', '20261112-talox-net1');
   if (req?.body?.adminToken) return handleAdminPreview(req, res);
   return original.biltOrder(req, res);
 });

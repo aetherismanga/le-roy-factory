@@ -47,7 +47,7 @@
   const scheduleAutoRelease = orderId => post(SCHEDULE_API, { orderId });
 
   function priceFor(product) {
-    const percent = Number(context?.discount?.percent || 0);
+    const percent = product.ref === 'BSA203' ? 0 : Number(context?.discount?.percent || 0);
     const final = Number((Number(product.net) * (1 - percent / 100)).toFixed(4));
     return { percent, final };
   }
@@ -61,7 +61,7 @@
     if (d.percent) {
       pill.className = 'pill';
       pill.textContent = `✓ Avantage exceptionnel LRF — ${d.percent}%`;
-      $('discount-expiry').textContent = `Valable jusqu’au ${dateFr(d.expiresAt)}`;
+      $('discount-expiry').textContent = `Valable jusqu’au ${dateFr(d.expiresAt)} · Hors Talox Kit (prix net)`;
     } else {
       pill.className = 'pill base';
       pill.textContent = 'Tarif NET BILT';
@@ -88,7 +88,7 @@
     $('catalog-content').innerHTML = `<table class="products"><thead><tr><th>Référence</th><th>Produit</th><th>Tarif NET HT</th><th>Minimum livraison</th><th>Quantité</th><th></th></tr></thead><tbody>${list.map(p => {
       const price = priceFor(p);
       const priceHtml = price.percent ? `<span class="oldprice">NET BILT ${money(p.net)}</span><span class="price finalprice">${money(price.final)} HT</span>` : `<span class="price">${money(p.net)} HT</span>`;
-      return `<tr data-ref="${esc(p.ref)}"><td><span class="ref">${esc(p.ref)}</span></td><td><span class="pname">${esc(p.name)}</span><span class="sub">${esc(p.group)} · ${esc(p.format)}</span></td><td>${priceHtml}</td><td><span class="min">x ${p.minQty} ${esc(p.minUnit)}</span><span class="sub">Commande par multiples de ${p.minQty}</span></td><td><input class="qty" data-qty="${esc(p.ref)}" type="number" min="${p.minQty}" step="${p.minQty}" value="${cart.get(p.ref)?.quantity || p.minQty}"></td><td><button class="add" type="button" data-add="${esc(p.ref)}">${cart.has(p.ref) ? 'METTRE À JOUR' : 'AJOUTER'}</button></td></tr>`;
+      return `<tr data-ref="${esc(p.ref)}"><td><span class="ref">${esc(p.ref)}</span></td><td><span class="pname">${esc(p.name)}</span><span class="sub">${esc(p.group)} · ${esc(p.format)}</span></td><td>${priceHtml}${p.ref==='BSA203'?'<span class="sub">Prix net sans remise · 10 kits commandés + 1 offert</span>':''}</td><td><span class="min">x ${p.minQty} ${esc(p.minUnit)}</span><span class="sub">Commande par multiples de ${p.minQty}</span></td><td><input class="qty" data-qty="${esc(p.ref)}" type="number" min="${p.minQty}" step="${p.minQty}" value="${cart.get(p.ref)?.quantity || p.minQty}"></td><td><button class="add" type="button" data-add="${esc(p.ref)}">${cart.has(p.ref) ? 'METTRE À JOUR' : 'AJOUTER'}</button></td></tr>`;
     }).join('')}</tbody></table>`;
     if (!list.length) $('catalog-content').innerHTML = '<div class="empty" style="padding:35px">Aucun produit BILT avec cette recherche.</div>';
   }
@@ -102,13 +102,13 @@
     }
     $('cart-lines').className = '';
     $('cart-lines').innerHTML = lines.map(line => {
-      const p = catalog.products.find(x => x.ref === line.ref); const price = priceFor(p); const total = price.final * line.quantity;
-      return `<div class="cartline"><div><strong>${esc(p.ref)} — ${esc(p.name)}</strong><small>${line.quantity} ${esc(p.minUnit)} · ${money(price.final)} HT / unité de vente</small><small><strong>${money(total)} HT</strong></small></div><button class="remove" data-remove="${esc(p.ref)}" type="button" title="Retirer">×</button></div>`;
+      const p = catalog.products.find(x => x.ref === line.ref); const price = priceFor(p); const total = Number((price.final * line.quantity).toFixed(2)); const freeQuantity = p.ref === 'BSA203' ? Math.floor(line.quantity / 10) : 0;
+      return `<div class="cartline"><div><strong>${esc(p.ref)} — ${esc(p.name)}</strong><small>${line.quantity} ${esc(p.minUnit)} · ${money(price.final)} HT / unité de vente</small><small><strong>${money(total)} HT</strong></small>${freeQuantity?`<small><strong>+ ${freeQuantity} kit(s) offert(s) à 0 € HT</strong> · Total à livrer : ${line.quantity+freeQuantity} kits</small>`:''}</div><button class="remove" data-remove="${esc(p.ref)}" type="button" title="Retirer">×</button></div>`;
     }).join('');
     const percent = Number(context.discount?.percent || 0);
     const totalNet = lines.reduce((s,line) => { const p=catalog.products.find(x=>x.ref===line.ref); return s + Number(p.net)*line.quantity; },0);
-    const totalFinal = totalNet*(1-percent/100);
-    $('cart-summary').innerHTML = `<div class="sum"><div class="sumrow"><span>NET BILT</span><strong>${money(totalNet)}</strong></div>${percent?`<div class="sumrow discountrow"><span>Remise exceptionnelle LRF ${percent}%</span><strong>-${money(totalNet-totalFinal)}</strong></div>`:''}<div class="sumrow total"><span>Total NET HT</span><strong>${money(totalFinal)}</strong></div></div>`;
+    const totalFinal = lines.reduce((sum,line) => { const p=catalog.products.find(x=>x.ref===line.ref); return sum + Number((priceFor(p).final*line.quantity).toFixed(2)); },0);
+    $('cart-summary').innerHTML = `<div class="sum"><div class="sumrow"><span>NET BILT</span><strong>${money(totalNet)}</strong></div>${totalNet-totalFinal>0.005?`<div class="sumrow discountrow"><span>Remise LRF ${percent}% sur articles éligibles</span><strong>-${money(totalNet-totalFinal)}</strong></div>`:''}<div class="sumrow total"><span>Total NET HT</span><strong>${money(totalFinal)}</strong></div></div>`;
     $('order-form').hidden = Boolean(context.pendingFirstOrder);
   }
 
@@ -168,7 +168,7 @@
         const scheduled = await ensureAutoRelease(result.orderId, true);
         if (scheduled) notice(`<strong>Commande enregistrée.</strong> Comme il s’agit de votre première commande BILT, elle est en validation LE ROY FACTORY. Sans réponse, elle partira automatiquement sous 3 jours au tarif NET.`, 'warn');
         else notice(`<strong>Commande enregistrée et en attente de validation LRF.</strong> La programmation automatique à 3 jours n’a pas pu être confirmée immédiatement ; elle sera retentée à la prochaine ouverture de cette page.`, 'error');
-      } else notice(`<strong>Commande BILT envoyée.</strong> Total NET HT : ${money(result.totalFinal)}${result.discountPercent ? ` avec votre remise exceptionnelle LRF de ${result.discountPercent}%.` : '.'}`, 'ok');
+      } else notice(`<strong>Commande BILT envoyée.</strong> Total NET HT : ${money(result.totalFinal)}${result.discountPercent ? ` avec votre remise exceptionnelle LRF de ${result.discountPercent}% sur les articles éligibles (hors Talox Kit).` : '.'}`, 'ok');
       await loadContext();
     } catch (error) { notice(esc(error.message || error), 'error'); }
     finally { btn.disabled = false; btn.textContent = old; }

@@ -4,6 +4,8 @@ const VERSION = 'TARIFS 3.2.1 2026';
 const P = (ref, group, name, format, net, minQty, minUnit) => ({ ref, group, name, format, net, minQty, minUnit });
 
 const PRODUCTS = [
+  { ...P('BSA203','TALOX KIT','TALOX KIT — taloche + seau + 5 peignes','6, 8, 10, 12 mm et Tigre',49.85,1,'kit'), discountEligible:false, giftEvery:10 },
+
   P('BSA021','NOX CLIP','NOX CLIP 0,5 mm','200 uds',6.25,18,'Sacs'),
   P('BSA007','NOX CLIP','NOX CLIP 1,0 mm','200 uds',5.16,18,'Sacs'),
   P('BSA022','NOX CLIP','NOX CLIP 1,5 mm','200 uds',5.16,18,'Sacs'),

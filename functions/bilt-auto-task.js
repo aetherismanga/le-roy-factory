@@ -5,6 +5,7 @@ const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 const { OAuth2Client } = require('google-auth-library');
 const { productByRef } = require('./bilt-catalog');
+const { priceLine } = require('./bilt-pricing');
 
 const db = admin.firestore();
 const JEROME = 'jerome@leroyfactory.fr';
@@ -37,12 +38,11 @@ function normalizeItems(rawItems){
   return rawItems.map(raw=>{
     const ref=clean(raw?.ref,30).toUpperCase();const p=productByRef(ref);if(!p)throw new Error(`Référence BILT inconnue : ${ref}.`);
     const quantity=Number(raw?.quantity);if(!Number.isInteger(quantity)||quantity<p.minQty||quantity%p.minQty!==0)throw new Error(`${ref} : quantité invalide.`);
-    const netPrice=Number(p.net);const lineNet=Number((netPrice*quantity).toFixed(2));
-    return {...p,quantity,netPrice,discountPercent:0,finalUnit:netPrice,lineNet,lineFinal:lineNet};
+    return priceLine(p,quantity,0);
   });
 }
 function totals(items){const totalNet=Number(items.reduce((s,i)=>s+i.lineNet,0).toFixed(2));return {totalNet,totalFinal:totalNet}}
-function rowHtml(i){return `<tr><td style="border:1px solid #ddd;padding:7px"><strong>${esc(i.ref)}</strong></td><td style="border:1px solid #ddd;padding:7px">${esc(i.name)}<br><small>${esc(i.format)}</small></td><td style="border:1px solid #ddd;padding:7px;text-align:center">${i.quantity} ${esc(i.minUnit)}</td><td style="border:1px solid #ddd;padding:7px;text-align:right">${euro(i.netPrice)}</td><td style="border:1px solid #ddd;padding:7px;text-align:right"><strong>${euro(i.lineFinal)}</strong></td></tr>`}
+function rowHtml(i){return `<tr><td style="border:1px solid #ddd;padding:7px"><strong>${esc(i.ref)}</strong></td><td style="border:1px solid #ddd;padding:7px">${esc(i.name)}<br><small>${esc(i.format)}</small></td><td style="border:1px solid #ddd;padding:7px;text-align:center">${i.quantity} ${esc(i.minUnit)}${i.freeQuantity?`<br><strong>+ ${i.freeQuantity} kit(s) offert(s) à 0 € HT</strong><br>Total à livrer : ${i.deliveredQuantity} kits`:""}</td><td style="border:1px solid #ddd;padding:7px;text-align:right">${euro(i.netPrice)}</td><td style="border:1px solid #ddd;padding:7px;text-align:right"><strong>${euro(i.lineFinal)}</strong></td></tr>`}
 function table(items){return `<table cellpadding="0" cellspacing="0" style="border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:13px"><thead><tr style="background:#0f5737;color:#fff"><th style="padding:8px;border:1px solid #ddd">Réf.</th><th style="padding:8px;border:1px solid #ddd">Produit</th><th style="padding:8px;border:1px solid #ddd">Qté</th><th style="padding:8px;border:1px solid #ddd">NET HT</th><th style="padding:8px;border:1px solid #ddd">Total HT</th></tr></thead><tbody>${items.map(rowHtml).join('')}</tbody></table>`}
 
 async function sendOrder(order){
