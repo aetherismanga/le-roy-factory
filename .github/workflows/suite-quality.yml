@@ -96,7 +96,7 @@ jobs:
       - name: Verify readable image cache recovery
         run: node tests/elios-phase2a/cache-regression.cjs
       - run: npm run check:core
-      - run: node --test tests/lrf-plan-pose/*.test.mjs tests/lrf-suite/*.test.mjs tests/security/*.test.mjs tests/secure-agent-tariffs.test.mjs tests/release-impact.test.mjs tests/lrf-surface-contract.test.mjs tests/randal-workspace/identity-state.test.mjs
+      - run: node --test tests/lrf-plan-pose/*.test.mjs tests/lrf-suite/*.test.mjs tests/security/*.test.mjs tests/secure-agent-tariffs.test.mjs tests/release-impact.test.mjs tests/lrf-surface-contract.test.mjs tests/randal-workspace/identity-state.test.mjs tests/elios-samples.test.mjs tests/elios-expo-budget-ui.test.mjs
       - run: npm run check --workspace=randal-general-3d
       - run: npm run check --workspace=studio-one-atelier-3d
       - run: npm run build:site

@@ -22,9 +22,11 @@ sont rapprochés de leurs dimensions calibrées, explicitement dans l'importeur.
 216 outils de merchandising sont sélectionnables. 147 possèdent une planche
 fabricant contenant leur code exact. Les 69 autres restent indiqués sans visuel
 ou sans code confirmé. Aucune photographie d'une autre référence ne leur est
-attribuée. Les contributions de budget agent sont retirées des planches client,
-et ne sont jamais intégrées à une grille client. Le merchandising est chiffré
-sur demande. Les définitions natives limitées et les reconstructions déjà
+attribuée. Les allocations et quantités du budget agent restent privées. Les 216 valeurs
+unitaires HT de la colonne E du fichier « ELIOS_budget campioni AGENT 2027.xlsx »
+sont affichées à titre indicatif, avec provenance feuille/cellule. La feuille
+BUDGET 2027 est prioritaire sur les listes historiques (EVNR15 : 200 €).
+Le merchandising est exclu du montant à payer et soumis à attribution Elios. Les définitions natives limitées et les reconstructions déjà
 présentes dans le catalogue sont identifiées.
 
 ## Chiffrage et transmission
@@ -34,7 +36,9 @@ les tarifs HT actuels de l'API déjà employée par la sélection Elios, et cons
 les prix exacts par SKU pour les décors lorsque leur tarif est disponible.
 Un tarif de fond n'est pas substitué à celui d'un décor. Une ligne manquante
 reste à confirmer. Les box appliquent 50 % au prix net HT et arrondissent aux
-boîtes complètes. Les profilés restent hors total tant qu'ils ne sont pas tarifés.
+boîtes complètes. La valeur HT du merchandising est présentée séparément dans
+le panier, le chiffrage serveur et le mail ; elle ne rend pas le montant à payer
+incomplet lorsqu’un tarif indicatif est inconnu. Les profilés restent hors total tant qu'ils ne sont pas tarifés.
 
 Le bouton de demande envoie exclusivement à :
 
@@ -79,3 +83,50 @@ le site le 12 novembre 2026. La branche de livraison est
 les travaux parallèles. Le workflow vérifie les deux rôles agents existants en
 lecture seule avant d'activer le service. Les résultats réels de publication
 et les identifiants de déploiement seront consignés après leur vérification.
+
+
+## Choix des références et suivi Expo clients — version 2
+
+Une planche fabricant peut illustrer plusieurs codes. Le sélecteur propose les
+seules références présentes dans le catalogue canonique, sans case cochée par
+défaut. Ajouter ou modifier ne retient que la référence choisie et sa quantité.
+L’aperçu HD de la planche est conservé.
+
+Le dossier existant Paramètres → Expo clients conserve les photos, notes et
+pièces jointes, et reçoit le suivi annuel Elios. L’enveloppe globale de l’agent
+est de 7 % du CA HT de référence, saisi avec sa période et sa source. Le budget
+2027 est proposé par défaut, conformément au mail de Gyslaine du 12 novembre.
+Aucun CA annuel ou montant historique n’est déduit de statistiques partielles.
+
+Une demande envoyée reste en attente. Seules les lignes accordées par l’usine
+consomment le budget, avec la référence et la date de l’accord, l’auteur et
+l’historique. L’imputation est la valeur HT du merchandising plus 50 % du net HT
+avant remise des expos, en appliquant cette moitié une seule fois. Les montants
+accordés, en attente, refusés et le solde global sont distincts ; le filtre client
+ne change pas l’enveloppe globale. Les dotations historiques peuvent être saisies
+explicitement, sans inventer de valeurs pour les anciens dossiers.
+
+Exemple de contrôle : merchandising 2 × 170 € + expo 1,44 m² × 12 € net HT.
+Le client doit 8,64 € HT ; la valeur merchandising est 340 € HT hors montant
+à payer ; le budget consommé après accord usine est 348,64 € HT.
+
+Le service `eliosExpoBudget` est réservé aux rôles agents vérifiés côté serveur.
+Les collections techniques de budget, décisions, saisies manuelles et demandes ont refusé les lectures anonymes
+(403 PERMISSION_DENIED) pendant le contrôle du 12 novembre. Aucun document
+client ni décision d’usine n’a été créé pour ces contrôles. Le groupe manuel
+`elios-samples` publie uniquement `eliosSamples` et `eliosExpoBudget`.
+
+
+Contrôles version 2 : 3 tests d’import Python, 7 tests catalogue/sélection et
+25 tests serveur Elios (montants, attribution, budget, accès et concurrence)
+réussis ; construction publique réussie. Le parcours de sélection a été testé
+sur PC et sur une largeur de 390 px : EBRK16 × 2 + EBRK37 × 1 affiche 61 € HT
+de valeur indicative et 0 € à payer, sans ajout d’autre référence ni débordement.
+Aucun mail et aucune écriture de budget réel n’ont été effectués pour les tests.
+
+Le garde d’année partagé par le suivi CRM a passé trois scénarios dynamiques :
+réponses reçues hors ordre, choix d’année changé et année d’écriture figée.
+Total ciblé version 2 : 35 tests JavaScript et 3 tests Python réussis.
+Le contrôle élargi des fonctions a réussi 180 cas sur 181 ; le dernier demande
+le bundle privé Anima `commerce-server.cjs`, absent de ce checkout. Il concerne
+une application inchangée et n’a pas été remplacé par une validation fictive.

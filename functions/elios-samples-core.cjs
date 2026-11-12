@@ -1,7 +1,7 @@
 'use strict';
 const crypto=require('node:crypto');
 const RECIPIENTS=Object.freeze(['glebreton@eliosceramica.it','ctoni@eliosceramica.it','jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
-const VERSION='20261112-elios-samples-v1';
+const VERSION='20261112-elios-samples-v2';
 const text=(v,n=180)=>String(v??'').trim().slice(0,n);
 const fail=(message,status=400)=>Object.assign(Error(message),{status});
 const money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
@@ -38,8 +38,11 @@ function normalizedLines(input,catalogue,prices={}){
   const quantity=Number(raw.quantity);if(!Number.isFinite(quantity)||quantity<=0||quantity>10000)throw fail('Quantité incorrecte.');
   if(raw.type==='merchandising'){
    if(!Number.isInteger(quantity)||quantity>50)throw fail('Quantité de merchandising incorrecte.');
-   // Budget 2027 is an agent cost allocation, never a customer sales tariff.
-   return {...base,quantity,netHT:null,discount:0,unitHT:null,totalHT:null,status:product.status||'Sur demande'};
+   // The manufacturer's merchandising valuation is visible, but attribution
+   // remains an Elios decision and never becomes a customer amount to pay.
+   const value=product.valueUnitHT;
+   const valueUnitHT=typeof value==='number'&&Number.isFinite(value)&&value>=0&&value<=1000000?value:null;
+   return {...base,quantity,netHT:null,discount:0,unitHT:0,totalHT:0,payable:false,valueUnitHT,valueTotalHT:valueUnitHT===null?null:round(valueUnitHT*quantity),factoryApprovalRequired:true,status:'Attribution soumise à validation Elios'};
   }
   if(!product.packVerified||!(product.packArea>0)||!Number.isInteger(product.packPieces)||product.packPieces<=0)throw fail('Le conditionnement de '+product.reference+' doit être confirmé avant chiffrage.');
   const boxes=Math.ceil((quantity-1e-8)/product.packArea),ordered=Number((boxes*product.packArea).toFixed(4)),net=prices[id]?.purchaseHT;
@@ -53,7 +56,11 @@ function buildQuote(input,catalogue,prices,profiles=0){
  const rows=normalizedLines(input,catalogue,prices),metres=Number(profiles)||0;
  if(!Number.isFinite(metres)||metres<0||metres>1000)throw fail('Métré de profilés incorrect.');
  const incomplete=rows.some(row=>row.totalHT===null)||metres>0;
- return {rows,profiles:metres,discount:50,subtotalHT:round(rows.reduce((s,row)=>s+(row.totalHT??0),0)),totalHT:incomplete?null:round(rows.reduce((s,row)=>s+row.totalHT,0)),incomplete,notice:'Demande soumise à validation Elios. Hors pose, transport et profilés ; boîtes complètes. Vrac : une pièce avec étiquette.'};
+ const merchandising=rows.filter(row=>row.type==='merchandising');
+ const merchandisingValueIncomplete=merchandising.some(row=>row.valueTotalHT===null);
+ const merchandisingValueHT=round(merchandising.reduce((sum,row)=>sum+(row.valueTotalHT??0),0));
+ const budgetYear=Number.isInteger(catalogue.budgetYear)&&catalogue.budgetYear>=2026&&catalogue.budgetYear<=2100?catalogue.budgetYear:2027;
+ return {rows,profiles:metres,discount:50,budgetYear,subtotalHT:round(rows.reduce((s,row)=>s+(row.totalHT??0),0)),totalHT:incomplete?null:round(rows.reduce((s,row)=>s+row.totalHT,0)),incomplete,merchandisingValueHT,merchandisingValueIncomplete,notice:'Demande soumise à validation Elios. Le merchandising est valorisé à titre indicatif, hors montant à payer ; son attribution reste à la décision de l’usine. Hors pose, transport et profilés ; boîtes complètes. Vrac : une pièce avec étiquette.'};
 }
 function checkedProject(input){
  if(!input||input.version!==2||!input.room||!Array.isArray(input.room.points)||input.room.points.length<3||input.room.points.length>12||!Array.isArray(input.items)||input.items.length>32||JSON.stringify(input).length>100000)throw fail('Le projet de box est invalide.');
@@ -72,7 +79,8 @@ function pngAttachment(value){
 }
 function requestFingerprint(payload,account){return crypto.createHash('sha256').update(JSON.stringify({owner:account.owner,lines:payload.items,project:payload.project||null,visual:payload.visual?crypto.createHash('sha256').update(payload.visual).digest('hex'):null,contact:payload.contact,profiles:payload.profiles||0})).digest('hex');}
 function mailHTML({reference,account,contact,quote,title,note,box}){
- const rows=quote.rows.map(r=>`<tr><td>${esc(r.type==='box'?'Box expo':r.type==='vrac'?'Vrac avec étiquette':'Merchandising')}</td><td>${esc(r.reference||'Code à confirmer')}<br>${esc(r.collection)}<br>${esc(r.description)}</td><td>${esc(r.quantity)} ${esc(r.unit)}${r.boxes?`<br>${r.boxes} boîte(s) · ${r.pieces} pièces`:''}</td><td>${r.discount?'−50 %':''}</td><td>${money(r.unitHT)}</td><td>${money(r.totalHT)}</td></tr>`).join('');
- return `<div style="font:14px/1.6 Arial,sans-serif;color:#232b25"><h2>Demande ELIOS — ${esc(title)}</h2><p>Bonjour Gyslaine, bonjour Caterina,</p><p>Merci de confirmer la demande ci-dessous, les références et les délais.</p><p><b>${esc(account.societe)}</b> · ${esc(account.codeClient||'Compte agent')}<br>${esc(contact.name)} · ${esc(contact.email)} · ${esc(contact.telephone)}<br>Livraison : ${esc(contact.address)}</p><table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;border-color:#dedbd1"><thead><tr><th>Parcours</th><th>Article</th><th>Quantité</th><th>Remise</th><th>PU HT</th><th>Total HT</th></tr></thead><tbody>${rows}</tbody></table><p><b>${quote.incomplete?'Sous-total HT renseigné':'Total HT'} : ${money(quote.subtotalHT)}</b></p>${quote.profiles?`<p>Profilés : ${esc(quote.profiles)} ml — prix à confirmer, hors sous-total.</p>`:''}<p>${esc(quote.notice)}</p>${box?'<p>Le visuel HD du box et sa configuration importable sont joints. Les métrés restent indicatifs.</p>':''}${note?`<p>Observations : ${esc(note)}</p>`:''}<p>Référence de la demande : ${esc(reference)}</p><p>Jérôme & Coryne · LE ROY FACTORY</p></div>`;
+ const rows=quote.rows.map(r=>`<tr><td>${esc(r.type==='box'?'Box expo':r.type==='vrac'?'Vrac avec étiquette':'Merchandising')}</td><td>${esc(r.reference||'Code à confirmer')}<br>${esc(r.collection)}<br>${esc(r.description)}${r.type==='merchandising'?'<br>Attribution à confirmer par Elios':''}</td><td>${esc(r.quantity)} ${esc(r.unit)}${r.boxes?`<br>${r.boxes} boîte(s) · ${r.pieces} pièces`:''}</td><td>${r.discount?'−50 %':''}</td><td>${money(r.type==='merchandising'?r.valueUnitHT:r.unitHT)}</td><td>${money(r.type==='merchandising'?r.valueTotalHT:r.totalHT)}</td><td>${r.type==='merchandising'?'Hors montant à payer':money(r.totalHT)}</td></tr>`).join('');
+ const merch=quote.rows.some(r=>r.type==='merchandising')?`<p>Valeur indicative du merchandising HT${quote.merchandisingValueIncomplete?' (partielle, certains tarifs à confirmer)':''} : <b>${money(quote.merchandisingValueHT)}</b> — exclue du montant à payer, sous réserve d’attribution par Elios.</p>`:'';
+ return `<div style="font:14px/1.6 Arial,sans-serif;color:#232b25"><h2>Demande ELIOS — ${esc(title)}</h2><p>Bonjour Gyslaine, bonjour Caterina,</p><p>Merci de confirmer la demande ci-dessous, les références et les délais.</p><p><b>${esc(account.societe)}</b> · ${esc(account.codeClient||'Compte agent')}<br>${esc(contact.name)} · ${esc(contact.email)} · ${esc(contact.telephone)}<br>Livraison : ${esc(contact.address)}</p><table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;border-color:#dedbd1"><thead><tr><th>Parcours</th><th>Article</th><th>Quantité</th><th>Remise</th><th>PU HT</th><th>Valeur HT</th><th>À payer HT</th></tr></thead><tbody>${rows}</tbody></table><p><b>${quote.incomplete?'Sous-total à payer HT renseigné':'Montant à payer HT'} : ${money(quote.subtotalHT)}</b></p>${merch}${quote.profiles?`<p>Profilés : ${esc(quote.profiles)} ml — prix à confirmer, hors sous-total.</p>`:''}<p>${esc(quote.notice)}</p>${box?'<p>Le visuel HD du box et sa configuration importable sont joints. Les métrés restent indicatifs.</p>':''}${note?`<p>Observations : ${esc(note)}</p>`:''}<p>Référence de la demande : ${esc(reference)}</p><p>Jérôme & Coryne · LE ROY FACTORY</p></div>`;
 }
 module.exports={RECIPIENTS,VERSION,text,fail,currentPrices,normalizedLines,buildQuote,checkedProject,pngAttachment,requestFingerprint,mailHTML};

@@ -3,6 +3,26 @@ export const API='https://us-central1-le-roy-factory.cloudfunctions.net/eliosSam
 export const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
 export const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+export function merchandisingChoices(catalogue,product,image=product?.images?.[0]?.image){
+ const codes=new Set((catalogue.documents||[]).filter(page=>page.image===image).flatMap(page=>page.codes||[]));
+ const choices=(catalogue.merchandising||[]).filter(item=>item.id===product?.id||item.reference&&codes.has(item.reference));
+ return [...new Map(choices.map(item=>[item.id,item])).values()];
+}
+export function selectMerchandisingLine(items,key,quantity,catalogue){
+ const product=catalogue.merchandising?.find(item=>item.id===key);
+ if(!product)throw Error('Choisissez une référence de merchandising.');
+ if(!Number.isInteger(quantity)||quantity<1||quantity>50)throw Error('Choisissez une quantité entière entre 1 et 50.');
+ const line={type:'merchandising',key:product.id,quantity},index=items.findIndex(item=>item.type==='merchandising'&&item.key===product.id);
+ if(index<0){if(items.length>=200)throw Error('La sélection contient déjà 200 références.');return [...items,line];}
+ return items.map((item,i)=>i===index?line:item);
+}
+export function merchandisingValue(items,catalogue){
+ const products=new Map((catalogue.merchandising||[]).map(item=>[item.id,item]));
+ let knownValueHT=0,incomplete=false,references=0;
+ for(const item of items){if(item.type!=='merchandising')continue;references++;const value=products.get(item.key)?.valueUnitHT,quantity=Number(item.quantity);if(typeof value!=='number'||!Number.isFinite(value)||value<0||!Number.isInteger(quantity)||quantity<1||quantity>50){incomplete=true;continue;}knownValueHT+=Math.round((value*quantity+Number.EPSILON)*100)/100;}
+ knownValueHT=Math.round((knownValueHT+Number.EPSILON)*100)/100;
+ return {references,knownValueHT,valueHT:incomplete?null:knownValueHT,incomplete};
+}
 export function linesForBox(report){
  if(!report||!Array.isArray(report.groups)||!report.groups.length)throw Error('Ajoutez du carrelage à votre box.');
  const lines=report.groups.filter(g=>!g.paint).map(g=>{

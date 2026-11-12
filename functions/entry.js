@@ -6,6 +6,7 @@ const lrfAnalytics = require('./lrf-analytics');
 const eliosStock = require('./elios-stock');
 const eliosOrder = require('./elios-order');
 const eliosSamples = require('./elios-samples');
+const eliosExpoBudget = require('./elios-expo-budget');
 const eliosPoseOrder = require('./elios-pose-order');
 const eliosCatalog = require('./elios-catalog-api');
 const biltOrder = require('./bilt-router');
@@ -24,7 +25,7 @@ const cerastoneRequest = require('./cerastone-request');
 const planPoseAccess = require('./plan-pose-access');
 const neobathAnimaAccess = require('./neobath-anima-access');
 
-Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics, eliosStock, eliosOrder, eliosSamples, eliosPoseOrder, eliosCatalog, biltOrder, biltAutoTask, biltSchedule, crmFiles, siteControl, aquahomeCatalog, opalCatalog, reitanoCatalog, randalProjects, configuratorPurchasePrices, feniceRequest, biopietraRequest, cerastoneRequest, planPoseAccess, neobathAnimaAccess);
+Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics, eliosStock, eliosOrder, eliosSamples, eliosExpoBudget, eliosPoseOrder, eliosCatalog, biltOrder, biltAutoTask, biltSchedule, crmFiles, siteControl, aquahomeCatalog, opalCatalog, reitanoCatalog, randalProjects, configuratorPurchasePrices, feniceRequest, biopietraRequest, cerastoneRequest, planPoseAccess, neobathAnimaAccess);
 
 // La migration vers Storage privé est terminée. Cet endpoint temporaire reste
 // présent uniquement pour éviter une suppression de fonction lors du déploiement,

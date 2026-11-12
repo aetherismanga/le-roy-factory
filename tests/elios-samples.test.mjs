@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
-import {linesForBox} from '../assets/js/elios-samples-core.mjs';
+import {linesForBox,merchandisingChoices,selectMerchandisingLine,merchandisingValue} from '../assets/js/elios-samples-core.mjs';
 import {defaultBox} from '../studio-one/elios-box/box.js';
 import {makeRoom} from '../studio-one/src/room.js';
 import {quantityForSurface} from '../shared/lrf-3d/quantities.js';
@@ -32,4 +32,21 @@ test('the box default uses native room geometry and exact Elios product identiti
 test('box surface groups aggregate exact SKUs and reject missing identities or foreign tiles',()=>{
  const row={brand:'ELIOS',catalogueKey:'synthetic',reference:'synthetic',needed:2,packVerified:true};assert.deepEqual(linesForBox({groups:[row,{...row,needed:3}]}),[{type:'box',key:'synthetic',quantity:5}]);
  assert.throws(()=>linesForBox({groups:[{...row,brand:'VIEW'}]}));assert.throws(()=>linesForBox({groups:[{...row,catalogueKey:''}]}));assert.throws(()=>linesForBox({groups:[{...row,customPack:true}]}));
+});
+test('one manufacturer sheet offers exact individually selectable references without adding the whole sheet',()=>{
+ const a={id:'EBRK16',reference:'EBRK16',valueUnitHT:18,images:[{image:'brooklyn.webp'}]},b={id:'EBRK37',reference:'EBRK37',valueUnitHT:25},other={id:'EALL03',reference:'EALL03',valueUnitHT:44};
+ const source={merchandising:[a,b,other],documents:[{image:'brooklyn.webp',codes:['EBRK16','EBRK37','EBRK36','EBRK16']},{image:'allure.webp',codes:['EALL03']}]};
+ assert.deepEqual(merchandisingChoices(source,a).map(p=>p.id),['EBRK16','EBRK37']);
+ const previous=[{type:'vrac',key:'tile',quantity:1},{type:'merchandising',key:'EALL03',quantity:2}],selected=selectMerchandisingLine(previous,'EBRK37',3,source);
+ assert.deepEqual(selected,[...previous,{type:'merchandising',key:'EBRK37',quantity:3}]);
+ assert(!selected.some(item=>item.key==='EBRK16'));assert.equal(previous.length,2);
+ const updated=selectMerchandisingLine(selected,'EBRK37',4,source);assert.equal(updated.length,3);assert.equal(updated.find(item=>item.key==='EBRK37').quantity,4);
+ assert.throws(()=>selectMerchandisingLine(previous,'EBRK36',1,source));assert.throws(()=>selectMerchandisingLine(previous,'EBRK16',1.5,source));assert.throws(()=>selectMerchandisingLine(previous,'EBRK16',0,source));
+});
+test('the displayed merchandising value stays separate from tile lines and missing values never become free items',()=>{
+ const source={merchandising:[{id:'EBRK16',valueUnitHT:18},{id:'EBRK37',valueUnitHT:25},{id:'unknown',valueUnitHT:null}]};
+ const items=[{type:'merchandising',key:'EBRK16',quantity:2},{type:'merchandising',key:'EBRK37',quantity:1},{type:'box',key:'tile',quantity:100}];
+ assert.deepEqual(merchandisingValue(items,source),{references:2,knownValueHT:61,valueHT:61,incomplete:false});
+ assert.deepEqual(merchandisingValue([...items,{type:'merchandising',key:'unknown',quantity:1}],source),{references:3,knownValueHT:61,valueHT:null,incomplete:true});
+ assert.deepEqual(merchandisingValue([{type:'merchandising',key:'unknown',quantity:1}],source),{references:1,knownValueHT:0,valueHT:null,incomplete:true});
 });

@@ -1,8 +1,9 @@
-"""Import the November 12 supplier files without publishing agent budgets."""
+"""Import supplier articles and indicative values without agent allocations."""
 import argparse, hashlib, json, re, unicodedata
 from pathlib import Path
 import fitz
 import openpyxl
+from elios_merchandising_values import read_merchandising, refresh_catalogue_values
 
 ROOT = Path(__file__).resolve().parents[1]
 def norm(value):
@@ -64,17 +65,9 @@ def run(source):
             'definitionLimited':bool(color.get('definitionLimited') or p.get('definitionLimited')),
             'reconstructed':color.get('textureProvenance',{}).get('kind')=='ai-reconstruction',
             'vrac':allowed(p),'sampleReference':p['reference'],'priceUnit':p.get('priceUnit','m²')})
-    # Never carry PREZZO or agent allocations into this public projection.
-    workbook=openpyxl.load_workbook(source/'source-0.xlsx',data_only=True)
-    merchandising={}
-    for title in ['Elenco merchandising','BUDGET 2027']:
-        for idx,row in enumerate(workbook[title].values):
-            if not row[0] or not str(row[0]).startswith('E-') or not row[2]:continue
-            code=str(row[1] or '').strip()
-            key=code or 'sans-code-'+norm(str(row[0])+str(row[2]))
-            fill=workbook[title].cell(idx+1,1).fill
-            color=fill.fgColor.rgb if fill.fgColor.type=='rgb' else ''
-            merchandising[key]={'id':key,'reference':code,'collection':str(row[0])[2:].strip(),'description':str(row[2]).strip().rstrip('.').strip(),'unit':'pièce','status':'Code à confirmer' if not code else 'Sur demande' if color=='FFFFFF00' else 'Selon disponibilité','sourceSheet':title}
+    # The user explicitly requests these instrument values for information.
+    # They are not client amounts payable; never include agent allocations.
+    merchandising=read_merchandising(source/'source-0.xlsx')
     out=ROOT/'assets/img/elios-merchandising-2026';out.mkdir(parents=True,exist_ok=True)
     pages=[]
     books=['merch-0.pdf','merch-1.pdf']+(['merch-latest.pdf'] if (source/'merch-latest.pdf').exists() else [])
@@ -112,11 +105,22 @@ def run(source):
             item['images']=[]
     for generated in out.glob('book-*.webp'):
         if generated.name not in used:generated.unlink()
-    data={'version':'20261112-elios-samples-v1','sourceDate':'2026-11-12','rules':rules,'products':products,'merchandising':list(merchandising.values()),'documents':pages,'sources':[{'file':p.name,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in source.glob('*') if p.suffix in ['.xlsx','.pdf']]}
+    data={'version':'20261112-elios-samples-v2','budgetYear':2027,'sourceDate':'2026-11-12','rules':rules,'products':products,'merchandising':list(merchandising.values()),'documents':pages,'sources':[{'file':p.name,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in source.glob('*') if p.suffix in ['.xlsx','.pdf']]}
     dest=ROOT/'assets/data/elios-samples.json';dest.write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')))
     # The function receives the same public definitions for canonical validation.
     (ROOT/'functions/elios-samples-catalogue.json').write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')))
     print(json.dumps({'products':len(products),'vrac':sum(p['vrac'] for p in products),'merchandising':len(merchandising),'merchandisingWithImages':sum(bool(p['images']) for p in merchandising.values()),'pages':len(pages)}))
 
+def refresh_values(source):
+    merchandising=read_merchandising(source/'source-0.xlsx')
+    for path in [ROOT/'assets/data/elios-samples.json',ROOT/'functions/elios-samples-catalogue.json']:
+        data=refresh_catalogue_values(json.loads(path.read_text()),merchandising)
+        path.write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')))
+    print(json.dumps({'merchandising':len(merchandising),'priced':sum(item['valueUnitHT'] is not None for item in merchandising.values()),'imagesPreserved':True}))
+
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('source',type=Path);run(parser.parse_args().source)
+    parser=argparse.ArgumentParser()
+    parser.add_argument('source',type=Path)
+    parser.add_argument('--values-only',action='store_true',help='Refresh values without rebuilding any media')
+    args=parser.parse_args()
+    (refresh_values if args.values_only else run)(args.source)

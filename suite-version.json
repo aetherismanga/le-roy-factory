@@ -428,7 +428,7 @@
       "firstCampaign": "elios"
     },
     "eliosSamples": {
-      "releaseId": "20261112-elios-samples-v1",
+      "releaseId": "20261112-elios-samples-v2",
       "page": "echantillons-elios.html",
       "paths": [
         "vrac",
@@ -445,7 +445,19 @@
       "requestEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/eliosSamples",
       "expoDiscountOnCurrentNetHT": 50,
       "privateServerPrices": true,
-      "webglVisualVerification": false
+      "webglVisualVerification": false,
+      "merchandisingPriced": 216,
+      "merchandisingIncludedInCustomerPayable": false,
+      "individualMerchandisingReferenceChoice": true,
+      "factoryApprovalRequired": true,
+      "expoBudget": {
+        "page": "expo-clients.html",
+        "year": 2027,
+        "rate": 7,
+        "costRule": "merchandising value + 50% of exhibition net HT",
+        "access": "verified-agents-only",
+        "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/eliosExpoBudget"
+      }
     }
   },
   "configurators": {

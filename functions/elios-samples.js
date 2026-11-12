@@ -61,7 +61,7 @@ exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'
    const current=(await tx.get(ref)).data(),l=(await tx.get(limit)).data();if(current?.status==='sending'||current?.status==='sent')throw C.fail('Demande déjà transmise ou en cours.',409);
    if((l?.count||0)>=12)throw C.fail('Douze demandes par heure maximum. Réessayez plus tard.',429);
    tx.set(limit,{count:(l?.count||0)+1,expiresAt:admin.firestore.Timestamp.fromMillis(now+86400000)});
-   tx.set(ref,{reference,fingerprint,owner:account.owner,customer:{societe:account.societe,codeClient:account.codeClient,...customer},quote,title:C.text(body.title,100),note:C.text(body.note,2000),status:'preparing',createdAt:existing?.createdAt||new Date().toISOString(),recipients:C.RECIPIENTS});
+   tx.set(ref,{reference,fingerprint,owner:account.owner,budgetYear:quote.budgetYear,customer:{societe:account.societe,codeClient:account.codeClient,...customer},quote,title:C.text(body.title,100),note:C.text(body.note,2000),status:'preparing',createdAt:existing?.createdAt||new Date().toISOString(),recipients:C.RECIPIENTS});
   });
   const attachments=[];let paths={};
   if(project){
