@@ -10,13 +10,14 @@ let browser,server,page,active='studio';const checks=[],errors=[];const evidence
  server=http.createServer((req,res)=>{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),kind=pathname.split('/')[1];if(handleAnonymousCommercial(req,res,pathname))return;if(pathname.includes('/api/')){res.writeHead(401,{'Content-Type':'application/json'});return res.end('{"success":false}');}const asset=roots[kind]?read(roots[kind],pathname.slice(kind.length+1)):pathname.startsWith('/assets/')?read(roots[active],pathname):null;if(!asset){res.writeHead(404);return res.end();}res.setHeader('Content-Type',asset.contentType);res.end(asset.body);});
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
  browser=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
- for(const kind of ['studio','general'])for(const mobile of [false,true]){
+ for(const kind of (process.env.LRF_LOCK_KIND?[process.env.LRF_LOCK_KIND]:['studio','general']))for(const mobile of (process.env.LRF_LOCK_MOBILE?[true]:[false,true])){
   active=kind;const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1440,height:1000},isMobile:mobile,hasTouch:mobile,reducedMotion:'reduce'});
   await context.addInitScript(()=>{window.__LRF_STANDALONE_PREVIEW__=true;localStorage.setItem('studio-one-render-quality','fluid');localStorage.setItem('randal-general-render-quality','fluid');});
   await context.route(/^https:\/\//,route=>{const u=new URL(route.request().url());let asset;if(u.hostname==='studio-one-beta-test-v2.vercel.app')asset=read(roots.studio,u.pathname);else if(u.hostname==='randal-catalogue-general-3d.vercel.app')asset=read(roots.general,u.pathname);else if(u.hostname==='leroyfactory.fr'&&u.pathname.startsWith('/review-studio/'))asset=read(roots.studio,u.pathname.slice('/review-studio'.length));return asset?route.fulfill({...asset,headers:{'Access-Control-Allow-Origin':'*'}}):route.abort();});
   page=await context.newPage();page.setDefaultTimeout(20000);page.on('pageerror',error=>errors.push(kind+': '+error.message));
   await page.goto(origin+'/'+kind+'/atelier.html?standalone=1',{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>window.studioOnePrototype?.getState().ready||!document.querySelector('#error')?.hidden,null,{timeout:90000});assert(await page.evaluate(()=>!!window.studioOnePrototype?.getState().ready));
+  await page.waitForFunction(()=>globalThis.LRF_VERIFIED_IDENTITY?.known&&!globalThis.LRF_VERIFIED_IDENTITY.pending&&!globalThis.LRF_VERIFIED_IDENTITY.error,null,{timeout:15000});
   const prefix=kind+' '+(mobile?'mobile touch':'desktop mouse');
   const fixture=()=>page.evaluate(()=>{const app=studioOnePrototype,p=app.exportProject();p.items=[];p.room={height:260,points:[[0,0],[450,0],[450,450],[0,450]]};p.walls=[0,1,2,3].map(()=>({collection:'Peinture',color:'white'}));p.renovation={locked:false};if(!app.restoreProject(p))throw Error('Lock fixture restore failed');});
   const press=locator=>mobile?locator.tap():locator.click();
@@ -33,10 +34,19 @@ let browser,server,page,active='studio';const checks=[],errors=[];const evidence
    let before=await read();assert.equal(before.global,true);assert.deepEqual(before.actions,[{label:'Déverrouiller',pressed:true}]);
    const blocked=await page.evaluate(id=>studioOnePrototype.moveItem(id,{u:320}),ids.id);assert.match(blocked.error,/verrouillé/);
    assert.equal(await page.evaluate(()=>studioOnePrototype.resizeOpening(110,105)),false,'Locked opening size is protected');
-   let lock=page.locator('#item-position-lock');if(await lock.count()===0){await page.evaluate(id=>studioOnePrototype.handleObjectTap({itemId:id,editTarget:studioOnePrototype.getState().items.find(i=>i.id===id).type}),ids.id);lock=page.locator('#item-position-lock');}
-   if(await lock.count())await press(lock);else{
-    await press(page.locator('#object-editor .lrf-mobile-options > summary'));const mobileLock=page.locator('.lrf-mobile-object-actions button').filter({hasText:'Déverrouiller'});assert(await mobileLock.count());await press(mobileLock);
-   }
+   // Windows now expose their actions through the native scene context menu.
+    if(type==='window'){
+     await page.evaluate(()=>document.querySelector('#object-editor-close')?.click());
+     await page.evaluate(id=>studioOnePrototype.toggleItemDimensions(id),ids.id);await page.waitForFunction(()=>document.querySelector('#dimension-svg path'));
+     const points=await page.evaluate(()=>{const svg=document.querySelector('#dimension-svg'),box=svg.getBoundingClientRect(),paths=[...svg.querySelectorAll('g')].filter(g=>/^[HL] ·/.test(g.querySelector('text')?.textContent||'')).map(g=>g.querySelector('path')?.getAttribute('d').match(/-?\d+(?:\.\d+)?/g).map(Number)).filter(Boolean);const xs=paths.flatMap(a=>a.filter((_,i)=>i%2===0)),ys=paths.flatMap(a=>a.filter((_,i)=>i%2===1));const cx=(Math.min(...xs)+Math.max(...xs))/2,cy=(Math.min(...ys)+Math.max(...ys))/2;return [[cx,cy],[cx-10,cy],[cx+10,cy]].map(([x,y])=>({x:box.left+x,y:box.top+y}));});
+     const menu=page.locator('.lrf-workspace-menu').filter({hasText:'La fenêtre'});
+     for(const point of points){if(mobile){const session=await context.newCDPSession(page);await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[point]});await page.waitForTimeout(650);await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await session.detach();}else await page.mouse.click(point.x,point.y,{button:'right'});if(await menu.isVisible())break;}
+     assert.equal((await read()).item.positionUnlocked,undefined,'Releasing the opening hold cannot activate a menu action');await menu.getByRole('menuitemcheckbox',{name:'Déverrouiller',exact:true}).click();
+     await page.evaluate(id=>studioOnePrototype.toggleItemDimensions(id),ids.id);
+    }else{
+     await page.evaluate(id=>studioOnePrototype.handleObjectTap({itemId:id,editTarget:'door'}),ids.id);
+     const lock=page.locator('#item-position-lock');if(await lock.count())await press(lock);else{await press(page.locator('#object-editor .lrf-mobile-options > summary'));await press(page.locator('.lrf-mobile-object-actions button').filter({hasText:'Déverrouiller'}));}
+    }
    let unlocked=await read();assert.equal(unlocked.global,true);assert.equal(unlocked.item.positionUnlocked,true);assert.deepEqual(unlocked.actions,[{label:'Verrouiller',pressed:false}]);
    // Leave the editor and draw actual bounds so the pointer lands on the opening.
    await page.evaluate(id=>{document.querySelector('#object-editor-close')?.click();studioOnePrototype.toggleItemDimensions(id);},ids.id);
@@ -57,4 +67,4 @@ let browser,server,page,active='studio';const checks=[],errors=[];const evidence
   await context.close();page=null;
  }
  assert.deepEqual(errors,[]);const report={passed:true,checks,errors};fs.writeFileSync(path.join(evidenceDir,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report));
-})().catch(async error=>{if(page){console.error(await page.evaluate(()=>({items:studioOnePrototype?.getState().items,html:document.querySelector('#object-editor')?.innerText,error:document.querySelector('#error-text')?.textContent,dimensions:document.querySelector('#dimension-svg')?.innerHTML})).catch(()=>null));await page.screenshot({path:'/tmp/lrf-position-lock-failure.png',fullPage:true}).catch(()=>{});}console.error(error);process.exitCode=1;}).finally(async()=>{await browser?.close();if(server)await new Promise(resolve=>server.close(resolve));});
+})().catch(async error=>{if(page){console.error(await page.evaluate(()=>({items:studioOnePrototype?.getState().items,html:document.querySelector('#object-editor')?.innerText,menu:document.querySelector('.lrf-workspace-menu')?.outerHTML,error:document.querySelector('#error-text')?.textContent,dimensions:document.querySelector('#dimension-svg')?.innerHTML})).catch(()=>null));await page.screenshot({path:path.join(evidenceDir,'failure.png'),fullPage:true}).catch(()=>{});}console.error(error);process.exitCode=1;}).finally(async()=>{await browser?.close();if(server)await new Promise(resolve=>server.close(resolve));});

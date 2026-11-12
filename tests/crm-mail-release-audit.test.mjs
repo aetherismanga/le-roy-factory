@@ -12,8 +12,8 @@ function targets({changed=['functions/index.js'],current=previous.replace('oldSe
   const directory=mkdtempSync(join(tmpdir(),'crm-release-test-')),output=join(directory,'output');
   const mock=`import subprocess, os, json\nscenario=json.loads(os.environ['SCENARIO'])\ndef mocked(command, **kwargs):\n    if command[1]=='diff': return '\\n'.join(scenario['changed'])\n    if command[2]=='HEAD^:functions/index.js': return scenario['previous']\n    if command[2]=='HEAD:functions/index.js': return scenario['current']\n    raise AssertionError(command)\nsubprocess.check_output=mocked\n`;
   try {
-    execFileSync('python3',['-c',mock+'\n'+block],{env:{...process.env,SCENARIO:JSON.stringify({changed,current,previous}),EVENT_NAME:event,FUNCTION_GROUP:group,GITHUB_OUTPUT:output}});
-    return Object.fromEntries(read(output,'utf8').trim().split('\n').map(line=>line.split('=')));
+    execFileSync(process.platform==='win32'?'python':'python3',['-c',mock+'\n'+block],{env:{...process.env,SCENARIO:JSON.stringify({changed,current,previous}),EVENT_NAME:event,FUNCTION_GROUP:group,GITHUB_OUTPUT:output}});
+    return Object.fromEntries(read(output,'utf8').trim().split(/\r?\n/).map(line=>line.split('=')));
   }finally{rmSync(directory,{recursive:true,force:true});}
 }
 
@@ -39,7 +39,7 @@ test('manual send-only dispatch never selects a scheduler, backfill or consolida
 });
 
 test('analytics dispatch preserves its existing target and mail verifier uses the deployment scope',()=>{
-  assert.equal(targets({group:'analytics',event:'workflow_dispatch'}).only,'functions:getLrfAnalytics');
+  assert.equal(targets({group:'analytics',event:'workflow_dispatch'}).only,'functions:trackLrfActivity,functions:getLrfAnalytics');
   assert.match(workflow,/MAIL_VERIFY_FUNCTIONS:.*only == 'functions:sendGroupEmail'.*'sendGroupEmail'/);
   const verifier=readFileSync(new URL('../functions/scripts/verify-group-mail-deployment.cjs',import.meta.url),'utf8');
   assert.match(verifier,/process\.env\.MAIL_VERIFY_FUNCTIONS/);assert.match(verifier,/names\.some\(name=>!allowed\.includes\(name\)\)/);

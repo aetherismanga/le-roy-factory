@@ -1,10 +1,10 @@
 'use strict';
 
-// Local browser QA has no authenticated account. A session probe still returns
+// Local browser QA has no authenticated account. Session and anonymous quote probes return
 // the same anonymous 200 profile as the production gateway, so the workshop can
 // distinguish a guest from an unavailable authentication service. Protected
 // operations keep their original 401 response.
-const LIMIT=8192;
+const LIMIT=115000;
 const unauthorized={success:false,error:'Guest test: authentication required'};
 const profile={client:null,isAdmin:false,randalAllowed:false,configuratorAccess:{mode:'standard',allowWorkshop:true},proHT:null,proRows:[],referenceAllowed:false};
 
@@ -12,7 +12,7 @@ function responseFor(method,pathname,raw){
  if(method!=='POST'||typeof pathname!=='string'||!pathname.endsWith('/api/commercial'))return null;
  let body;
  try{if(typeof raw!=='string'||Buffer.byteLength(raw)>LIMIT)throw Error('Invalid fixture request');body=JSON.parse(raw);}catch{return reply(401,unauthorized);}
- if(!body||typeof body!=='object'||Array.isArray(body)||body.action!=='session')return reply(401,unauthorized);
+ if(!body||typeof body!=='object'||Array.isArray(body)||!['session','quote'].includes(body.action))return reply(401,unauthorized);
  return reply(200,profile);
 }
 function reply(status,value){return {status,contentType:'application/json',headers:{'Cache-Control':'no-store'},body:JSON.stringify(value)};}

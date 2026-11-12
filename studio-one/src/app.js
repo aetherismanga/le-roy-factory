@@ -271,8 +271,8 @@ function mountWindowLongPressMenu(){
  canvas.addEventListener('pointerdown',event=>{
   pointers.add(event.pointerId);cancel();if(pointers.size>1||!['touch','pen'].includes(event.pointerType)||event.button!==0||projectWorkspace?.locked||walkMode?.active)return;
   const r=canvas.getBoundingClientRect(),hit=pickSelection(scene,camera,new T.Vector2((event.clientX-r.left)/r.width*2-1,-(event.clientY-r.top)/r.height*2+1)),item=composition?.items.find(item=>item.id===hit?.itemId);if(item?.type!=='window')return;
-  const entry={id:event.pointerId,x:event.clientX,y:event.clientY,hit,item,event:{target:canvas,clientX:event.clientX,clientY:event.clientY}};pending=entry;
-  entry.timer=setTimeout(()=>{if(pending!==entry||projectWorkspace?.locked||walkMode?.active)return;pending=null;dragController?.cancel();selectItem(item.id);closeInspector();workspaceUI?.showMenu(entry.event,'La fenêtre',itemContextActions(item,hit));},560);
+  const entry={id:event.pointerId,x:event.clientX,y:event.clientY,hit,item,event:{target:canvas,clientX:event.clientX,clientY:event.clientY,pointerId:event.pointerId,longPress:true}};pending=entry;
+  entry.timer=setTimeout(()=>{if(pending!==entry||projectWorkspace?.locked||walkMode?.active)return;if(dragController?.getActive()?.dragging){pending=null;return;}pending=null;dragController?.cancel();selectItem(item.id);closeInspector();workspaceUI?.showMenu(entry.event,'La fenêtre',itemContextActions(item,hit));},560);
  },{capture:true});
  canvas.addEventListener('pointermove',event=>{if(pending&&event.pointerId===pending.id&&Math.hypot(event.clientX-pending.x,event.clientY-pending.y)>8)cancel();},{capture:true});
  for(const name of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(name,event=>{pointers.delete(event.pointerId);cancel();},{capture:true});

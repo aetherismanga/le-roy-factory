@@ -18,6 +18,7 @@ function pass(message){checks.push(message);console.log('PASS',message);}
   await context.route(/^https:\/\//,route=>{const url=new URL(route.request().url()),name=url.hostname==='studio-one-beta-test-v2.vercel.app'?'studio-one':url.hostname==='randal-catalogue-general-3d.vercel.app'?'randal-general':url.hostname==='leroyfactory.fr'&&url.pathname.startsWith('/review-studio/assets/')?'studio-one':null,file=name&&localAsset(name,url.pathname.replace(/^\/review-studio/,''));return file?route.fulfill({path:file,contentType:mime[path.extname(file)]||'application/octet-stream'}):route.abort();});
   const page=await context.newPage();page.setDefaultTimeout(20000);page.on('pageerror',error=>errors.push(app+': '+error.message));
   await page.goto(origin+'/atelier.html',{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.studioOnePrototype?.getState().ready,null,{timeout:90000});
+  await page.waitForFunction(()=>globalThis.LRF_VERIFIED_IDENTITY?.known&&!globalThis.LRF_VERIFIED_IDENTITY.pending&&!globalThis.LRF_VERIFIED_IDENTITY.error,null,{timeout:15000});
   await page.evaluate(()=>{studioOnePrototype.setSurfaceCollection('wall','Creta');studioOnePrototype.handleObjectTap({editTarget:'wall:0'});});
   const inspector=page.locator('#object-editor');await inspector.waitFor({state:'visible'});
   // A stable classic scrollbar makes the native thumb test repeatable on
@@ -44,7 +45,7 @@ function pass(message){checks.push(message);console.log('PASS',message);}
   await page.screenshot({path:path.join(output,app+'-wall-scroll.png'),fullPage:true});
   const bounds=await page.locator('#scene').boundingBox(),cx=bounds.x+bounds.width*.5,cy=bounds.y+bounds.height*.45;
   await page.mouse.move(cx,cy);await page.mouse.down();await page.mouse.move(cx+65,cy+25,{steps:8});await page.mouse.up();assert.equal(await inspector.isVisible(),false,'Real canvas orbit must keep its normal inspector dismissal');
-  await page.evaluate(()=>studioOnePrototype.setView('front',true,true));await page.mouse.click(cx,cy);
+  await page.evaluate(()=>studioOnePrototype.setView('front',true,true));await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));for(const [fx,fy] of [[.5,.45],[.35,.4],[.65,.4],[.5,.65],[.2,.55],[.8,.55]]){await page.mouse.click(bounds.x+bounds.width*fx,bounds.y+bounds.height*fy);if(await inspector.isVisible())break;}
   await inspector.waitFor({state:'visible'});const genuineTitle=await page.locator('#object-editor-title').innerText();assert.match(genuineTitle,/Mur|Sol|Cloison|miroir|Meuble|vasque|colonne|fenêtre|porte/i);
   const events=await page.evaluate(()=>window.__scrollSceneEvents);assert(events.includes('pointerdown')&&events.includes('pointerup'));
   pass(app+': genuine canvas orbit and object/surface selection still work after the scrollbar gesture');

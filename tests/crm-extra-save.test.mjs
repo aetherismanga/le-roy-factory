@@ -47,7 +47,8 @@ async function sandboxModule(file,exposed){
       'crm-contacts-list':{innerHTML:'',querySelectorAll(){return []}},
       'crm-history-list':{innerHTML:''},
       'edit-activity':{value:''},
-      'edit-email':{value:''},
+      'edit-pro-access-key':{value:''},
+      'edit-email':{value:'',closest(){return null}},
       'extra-emails-wrap':{},
       'extra-emails-container':{innerHTML:''}
     };

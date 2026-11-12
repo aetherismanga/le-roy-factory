@@ -30,10 +30,21 @@ export function mountWorkspaceUI(api){
  @media(min-width:761px){#viewer:has(.lrf-favorites) .scene-title{top:65px}.walk-active .lrf-favorites,.presentation-mode .lrf-favorites{display:none}}
  `;document.head.append(style);
  const menu=document.createElement('div');menu.className='lrf-workspace-menu lrf-workspace-overlay';menu.hidden=true;menu.setAttribute('role','menu');stage.append(menu);let menuOrigin=null;
- const closeMenu=()=>{menu.hidden=true;};
+ let clearReleaseGuard=()=>{};
+ const closeMenu=()=>{clearReleaseGuard();menu.hidden=true;};
+ function guardLongPressRelease(pointerId){
+  clearReleaseGuard();let timer;
+  const clear=()=>{clearTimeout(timer);document.removeEventListener('pointerdown',clear,true);document.removeEventListener('pointerup',release,true);document.removeEventListener('pointercancel',clear,true);document.removeEventListener('click',click,true);if(clearReleaseGuard===clear)clearReleaseGuard=()=>{};};
+  const release=event=>{if(event.pointerId===pointerId)timer=setTimeout(clear,500);};
+  const click=event=>{clear();if(event.detail>0){event.preventDefault();event.stopImmediatePropagation();}};
+  // The release of the opening hold is not a new choice. A fresh pointerdown
+  // disarms this guard so the next deliberate menu tap works normally.
+  clearReleaseGuard=clear;document.addEventListener('pointerdown',clear,true);document.addEventListener('pointerup',release,true);document.addEventListener('pointercancel',clear,true);document.addEventListener('click',click,true);
+ }
  function showMenu(event,title,actions){
   closeMenu();menu.replaceChildren();menuOrigin=event.target;const heading=document.createElement('strong');heading.textContent=title;menu.append(heading);
   for(const action of actions){const button=document.createElement('button');button.type='button';button.textContent=action.label;button.disabled=!!action.disabled;button.setAttribute('role','menuitem');if(action.pressed!==undefined){button.setAttribute('role','menuitemcheckbox');button.setAttribute('aria-checked',String(action.pressed));}if(action.danger)button.dataset.danger='true';button.onclick=()=>{closeMenu();try{const result=action.run();result?.catch?.(error=>api.status(error.message||'Cette opération ne peut pas être appliquée.'));}catch(error){api.status(error.message||'Cette opération ne peut pas être appliquée.');}};menu.append(button);}
+  if(event.longPress)guardLongPressRelease(event.pointerId);
   menu.hidden=false;const rect=menu.getBoundingClientRect(),x=event.clientX||12,y=event.clientY||12;menu.style.left=Math.max(8,Math.min(x,innerWidth-rect.width-8))+'px';menu.style.top=Math.max(8,Math.min(y,innerHeight-rect.height-8))+'px';menu.querySelector('button:not(:disabled)')?.focus({preventScroll:true});
  }
  menu.addEventListener('keydown',event=>{const buttons=[...menu.querySelectorAll('button:not(:disabled)')];if(event.key==='Escape'){event.preventDefault();closeMenu();menuOrigin?.focus?.();}if(['ArrowDown','ArrowUp','Home','End'].includes(event.key)){event.preventDefault();const current=buttons.indexOf(document.activeElement),index=event.key==='Home'?0:event.key==='End'?buttons.length-1:(current+(event.key==='ArrowDown'?1:-1)+buttons.length)%buttons.length;buttons[index]?.focus();}});
