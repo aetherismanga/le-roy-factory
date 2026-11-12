@@ -401,6 +401,15 @@
       "countertopBowls120": true,
       "countertopLayoutChoice": true,
       "generalHomeSha256": "d69a8e4a499bd99b0e8a7b028144006bf2af2f57058378e94418a69addc4db71"
+    },
+    "biltBlackFriday": {
+      "releaseId": "20261112-blackfriday3",
+      "from": "2026-11-12",
+      "through": "2026-12-05",
+      "orderPage": "commande-bilt.html",
+      "homepageCarousel": true,
+      "replaces": "talox-peigne",
+      "responsive": true
     }
   },
   "configurators": {
