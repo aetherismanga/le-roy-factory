@@ -130,3 +130,34 @@ Total ciblé version 2 : 35 tests JavaScript et 3 tests Python réussis.
 Le contrôle élargi des fonctions a réussi 180 cas sur 181 ; le dernier demande
 le bundle privé Anima `commerce-server.cjs`, absent de ce checkout. Il concerne
 une application inchangée et n’a pas été remplacé par une validation fictive.
+
+
+## Publication du complément merchandising / budget
+
+Le commit de livraison `8c1772e860f50204c8ef4ede01628b19c844aba7` est intégré
+à main. GitHub Pages a terminé avec succès l’exécution `43282836244`. Les pages et
+ressources publiques de la version 2 ont été contrôlées en HTTP 200. Le catalogue public et
+son miroir serveur portent la version `20261112-elios-samples-v2`.
+Le ciblage couvre 36 tests JavaScript et 3 tests d’import Python, dont la date
+de confirmation selon le jour ouvré en Europe/Paris.
+
+Les services `eliosSamples` et `eliosExpoBudget` ne sont pas encore activés :
+ils répondent 404 au dernier contrôle. Le workflow manuel est prêt à publier
+les deux fonctions seulement, avec le groupe `elios-samples` et la confirmation
+`CONFIRMER-PRODUCTION`. Les autres fonctions et les deux ateliers 3D ne doivent
+pas être redéployés pour ce complément.
+
+L’accès au dépôt GitHub fonctionne via le connecteur. Le navigateur de
+publication a été arrêté par le contrôle automatique lors du passage vers
+`accounts.google.com` ; une autorisation explicite de cette origine a été
+demandée. Ce blocage n’a pas été contourné. Aucun accord d’usine, montant de CA
+réel ou envoi de mail n’a été créé pour les vérifications.
+
+
+Jérôme a ensuite explicitement autorisé `accounts.google.com` pour connecter
+GitHub. Le navigateur a pu ouvrir normalement le choix de compte Google.
+Le compte `ccjacou@gmail.com` était proposé comme déconnecté. La demande
+sécurisée de choix du compte a été annulée avant sélection ; aucune identité
+n’a été choisie, aucun mot de passe n’a été saisi et aucun workflow Firebase
+n’a été lancé. Ne pas redemander l’autorisation de destination déjà accordée ;
+la connexion au compte reste à reprendre à la demande de Jérôme.
