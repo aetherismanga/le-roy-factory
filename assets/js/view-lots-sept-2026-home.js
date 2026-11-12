@@ -47,7 +47,7 @@
   const modal=document.createElement('div');
   modal.className='viewlots26-modal';
   modal.setAttribute('aria-hidden','true');
-  modal.innerHTML='<div class="viewlots26-box" role="dialog" aria-modal="true" aria-label="Lots VIEW Octobre 2026"><button class="viewlots26-close" type="button" aria-label="Fermer">×</button><iframe class="viewlots26-frame" title="Lots VIEW Octobre 2026" data-src="view-lots-septembre-2026.html?v=20261001-lots1" loading="lazy"></iframe><div class="viewlots26-loading">Chargement des lots VIEW…</div></div>';
+  modal.innerHTML='<div class="viewlots26-box" role="dialog" aria-modal="true" aria-label="Lots VIEW Octobre 2026"><button class="viewlots26-close" type="button" aria-label="Fermer">×</button><iframe class="viewlots26-frame" title="Lots VIEW Octobre 2026" data-src="view-lots-septembre-2026.html?v=20261112-corso1" loading="lazy"></iframe><div class="viewlots26-loading">Chargement des lots VIEW…</div></div>';
   document.body.appendChild(modal);
   const frame=modal.querySelector('.viewlots26-frame');
   frame.addEventListener('load',()=>{
@@ -92,7 +92,7 @@
     desktop.className='viewlots26-desktop';
     desktop.href='view-lots-septembre-2026.html';
     desktop.setAttribute('aria-label','Découvrir les lots VIEW Octobre 2026');
-    if(!desktop.childNodes.length)desktop.innerHTML='<div class="viewlots26-desktop-copy"><div class="viewlots26-desktop-kicker">Offre pro · Octobre 2026</div><div class="viewlots26-desktop-title">LOTS VIEW<br>CHOIX MS</div><div class="viewlots26-desktop-sub">17 lots disponibles · tarifs réservés aux clients identifiés</div><span class="viewlots26-desktop-cta">Voir les lots</span></div><div class="viewlots26-desktop-logo"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png" alt="VIEW Ceramiche" loading="lazy" decoding="async"></div>';
+    if(!desktop.childNodes.length)desktop.innerHTML='<div class="viewlots26-desktop-copy"><div class="viewlots26-desktop-kicker">Offre pro · Octobre 2026</div><div class="viewlots26-desktop-title">LOTS VIEW<br>CHOIX MS</div><div class="viewlots26-desktop-sub">Lots disponibles · tarifs réservés aux clients identifiés</div><span class="viewlots26-desktop-cta">Voir les lots</span></div><div class="viewlots26-desktop-logo"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png" alt="VIEW Ceramiche" loading="lazy" decoding="async"></div>';
     desktop.addEventListener('click',open);
     if(!desktop.isConnected)hero.appendChild(desktop);
   }

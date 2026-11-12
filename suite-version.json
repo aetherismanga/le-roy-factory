@@ -24,7 +24,11 @@
       "catalogues": 19,
       "seoPages": 34,
       "selectionRelease": "20261106-view-availability1",
-      "availabilityButtonLabel": "Demande de disponibilité"
+      "availabilityButtonLabel": "Demande de disponibilité",
+      "lotsRelease": "20261112-corso1",
+      "lotsUpdatedAt": "2026-11-12",
+      "availableLots": 15,
+      "soldLots": 3
     },
     "elios": {
       "collections": 52,
