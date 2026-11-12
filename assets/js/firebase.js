@@ -2,6 +2,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import {cachedAgentProfile, verifiedAgentProfile} from './agent-identity.mjs';
+export {verifiedAgentProfile};
 import "./carte-mobile-enhancements.js?v=20261022-mapgps1";
 import "./carte-proximity.js?v=20261105-map2";
 
@@ -24,9 +26,7 @@ const AGENTS = new Map([
 ]);
 
 export function getAgentProfile(user = auth.currentUser) {
-  const email = String(user?.email || "").trim().toLowerCase();
-  if (!email || !AGENTS.has(email)) return null;
-  return { email, name: AGENTS.get(email), uid: user.uid };
+  return cachedAgentProfile(user);
 }
 
 const CRM_PAGES = new Set([
@@ -42,7 +42,7 @@ const isCrmPage = CRM_PAGES.has(currentPage);
 if (isCrmPage) document.documentElement.style.visibility = "hidden";
 
 onAuthStateChanged(auth, async user => {
-  const profile = getAgentProfile(user);
+  const profile = await verifiedAgentProfile(user);
   if (profile) {
     localStorage.setItem("agentLoggedIn", "true");
     localStorage.setItem("agentEmail", profile.email);

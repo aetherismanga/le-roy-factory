@@ -72,8 +72,8 @@ test('session bridge cannot turn local admin fields into tariff rights and broad
 test('PRO page logout clears both catalogue session copies and saved device tokens',()=>{
   const events=[],sessionStorage=storage(),localStorage=storage();
   sessionStorage.setItem('lrfProSession','old');sessionStorage.setItem('lrfProSession1h','old');sessionStorage.setItem('lrfProSessionToken','synthetic');localStorage.setItem('lrfProRememberToken','synthetic');
-  const context={window:{LRF_PRO_CONTEXT:{},dispatchEvent:event=>events.push(event)},document:{readyState:'loading',addEventListener(){}},sessionStorage,localStorage,getApps:()=>[{}],getApp:()=>({}),getAuth:()=>({}),CustomEvent:class{constructor(type,options){this.type=type;this.detail=options.detail;}}};
-  vm.createContext(context);vm.runInContext(source('tarifs-pro-client-access.js').replace(/^import .*;\n/gm,'')+'\nglobalThis.testClear=clearSession;',context);
+  const context={window:{LRF_PRO_CONTEXT:{},dispatchEvent:event=>events.push(event)},document:{readyState:'loading',addEventListener(){}},sessionStorage,localStorage,verifiedAgentProfile:async()=>null,getApps:()=>[{}],getApp:()=>({}),getAuth:()=>({}),CustomEvent:class{constructor(type,options){this.type=type;this.detail=options.detail;}}};
+  vm.createContext(context);vm.runInContext(source('tarifs-pro-client-access.js').replace(/^import .*;\r?\n/gm,'')+'\nglobalThis.testClear=clearSession;',context);
   context.testClear({forgetDevice:true});
   for(const key of ['lrfProSession','lrfProSession1h','lrfProSessionToken'])assert.equal(sessionStorage.getItem(key),null);
   assert.equal(localStorage.getItem('lrfProRememberToken'),null);assert.equal(context.window.LRF_PRO_CONTEXT,null);assert.equal(events.at(-1).detail,null);

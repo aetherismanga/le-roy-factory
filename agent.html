@@ -92,7 +92,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
   <footer><div class="container" style="text-align:center;padding:1.4rem 0;"><p>&copy; 2026 LE ROY FACTORY. Tous droits réservés. Réservé aux professionnels.</p></div></footer>
 
   <script type="module">
-    import { auth, getAgentProfile } from "./assets/js/firebase.js?v=20260901-auth2";
+    import { auth, verifiedAgentProfile } from "./assets/js/firebase.js?v=20261112-agent-security1";
     import {
       signInWithEmailAndPassword, sendPasswordResetEmail, setPersistence,
       browserLocalPersistence, browserSessionPersistence, onAuthStateChanged, signOut
@@ -141,7 +141,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
       try {
         await setPersistence(auth, remember.checked ? browserLocalPersistence : browserSessionPersistence);
         const credential = await signInWithEmailAndPassword(auth, email, password);
-        const profile = getAgentProfile(credential.user);
+        const profile = await verifiedAgentProfile(credential.user, true);
         if (!profile) {
           await signOut(auth);
           throw new Error("unauthorized-agent");
@@ -186,9 +186,9 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
       }
     });
 
-    onAuthStateChanged(auth, user => {
+    onAuthStateChanged(auth, async user => {
       if (loginInProgress || !user) return;
-      const profile = getAgentProfile(user);
+      const profile = await verifiedAgentProfile(user);
       if (profile) location.replace(safeReturn);
     });
   </script>

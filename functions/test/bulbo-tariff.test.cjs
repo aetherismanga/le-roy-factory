@@ -14,6 +14,7 @@ function harness({agent=true,clientPartners=null,corrupt=false}={}) {
   }};
   const db={collection(){return {where(){return this},limit(){return this},async get(){return clientPartners ? {empty:false,docs:[{id:'verified-test-client',data:()=>({departement:'34',partenaires:clientPartners})}]} : {empty:true};}}}};
   const exported={}; const mocks={
+    './pro-client-access.cjs':require('../pro-client-access.cjs'),
     'firebase-functions/v2/https':{onRequest:(_opts,handler)=>handler},
     'firebase-admin':{firestore:()=>db,storage:()=>({bucket:()=>bucket})},
     'google-auth-library':{GoogleAuth:class {async getClient(){return {request:async options=>{driveCalls++;assert.match(options.url,/1O97PcQ5eCCOi8-PW-NwuERzzeIHUPTVh/);return {data:corrupt?Buffer.from('%PDF-modified'.repeat(1500)):bytes}}}}}},

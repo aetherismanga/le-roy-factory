@@ -3,6 +3,10 @@ name: Deploy Firebase Functions
 on:
   workflow_dispatch:
     inputs:
+      confirm_production:
+        description: Type CONFIRMER-PRODUCTION to authorize this release
+        required: true
+        type: string
       function_group:
         description: Functions to publish
         type: choice
@@ -12,15 +16,6 @@ on:
           - send-only
           - analytics
           - neobath-anima
-  push:
-    branches:
-      - main
-    paths:
-      - 'functions/**'
-      - 'assets/js/lrf-plan-pose/app.mjs'
-      - 'firebase.json'
-      - '.firebaserc'
-      - '.github/workflows/deploy-firebase-functions.yml'
 
 concurrency:
   group: firebase-functions-production
@@ -31,6 +26,8 @@ permissions:
 
 jobs:
   deploy:
+    if: github.event_name == 'workflow_dispatch' && inputs.confirm_production == 'CONFIRMER-PRODUCTION'
+    environment: firebase-production
     name: Deploy secured CRM functions
     runs-on: ubuntu-latest
 

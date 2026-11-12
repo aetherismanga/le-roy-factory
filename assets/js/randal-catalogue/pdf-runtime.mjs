@@ -29,13 +29,13 @@ export function loadPdfRuntime(){
 }
 
 export async function openPdfDocument(library,url){
- let task=library.getDocument({url,rangeChunkSize:131072,disableAutoFetch:true,disableStream:true});
+ let task=library.getDocument({url,isEvalSupported:false,rangeChunkSize:131072,disableAutoFetch:true,disableStream:true});
  try{return await task.promise;}
  catch(error){
   await task.destroy();
   // Some networks interrupt or reject HTTP byte ranges. A normal streaming
   // request recovers automatically before showing the retry screen.
-  task=library.getDocument({url,disableRange:true});
+  task=library.getDocument({url,isEvalSupported:false,disableRange:true});
   try{return await task.promise;}
   catch(retryError){await task.destroy();throw retryError;}
  }

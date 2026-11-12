@@ -32,9 +32,14 @@ function selection(search = '', {bulbo = false} = {}) {
     addEventListener(type, handler){if(!events.has(type))events.set(type,[]);events.get(type).push(handler);}
   };
   node('#partner-count').parentElement = {querySelector:()=>node('hint')};
-  const document = {querySelector:node,getElementById:id=>node('#'+id),body:{style:{}},addEventListener(){}};
+  let currentUrl = new URL('https://leroyfactory.fr/univers.html'+search);
+  const location = {get href(){return currentUrl.href;},get search(){return currentUrl.search;}};
+  const history = {state:null,pushState(state,unused,url){this.state=state;currentUrl=new URL(url,currentUrl);},replaceState(state,unused,url){this.state=state;currentUrl=new URL(url,currentUrl);}};
+  const document = {documentElement:{dataset:{}},querySelector:node,getElementById:id=>node('#'+id),body:{style:{}},addEventListener(){}};
+  window.dispatchEvent = event => events.get(event.type)?.forEach(handler=>handler(event));
+  class CustomEvent {constructor(type,options={}){this.type=type;this.detail=options.detail;}}
   const context={
-    window,document,location:{search},sessionStorage:{getItem:()=>null},URLSearchParams
+    window,document,location,history,sessionStorage:{getItem:()=>null},URL,URLSearchParams,CustomEvent
   };
   if(bulbo){
     window.BULBO_CATALOGUE=JSON.parse(readFileSync(new URL('../assets/data/bulbo-catalogue.json',import.meta.url),'utf8')).collections;

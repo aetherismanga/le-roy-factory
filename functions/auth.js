@@ -1,9 +1,6 @@
 const admin = require('firebase-admin');
 
-const AGENT_EMAILS = new Set([
-  'jerome@leroyfactory.fr',
-  'coryne@leroyfactory.fr'
-]);
+const {AGENT_EMAILS, verifiedAgentClaims} = require('./agent-policy.cjs');
 
 async function getAgentFromRequest(req) {
   const header = String(req.get?.('authorization') || req.headers?.authorization || '').trim();
@@ -13,7 +10,7 @@ async function getAgentFromRequest(req) {
   try {
     const decoded = await admin.auth().verifyIdToken(match[1], true);
     const email = String(decoded.email || '').trim().toLowerCase();
-    if (!email || !AGENT_EMAILS.has(email)) return null;
+    if (!verifiedAgentClaims(decoded)) return null;
     return { uid: decoded.uid, email, token: decoded };
   } catch (error) {
     console.warn('Jeton Firebase agent refusé :', error?.code || error?.message || error);

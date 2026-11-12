@@ -113,7 +113,7 @@
     if(!pdfJob){
       pdfJob=import(PDFJS_URL).then(pdfjs=>{
         pdfjs.GlobalWorkerOptions.workerSrc=PDFJS_WORKER;
-        return pdfjs.getDocument({url:PDF_URL}).promise;
+        return pdfjs.getDocument({isEvalSupported:false,url:PDF_URL}).promise;
       });
     }
     return pdfJob;

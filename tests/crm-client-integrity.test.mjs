@@ -50,11 +50,11 @@ async function runtime(rows, beforeTransaction = () => {}) {
   const writes = [];
   const snapshot = () => ({ docs: [...records].map(([id, data]) => ({ id, data: () => ({ ...data }) })) });
   let source = await readFile(new URL('../assets/js/crm-client-integrity.js', import.meta.url), 'utf8');
-  source = source.replace(/^import .*;\n/gm, '').replace(/export /g, '');
-  source += '\n globalThis.auditRuntime = { repairDuplicates };';
+  source = source.replace(/^import .*;\r?\n/gm, '').replace(/export /g, '');
+  source += '\n globalThis.auditRuntime = { repairDuplicates, boot, canonicalId };';
   const context = {
     ...core, db: {}, collection: () => 'clients', doc: (_, __, id) => id,
-    getDocs: async () => snapshot(), onSnapshot: () => {},
+    getDocs: async () => snapshot(), onSnapshot: (_, listener) => { listener(snapshot()); return () => {}; },
     runTransaction: async (_, callback) => {
       beforeTransaction(records);
       const pending = [];
@@ -65,11 +65,12 @@ async function runtime(rows, beforeTransaction = () => {}) {
       for (const [id, patch] of pending) { writes.push([id, patch]); records.set(id, { ...records.get(id), ...patch }); }
       return result;
     }, window: { dispatchEvent() {}, addEventListener() {} },
-    document: { readyState: 'loading', addEventListener() {} },
+    document: { readyState: 'loading', addEventListener() {}, getElementById: () => null, querySelectorAll: () => [] },
+    URLSearchParams, location:{search:''}, history:{replaceState() {}},
     CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } }, console
   };
   vm.createContext(context); vm.runInContext(source, context);
-  return { records, writes, repair: context.auditRuntime.repairDuplicates };
+  return { records, writes, ...context.auditRuntime, repair: context.auditRuntime.repairDuplicates };
 }
 
 test('transaction re-reads sources and refuses an archive that happened after discovery', async () => {
@@ -91,4 +92,22 @@ test('transaction preserves complete original alias contents and writes only arc
   assert.equal(alias.archived, true);
   assert.equal(alias.canonicalClientId, 'a');
   assert.equal(audit.records.get('a').contacts.length, 2);
+});
+
+test('opening the CRM leaves confirmed duplicate candidates untouched', async () => {
+  const first=shop('a'), second=shop('b');
+  const audit=await runtime([first,second]);
+  await audit.boot();
+  assert.equal(audit.writes.length,0);
+  assert.deepEqual(audit.records.get('a'),first);
+  assert.deepEqual(audit.records.get('b'),second);
+});
+
+test('read-only startup still resolves historical aliases without rewriting them', async () => {
+  const current=shop('current'), historical=shop('old',{archived:true,canonicalClientId:'current'});
+  const audit=await runtime([current,historical]);
+  await audit.boot();
+  assert.equal(audit.canonicalId('old'),'current');
+  assert.equal(audit.writes.length,0);
+  assert.deepEqual(audit.records.get('old'),historical);
 });

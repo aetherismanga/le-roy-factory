@@ -5,20 +5,12 @@ const { writeClientActivity } = require('./lrf-analytics-core');
 
 const db = admin.firestore();
 const SESSION_COLLECTION = 'pro_sessions';
-const BLOCKED_CODES = new Set(['LRF-00001']);
+const {depFromCp, eligibleProClient, findEligibleProClient} = require('./pro-client-access.cjs');
 // Session d'appareil persistante : 180 jours glissants, revérifiée côté serveur à chaque reprise.
 const SESSION_TTL_MS = 180 * 24 * 60 * 60 * 1000;
 
 function clean(v, max = 120) {
   return String(v || '').trim().slice(0, max);
-}
-
-function depFromCp(cp) {
-  const s = String(cp || '').replace(/\s/g, '');
-  if (!/^\d{5}$/.test(s)) return '';
-  if (s.startsWith('97') || s.startsWith('98')) return s.slice(0, 3);
-  if (s.startsWith('20')) return Number(s) >= 20200 ? '2B' : '2A';
-  return s.slice(0, 2);
 }
 
 function cors(req, res) {
@@ -44,22 +36,7 @@ function newToken() {
   return crypto.randomBytes(32).toString('base64url');
 }
 
-async function findClient(codeRaw, depRaw) {
-  const code = clean(codeRaw, 20).toUpperCase();
-  const dep = clean(depRaw, 3).toUpperCase();
-  if (!/^LRF-\d{5}$/.test(code) || !dep || BLOCKED_CODES.has(code)) return null;
-
-  const snap = await db.collection('clients').where('codeClient', '==', code).limit(1).get();
-  if (snap.empty) return null;
-
-  const doc = snap.docs[0];
-  const data = doc.data();
-  const actualDep = String(data.departement || depFromCp(data.codePostal || data.code_postal) || '').trim().toUpperCase();
-  if (actualDep !== dep) return null;
-  if (data.proAccessDisabled === true) return null;
-
-  return { id: doc.id, ...data, codeClient: code, departement: actualDep };
-}
+const findClient = (code, department) => findEligibleProClient(db, code, department);
 
 function safeClient(client) {
   const partners = Array.isArray(client.partenaires) ? [...new Set(client.partenaires.filter(Boolean))] : [];
@@ -97,15 +74,8 @@ async function clientFromSessionToken(rawToken, { renew = true } = {}) {
     return null;
   }
 
-  const clientData = clientSnap.data() || {};
-  if (clientData.proAccessDisabled === true) {
-    await ref.delete().catch(() => {});
-    return null;
-  }
-
-  const actualDep = String(clientData.departement || depFromCp(clientData.codePostal || clientData.code_postal) || '').trim().toUpperCase();
-  const actualCode = String(clientData.codeClient || '').trim().toUpperCase();
-  if (BLOCKED_CODES.has(actualCode) || !/^LRF-\d{5}$/.test(actualCode) || actualDep !== String(session.departement || '').toUpperCase()) {
+  const client = eligibleProClient({id: clientSnap.id, ...clientSnap.data()}, session.departement);
+  if (!client) {
     await ref.delete().catch(() => {});
     return null;
   }
@@ -120,7 +90,7 @@ async function clientFromSessionToken(rawToken, { renew = true } = {}) {
   }
 
   return {
-    client: { id: clientSnap.id, ...clientData, codeClient: actualCode, departement: actualDep },
+    client,
     expiresAt: renew ? renewedExpiresAt : expiresAt,
     ref
   };

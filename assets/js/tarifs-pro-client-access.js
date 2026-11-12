@@ -2,6 +2,7 @@ import { partnerContacts } from "./partner-contacts.js?v=20261107-bathroom-group
 import { groupBathroomPartners } from "./pro-bathroom-group.mjs?v=20261107-bathroom-group2";
 import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import {verifiedAgentProfile} from './agent-identity.mjs';
 
 const SESSION_KEY = "lrfProSession";
 const REMEMBER_TOKEN_KEY = "lrfProRememberToken";
@@ -37,11 +38,7 @@ const clientDep=c=>String(c.departement||depFromCp(c.codePostal||c.code_postal)|
 let currentClient=null;
 let restoringDevice=false;
 
-function getAdminProfile(user){
-  const email=String(user?.email||"").trim().toLowerCase();
-  if(!email||!ADMINS.has(email))return null;
-  return {email,name:ADMINS.get(email),uid:user.uid};
-}
+const getAdminProfile = verifiedAgentProfile;
 
 function currentDeviceToken(){
   try{
@@ -250,7 +247,7 @@ function init(){
   // La page peut effacer l'ancienne session en clair à son chargement : le jeton d'appareil sécurisé reste, lui, séparé.
   clearSession();injectStyles();ensureLockModal();
   onAuthStateChanged(auth,async user=>{
-    const admin=getAdminProfile(user);
+    const admin=await getAdminProfile(user);
     if(admin){openForAdmin(admin);return}
     const restored=await restoreRememberedDevice();
     if(!restored)replaceLogin();

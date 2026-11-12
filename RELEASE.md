@@ -1,5 +1,40 @@
 # Publication de la suite LE ROY FACTORY
 
+## Lot de sécurité — procédure de publication
+
+Les contrôles Agent exigent désormais une adresse vérifiée et le custom claim
+Firebase `lrfAgentUid` égal à l'UID du compte. Ce rôle n'est jamais lu depuis
+un document CRM ou un indicateur navigateur. Avant toute future publication,
+un administrateur devra vérifier les UID réels des deux agents et leur attribuer
+ce claim via l'Admin SDK, en préservant leurs autres claims. Ne pas recréer leurs
+comptes. L’attribution du rôle aux deux comptes vérifiés doit précéder la mise en service.
+Une suppression de rôle doit être accompagnée de la révocation des refresh
+tokens ; les règles Firestore évaluent les claims du jeton jusqu'à son expiration.
+
+Les règles Firestore constituent un prototype testé sur émulateur : collections
+CRM explicites, données techniques refusées, validation commune en création et
+modification, métadonnées de création protégées. Les champs historiques optionnels
+restent compatibles ; ce lot ne prétend pas valider récursivement tous les anciens
+formats de contacts, documents et comptes rendus. Revoir ces formats avant une
+publication étendue. Les collections mail/activité prévues pour consultation
+restent en lecture seule côté navigateur. Les écritures passent par les API.
+
+Storage conserve l'interdiction totale des SDK clients, comme les règles cloud
+constatées pendant l'audit. Les accès Admin SDK/IAM et les liens de téléchargement
+existants constituent des contrôles séparés ; ce lot ne révoque aucun document.
+
+Les deux workflows Firebase n'acceptent que `workflow_dispatch`, une confirmation
+`CONFIRMER-PRODUCTION` et l'environnement `firebase-production`. Ils ne changent
+plus les droits IAM. Avant une future utilisation, protéger cet environnement
+GitHub par des approbateurs et des restrictions de branche. L'existence et les
+approbations de cet environnement ne sont pas configurées par les fichiers YAML.
+La publication de ces workflows supprime leurs déclenchements sur push.
+Toute future publication Firebase nécessite une action manuelle explicite.
+
+Pour vérifier les modifications sans publier, utiliser l'environnement local
+`.local-release/auth-qa` : projet `demo-lrf-qa`, Auth/Firestore/Storage émulés,
+comptes fictifs, accès réseau de production bloqués. Son README décrit le démarrage.
+
 Les trois interfaces restent distinctes. Les sources actives sont désormais dans
 `main` : site/PLAN & POSE à la racine, `studio-one/`, `randal-general/`, et le
 noyau `shared/`. L'ancienne branche Studio reste conservée pour l'historique.

@@ -82,7 +82,7 @@ const VoiceNative = registerPlugin('VoiceNative');
   async function loadPdf(url){
     const key=String(url);if(pdfCache.has(key))return pdfCache.get(key);
     const lib=await pdfLib();
-    const task=lib.getDocument({url:key});const doc=await task.promise;pdfCache.set(key,doc);return doc;
+    const task=lib.getDocument({isEvalSupported:false,url:key});const doc=await task.promise;pdfCache.set(key,doc);return doc;
   }
   async function pageText(doc,n){const p=await doc.getPage(n);const c=await p.getTextContent();return c.items.map(x=>x.str||'').join(' ').replace(/\s+/g,' ').trim()}
   async function findPdfPages(url,terms,{productMode=false,maxPages=9999}={}){

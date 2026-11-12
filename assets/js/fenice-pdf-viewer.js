@@ -161,7 +161,7 @@
 
   function fail(message) {
     status.hidden = false;
-    status.textContent = message;
+    LRF_PDF_READER.recovery(status, () => pdf ? renderPage({preserveScroll:true}) : location.reload());
     canvas.style.display = 'none';
   }
 
@@ -188,9 +188,13 @@
     renderLexicon(lexiconSearch?.value || '');
 
     const myToken = ++renderToken;
+    const previousRender = rendering;
+    previousRender?.cancel();
     status.hidden = false;
     status.textContent = 'Chargement de la page ' + pageNo + '…';
     try {
+      if (previousRender) await previousRender.promise.catch(() => {});
+      if (myToken !== renderToken) return;
       const page = await pdf.getPage(pageNo);
       if (myToken !== renderToken) return;
       const base = page.getViewport({scale: 1});
@@ -213,6 +217,7 @@
       status.hidden = true;
       if (!preserveScroll) window.scrollTo({top:0,behavior:'instant'});
     } catch (err) {
+      if (myToken !== renderToken || err?.name === 'RenderingCancelledException') return;
       console.error(err);
       fail('Impossible d’afficher cette page du catalogue.');
     }
@@ -254,7 +259,7 @@
   }, {passive:true});
 
   status.textContent = 'Ouverture de ' + source.label + '…';
-  window.pdfjsLib.getDocument({
+  window.pdfjsLib.getDocument({isEvalSupported:false,
     url: source.url,
     rangeChunkSize: 262144,
     disableAutoFetch: true,

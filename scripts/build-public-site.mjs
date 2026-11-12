@@ -1,6 +1,6 @@
 import {cpSync,existsSync,mkdirSync,readdirSync,readFileSync,rmSync,statSync,writeFileSync} from 'node:fs';
-import {dirname,join,relative,resolve} from 'node:path';
-import {fileURLToPath} from 'node:url';
+import {dirname,join,relative,resolve,isAbsolute,sep} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 
 // Publish public application inputs, never the repository or nested servers.
@@ -12,8 +12,15 @@ const ROOT_NAMES=new Set(['robots.txt','sitemap.xml','sw.js','suite-version.json
 const FORBIDDEN=/(?:^|\/)(?:node_modules|server|functions|reports|scripts|tests|tools|qa|\.git)(?:\/|$)|(?:^|\/)\.env(?:\.|$)|(?:purchase|private)[^/]*\.json$/i;
 export function allowedPublicPath(path){return path !== 'assets/js/lrf-plan-pose/app.mjs' && !FORBIDDEN.test(path);}
 
+export function assertIsolatedOutput(root,out,pathApi={resolve,relative,isAbsolute,sep}){
+  const child=pathApi.relative(pathApi.resolve(root),pathApi.resolve(out));
+  if(!child||child==='..'||child.startsWith('..'+pathApi.sep)||pathApi.isAbsolute(child)){
+    throw Error('Output must be an isolated child directory');
+  }
+}
+
 export async function buildPublicSite({root=ROOT,out=OUT}={}){
-  if(resolve(out)===resolve(root)||!resolve(out).startsWith(resolve(root)+'/'))throw Error('Output must be an isolated child directory');
+  assertIsolatedOutput(root,out);
   rmSync(out,{recursive:true,force:true});mkdirSync(out,{recursive:true});
   const files=[];
   function copyFile(path){
@@ -35,7 +42,7 @@ export async function buildPublicSite({root=ROOT,out=OUT}={}){
   // their agent-only representation in an encrypted server asset.
   const helper=join(root,'scripts/public-agent-tariffs.mjs');
   if(existsSync(helper)){
-    const mod=await import(helper);
+    const mod=await import(pathToFileURL(helper).href);
     if(typeof mod.preparePublicAgentTariffs!=='function')throw Error('Agent tariffs publication contract missing');
     await mod.preparePublicAgentTariffs({root,out,files});
   }

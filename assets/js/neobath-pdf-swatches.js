@@ -44,7 +44,7 @@
   async function getDoc(url) {
     const pdfjsLib = ensurePdfJs();
     if (!pdfjsLib) throw new Error('PDF.js indisponible');
-    if (!docs.has(url)) docs.set(url, pdfjsLib.getDocument(url).promise);
+    if (!docs.has(url)) docs.set(url, pdfjsLib.getDocument({isEvalSupported:false,url}).promise);
     return docs.get(url);
   }
 

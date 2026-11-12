@@ -2,6 +2,7 @@
 
 const { onRequest } = require('firebase-functions/v2/https');
 const admin = require('firebase-admin');
+const {verifiedAgentClaims} = require('./agent-policy.cjs');
 const { publicCatalog } = require('./bilt-catalog');
 
 const ALLOWED_ORIGINS = new Set(['https://leroyfactory.fr', 'https://www.leroyfactory.fr']);
@@ -29,9 +30,9 @@ async function verifyAdminToken(token) {
   const raw = clean(token, 6000);
   if (!raw) return null;
   try {
-    const decoded = await admin.auth().verifyIdToken(raw);
+    const decoded = await admin.auth().verifyIdToken(raw, true);
     const email = clean(decoded?.email, 180).toLowerCase();
-    if (!ADMIN_EMAILS.has(email)) return null;
+    if (!verifiedAgentClaims(decoded)) return null;
     return { email, name: email.startsWith('coryne@') ? 'Coryne' : 'Jérôme' };
   } catch (error) {
     console.warn('BILT admin preview token refusé', error?.message || error);

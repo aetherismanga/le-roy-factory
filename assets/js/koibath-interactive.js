@@ -36,7 +36,7 @@
   };
 
   if (!window.pdfjsLib) {
-    $('loading').innerHTML = '<strong>Le lecteur PDF est momentanément indisponible.</strong><span>Veuillez réessayer dans quelques instants.</span>';
+    LRF_PDF_READER.recovery($('loading'));
     return;
   }
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
@@ -124,7 +124,7 @@
 
     state.currentObserver = new IntersectionObserver(entries => {
       const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (!visible) return;
+      if (!visible || pageAnchor.locked) return;
       state.currentView = Number(visible.target.dataset.view);
       state.currentPdfPage = Number(visible.target.dataset.pdfPage);
       $('page-input').value = String(state.currentView);
@@ -188,6 +188,7 @@
 
   function goView(value, behavior = 'instant') {
     const view = Math.max(1, Math.min(state.views.length, Number(value) || 1));
+    pageAnchor.navigate(view);
     const target = document.querySelector(`.kb-page[data-view="${view}"]`);
     if (!target) return;
     // Force an immediate jump even when a stylesheet requests smooth scrolling.
@@ -203,20 +204,8 @@
     goView(viewForPdfPage(pdfPage));
   }
 
-  function setZoom(value) {
-    state.zoom = Math.max(state.mobile ? 1 : .7, Math.min(2.5, value));
-    $('catalogue-pages').style.setProperty('--zoom', state.zoom);
-    $('zoom-value').textContent = `${Math.round(state.zoom * 100)} %`;
-    const current = state.currentView;
-    document.querySelectorAll('.kb-page').forEach(unloadPage);
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      document.querySelectorAll('.kb-page').forEach(page => {
-        state.observer.unobserve(page);
-        state.observer.observe(page);
-      });
-      goView(current, 'auto');
-    }));
-  }
+  const pageAnchor=LRF_PDF_READER.createAnchor(()=>state.currentView,page=>{state.currentView=page;state.currentPdfPage=state.views[page-1]?.pdfPage||1;updateActiveCollection();$('page-input').value=String(page)},page=>document.querySelector('.kb-page[data-view="'+page+'"]'));
+  function setZoom(value){pageAnchor.zoom(()=>{state.zoom=Math.max(state.mobile?1:.7,Math.min(2.5,Math.round(value*100)/100));$('catalogue-pages').style.setProperty('--zoom',state.zoom);$('zoom-value').textContent=String(Math.round(state.zoom*100))+' %';document.querySelectorAll('.kb-page').forEach(unloadPage);document.querySelectorAll('.kb-page').forEach(node=>{state.observer.unobserve(node);state.observer.observe(node)});})}
 
   function updateActiveCollection() {
     const valid = COLLECTIONS.filter(item => item.page <= state.currentPdfPage);
@@ -249,7 +238,7 @@
     try {
       buildLexicon();
       bind();
-      state.pdf = await pdfjsLib.getDocument({ url: PDF_URL }).promise;
+      state.pdf = await pdfjsLib.getDocument({isEvalSupported:false, url: PDF_URL }).promise;
       await createPages();
       $('loading').hidden = true;
       const requested = new URLSearchParams(window.location.search).get('collection');
@@ -259,7 +248,7 @@
         if (item) setTimeout(() => goPdfPage(item.page), 180);
       }
     } catch (error) {
-      $('loading').innerHTML = `<strong>Le catalogue interactif est momentanément indisponible.</strong><span>${escapeHtml(error.message)}</span>`;
+      LRF_PDF_READER.recovery($('loading'));
       console.error(error);
     }
   }

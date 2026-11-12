@@ -104,7 +104,7 @@
 
   async function getPoolPdf() {
     if (!pdfPromise) {
-      pdfPromise = loadPdfJs().then(lib => lib.getDocument({ url: POOL_PDF }).promise);
+      pdfPromise = loadPdfJs().then(lib => lib.getDocument({isEvalSupported:false, url: POOL_PDF }).promise);
     }
     return pdfPromise;
   }

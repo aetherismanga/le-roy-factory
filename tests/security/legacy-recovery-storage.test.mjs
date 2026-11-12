@@ -8,7 +8,7 @@ import {createServer} from 'node:http';
 import {SAVED_PREFIX,DRAFT_KEY,AMBIENCE_KEY,scanLegacyStorage,publicLegacyRecord,recoveryBackup,readRecoveryFile} from '../../assets/js/studio-one/legacy-recovery-core.mjs';
 import {preparePublicAgentTariffs} from '../../scripts/public-agent-tariffs.mjs';
 
-const ROOT=fileURLToPath(new URL('../../',import.meta.url));
+const ROOT=resolve(fileURLToPath(new URL('../../',import.meta.url)));
 const clone=value=>JSON.parse(JSON.stringify(value));
 // Synthetic records only: no real account, token or purchase data is used.
 const cabinet={id:'cabinet-test',kind:'cabinet',model:2,width:83,height:37.5,depth:46,finish:'BISC.',facade:'Onglet 45°',option:'top',open:true,doorSide:'left',ledOn:false,mirrorRotated:false,mirror:'Basic',mirrorSize:'60 × 80 cm',mirrorFinish:'Noir',drawers:1,position:{x:-71.3,y:28,z:0},sink:{model:'Neris',color:'namibie',layout:'single',width:46,height:14,depth:33,reference:'9562'},accessories:[{id:'accessory-test',kind:'tap',model:'test',reference:'PUBLIC-REFERENCE',position:{x:3,y:80,z:-10}}]};
@@ -135,6 +135,9 @@ test('browser UI lists all recovered projects, downloads a scrubbed archive and 
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let browser;
  try{
   browser=await chromium.launch({headless:true});const context=await browser.newContext({acceptDownloads:true}),page=await context.newPage();
+  // The browser test is strictly local, including third-party subresources.
+  const testOrigin='http://127.0.0.1:'+server.address().port;
+  await context.route('**/*',route=>new URL(route.request().url()).origin===testOrigin?route.continue():route.abort());
   const key=SAVED_PREFIX+'synthetic-ui-account',unsafe=clone(project);unsafe.purchaseHT=111.11;unsafe.authToken='SYNTHETIC_UI_SECRET';unsafe.preview='SYNTHETIC_PREVIEW';
   await context.addInitScript(({key,record,draft,ambience,keys})=>{
    localStorage.setItem(key,JSON.stringify([record]));sessionStorage.setItem(keys.draft,JSON.stringify(draft));sessionStorage.setItem(keys.ambience,JSON.stringify(ambience));
@@ -146,6 +149,7 @@ test('browser UI lists all recovered projects, downloads a scrubbed archive and 
   const downloadPromise=page.waitForEvent('download');await page.locator('#download-all').click();const download=await downloadPromise,archive=JSON.parse(readFileSync(await download.path(),'utf8'));
   assert.equal(archive.projects.length,2);assert(!JSON.stringify(archive).includes('SYNTHETIC_UI_SECRET'));assert(!JSON.stringify(archive).includes('purchaseHT'));assert(!JSON.stringify(archive).includes('SYNTHETIC_PREVIEW'));
   const saved=await page.evaluate(key=>({record:JSON.parse(localStorage.getItem(key)),writes:window.__recoveryWrites}),key);assert.deepEqual(saved.record,[unsafe]);assert.deepEqual(saved.writes,[]);
+  await page.locator('details').filter({has:page.locator('#recovery-file')}).locator('summary').click();
   await page.locator('#recovery-file').setInputFiles({name:'recovery.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(archive))});await page.waitForFunction(()=>document.querySelectorAll('#projects article').length===4);
   assert.match(await page.locator('#file-status').innerText(),/2 projet/);assert.deepEqual(await page.evaluate(()=>window.__recoveryWrites),[]);
   await page.setViewportSize({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true,'Recovery UI fits a phone viewport');

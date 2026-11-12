@@ -46,7 +46,7 @@ test('decrypted grid rejects unsafe references, coercible and invalid amounts',(
 
 const main=fileURLToPath(new URL('../../',import.meta.url));
 const roots=[['randal-general',path.join(main,'randal-general')],['studio-one',process.env.STUDIO_PROJECT_ROOT||path.join(main,'studio-one')]];
-const jwt=(changes={})=>'synthetic.'+Buffer.from(JSON.stringify({aud:'le-roy-factory',iss:'https://securetoken.google.com/le-roy-factory',sub:'agent-fixture',email_verified:true,exp:Math.floor(Date.now()/1000)+600,auth_time:Math.floor(Date.now()/1000),...changes})).toString('base64url')+'.signature';
+const jwt=(changes={})=>'synthetic.'+Buffer.from(JSON.stringify({aud:'le-roy-factory',iss:'https://securetoken.google.com/le-roy-factory',sub:'agent-fixture',lrfAgentUid:'agent-fixture',email_verified:true,exp:Math.floor(Date.now()/1000)+600,auth_time:Math.floor(Date.now()/1000),...changes})).toString('base64url')+'.signature';
 
 for(const [variant,root] of roots){
  test(variant+': anonymous requests cannot read purchases; authorized customers receive only their policy-validated reference',async()=>{
@@ -56,7 +56,7 @@ for(const [variant,root] of roots){
   const {quoteProject}=await import(pathToFileURL(path.join(root,'src/commerce/pricing.js'))),quote=quoteProject(project),expected=variant==='randal-general'?expectedGeneralTotal(quote):null;
   let lookup=0;
   globalThis.fetch=async url=>{
-   if(String(url).includes('identitytoolkit')){lookup++;return {ok:true,json:async()=>({users:[{email:'jerome@leroyfactory.fr',emailVerified:true,localId:'agent-fixture',validSince:0}]})};}
+   if(String(url).includes('identitytoolkit')){lookup++;return {ok:true,json:async()=>({users:[{email:'jerome@leroyfactory.fr',emailVerified:true,localId:'agent-fixture',customAttributes:JSON.stringify({lrfAgentUid:'agent-fixture'}),validSince:0}]})};}
    return {ok:true,status:200,json:async()=>({success:true,sessionToken:'synthetic-session-abcdefghijklmnopqrstuvwxyz',client:{id:'synthetic-client',codeClient:'LRF-12345',departement:'99',partenaires:['randal-pro'],societe:'Synthetic customer'}})};
   };
   const request=async(headers={},body={})=>{let result;const res={setHeader(){},status(n){this.code=n;return this;},json(value){result={status:this.code??200,value};return this;}};await handler({method:'POST',headers:{host:'test.vercel.app',...headers},body:{action:'quote',project,isAdmin:true,proHT:12345,...body}},res);return result;};
@@ -72,12 +72,14 @@ for(const [variant,root] of roots){
   const project=draftProject(variant==='randal-general'?initialDraft('aruba'):initialDraft());
   const {quoteProject}=await import(pathToFileURL(path.join(root,'src/commerce/pricing.js'))),quote=quoteProject(project),expected=variant==='randal-general'?expectedGeneralTotal(quote):null;
   let verified=true;
-  globalThis.fetch=async()=>({ok:true,json:async()=>({users:[{email:'jerome@leroyfactory.fr',emailVerified:verified,localId:'agent-fixture',validSince:0}]})});
+  globalThis.fetch=async()=>({ok:true,json:async()=>({users:[{email:'jerome@leroyfactory.fr',emailVerified:verified,localId:'agent-fixture',customAttributes:JSON.stringify({lrfAgentUid:'agent-fixture'}),validSince:0}]})});
   const request=async token=>{let result;const res={setHeader(){},status(n){this.code=n;return this;},json(value){result={status:this.code??200,value};return this;}};await handler({method:'POST',headers:{host:'test.vercel.app'},body:{action:'admin-token',idToken:token,project}},res);return result;};
   delete process.env.LRF_PURCHASE_GRID_KEY;
   const noKey=await request(jwt());assert.equal(noKey.status,200);assert.equal(noKey.value.isAdmin,true);assert.equal(noKey.value.proHT,expected);assert.equal(noKey.value.proStatus,variant==='randal-general'?'verified-composition':'purchase-unavailable');if(variant==='randal-general')assert.deepEqual(noKey.value.proRows,expectedGeneralRows(quote));else assert(noKey.value.proRows.every(r=>r.proHT===null));
   verified=false;const unverified=await request(jwt());assert.equal(unverified.status,401);assert.equal(unverified.value.proHT,null);
   verified=true;const claimUnverified=await request(jwt({email_verified:false}));assert.equal(claimUnverified.status,401);assert.equal(claimUnverified.value.proHT,null);
+  const roleMissing=await request(jwt({lrfAgentUid:null}));assert.equal(roleMissing.status,401);
+  const wrongUid=await request(jwt({lrfAgentUid:'other'}));assert.equal(wrongUid.status,401);
   const expired=await request(jwt({exp:1}));assert.equal(expired.status,401);
  });
 }

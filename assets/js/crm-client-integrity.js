@@ -87,8 +87,7 @@ function installUiGuards() {
 }
 async function boot() {
   installUiGuards();
-  try { await repairDuplicates(); }
-  catch (error) { console.error('Audit intégrité clients : aucune fusion non confirmée.', error); }
+  // Opening the page never merges or archives clients. Repairs are explicit maintenance.
   const snapshot = await getDocs(collection(db, 'clients')).catch(() => null);
   if (snapshot) latestClients = snapshot.docs.map(item => ({ ...item.data(), id: item.id }));
   rebuildAliasMaps(latestClients);

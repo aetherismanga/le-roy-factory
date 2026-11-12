@@ -26,7 +26,7 @@
   };
 
   async function getDoc(url) {
-    if (!docs.has(url)) docs.set(url, pdfjsLib.getDocument(url).promise);
+    if (!docs.has(url)) docs.set(url, pdfjsLib.getDocument({isEvalSupported:false,url}).promise);
     return docs.get(url);
   }
 

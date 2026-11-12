@@ -15,8 +15,8 @@ function encrypt(data=payload,key=randomBytes(32)){
  const encrypted=Buffer.concat([cipher.update(JSON.stringify(data)),cipher.final()]);
  return {key:key.toString('hex'),envelope:{version:1,algorithm:'A256GCM',variant:'site-agent-tariffs',iv:iv.toString('base64'),tag:cipher.getAuthTag().toString('base64'),ciphertext:encrypted.toString('base64')}};
 }
-const jwt=(extra={})=>'synthetic.'+Buffer.from(JSON.stringify({aud:'le-roy-factory',iss:'https://securetoken.google.com/le-roy-factory',sub:'agent-test',email:'jerome@leroyfactory.fr',email_verified:true,exp:Date.now()/1000+300,auth_time:Date.now()/1000,...extra})).toString('base64url')+'.synthetic';
-const liveUser={email:'jerome@leroyfactory.fr',localId:'agent-test',emailVerified:true,validSince:0};
+const jwt=(extra={})=>'synthetic.'+Buffer.from(JSON.stringify({aud:'le-roy-factory',iss:'https://securetoken.google.com/le-roy-factory',sub:'agent-test',lrfAgentUid:'agent-test',email:'jerome@leroyfactory.fr',email_verified:true,exp:Date.now()/1000+300,auth_time:Date.now()/1000,...extra})).toString('base64url')+'.synthetic';
+const liveUser={email:'jerome@leroyfactory.fr',localId:'agent-test',emailVerified:true,customAttributes:JSON.stringify({lrfAgentUid:'agent-test'}),validSince:0};
 const google=user=>async()=>({ok:true,json:async()=>({users:user?[user]:[]})});
 function result(){return {statusCode:200,headers:{},setHeader(k,v){this.headers[k]=v;},status(n){this.statusCode=n;return this;},json(v){this.body=v;return this;},send(v){this.body=v;return this;}};}
 function request(body={action:'bootstrap'},headers={}){return {method:'POST',headers:{host:'leroyfactory.fr',origin:'https://leroyfactory.fr',...headers},body};}
@@ -44,10 +44,10 @@ test('agent identity is verified against Google, live account and revocation',as
  assert.equal(await verifyAgentToken('forged-local-session'),null);
 });
 
-test('existing password agents use the same live Firebase policy as protected PDF access',async()=>{
+test('unverified agents fail closed under the shared Firebase policy',async()=>{
  for(const email of ['jerome@leroyfactory.fr','coryne@leroyfactory.fr']){
   const token=jwt({email,email_verified:false});
-  assert.deepEqual(await verifyAgentToken('Bearer '+token,{request:google({...liveUser,email,emailVerified:false})}),{uid:'agent-test',email});
+  assert.equal(await verifyAgentToken('Bearer '+token,{request:google({...liveUser,email,emailVerified:false})}),null);
   assert.equal(await verifyAgentToken('Bearer '+token,{request:google({...liveUser,email,emailVerified:false,disabled:true})}),null);
   assert.equal(await verifyAgentToken('Bearer '+token,{request:google({...liveUser,email,emailVerified:false,localId:'different-user'})}),null);
   assert.equal(await verifyAgentToken('Bearer '+token,{request:google({...liveUser,email,emailVerified:false,validSince:Date.now()/1000+30})}),null);

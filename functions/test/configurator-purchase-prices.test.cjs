@@ -83,11 +83,12 @@ test('migration retains only amounts and reference keys, never public metadata o
 test('shared Firebase authentication checks live token revocation and rejects client sessions and other emails', async () => {
   let checkRevoked;
   const sandbox = {module: {exports: {}}, console: {warn() {}}, require(name) {
+    if(name==='./agent-policy.cjs')return require('../agent-policy.cjs');
     assert.equal(name, 'firebase-admin');
     return {auth: () => ({verifyIdToken: async (token, revoked) => {
       checkRevoked = revoked;
       if (token === 'revoked') throw Object.assign(new Error('revoked'), {code: 'auth/id-token-revoked'});
-      return {uid: 'test', email: token === 'agent' ? 'jerome@leroyfactory.fr' : 'client@example.com', email_verified: true};
+      return {uid: 'test', lrfAgentUid:'test', email: token === 'agent' ? 'jerome@leroyfactory.fr' : 'client@example.com', email_verified: true};
     }})};
   }};
   vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../auth.js'), 'utf8'), sandbox);

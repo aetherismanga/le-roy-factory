@@ -2,20 +2,72 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Shared CRM: the two explicitly provisioned agents collaborate on records.
+    // Server-only sessions, projects, mail workers and tariff data are not CRM.
+    // lrfAgentUid is a signed custom claim provisioned outside the browser.
     function isAgent() {
       return request.auth != null
-        && request.auth.token.email != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.lrfAgentUid == request.auth.uid
         && request.auth.token.email in [
           'jerome@leroyfactory.fr',
           'coryne@leroyfactory.fr'
         ];
     }
 
-    // CRM LE ROY FACTORY : aucune donnée Firestore n'est exposée publiquement.
-    // Les deux agents authentifiés peuvent lire et modifier les données CRM.
-    // Les Cloud Functions utilisant l'Admin SDK ne sont pas bloquées par ces règles.
+    function crmCollection(name) {
+      return name in ['clients', 'crmClientIdentities', 'crm_meta', 'crm_map_prospects',
+        'comptes_rendus', 'tournees', 'agenda_events', 'account_requests',
+        'merchandisingFiles', 'usineDocuments', 'clientDocuments', 'expoClients',
+        'parametres', 'statistiques_lrf_mappings', 'reviglass_order_history'];
+    }
+    function readOnlyCollection(name) {
+      return name in ['historique_mails', 'historique_mail_content', 'scheduled_mails',
+        'lrf_randal_sessions', 'lrf_randal_activity_events', 'lrf_client_activity',
+        'lrf_activity_events', 'lrf_analytics_daily'];
+    }
+    function text(data, key, maximum) {
+      return !(key in data) || data[key] == null
+        || (data[key] is string && data[key].size() <= maximum);
+    }
+    function boundedList(data, key, maximum) {
+      return !(key in data) || (data[key] is list && data[key].size() <= maximum);
+    }
+    function validCrmDocument(name, data) {
+      // Preserve historical optional fields. Privilege fields cannot be stored
+      // by the browser; sensitive scalar fields are bounded on create AND update.
+      return data.size() <= 200
+        && !data.keys().hasAny(['role', 'roles', 'isAdmin', 'admin', 'lrfAgentUid', 'customClaims'])
+        && text(data, 'societe', 500) && text(data, 'nom', 500)
+        && text(data, 'email', 320) && text(data, 'telephone', 100)
+        && text(data, 'adresse', 2000) && text(data, 'ville', 300)
+        && text(data, 'codePostal', 20) && text(data, 'codeClient', 20)
+        && text(data, 'departement', 3) && text(data, 'title', 1000)
+        && text(data, 'description', 20000) && text(data, 'notes', 100000)
+        && text(data, 'contenu', 100000) && text(data, 'commentaire', 100000)
+        && text(data, 'url', 4096) && text(data, 'path', 1000)
+        && boundedList(data, 'partenaires', 100) && boundedList(data, 'contacts', 100)
+        && boundedList(data, 'stops', 500) && boundedList(data, 'documents', 100)
+        && (!( 'proAccessDisabled' in data) || data.proAccessDisabled is bool)
+        && (name != 'clients' || (data.societe is string && data.societe.size() > 0))
+        && (name != 'agenda_events' || (data.title is string && data.start is string && data.end is string));
+    }
+    function stableCreationMetadata() {
+      return !request.resource.data.diff(resource.data).affectedKeys()
+        .hasAny(['createdAt', 'createdByUid']);
+    }
+    match /{collection}/{document} {
+      allow read: if isAgent() && (crmCollection(collection) || readOnlyCollection(collection));
+      allow create: if isAgent() && crmCollection(collection)
+        && validCrmDocument(collection, request.resource.data);
+      allow update: if isAgent() && crmCollection(collection)
+        && validCrmDocument(collection, request.resource.data) && stableCreationMetadata();
+      allow delete: if isAgent() && crmCollection(collection);
+    }
+    // Default deny includes every unknown collection and nested subcollection.
+    // Admin SDK functions enforce their own authorization and bypass these rules.
     match /{document=**} {
-      allow read, write: if isAgent();
+      allow read, write: if false;
     }
   }
 }

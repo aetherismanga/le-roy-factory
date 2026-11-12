@@ -5,6 +5,7 @@ const { createHash } = require('node:crypto');
 const { GoogleAuth } = require('google-auth-library');
 const { getAgentFromRequest } = require('./auth');
 const { writeClientActivity } = require('./lrf-analytics-core');
+const {findEligibleProClient} = require('./pro-client-access.cjs');
 
 const db = admin.firestore();
 const bucket = admin.storage().bucket();
@@ -40,9 +41,8 @@ const ALIASES = {
 
 function clean(v,max=120){ return String(v||'').trim().slice(0,max); }
 function norm(v){ return clean(v).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,''); }
-function depFromCp(cp){ const s=String(cp||'').replace(/\s/g,''); if(!/^\d{5}$/.test(s)) return ''; if(s.startsWith('97')||s.startsWith('98')) return s.slice(0,3); if(s.startsWith('20')) return Number(s)>=20200?'2B':'2A'; return s.slice(0,2); }
 function cors(req,res){ const origin=String(req.headers.origin||''); const allowed=['https://leroyfactory.fr','https://www.leroyfactory.fr']; res.set('Access-Control-Allow-Origin',allowed.includes(origin)?origin:'https://leroyfactory.fr');res.set('Vary','Origin');res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','GET, POST, OPTIONS');if(req.method==='OPTIONS'){res.status(204).send('');return true;}return false; }
-async function verifiedClient(codeRaw,depRaw){ const code=clean(codeRaw,20).toUpperCase(),dep=clean(depRaw,3).toUpperCase();if(!/^LRF-\d{5}$/.test(code)||!dep)return null;const snap=await db.collection('clients').where('codeClient','==',code).limit(1).get();if(snap.empty)return null;const doc=snap.docs[0],c=doc.data();const clientDep=String(c.departement||depFromCp(c.codePostal||c.code_postal)||'').trim().toUpperCase();if(clientDep!==dep)return null;return{id:doc.id,...c,codeClient:code,departement:clientDep}; }
+const verifiedClient = (code, department) => findEligibleProClient(db, code, department);
 function clientCanAccess(client,partner){ const values=(Array.isArray(client.partenaires)?client.partenaires:[]).map(norm);const aliases=(ALIASES[partner]||[partner]).map(norm);return aliases.some(a=>values.includes(a)); }
 async function streamPrivateFile(res,file,filename,contentType='application/pdf'){ const[exists]=await file.exists();if(!exists)return res.status(503).json({success:false,error:'Tarif sécurisé en cours de migration.'});res.set('Content-Type',contentType);res.set('Content-Disposition',`inline; filename="${String(filename).replace(/[^a-zA-Z0-9._-]/g,'_')}"`);res.set('Cache-Control','private, no-store, max-age=0');res.set('Pragma','no-cache');res.set('X-Content-Type-Options','nosniff');const stream=file.createReadStream();stream.on('error',err=>{console.error('streamPrivateFile',err);if(!res.headersSent)res.status(500).end();else res.end();});stream.pipe(res); }
 

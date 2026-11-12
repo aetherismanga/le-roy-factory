@@ -32,7 +32,7 @@ export function localServices(partners=['ELIOS CERAMICA','VIEW CERAMICA'],tariff
   const storage={bucket:()=>({file:path=>({exists:async()=>[true],createReadStream:()=>{streamed.push(path);const stream=Readable.from(Buffer.from('%PDF-1.4\nSynthetic protected tariff'));stream.pipe=res=>{res.body=Buffer.from('%PDF-1.4\nSynthetic protected tariff');return res;};return stream;}})})};
   function load(path){
     const module={exports:{}};
-    const stubRequire=name=>name==='firebase-functions/v2/https'?{onRequest:(options,handler)=>handler}:name==='firebase-admin'?{firestore,storage:()=>storage}:name==='./lrf-analytics-core'?{writeClientActivity:async()=>{}}:name==='./auth'?{getAgentFromRequest:async()=>null}:name==='google-auth-library'?{GoogleAuth:class{}}:require(name);
+    const stubRequire=name=>name==='./pro-client-access.cjs'?require('../../functions/pro-client-access.cjs'):name==='firebase-functions/v2/https'?{onRequest:(options,handler)=>handler}:name==='firebase-admin'?{firestore,storage:()=>storage}:name==='./lrf-analytics-core'?{writeClientActivity:async()=>{}}:name==='./auth'?{getAgentFromRequest:async()=>null}:name==='google-auth-library'?{GoogleAuth:class{}}:require(name);
     vm.runInNewContext(readFileSync(new URL('../../functions/'+path,import.meta.url),'utf8'),{require:stubRequire,module,exports:module.exports,Buffer,Date,Set,console},{filename:path});
     return module.exports;
   }
