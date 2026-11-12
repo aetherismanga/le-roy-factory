@@ -2,10 +2,10 @@
 .bilt-talox-desktop.bilt-bf,.bilt-bf-mobile.bilt-bf{display:block!important;position:relative!important;padding:0!important;overflow:hidden;border:1px solid #8da993!important;border-radius:18px!important;background:#fffdf8!important;color:#06462d!important;isolation:isolate;box-shadow:0 6px 22px #001b181c;text-decoration:none;box-sizing:border-box}
 .bilt-talox-desktop.bilt-bf::before{display:none!important;animation:none!important}
 .bilt-bf-link{position:absolute;inset:0 0 23px;display:block;color:inherit;text-decoration:none;overflow:hidden}
-.bilt-bf-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .4s ease;pointer-events:none;box-sizing:border-box}
-.bilt-bf-slide.is-active{opacity:1;visibility:visible;pointer-events:auto}
+.bilt-bf-slide{position:absolute;inset:0;display:none;opacity:1;visibility:hidden;pointer-events:none;box-sizing:border-box}
+.bilt-bf-slide.is-active{display:block;opacity:1;visibility:visible;pointer-events:auto}
 .bilt-bf-slide.bilt-bf-art img{display:block;width:100%;height:100%;object-fit:contain;background:#fffdf8}
-.bilt-bf-offer{display:grid;grid-template-columns:minmax(0,1fr) 30%;align-items:center;gap:8px;padding:9px 13px}
+.bilt-bf-offer{display:none;grid-template-columns:minmax(0,1fr) 30%;align-items:center;gap:8px;padding:9px 13px}
 .bilt-bf-offer>img{display:block;width:100%;height:100%;min-height:0;max-height:100px;object-fit:contain;border-radius:6px}
 .bilt-bf-brand{display:flex;gap:7px;align-items:center;font-size:10px;font-weight:900;letter-spacing:.035em}
 .bilt-bf-brand img{width:40px;height:22px;object-fit:contain}
@@ -22,3 +22,5 @@
 .bilt-bf-mobile.bilt-bf{display:none!important}
 @media(max-width:900px){.bilt-bf-mobile.bilt-bf{display:block!important;width:calc(100% - 24px);max-width:640px;height:172px;margin:14px auto 20px}.bilt-bf-mobile .bilt-bf-offer{padding:12px 18px}.bilt-bf-mobile .bilt-bf-brand{font-size:13px}.bilt-bf-mobile .bilt-bf-brand img{width:56px;height:30px}.bilt-bf-mobile .bilt-bf-date{font-size:11px}.bilt-bf-mobile .bilt-bf-threshold{font-size:29px}.bilt-bf-mobile .bilt-bf-gift{font-size:16px}.bilt-bf-mobile .bilt-bf-offer>img{max-height:128px}.bilt-bf-mobile .bilt-bf-cta{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.bilt-bf-slide{transition:none}}
+
+.bilt-bf-offer.is-active{display:grid}
