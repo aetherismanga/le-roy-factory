@@ -69,7 +69,8 @@ est conservé et bloque la répétition automatique.
 ## Activation
 
 Le service `eliosSamples` est ajouté au workflow manuel existant, groupe
-`elios-samples`, qui ne publie que cette fonction. Les règles IAM/Firestore,
+`elios-samples`, qui publie uniquement `eliosSamples` et `eliosExpoBudget`
+pour la version 2. Les règles IAM/Firestore,
 les sessions et les autres fonctions restent gérées par le processus existant.
 La production doit utiliser ce groupe, puis le même commit testé pour le projet
 Vercel Studio One et GitHub Pages. Les deux points d'entrée client sont ajoutés
@@ -82,7 +83,7 @@ le site le 12 novembre 2026. La branche de livraison est
 `feature/elios-samples-box-20261112`, reprise sur le `main` actuel pour préserver
 les travaux parallèles. Le workflow vérifie les deux rôles agents existants en
 lecture seule avant d'activer le service. Les résultats réels de publication
-et les identifiants de déploiement seront consignés après leur vérification.
+et les identifiants de déploiement sont consignés ci-dessous après vérification.
 
 
 ## Choix des références et suivi Expo clients — version 2
@@ -141,11 +142,11 @@ son miroir serveur portent la version `20261112-elios-samples-v2`.
 Le ciblage couvre 36 tests JavaScript et 3 tests d’import Python, dont la date
 de confirmation selon le jour ouvré en Europe/Paris.
 
-Les services `eliosSamples` et `eliosExpoBudget` ne sont pas encore activés :
-ils répondent 404 au dernier contrôle. Le workflow manuel est prêt à publier
-les deux fonctions seulement, avec le groupe `elios-samples` et la confirmation
-`CONFIRMER-PRODUCTION`. Les autres fonctions et les deux ateliers 3D ne doivent
-pas être redéployés pour ce complément.
+Les services `eliosSamples` et `eliosExpoBudget` sont maintenant activés.
+Le workflow manuel a publié uniquement ces deux fonctions, avec le groupe
+`elios-samples` et la confirmation `CONFIRMER-PRODUCTION` : résultat vérifié
+ci-dessous. Les autres fonctions et les deux ateliers 3D n’ont pas été
+redéployés pour ce complément.
 
 L’accès au dépôt GitHub fonctionne via le connecteur. Le navigateur de
 publication a été arrêté par le contrôle automatique lors du passage vers
@@ -161,3 +162,32 @@ sécurisée de choix du compte a été annulée avant sélection ; aucune identi
 n’a été choisie, aucun mot de passe n’a été saisi et aucun workflow Firebase
 n’a été lancé. Ne pas redemander l’autorisation de destination déjà accordée ;
 la connexion au compte reste à reprendre à la demande de Jérôme.
+
+
+## Activation serveur confirmée — 12 novembre 2026
+
+Le workflow manuel « Deploy Firebase Functions », exécution n° 153,
+`43286911928`, et son job `131422626907` ont terminé avec succès.
+Source publiée : `15b7b3ff3ffd39d746eb0cb2c56ddec7e9e4cd3b` sur `main`.
+Ce commit conserve les fonctions du lot Elios testé `8c1772e` ; le seul
+complément concerne le chargement des clients du CRM après vérification Agent.
+
+La commande réellement exécutée cible exclusivement :
+`firebase deploy --project le-roy-factory --only functions:eliosSamples,functions:eliosExpoBudget --non-interactive`.
+Les deux fonctions Node.js 22 de deuxième génération ont été créées en
+`us-central1`, puis la publication s’est terminée vers 20 h 10 (Europe/Paris).
+
+- `eliosSamples` : version `20261112-elios-samples-v2`, contrôle authentification
+  HTTP 401 réussi, faux rôles refusés.
+- `eliosExpoBudget` : version `20261112-elios-expo-budget-v1`, contrôle d’accès
+  agent HTTP 401 réussi ; aucune information privée livrée anonymement.
+- Les rôles agents existants ont été vérifiés sans modifier de compte ni de claim.
+- Les contrôles de fin de publication n’ont envoyé aucun mail et n’ont modifié
+  aucune demande ni aucun budget. Aucun accord usine ou CA réel n’a été créé.
+
+La connexion GitHub nécessaire a été achevée après l’autorisation explicite de
+Jérôme. Les blocages et l’annulation de connexion décrits plus haut relatent
+les étapes précédentes ; ils ne bloquent plus cette activation.
+
+Preuve de publication :
+https://github.com/aetherismanga/le-roy-factory/actions/runs/43286911928
