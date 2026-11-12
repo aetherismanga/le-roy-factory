@@ -25,6 +25,7 @@ let draftKey = null;
 let activityBaseline = "";
 let storedActivityBaseline;
 let activityInitialized = false;
+let accessKeyBaseline = "", storedAccessKeyBaseline;
 
 const norm = v => String(v || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 const esc = v => String(v || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
@@ -113,6 +114,18 @@ function injectActivity() {
   type.insertAdjacentElement("afterend", d);
 }
 
+// The existing PRO service uses departement as its two/three-character key.
+// An explicit key permits supplier accounts without inventing a postal address.
+function injectAccessKey() {
+  if (document.getElementById("edit-pro-access-key")) return;
+  const anchor = document.getElementById("edit-email")?.closest(".form-field");
+  if (!anchor) return;
+  const field = document.createElement("div");
+  field.className = "form-field";
+  field.innerHTML = '<label for="edit-pro-access-key">Clé d’accès PRO (facultative)</label><input id="edit-pro-access-key" type="text" inputmode="text" maxlength="3" pattern="(?:[0-9]{2,3}|2[AaBb])" placeholder="Par défaut : département"><small>Pour un accès dédié sans adresse, renseignez la clé choisie. Laissez vide pour conserver la clé actuelle.</small>';
+  anchor.insertAdjacentElement("afterend", field);
+}
+
 function setActivity(c) {
   injectActivity();
   const sel = document.getElementById("edit-activity");
@@ -195,6 +208,10 @@ function refreshOpenClient(client, force=false) {
   if(id&&!c)return;
   editingId=id||null;
   setActivity(c);
+  injectAccessKey();
+  storedAccessKeyBaseline = c?.departement;
+  accessKeyBaseline = String(c?.departement || "").trim().toUpperCase();
+  document.getElementById("edit-pro-access-key").value = accessKeyBaseline;
   activityBaseline=document.getElementById("edit-activity")?.value||"";
   storedActivityBaseline=c?.categorieActivite;
   draftKey=key;activityInitialized=true;
@@ -205,9 +222,14 @@ window.LRFClientEnhancements={
   getPatch(){
     const key=String(document.getElementById("client-modal")?.dataset.clientId||"").trim()||"new-client";
     const value=document.getElementById("edit-activity")?.value||"";
-    return activityInitialized&&draftKey===key&&value!==activityBaseline?{categorieActivite:value}:{};
+    if (!activityInitialized || draftKey !== key) return {};
+    const patch = value !== activityBaseline ? {categorieActivite:value} : {};
+    const accessKey = String(document.getElementById("edit-pro-access-key")?.value || "").trim().toUpperCase();
+    if (accessKey && !/^(?:[0-9]{2,3}|2[AB])$/.test(accessKey)) throw Error("Clé d’accès PRO : saisissez 2 ou 3 chiffres, 2A ou 2B.");
+    if (accessKey && accessKey !== accessKeyBaseline) patch.departement = accessKey;
+    return patch;
   },
-  getBaseline(){return {categorieActivite:storedActivityBaseline}}
+  getBaseline(){return {categorieActivite:storedActivityBaseline,departement:storedAccessKeyBaseline}}
 };
 
 function init() {
