@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync, existsSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {normalizeCatalogueSearch, quantity, restoreSelection, palletEstimate, buildQuote} from '../assets/js/saxso-selection.mjs';
+import {variantPresentation,variantMedia,preferredMediaGroup,nativeImageLayout} from '../assets/js/saxso-catalogue.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const catalogue = JSON.parse(readFileSync(root+'assets/data/saxso-catalogue.json','utf8'));
@@ -55,4 +56,39 @@ test('quote preserves exact reference, source page, quantity and the four pallet
   assert.throws(()=>buildQuote({catalogue,selection:[],customer}));
   assert.throws(()=>buildQuote({catalogue,selection:[{id:'unknown',quantity:4}],customer}));
   assert.equal(palletEstimate(selection,catalogue).known,50/v.perPallet);
+});
+
+
+test('the selected reference keeps its own product, format and matter instead of a nearby page photograph', () => {
+  const collection={name:'Sakkara',cover:{url:'cover.jpg'},images:[{url:'unrelated-cutout.jpg',width:323,height:190,page:35},{url:'terrace.jpg',width:1600,height:1000}]};
+  const variant={label:'Sakkara Grey Sablé, Brossé 60x90 ép. 2 cm',productPhoto:{url:'grey-brushed.jpg',width:323,height:190},materialPhoto:{url:'grey-matter.jpg',width:1800,height:1800,label:'Nuance Grey — matière de référence'}};
+  const illustration={url:'format.svg',kind:'illustration',width:1600,height:1200};
+  const media=variantMedia(collection,variant,illustration);
+  assert.deepEqual(media.map(item=>[item.group,item.url]),[['product','grey-brushed.jpg'],['format','format.svg'],['material','grey-matter.jpg'],['ambience','terrace.jpg']]);
+  assert.equal(media[2].label,'Nuance Grey — matière de référence');
+  assert.equal(preferredMediaGroup(variant,media),'format','small source pictures must not become the enlarged default');
+  assert.equal(preferredMediaGroup(variant,variantMedia(collection,{...variant,productPhoto:{url:'exact-hd.jpg',width:2000,height:1200}},illustration)),'product');
+  assert.deepEqual(variantMedia({name:'Matière',images:[]},{label:'Plinthe 8x60 ép. 1 cm'}),[],'no unrelated collection cover is substituted for a missing reference');
+});
+test('format labels keep exact dimensions and thickness, including skirting and coping references', () => {
+  assert.equal(variantPresentation({label:'Plinthe Travertin 8x60 ép. 1 cm'}).format,'8x60 · ép. 1 cm');
+  assert.equal(variantPresentation({label:'Margelle 35x100 ép. 4 cm',finish:'Adouci',format:'35 × 100 × 4 cm'}).format,'35 × 100 × 4 cm');
+  assert.equal(variantPresentation({label:'Margelle 35x100 ép. 4 cm',finish:'Adouci'}).finish,'Adouci');
+});
+test('inspection never stretches a low-resolution source and caps magnification at three times the fitted view', () => {
+  assert.deepEqual(nativeImageLayout(323,190,1600,900,3),{width:323,height:190,scale:1});
+  assert.deepEqual(nativeImageLayout(4000,3000,1000,750,1),{width:1000,height:750,scale:.25});
+  assert.deepEqual(nativeImageLayout(4000,3000,1000,750,3),{width:3000,height:2250,scale:.75});
+  assert.deepEqual(nativeImageLayout(4000,3000,1000,750,99),nativeImageLayout(4000,3000,1000,750,3));
+});
+
+test('a multi-colour source board stays hidden until the selected native material crop is ready',()=>{
+  const variant={label:'Galets Rose calibre 15–25 mm',materialPhoto:{url:'colour-board.jpg',width:937,height:752,cropRect:[250,100,200,150],label:'Galets Rose',note:'Nuance de référence, calibre selon la référence.'}};
+  assert.deepEqual(variantMedia({name:'Galets',images:[]},variant),[]);
+  const detail={...variant.materialPhoto,url:'data:image/svg+xml,cropped',width:200,height:150,kind:'photo',cropApplied:true};
+  const media=variantMedia({name:'Galets',images:[]},variant,null,detail);
+  assert.equal(media.length,1);assert.equal(media[0].group,'material');
+  assert.equal(media[0].url,detail.url);assert.equal(media[0].width,200);
+  assert.equal(media[0].label,'Galets Rose');assert.equal(media[0].note,variant.materialPhoto.note);
+  assert.deepEqual(nativeImageLayout(media[0].width,media[0].height,1400,800,3),{width:200,height:150,scale:1});
 });

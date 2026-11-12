@@ -474,7 +474,13 @@
       "originalPdf": "assets/pdf/Book_of_stones_Saxso_2023_OK.pdf",
       "professionalTariffs": "private-api",
       "professionalTariffDate": "2026-11-12",
-      "realisationPhotographs": 6
+      "realisationPhotographs": 6,
+      "visualRelease": "20261112-saxso-hd2",
+      "variantVisuals": 725,
+      "manufacturerColourMatches": 657,
+      "formatIllustrations": 725,
+      "publicPhotoAssets": 132,
+      "nativeSourcePhotographsPreserved": true
     }
   },
   "configurators": {
