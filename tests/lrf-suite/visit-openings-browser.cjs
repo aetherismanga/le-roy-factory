@@ -17,7 +17,7 @@ let browser,server,active='studio';const checks=[],errors=[];const out=process.e
    let after=await page.evaluate(()=>studioOnePrototype.exportProject());assert.equal(type==='cabinet'?after.items[0].settings.drawers.some(Boolean):type==='toilet'?!!after.items[0].settings.lidOpen:!!after.items[0].settings.doorOpen,false,'Looking must not open the mechanism');
    let point=null;
    for(const yy of [.5,.6,.7,.4,.3,.8,.2,.9]){for(const xx of [.5,.45,.55,.4,.6]){const x=rect.x+rect.width*xx,y=rect.y+rect.height*yy;if(mobile)await page.touchscreen.tap(x,y);else await page.mouse.click(x,y);after=await page.evaluate(()=>studioOnePrototype.exportProject());const opened=type==='cabinet'?after.items[0].settings.drawers.some(Boolean):type==='toilet'?!!after.items[0].settings.lidOpen:!!after.items[0].settings.doorOpen;if(opened){point={x,y};break;}}if(point)break;}
-   if(!point){await page.screenshot({path:out+'/'+kind+(mobile?'-mobile-':'-desktop-')+type+'-failure.png'});throw Error(kind+' '+type+' no actual canvas click opened mechanism');}
+   if(!point){await page.screenshot({timeout:60000,path:out+'/'+kind+(mobile?'-mobile-':'-desktop-')+type+'-failure.png'});throw Error(kind+' '+type+' no actual canvas click opened mechanism');}
    if(type==='cabinet')assert.equal(after.items[0].settings.drawers.filter(Boolean).length,1,'Clicking a drawer opens that drawer only');
    assert.deepEqual(after.items[0].placement,before.items[0].placement,'Opening never changes placement');assert.equal(after.renovation.locked,true);assert.equal(await page.locator('.walk-toggle').getAttribute('aria-pressed'),'true');assert(await page.locator('#object-editor').isHidden());
    checks.push(kind+(mobile?' mobile':' PC')+': real scene '+type+' click/tap opens while visit and position lock remain active; camera drag does not activate');
@@ -33,7 +33,7 @@ let browser,server,active='studio';const checks=[],errors=[];const out=process.e
    assert(opened,kind+' read-only sample must still allow opening its actual drawer');await page.waitForTimeout(350);assert.equal(await page.locator('.walk-toggle').getAttribute('aria-pressed'),'true');await page.locator('.walk-toggle').click();assert.deepEqual(await page.evaluate(()=>studioOnePrototype.exportProject()),before,'Public preview mechanism states are temporary');assert.deepEqual(await page.evaluate(prefix=>Object.fromEntries(['-projects','-current-project','-active-project-id-v2'].map(suffix=>[suffix,localStorage.getItem(prefix+suffix)])),prefix),savedBefore,'Public visit opening never autosaves');
    assert.deepEqual(await page.evaluate(()=>studioOnePrototype.getState().drawers),before.items.find(i=>i.type==='cabinet').settings.drawers,'Selected UI drawer state follows restored preview state');checks.push(kind+' PC: actual read-only public-sample drawer opens, then restores exact scene and saved data on exit');
   }
-  await page.screenshot({path:out+'/'+kind+(mobile?'-mobile':'-desktop')+'.png'});
+  await page.screenshot({timeout:60000,path:out+'/'+kind+(mobile?'-mobile':'-desktop')+'.png'});
   await context.close();
  }
  assert.deepEqual(errors,[]);fs.writeFileSync(out+'/report.json',JSON.stringify({checks,errors},null,2));console.log(JSON.stringify({passed:checks.length,checks,errors},null,2));

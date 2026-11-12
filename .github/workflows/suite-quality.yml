@@ -100,6 +100,25 @@ jobs:
       - run: npm run check --workspace=randal-general-3d
       - run: npm run check --workspace=studio-one-atelier-3d
       - run: npm run build:site
+      - name: Keep active atelier results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lrf-browser-checks
+          path: reports/lrf-suite/
+          retention-days: 14
+      # No deployment, credentials, environment pull or production mutation here.
+  browser-rendering:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm run build:general && npm run build:studio
       - run: npx playwright install --with-deps chromium
         id: browser_runtime
       - name: Verify active ateliers with real WebGL and HD restoration
@@ -114,6 +133,25 @@ jobs:
       - name: Verify Quercia mobile texture budgets and HD restoration
         if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-quercia-mobile.browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lrf-browser-rendering
+          path: reports/lrf-suite/
+          retention-days: 14
+  browser-surfaces:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm run build:general && npm run build:studio
+      - run: npx playwright install --with-deps chromium
+        id: browser_runtime
       - name: Verify tile selection with mouse and touch
         if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/tile-selection-browser.cjs
@@ -123,6 +161,25 @@ jobs:
       - name: Verify inspector scrollbars preserve the current selection
         if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/panel-scroll-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lrf-browser-surfaces
+          path: reports/lrf-suite/
+          retention-days: 14
+  browser-sanitary-commerce:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm run build:general && npm run build:studio
+      - run: npx playwright install --with-deps chromium
+        id: browser_runtime
       - name: Verify wall-mounted toilets and legacy project recovery
         if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/sanitary-attachment-browser.cjs
@@ -137,17 +194,15 @@ jobs:
         run: node tests/lrf-suite/studio-mirror-reference-browser.cjs
       - run: node tests/lrf-plan-pose/recovery-render-browser.cjs
         if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
-      - name: Keep active atelier results
+      - uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: lrf-browser-checks
+          name: lrf-browser-sanitary-commerce
           path: reports/lrf-suite/
           retention-days: 14
-      # No deployment, credentials, environment pull or production mutation here.
-  construction-interactions:
+  construction-panels:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
       LRF_QA_OUTPUT: reports/lrf-suite/element-panels
       LRF_LOCK_QA_DIR: reports/lrf-suite/position-lock
@@ -175,12 +230,66 @@ jobs:
       - name: Verify sidebar content survives editor changes and outside clicks
         if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/panel-lifecycle-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lrf-construction-panels
+          path: reports/lrf-suite/
+          retention-days: 14
+  construction-rugs-niches:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      LRF_QA_OUTPUT: reports/lrf-suite/element-panels
+      LRF_LOCK_QA_DIR: reports/lrf-suite/position-lock
+      LRF_PARTITION_QA_OUTPUT: reports/lrf-suite/partitions
+      LRF_PANEL_LIFECYCLE_QA_OUTPUT: reports/lrf-suite/panel-lifecycle
+      LRF_RUG_QA_OUTPUT: reports/lrf-suite/floor-rug
+      LRF_NICHE_OPENINGS_QA_OUTPUT: reports/lrf-suite/niche-openings
+      LRF_NICHE_PLACEMENT_OUTPUT: reports/lrf-suite/niche-placement
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm run build:general && npm run build:studio
+      - run: npx playwright install --with-deps chromium
+        id: browser_runtime
       - name: Verify floor rug creation, mouse and touch movement, and dimensions
         if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/floor-rug-browser.cjs
       - name: Verify niche materials and selection after locking and adding openings
         if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/niche-openings-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lrf-construction-rugs-niches
+          path: reports/lrf-suite/
+          retention-days: 14
+  construction-locks-trays:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      LRF_QA_OUTPUT: reports/lrf-suite/element-panels
+      LRF_LOCK_QA_DIR: reports/lrf-suite/position-lock
+      LRF_PARTITION_QA_OUTPUT: reports/lrf-suite/partitions
+      LRF_PANEL_LIFECYCLE_QA_OUTPUT: reports/lrf-suite/panel-lifecycle
+      LRF_RUG_QA_OUTPUT: reports/lrf-suite/floor-rug
+      LRF_NICHE_OPENINGS_QA_OUTPUT: reports/lrf-suite/niche-openings
+      LRF_NICHE_PLACEMENT_OUTPUT: reports/lrf-suite/niche-placement
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm run build:general && npm run build:studio
+      - run: npx playwright install --with-deps chromium
+        id: browser_runtime
       - name: Verify individual locks and movement inside a locked room
         if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/position-lock-browser.cjs
@@ -190,11 +299,10 @@ jobs:
       - name: Verify flush and raised tiled shower trays
         if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/tiled-shower-tray-browser.cjs
-      - name: Keep construction interaction results
+      - uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: lrf-construction-checks
+          name: lrf-construction-locks-trays
           path: reports/lrf-suite/
           retention-days: 14
   opening-and-product-placement:
