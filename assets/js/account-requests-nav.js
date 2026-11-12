@@ -36,7 +36,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 const lrfCurrentPage=(location.pathname.split('/').pop()||'').toLowerCase();
 const lrfClientIntegrityReady=lrfCurrentPage==='clients.html'
-  ? import('./crm-client-integrity.js?v=20260909-integrity2')
+  ? import('./crm-client-integrity.js?v=20261112-auth-ready1')
       .then(m=>m.ready)
       .catch(err=>{console.error('Erreur contrôle intégrité fiches clients :',err);})
   : Promise.resolve();

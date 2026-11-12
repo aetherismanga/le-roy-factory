@@ -109,21 +109,21 @@
       <div class="stat-card">
         <div class="stat-icon">🏢</div>
         <div class="stat-info">
-          <span class="stat-number" id="stat-total-clients">0</span>
+          <span class="stat-number" id="stat-total-clients">…</span>
           <span class="stat-label">Clients Actifs</span>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🎯</div>
         <div class="stat-info">
-          <span class="stat-number" id="stat-total-prospects">0</span>
+          <span class="stat-number" id="stat-total-prospects">…</span>
           <span class="stat-label">Prospects en cours</span>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">📍</div>
         <div class="stat-info">
-          <span class="stat-number" id="stat-secteur-count">0</span>
+          <span class="stat-number" id="stat-secteur-count">…</span>
           <span class="stat-label">Affichés</span>
         </div>
       </div>
@@ -284,22 +284,27 @@
   </div>
 
   <script type="module">
-    import { db, auth, getAgentProfile } from "./assets/js/firebase.js";
+    import { db, auth, verifiedAgentProfile } from "./assets/js/firebase.js";
     import "./assets/js/client-facade.js?v=20261105-audit2";
     import "./assets/js/crm-moovago.js?v=20261106-crm-unified2";
     import "./assets/js/crm-client-enhancements.js?v=20261112-pro-key1";
     import "./assets/js/client-direct-email.js?v=20261106-crm-unified2";
     import "./assets/js/crm-client-partner-access.js?v=20261106-crm-unified2";
     import { fingerprint, changedFields, assertUnchanged, reconcileList, sameValue, safeDocumentUrl, localDate, matchesClientSearch } from "./assets/js/client-form-core.mjs?v=20261105-audit1";
-    import { ready as integrityReady, canonicalId } from "./assets/js/crm-client-integrity.js?v=20261105-audit1";
+    import { ready as integrityReady, canonicalId } from "./assets/js/crm-client-integrity.js?v=20261112-auth-ready1";
     import { cloneExtra } from "./assets/js/crm-extra-save-core.mjs";
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { collection, doc, setDoc, getDocs, runTransaction, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     document.addEventListener("DOMContentLoaded", async () => {
-      // Firebase is the session authority; localStorage may be empty on a valid session.
+      // Await signed-role verification; the synchronous profile cache may still
+      // be empty when Firebase restores an existing session.
       const profile = await new Promise(resolve => {
-        const stop = onAuthStateChanged(auth, user => { stop(); resolve(getAgentProfile(user)); });
+        const stop = onAuthStateChanged(auth, async user => {
+          const verified = await verifiedAgentProfile(user);
+          stop();
+          resolve(verified);
+        });
       });
       if (!profile) return;
       await integrityReady;

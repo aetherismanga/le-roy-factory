@@ -1,4 +1,4 @@
-import { db, auth, getAgentProfile } from './firebase.js';
+import { db, auth, verifiedAgentProfile } from './firebase.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 import { collection, doc, getDocs, onSnapshot, runTransaction } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { clean, active, norm, postal, phones, normPhone, safeDuplicate, duplicateGroups, chooseCanonical, mergedPayload, resolveCanonical } from './crm-client-integrity-core.mjs?v=20261105-audit1';
@@ -109,8 +109,8 @@ export const ready = new Promise(resolve => { resolveReady = resolve; });
 if (!window.__LRF_CRM_CLIENT_INTEGRITY__) {
   window.__LRF_CRM_CLIENT_INTEGRITY__ = ready;
   const start = () => {
-    const stop = onAuthStateChanged(auth,user=>{
-      if(!getAgentProfile(user))return;
+    const stop = onAuthStateChanged(auth,async user=>{
+      if(!await verifiedAgentProfile(user))return;
       stop(); boot().finally(resolveReady);
     });
   };
