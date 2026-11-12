@@ -412,19 +412,20 @@
       "responsive": true
     },
     "homePromotions": {
-      "releaseId": "20261112-elios-black-friday5",
+      "releaseId": "20261112-elios-black-friday6",
       "campaigns": [
-        "reviglass",
-        "elios-black-friday"
+        "elios-black-friday",
+        "reviglass"
       ],
       "desktopHeight": 96,
       "responsive": true,
-      "readingPauseMs": 8000,
+      "readingPauseMs": 5000,
       "pauseOnHover": false,
       "largerCampaignType": true,
       "transition": "soft-fade",
       "transitionDurationMs": 1400,
-      "presentation": "champagne-charcoal"
+      "presentation": "champagne-charcoal",
+      "firstCampaign": "elios"
     }
   },
   "configurators": {

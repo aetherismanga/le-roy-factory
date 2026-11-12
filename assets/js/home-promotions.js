@@ -9,7 +9,7 @@
   const next = controls.querySelector('[data-home-promo-next]');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const dialog = document.querySelector('#elios-black-friday-details');
-  const READING_MS = 8000;
+  const READING_MS = 5000;
   const TRANSITION_MS = 1400;
   let current = 0, paused = false, focused = false, inView = true, changing = false;
   let timer, transitionTimer;
@@ -21,7 +21,7 @@
       slide.setAttribute('aria-hidden', String(!active));
     });
     dots.forEach((dot, i) => dot.setAttribute('aria-pressed', String(i === current)));
-    root.dataset.homePromo = current === 0 ? 'reviglass' : 'elios';
+    root.dataset.homePromo = slides[current].dataset.homePromoId;
     root.dispatchEvent(new Event('lrf:home-promo-change'));
     pause.innerHTML = paused ? '<svg viewBox="0 0 20 20" width="13" height="13" aria-hidden="true"><path d="m6 3 11 7-11 7z" fill="currentColor"/></svg>' : '<svg viewBox="0 0 20 20" width="13" height="13" aria-hidden="true"><path d="M7 4v12M13 4v12" stroke="currentColor" stroke-width="2.5"/></svg>';
     pause.setAttribute('aria-pressed', String(paused));
