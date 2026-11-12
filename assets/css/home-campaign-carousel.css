@@ -3,8 +3,8 @@
 .home-promos-viewport {position:relative;isolation:isolate;overflow:hidden;border-radius:14px;height:96px;background:#153e3b;box-shadow:0 4px 16px #173c3514}
 .home-promo-slide {position:absolute;inset:0;width:100%;margin:0;transform:translateX(-100%);visibility:hidden;pointer-events:none}
 .home-promo-slide.is-current {transform:translateX(0);visibility:visible;pointer-events:auto}
-.home-promo-slide.is-entering {visibility:visible;pointer-events:none;animation:home-promo-enter .85s cubic-bezier(.22,.61,.36,1) both}
-.home-promo-slide.is-leaving {visibility:visible;pointer-events:none;animation:home-promo-leave .85s cubic-bezier(.22,.61,.36,1) both}
+.home-promo-slide.is-entering {visibility:visible;pointer-events:auto;animation:home-promo-enter 3s linear both}
+.home-promo-slide.is-leaving {visibility:visible;pointer-events:none;animation:home-promo-leave 3s linear both}
 @keyframes home-promo-enter {from{transform:translateX(-100%)}to{transform:translateX(0)}}
 @keyframes home-promo-leave {from{transform:translateX(0)}to{transform:translateX(100%)}}
 html body.lrf-page-index.lrf-premium-v2 .home-promos .revi-home-banner {padding-right:120px;grid-template-columns:var(--revi-photo-width) minmax(0,1fr) 218px;box-shadow:none}
@@ -17,17 +17,17 @@ html body.lrf-page-index.lrf-premium-v2 .home-promos .revi-home-banner {padding-
 .home-promos-controls button:focus-visible {outline:2px solid #f4d27a;outline-offset:1px}
 .home-promos-controls button[aria-pressed="true"] {color:#f7d170}
 .home-promos-controls .home-promo-dot {width:18px;font-size:11px}
-.elios-bf-banner {box-sizing:border-box;display:grid;grid-template-columns:100px 176px 104px minmax(140px,1fr) 120px 160px;align-items:center;gap:18px;height:96px;padding:0 120px 0 24px;border:1px solid #b99a4f;border-radius:14px;overflow:hidden;text-decoration:none!important;color:#fff!important;background:radial-gradient(ellipse at 38% 0,#70502455,transparent 55%),linear-gradient(105deg,#241c15,#100f0f 55%,#3b2918)}
+.elios-bf-banner {box-sizing:border-box;display:grid;grid-template-columns:138px 216px 170px minmax(200px,1fr) 108px 150px;align-items:center;gap:16px;height:96px;padding:0 116px 0 20px;border:1px solid #b99a4f;border-radius:14px;overflow:hidden;text-decoration:none!important;color:#fff!important;background:radial-gradient(ellipse at 33% -20%,#e9b65280,transparent 58%),linear-gradient(105deg,#3b2813,#12100c 58%,#614017);box-shadow:inset 0 0 0 1px #e4b54d55,inset 0 2px 22px #e5ad2926}
 .elios-bf-brand {display:block;padding:7px 9px;overflow:hidden;background:#fff8ed;border:1px solid #e7c783;border-radius:8px;box-shadow:0 2px 15px #e6ac2822}
-.elios-bf-brand img {display:block;width:100%;height:40px;object-fit:contain;transform:scale(1.6)}
-.elios-bf-title {display:block;color:#ffd46c;font:900 italic 27px/.95 Arial,sans-serif;letter-spacing:-.035em;text-transform:uppercase}
-.elios-bf-title small {display:block;margin-top:7px;color:#c3af84;font:600 8px/1.2 Arial,sans-serif;letter-spacing:.14em}
-.elios-bf-amount {display:block;white-space:nowrap;color:#ffdb6e;text-shadow:0 2px 0 #8b5e1c,0 0 22px #ffbb3730;font:900 48px/1 Arial,sans-serif;letter-spacing:-.065em}
-.elios-bf-amount sup {font-size:.55em;vertical-align:baseline}
+.elios-bf-brand img {display:block;width:100%;height:54px;object-fit:contain;transform:scale(1.6)}
+.elios-bf-title {display:block;color:#ffd46c;font:900 italic 42px/.88 Arial,sans-serif;letter-spacing:-.035em;text-transform:uppercase}
+.elios-bf-title small {display:block;margin-top:5px;color:#f1d391;font:800 10px/1.2 Arial,sans-serif;letter-spacing:.14em}
+.elios-bf-amount {display:block;white-space:nowrap;color:#ffdb6e;text-shadow:0 2px 0 #8b5e1c,0 0 22px #ffbb3730;font:900 80px/1 Arial,sans-serif;letter-spacing:-.065em}
+.elios-bf-amount sup {font-size:.65em;vertical-align:baseline}
 .elios-bf-copy {display:block;min-width:0}
-.elios-bf-copy strong {display:block;font:800 14px/1.25 Arial,sans-serif;text-transform:uppercase;letter-spacing:.015em}
-.elios-bf-copy span {display:block;margin-top:3px;color:#f0e4cb;font:400 12px/1.3 Arial,sans-serif}
-.elios-bf-copy time {display:block;margin-top:6px;color:#efcc79;font:700 10px/1.3 Arial,sans-serif}
+.elios-bf-copy strong {display:block;font:800 19px/1.2 Arial,sans-serif;text-transform:uppercase;letter-spacing:.015em}
+.elios-bf-copy span {display:block;margin-top:3px;color:#f0e4cb;font:400 15px/1.3 Arial,sans-serif}
+.elios-bf-copy time {display:block;margin-top:6px;color:#efcc79;font:700 12px/1.3 Arial,sans-serif}
 .elios-bf-mascot {display:block;width:92px;justify-self:center;align-self:stretch;background-image:url('../img/elios-black-friday-2026/banniere-originale.png');background-size:auto 96px;background-position:right center;background-repeat:no-repeat;mask-image:linear-gradient(90deg,transparent,#000 22%,#000 92%,transparent)}
 .elios-bf-action {display:block;text-align:center}
 .elios-bf-cta {display:flex;align-items:center;justify-content:center;gap:14px;min-height:40px;border:1px solid #f9db83;border-radius:9px;background:linear-gradient(120deg,#fce6a6,#dcae45);color:#2b2115;font:800 11px/1.3 Arial,sans-serif;box-shadow:0 3px 14px #0003}
@@ -41,16 +41,25 @@ html body.lrf-page-index.lrf-premium-v2 .home-promos .revi-home-banner {padding-
 .home-promos-dialog-footer p {margin:0;font:14px/1.5 Arial,sans-serif}
 .home-promos-dialog-footer a {color:#f4d27a}
 .home-promos-dialog-close {position:absolute;right:10px;top:10px;width:36px;height:36px;border:1px solid #f1d59588;border-radius:50%;background:#15130fe6;color:#fff;cursor:pointer;font:24px/1 Arial,sans-serif}
-@media (min-width:901px) and (max-width:1250px) {
-  .elios-bf-banner {grid-template-columns:76px 125px 90px minmax(125px,1fr) 95px;gap:14px;padding-left:18px}
-  .elios-bf-title {font-size:22px}.elios-bf-amount {font-size:43px}.elios-bf-copy strong {font-size:12px}.elios-bf-copy span {font-size:11px}.elios-bf-action {display:none}
+@media (min-width:901px) and (max-width:1390px) {
+  .elios-bf-banner {grid-template-columns:110px 174px 145px minmax(180px,1fr) 90px 142px;gap:14px;padding-left:18px}
+  .elios-bf-title {font-size:35px}.elios-bf-amount {font-size:68px}.elios-bf-copy strong {font-size:16px}.elios-bf-copy span {font-size:13px}.elios-bf-action {display:block}
   html body.lrf-page-index.lrf-premium-v2 .home-promos .revi-home-banner {grid-template-columns:180px minmax(0,1fr) 180px;gap:18px}
+}
+@media (min-width:901px) and (max-width:1150px) {
+  .elios-bf-banner {grid-template-columns:110px 170px 145px minmax(150px,1fr) 90px}
+  .elios-bf-action {display:none}
+  .elios-bf-copy strong {font-size:13px}.elios-bf-copy span,.elios-bf-copy time {font-size:11px}
+}
+@media (min-width:901px) and (max-width:1050px) {
+  .elios-bf-banner {grid-template-columns:92px 146px 120px minmax(130px,1fr) 72px;gap:10px;padding-right:110px}
+  .elios-bf-title {font-size:30px}.elios-bf-amount {font-size:60px}.elios-bf-brand img {height:44px}.elios-bf-copy strong {font-size:11px}.elios-bf-copy span,.elios-bf-copy time {font-size:10px}
 }
 @media (max-width:900px) {
   html body.lrf-page-index.lrf-premium-v2 .revi-home-invitation.home-promos {display:block!important;margin-top:49px;padding:8px 12px 10px}
-  .home-promos-viewport {height:126px;border-radius:12px}
+  .home-promos-viewport {height:150px;border-radius:12px}
   .home-promos .revi-invitation-shell {--revi-photo-width:86px}
-  html body.lrf-page-index.lrf-premium-v2 .home-promos .revi-home-banner {grid-template-columns:86px minmax(0,1fr);height:126px;min-height:126px;gap:12px;padding:0 12px 18px 0;border-radius:12px}
+  html body.lrf-page-index.lrf-premium-v2 .home-promos .revi-home-banner {grid-template-columns:86px minmax(0,1fr);height:150px;min-height:150px;gap:12px;padding:0 12px 18px 0;border-radius:12px}
   .home-promos .revi-banner-visual {margin-bottom:-18px}
   .home-promos .revi-banner-visual-caption {left:6px;right:5px;bottom:10px;font-size:7px}
   .home-promos .revi-banner-heading {display:block;margin-bottom:4px}
@@ -61,13 +70,13 @@ html body.lrf-page-index.lrf-premium-v2 .home-promos .revi-home-banner {padding-
   .home-promos .revi-banner-action {display:none}
   .home-promos-controls {top:auto;bottom:5px;right:8px;transform:none;gap:0;padding:0 4px}
   .home-promos-controls button {height:24px;width:25px;font-size:13px}.home-promos-controls .home-promo-dot {width:19px;font-size:9px}
-  .elios-bf-banner {display:block;position:relative;height:126px;padding:10px 98px 10px 14px;border-radius:12px}
+  .elios-bf-banner {display:block;position:relative;height:150px;padding:10px 86px 10px 14px;border-radius:12px}
   .elios-bf-brand {display:none}
-  .elios-bf-title {font-size:22px;line-height:1.1;letter-spacing:-.025em}
-  .elios-bf-title br {display:none}.elios-bf-title small {display:block;margin:3px 0 0;font-size:8px;color:#f4e4bf;letter-spacing:.03em}
-  .elios-bf-amount {float:left;margin:5px 10px 0 0;font-size:42px}
-  .elios-bf-copy {padding-top:7px}.elios-bf-copy strong {font-size:9px;line-height:1.25}.elios-bf-copy span {font-size:9px}.elios-bf-copy time {clear:both;padding-top:4px;margin-top:0;font-size:9px;white-space:nowrap}
-  .elios-bf-mascot {position:absolute;right:1px;top:0;width:100px;height:100px;background-size:auto 100px;background-position:right center}
+  .elios-bf-title {font-size:clamp(22px,6vw,28px);line-height:1.1;letter-spacing:-.025em}
+  .elios-bf-title br {display:none}.elios-bf-title small {display:block;margin:3px 0 0;font-size:14px;color:#ffe3a0;letter-spacing:.1em}
+  .elios-bf-amount {float:left;margin:7px 8px 0 0;font-size:58px}
+  .elios-bf-copy {padding-top:12px}.elios-bf-copy strong {font-size:9px;line-height:1.25}.elios-bf-copy span {font-size:9px}.elios-bf-copy time {clear:both;padding-top:4px;margin-top:0;font-size:9px;white-space:nowrap}
+  .elios-bf-mascot {position:absolute;right:1px;top:4px;width:86px;height:116px;background-size:auto 116px;background-position:right center}
   .elios-bf-action {display:none}
   .home-promos-dialog-footer {padding:13px 16px}.home-promos-dialog-footer p {font-size:12px}
 }

@@ -2,7 +2,6 @@
   'use strict';
   const root = document.querySelector('[data-home-promotions]');
   if (!root) return;
-  const viewport = root.querySelector('.home-promos-viewport');
   const slides = [...root.querySelectorAll('.home-promo-slide')];
   const controls = root.querySelector('.home-promos-controls');
   const dots = [...controls.querySelectorAll('[data-home-promo]')];
@@ -10,8 +9,10 @@
   const next = controls.querySelector('[data-home-promo-next]');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const dialog = document.querySelector('#elios-black-friday-details');
-  let current = 0, paused = false, hovered = false, focused = false, inView = true, changing = false;
-  let timer;
+  const READING_MS = 900;
+  const SLIDE_MS = 3000;
+  let current = 0, paused = false, focused = false, inView = true, changing = false;
+  let timer, transitionTimer;
   controls.hidden = false;
   const sync = () => {
     slides.forEach((slide, i) => {
@@ -28,12 +29,22 @@
   };
   const schedule = () => {
     clearTimeout(timer);
-    const running = !paused && !hovered && !focused && !document.hidden && inView && !reduced.matches && !dialog?.open;
+    const running = !paused && !focused && !document.hidden && inView && !reduced.matches && !dialog?.open;
     root.dataset.homePromoMotion = running ? 'running' : 'paused';
-    if (running && !changing) timer = setTimeout(() => show((current + 1) % slides.length), 7000);
+    if (running && !changing) timer = setTimeout(() => show((current + 1) % slides.length), READING_MS);
+  };
+  const settle = () => {
+    clearTimeout(transitionTimer);
+    slides.forEach((slide, index) => {
+      slide.classList.remove('is-entering', 'is-leaving');
+      slide.classList.toggle('is-current', index === current);
+    });
+    changing = false;
+    schedule();
   };
   const show = (index) => {
-    if (changing || index === current) return;
+    if (changing) settle();
+    if (index === current) { schedule(); return; }
     clearTimeout(timer);
     const old = slides[current], target = slides[index];
     current = index;
@@ -47,20 +58,14 @@
     changing = true;
     old.classList.add('is-leaving');
     target.classList.add('is-entering');
-    setTimeout(() => {
-      old.classList.remove('is-current', 'is-leaving');
-      target.classList.remove('is-entering');
-      target.classList.add('is-current');
-      changing = false;
-      schedule();
-    }, 860);
+    transitionTimer = setTimeout(settle, SLIDE_MS + 20);
   };
   dots.forEach((button, index) => button.addEventListener('click', () => show(index)));
   next.addEventListener('click', () => show((current + 1) % slides.length));
-  pause.addEventListener('click', () => { paused = !paused; sync(); schedule(); });
-  viewport.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') { hovered = true; schedule(); } });
-  viewport.addEventListener('pointerleave', () => { hovered = false; schedule(); });
-  root.addEventListener('focusin', () => { focused = true; schedule(); });
+  pause.addEventListener('click', () => { paused = !paused; if (paused && changing) settle(); sync(); schedule(); });
+  // Mouse hover and mouse clicks keep autoplay running; keyboard users can read
+  // and operate the focused banner without its link moving away.
+  root.addEventListener('focusin', event => { focused = event.target.matches(':focus-visible'); schedule(); });
   root.addEventListener('focusout', event => { focused = root.contains(event.relatedTarget); schedule(); });
   document.addEventListener('visibilitychange', schedule);
   reduced.addEventListener('change', schedule);
@@ -68,7 +73,7 @@
   // Direct image link remains useful when JavaScript or <dialog> is unavailable.
   root.querySelector('.elios-bf-banner').addEventListener('click', event => {
     if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0 || !dialog?.showModal) return;
-    event.preventDefault(); dialog.showModal(); schedule();
+    event.preventDefault(); if (changing) settle(); dialog.showModal(); schedule();
   });
   dialog?.querySelector('button').addEventListener('click', () => dialog.close());
   dialog?.addEventListener('close', schedule);
