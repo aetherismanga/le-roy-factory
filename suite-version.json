@@ -410,6 +410,16 @@
       "homepageCarousel": true,
       "replaces": "talox-peigne",
       "responsive": true
+    },
+    "homePromotions": {
+      "releaseId": "20261112-elios-black-friday1",
+      "campaigns": [
+        "reviglass",
+        "elios-black-friday"
+      ],
+      "slideDirection": "left-to-right",
+      "desktopHeight": 96,
+      "responsive": true
     }
   },
   "configurators": {

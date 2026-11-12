@@ -39,7 +39,7 @@
     let current = 0;
     let visible = 0;
     let timer;
-    const active = () => desktop.matches && inView && !document.hidden;
+    const active = () => desktop.matches && inView && !document.hidden && banner.dataset.homePromo !== 'elios';
     const update = () => {
       clearTimeout(timer);
       const autoplay = active() && !paused && !reducedMotion.matches;
@@ -91,6 +91,7 @@
     desktop.addEventListener('change', update);
     reducedMotion.addEventListener('change', update);
     document.addEventListener('visibilitychange', update);
+    banner.addEventListener('lrf:home-promo-change', update);
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; update(); }).observe(banner);
     }
