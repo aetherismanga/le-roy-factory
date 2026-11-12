@@ -7,12 +7,12 @@
   const categories=[
     ['carrelage',['elios-ceramica','view-ceramica','la-fenice']],
     ['exception',['petracers','pecchioli-firenze','bulbo']],
-    ['mosaique',['reviglass']],['parement',['biopietra']],
+    ['mosaique',['reviglass']],['parement',['saxso','biopietra']],
     ['meubles',['randal-pro','neobath','petracers','bulbo']],
     ['robinetterie',['aquahome','opal','reitano-rubinetterie','petracers']],
     ['sanitaire',['petracers','uptrend']],['outillages',['bilt']]
   ];
-  const aliases={elios:'elios-ceramica',view:'view-ceramica',petracer:'petracers',pecchioli:'pecchioli-firenze',randal:'randal-pro',opalhome:'opal'};
+  const aliases={elios:'elios-ceramica',view:'view-ceramica',petracer:'petracers',pecchioli:'pecchioli-firenze',randal:'randal-pro',opalhome:'opal',saxo:'saxso'};
   const partner=categories.flatMap(([,partners])=>partners).find(slug=>normalise(slug)===requested)||aliases[requested]||'';
   const requestedCategory=query.get('category')||query.get('cat')||'';
   const categoryId=requestedCategory==='piscine'?'carrelage':requestedCategory;

@@ -3,7 +3,7 @@
     {id:'carrelage',label:'Carrelage',icon:'▦',partners:['Elios Ceramica','View Ceramica','La Fenice']},
     {id:'exception',label:"Carrelage d'exception",icon:'✦',partners:["Petracer's",'Pecchioli Firenze','Bulbo']},
     {id:'mosaique',label:'Mosaïque',icon:'◈',partners:['Reviglass']},
-    {id:'parement',label:'Pierre',icon:'▤',partners:['Biopietra']},
+    {id:'parement',label:'Pierre',icon:'▤',partners:['SAXSO','Biopietra']},
     {id:'meubles',label:'Meubles',icon:'▥',partners:['Randal Pro','Neobath',"Petracer's",'Bulbo']},
     {id:'robinetterie',label:'Robinetterie & miroir',icon:'◉',partners:['Aquahome','Opal','Reitano Rubinetterie',"Petracer's"]},
     {id:'sanitaire',label:'Sanitaire',icon:'○',partners:["Petracer's",'UPTREND']},
@@ -17,6 +17,7 @@
     'Pecchioli Firenze':{slug:'pecchioli-firenze',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/pecchioli.png',country:'Italie'},
     'Bulbo':{slug:'bulbo',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bulbo.png',country:'Italie'},
     'Reviglass':{slug:'reviglass',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/reviglass.png',country:'Espagne'},
+    'SAXSO':{slug:'saxso',logo:'assets/img/saxso-2026/saxso-logo.png',country:'Italie'},
     'Biopietra':{slug:'biopietra',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/biopietra.png',country:'Italie'},
     'Neobath':{slug:'neobath',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/neobath.png',country:'Italie',data:'neobath'},
     'Randal Pro':{slug:'randal-pro',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal.png',country:'Espagne'},
@@ -87,7 +88,7 @@
   };
 
   const DEFAULT_SELECTION={category:'carrelage',partner:'Elios Ceramica',q:'',format:'Tous',color:'Tous',effect:'Tous',finish:'Tous',poolGroup:false};
-  const partnerAliases={elios:'Elios Ceramica',view:'View Ceramica',petracer:"Petracer's",pecchioli:'Pecchioli Firenze',randal:'Randal Pro',opalhome:'Opal'};
+  const partnerAliases={elios:'Elios Ceramica',view:'View Ceramica',petracer:"Petracer's",pecchioli:'Pecchioli Firenze',randal:'Randal Pro',opalhome:'Opal',saxo:'SAXSO'};
   function selectionFromUrl(value=location.href){
     const params=new URL(value,location.href).searchParams;
     const requestedCategory=params.get('category')||params.get('cat')||'';
@@ -113,7 +114,7 @@
 
   function catMeta(c){return c.partners.length?c.partners.join(' · '):'Bientôt disponible'}
   function renderCategories(){categories.innerHTML=CATEGORIES.map(c=>`<button type="button" aria-label="${esc(c.label)}" aria-pressed="${c.id===state.category}" class="category-card ${c.id===state.category?'active':''}" data-cat="${c.id}"><span class="category-icon">${c.icon}</span><span class="category-name">${esc(c.label)}</span><span class="category-meta">${esc(catMeta(c))}</span></button>`).join('')}
-  function renderPartners(){const c=CATEGORIES.find(x=>x.id===state.category);const list=[...(c?.partners||[])].sort((a,b)=>c?.id==='meubles'?c.partners.indexOf(a)-c.partners.indexOf(b):String(a).localeCompare(String(b),'fr',{sensitivity:'base'}));$('#partner-panel-title').textContent=c?.label||'Partenaires';partnerGrid.innerHTML=list.length?list.map(name=>{const p=PARTNERS[name];const allowed=hasAccess(p.slug),isBio=name==='Biopietra';return `<button class="partner-card ${name===state.partner?'active':''}" data-partner="${esc(name)}"><img src="${p.logo}" alt="${esc(name)}"><span><strong>${esc(name)}</strong><small>${esc(p.country)}</small>${isBio?'':name==="Petracer's"?'<span class="access">Catalogue & conseils</span>':`<span class="access ${allowed?'':'locked'}">${allowed?'✓ Tarif PRO autorisé':'🔒 Tarif PRO selon compte'}</span>`}</span></button>`}).join(''):`<div class="empty-partner"><strong>Sanitaire</strong><p>Aucun partenaire sanitaire n'est encore intégré.</p></div>`;partnerTrigger.textContent=`☰ Choisir une usine${state.partner?` — ${state.partner}`:''}`}
+  function renderPartners(){const c=CATEGORIES.find(x=>x.id===state.category);const list=[...(c?.partners||[])].sort((a,b)=>['meubles','parement'].includes(c?.id)?c.partners.indexOf(a)-c.partners.indexOf(b):String(a).localeCompare(String(b),'fr',{sensitivity:'base'}));$('#partner-panel-title').textContent=c?.label||'Partenaires';partnerGrid.innerHTML=list.length?list.map(name=>{const p=PARTNERS[name];const allowed=hasAccess(p.slug),isBio=['SAXSO','Biopietra'].includes(name);return `<button class="partner-card ${name===state.partner?'active':''}" data-partner="${esc(name)}"><img src="${p.logo}" alt="${esc(name)}"><span><strong>${esc(name)}</strong><small>${esc(p.country)}</small>${isBio?'':name==="Petracer's"?'<span class="access">Catalogue & conseils</span>':`<span class="access ${allowed?'':'locked'}">${allowed?'✓ Tarif PRO autorisé':'🔒 Tarif PRO selon compte'}</span>`}</span></button>`}).join(''):`<div class="empty-partner"><strong>Sanitaire</strong><p>Aucun partenaire sanitaire n'est encore intégré.</p></div>`;partnerTrigger.textContent=`☰ Choisir une usine${state.partner?` — ${state.partner}`:''}`}
   function unique(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'fr',{numeric:true}))}
   function products(){
     if(state.partner==="Petracer's") return window.LRF_PETRACER_SELECTION?.normaliseProducts(state.category) || [];
@@ -157,6 +158,15 @@
     return true;
   }
   function renderProducts(){
+    if(state.partner==='SAXSO'){
+      count.textContent='Catalogue SAXSO · Pierres naturelles';
+      let target=productGrid.querySelector('[data-saxso-selection]');
+      if(!target){productGrid.innerHTML='<section class="saxso" data-saxso-selection></section>';target=productGrid.querySelector('[data-saxso-selection]');}
+      if(target.dataset.saxsoSelectionLoading)return;
+      target.dataset.saxsoSelectionLoading='true';
+      import('./saxso-catalogue.js?v=20261112-saxso1').then(module=>{if(target.isConnected)return module.renderSaxsoCatalogue(target);}).catch(()=>{if(target.isConnected)target.innerHTML='<p>Le catalogue ne se charge pas. <a href="saxso-catalogue-interactif.html">Ouvrir le catalogue SAXSO</a>.</p>';});
+      return;
+    }
     if(state.partner==='Opal'){
       count.textContent='Catalogue interactif OPAL Home';
       // Access/session refreshes reuse both the initial HTML shell and the live
@@ -225,15 +235,16 @@
   }
   function renderWorkspace(){const previousOpalBadge=state.partner==='Opal'&&productGrid.querySelector('[data-opal-catalogue-content]')?{text:$('#workspace-pro-badge').textContent,className:$('#workspace-pro-badge').className}:null;if(state.partner==="Petracer's")window.LRF_PETRACER_SELECTION?.setCategory?.(state.category);if(state.partner==='Bulbo')window.LRF_BULBO_SELECTION?.setCategory?.(state.category);workspace.dataset.category=state.category;workspace.dataset.partner=state.partner;const p=PARTNERS[state.partner];if(!p){workspace.classList.remove('open');return}workspace.classList.add('open');$('#workspace-logo').src=p.logo;$('#workspace-title').textContent=state.partner;$('#workspace-sub').textContent=state.partner==='Bilt'?'Outillage & systèmes de pose · espace produits dédié':state.poolGroup?'Pool Surfaces · collections piscine':`${p.country} · espace produits dédié`;const allowed=hasAccess(p.slug),isBio=state.partner==='Biopietra';const badge=$('#workspace-pro-badge');badge.style.display='';badge.textContent=allowed?'✓ Tarif PRO accessible':'🔒 Tarif PRO non associé à ce compte';badge.className=`pro-badge${allowed?' allowed':''}`;const link=$('#workspace-pro-link');link.hidden=!allowed;link.style.display=allowed?'inline-flex':'none';link.href=state.partner==='Bilt'&&allowed?'commande-bilt.html':'tarifs-pro.html';link.textContent=state.partner==='Bilt'&&allowed?'Commander BILT':`Voir tarif PRO ${state.partner}`;
     if(state.partner==='Opal'){badge.textContent=previousOpalBadge?.text||'Catalogue · prix publics TTC';badge.className=previousOpalBadge?.className||'pro-badge';link.hidden=true;link.style.display='none';}
+    if(state.partner==='SAXSO'){badge.textContent='Catalogue · Demande de chiffrage';badge.className='pro-badge';link.hidden=true;link.style.display='none';}
     const isRandal=state.partner==='Randal Pro';
     const filters=$('#v2-filters');
     if(filters){
       // RANDAL est du mobilier : les filtres de carreaux et le lexique n'ont rien à faire ici.
-      filters.style.display=state.category==='outillages'||state.category==='meubles'&&!["Petracer's",'Bulbo'].includes(state.partner)?'none':'';
+      filters.style.display=state.partner==='SAXSO'||state.category==='outillages'||state.category==='meubles'&&!["Petracer's",'Bulbo'].includes(state.partner)?'none':'';
       filters.classList.remove('mobile-open');
     }
     const productHint=count?.parentElement?.querySelector('span');
-    if(productHint)productHint.textContent=state.partner==='Opal'?'Choisissez un modèle et son format':isRandal?'Choisissez votre meuble et préparez votre commande':'Cliquez sur un produit pour les détails et tarifs PRO';
+    if(productHint)productHint.textContent=state.partner==='SAXSO'?'Sélectionnez vos articles · Minimum de commande : 4 palettes':state.partner==='Opal'?'Choisissez un modèle et son format':isRandal?'Choisissez votre meuble et préparez votre commande':'Cliquez sur un produit pour les détails et tarifs PRO';
     for(const[id,label]of [['v2-search','Rechercher dans cette sélection'],['v2-format','Filtrer les formats'],['v2-color','Filtrer les couleurs'],['v2-effect','Filtrer les effets'],['v2-finish','Filtrer les finitions']])document.getElementById(id)?.setAttribute('aria-label',label);
     const poolNav=$('#elios-pool-nav');if(poolNav)poolNav.hidden=state.partner!=='Elios Ceramica';
     $('#elios-all-collections')?.setAttribute('aria-pressed',String(!state.poolGroup));$('#elios-pool-collections')?.setAttribute('aria-pressed',String(state.poolGroup));

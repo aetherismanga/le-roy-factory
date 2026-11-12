@@ -18,6 +18,7 @@ export const PARTNER_CONTACTS = {
   },
   'La Fenice': { logo: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/lafenice.png', contacts: [] },
   'Reviglass': { logo: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/reviglass.png', contacts: [{ name: 'Service Export', role: 'Export', email: 'export@reviglass.es', phone: '' }] },
+  'SAXSO': { logo: 'assets/img/saxso-2026/saxso-logo.png', contacts: [{name:'Dora',role:'Service export',email:'export@saxso.it',phone:'+39 0175 518090'}] },
   'Biopietra': { logo: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/biopietra.png', contacts: [{name:'Davide Minelli',role:'Contact commercial',email:'vendite5@biopietra.com',phone:''}] },
   "Petracer's": { logo: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/petracer.png', contacts: [] },
   'Pecchioli Firenze': { logo: 'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/pecchioli.png', contacts: [] },

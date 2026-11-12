@@ -25,13 +25,13 @@ const ADMINS = new Map([
 ]);
 const PARTNER_NAMES = {
   "elios-ceramica":"Elios Ceramica","life-ceramica":"Life Cerámica","view-ceramica":"View Ceramica","la-fenice":"La Fenice","reviglass":"Reviglass",
-  "biopietra":"Biopietra","petracers":"Petracer's","pecchioli-firenze":"Pecchioli Firenze","bulbo":"Bulbo",
+  "saxso":"SAXSO","saxo":"SAXSO","saxco":"SAXSO","biopietra":"Biopietra","petracers":"Petracer's","pecchioli-firenze":"Pecchioli Firenze","bulbo":"Bulbo",
   "randal-pro":"Randal Pro","neobath":"Neobath","koibath":"Koibath","aquahome":"Aquahome","opal":"Opal","reitano-rubinetterie":"Reitano Rubinetterie","uptrend":"UPTREND","bilt":"Bilt"
 };
 
 const firebaseApp = getApps().length ? getApp() : initializeApp(FIREBASE_CONFIG);
 const auth = getAuth(firebaseApp);
-const norm=v=>String(v||"").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"");
+const norm=v=>{const value=String(v||"").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"");return value==="saxo"||value==="saxco"?"saxso":value;};
 const esc=v=>String(v||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;");
 const depFromCp=cp=>{const s=String(cp||"").replace(/\s/g,"");if(!/^\d{5}$/.test(s))return"";if(s.startsWith("97")||s.startsWith("98"))return s.slice(0,3);if(s.startsWith("20"))return Number(s)>=20200?"2B":"2A";return s.slice(0,2)};
 const clientDep=c=>String(c.departement||depFromCp(c.codePostal||c.code_postal)||"").trim().toUpperCase();

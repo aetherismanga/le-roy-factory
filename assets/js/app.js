@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
     installProEmptyPlaceholders();
 
     if (window.location.pathname.toLowerCase().endsWith('tarifs-pro.html')) {
-        import('./tarifs-pro-client-access.js?v=20261107-bathroom-group2')
+        import('./tarifs-pro-client-access.js?v=20261112-saxso1')
             .then(() => installProEmptyPlaceholders())
             .catch(err => console.error('Erreur chargement accès tarifs PRO client :', err));
     }

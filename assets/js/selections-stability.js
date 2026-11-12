@@ -50,8 +50,8 @@
   function renamePierre() {
     const card = grid.querySelector('[data-cat="parement"]');
     if (card) {
-      card.setAttribute('aria-label', 'Pierre · Biopietra');
-      card.title = 'Pierre · Biopietra';
+      card.setAttribute('aria-label', 'Pierre · SAXSO · Biopietra');
+      card.title = 'Pierre · SAXSO · Biopietra';
     }
   }
 

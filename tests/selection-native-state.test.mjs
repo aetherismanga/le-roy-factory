@@ -11,7 +11,7 @@ function selection(search = '', {bulbo = false} = {}) {
     if (nodes.has(selector)) return nodes.get(selector);
     const handlers = new Map(), classes = new Set();
     const element = {innerHTML:'', textContent:'', value:'', dataset:{}, style:{},
-      setAttribute(){}, scrollIntoView(){}, querySelector(){return null;},
+      setAttribute(){}, scrollIntoView(){}, querySelector(selector){return selector==='[data-saxso-selection]' && this.innerHTML.includes('data-saxso-selection') ? node('saxso-target') : null;},
       addEventListener(type, handler){handlers.set(type, handler);},
       classList:{add(v){classes.add(v);},remove(v){classes.delete(v);},contains(v){return classes.has(v);},toggle(v){classes.has(v)?classes.delete(v):classes.add(v);}},
       click(){handlers.get('click')?.({target:this});},
@@ -39,7 +39,7 @@ function selection(search = '', {bulbo = false} = {}) {
   window.dispatchEvent = event => events.get(event.type)?.forEach(handler=>handler(event));
   class CustomEvent {constructor(type,options={}){this.type=type;this.detail=options.detail;}}
   const context={
-    window,document,location,history,sessionStorage:{getItem:()=>null},URL,URLSearchParams,CustomEvent
+    window,document,location,history,loadSaxso:()=>new Promise(()=>{}),sessionStorage:{getItem:()=>null},URL,URLSearchParams,CustomEvent
   };
   if(bulbo){
     window.BULBO_CATALOGUE=JSON.parse(readFileSync(new URL('../assets/data/bulbo-catalogue.json',import.meta.url),'utf8')).collections;
@@ -54,7 +54,8 @@ function selection(search = '', {bulbo = false} = {}) {
       openedBulbo.push({id,found,category:node('#partner-workspace').dataset.category});return found;
     }};
   }
-  vm.runInNewContext(readFileSync(new URL('../assets/js/inspirations-v2.js',import.meta.url),'utf8'),context);
+  const controller=readFileSync(new URL('../assets/js/inspirations-v2.js',import.meta.url),'utf8').replace(/import\('\.\/saxso-catalogue\.js\?[^']+'\)/,'loadSaxso()');
+  vm.runInNewContext(controller,context);
   return {node, choose:id=>node('#insp-categories').clickAs('data-cat',id),
     partner:name=>node('#partner-grid').clickAs('data-partner',name),
     event:type=>events.get(type)?.forEach(handler=>handler({})), setSession:s=>{session=s;},openedBulbo};
@@ -63,6 +64,8 @@ function selection(search = '', {bulbo = false} = {}) {
 test('outillage stays Bilt after late stone, tariff and session updates', () => {
   const h=selection();
   h.choose('parement');
+  assert.equal(h.node('#workspace-title').textContent,'SAXSO');
+  h.partner('Biopietra');
   assert.equal(h.node('#workspace-title').textContent,'Biopietra');
   h.choose('outillages');
   for(const event of ['lrf-biopietra-data-ready','lrf-biopietra-data-error','lrf-agent-tariffs-ready','lrf-pro-session-changed','pageshow']){

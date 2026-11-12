@@ -458,6 +458,23 @@
         "access": "verified-agents-only",
         "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/eliosExpoBudget"
       }
+    },
+    "saxso": {
+      "releaseId": "20261112-saxso-published1",
+      "catalogue": "saxso-catalogue-interactif.html",
+      "pdf": "assets/pdf/SAXSO_Catalogue_2026_FR.pdf",
+      "language": "fr",
+      "year": 2026,
+      "minimumPallets": 4,
+      "priceDataIncluded": false,
+      "collections": 43,
+      "choices": 725,
+      "nativePhotos": 297,
+      "pages": 180,
+      "originalPdf": "assets/pdf/Book_of_stones_Saxso_2023_OK.pdf",
+      "professionalTariffs": "private-api",
+      "professionalTariffDate": "2026-11-12",
+      "realisationPhotographs": 6
     }
   },
   "configurators": {

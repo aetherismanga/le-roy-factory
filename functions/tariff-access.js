@@ -22,6 +22,10 @@ const TARIFFS = {
   'petracers': { partner:'petracers', source:'assets/pdf/petracer2023.pdf', storagePath:'private-tariffs/petracers/petracer2023.pdf', filename:'PETRACERS-Tarifs.pdf' },
   'pecchioli': { partner:'pecchioli-firenze', source:'assets/pdf/pecchioli2022.pdf', storagePath:'private-tariffs/pecchioli/pecchioli2022.pdf', filename:'PECCHIOLI-Tarifs.pdf' },
   'bulbo-2026': { partner:'bulbo', storagePath:'private-tariffs/bulbo/bulbo-surfaces-aquerelle-2026-10-01.pdf', filename:'BULBO-Surfaces-AQUERELLE-Tarifs-2026-10-01.pdf' },
+  'saxso-distributeurs-2026': { partner:'saxso', storagePath:'private-tariffs/saxso/distributeurs-nets-ht-2026-20261112.pdf', filename:'SAXSO-Distributeurs-Prix-nets-HT-2026.pdf', driveId:'1JlzPHfHGYD2INpzNwqx0q03E6jW0n6zI', pdfSha256:'112b095394e3e09352cb40afb6b41373abef1c8819375d044a5da8a8176adaaa' },
+  'saxso-public-ht-2026': { partner:'saxso', storagePath:'private-tariffs/saxso/public-ht-depart-2026-20261110.pdf', filename:'SAXSO-Tarif-public-HT-depart-2026.pdf', driveId:'1nD1uBjE9oeQmw8yNLSmHFi7qk1FwTyyn', pdfSha256:'275f8ade9f9084a3165aed39c538f15ac7d2b96bf27229d0b08999d5488b03bb' },
+  'saxso-conditions-2026': { partner:'saxso', storagePath:'private-tariffs/saxso/conditions-depart-2026-20261110.pdf', filename:'SAXSO-Conditions-depart-2026.pdf', driveId:'1io-jb_ez1CP2hDWHel6OuXD10HvcCwec', pdfSha256:'6d68035ad82d186e3225f107ec13e6ea403717d7a0e745a087a36996a79b698c' },
+  'saxso-emballage-2026': { partner:'saxso', storagePath:'private-tariffs/saxso/frais-emballage-2026-20261110.pdf', filename:'SAXSO-Frais-emballage-2026.pdf', driveId:'1vC7dDT6K-RpZREJgEqlgXk0DJnyl8sJU', pdfSha256:'9f4e1b91591479f2690fb014b0c5bba0eac5285e40b917caf89a212c43712a56' },
   'randal': { partner:'randal-pro', source:'assets/pdf/RANDAL03.pdf', storagePath:'private-tariffs/randal/RANDAL03.pdf', filename:'RANDAL-PRO-Tarifs.pdf' },
   'neobath-anima': { partner:'neobath', source:'assets/pdf/neobathANIMA.pdf', storagePath:'private-tariffs/neobath/neobathANIMA.pdf', filename:'NEOBATH-ANIMA-Tarifs.pdf' },
   'neobath-dna-pdf': { partner:'neobath', source:'assets/pdf/neobathDNA.pdf', storagePath:'private-tariffs/neobath/neobathDNA.pdf', filename:'NEOBATH-DNA-Tarifs.pdf' },
@@ -35,7 +39,7 @@ const DNA_STORAGE = 'private-tariffs/neobath/neobath-dna-tarif.txt';
 const ALIASES = {
   'elios-ceramica':['elios-ceramica','elios'], 'view-ceramica':['view-ceramica','view'], 'la-fenice':['la-fenice','lafenice','la fenice'],
   'reviglass':['reviglass'], 'life-ceramica':['life-ceramica','life ceramica','life cerámica','life'], 'biopietra':['biopietra'], 'petracers':['petracers','petracer','petracerss'],
-  'pecchioli-firenze':['pecchioli-firenze','pecchioli'], 'bulbo':['bulbo'], 'randal-pro':['randal-pro','randal'],
+  'pecchioli-firenze':['pecchioli-firenze','pecchioli'], 'bulbo':['bulbo'], 'saxso':['saxso','saxo','saxco'], 'randal-pro':['randal-pro','randal'],
   'neobath':['neobath'], 'aquahome':['aquahome'], 'bilt':['bilt'], 'uptrend':['uptrend']
 };
 
@@ -95,9 +99,30 @@ async function ensureBulboTariffPdf() {
   await bulboTariffImportPromise;
 }
 
+// Private supplier originals stay in Drive until an authorized first read.
+// Each version is pinned by SHA-256 before it can enter the private PDF cache.
+const drivePdfImportPromises = new Map();
+async function ensureDrivePdf(def) {
+  const target = bucket.file(def.storagePath);
+  const [exists] = await target.exists();
+  if (exists) return;
+  if (!drivePdfImportPromises.has(def.storagePath)) {
+    const promise = (async () => {
+      const auth = new GoogleAuth({scopes:['https://www.googleapis.com/auth/drive.readonly']});
+      const authorizedClient = await auth.getClient();
+      const response = await authorizedClient.request({url:`https://www.googleapis.com/drive/v3/files/${def.driveId}?alt=media`,responseType:'arraybuffer'});
+      const bytes = Buffer.from(response.data);
+      if (bytes.length < 10000 || bytes.subarray(0,5).toString('ascii') !== '%PDF-' || createHash('sha256').update(bytes).digest('hex') !== def.pdfSha256) throw new Error('Document tarifaire privé invalide ou modifié.');
+      await target.save(bytes,{resumable:false,contentType:'application/pdf',metadata:{cacheControl:'private,no-store,max-age=0'}});
+    })().finally(() => { drivePdfImportPromises.delete(def.storagePath); });
+    drivePdfImportPromises.set(def.storagePath,promise);
+  }
+  await drivePdfImportPromises.get(def.storagePath);
+}
+
 const getTariffPdf=onRequest({timeoutSeconds:120,memory:'512MiB'},async(req,res)=>{
   if(cors(req,res))return;if(req.method!=='POST')return res.status(405).json({success:false,error:'Méthode non autorisée'});
-  try{const{codeClient,departement,tariffId}=req.body||{};const def=TARIFFS[String(tariffId||'')];if(!def)return res.status(404).json({success:false,error:'Tarif inconnu'});const agent=await getAgentFromRequest(req);if(agent){if(tariffId==='life-2026')await ensureLifeTariffPdf();if(tariffId==='bulbo-2026')await ensureBulboTariffPdf();return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}const client=await verifiedClient(codeClient,departement);if(!client)return res.status(403).json({success:false,error:'Identifiant client ou département incorrect.'});if(!clientCanAccess(client,def.partner))return res.status(403).json({success:false,error:'Ce tarif n’est pas autorisé pour ce compte.'});await writeClientActivity(client,{action:'tariff_view',page:`tarif:${tariffId}`,title:def.filename,partner:def.partner,tariffId:String(tariffId||'')}).catch(()=>{});if(tariffId==='life-2026')await ensureLifeTariffPdf();if(tariffId==='bulbo-2026')await ensureBulboTariffPdf();return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}
+  try{const{codeClient,departement,tariffId}=req.body||{};const def=TARIFFS[String(tariffId||'')];if(!def)return res.status(404).json({success:false,error:'Tarif inconnu'});const agent=await getAgentFromRequest(req);if(agent){if(tariffId==='life-2026')await ensureLifeTariffPdf();if(tariffId==='bulbo-2026')await ensureBulboTariffPdf();if(def.driveId)await ensureDrivePdf(def);return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}const client=await verifiedClient(codeClient,departement);if(!client)return res.status(403).json({success:false,error:'Identifiant client ou département incorrect.'});if(!clientCanAccess(client,def.partner))return res.status(403).json({success:false,error:'Ce tarif n’est pas autorisé pour ce compte.'});await writeClientActivity(client,{action:'tariff_view',page:`tarif:${tariffId}`,title:def.filename,partner:def.partner,tariffId:String(tariffId||'')}).catch(()=>{});if(tariffId==='life-2026')await ensureLifeTariffPdf();if(tariffId==='bulbo-2026')await ensureBulboTariffPdf();if(def.driveId)await ensureDrivePdf(def);return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}
   catch(e){console.error('getTariffPdf',e);return res.status(500).json({success:false,error:'Impossible d’ouvrir ce tarif.'});}
 });
 
@@ -108,7 +133,7 @@ const getNeobathDnaTariff=onRequest({timeoutSeconds:60,memory:'256MiB'},async(re
 });
 
 async function fetchBuffer(url){const response=await fetch(url,{redirect:'follow'});if(!response.ok)throw new Error(`HTTP ${response.status} sur ${url}`);return Buffer.from(await response.arrayBuffer());}
-async function migrateTariffs(){const migrated=[],errors=[];for(const[id,def]of Object.entries(TARIFFS)){try{const file=bucket.file(def.storagePath);const[exists]=await file.exists();if(!exists){if(!def.source)throw new Error('Source de migration absente');const buf=await fetchBuffer(SITE+def.source);await file.save(buf,{resumable:false,contentType:'application/pdf',metadata:{cacheControl:'private,no-store,max-age=0'}});}migrated.push(id);}catch(e){errors.push({id,error:String(e.message||e)});}}try{const dnaFile=bucket.file(DNA_STORAGE);const[exists]=await dnaFile.exists();if(!exists){const chunks=[];for(const path of DNA_PARTS){chunks.push((await fetchBuffer(SITE+path)).toString('utf8'));}const packed=Buffer.from(chunks.join('').replace(/\s/g,''),'base64');const text=zlib.gunzipSync(packed).toString('utf8');await dnaFile.save(text,{resumable:false,contentType:'text/plain; charset=utf-8',metadata:{cacheControl:'private,no-store,max-age=0'}});}migrated.push('neobath-dna-text');}catch(e){errors.push({id:'neobath-dna-text',error:String(e.message||e)});}const complete=errors.length===0;await db.collection('system').doc('privateTariffsMigration').set({complete,migrated,errors,updatedAt:admin.firestore.FieldValue.serverTimestamp()},{merge:true});return{complete,migrated,errors};}
+async function migrateTariffs(){const migrated=[],errors=[];for(const[id,def]of Object.entries(TARIFFS)){try{const file=bucket.file(def.storagePath);const[exists]=await file.exists();if(!exists){if(def.driveId){await ensureDrivePdf(def);migrated.push(id);continue;}if(!def.source)throw new Error('Source de migration absente');const buf=await fetchBuffer(SITE+def.source);await file.save(buf,{resumable:false,contentType:'application/pdf',metadata:{cacheControl:'private,no-store,max-age=0'}});}migrated.push(id);}catch(e){errors.push({id,error:String(e.message||e)});}}try{const dnaFile=bucket.file(DNA_STORAGE);const[exists]=await dnaFile.exists();if(!exists){const chunks=[];for(const path of DNA_PARTS){chunks.push((await fetchBuffer(SITE+path)).toString('utf8'));}const packed=Buffer.from(chunks.join('').replace(/\s/g,''),'base64');const text=zlib.gunzipSync(packed).toString('utf8');await dnaFile.save(text,{resumable:false,contentType:'text/plain; charset=utf-8',metadata:{cacheControl:'private,no-store,max-age=0'}});}migrated.push('neobath-dna-text');}catch(e){errors.push({id:'neobath-dna-text',error:String(e.message||e)});}const complete=errors.length===0;await db.collection('system').doc('privateTariffsMigration').set({complete,migrated,errors,updatedAt:admin.firestore.FieldValue.serverTimestamp()},{merge:true});return{complete,migrated,errors};}
 const initializeTariffStorage=onRequest({timeoutSeconds:540,memory:'1GiB'},async(req,res)=>{if(cors(req,res))return;if(!['GET','POST'].includes(req.method))return res.status(405).json({success:false,error:'Méthode non autorisée'});try{const result=await migrateTariffs();return res.status(result.complete?200:500).json({success:result.complete,...result});}catch(e){console.error('initializeTariffStorage',e);return res.status(500).json({success:false,error:String(e.message||e)});}});
 const getTariffMigrationStatus=onRequest({timeoutSeconds:30,memory:'256MiB'},async(req,res)=>{if(cors(req,res))return;try{const snap=await db.collection('system').doc('privateTariffsMigration').get();const d=snap.exists?snap.data():{};return res.json({success:true,complete:!!d.complete,migratedCount:Array.isArray(d.migrated)?d.migrated.length:0,errorCount:Array.isArray(d.errors)?d.errors.length:0});}catch(e){return res.status(500).json({success:false,error:'Statut indisponible'});}});
 module.exports={getTariffPdf,getNeobathDnaTariff,initializeTariffStorage,getTariffMigrationStatus};
