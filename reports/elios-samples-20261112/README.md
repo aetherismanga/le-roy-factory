@@ -79,3 +79,24 @@ le site le 12 novembre 2026. La branche de livraison est
 les travaux parallèles. Le workflow vérifie les deux rôles agents existants en
 lecture seule avant d'activer le service. Les résultats réels de publication
 et les identifiants de déploiement seront consignés après leur vérification.
+
+
+## Publication vérifiée — 12 novembre 2026
+
+- Commit de livraison : `b5b798a224d2f3b0d0ea35e2a2893941da66f19a`.
+- Intégration sur main, avec préservation de la mise à jour CI parallèle :
+  `1f74b3c0551e4d6687946a093384b850859869cf`.
+- Studio One en production : `dpl_9BJcEDhQWUM487x9sEqXkfsQnTZa`, état READY.
+  La page `https://studio-one-beta-test-v2.vercel.app/elios-box.html` répond 200
+  et livre le gabarit Elios, le bundle dédié et le logo officiel.
+- Les 18 tests Elios, les contrôles Studio One, le noyau commun et les deux
+  constructions ont de nouveau réussi après la reprise sur main.
+- GitHub Pages : exécution `43275965773` en cours de publication.
+- La fonction `eliosSamples` répond encore 404 : son activation reste à faire
+  via le workflow manuel `Deploy Firebase Functions`, groupe `elios-samples`,
+  confirmation `CONFIRMER-PRODUCTION`. Ne pas déployer les autres fonctions.
+- Le navigateur GitHub est déconnecté. La connexion Google choisie par Jérôme
+  a été arrêtée par le contrôle automatique d’autorisation de l’origine
+  `accounts.google.com`. Ne pas contourner le contrôle. Une autorisation
+  explicite de cette origine a été demandée à Jérôme.
+- Aucun courriel de demande n’a été envoyé pendant les vérifications.
