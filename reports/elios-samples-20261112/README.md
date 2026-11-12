@@ -174,3 +174,18 @@ Jérôme. L’activation serveur est terminée et vérifiée.
 
 Preuve de publication :
 https://github.com/aetherismanga/le-roy-factory/actions/runs/43286911928
+
+
+## Vérification fonctionnelle en production
+
+La session agent Jérôme a effectué un chiffrage serveur de la référence
+`EBRK16 × 2` : une seule ligne, 36 € HT de valeur merchandising indicative
+et 0 € à payer. Le contrôle a été fermé sans envoyer la demande ; l’article a
+été retiré et le panier remis à zéro.
+
+Dans Paramètres → Expo clients, la lecture authentifiée a affiché le budget
+2027 actualisé. Le CA, l’enveloppe et le solde restent « À renseigner » ; les
+montants accordés et en attente sont de 0 €, avec aucune demande 2027.
+Les deux anciens dossiers photos SYLVESTRE sont toujours présents.
+Aucun chiffre d’affaires, accord usine, budget ou demande n’a été écrit pour
+ces vérifications en production.
