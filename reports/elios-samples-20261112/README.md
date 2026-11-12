@@ -91,7 +91,10 @@ et les identifiants de déploiement seront consignés après leur vérification.
   et livre le gabarit Elios, le bundle dédié et le logo officiel.
 - Les 18 tests Elios, les contrôles Studio One, le noyau commun et les deux
   constructions ont de nouveau réussi après la reprise sur main.
-- GitHub Pages : exécution `43275965773` en cours de publication.
+- GitHub Pages : exécution `43275965773` terminée avec succès. La page
+  `https://leroyfactory.fr/echantillons-elios.html`, le catalogue, le script,
+  le premier visuel merchandising et le marqueur de version répondent 200.
+  Les trois modes sont présents dans la page publiée.
 - La fonction `eliosSamples` répond encore 404 : son activation reste à faire
   via le workflow manuel `Deploy Firebase Functions`, groupe `elios-samples`,
   confirmation `CONFIRMER-PRODUCTION`. Ne pas déployer les autres fonctions.
