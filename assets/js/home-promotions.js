@@ -9,8 +9,8 @@
   const next = controls.querySelector('[data-home-promo-next]');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const dialog = document.querySelector('#elios-black-friday-details');
-  const READING_MS = 1400;
-  const SLIDE_MS = 3000;
+  const READING_MS = 8000;
+  const TRANSITION_MS = 1400;
   let current = 0, paused = false, focused = false, inView = true, changing = false;
   let timer, transitionTimer;
   controls.hidden = false;
@@ -58,7 +58,7 @@
     changing = true;
     old.classList.add('is-leaving');
     target.classList.add('is-entering');
-    transitionTimer = setTimeout(settle, SLIDE_MS + 20);
+    transitionTimer = setTimeout(settle, TRANSITION_MS + 20);
   };
   dots.forEach((button, index) => button.addEventListener('click', () => show(index)));
   next.addEventListener('click', () => show((current + 1) % slides.length));

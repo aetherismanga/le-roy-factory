@@ -1,36 +1,38 @@
-/* Two campaigns share the original 1440 × 96 desktop invitation slot. */
+/* Editorial campaign rotation: full-width reading, soft fade, restrained gold. */
 .home-promos-shell {position:relative;max-width:1440px;margin-inline:auto}
 .home-promos-viewport {position:relative;isolation:isolate;overflow:hidden;border-radius:14px;height:96px;background:#153e3b;box-shadow:0 4px 16px #173c3514}
-.home-promo-slide {position:absolute;inset:0;width:100%;margin:0;transform:translateX(-100%);visibility:hidden;pointer-events:none}
-.home-promo-slide.is-current {transform:translateX(0);visibility:visible;pointer-events:auto}
-.home-promo-slide.is-entering {visibility:visible;pointer-events:auto;animation:home-promo-enter 3s linear both}
-.home-promo-slide.is-leaving {visibility:visible;pointer-events:none;animation:home-promo-leave 3s linear both}
-@keyframes home-promo-enter {from{transform:translateX(-100%)}to{transform:translateX(0)}}
-@keyframes home-promo-leave {from{transform:translateX(0)}to{transform:translateX(100%)}}
+.home-promo-slide {position:absolute;inset:0;z-index:0;width:100%;margin:0;opacity:0;transform:none;visibility:hidden;pointer-events:none}
+.home-promo-slide.is-current {z-index:1;opacity:1;transform:none;visibility:visible;pointer-events:auto}
+.home-promo-slide.is-entering {z-index:2;visibility:visible;pointer-events:auto;animation:home-promo-enter 1.4s cubic-bezier(.22,.61,.36,1) both}
+.home-promo-slide.is-leaving {z-index:1;visibility:visible;pointer-events:none;animation:home-promo-leave 1.4s cubic-bezier(.22,.61,.36,1) both}
+@keyframes home-promo-enter {from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes home-promo-leave {from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-6px)}}
 html body.lrf-page-index.lrf-premium-v2 .home-promos .revi-home-banner {padding-right:120px;grid-template-columns:var(--revi-photo-width) minmax(0,1fr) 218px;box-shadow:none}
 .home-promos .revi-banner-controls {display:none!important}
 .home-promos .revi-banner-visual-caption {right:10px}
-.home-promos-controls {position:absolute;z-index:4;right:12px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:2px;padding:4px;border:1px solid #e4d6a044;border-radius:30px;background:#081d1bc2;color:#fff}
+.home-promos-controls {position:absolute;z-index:4;right:12px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:2px;padding:4px;border:1px solid #e4d6a033;border-radius:30px;background:#0f151338;color:#fff}
 .home-promos-controls[hidden] {display:none}
 .home-promos-controls button {appearance:none;display:grid;place-items:center;width:24px;height:32px;padding:0;border:0;border-radius:50%;color:inherit;background:transparent;cursor:pointer;font:16px/1 Arial,sans-serif}
 .home-promos-controls button:hover {background:#ffffff20}
 .home-promos-controls button:focus-visible {outline:2px solid #f4d27a;outline-offset:1px}
 .home-promos-controls button[aria-pressed="true"] {color:#f7d170}
-.home-promos-controls .home-promo-dot {width:18px;font-size:11px}
-.elios-bf-banner {box-sizing:border-box;display:grid;grid-template-columns:138px 216px 170px minmax(200px,1fr) 108px 150px;align-items:center;gap:16px;height:96px;padding:0 116px 0 20px;border:1px solid #b99a4f;border-radius:14px;overflow:hidden;text-decoration:none!important;color:#fff!important;background:radial-gradient(ellipse at 33% -20%,#e9b65280,transparent 58%),linear-gradient(105deg,#3b2813,#12100c 58%,#614017);box-shadow:inset 0 0 0 1px #e4b54d55,inset 0 2px 22px #e5ad2926}
-.elios-bf-brand {display:block;padding:7px 9px;overflow:hidden;background:#fff8ed;border:1px solid #e7c783;border-radius:8px;box-shadow:0 2px 15px #e6ac2822}
+.home-promos-controls .home-promo-dot {width:20px;font-size:0}
+.home-promos-controls .home-promo-dot::before {content:"";display:block;width:4px;height:4px;border-radius:3px;background:currentColor;opacity:.5;transition:width .35s ease,opacity .35s ease}
+.home-promos-controls .home-promo-dot[aria-pressed="true"]::before {width:13px;opacity:1}
+.elios-bf-banner {box-sizing:border-box;display:grid;grid-template-columns:138px 216px 170px minmax(200px,1fr) 108px 150px;align-items:center;gap:16px;height:96px;padding:0 116px 0 20px;border:1px solid #a89364;border-radius:14px;overflow:hidden;text-decoration:none!important;color:#fff!important;background:radial-gradient(ellipse at 24% 0,#b5935026,transparent 62%),linear-gradient(105deg,#25211b,#171715 62%,#322a20);box-shadow:inset 0 1px 0 #f5dfac22}
+.elios-bf-brand {display:block;padding:7px 9px;overflow:hidden;background:#fbf6ec;border:1px solid #d8cbae;border-radius:7px;box-shadow:none}
 .elios-bf-brand img {display:block;width:100%;height:54px;object-fit:contain;transform:scale(1.6)}
-.elios-bf-title {display:block;color:#ffd46c;font:900 italic 42px/.88 Arial,sans-serif;letter-spacing:-.035em;text-transform:uppercase}
+.elios-bf-title {display:block;color:#ead5a4;font:700 42px/.88 Georgia,serif;letter-spacing:-.025em;text-transform:uppercase}
 .elios-bf-title small {display:block;margin-top:5px;color:#f1d391;font:800 10px/1.2 Arial,sans-serif;letter-spacing:.14em}
-.elios-bf-amount {display:block;white-space:nowrap;color:#ffdb6e;text-shadow:0 2px 0 #8b5e1c,0 0 22px #ffbb3730;font:900 80px/1 Arial,sans-serif;letter-spacing:-.065em}
-.elios-bf-amount sup {font-size:.65em;vertical-align:baseline}
+.elios-bf-amount {display:block;white-space:nowrap;color:#eedbad;text-shadow:none;font:700 74px/1 Georgia,serif;letter-spacing:-.06em}
+.elios-bf-amount sup {font-size:.62em;vertical-align:baseline}
 .elios-bf-copy {display:block;min-width:0}
 .elios-bf-copy strong {display:block;font:800 19px/1.2 Arial,sans-serif;text-transform:uppercase;letter-spacing:.015em}
 .elios-bf-copy span {display:block;margin-top:3px;color:#f0e4cb;font:400 15px/1.3 Arial,sans-serif}
 .elios-bf-copy time {display:block;margin-top:6px;color:#efcc79;font:700 12px/1.3 Arial,sans-serif}
 .elios-bf-mascot {display:block;width:92px;justify-self:center;align-self:stretch;background-image:url('../img/elios-black-friday-2026/banniere-originale.png');background-size:auto 96px;background-position:right center;background-repeat:no-repeat;mask-image:linear-gradient(90deg,transparent,#000 22%,#000 92%,transparent)}
 .elios-bf-action {display:block;text-align:center}
-.elios-bf-cta {display:flex;align-items:center;justify-content:center;gap:14px;min-height:40px;border:1px solid #f9db83;border-radius:9px;background:linear-gradient(120deg,#fce6a6,#dcae45);color:#2b2115;font:800 11px/1.3 Arial,sans-serif;box-shadow:0 3px 14px #0003}
+.elios-bf-cta {display:flex;align-items:center;justify-content:center;gap:14px;min-height:40px;border:1px solid #d9c79f;border-radius:8px;background:#f2e8d3;color:#30291e;font:700 11px/1.3 Arial,sans-serif;box-shadow:none}
 .elios-bf-action em {display:block;margin-top:5px;color:#cfbb8b;font:italic 9px/1.2 Georgia,serif}
 .elios-bf-banner:hover .elios-bf-cta {background:#ffe9aa}
 .elios-bf-banner:focus-visible {outline:3px solid #e5b954;outline-offset:-4px}
@@ -43,7 +45,7 @@ html body.lrf-page-index.lrf-premium-v2 .home-promos .revi-home-banner {padding-
 .home-promos-dialog-close {position:absolute;right:10px;top:10px;width:36px;height:36px;border:1px solid #f1d59588;border-radius:50%;background:#15130fe6;color:#fff;cursor:pointer;font:24px/1 Arial,sans-serif}
 @media (min-width:901px) and (max-width:1390px) {
   .elios-bf-banner {grid-template-columns:110px 174px 145px minmax(180px,1fr) 90px 142px;gap:14px;padding-left:18px}
-  .elios-bf-title {font-size:35px}.elios-bf-amount {font-size:68px}.elios-bf-copy strong {font-size:16px}.elios-bf-copy span {font-size:13px}.elios-bf-action {display:block}
+  .elios-bf-title {font-size:35px}.elios-bf-amount {font-size:64px}.elios-bf-copy strong {font-size:16px}.elios-bf-copy span {font-size:13px}.elios-bf-action {display:block}
   html body.lrf-page-index.lrf-premium-v2 .home-promos .revi-home-banner {grid-template-columns:180px minmax(0,1fr) 180px;gap:18px}
 }
 @media (min-width:901px) and (max-width:1150px) {
@@ -69,12 +71,12 @@ html body.lrf-page-index.lrf-premium-v2 .home-promos .revi-home-banner {padding-
   .home-promos .revi-banner-facts {font-size:8px;margin-top:4px;gap:1px 6px}
   .home-promos .revi-banner-action {display:none}
   .home-promos-controls {top:auto;bottom:5px;right:8px;transform:none;gap:0;padding:0 4px}
-  .home-promos-controls button {height:24px;width:25px;font-size:13px}.home-promos-controls .home-promo-dot {width:19px;font-size:9px}
+  .home-promos-controls button {height:24px;width:25px;font-size:13px}.home-promos-controls .home-promo-dot {width:19px;font-size:0}
   .elios-bf-banner {display:block;position:relative;height:150px;padding:10px 86px 10px 14px;border-radius:12px}
   .elios-bf-brand {display:none}
   .elios-bf-title {font-size:clamp(22px,6vw,28px);line-height:1.1;letter-spacing:-.025em}
   .elios-bf-title br {display:none}.elios-bf-title small {display:block;margin:3px 0 0;font-size:14px;color:#ffe3a0;letter-spacing:.1em}
-  .elios-bf-amount {float:left;margin:7px 8px 0 0;font-size:58px}
+  .elios-bf-amount {float:left;margin:7px 8px 0 0;font:700 58px/1 Arial,sans-serif}
   .elios-bf-copy {padding-top:12px}.elios-bf-copy strong {font-size:9px;line-height:1.25}.elios-bf-copy span {font-size:9px}.elios-bf-copy time {clear:both;padding-top:4px;margin-top:0;font-size:9px;white-space:nowrap}
   .elios-bf-mascot {position:absolute;right:1px;top:4px;width:86px;height:116px;background-size:auto 116px;background-position:right center}
   .elios-bf-action {display:none}
