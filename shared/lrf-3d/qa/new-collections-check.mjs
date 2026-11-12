@@ -36,7 +36,7 @@ function imageDimensions(file){
 }
 const files=new Set();
 function asset(url){
- const parsed=new URL(url);assert.equal(parsed.origin,'https://leroyfactory.fr');assert(parsed.pathname.startsWith('/assets/img/lrf-plan-pose/faces/elios-20261024/')||parsed.pathname==='/assets/img/lrf-plan-pose/faces/elios-20261102/terraforma/04t33d3-petra-original.jpg');
+ const parsed=new URL(url);assert.equal(parsed.origin,'https://leroyfactory.fr');assert(parsed.pathname.startsWith('/assets/img/lrf-plan-pose/faces/elios-20261024/')||parsed.pathname==='/assets/img/lrf-plan-pose/faces/elios-20261102/terraforma/04t33d3-petra-original.jpg'||/^\/assets\/img\/elios-samples-hd\/stone-icon-(campaspero|francese|leccese)\.jpg$/.test(parsed.pathname));
  const relative=decodeURIComponent(parsed.pathname.slice(1)),file=resolve(root,relative);assert(file.startsWith(resolve(root,'assets')+sep));assert(!relative.includes('..'));assert(existsSync(file),'Published asset exists: '+relative);files.add(relative);return {file,size:imageDimensions(file)};
 }
 function identity(collection,color,format,reference){return canonicalSurfaceIdentity({collection,color,format,...(reference?{reference}: {})});}
@@ -56,9 +56,10 @@ for(const [reference,format,finish,pieces,area]of [
 ]){const p=product(reference);assert.equal(p.format,format);assert(p.finish.startsWith(finish));assert.equal(p.packPieces,pieces);assert.equal(p.packArea,area);assert.equal(p.packVerified,true);assert.equal(p.priceTTC,null);}
 assert.equal(product('04S1211').thicknessMm,20);
 for(const color of stone.colors){
- assert.equal(color.faces.length,4);assert.equal(color.nativeFaces,false);assert.equal(color.definitionLimited,true);assert.equal(color.textureProvenance.kind,'manufacturer-catalogue-sample');assert.equal(color.textureProvenance.referenceAssignmentVerified,false);
+ assert.equal(color.faces.length,1);assert.equal(color.nativeFaces,false);assert.equal(color.definitionLimited,true);assert.equal(color.textureProvenance.kind,'manufacturer-colour-sample');assert.equal(color.textureProvenance.referenceAssignmentVerified,false);
  assert.equal(identity('Stone Icon',color.id,color.formats[0]).fidelity,'catalogue-preview');
- color.faces.forEach((url,index)=>{const {size}=asset(url),native=color.textureProvenance.faces[index];assert.deepEqual(size,[native.width,native.height],'Native PDF sample dimensions are preserved');assert(Math.max(...size)<=514);assert.equal(color.textureProvenance.generated,false);assert.equal(color.textureProvenance.hd,false);});
+ const {size}=asset(color.faces[0]);assert.deepEqual(size,[900,600],'New named manufacturer samples keep their original resolution');assert.equal(color.textureRotation,0);assert.equal(color.textureProvenance.generated,false);assert.equal(color.textureProvenance.hd,false);
+ const previous=color.textureProvenance.previousCatalogueSamples;assert.equal(previous.faces.length,4);for(const face of previous.faces){assert.deepEqual(asset(face.file).size,[face.width,face.height],'Previous catalogue originals stay intact');}
 }
 
 const terraBases=['limo','mattone','sabbia','siena'],terraDecors=['flora','marna','petra','duna'];

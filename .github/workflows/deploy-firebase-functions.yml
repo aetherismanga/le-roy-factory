@@ -17,6 +17,7 @@ on:
           - analytics
           - neobath-anima
           - elios-samples
+          - elios-configurators
 
 concurrency:
   group: firebase-functions-production
@@ -59,7 +60,7 @@ jobs:
         run: npm install --global firebase-tools
 
       - name: Verify existing Elios agent roles before activation
-        if: inputs.function_group == 'elios-samples'
+        if: (inputs.function_group == 'elios-samples' || inputs.function_group == 'elios-configurators')
         working-directory: functions
         run: |
           node - <<'JS'
@@ -142,6 +143,8 @@ jobs:
           bilt_only=bool(changed) and all(p.startswith(('functions/bilt-', 'functions/test/bilt-')) for p in changed)
           if bilt_only and os.environ['EVENT_NAME']=='push':
               target='functions:biltOrder,functions:biltDecision,functions:biltAutoReleaseSweep'
+          if os.environ['FUNCTION_GROUP']=='elios-configurators':
+              target='functions:eliosSamples,functions:planPoseApplication,functions:neobathAnimaApplication'
           if os.environ['FUNCTION_GROUP']=='elios-samples':
               target='functions:eliosSamples,functions:eliosExpoBudget'
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('only='+target+'\n')
@@ -188,7 +191,7 @@ jobs:
           (async()=>{
             const response=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/eliosSamples',{method:'POST',headers:{'Content-Type':'application/json',Origin:'https://leroyfactory.fr'},body:JSON.stringify({action:'send',isAdmin:true})});
             const body=await response.json();
-            if(response.status!==401||body.success!==false||response.headers.get('x-lrf-elios-samples-version')!=='20261112-elios-samples-v2')throw Error('Elios sample release or authentication check failed.');
+            if(response.status!==401||body.success!==false||response.headers.get('x-lrf-elios-samples-version')!=='20261113-elios-samples-v3')throw Error('Elios sample release or authentication check failed.');
             console.log('Elios sample request API verified; forged roles rejected. No email sent.');
           })().catch(error=>{console.error(error.message);process.exit(1);});
           JS

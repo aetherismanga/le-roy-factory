@@ -3,6 +3,15 @@ export const API='https://us-central1-le-roy-factory.cloudfunctions.net/eliosSam
 export const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
 export const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+export function availableSampleFormats(products,{collection='',query='',mode='vrac'}={}){
+ const q=norm(query);
+ return [...new Set(products.filter(p=>(mode==='box'||p.vrac)&&(!collection||p.collection===collection)&&(!q||norm([p.reference,p.collection,p.color,p.description,p.format,p.finish].join(' ')).includes(q))).map(p=>p.format).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr',{numeric:true}));
+}
+export function samplePieceStyle(product){
+ const dimensions=String(product.format||'').replaceAll(',','.').match(/(\d+(?:\.\d+)?)\s*[x×]\s*(\d+(?:\.\d+)?)/i);
+ const width=Number(product.tileWidth)||Math.max(...(dimensions?dimensions.slice(1).map(Number):[1])),height=Number(product.tileHeight)||Math.min(...(dimensions?dimensions.slice(1).map(Number):[1]));
+ return `--tile-ratio:${Math.max(.1,Math.min(25,width/height))};--tile-cut:${Math.min(40,100*height/width)}%`;
+}
 export function merchandisingChoices(catalogue,product,image=product?.images?.[0]?.image){
  const codes=new Set((catalogue.documents||[]).filter(page=>page.image===image).flatMap(page=>page.codes||[]));
  const choices=(catalogue.merchandising||[]).filter(item=>item.id===product?.id||item.reference&&codes.has(item.reference));

@@ -1,12 +1,19 @@
 'use strict';
 const crypto=require('node:crypto');
 const RECIPIENTS=Object.freeze(['glebreton@eliosceramica.it','ctoni@eliosceramica.it','jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
-const VERSION='20261112-elios-samples-v2';
+const VERSION='20261113-elios-samples-v3';
 const text=(v,n=180)=>String(v??'').trim().slice(0,n);
 const fail=(message,status=400)=>Object.assign(Error(message),{status});
 const money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
 const round=n=>Math.round((n+Number.EPSILON)*100)/100;
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function sampleCustomer(client){return {id:text(client.id,150),societe:text(client.societe||client.nom||'Client'),codeClient:text(client.codeClient,40),contact:{name:text(client.contact),email:text(client.email),telephone:text(client.telephone),address:[client.adresse,client.codePostal||client.code_postal,client.ville].filter(Boolean).join(' ')}};}
+async function agentCustomer(db,agent,targetClientId){
+ const id=text(targetClientId,150);if(!id||id.includes('/')||id!==targetClientId)throw fail('Client incorrect.');
+ const snap=await db.collection('clients').doc(id).get(),client=snap.data();
+ if(!client||client.deleted===true||client.archived===true)throw fail('Ce client n’est plus disponible.',404);
+ return {...sampleCustomer({...client,id:snap.id||id}),owner:'agent:'+agent.uid+':client:'+id,isAgent:true,createdBy:{uid:agent.uid,email:agent.email}};
+}
 function currentPrices(catalogue,exact={},tariffs={}){
  const clean=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
  const result={...exact};
@@ -83,4 +90,4 @@ function mailHTML({reference,account,contact,quote,title,note,box}){
  const merch=quote.rows.some(r=>r.type==='merchandising')?`<p>Valeur indicative du merchandising HT${quote.merchandisingValueIncomplete?' (partielle, certains tarifs à confirmer)':''} : <b>${money(quote.merchandisingValueHT)}</b> — exclue du montant à payer, sous réserve d’attribution par Elios.</p>`:'';
  return `<div style="font:14px/1.6 Arial,sans-serif;color:#232b25"><h2>Demande ELIOS — ${esc(title)}</h2><p>Bonjour Gyslaine, bonjour Caterina,</p><p>Merci de confirmer la demande ci-dessous, les références et les délais.</p><p><b>${esc(account.societe)}</b> · ${esc(account.codeClient||'Compte agent')}<br>${esc(contact.name)} · ${esc(contact.email)} · ${esc(contact.telephone)}<br>Livraison : ${esc(contact.address)}</p><table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;border-color:#dedbd1"><thead><tr><th>Parcours</th><th>Article</th><th>Quantité</th><th>Remise</th><th>PU HT</th><th>Valeur HT</th><th>À payer HT</th></tr></thead><tbody>${rows}</tbody></table><p><b>${quote.incomplete?'Sous-total à payer HT renseigné':'Montant à payer HT'} : ${money(quote.subtotalHT)}</b></p>${merch}${quote.profiles?`<p>Profilés : ${esc(quote.profiles)} ml — prix à confirmer, hors sous-total.</p>`:''}<p>${esc(quote.notice)}</p>${box?'<p>Le visuel HD du box et sa configuration importable sont joints. Les métrés restent indicatifs.</p>':''}${note?`<p>Observations : ${esc(note)}</p>`:''}<p>Référence de la demande : ${esc(reference)}</p><p>Jérôme & Coryne · LE ROY FACTORY</p></div>`;
 }
-module.exports={RECIPIENTS,VERSION,text,fail,currentPrices,normalizedLines,buildQuote,checkedProject,pngAttachment,requestFingerprint,mailHTML};
+module.exports={sampleCustomer,agentCustomer,RECIPIENTS,VERSION,text,fail,currentPrices,normalizedLines,buildQuote,checkedProject,pngAttachment,requestFingerprint,mailHTML};

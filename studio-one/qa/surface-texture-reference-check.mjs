@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 import * as T from 'three';
-import {COLLECTIONS,tileFormat,formatsForColor,normalizeLayout} from '../src/surface-catalog.js';
+import {COLLECTIONS,tileFormat,formatsForColor,normalizeLayout,woodCollection,defaultSurfacePattern} from '../src/surface-catalog.js';
 import {commercialProduct,commercialOptions} from '../src/surface-commerce.js';
 import {resolveSurfaceTexture,finishForSurface} from '../src/surface-texture-selection.js';
 import {createSurface} from '../src/room.js';
@@ -66,7 +66,7 @@ try{
  const roomScene={floor,walls:[wall]},floorDesign={...finish,zones:[]},wallFinishes=[{collection:'Creta',color:'zucchero',format:'60x60'}];
  const quality=new AdaptiveQuality();quality.setMode('fluid');const loaded=[],disposed=[];
  const source=readFileSync('src/app.js','utf8'),code=source.slice(source.indexOf('function disposeTextureSet('),source.indexOf('function applyApronMaterial('));
- const context=vm.createContext({sceneUpdates:createProjectRefreshBatch({requestFrame:()=>{}}),T,AbortController,COLLECTIONS,tileFormat,formatsForColor,normalizeLayout,collectNicheFinishes,collectSupportFinishes,collectTrayFinishes,collectApronFinishes,roomConfig:{niches:[]},commercialProduct,commercialOptions,selectedFormat,selectedCommercialSurface,surfaceFinishAppearance,applySurfaceTextureMapping,disposeSurfaceTextureClones,resolveSurfaceTexture,finishForSurface,quality,
+ const context=vm.createContext({sceneUpdates:createProjectRefreshBatch({requestFrame:()=>{}}),T,AbortController,COLLECTIONS,tileFormat,formatsForColor,normalizeLayout,woodCollection,defaultSurfacePattern,collectNicheFinishes,collectSupportFinishes,collectTrayFinishes,collectApronFinishes,roomConfig:{niches:[]},commercialProduct,commercialOptions,selectedFormat,selectedCommercialSurface,surfaceFinishAppearance,applySurfaceTextureMapping,disposeSurfaceTextureClones,resolveSurfaceTexture,finishForSurface,quality,
   textureCache:new Map(),textureFlights:new Map(),surfaceTextures:{floor:{},wall:{}},finishTextures:{},textureRefresh:Promise.resolve(),captureBusy:false,
   roomScene,floorDesign,wallFinishes,composition:{items:[]},state:{ready:true,floorCollection:'Creta',floor:'zucchero',wallCollection:'Creta',wall:'zucchero'},FINISHES:[],selectedWall:0,
   paintTexture:null,tileAssetURL:file=>file,refreshFurnitureMaterials(){},refreshLayouts(){},refreshSurfacePickerHosts(){},refreshInspector(){},invalidate(){},placementStatus(){},

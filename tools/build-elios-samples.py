@@ -1,5 +1,5 @@
 """Import supplier articles and indicative values without agent allocations."""
-import argparse, hashlib, json, re, unicodedata
+import argparse, hashlib, json, re, unicodedata, subprocess
 from pathlib import Path
 import fitz
 import openpyxl
@@ -109,6 +109,7 @@ def run(source):
     dest=ROOT/'assets/data/elios-samples.json';dest.write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')))
     # The function receives the same public definitions for canonical validation.
     (ROOT/'functions/elios-samples-catalogue.json').write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')))
+    subprocess.run(['node', str(ROOT/'tools/refresh-elios-sample-media.mjs')], cwd=ROOT, check=True)
     print(json.dumps({'products':len(products),'vrac':sum(p['vrac'] for p in products),'merchandising':len(merchandising),'merchandisingWithImages':sum(bool(p['images']) for p in merchandising.values()),'pages':len(pages)}))
 
 def refresh_values(source):

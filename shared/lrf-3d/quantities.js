@@ -6,6 +6,7 @@ import {SEGMENTO,segmentoSelection,segmentoColor} from './segmento.js';
 export const packagingKey=(finish,format)=>[finish.collection,finish.color,format].join('|');
 export function packagingFor(finish,formatId){const f=tileFormat(finish.collection,formatId)||{},legacy=finish.pack;return finish.packs?.[packagingKey(finish,formatId)]||(legacy?.format===formatId&&(!legacy.collection||legacy.collection===finish.collection)&&(!legacy.color||legacy.color===finish.color)?legacy:null)||f.packByColor?.[finish.color]||f;}
 export function quantityForSurface(surface,finish,layout={},loss=10,label=''){
+ if(surface.expoEnabled===false)return {label,collection:finish.collection,color:finish.color,area:0,paint:true,boxes:0};
  const c=COLLECTIONS[finish.collection],format=tileFormat(finish.collection,finish.format),polygon=surface.polygon;
  const cuts=[...(surface.openings||[]),...(surface.niches||[]).map(n=>({left:(n.u-n.width/2)/100,right:(n.u+n.width/2)/100,bottom:n.bottom/100,top:(n.bottom+n.height)/100})),...(surface.zoneCuts||[])];
  const outline=polygon||(surface.length!==undefined?[[0,0],[surface.length,0],[surface.length,surface.height],[0,surface.height]]:null);

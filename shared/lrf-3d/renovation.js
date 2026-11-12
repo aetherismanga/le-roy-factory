@@ -8,7 +8,7 @@ import {nicheSurfaceFinish,nicheWallFinish,validateNiches} from './niches.js';
 import {sameNichePosition} from './niche-editing.js';
 import {NICHE_PROFILE_FINISHES,nicheProfileEdges,nicheProfilesEnabled,nicheMetalFinish,withDefaultNicheProfiles,nicheNeedsProfileDefaults,nichePerimeterFinish,withNichePerimeterProfiles} from './niche-profile-options.js';
 import * as T from 'three';
-import {COLLECTIONS,tileFormat,formatsForColor,layoutPatterns,normalizeLayout} from './surface-catalog.js';
+import {COLLECTIONS,tileFormat,formatsForColor,layoutPatterns,normalizeLayout,defaultSurfacePattern} from './surface-catalog.js';
 import {packagingFor,packagingKey} from './quantities.js';
 import {optimizeLayout} from './tile-layout.js';
 import {pickSelection} from './picking.js';
@@ -209,7 +209,7 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
   const allControls=[name,brand,collection,color,format,x,y,width,height,direction,pattern,grout,joint,profile,...Object.values(profileEdges)];
   const current=()=>zoneAt(z.id)?.z||z;
   function updateMutability(){const locked=api.readonly()||isItemPositionLocked(comp(),current());for(const control of allControls)control.disabled=!!locked;seriesVisual?.sync();colorVisual?.sync();return locked;}
-  function reloadPatterns(){const keep=pattern.value,items=layoutPatterns(collection.value,color.value,format.value);pattern.replaceChildren(...items.map(p=>new Option(p.name,p.id)));pattern.value=items.some(p=>p.id===keep)?keep:items[0]?.id||'straight';}reloadPatterns();
+  function reloadPatterns(reset=false){const keep=reset?defaultSurfacePattern(collection.value,color.value,format.value):pattern.value,items=layoutPatterns(collection.value,color.value,format.value);pattern.replaceChildren(...items.map(p=>new Option(p.name,p.id)));pattern.value=items.some(p=>p.id===keep)?keep:items[0]?.id||'straight';}reloadPatterns();
   function value(){
    const saved=current(),next={...clone(saved),name:name.value.slice(0,80),collection:collection.value,color:color.value,format:format.value,x:Number(x.value),y:Number(y.value),width:Number(width.value),height:Number(height.value),direction:direction.value,groutColor:grout.value,groutWidth:Number(joint.value),pattern:pattern.value,alignFurniture:!!z.alignFurniture,profile:profile.value!=='none',profileColor:profile.value,profileEdges:{...(kind==='wall'?{top:'none',bottom:'none'}:{}),...Object.fromEntries(Object.entries(profileEdges).map(([edge,control])=>[edge,control.value]))}};
    if(saved.collection!==next.collection||saved.color!==next.color||saved.format!==next.format)for(const key of ['catalogueKey','reference','sourceColorId','colorId','fidelity','contractVersion','finish','pack'])delete next[key];
@@ -219,8 +219,8 @@ export function mountRenovation(api,{validateZones,renderZones,zoneProfileSegmen
   function persist(){if(editorClosed||compact&&zoneEditor?.element!==d||!compact&&!d.open)return false;if(hasCreated&&!zoneAt(z.id)){d.close();return false;}if(persisting||updateMutability())return false;try{let next=value();if(![x,y,width,height,joint].every(control=>String(control.value).trim()!==''))return false;persisting=true;if(kind==='floor'){const saved=current(),resized=next.width!==saved.width||next.height!==saved.height,position=nearestZonePosition(next,kind,index,resized?saved.x+(saved.width-next.width)/2:next.x,resized?saved.y+(saved.height-next.height)/2:next.y);if(!position)throw Error('Aucun emplacement libre pour ces dimensions. Réduisez le tapis.');next={...next,...position};x.value=next.x;y.value=next.y;}saveZone(kind,index,next);hasCreated=true;Object.assign(z,clone(next));status.textContent=compact?(kind==='floor'?'Tapis enregistré · glissez-le dans la vue 3D.':'Modifications enregistrées · glissez la colonne dans la vue 3D.'):'Zone enregistrée.';return true;}catch(e){status.textContent=e.message;return false;}finally{persisting=false;}}
   const live=()=>{if(compact)persist();};
   for(const control of [name,x,y,width,height,grout,joint])control.oninput=live;
-  brand.onchange=()=>{const entries=seriesValues(brand.value);collection.replaceChildren(...entries.map(v=>new Option(v.name,v.id)));collection.value=entries[0]?.id||'';reloadColors(null,null);reloadPatterns();syncVisualChoices();live();};
-  collection.onchange=()=>{reloadColors(null,null);reloadPatterns();syncVisualChoices();live();};color.onchange=()=>{reloadFormats(format.value);reloadPatterns();syncVisualChoices();live();};format.onchange=()=>{reloadPatterns();syncVisualChoices();live();};direction.onchange=live;pattern.onchange=live;
+  brand.onchange=()=>{const entries=seriesValues(brand.value);collection.replaceChildren(...entries.map(v=>new Option(v.name,v.id)));collection.value=entries[0]?.id||'';reloadColors(null,null);reloadPatterns(true);syncVisualChoices();live();};
+  collection.onchange=()=>{reloadColors(null,null);reloadPatterns(true);syncVisualChoices();live();};color.onchange=()=>{reloadFormats(format.value);reloadPatterns(true);syncVisualChoices();live();};format.onchange=()=>{reloadPatterns(true);syncVisualChoices();live();};direction.onchange=live;pattern.onchange=live;
   const visual=visualEntries();seriesVisual=enhanceVisualSelect(collection,{entries:visual.series,label:'Série du carrelage'});colorVisual=enhanceVisualSelect(color,{entries:visual.colors,label:'Couleur du carrelage'});
   if(seriesVisual?.element)seriesVisual.element.dataset.zoneVisual='collection';if(colorVisual?.element)colorVisual.element.dataset.zoneVisual='color';
   const disposeVisualChoices=()=>{seriesVisual?.destroy();colorVisual?.destroy();};

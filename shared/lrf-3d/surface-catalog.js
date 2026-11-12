@@ -44,6 +44,10 @@ export function normalizeLayout(layout={},collection,formatId,colorId){
  const patterns=layoutPatterns(collection,colorId,format.id,layout),pattern=patterns.some(p=>p.id===layout.pattern)?layout.pattern:patterns[0]?.id||'straight',opus=pattern==='opus'?opusForFormat(collection,format.id,colorId):undefined;
  return {...layout,width:format.width,height:format.height,shape:format.shape||'rectangle',pattern,opus,segmento:collection==='Segmento'&&pattern==='segmento'?{composition:segmentoSelection({...layout,pattern})?.id||SEGMENTO.compositions[0]?.id}:undefined,chevronAngle:format.chevronAngle||45};
 }
+export function defaultSurfacePattern(collection,colorId,formatId){
+ const patterns=layoutPatterns(collection,colorId,formatId);
+ return woodCollection(collection)&&patterns.some(p=>p.id==='third')?'third':patterns[0]?.id||'straight';
+}
 
 // Reuse the reviewed catalogue; load real tile faces only when selected.
 for(const source of manufacturerSurfaces){const previous=COLLECTIONS[source.name];const formats=source.formats.map(f=>{const reviewed=previous?.formats.find(p=>p.id===f.id);return reviewed?.pcsBox?{...f,pcsBox:reviewed.pcsBox,m2Box:reviewed.m2Box,source:reviewed.source}:f;});const known=new Map((previous?.colors||[]).map(c=>[c.id,c]));const colors=source.colors.map(c=>{const local=known.get(c.id);return local?.file?{...c,file:local.file,faces:c.faces?.length>1?c.faces:[local.file]}:c;});COLLECTIONS[source.name]={...previous,...source,formats,colors,roughness:previous?.roughness??source.roughness,bump:previous?.bump??source.bump};}

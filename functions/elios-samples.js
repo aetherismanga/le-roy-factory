@@ -11,9 +11,11 @@ const ORIGINS=new Set(['https://leroyfactory.fr','https://www.leroyfactory.fr','
 async function identity(req,body){
  const bearer=String(req.headers.authorization||'').replace(/^Bearer\s+/i,'');
  const agent=bearer.includes('.')?await getAgentFromRequest(req):null;
- if(agent)return {owner:'agent:'+agent.uid,societe:agent.email.startsWith('jerome')?'Jérôme Hugol':'Coryne',codeClient:'',contact:{name:agent.email.startsWith('jerome')?'Jérôme Hugol':'Coryne',email:agent.email,telephone:'',address:''}};
+ if(agent&&body.targetClientId)return C.agentCustomer(admin.firestore(),agent,body.targetClientId);
+ if(agent)return {isAgent:true,createdBy:{uid:agent.uid,email:agent.email},owner:'agent:'+agent.uid,societe:agent.email.startsWith('jerome')?'Jérôme Hugol':'Coryne',codeClient:'',contact:{name:agent.email.startsWith('jerome')?'Jérôme Hugol':'Coryne',email:agent.email,telephone:'',address:''}};
+ if(body.targetClientId)throw C.fail('Seuls Jérôme et Coryne peuvent créer pour un autre client.',403);
  const session=await clientFromSessionToken(bearer||body.sessionToken,{renew:true}),client=session?.client;
- if(!client)throw C.fail('Connectez votre compte LRF pour envoyer la demande.',401);
+ if(!client)throw C.fail('Connectez votre compte LRF pour accéder aux échantillons.',401);
  if(!(client.partenaires||[]).some(p=>['elios','eliosceramica'].includes(String(p).toLowerCase().replace(/[^a-z]/g,''))))throw C.fail('L’accès Elios n’est pas activé pour ce compte.',403);
  return {owner:'client:'+client.id,societe:C.text(client.societe),codeClient:C.text(client.codeClient),contact:{name:C.text(client.contact),email:C.text(client.email),telephone:C.text(client.telephone),address:[client.adresse,client.codePostal||client.code_postal,client.ville].filter(Boolean).join(' ')}};
 }
@@ -43,7 +45,15 @@ exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'
  try{
   const body=req.body||{};if(JSON.stringify(body).length>4100000)throw C.fail('La demande dépasse la taille maximale.',413);
   const account=await identity(req,body);
-  if(body.action==='context')return res.json({success:true,customer:{societe:account.societe,codeClient:account.codeClient,...account.contact}});
+  if(body.action==='clients'){
+   if(!account.isAgent)throw C.fail('Accès agent requis.',403);
+   const clean=v=>C.text(v,240).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(),query=clean(body.query);
+   const snapshot=await admin.firestore().collection('clients').select('societe','nom','codeClient','ville','deleted','archived').limit(5001).get();
+   if(snapshot.docs.length>5000)throw C.fail('La liste clients dépasse la capacité de recherche.',503);
+   const clients=snapshot.docs.map(doc=>({id:doc.id,...doc.data()})).filter(c=>!c.deleted&&!c.archived&&(!query||clean([c.societe,c.nom,c.codeClient,c.ville].join(' ')).includes(query))).sort((a,b)=>String(a.societe||a.nom).localeCompare(String(b.societe||b.nom),'fr')).slice(0,50).map(c=>({id:c.id,societe:C.text(c.societe||c.nom),codeClient:C.text(c.codeClient,40),ville:C.text(c.ville)}));
+   return res.json({success:true,clients});
+  }
+  if(body.action==='context')return res.json({success:true,isAgent:!!account.isAgent,owner:account.owner,customer:{societe:account.societe,codeClient:account.codeClient,...account.contact}});
   if(!['quote','send'].includes(body.action))throw C.fail('Action inconnue.');
   let rates={};if(body.items?.some(i=>i.type==='box')){try{rates=await prices(req,body);}catch{throw C.fail('Les tarifs HT ne sont pas disponibles. Votre projet reste enregistré ; réessayez avant l’envoi.',503);}}
   const quote=C.buildQuote(body.items,catalogue,rates,body.profiles);
@@ -61,7 +71,7 @@ exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'
    const current=(await tx.get(ref)).data(),l=(await tx.get(limit)).data();if(current?.status==='sending'||current?.status==='sent')throw C.fail('Demande déjà transmise ou en cours.',409);
    if((l?.count||0)>=12)throw C.fail('Douze demandes par heure maximum. Réessayez plus tard.',429);
    tx.set(limit,{count:(l?.count||0)+1,expiresAt:admin.firestore.Timestamp.fromMillis(now+86400000)});
-   tx.set(ref,{reference,fingerprint,owner:account.owner,budgetYear:quote.budgetYear,customer:{societe:account.societe,codeClient:account.codeClient,...customer},quote,title:C.text(body.title,100),note:C.text(body.note,2000),status:'preparing',createdAt:existing?.createdAt||new Date().toISOString(),recipients:C.RECIPIENTS});
+   tx.set(ref,{reference,fingerprint,owner:account.owner,budgetYear:quote.budgetYear,...(account.createdBy?{createdBy:account.createdBy}:{}),customer:{societe:account.societe,codeClient:account.codeClient,...customer},quote,title:C.text(body.title,100),note:C.text(body.note,2000),status:'preparing',createdAt:existing?.createdAt||new Date().toISOString(),recipients:C.RECIPIENTS});
   });
   const attachments=[];let paths={};
   if(project){
