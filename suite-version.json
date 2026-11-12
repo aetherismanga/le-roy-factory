@@ -1,7 +1,7 @@
 {
   "schema": "lrf-suite-release",
   "version": 1,
-  "releaseId": "20261113-elios-samples-box-v3",
+  "releaseId": "20261113-elios-samples-box-v4",
   "baselineMain": "8571318620b70a7d7c0c9a0580b1d65bdc32db5e",
   "baselineStudio": "4668cd99df55734a46fcd3bd330acb60da53d3f5",
   "applications": [
@@ -765,7 +765,7 @@
     "firebaseReleaseMode": "manual"
   },
   "eliosSamples": {
-    "releaseId": "20261113-elios-samples-box-v3",
+    "releaseId": "20261113-elios-samples-box-v4",
     "lrfAuthenticationRequired": true,
     "dependentFormatFilter": true,
     "chevronPreviewShape": true,
@@ -778,6 +778,7 @@
     "fullBoxRounding": true,
     "agentClientSelection": "verified Jerome and Coryne only",
     "woodDefaultPattern": "third",
-    "webglVisualVerification": false
+    "webglVisualVerification": false,
+    "materialImagesOnly": true
   }
 }

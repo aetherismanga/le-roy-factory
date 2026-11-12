@@ -17,6 +17,13 @@ test('chevron shape follows its real SKU, and its preview proportions come from 
  const p=catalogue.products.find(p=>p.collection==='Yosemite'&&p.format==='7.5x40.7');assert.equal(p.shape,'chevron');assert.match(samplePieceStyle(p),/--tile-ratio:5/);
  assert.equal(catalogue.products.find(p=>p.collection==='Yosemite'&&p.format==='23.4x119.5').shape,'rectangle');
 });
+test('Yosemite sample cards use named material faces and never collection room photographs',()=>{
+ for(const p of catalogue.products.filter(p=>p.collection==='Yosemite')){
+  assert.match(p.image,/(?:YOSEMITE_[a-z]+_zoom\.jpg|media\/showroom\/yosemite-[a-z]+-03h2d\d+-\d+\.jpg)$/i);
+  assert.equal(p.reconstructed,false);
+  assert(!p.thumbnail.includes('/assets/img/elios/yosemite/'));
+ }
+});
 test('one, two and three exhibition walls survive project roundtrip and only real pans enter quantities',()=>{
  const floor=catalogue.products.find(p=>p.collection==='Creta'&&p.colorId==='caramello'&&p.format==='60x120'),wall=catalogue.products.find(p=>p.collection==='Stone Icon'&&p.colorId==='leccese'&&p.format==='60x90'&&p.finish.startsWith('Tumbled ·'));
  assert(floor&&wall);

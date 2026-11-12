@@ -1,7 +1,7 @@
 'use strict';
 const crypto=require('node:crypto');
 const RECIPIENTS=Object.freeze(['glebreton@eliosceramica.it','ctoni@eliosceramica.it','jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
-const VERSION='20261113-elios-samples-v3';
+const VERSION='20261113-elios-samples-v4';
 const text=(v,n=180)=>String(v??'').trim().slice(0,n);
 const fail=(message,status=400)=>Object.assign(Error(message),{status});
 const money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
