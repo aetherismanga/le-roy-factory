@@ -426,6 +426,26 @@
       "transitionDurationMs": 1400,
       "presentation": "champagne-charcoal",
       "firstCampaign": "elios"
+    },
+    "eliosSamples": {
+      "releaseId": "20261112-elios-samples-v1",
+      "page": "echantillons-elios.html",
+      "paths": [
+        "vrac",
+        "box-expo",
+        "merchandising"
+      ],
+      "products": 921,
+      "eligibleVrac": 351,
+      "merchandising": 216,
+      "manufacturerMerchandisingVisuals": 147,
+      "merchandisingWithoutConfirmedVisual": 69,
+      "engine": "studio-one",
+      "boxPage": "https://studio-one-beta-test-v2.vercel.app/elios-box.html",
+      "requestEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/eliosSamples",
+      "expoDiscountOnCurrentNetHT": 50,
+      "privateServerPrices": true,
+      "webglVisualVerification": false
     }
   },
   "configurators": {

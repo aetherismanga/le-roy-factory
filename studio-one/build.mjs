@@ -57,6 +57,7 @@ writeFileSync('dist/randal.html',portal);
 // Real photographic sky used only during an exhibition visit.
 cpSync('../shared/lrf-3d/media/showroom','dist/assets/showroom',{recursive:true});
 copyFileSync('../assets/img/logo03lrf.png','dist/assets/showroom/lrf-logo.png');
+await (await import('../scripts/build-elios-box.mjs')).buildEliosBox(new URL('..',import.meta.url).pathname);
 
 // Shared native bath geometry for the staged showroom vignettes.
 cpSync('../review-studio/assets/bathroom','dist/assets/bathroom',{recursive:true});
