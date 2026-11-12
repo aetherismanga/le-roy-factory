@@ -148,22 +148,6 @@ Le workflow manuel a publié uniquement ces deux fonctions, avec le groupe
 ci-dessous. Les autres fonctions et les deux ateliers 3D n’ont pas été
 redéployés pour ce complément.
 
-L’accès au dépôt GitHub fonctionne via le connecteur. Le navigateur de
-publication a été arrêté par le contrôle automatique lors du passage vers
-`accounts.google.com` ; une autorisation explicite de cette origine a été
-demandée. Ce blocage n’a pas été contourné. Aucun accord d’usine, montant de CA
-réel ou envoi de mail n’a été créé pour les vérifications.
-
-
-Jérôme a ensuite explicitement autorisé `accounts.google.com` pour connecter
-GitHub. Le navigateur a pu ouvrir normalement le choix de compte Google.
-Le compte `ccjacou@gmail.com` était proposé comme déconnecté. La demande
-sécurisée de choix du compte a été annulée avant sélection ; aucune identité
-n’a été choisie, aucun mot de passe n’a été saisi et aucun workflow Firebase
-n’a été lancé. Ne pas redemander l’autorisation de destination déjà accordée ;
-la connexion au compte reste à reprendre à la demande de Jérôme.
-
-
 ## Activation serveur confirmée — 12 novembre 2026
 
 Le workflow manuel « Deploy Firebase Functions », exécution n° 153,
@@ -186,8 +170,7 @@ Les deux fonctions Node.js 22 de deuxième génération ont été créées en
   aucune demande ni aucun budget. Aucun accord usine ou CA réel n’a été créé.
 
 La connexion GitHub nécessaire a été achevée après l’autorisation explicite de
-Jérôme. Les blocages et l’annulation de connexion décrits plus haut relatent
-les étapes précédentes ; ils ne bloquent plus cette activation.
+Jérôme. L’activation serveur est terminée et vérifiée.
 
 Preuve de publication :
 https://github.com/aetherismanga/le-roy-factory/actions/runs/43286911928
