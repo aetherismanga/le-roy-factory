@@ -28,7 +28,7 @@
     a.className='bilt-talox-desktop';
     a.href='bilt-talox-kit.html';
     a.setAttribute('aria-label','Découvrir la nouveauté BILT Talox Kit');
-    if(!a.childNodes.length)a.innerHTML=`<div class="bilt-talox-copy"><div class="bilt-talox-kicker">Nouveauté BILT</div><div class="bilt-talox-title">TALOX KIT · 5 EN 1</div><div class="bilt-talox-sub">Lames interchangeables · changement rapide · mallette pro</div><span class="bilt-talox-price"></span><span class="bilt-talox-fair">Remise foire sur consultation</span></div><div class="bilt-talox-visual"><img class="product" src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/talofix01.jpeg" alt="Talox Kit BILT" data-talox-slide="0"><img class="bilt-talox-logo" src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bilt.png" alt="BILT"><span class="bilt-talox-dots"><i class="active"></i><i></i><i></i></span></div>`;
+    if(!a.childNodes.length)a.innerHTML=`<div class="bilt-talox-copy"><div class="bilt-talox-kicker">Nouveauté BILT</div><div class="bilt-talox-title">TALOX KIT · 5 EN 1</div><div class="bilt-talox-sub">Lames interchangeables · changement rapide · mallette pro</div><span class="bilt-talox-price"></span><span class="bilt-talox-fair">10 kits commandés + 1 offert · Prix net sans remise</span></div><div class="bilt-talox-visual"><img class="product" src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/talofix01.jpeg" alt="Talox Kit BILT" data-talox-slide="0"><img class="bilt-talox-logo" src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/bilt.png" alt="BILT"><span class="bilt-talox-dots"><i class="active"></i><i></i><i></i></span></div>`;
     if(!a.isConnected)hero.appendChild(a);
     const slideImages=['https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/talofix01.jpeg','https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/talofix02.jpeg','https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/talofix03.jpeg'];
     const productImg=a.querySelector('.bilt-talox-visual img.product');
@@ -45,7 +45,7 @@
         productImg.style.opacity='1';
       },160);
     },3400);
-    const refresh=()=>{const p=a.querySelector('.bilt-talox-price');p.textContent=hasBilt()?'49,85 € / mallette':'🔒 Tarif PRO masqué';};
+    const refresh=()=>{const p=a.querySelector('.bilt-talox-price');p.textContent=hasBilt()?'49,85 € HT net / kit':'🔒 Tarif PRO masqué';};
     refresh();
     window.addEventListener('lrf-pro-session-changed',refresh);
   };
