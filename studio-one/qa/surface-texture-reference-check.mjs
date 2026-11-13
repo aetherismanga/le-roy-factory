@@ -88,7 +88,8 @@ try{
  // no-op snapshot/restore stubs. This material-only scene has no windows, so
  // the real ensureItems path must stay empty and perform no exterior download.
  vm.runInContext('let exteriorAmbienceLoader=null;\n'+source.slice(source.indexOf('function windowLoader('),source.indexOf('function updateWindowAppearance(')),context);
- vm.runInContext(source.slice(source.indexOf('const captureHD=createHDCapture('),source.indexOf('async function exportImage('))+'\nglobalThis.fixtureCapture=captureHD;',context);
+ context.unrealRender=null;
+ vm.runInContext(source.slice(source.indexOf('const captureHD='),source.indexOf('async function exportImage('))+'\nglobalThis.fixtureCapture=captureHD;',context);
  assert.equal(await context.fixtureCapture(),'data:image/png;base64,fixture');assert.equal(rendered,1);assert.equal(vm.runInContext('windowMotionSnapshot().length',context),0);assert.equal(vm.runInContext('windowLoader().diagnostics().requested.length',context),0,'A scene without windows does not request an exterior image during HD capture');
  assert.equal(quality.profile.id,'fluid');assert.equal(floor.material.map.userData.quality.url,urls('fluid')[0]);assert.equal(context.captureBusy,false);assert.equal(context.controls.enabled,true);assert.equal(context.document.body.inert,false);assert.equal(context.textureCache.size,2);
  delete mapping.textureVariants.max;
