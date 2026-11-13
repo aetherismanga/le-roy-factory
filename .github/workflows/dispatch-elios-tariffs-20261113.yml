@@ -1,0 +1,95 @@
+# One-time dispatch for the user's explicit Elios tariff publication request.
+# The existing deployment workflow, its tests, production environment and
+# approval requirements are not changed. Remove this dispatcher after use.
+name: Publish approved Elios box tariffs 2026-11-13
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/dispatch-elios-tariffs-20261113.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dispatch-elios-tariffs-20261113
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: >-
+      github.repository == 'aetherismanga/le-roy-factory' &&
+      github.ref == 'refs/heads/main' &&
+      github.event.before == 'b1fc7f5639096b9f84e1e61571ba1ae22d17a158' &&
+      github.event.head_commit.message == 'Release authorized Elios box tariffs 2026-11-13' &&
+      github.run_attempt == '1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Load only the reviewed calculation source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: b1fc7f5639096b9f84e1e61571ba1ae22d17a158
+        run: |
+          set -euo pipefail
+          mkdir -p verified
+          for file in elios-samples-core.cjs elios-samples.js; do
+            gh api "repos/${GITHUB_REPOSITORY}/contents/functions/${file}?ref=${SOURCE_SHA}" --jq .content | base64 --decode > "verified/${file}"
+          done
+      - name: Verify exact references, packaging and a single 50 percent reduction
+        run: |
+          set -euo pipefail
+          node - <<'JS'
+          const assert=require('node:assert/strict');
+          const fs=require('node:fs');
+          const C=require('./verified/elios-samples-core.cjs');
+          // Synthetic prices only: no confidential tariff is written to source.
+          const catalogue={budgetYear:2027,merchandising:[],products:[
+            {key:'ELIOS|TEST001',reference:'TEST001',collection:'Dynasty',slug:'dynasty',color:'Example',format:'60x120',finish:'3D Honed',packVerified:true,packArea:1.44,packPieces:2,vrac:true},
+            {key:'ELIOS|TEST002',reference:'TEST002',collection:'Dynasty',slug:'dynasty',color:'Example decor',format:'30x30',finish:'3D Honed',packVerified:true,packArea:0.99,packPieces:11,vrac:true},
+            {key:'ELIOS|TEST003',reference:'TEST003',collection:'Dynasty',slug:'dynasty',color:'Example R10',format:'60x120',finish:'R10',packVerified:true,packArea:1.44,packPieces:2,vrac:true}
+          ]};
+          const rates=C.currentPrices(catalogue,{}, {'dynasty|60x120|standard':{amount:9.99}}, {TEST001:31.46,TEST002:45.18});
+          assert.equal(rates['ELIOS|TEST001'].purchaseHT,31.46);
+          assert.equal(rates['ELIOS|TEST002'].purchaseHT,45.18);
+          assert.equal(rates['ELIOS|TEST003'],undefined,'No invented R10 price');
+          const quote=C.buildQuote([{type:'box',key:'ELIOS|TEST001',quantity:2},{type:'box',key:'ELIOS|TEST002',quantity:1}],catalogue,rates);
+          assert.equal(quote.rows[0].netHT,31.46);
+          assert.equal(quote.rows[0].unitHT,15.73);
+          assert.equal(quote.rows[0].boxes,2);
+          assert.equal(quote.rows[0].quantity,2.88);
+          assert.equal(quote.rows[0].totalHT,45.3);
+          assert.equal(quote.rows[1].unitHT,22.59);
+          assert.equal(quote.rows[1].quantity,1.98);
+          assert.equal(quote.rows[1].totalHT,44.73);
+          assert.equal(quote.totalHT,90.03);
+          assert.equal(C.buildQuote([{type:'vrac',key:'ELIOS|TEST001',quantity:1}],catalogue,rates).totalHT,0);
+          assert.equal(C.buildQuote([{type:'box',key:'ELIOS|TEST003',quantity:1}],catalogue,rates).incomplete,true);
+          assert.match(fs.readFileSync('./verified/elios-samples.js','utf8'),/C\.currentPrices\(catalogue,exact,rates\.elios\|\|\{\},rates\.eliosExact\|\|\{\}\)/);
+          console.log('PASS: exact SKU prices, no R10 extrapolation, one 50% reduction, complete boxes, free eligible vrac.');
+          JS
+  dispatch:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Dispatch the unchanged production workflow for Elios only
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REVIEWED_PARENT: b1fc7f5639096b9f84e1e61571ba1ae22d17a158
+        run: |
+          set -euo pipefail
+          head=$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq .object.sha)
+          test "$head" = "$GITHUB_SHA"
+          parent=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}" --jq '.parents[0].sha')
+          test "$parent" = "$REVIEWED_PARENT"
+          files=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}" --jq '[.files[].filename] | join("\n")')
+          test "$files" = '.github/workflows/dispatch-elios-tariffs-20261113.yml'
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/workflows/deploy-firebase-functions.yml/dispatches" --input - <<'JSON'
+          {"ref":"main","inputs":{"confirm_production":"CONFIRMER-PRODUCTION","function_group":"elios-samples"}}
+          JSON
+          printf '%s\n' 'Requested the existing Firebase production workflow for elios-samples only. Existing environment approvals and release checks remain required.' >> "$GITHUB_STEP_SUMMARY"
