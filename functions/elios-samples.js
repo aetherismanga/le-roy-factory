@@ -32,7 +32,7 @@ async function prices(req,body){
  const bearer=String(req.headers.authorization||'').replace(/^Bearer\s+/i,''),token=body.sessionToken||(!bearer.includes('.')?bearer:'');
  const response=await fetch('https://randal-catalogue-general-3d.vercel.app/api/agent-tariffs',{method:'POST',headers:{'Content-Type':'application/json',...(bearer.includes('.')?{Authorization:'Bearer '+bearer}:{})},body:JSON.stringify({action:'bootstrap',...(token?{sessionToken:token}:{})}),signal:AbortSignal.timeout(20000)});
  const rates=await response.json();if(!response.ok||rates.success!==true||!rates.allowedPartners?.includes('elios-ceramica')||!Number.isFinite(rates.expiresAt)||rates.expiresAt<=Date.now())throw Error('Current Elios tariff unavailable');
- return C.currentPrices(catalogue,exact,rates.elios||{});
+ return C.currentPrices(catalogue,exact,rates.elios||{},rates.eliosExact||{});
 }
 function contact(input,account){
  const c={name:C.text(input?.name??account.contact.name,160),email:C.text(input?.email??account.contact.email,254),telephone:C.text(input?.telephone??account.contact.telephone,60),address:C.text(input?.address??account.contact.address,600)};
