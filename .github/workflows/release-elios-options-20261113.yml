@@ -1,0 +1,118 @@
+# Temporary release runner for the user's explicit Elios sample changes.
+# No production credentials are available in this workflow. The unchanged
+# Firebase release workflow retains its environment approvals and checks.
+name: Verify and publish Elios sample options 2026-11-13
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/release-elios-options-20261113.yml]
+permissions:
+  contents: read
+concurrency:
+  group: release-elios-options-20261113
+  cancel-in-progress: false
+jobs:
+  validate:
+    if: github.repository == 'aetherismanga/le-roy-factory' && github.ref == 'refs/heads/main' && github.event.head_commit.message == 'Validate and publish requested Elios sample options 2026-11-13'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      reviewed: ${{ steps.review.outputs.reviewed }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Apply bounded source changes
+        run: |
+          set -euo pipefail
+          python tools/apply-elios-sample-options-20261113.py
+          # The existing endpoint protocol remains v8-compatible. The additive
+          # pricingVersion field and dedicated header identify the new rules.
+          # Leave the existing deployment workflow and its release gates intact.
+          git restore .github/workflows/deploy-firebase-functions.yml
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('functions/elios-samples-core.cjs');s=p.read_text();a="const VERSION='20261113-elios-samples-options-v9';";assert s.count(a)==1;p.write_text(s.replace(a,"const VERSION='20261113-elios-samples-direct-box-v8';"))
+          p=Path('functions/elios-samples.js');s=p.read_text();a="res.set('X-LRF-Elios-Samples-Version',C.VERSION);";assert s.count(a)==1;p.write_text(s.replace(a,a+"res.set('X-LRF-Elios-Options-Version','20261113-energy-pose-v1');"))
+          PY
+          node --check assets/js/elios-samples.js
+          node --check functions/elios-samples-core.cjs
+          node --check functions/elios-samples.js
+          git diff --check
+      - name: Install locked test dependencies without lifecycle scripts
+        run: |
+          npm ci --ignore-scripts --include=dev --no-audit --no-fund
+          npm ci --prefix functions --ignore-scripts --omit=dev --no-audit --no-fund
+      - name: Unit and request regression tests
+        run: |
+          set -euo pipefail
+          node --test tests/elios-samples-options.test.mjs tests/elios-samples-workflow.test.mjs tests/elios-samples-client-mail.test.mjs tests/elios-mysterium-dynasty.test.mjs functions/test/elios-samples.test.cjs functions/test/elios-samples-images.test.cjs functions/test/elios-expo-budget.test.cjs | tee /tmp/elios-options-tests.txt
+      - name: Install browser engines
+        run: npx playwright install --with-deps chromium webkit
+      - name: Desktop and iPhone tests with synthetic accounts only
+        run: node tests/elios-samples-options-browser.cjs
+      - name: Record only the reviewed application patch
+        id: review
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import subprocess
+          actual=set(subprocess.check_output(['git','diff','--name-only'],text=True).splitlines())
+          expected={'functions/elios-samples-core.cjs','functions/elios-samples.js','assets/js/elios-samples.js','echantillons-elios.html','assets/css/elios-samples.css','functions/test/elios-samples.test.cjs','tests/elios-mysterium-dynasty.test.mjs'}
+          assert actual==expected,(actual,expected)
+          PY
+          git diff --binary > /tmp/elios-options-reviewed.patch
+          echo 'reviewed=true' >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: elios-options-validation
+          path: |
+            /tmp/elios-options-tests.txt
+            /tmp/elios-options-reviewed.patch
+            reports/elios-options-browser/*.png
+          retention-days: 3
+          if-no-files-found: ignore
+  publish:
+    needs: validate
+    if: needs.validate.outputs.reviewed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: elios-options-validation
+          path: /tmp/elios-options-validated
+      - name: Commit only the tested patch with a strict branch lease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          head=$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq .object.sha)
+          test "$head" = "$GITHUB_SHA"
+          patch=$(find /tmp/elios-options-validated -name elios-options-reviewed.patch -type f)
+          test -n "$patch"
+          git apply --check "$patch"
+          git apply "$patch"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add functions/elios-samples-core.cjs functions/elios-samples.js assets/js/elios-samples.js echantillons-elios.html assets/css/elios-samples.css functions/test/elios-samples.test.cjs tests/elios-mysterium-dynasty.test.mjs
+          git commit -m 'Publish tested Elios energy tax, installation, print and sample controls'
+          git -c credential.helper='!gh auth git-credential' push origin HEAD:main
+          published=$(git rev-parse HEAD)
+          test "$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq .object.sha)" = "$published"
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/workflows/deploy-firebase-functions.yml/dispatches" --input - <<'JSON'
+          {"ref":"main","inputs":{"confirm_production":"CONFIRMER-PRODUCTION","function_group":"elios-samples"}}
+          JSON
+          echo "Tested application commit: $published. Existing Firebase deployment workflow requested for elios-samples only." >> "$GITHUB_STEP_SUMMARY"
