@@ -3,6 +3,9 @@
 # QA reports, tooling, dependencies or the source workspaces.
 exclude:
   - node_modules
+  - assets/img/r11-source-hd
+  - assets/js/r11-media
+  - assets/pdf-r11
   - package.json
   - package-lock.json
   - functions

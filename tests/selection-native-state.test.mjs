@@ -152,3 +152,23 @@ test('existing BULBO links keep exception while furniture surface deep links are
   assert.deepEqual(scoped.openedBulbo,[{id:'bamboom',found:false,category:'meubles'}]);
   assert.equal(scoped.node('#partner-count').textContent,'4 meubles BULBO');
 });
+
+
+test('the exterior selection is a native catalogue link between Elios and La Fenice without supplier access', () => {
+  const h=selection();
+  const html=h.node('#partner-grid').innerHTML;
+  const elios=html.indexOf('data-partner="Elios Ceramica"');
+  const catalogue=html.indexOf('data-r11-catalogue-link');
+  const fenice=html.indexOf('data-partner="La Fenice"');
+  assert.ok(elios>=0&&catalogue>elios&&fenice>catalogue);
+  const link=html.match(/<a[^>]*data-r11-catalogue-link[\s\S]*?<\/a>/)?.[0];
+  assert.match(link,/href="catalogue-exterieur-r11\.html"/);
+  assert.match(link,/assets\/img\/logo03lrf\.png/);
+  assert.match(link,/Toutes collections/);
+  assert.doesNotMatch(link,/data-partner|Tarif PRO|locked/);
+  h.event('lrf-pro-session-changed');
+  assert.equal((h.node('#partner-grid').innerHTML.match(/data-r11-catalogue-link/g)||[]).length,1);
+  h.choose('meubles');assert.doesNotMatch(h.node('#partner-grid').innerHTML,/data-r11-catalogue-link/);
+  h.choose('carrelage');assert.match(h.node('#partner-grid').innerHTML,/data-r11-catalogue-link/);
+  h.partner('La Fenice');assert.equal(h.node('#workspace-title').textContent,'La Fenice');
+});

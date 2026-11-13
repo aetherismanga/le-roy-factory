@@ -482,6 +482,15 @@
       "formatIllustrations": 725,
       "publicPhotoAssets": 132,
       "nativeSourcePhotographsPreserved": true
+    },
+    "exteriorSelection": {
+      "releaseId": "20261113-lrf-exterieur-r11-1",
+      "page": "catalogue-exterieur-r11.html",
+      "pdf": "assets/pdf/selection-lrf-exterieur-r11.pdf",
+      "collections": 62,
+      "references": 388,
+      "factoryPickerPosition": "between-elios-and-la-fenice",
+      "clientPurchasePrices": "server-authorized-per-partner"
     }
   },
   "configurators": {
@@ -819,6 +828,9 @@
   "crmAppleForms": {
     "releaseId": "20261113-crm-apple-save1",
     "date": "2026-11-13",
-    "pages": ["clients.html", "comptes-rendus.html"]
+    "pages": [
+      "clients.html",
+      "comptes-rendus.html"
+    ]
   }
 }
