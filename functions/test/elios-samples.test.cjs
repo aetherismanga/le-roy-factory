@@ -30,8 +30,8 @@ test('merchandising canonical value is displayed separately and never billed or 
  const q=C.buildQuote(rows,catalogue,{'ELIOS|synthetic':{purchaseHT:12}});
  assert.equal(q.totalHT,8.64);assert.equal(q.merchandisingValueHT,340);assert.equal(q.merchandisingValueIncomplete,false);assert.equal(q.budgetYear,2027);
  assert.equal(q.rows[0].valueUnitHT,170);assert.equal(q.rows[0].valueTotalHT,340);assert.equal(q.rows[0].payable,false);assert.equal(q.rows[0].factoryApprovalRequired,true);assert.equal(q.rows[0].factoryApproved,undefined);
- const html=C.mailHTML({reference:'TEST',account:{societe:'Test'},contact:{name:'Test',email:'test@example.invalid',address:'Test'},quote:q,title:'Test'});
- assert(html.includes('340,00'));assert(html.includes('Hors montant à payer'));assert(html.includes('Montant à payer HT'));assert(!html.includes('7 %'));
+ const html=C.mailHTML({reference:'TEST',account:{societe:'Test'},contact:{name:'Test',email:'test@example.invalid',address:'Test'},quote:q,title:'Test',box:true});
+ assert(!html.includes('340,00'));assert(html.includes('Montant à payer HT'));assert(html.includes('<h3>Merchandising</h3>'));assert(!html.includes('7 %'));
 });
 test('unknown indicative merchandising values never become zero valuations or incomplete customer charges',()=>{
  const q=C.buildQuote([{type:'merchandising',key:'kit-unpriced',quantity:1}],catalogue);
@@ -48,7 +48,7 @@ test('project exports remove credentials and amounts while keeping geometry',()=
 });
 test('request identity binds content, contact and project while ignoring browser recipients',()=>{
  const body={items:[{type:'vrac',key:'ELIOS|synthetic',quantity:1}],contact:{name:'Exemple'}};const account={owner:'client:synthetic'};
- assert.equal(C.requestFingerprint(body,account),C.requestFingerprint({...body,to:['attacker@example.invalid']},account));assert.notEqual(C.requestFingerprint(body,account),C.requestFingerprint({...body,contact:{name:'Other'}},account));assert.deepEqual(C.RECIPIENTS,['glebreton@eliosceramica.it','ctoni@eliosceramica.it','jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
+ assert.equal(C.requestFingerprint(body,account),C.requestFingerprint({...body,to:['attacker@example.invalid']},account));assert.notEqual(C.requestFingerprint(body,account),C.requestFingerprint({...body,contact:{name:'Other'}},account));assert.deepEqual(C.RECIPIENTS,['ctoni@eliosceramica.it','glebreton@eliosceramica.it','jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
 });
 
 function endpointFixture(){
@@ -59,8 +59,8 @@ function endpointFixture(){
  const bucket={file:key=>({getMetadata:async()=>[{size:200}],download:async()=>[Buffer.from(JSON.stringify({version:1,variant:'studio-one',products:[{key:'ELIOS|synthetic',purchaseHT:12}],plinths:[]}))],save:async(bytes,options)=>{stored.set(key,{bytes,options});}})};
  const module={exports:{}},source=fs.readFileSync(path.join(__dirname,'../elios-samples.js'),'utf8');let valid=true,failMail=false;
  const client={id:'synthetic-client',societe:'Magasin test',codeClient:'LRF-12345',partenaires:['Elios'],contact:'Contact test',email:'contact@example.invalid',adresse:'1 rue Exemple',codePostal:'34000',ville:'Montpellier'};
- const req=name=>name==='firebase-functions/v2/https'?{onRequest:(options,handler)=>({options,handler})}:name==='firebase-admin'?{firestore,storage:()=>({bucket:()=>bucket})}:name==='nodemailer'?{createTransport:()=>({sendMail:async mail=>{mails.push(mail);if(failMail)throw Error('SMTP uncertain');return {accepted:[...C.RECIPIENTS],messageId:'synthetic-message'};}})}:name==='./pro-session'?{clientFromSessionToken:async token=>valid&&token==='synthetic-token'?{client}:null}:name==='./auth'?{getAgentFromRequest:async()=>null}:name==='./elios-samples-catalogue.json'?catalogue:name==='./elios-samples-core.cjs'?C:name.startsWith('./')?require(path.join(__dirname,'..',name)):require(name);
- vm.runInNewContext(source,{exports:module.exports,module,require:req,Buffer,console,Date,process:{env:{SMTP_PASSWORD_JEROME:'synthetic-secret'}},AbortSignal,fetch:async(_url,options)=>{const body=JSON.parse(options.body);assert.equal(body.sessionToken,'synthetic-token');return {ok:true,json:async()=>({success:true,allowedPartners:['elios-ceramica'],expiresAt:Date.now()+60000,elios:{}})};}},{filename:'elios-samples.js'});
+ const req=name=>name==='firebase-functions/v2/https'?{onRequest:(options,handler)=>({options,handler})}:name==='firebase-admin'?{firestore,storage:()=>({bucket:()=>bucket})}:name==='nodemailer'?{createTransport:options=>{assert.equal(options.streamTransport,true);assert.equal(options.auth,undefined);return {sendMail:async mail=>{mails.push(mail);if(failMail)throw Error('Compilation failed');return require('nodemailer').createTransport(options).sendMail(mail);}};}}:name==='./pro-session'?{clientFromSessionToken:async token=>valid&&token==='synthetic-token'?{client}:null}:name==='./auth'?{getAgentFromRequest:async()=>null}:name==='./elios-samples-catalogue.json'?catalogue:name==='./elios-samples-core.cjs'?C:name.startsWith('./')?require(path.join(__dirname,'..',name)):require(name);
+ vm.runInNewContext(source,{exports:module.exports,module,require:req,Buffer,console,Date,process:{env:{}},AbortSignal,fetch:async(_url,options)=>{const body=JSON.parse(options.body);assert.equal(body.sessionToken,'synthetic-token');return {ok:true,json:async()=>({success:true,allowedPartners:['elios-ceramica'],expiresAt:Date.now()+60000,elios:{}})};}},{filename:'elios-samples.js'});
  const request=async body=>{const response={headers:{},statusCode:200,set(k,v){this.headers[k]=v;},status(n){this.statusCode=n;return this;},json(value){this.body=value;return this;},send(value){this.body=value;return this;}};await module.exports.eliosSamples.handler({method:'POST',headers:{origin:'https://leroyfactory.fr'},body},response);return response;};
  return {request,mails,stored,values,revoke(){valid=false;},failMail(){failMail=true;}};
 }
@@ -69,23 +69,36 @@ test('the complete request handler revalidates access and never sends during quo
  r=await f.request({action:'quote',items,sessionToken:'synthetic-token'});assert.equal(r.statusCode,200);assert.equal(r.body.quote.totalHT,0);assert.equal(f.mails.length,0);assert.equal(f.values.size,0);
  f.revoke();r=await f.request({action:'quote',items,sessionToken:'synthetic-token'});assert.equal(r.statusCode,401);
 });
-test('SMTP is addressed to exactly the four requested people and retrying a sent request is idempotent',async()=>{
- const f=endpointFixture(),payload={action:'send',sessionToken:'synthetic-token',requestId:'synthetic-request-id-123456',items:[{type:'vrac',key:'ELIOS|synthetic',quantity:1}],contact:{name:'Contact test',email:'contact@example.invalid',address:'1 rue Exemple'},to:['attacker@example.invalid']};
- let r=await f.request(payload);assert.equal(r.statusCode,200);assert.equal(r.body.delivered,true);assert.equal(f.mails.length,1);assert.deepEqual(f.mails[0].to,C.RECIPIENTS);assert.equal(f.mails[0].attachments.length,0);
+test('a client draft addresses Caterina and exactly three CCs without an SMTP send',async()=>{
+ const f=endpointFixture(),payload={action:'prepare',sessionToken:'synthetic-token',requestId:'synthetic-request-id-123456',items:[{type:'vrac',key:'ELIOS|synthetic',quantity:1}],contact:{name:'Contact test',email:'contact@example.invalid',address:'1 rue Exemple'},to:['attacker@example.invalid']};
+ let r=await f.request(payload);assert.equal(r.statusCode,200);assert.equal(r.body.delivered,false);assert.equal(f.mails.length,1);assert.deepEqual(f.mails[0].to,C.TO);assert.deepEqual(f.mails[0].cc,C.CC);assert.equal(f.mails[0].from.address,'contact@example.invalid');assert.equal(f.mails[0].headers['X-Unsent'],'1');const mime=Buffer.from(r.body.mail.content,'base64').toString();assert.match(mime,/To: ctoni@eliosceramica.it/);assert.match(mime,/Cc: glebreton@eliosceramica.it, jerome@leroyfactory.fr,/);assert.match(mime,/From: Contact test <contact@example.invalid>/);assert.match(mime,/X-Unsent: 1/);assert.equal(f.mails[0].attachments.length,0);
  const stored=[...f.values].find(([key])=>key.startsWith('elios_sample_requests/'))[1];assert.equal(stored.budgetYear,2027);assert.equal(stored.factoryApproved,undefined);
- r=await f.request(payload);assert.equal(r.statusCode,200);assert.equal(f.mails.length,1);
+ r=await f.request({action:'confirmClientSent',sessionToken:payload.sessionToken,requestId:payload.requestId});assert.equal(r.statusCode,200);assert.equal(r.body.reportedByClient,true);assert.equal(f.mails.length,1);r=await f.request(payload);assert.equal(r.statusCode,409);assert.equal(f.mails.length,1);
  r=await f.request({...payload,contact:{...payload.contact,name:'Changed'}});assert.equal(r.statusCode,409);assert.equal(f.mails.length,1);
 });
-test('an ambiguous SMTP failure is recorded and cannot be blindly retried',async()=>{
- const f=endpointFixture();f.failMail();const payload={action:'send',sessionToken:'synthetic-token',requestId:'synthetic-request-id-123456',items:[{type:'vrac',key:'ELIOS|synthetic',quantity:1}],contact:{name:'Contact test',email:'contact@example.invalid',address:'1 rue Exemple'}};
- let r=await f.request(payload);assert.equal(r.statusCode,503);assert.equal(f.mails.length,1);r=await f.request(payload);assert.equal(r.statusCode,409);assert.equal(f.mails.length,1);
+test('a draft compilation failure is retryable and is never recorded as delivered',async()=>{
+ const f=endpointFixture();f.failMail();const payload={action:'prepare',sessionToken:'synthetic-token',requestId:'synthetic-request-id-123456',items:[{type:'vrac',key:'ELIOS|synthetic',quantity:1}],contact:{name:'Contact test',email:'contact@example.invalid',address:'1 rue Exemple'}};
+ let r=await f.request(payload);assert.equal(r.statusCode,503);assert.equal(f.mails.length,1);r=await f.request(payload);assert.equal(r.statusCode,503);assert.equal(f.mails.length,2);assert([...f.values].find(([k])=>k.startsWith('elios_sample_requests/'))[1].status!=='sent');
 });
 test('a box saves and attaches the same HD PNG plus an importable configuration without credentials',async()=>{
  const chunk=(name,data)=>{const type=Buffer.from(name),header=Buffer.alloc(4);header.writeUInt32BE(data.length);const input=Buffer.concat([type,data]);let crc=0xffffffff;for(const b of input){crc^=b;for(let bit=0;bit<8;bit++)crc=(crc>>>1)^((crc&1)?0xedb88320:0);}const checksum=Buffer.alloc(4);checksum.writeUInt32BE((crc^0xffffffff)>>>0);return Buffer.concat([header,input,checksum]);};
  const ihdr=Buffer.alloc(13);ihdr.writeUInt32BE(1920);ihdr.writeUInt32BE(1080,4);ihdr[8]=8;ihdr[9]=2;
  const png=Buffer.concat([Buffer.from('89504e470d0a1a0a','hex'),chunk('IHDR',ihdr),chunk('IDAT',require('node:zlib').deflateSync(Buffer.alloc((1920*3+1)*1080))),chunk('IEND',Buffer.alloc(0))]);
- const f=endpointFixture(),payload={action:'send',sessionToken:'synthetic-token',requestId:'synthetic-box-request-123456',items:[{type:'box',key:'ELIOS|synthetic',quantity:1.44,unitHT:0}],project:{version:2,room:{points:[[0,0],[240,0],[240,200],[0,200]]},items:[],token:'do-not-export'},visual:'data:image/png;base64,'+png.toString('base64'),contact:{name:'Contact test',email:'contact@example.invalid',address:'1 rue Exemple'}};
- const response=await f.request(payload);assert.equal(response.statusCode,200);assert.equal(response.body.delivered,true);assert.equal(f.mails.length,1);assert.equal(f.mails[0].attachments.length,2);
+ const f=endpointFixture(),payload={action:'prepare',sessionToken:'synthetic-token',requestId:'synthetic-box-request-123456',items:[{type:'box',key:'ELIOS|synthetic',quantity:1.44,unitHT:0}],project:{version:2,room:{points:[[0,0],[240,0],[240,200],[0,200]]},items:[],token:'do-not-export'},visual:'data:image/png;base64,'+png.toString('base64'),contact:{name:'Contact test',email:'contact@example.invalid',address:'1 rue Exemple'}};
+ const response=await f.request(payload);assert.equal(response.statusCode,200);assert.equal(response.body.delivered,false);assert.equal(f.mails.length,1);assert.equal(f.mails[0].attachments.length,2);
  assert.deepEqual(f.mails[0].attachments[0].content,png);const configuration=JSON.parse(f.mails[0].attachments[1].content);assert.equal(configuration.format,'lrf-elios-box');assert.equal(configuration.project.token,undefined);assert.equal(configuration.project.room.points.length,4);
  assert.equal(f.stored.size,2);assert([...f.stored.values()].some(row=>Buffer.isBuffer(row.bytes)&&row.bytes.equals(png)));assert(f.mails[0].html.includes('8,64'));
+});
+test('legacy server send is blocked and saved information is restored from the verified account',async()=>{
+ const f=endpointFixture();let r=await f.request({action:'send',sessionToken:'synthetic-token'});assert.equal(r.statusCode,409);assert.equal(f.mails.length,0);
+ const details={name:'Contact modifié',email:'client@example.invalid',telephone:'01',address:'Nouvelle adresse',note:'Livrer le matin'};
+ r=await f.request({action:'saveInfo',sessionToken:'synthetic-token',details});assert.equal(r.statusCode,200);
+ r=await f.request({action:'context',sessionToken:'synthetic-token'});assert.deepEqual(JSON.parse(JSON.stringify(r.body.requestDetails)),details);
+ f.revoke();r=await f.request({action:'saveInfo',sessionToken:'synthetic-token',details});assert.equal(r.statusCode,401);
+});
+test('opening a draft is never treated as delivery and only an explicit declaration enters the sent request history',async()=>{
+ const f=endpointFixture(),payload={action:'prepare',sessionToken:'synthetic-token',requestId:'synthetic-client-mail-123456',items:[{type:'vrac',key:'ELIOS|synthetic',quantity:1}],contact:{name:'Contact',email:'contact@example.invalid',address:'Adresse'}};
+ let r=await f.request({action:'confirmClientSent',sessionToken:payload.sessionToken,requestId:payload.requestId});assert.equal(r.statusCode,409);
+ r=await f.request(payload);assert.equal(r.body.prepared,true);assert.equal(r.body.delivered,false);const key=[...f.values.keys()].find(k=>k.startsWith('elios_sample_requests/'));assert.equal(f.values.get(key).status,'prepared');assert.equal(f.values.get(key).sentAt,undefined);
+ r=await f.request({action:'confirmClientSent',sessionToken:payload.sessionToken,requestId:payload.requestId});assert.equal(r.body.reportedByClient,true);assert.equal(f.values.get(key).deliveryStatus,'reported-by-client');assert.equal(f.mails.length,1);
 });

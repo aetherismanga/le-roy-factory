@@ -130,3 +130,40 @@ Total ciblé version 2 : 35 tests JavaScript et 3 tests Python réussis.
 Le contrôle élargi des fonctions a réussi 180 cas sur 181 ; le dernier demande
 le bundle privé Anima `commerce-server.cjs`, absent de ce checkout. Il concerne
 une application inchangée et n’a pas été remplacé par une validation fictive.
+
+
+## Correction du 13 novembre — informations et messagerie client (v7)
+
+Le bouton **Enregistrer mes informations** conserve contact, e-mail, téléphone,
+adresse de livraison et observations dans le compte vérifié. Les modifications
+en cours restent aussi dans le brouillon local séparé de chaque client.
+Le récapitulatif et le mail du vrac ne contiennent que visuel, référence,
+étiquette et quantité. Les colonnes de prix sont réservées aux box.
+
+Destinataire principal : `ctoni@eliosceramica.it`.
+Copies : `glebreton@eliosceramica.it`, `jerome@leroyfactory.fr`,
+`coryne@leroyfactory.fr`.
+
+L’ancien envoi SMTP avec la boîte de Jérôme est bloqué. Une session LRF ne
+donne pas accès à la messagerie du client. Le serveur compile un brouillon
+MIME complet (.eml, images intégrées, visuel HD et configuration du box), sans
+connexion SMTP et sans identifiants de messagerie. L’expéditeur du brouillon
+est l’adresse saisie par le client ; le compte d’envoi réel doit être choisi
+dans son application. Un lien mailto renseigne À/Copie et le texte. Les images
+restent à joindre pour cette variante. Le partage natif des fichiers est
+proposé quand le navigateur le supporte ; il ne peut pas préremplir À/Copie.
+Le .eml nécessite une application compatible, certaines imposent de modifier
+le message comme nouveau.
+
+Une préparation reste `prepared`, sans date d’envoi. Le site ne peut vérifier
+ni l’envoi réel ni les messages envoyés du client. Le bouton explicite
+« J’ai envoyé le mail depuis mon compte » enregistre une déclaration client
+(`deliveryStatus: reported-by-client`), distincte d’une livraison confirmée.
+Le suivi budget reste subordonné à l’accord usine comme auparavant.
+
+Validation : 36 tests ciblés serveur/client et 10 tests de reprise/box réussis ;
+construction publique réussie. Parcours visuel testé avec données fictives :
+modification de l’adresse et des observations, enregistrement, fermeture et
+réouverture, préparation et affichage du compte expéditeur/À/Copie. Aucun
+mail réel envoyé ; le classement effectif dans les Envoyés et le partage
+Android n’ont pas été testés dans une vraie boîte client.

@@ -6,6 +6,25 @@ export const money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'curren
 export const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 export const selectionStorageKey=owner=>`lrf-elios-selection-v1:${owner}`;
 export const boxDraftKey=owner=>`draft:${owner}`;
+export function sampleRequestDetails(details={},customer={}){
+ return Object.fromEntries(['name','email','telephone','address','note'].map(key=>[key,String(details?.[key]??customer?.[key]??'').slice(0,{name:160,email:254,telephone:60,address:600,note:2000}[key])]));
+}
+export function sampleMailFiles(mail){
+ const decode=(value,type)=>{const bytes=Uint8Array.from(atob(value),c=>c.charCodeAt(0));return new Blob([bytes],{type});};
+ return {message:new File([decode(mail.content,'message/rfc822')],mail.filename,{type:'message/rfc822'}),attachments:(mail.files||[]).map(f=>new File([decode(f.content,f.type)],f.filename,{type:f.type}))};
+}
+export function sampleMailto(mail){
+ return 'mailto:'+mail.to.join(',')+'?'+new URLSearchParams({cc:mail.cc.join(','),subject:mail.subject,body:mail.text}).toString().replace(/\+/g,'%20');
+}
+export function sampleReviewTable(q){
+ const table=(title,heads,rows)=>rows.length?`<h3>${title}</h3><div class="es-review-scroll"><table class="es-review-table"><thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`:'';
+ const picture=r=>r.image?`<img src="${esc(new URL(r.image,'https://leroyfactory.fr/').href)}" alt="${esc(r.reference)}" width="70" style="max-height:90px;object-fit:contain">`:'Visuel à confirmer';
+ const article=r=>`${esc(r.reference||'Code à confirmer')}<br>${esc(r.collection+' · '+r.description)}`;
+ const vrac=table('Vrac',['Visuel','Référence','Étiquette','Quantité'],q.rows.filter(r=>r.type==='vrac').map(r=>`<tr><td>${picture(r)}</td><td>${esc(r.reference)}</td><td>Avec étiquette</td><td>${r.quantity} ${esc(r.unit)}</td></tr>`));
+ const box=table('Box expo',['Référence / article','Quantité','Remise','À payer HT'],q.rows.filter(r=>r.type==='box').map(r=>`<tr><td>${article(r)}</td><td>${r.quantity} ${esc(r.unit)}<br>${r.boxes} boîte(s)</td><td>50 %</td><td>${money(r.totalHT)}</td></tr>`));
+ const merch=table('Merchandising',['Visuel','Référence','Quantité'],q.rows.filter(r=>r.type==='merchandising').map(r=>`<tr><td>${picture(r)}</td><td>${article(r)}</td><td>${r.quantity} ${esc(r.unit)}</td></tr>`));
+ return vrac+box+merch+(box?`<p><strong>${q.incomplete?'Sous-total à payer HT connu':'À payer HT'} : ${money(q.subtotalHT)}</strong>${q.profiles?'<br>Profilés : '+q.profiles.toFixed(2)+' ml · prix à confirmer':''}</p>`:'');
+}
 export function readSampleSelection(storage,{owner,customer={},isAgent=false,targetClientId=''}){
  const key=selectionStorageKey(owner),current=storage.getItem(key);
  if(current!==null)return {selection:JSON.parse(current),legacyKey:null};

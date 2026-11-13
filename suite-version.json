@@ -428,7 +428,7 @@
       "firstCampaign": "elios"
     },
     "eliosSamples": {
-      "releaseId": "20261112-elios-samples-v2",
+      "releaseId": "20261113-elios-samples-client-mail-v7",
       "page": "echantillons-elios.html",
       "paths": [
         "vrac",
@@ -457,7 +457,8 @@
         "costRule": "merchandising value + 50% of exhibition net HT",
         "access": "verified-agents-only",
         "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/eliosExpoBudget"
-      }
+      },
+      "clientMail": true
     },
     "saxso": {
       "releaseId": "20261112-saxso-published1",
@@ -765,7 +766,7 @@
     "firebaseReleaseMode": "manual"
   },
   "eliosSamples": {
-    "releaseId": "20261113-elios-samples-box-mobile-v6",
+    "releaseId": "20261113-elios-samples-client-mail-v7",
     "lrfAuthenticationRequired": true,
     "dependentFormatFilter": true,
     "chevronPreviewShape": true,
@@ -779,6 +780,7 @@
     "agentClientSelection": "verified Jerome and Coryne only",
     "woodDefaultPattern": "third",
     "webglVisualVerification": false,
-    "materialImagesOnly": true
+    "materialImagesOnly": true,
+    "clientMail": true
   }
 }

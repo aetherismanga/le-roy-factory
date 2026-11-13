@@ -16,5 +16,5 @@ test('a complete email includes the box HD, the vrac photo and the merchandising
  const quote=C.buildQuote([{type:'box',key:'tile',quantity:2},{type:'vrac',key:'tile',quantity:1,image:'https://attacker.invalid/photo'},{type:'merchandising',key:'kit',quantity:2}],catalogue,{tile:{purchaseHT:12}});
  quote.rows[1].imageCID='tile@lrf';quote.rows[2].imageCID='kit@lrf';
  const html=C.mailHTML({reference:'QA-ONLY',title:'Projet test',account:{societe:'Magasin test'},contact:{name:'Contact',email:'qa@example.invalid',address:'Adresse de test'},quote,box:true});
- assert(html.includes('cid:elios-box-hd@leroyfactory.fr'));assert(html.includes('cid:tile@lrf'));assert(html.includes('cid:kit@lrf'));assert(html.includes('Vrac avec étiquette'));assert(html.includes('Merchandising'));assert(html.includes('2 boîte(s)'));assert(!html.includes('attacker.invalid'));assert.equal(quote.rows.length,3);assert.equal(quote.subtotalHT,17.28);
+ assert(html.includes('cid:elios-box-hd@leroyfactory.fr'));assert(html.includes('cid:tile@lrf'));assert(html.includes('cid:kit@lrf'));assert(html.includes('Échantillons en vrac'));assert(html.includes('Avec étiquette'));assert(html.includes('Merchandising'));assert(html.includes('2 boîte(s)'));assert(!html.includes('attacker.invalid'));assert.equal(quote.rows.length,3);assert.equal(quote.subtotalHT,17.28);
 });
