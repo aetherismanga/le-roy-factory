@@ -4,7 +4,7 @@ import {captureUnrealState,changedTransforms,sceneChanges} from './unreal-sync.j
 
 export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision,prepareTextures,startSession,onFailure}){
  let enabled=false,session=null,socket=null,stream=null,exporting=false,loadedRevision=-1,seenRevision=-1,changedAt=0,timer=null,token=0,sceneReady=false,lastVisibility='',visibilityAt=0;
- let acknowledged=null,importRevision=null,awaitingScene=false,motionFrame=0,lastCamera='',cameraAt=0,lastExamined=-1;
+ let acknowledged=null,importRevision=null,awaitingScene=false,motionFrame=0,lastCamera='',cameraAt=0,lastExamined=-1,videoReady=false,sessionStarted=0;
  const metrics={exports:0,skippedImports:0,transformPatches:0,materialPatches:0,cachedCommits:0,importedMeshes:0,lastChangeMs:0,lastMaterialMs:0,cameraMessages:0};
  let apiBase='',accessToken='';
  const remoteFetch=(url,options={})=>fetch(apiBase?new URL(url,apiBase).href:url,{...options,credentials:apiBase?'omit':'same-origin',headers:{...(options.headers||{}),...(accessToken?{Authorization:'Bearer '+accessToken}:{})}});
@@ -54,6 +54,7 @@ export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision,pr
   motionFrame=requestAnimationFrame(cameraTick);
  }
  function tick(){
+  if(enabled&&!videoReady){const video=layer.querySelector('video');if(sceneReady&&video?.readyState>=2&&video.videoWidth){videoReady=true;layer.hidden=false;}else if(sessionStarted&&performance.now()-sessionStarted>60000){fail(Error('La connexion vidéo Unreal n’a pas abouti. Réessayez sur un autre réseau.'));return;}}
   if(!enabled)return;if(socket?.readyState===1){const hidden=hiddenSceneMeshes(scene),signature=hidden.join();if(signature!==lastVisibility||performance.now()-visibilityAt>1000){socket.send(JSON.stringify({type:'visibility',hidden}));lastVisibility=signature;visibilityAt=performance.now();}}
   const revision=getRevision();if(revision!==seenRevision){seenRevision=revision;changedAt=performance.now();}
   if(!exporting&&!awaitingScene&&acknowledged&&revision!==lastExamined){const snapshot=captureUnrealState(scene),changes=sceneChanges(acknowledged,snapshot);lastExamined=revision;if(protocol===2?!changes.replace.size&&!changes.remove.length:snapshot.signature===acknowledged.signature){applyPatch(snapshot);if(loadedRevision!==revision)metrics.skippedImports++;loadedRevision=revision;}}
@@ -65,8 +66,10 @@ export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision,pr
   try{
    const info=startSession?await startSession({app,aspect:camera.aspect}):await request('/unreal/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({app,aspect:camera.aspect})});
    if(!enabled||current!==token){fetch(new URL(`/unreal/${info.session}/close`,info.apiBase||location.origin),{method:'POST',headers:info.accessToken?{Authorization:'Bearer '+info.accessToken}:{}}).catch(()=>{});return;}apiBase=info.apiBase||'';accessToken=info.accessToken||'';if(startSession&&(!/^https:\/\//.test(apiBase)||!info.bridgeUrl?.startsWith('wss://')||!info.signallingUrl?.startsWith('wss://')||!accessToken))throw Error('Connexion sécurisée au rendu indisponible.');session=info.session;protocol=info.protocol===2?2:1;
-   socket=new WebSocket(info.bridgeUrl||`ws://${location.hostname}:${info.bridgePort}/client?session=${session}`);
-   socket.onmessage=event=>{const d=JSON.parse(event.data);if(d.type==='materialReady')metrics.lastMaterialMs=Math.round(performance.now()-d.updateId);if(d.type==='sceneReady'){if(d.cacheReset)knownResources.clear();else for(const key of pendingResources)knownResources.add(key);pendingResources=[];metrics.lastChangeMs=Math.round(performance.now()-pendingStarted);sceneReady=true;awaitingScene=false;lastExamined=-1;layer.hidden=false;status(`Unreal Engine · scène complète · ${d.meshes} objets`);}if(d.type==='sceneError'||d.type==='error')fail(Error(d.message||'La scène n’a pas pu être importée.'));if(d.type==='stats'&&sceneReady&&!d.importing&&!exporting&&!awaitingScene)status(`Unreal Engine · scène complète · ${Math.round(d.fps)} images/s`);};
+   sessionStarted=performance.now();socket=new WebSocket(info.bridgeUrl||`ws://${location.hostname}:${info.bridgePort}/client?session=${session}`);
+   socket.onerror=()=>{if(enabled&&current===token)fail(Error('Connexion au PC de rendu interrompue.'));};
+   socket.onclose=()=>{if(enabled&&current===token)fail(Error('La session Unreal est terminée. Vous pouvez la relancer.'));};
+   socket.onmessage=event=>{const d=JSON.parse(event.data);if(d.type==='materialReady')metrics.lastMaterialMs=Math.round(performance.now()-d.updateId);if(d.type==='sceneReady'){if(d.cacheReset)knownResources.clear();else for(const key of pendingResources)knownResources.add(key);pendingResources=[];metrics.lastChangeMs=Math.round(performance.now()-pendingStarted);sceneReady=true;awaitingScene=false;lastExamined=-1;status(`Unreal Engine · scène complète · ${d.meshes} objets`);}if(d.type==='sceneError'||d.type==='error')fail(Error(d.message||'La scène n’a pas pu être importée.'));if(d.type==='stats'&&sceneReady&&!d.importing&&!exporting&&!awaitingScene)status(`Unreal Engine · scène complète · ${Math.round(d.fps)} images/s`);};
    const {Config,PixelStreaming}=await import('@epicgames-ps/lib-pixelstreamingfrontend-ue5.8');if(!enabled||current!==token)return;
    const config=new Config({useUrlParams:false,initialSettings:{ss:info.signallingUrl||`ws://${location.hostname}:${info.signallingPort}`,StreamerId:session,AutoConnect:false,AutoPlayVideo:true,StartVideoMuted:true,UseMic:false,UseCamera:false,KeyboardInput:false,MouseInput:false,TouchInput:false,GamepadInput:false,MatchViewportRes:false,PreferredCodec:'H264',WebRTCFPS:60,WebRTCMinBitrate:5000,WebRTCMaxBitrate:35000,WaitForStreamer:true,MaxReconnectAttempts:20}});
    stream=new PixelStreaming(config,{videoElementParent:layer});stream.addEventListener('playStreamRejected',()=>{status('Touchez la vue pour démarrer le rendu Unreal.');canvas.addEventListener('pointerdown',()=>stream?.play(),{once:true});});stream.connect();
@@ -75,7 +78,7 @@ export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision,pr
   }catch(error){fail(error);}
  }
  function targetSessionForMetrics(){return session;}
- function disable(){enabled=false;++token;clearInterval(timer);cancelAnimationFrame(motionFrame);timer=null;socket?.close();socket=null;stream?.disconnect();stream=null;layer.replaceChildren();layer.hidden=true;note.hidden=true;sceneReady=false;awaitingScene=false;acknowledged=null;importRevision=null;lastExamined=-1;lastCamera='';knownResources.clear();pendingResources=[];if(session)remoteFetch(`/unreal/${session}/close`,{method:'POST',keepalive:true}).catch(()=>{});session=null;apiBase='';accessToken='';}
+ function disable(){enabled=false;++token;clearInterval(timer);cancelAnimationFrame(motionFrame);timer=null;socket?.close();socket=null;stream?.disconnect();stream=null;layer.replaceChildren();layer.hidden=true;note.hidden=true;sceneReady=false;videoReady=false;sessionStarted=0;awaitingScene=false;acknowledged=null;importRevision=null;lastExamined=-1;lastCamera='';knownResources.clear();pendingResources=[];if(session)remoteFetch(`/unreal/${session}/close`,{method:'POST',keepalive:true}).catch(()=>{});session=null;apiBase='';accessToken='';}
  function capture(){const video=layer.querySelector('video');if(!sceneReady||!video?.videoWidth)throw Error('Attendez que le rendu Unreal soit prêt.');const c=document.createElement('canvas');c.width=video.videoWidth;c.height=video.videoHeight;c.getContext('2d').drawImage(video,0,0);return c.toDataURL('image/png');}
  function previewCapture(filename){
   const data=capture(),video=layer.querySelector('video'),dialog=document.createElement('dialog');
@@ -89,5 +92,5 @@ export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision,pr
   dialog.addEventListener('close',()=>{URL.revokeObjectURL(url);dialog.remove();},{once:true});dialog.append(heading,info,picture,link,close);document.body.append(dialog);dialog.showModal();
  }
  window.addEventListener('pagehide',disable);
- return{enable,disable,capture,previewCapture,get active(){return enabled;},get ready(){return sceneReady;}};
+ return{enable,disable,capture,previewCapture,get active(){return enabled;},get ready(){return sceneReady&&videoReady;}};
 }
