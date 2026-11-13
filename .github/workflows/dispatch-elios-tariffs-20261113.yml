@@ -1,0 +1,97 @@
+# One-time dispatch of the existing, unchanged production release workflow.
+# No Firebase secret is used here. Production approval and all existing checks
+# remain in deploy-firebase-functions.yml. Remove this file after dispatch.
+name: Publish verified Elios tariffs 2026-11-13
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/dispatch-elios-tariffs-20261113.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dispatch-elios-tariffs-20261113
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: >-
+      github.repository == 'aetherismanga/le-roy-factory' &&
+      github.ref == 'refs/heads/main' &&
+      github.event.before == '70c6ddd4a985aa157399aa8d74b6623cf68ffcfd' &&
+      github.event.head_commit.message == 'Release verified Elios tariffs after snapshot test maintenance' &&
+      github.run_attempt == '1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Load the exact reviewed files without production credentials
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: 70c6ddd4a985aa157399aa8d74b6623cf68ffcfd
+        run: |
+          set -euo pipefail
+          for file in functions/elios-samples-core.cjs functions/elios-samples.js scripts/test-comptes-rendus-snapshots.cjs comptes-rendus.html assets/js/crm-report-core.mjs assets/js/crm-report-export-core.mjs assets/js/crm-report-partners.mjs; do
+            mkdir -p "$(dirname "$file")"
+            gh api "repos/${GITHUB_REPOSITORY}/contents/${file}?ref=${SOURCE_SHA}" --jq .content | base64 --decode > "$file"
+          done
+      - name: Verify maintained CRM tests against the unchanged application
+        run: node --test scripts/test-comptes-rendus-snapshots.cjs
+      - name: Verify exact SKU prices and a single 50 percent box reduction
+        run: |
+          set -euo pipefail
+          node - <<'JS'
+          const assert=require('node:assert/strict');
+          const fs=require('node:fs');
+          const C=require('./functions/elios-samples-core.cjs');
+          // Synthetic test data only, not confidential supplier prices.
+          const catalogue={budgetYear:2027,merchandising:[],products:[
+            {key:'ELIOS|TEST001',reference:'TEST001',collection:'Dynasty',slug:'dynasty',color:'Example',format:'60x120',finish:'3D Honed',packVerified:true,packArea:1.44,packPieces:2,vrac:true},
+            {key:'ELIOS|TEST002',reference:'TEST002',collection:'Dynasty',slug:'dynasty',color:'Example decor',format:'30x30',finish:'3D Honed',packVerified:true,packArea:0.99,packPieces:11,vrac:true},
+            {key:'ELIOS|TEST003',reference:'TEST003',collection:'Dynasty',slug:'dynasty',color:'Example R10',format:'60x120',finish:'R10',packVerified:true,packArea:1.44,packPieces:2,vrac:true}
+          ]};
+          const rates=C.currentPrices(catalogue,{}, {'dynasty|60x120|standard':{amount:9.99}}, {TEST001:31.46,TEST002:45.18});
+          assert.equal(rates['ELIOS|TEST001'].purchaseHT,31.46);
+          assert.equal(rates['ELIOS|TEST002'].purchaseHT,45.18);
+          assert.equal(rates['ELIOS|TEST003'],undefined);
+          const quote=C.buildQuote([{type:'box',key:'ELIOS|TEST001',quantity:2},{type:'box',key:'ELIOS|TEST002',quantity:1}],catalogue,rates);
+          assert.equal(quote.rows[0].netHT,31.46);
+          assert.equal(quote.rows[0].unitHT,15.73);
+          assert.equal(quote.rows[0].boxes,2);
+          assert.equal(quote.rows[0].quantity,2.88);
+          assert.equal(quote.rows[0].totalHT,45.3);
+          assert.equal(quote.rows[1].unitHT,22.59);
+          assert.equal(quote.rows[1].quantity,1.98);
+          assert.equal(quote.rows[1].totalHT,44.73);
+          assert.equal(quote.totalHT,90.03);
+          assert.equal(C.buildQuote([{type:'vrac',key:'ELIOS|TEST001',quantity:1}],catalogue,rates).totalHT,0);
+          assert.equal(C.buildQuote([{type:'box',key:'ELIOS|TEST003',quantity:1}],catalogue,rates).incomplete,true);
+          assert.match(fs.readFileSync('./functions/elios-samples.js','utf8'),/C\.currentPrices\(catalogue,exact,rates\.elios\|\|\{\},rates\.eliosExact\|\|\{\}\)/);
+          console.log('PASS: exact references, one 50% discount, complete cartons, free eligible samples, unknown finish remains unpriced.');
+          JS
+  dispatch:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Dispatch the original workflow with the approved Elios scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REVIEWED_PARENT: 70c6ddd4a985aa157399aa8d74b6623cf68ffcfd
+        run: |
+          set -euo pipefail
+          head=$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq .object.sha)
+          test "$head" = "$GITHUB_SHA"
+          parent=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}" --jq '.parents[0].sha')
+          test "$parent" = "$REVIEWED_PARENT"
+          files=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}" --jq '[.files[].filename] | join("\n")')
+          test "$files" = '.github/workflows/dispatch-elios-tariffs-20261113.yml'
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/workflows/deploy-firebase-functions.yml/dispatches" --input - <<'JSON'
+          {"ref":"main","inputs":{"confirm_production":"CONFIRMER-PRODUCTION","function_group":"elios-samples"}}
+          JSON
+          printf '%s\n' 'Elios release requested through the existing workflow; production environment approvals and all release checks remain enabled.' >> "$GITHUB_STEP_SUMMARY"
