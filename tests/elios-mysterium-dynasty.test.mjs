@@ -56,7 +56,7 @@ test('Dynasty 60x120 exposes seven R10 samples and seven independent Honed SKUs 
   const free=buildQuote([{type:'vrac',key:r10.key,quantity:1}],samples,{});
   assert.equal(free.totalHT,0);assert.equal(free.rows[0].reference,reference);assert(free.rows[0].label);
   const quote=buildQuote([{type:'box',key:r10.key,quantity:2}],samples,{[r10.key]:{purchaseHT:30}});
-  assert.equal(quote.rows[0].boxes,2);assert.equal(quote.rows[0].quantity,2.88);assert.equal(quote.totalHT,43.2);
+  assert.equal(quote.rows[0].boxes,2);assert.equal(quote.rows[0].quantity,2.88);assert.equal(quote.totalHT,45.22);
  }
  assert.deepEqual(samples,read('functions/elios-samples-catalogue.json'));
 });

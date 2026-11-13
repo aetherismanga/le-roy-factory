@@ -4,21 +4,22 @@ const C=require('../elios-samples-core.cjs');
 const catalogue={budgetYear:2027,products:[{key:'ELIOS|synthetic',reference:'synthetic',collection:'Exemple',color:'Beige',format:'60x60',finish:'R10',packVerified:true,packArea:1.44,packPieces:4,vrac:true},{key:'ELIOS|other',reference:'other',collection:'Exemple',packVerified:false,vrac:false}],merchandising:[{id:'kit-synthetic',reference:'KIT',collection:'Exemple',description:'Kit exemple',valueUnitHT:170},{id:'kit-unpriced',reference:'UNKNOWN',collection:'Exemple',description:'Prix non confirmé'}]};
 test('exhibition is 50% of the current net HT, rounded to full boxes and line cents',()=>{
  const q=C.buildQuote([{type:'box',key:'ELIOS|synthetic',quantity:2}],catalogue,{'ELIOS|synthetic':{purchaseHT:12}});
- assert.equal(q.rows[0].boxes,2);assert.equal(q.rows[0].quantity,2.88);assert.equal(q.rows[0].unitHT,6);assert.equal(q.totalHT,17.28);
- const changed=C.buildQuote([{type:'box',key:'ELIOS|synthetic',quantity:1.44}],catalogue,{'ELIOS|synthetic':{purchaseHT:22}});assert.equal(changed.rows[0].unitHT,11);assert.equal(changed.totalHT,15.84);
+ assert.equal(q.rows[0].boxes,2);assert.equal(q.rows[0].quantity,2.88);assert.equal(q.rows[0].unitHT,6);assert.equal(q.totalHT,19.3);
+ const changed=C.buildQuote([{type:'box',key:'ELIOS|synthetic',quantity:1.44}],catalogue,{'ELIOS|synthetic':{purchaseHT:22}});assert.equal(changed.rows[0].unitHT,11);assert.equal(changed.totalHT,16.85);
 });
 test('client amounts, discounts and reference names never override the canonical catalogue',()=>{
- const q=C.buildQuote([{type:'box',key:'ELIOS|synthetic',quantity:1.44,totalHT:0,netHT:1,discount:100,reference:'forged'}],catalogue,{'ELIOS|synthetic':{purchaseHT:12}});assert.equal(q.rows[0].reference,'synthetic');assert.equal(q.totalHT,8.64);assert.equal(q.rows[0].discount,50);
+ const q=C.buildQuote([{type:'box',key:'ELIOS|synthetic',quantity:1.44,totalHT:0,netHT:1,discount:100,reference:'forged'}],catalogue,{'ELIOS|synthetic':{purchaseHT:12}});assert.equal(q.rows[0].reference,'synthetic');assert.equal(q.totalHT,9.65);assert.equal(q.rows[0].discount,50);
 });
 test('live existing HT tariffs update ordinary SKUs without substituting a base price for a decor',()=>{
  const c={products:[{key:'base',slug:'azuli-mood',format:'5x15',finish:'8,5 mm',color:'Chalk'},{key:'decor',slug:'allure',format:'60x120',color:'Fenix Blueberry'},{key:'outdoor',slug:'shell',format:'60x60',finish:'20 mm'}]};
  const prices=C.currentPrices(c,{base:{purchaseHT:10},decor:{purchaseHT:22}},{'azulimood|5x15|standard':{amount:12,label:'12 € net/m²'},'allure|60x120|standard':{amount:12},'shell|60x60|20':{amount:20}});
  assert.equal(prices.base.purchaseHT,12);assert.equal(prices.decor.purchaseHT,22);assert.equal(prices.outdoor.purchaseHT,20);
 });
-test('vrac permits exactly one labelled piece on the supplier allowlist',()=>{
+test('vrac permits one or two labelled pieces on the supplier allowlist',()=>{
  assert.equal(C.buildQuote([{type:'vrac',key:'ELIOS|synthetic',quantity:1,label:false}],catalogue).totalHT,0);
  assert.equal(C.buildQuote([{type:'vrac',key:'ELIOS|synthetic',quantity:1}],catalogue).rows[0].label,true);
- for(const input of [{type:'vrac',key:'ELIOS|synthetic',quantity:2},{type:'vrac',key:'ELIOS|other',quantity:1},{type:'vrac',key:'unknown',quantity:1}])assert.throws(()=>C.buildQuote([input],catalogue));
+ assert.equal(C.buildQuote([{type:'vrac',key:'ELIOS|synthetic',quantity:2}],catalogue).rows[0].quantity,2);
+ for(const input of [{type:'vrac',key:'ELIOS|synthetic',quantity:3},{type:'vrac',key:'ELIOS|other',quantity:1},{type:'vrac',key:'unknown',quantity:1}])assert.throws(()=>C.buildQuote([input],catalogue));
 });
 test('missing box rates and profile costs keep the payable total incomplete',()=>{
  const q=C.buildQuote([{type:'box',key:'ELIOS|synthetic',quantity:1}],catalogue,{});assert.equal(q.totalHT,null);assert.equal(q.incomplete,true);
@@ -28,7 +29,7 @@ test('missing box rates and profile costs keep the payable total incomplete',()=
 test('merchandising canonical value is displayed separately and never billed or approved by the browser',()=>{
  const rows=[{type:'merchandising',key:'kit-synthetic',quantity:2,valueUnitHT:1,unitHT:100,totalHT:200,factoryApproved:true},{type:'box',key:'ELIOS|synthetic',quantity:1.44}];
  const q=C.buildQuote(rows,catalogue,{'ELIOS|synthetic':{purchaseHT:12}});
- assert.equal(q.totalHT,8.64);assert.equal(q.merchandisingValueHT,340);assert.equal(q.merchandisingValueIncomplete,false);assert.equal(q.budgetYear,2027);
+ assert.equal(q.totalHT,9.65);assert.equal(q.merchandisingValueHT,340);assert.equal(q.merchandisingValueIncomplete,false);assert.equal(q.budgetYear,2027);
  assert.equal(q.rows[0].valueUnitHT,170);assert.equal(q.rows[0].valueTotalHT,340);assert.equal(q.rows[0].payable,false);assert.equal(q.rows[0].factoryApprovalRequired,true);assert.equal(q.rows[0].factoryApproved,undefined);
  const html=C.mailHTML({reference:'TEST',account:{societe:'Test'},contact:{name:'Test',email:'test@example.invalid',address:'Test'},quote:q,title:'Test',box:true});
  assert(!html.includes('340,00'));assert(html.includes('Montant à payer HT'));assert(html.includes('<h3>Merchandising</h3>'));assert(!html.includes('7 %'));

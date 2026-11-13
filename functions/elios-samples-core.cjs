@@ -1,5 +1,6 @@
 'use strict';
 const crypto=require('node:crypto');
+const {withSampleCharges,sampleChargesHTML,sampleChargesText}=require('./elios-samples-options.cjs');
 const TO=Object.freeze(['ctoni@eliosceramica.it']);
 const CC=Object.freeze(['glebreton@eliosceramica.it','jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
 const RECIPIENTS=Object.freeze([...TO,...CC]);
@@ -47,8 +48,8 @@ function normalizedLines(input,catalogue,prices={}){
   const product=(raw.type==='merchandising'?merch:products).get(id);if(!product)throw fail('Référence ELIOS inconnue.');
   const base={type:raw.type,key:id,reference:product.reference,collection:product.collection,description:product.description||[product.color,product.format,product.finish].filter(Boolean).join(' · '),image:product.image||product.images?.[0]?.image||'',unit:'pièce'};
   if(raw.type==='vrac'){
-   if(product.vrac!==true||Number(raw.quantity)!==1)throw fail('Le vrac est limité à une pièce par référence de la liste fabricant.');
-   return {...base,sampleReference:product.sampleReference,quantity:1,label:true,netHT:0,discount:0,unitHT:0,totalHT:0};
+   if(product.vrac!==true||![1,2].includes(Number(raw.quantity)))throw fail('Le vrac est limité à 1 ou 2 pièces par référence éligible.');
+   return {...base,sampleReference:product.sampleReference,quantity:Number(raw.quantity),label:true,netHT:0,discount:0,unitHT:0,totalHT:0};
   }
   const quantity=Number(raw.quantity);if(!Number.isFinite(quantity)||quantity<=0||quantity>10000)throw fail('Quantité incorrecte.');
   if(raw.type==='merchandising'){
@@ -67,7 +68,7 @@ function normalizedLines(input,catalogue,prices={}){
   return {...base,unit:'m²',requested:quantity,quantity:ordered,boxes,pieces:boxes*product.packPieces,packArea:product.packArea,netHT,discount:50,unitHT,totalHT:unitHT===null?null:round(ordered*unitHT)};
  });
 }
-function buildQuote(input,catalogue,prices,profiles=0){
+function buildQuote(input,catalogue,prices,profiles=0,installationRequested=false){
  const rows=normalizedLines(input,catalogue,prices),metres=Number(profiles)||0;
  if(!Number.isFinite(metres)||metres<0||metres>1000)throw fail('Métré de profilés incorrect.');
  const incomplete=rows.some(row=>row.totalHT===null)||metres>0;
@@ -75,7 +76,7 @@ function buildQuote(input,catalogue,prices,profiles=0){
  const merchandisingValueIncomplete=merchandising.some(row=>row.valueTotalHT===null);
  const merchandisingValueHT=round(merchandising.reduce((sum,row)=>sum+(row.valueTotalHT??0),0));
  const budgetYear=Number.isInteger(catalogue.budgetYear)&&catalogue.budgetYear>=2026&&catalogue.budgetYear<=2100?catalogue.budgetYear:2027;
- return {rows,profiles:metres,discount:50,budgetYear,subtotalHT:round(rows.reduce((s,row)=>s+(row.totalHT??0),0)),totalHT:incomplete?null:round(rows.reduce((s,row)=>s+row.totalHT,0)),incomplete,merchandisingValueHT,merchandisingValueIncomplete,notice:'Demande soumise à validation Elios. Le merchandising est valorisé à titre indicatif, hors montant à payer ; son attribution reste à la décision de l’usine. Hors pose, transport et profilés ; boîtes complètes. Vrac : une pièce avec étiquette.'};
+ return withSampleCharges({rows,profiles:metres,discount:50,budgetYear,subtotalHT:round(rows.reduce((s,row)=>s+(row.totalHT??0),0)),totalHT:incomplete?null:round(rows.reduce((s,row)=>s+row.totalHT,0)),incomplete,merchandisingValueHT,merchandisingValueIncomplete,notice:'Demande soumise à validation Elios. Le merchandising est valorisé à titre indicatif, hors montant à payer ; son attribution reste à la décision de l’usine. Hors pose, transport et profilés ; boîtes complètes. Vrac : 1 ou 2 pièces avec étiquette.'},installationRequested);
 }
 function checkedProject(input){
  if(!input||input.version!==2||!input.room||!Array.isArray(input.room.points)||input.room.points.length<3||input.room.points.length>12||!Array.isArray(input.items)||input.items.length>32||JSON.stringify(input).length>100000)throw fail('Le projet de box est invalide.');
@@ -92,7 +93,7 @@ function pngAttachment(value){
  if(width<1920||height<400||width>8192||height>8192||width*height>16777216)throw fail('La capture doit mesurer au moins 1920 pixels de large.');
  return {bytes,width,height,sha256:crypto.createHash('sha256').update(bytes).digest('hex')};
 }
-function requestFingerprint(payload,account){return crypto.createHash('sha256').update(JSON.stringify({owner:account.owner,lines:payload.items,project:payload.project||null,visual:payload.visual?crypto.createHash('sha256').update(payload.visual).digest('hex'):null,contact:payload.contact,profiles:payload.profiles||0,title:text(payload.title,100),note:text(payload.note,2000)})).digest('hex');}
+function requestFingerprint(payload,account){return crypto.createHash('sha256').update(JSON.stringify({owner:account.owner,lines:payload.items,installationRequested:payload.installationRequested===true,project:payload.project||null,visual:payload.visual?crypto.createHash('sha256').update(payload.visual).digest('hex'):null,contact:payload.contact,profiles:payload.profiles||0,title:text(payload.title,100),note:text(payload.note,2000)})).digest('hex');}
 function mailHTML({reference,account,contact,quote,title,note,box}){
  const imageFor=row=>{const src=row.imageCID?'cid:'+row.imageCID:require('./elios-samples-images.cjs').publicImageURL(row.image);return src?`<img src="${esc(src)}" alt="${esc(row.collection+' · '+row.reference)}" width="90" style="display:block;max-width:90px;max-height:100px;object-fit:contain">`:'Visuel à confirmer';};
  const table=(heading,heads,rows)=>rows.length?`<h3>${heading}</h3><table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;border-color:#dedbd1"><thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table>`:'';
@@ -100,10 +101,10 @@ function mailHTML({reference,account,contact,quote,title,note,box}){
  const vrac=table('Échantillons en vrac',['Visuel','Référence du carreau','Étiquette','Quantité'],quote.rows.filter(r=>r.type==='vrac').map(r=>`<tr><td>${imageFor(r)}</td><td>${esc(r.reference)}</td><td>Avec étiquette</td><td>${esc(r.quantity)} ${esc(r.unit)}</td></tr>`));
  const expo=table('Box expo',['Visuel','Référence du carreau','Quantité','Remise','PU HT','À payer HT'],quote.rows.filter(r=>r.type==='box').map(r=>`<tr><td>${imageFor(r)}</td><td>${article(r)}</td><td>${esc(r.quantity)} ${esc(r.unit)}<br>${r.boxes} boîte(s) · ${r.pieces} pièces</td><td>−50 %</td><td>${money(r.unitHT)}</td><td>${money(r.totalHT)}</td></tr>`));
  const merch=table('Merchandising',['Visuel','Référence','Quantité'],quote.rows.filter(r=>r.type==='merchandising').map(r=>`<tr><td>${imageFor(r)}</td><td>${article(r)}</td><td>${esc(r.quantity)} ${esc(r.unit)}</td></tr>`));
- return `<div style="font:14px/1.6 Arial,sans-serif;color:#232b25"><h2>Demande ELIOS — ${esc(title)}</h2><p>Bonjour Caterina,</p><p>Merci de confirmer la demande ci-dessous et les délais.</p><p><b>${esc(account.societe)}</b>${account.codeClient?' · '+esc(account.codeClient):''}<br>${esc(contact.name)} · ${esc(contact.email)} · ${esc(contact.telephone)}<br>Livraison : ${esc(contact.address)}</p>${vrac}${expo}${merch}${quote.rows.some(r=>r.type==='box')?`<p><b>${quote.incomplete?'Sous-total à payer HT renseigné':'Montant à payer HT'} : ${money(quote.subtotalHT)}</b></p>${quote.profiles?`<p>Profilés : ${esc(quote.profiles)} ml — prix à confirmer, hors sous-total.</p>`:''}<p>Demande soumise à validation Elios. Hors pose et transport ; boîtes complètes.</p>${box?'<h3>Votre box expo</h3><img src="cid:elios-box-hd@leroyfactory.fr" alt="Visuel HD du box expo" width="680" style="display:block;width:100%;max-width:680px;height:auto"><p>Le visuel HD du box et sa configuration importable sont joints. Les métrés restent indicatifs.</p>':''}`:''}${note?`<p>Observations : ${esc(note)}</p>`:''}<p>Référence de la demande : ${esc(reference)}</p><p>${esc(contact.name)}<br>${esc(account.societe)}</p></div>`;
+ return `<div style="font:14px/1.6 Arial,sans-serif;color:#232b25"><h2>Demande ELIOS — ${esc(title)}</h2><p>Bonjour Caterina,</p><p>Merci de confirmer la demande ci-dessous et les délais.</p><p><b>${esc(account.societe)}</b>${account.codeClient?' · '+esc(account.codeClient):''}<br>${esc(contact.name)} · ${esc(contact.email)} · ${esc(contact.telephone)}<br>Livraison : ${esc(contact.address)}</p>${vrac}${expo}${merch}${quote.rows.some(r=>r.type==='box')?`${sampleChargesHTML(quote)}${box?'<h3>Votre box expo</h3><img src="cid:elios-box-hd@leroyfactory.fr" alt="Visuel HD du box expo" width="680" style="display:block;width:100%;max-width:680px;height:auto"><p>Le visuel HD du box et sa configuration importable sont joints. Les métrés restent indicatifs.</p>':''}`:''}${note?`<p>Observations : ${esc(note)}</p>`:''}<p>Référence de la demande : ${esc(reference)}</p><p>${esc(contact.name)}<br>${esc(account.societe)}</p></div>`;
 }
 function mailText({reference,account,contact,quote,note}){
  const lines=quote.rows.map(r=>[r.type==='vrac'?'Vrac avec étiquette':r.type==='box'?'Box expo':'Merchandising',r.reference,r.type==='vrac'?'':r.collection,r.type==='vrac'?'':r.description,`${r.quantity} ${r.unit}`,r.type==='box'?`−50 % · ${money(r.totalHT)} HT`:'',require('./elios-samples-images.cjs').publicImageURL(r.image)].filter(Boolean).join(' · '));
- return ['Bonjour Caterina,','Merci de confirmer cette demande et les délais.',account.societe,contact.name+' · '+contact.email+' · '+contact.telephone,'Livraison : '+contact.address,...lines,quote.rows.some(r=>r.type==='box')?`Box : ${quote.incomplete?'sous-total':'total'} à payer HT ${money(quote.subtotalHT)}`:'',note?'Observations : '+note:'','Référence : '+reference,contact.name].filter(Boolean).join('\n\n');
+ return ['Bonjour Caterina,','Merci de confirmer cette demande et les délais.',account.societe,contact.name+' · '+contact.email+' · '+contact.telephone,'Livraison : '+contact.address,...lines,sampleChargesText(quote),note?'Observations : '+note:'','Référence : '+reference,contact.name].filter(Boolean).join('\n\n');
 }
 module.exports={sampleCustomer,agentCustomer,TO,CC,RECIPIENTS,VERSION,text,fail,currentPrices,normalizedLines,buildQuote,checkedProject,pngAttachment,requestFingerprint,mailHTML,mailText};
