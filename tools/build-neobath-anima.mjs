@@ -23,6 +23,7 @@ function alias(from,...candidates){const target=candidates.map(p=>join(adapter,p
 for(const name of ['configuration','finishes','model','tops','basins','column','mirrors','catalogue-product-visuals'])alias(name+'.js',name+'.js');
 for(const name of ['catalog','guided','pricing','identity','client','appearance'])alias('commerce/'+name+'.js','commerce/'+name+'.js',name+'.js');
 alias('projects.js','projects.js');
+alias('commerce/unreal-session.js','commerce/unreal-session.js');
 const sessionPath=join(adapter,'session.js');
 if(!existsSync(sessionPath))throw Error('Missing isolated private Studio One session adapter.');
 aliases.set(join(root,'shared/lrf-3d/demo-session.js'),sessionPath);

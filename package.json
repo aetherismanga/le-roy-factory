@@ -20,5 +20,8 @@
   "workspaces": [
     "randal-general",
     "studio-one"
-  ]
+  ],
+  "dependencies": {
+    "@epicgames-ps/lib-pixelstreamingfrontend-ue5.8": "0.1.4"
+  }
 }

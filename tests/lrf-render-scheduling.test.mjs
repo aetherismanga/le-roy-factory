@@ -17,7 +17,7 @@ for(const app of ['studio-one','randal-general']){
  }).join('\n');
  function fixture(){
   const counts={commerce:0,checkpoint:0,raf:0,render:0,lights:0,pause:0};const phases=[];
-  const context=vm.createContext({
+  const context=vm.createContext({unrealRender:null,
    sceneUpdates:{defer:()=>false},refreshCommerce:()=>counts.commerce++,scheduleProjectCheckpoint:()=>counts.checkpoint++,
    fitCompositionLights:()=>counts.lights++,applyArchitecturalGlass(){},lightweightMaterials:{apply(){}},
    performance:{now:()=>1000},requestAnimationFrame:()=>counts.raf++,
@@ -65,7 +65,7 @@ for(const app of ['studio-one','randal-general']){
   const node=ast.body.find(n=>n.type==='FunctionDeclaration'&&n.id.name==='renderDimensions');
   let replacements=0,serialized='';
   const svg={setAttribute(){},get innerHTML(){return serialized;},set innerHTML(value){replacements++;serialized=value.replace('/>','></path>');}};
-  const context=vm.createContext({$:selector=>selector==='#dimension-svg'?svg:{hidden:false},
+  const context=vm.createContext({unrealRender:null,$:selector=>selector==='#dimension-svg'?svg:{hidden:false},
    state:{dimensions:true},selectedDimensions:false,lastDimensionMarkup:null,stage:{clientWidth:800,clientHeight:600},
    composition:{},camera:{},dimensionSegments:()=>[],projectDimensions:()=>[],dimensionMarkup:()=>'<path d="M0 0"/>'});
   vm.runInContext(source.slice(node.start,node.end),context);
