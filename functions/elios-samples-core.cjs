@@ -16,7 +16,7 @@ async function agentCustomer(db,agent,targetClientId){
  if(!client||client.deleted===true||client.archived===true)throw fail('Ce client n’est plus disponible.',404);
  return {...sampleCustomer({...client,id:snap.id||id}),owner:'agent:'+agent.uid+':client:'+id,isAgent:true,createdBy:{uid:agent.uid,email:agent.email}};
 }
-function currentPrices(catalogue,exact={},tariffs={}){
+function currentPrices(catalogue,exact={},tariffs={},exactSku={}){
  const clean=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
  const result={...exact};
  for(const p of catalogue.products){
@@ -24,11 +24,17 @@ function currentPrices(catalogue,exact={},tariffs={}){
   if(!format)continue;
   const key=clean(p.slug||p.collection)+'|'+format[0].replace(/\s/g,'').replace('×','x').toLowerCase()+'|'+(/20\s*mm/i.test(p.finish)?'20':'standard'),rate=tariffs[key];
   if(!rate||!Number.isFinite(rate.amount)||rate.amount<0||rate.amount>1000000||rate.unavailable||rate.locked)continue;
+  if(clean(p.collection)==='dynasty')continue; // Exact finishes and decor SKUs only.
   // A collection-wide base tariff never proves the price of a decor or a
   // special unit. Keep its exact SKU price, or require Elios confirmation.
   if(/décor|decor|fenix|rebel|palm|prestige|intars|duplex/i.test(p.color+' '+p.finish))continue;
   if(rate.label&&/pièce|piece|pce|\/pz|\/ml/i.test(rate.label))continue;
   result[p.key]={purchaseHT:rate.amount};
+ }
+ for(const p of catalogue.products){
+  const ref=String(p.reference||'');
+  const amount=exactSku[ref];
+  if(/^[A-Z0-9]{7,14}$/.test(ref)&&typeof amount==='number'&&Number.isFinite(amount)&&amount>0&&amount<10000)result[p.key]={purchaseHT:amount};
  }
  return result;
 }
