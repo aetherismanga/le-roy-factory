@@ -42,7 +42,7 @@ let browser,page;const checks=[],errors=[],quotes=[];
   for(let i=0;i<count;i++){await panel.getByRole('heading',{name:'Choisissez le mur '+(i+1),exact:true}).waitFor();await choose(wall);await panel.locator('[data-next]').click();}
   await panel.getByRole('heading',{name:'Votre base est prête',exact:true}).waitFor();
   await panel.locator('[data-setup-total]').filter({hasText:'123,45'}).waitFor();
-  const report=await frame.locator('body').evaluate(()=>studioOnePrototype.quantityReport());assert.equal(report.rows.filter(r=>!r.paint&&r.label!=='Sol').length,count);assert(report.groups.every(g=>g.packVerified&&g.boxes>0&&g.orderArea>=g.needed));
+  const report=await frame.locator('body').evaluate(()=>studioOnePrototype.quantityReport());assert.equal(report.rows.filter(r=>!r.paint&&r.label!=='Sol').length,count,JSON.stringify(report.rows.map(r=>({label:r.label,paint:r.paint,area:r.area}))));assert(report.groups.every(g=>g.packVerified&&g.boxes>0&&g.orderArea>=g.needed));
   await panel.getByRole('button',{name:'Accéder aux finitions →',exact:true}).click();assert.equal((await project()).room.expoComplete,true);
   const diagnostics=await frame.locator('body').evaluate(async()=>{await studioOnePrototype.waitForTextures();return studioOnePrototype.getDiagnostics();});assert(diagnostics.drawCalls>0);assert(diagnostics.triangles>0);
   checks.push(count+' pans: native room, numbered dimensions, floor/wall selections, third-offset wood, complete packs and progressive estimate');

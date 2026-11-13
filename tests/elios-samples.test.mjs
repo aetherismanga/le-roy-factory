@@ -25,7 +25,7 @@ test('merchandising photos identify the exact reference and are present at both 
 });
 test('the box default uses native room geometry and exact Elios product identities',()=>{
  const p=defaultBox(),room=makeRoom(p.room,0);try{
-  room.floor.setLayout(p.layouts.floor);const floor=quantityForSurface(room.floor,p.floor,p.layouts.floor,10,'Sol');assert(Math.abs(floor.area-4.8)<1e-8);assert(floor.needed>=5.28);assert.equal(p.items.length,0);
+  room.floor.setLayout(p.layouts.floor);const floor=quantityForSurface(room.floor,p.floor,p.layouts.floor,10,'Sol');assert(Math.abs(floor.area-4.8)<1e-8);assert(floor.needed>=5.28);assert.equal(p.items.length,0);assert.equal(p.plinths.enabled,false);
   for(const finish of [p.floor,...p.walls.filter(w=>w.collection!=='Peinture')]){const product=canonical.products.find(x=>x.key===finish.catalogueKey);assert(product);assert.equal(product.brand,'ELIOS');assert.equal(product.reference,finish.reference);assert.equal(product.colorId,finish.color);}
  }finally{room.dispose();}
 });

@@ -30,7 +30,7 @@ test('one, two and three exhibition walls survive project roundtrip and only rea
  for(const count of [1,2,3]){
   const settings={count,width:240,depth:200,left:180,height1:240,height2:220,height3:200,loss:10},project=exhibitionProject(settings,{floor:floor.key,walls:[wall.key,wall.key,wall.key]});
   assert.deepEqual(cloneRoom(project.room),project.room);const room=makeRoom(project.room,0);room.updateCutaway({clone:()=>({sub:()=>({dot:()=>1})})});
-  assert.equal(room.walls.filter(w=>w.expoEnabled).length,count);assert.equal(room.walls.filter(w=>w.group.visible).length,count);
+  assert.equal(project.plinths.enabled,false);assert.equal(project.plinths.walls['boundary-2'],false);assert.equal(room.walls.filter(w=>w.expoEnabled).length,count);assert.equal(room.walls.filter(w=>w.group.visible).length,count);
   const rows=room.walls.map((w,i)=>quantityForSurface(w,project.walls[i],project.layouts.walls[i],10,w.expoLabel));
   assert.equal(rows.filter(r=>!r.paint).length,count);const expected=2.4*2.4+(count>1?2*2.2:0)+(count>2?1.8*2:0);
   assert(Math.abs(summarizeQuantities(rows).reduce((n,r)=>n+r.area,0)-expected)<1e-6);room.dispose();
