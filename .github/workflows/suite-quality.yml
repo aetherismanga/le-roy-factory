@@ -52,6 +52,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
       - run: npm run build:studio && npm run build:general
+      - run: npm install --prefix functions --ignore-scripts --package-lock=false --no-audit --no-fund
       - run: node --test tests/elios-samples.test.mjs tests/elios-samples-workflow.test.mjs tests/elios-mysterium-dynasty.test.mjs functions/test/elios-samples*.cjs
       - run: node randal-general/qa/mysterium-native-selection.mjs --require-active
       - run: npx playwright install --with-deps chromium
@@ -68,7 +69,9 @@ jobs:
         if: always()
         with:
           name: lrf-elios-box-checks
-          path: reports/lrf-suite/elios-box/
+          path: |
+            reports/lrf-suite/elios-box/
+            reports/lrf-suite/active-configurators/
           retention-days: 14
   legacy-recovery:
     if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'

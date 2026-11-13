@@ -17367,9 +17367,9 @@
         "id": "bianco-aurora",
         "name": "Bianco Aurora",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/bianco-aurora.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/bianco-aurora.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/bianco-aurora.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/bianco-aurora.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -17380,15 +17380,28 @@
           700
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/BIANCO-AURORA_Z.jpg",
+          "sourceSha256": "feaa22acca64c3fe83294411856033e38d2dabb31daffdb0c5918daf03966950",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "marfil",
         "name": "Marfil",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/marfil.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/marfil.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/marfil.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/marfil.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -17399,15 +17412,28 @@
           700
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/MARFIL_Z.jpg",
+          "sourceSha256": "94fdba9d53806f80bf64fbfa5d43b495c0ffd8d60eb6845d5b75c5f72470c320",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "monet",
         "name": "Monet",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/monet.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/monet.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/monet.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/monet.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -17418,15 +17444,28 @@
           700
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/MONET_Z.jpg",
+          "sourceSha256": "fad492fe1e75f531c8c6a65e183c75eb7fc55736c45256a0aa2d29bb42e97a2d",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "alpi",
         "name": "Alpi",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/alpi.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/alpi.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/alpi.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/alpi.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -17437,15 +17476,28 @@
           700
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ALPI_Z.jpg",
+          "sourceSha256": "b59b9c1152386db6f4c3946732990bf5e7bf9cfecd977cfe8a45dc368c37a245",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "calacatta-viola",
         "name": "Calacatta Viola",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/calacatta-viola.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/calacatta-viola.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/calacatta-viola.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/calacatta-viola.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -17456,15 +17508,28 @@
           700
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/CALACATTA-VIOLA_Z.jpg",
+          "sourceSha256": "bc9169657920e3dbb795efc2d68b30a98ce6c1b976881fce33ac18cf4965982a",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "lepanto",
         "name": "Lepanto",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/lepanto.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/lepanto.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/lepanto.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/lepanto.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -17475,15 +17540,28 @@
           700
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/LEPANTO_Z.jpg",
+          "sourceSha256": "55b27745ce6cc1ead2fb4edf2b036c1831e5b968324db9ae9cf41e622abefd03",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "saint-laurent",
         "name": "Saint Laurent",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/saint-laurent.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/saint-laurent.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/saint-laurent.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/saint-laurent.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -17494,7 +17572,20 @@
           700
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/SAINT-LAURENT_Z.jpg",
+          "sourceSha256": "82b365da3d95b2f5279525187a0f81915651ab9add190b791ca667f8154e0a69",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "crown-green",
@@ -18343,7 +18434,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/alpi.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/alpi.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18377,7 +18468,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/lepanto.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/lepanto.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18411,7 +18502,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/marfil.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/marfil.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18445,7 +18536,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/monet.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/monet.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18479,7 +18570,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/saint-laurent.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/saint-laurent.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18513,7 +18604,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/calacatta-viola.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/calacatta-viola.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18547,7 +18638,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/bianco-aurora.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/bianco-aurora.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18581,7 +18672,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/alpi.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/alpi.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18615,7 +18706,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/lepanto.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/lepanto.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18649,7 +18740,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/marfil.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/marfil.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18683,7 +18774,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/monet.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/monet.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18717,7 +18808,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/saint-laurent.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/saint-laurent.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18751,7 +18842,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/calacatta-viola.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/calacatta-viola.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",
@@ -18785,7 +18876,7 @@
         "packVerified": true,
         "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
         "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
-        "preview": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/bianco-aurora.webp",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/bianco-aurora.jpg",
         "priceUnit": "m²",
         "priceTTC": null,
         "priceSource": "",

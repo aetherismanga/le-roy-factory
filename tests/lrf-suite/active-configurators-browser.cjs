@@ -38,7 +38,7 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
   await context.route(/^https:\/\//,async route=>{
    const u=new URL(route.request().url());let dir,relative;
    if(u.hostname==='leroyfactory.fr'&&u.pathname.startsWith('/review-studio/assets/')){dir=roots.studio;relative=u.pathname.slice('/review-studio'.length);}
-   else if(u.hostname==='leroyfactory.fr'&&(u.pathname.startsWith('/assets/img/lrf-plan-pose/faces/')||u.pathname.startsWith('/assets/img/elios-samples-hd/')||u.pathname.startsWith('/assets/img/elios-mysterium-20261113/'))){dir=root;relative=u.pathname;}
+   else if(u.hostname==='leroyfactory.fr'&&(u.pathname.startsWith('/assets/img/lrf-plan-pose/faces/')||u.pathname.startsWith('/assets/img/elios-samples-hd/')||u.pathname.startsWith('/assets/img/elios-mysterium-20261113/')||u.pathname.startsWith('/assets/img/elios-dynasty-20261113/'))){dir=root;relative=u.pathname;}
    else if(u.hostname==='storage.googleapis.com'&&u.pathname.includes('/assets/img/randal/surfaces/elios/dynasty/')){dir=root;relative=u.pathname.slice(u.pathname.indexOf('/assets/img/'));}
    else if(u.hostname==='studio-one-beta-test-v2.vercel.app'){dir=roots.studio;relative=u.pathname;}
    else if(u.hostname==='randal-catalogue-general-3d.vercel.app'){dir=roots.general;relative=u.pathname;}
@@ -94,6 +94,8 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
    await page.evaluate(async spec=>{const app=studioOnePrototype;app.setSurfaceCollection('floor',spec.collection);app.setSurface('floor',spec.color);if(!app.setTileFormat('floor',spec.format))throw Error('New format unavailable: '+JSON.stringify(spec));await app.waitForTextures();},surface);
    const actual=await page.evaluate(()=>{const diagnostics=studioOnePrototype.getDiagnostics(),loaded=diagnostics.textures.surfaces;const textures=Array.isArray(loaded)?loaded:Object.entries(loaded).flatMap(([collection,entries])=>Object.entries(entries).map(([key,data])=>({collection,id:JSON.parse(key)[1],...data})));return {floor:studioOnePrototype.exportProject().floor,drawCalls:diagnostics.drawCalls,textures};});
    assert.equal(actual.floor.collection,surface.collection);assert.equal(actual.floor.color,surface.color);assert.equal(actual.floor.format,surface.format);assert(actual.drawCalls>0);
+   if(surface.collection==='Mysterium')assert.equal(actual.floor.reference,'LB1201');
+   if(surface.collection==='Dynasty'&&surface.format==='60x120')assert.equal(actual.floor.reference,'04N6A10');
    assert(actual.textures.some(texture=>texture.collection===surface.collection&&texture.id===surface.color&&texture.width>32&&texture.height>32),kind+': selected '+surface.collection+' image must be decoded and loaded');
    if(surface.collection==='Stone Icon'){
     const chosen=products.find(p=>p.collection==='Stone Icon'&&p.colorId==='campaspero'&&p.format==='60x60'&&p.finish.includes('Tumbled Grip'));assert(chosen);
@@ -112,9 +114,10 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
    }
    pass(kind+': '+surface.collection+' real texture loading, compatible format'+(surface.collection==='Stone Icon'?', exact Grip SKU and restored finish':''));
   }
-  const decorCapture=await page.evaluate(async()=>{await studioOnePrototype.waitForTextures();const data=await studioOnePrototype.captureHD({width:1920});const image=new Image();image.src=data;await image.decode();return {width:image.naturalWidth,quality:studioOnePrototype.getDiagnostics().qualityProfile};});
+  const decorCapture=await page.evaluate(async()=>{await studioOnePrototype.waitForTextures();const data=await studioOnePrototype.captureHD({width:1920});const image=new Image();image.src=data;await image.decode();return {width:image.naturalWidth,quality:studioOnePrototype.getDiagnostics().qualityProfile,png:data.split(',')[1]};});
   assert.equal(decorCapture.width,1920);assert.equal(decorCapture.quality,'fluid');
-  pass(kind+': native HD capture with the new Dynasty panel restores working quality');
+  fs.writeFileSync(path.join(output,kind+'-mysterium-hd.png'),Buffer.from(decorCapture.png,'base64'));delete decorCapture.png;
+  pass(kind+': native HD Mysterium capture restores working quality');
 
   await verifyPCColumns({page,kind,root,output,pass,restoration});
 

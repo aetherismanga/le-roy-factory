@@ -11,6 +11,7 @@ import hashlib
 import json
 import shutil
 from pathlib import Path
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = 'assets/img/elios-mysterium-20261113/'
@@ -28,7 +29,7 @@ def write(path, value, pretty=False):
                                separators=None if pretty else (',', ':')) + '\n')
 
 
-def integrate(prepared, inventory_file):
+def integrate(prepared, inventory_file, dynasty_rgb_dir=None):
     inventory = read(inventory_file)
     entries = inventory['entries']
     mapping = read(ROOT / 'reports/elios-hd/mysterium-reference-mapping.json')['mysteriumVerified']
@@ -36,6 +37,24 @@ def integrate(prepared, inventory_file):
     manufacturers = read(ROOT / 'shared/lrf-3d/manufacturer-surfaces.json')
     mysterium = next(c for c in manufacturers if c['name'] == 'Mysterium')
     dynasty = next(c for c in manufacturers if c['name'] == 'Dynasty')
+    if dynasty_rgb_dir:
+        for color in dynasty['colors']:
+            if color['id'] not in DYNASTY_COLORS:
+                continue
+            original = dynasty_rgb_dir / (color['id'] + '-official.jpg')
+            with Image.open(original) as image:
+                assert image.mode == 'RGB' and image.size == (1200, 700)
+            relative = 'assets/img/elios-dynasty-20261113/' + color['id'] + '.jpg'
+            destination = ROOT / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(original, destination)
+            color.update(file=ORIGIN + relative, faces=[ORIGIN + relative], resolution=[1200, 700],
+                         nativeFaces=False, textureProvenance={
+                             'kind': 'manufacturer-sample', 'source': color['source'],
+                             'sourceSha256': hashlib.sha256(original.read_bytes()).hexdigest(),
+                             'nativeDimensions': [1200, 700], 'generated': False, 'upscaled': False,
+                             'manufacturerOriginal': True, 'originalBytesPreserved': True,
+                         })
     native_rows = {}
     for ref, item in mapping.items():
         faces = sorted((e for e in entries if e['reference'] == ref), key=lambda e: e['face'])
@@ -117,8 +136,10 @@ def integrate(prepared, inventory_file):
         data = read(ROOT / rel)
         for row in data['products']:
             if row.get('collection') == 'Dynasty' and row.get('format') == '60x120' and not row.get('reference'):
+                color = next(c for c in dynasty['colors'] if c['id'] == row['colorId'])
                 row.update(legacy=True, packPieces=2, packArea=1.44, packVerified=True,
-                           packSource='Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120')
+                           packSource='Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120',
+                           preview=color['file'])
             descriptor = native_rows.get(row.get('reference')) if row.get('collection') == 'Mysterium' else None
             if descriptor:
                 row.update(preview=descriptor['textureVariants']['balanced'][0], nativeFaces=True,
@@ -176,5 +197,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--prepared', type=Path, required=True)
     parser.add_argument('--inventory', type=Path, required=True)
+    parser.add_argument('--dynasty-rgb-dir', type=Path)
     args = parser.parse_args()
-    integrate(args.prepared, args.inventory)
+    integrate(args.prepared, args.inventory, args.dynasty_rgb_dir)
