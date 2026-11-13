@@ -27,7 +27,7 @@ export function mountBoxSetup({api,load,requestQuote,onFinish}){
  const initialSettings=()=>({count:3,includeFloor:true,width:240,depth:200,left:200,height1:240,height2:240,height3:240,loss:10});
  let settings=initialSettings(),selection={floor:'',walls:['','','']},step=0,active=false,quoteTimer=null,revision=0,pickers=[];
  const sampleByKey=new Map(samples.products.map(p=>[p.key,p]));
- const eligible=kind=>products.products.filter(p=>{const c=COLLECTIONS[p.collection],co=c?.colors.find(c=>c.id===p.colorId);return p.brand==='ELIOS'&&p.packVerified&&co?.available3d&&(!c.surfaces||c.surfaces.includes(kind))&&(!co.formats?.length||co.formats.includes(p.format));});
+ const eligible=kind=>products.products.filter(p=>{const c=COLLECTIONS[p.collection],co=c?.colors.find(c=>c.id===p.colorId);return !p.legacy&&p.brand==='ELIOS'&&p.packVerified&&co?.available3d&&(!c.surfaces||c.surfaces.includes(kind))&&(!co.formats?.length||co.formats.includes(p.format));});
  const current=()=>exhibitionSteps(settings)[step];
  function focus(){const part=current();api.boxScene?.frame(part.kind==='floor'?'floor':part.kind==='wall'?'wall':'all',part.wall??null);}
  function update(){const next=exhibitionProject(settings,selection,api.exportProject());if(!load(next))throw Error('Le box ne peut pas être affiché avec ces dimensions.');revision++;focus();renderQuantities();}

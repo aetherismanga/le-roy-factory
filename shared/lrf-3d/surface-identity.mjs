@@ -12,7 +12,10 @@ export function canonicalSurfaceColor(collection,color){
 export function commercialSurfaceOptions(finish,products){
  const color=canonicalSurfaceColor(finish.collection,finish.color||finish.colorId);
  if(!color)return [];
- return products.filter(product=>norm(product.collection)===norm(finish.collection)&&canonicalSurfaceColor(product.collection,product.colorId||product.color)===color&&product.format===finish.format);
+ const matches=products.filter(product=>norm(product.collection)===norm(finish.collection)&&canonicalSurfaceColor(product.collection,product.colorId||product.color)===color&&product.format===finish.format);
+ // Keep historical visual keys readable, but offer actual manufacturer SKUs
+ // once a reviewed table exists for the same colour and physical size.
+ return matches.some(product=>product.reference)?matches.filter(product=>product.reference):matches;
 }
 export function commercialSurfaceProduct(finish,products){
  const options=commercialSurfaceOptions(finish,products);
@@ -22,9 +25,11 @@ export function commercialSurfaceProduct(finish,products){
  // colour. Recover older rows from the source SKU when no finish was stored.
  const source=products.find(product=>product.key===finish.catalogueKey)||products.find(product=>finish.reference&&product.reference===finish.reference),requiredFinish=finish.finish||source?.finish;
  if(requiredFinish)return options.find(product=>product.finish===requiredFinish)||null;
+ if(source&&!source.reference&&norm(source.collection)===norm(finish.collection)&&canonicalSurfaceColor(source.collection,source.colorId||source.color)===colorForFinish(finish)&&source.format===finish.format)return options[0]||null;
  if(finish.catalogueKey||finish.reference)return null;
  return options[0]||null;
 }
+const colorForFinish=finish=>canonicalSurfaceColor(finish.collection,finish.color||finish.colorId);
 
 // Resolve only reviewed aliases. A commercial SKU/finish is never replaced by
 // another SKU when its render colour has a different historical identifier.

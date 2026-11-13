@@ -59,6 +59,8 @@ export function renderSurfaceReferenceSelection(host,{choices,selected,onChange}
  }
  select.onchange=()=>{const product=choices.find(product=>product.key===select.value);if(!product)return;show(product);onChange?.(product.key);};
  row.append(preview,select);label.append(row,caption);host.append(label,note);show(selected);
- const visual=enhanceVisualSelect(select,{label:'Référence & finition',entries:choices.map(product=>({value:product.key,label:(product.reference||'Référence à confirmer')+' · '+product.finish,detail:[product.collection,product.color,product.format&&product.format.replaceAll('x',' × ')+' cm'].filter(Boolean).join(' · '),image:surfaceReferencePreview(product)})),searchPlaceholder:'Rechercher une référence ou une finition'});
+ // A displayed default is not necessarily recorded in the project yet.
+ // Explicitly choosing that same SKU must still confirm its commercial identity.
+ const visual=enhanceVisualSelect(select,{emitUnchanged:true,label:'Référence & finition',entries:choices.map(product=>({value:product.key,label:(product.reference||'Référence à confirmer')+' · '+product.finish,detail:[product.collection,product.color,product.format&&product.format.replaceAll('x',' × ')+' cm'].filter(Boolean).join(' · '),image:surfaceReferencePreview(product)})),searchPlaceholder:'Rechercher une référence ou une finition'});
  return {select,preview,visual};
 }

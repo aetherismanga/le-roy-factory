@@ -30,7 +30,7 @@ function upsertReviewedRows(target,rows,collection,kind){
   if(row.key!==expected&&!(kind==='plinth'&&row.key===collection.brand+'|plinth|'+collection.name+'|'+row.reference))throw Error('Reviewed manufacturer key/reference mismatch: '+row.key);
   const found=target.findIndex(item=>item.key===row.key);
   if(found>=0&&(target[found].reference!==row.reference||target[found].collection!==row.collection))throw Error('Reviewed manufacturer SKU conflicts with an existing product: '+row.key);
-  const reviewed={...row,preview:row.preview||color.file||color.faces?.[0]||'',source:row.source||collection.source,native:false,nativeFaces:false,available3d:color.available3d===true};
+  const reviewed={...row,preview:row.preview||color.file||color.faces?.[0]||'',source:row.source||collection.source,native:row.native===true,nativeFaces:row.nativeFaces===true,available3d:color.available3d===true};
   if(kind!=='plinth')Object.assign(reviewed,{format:format.id,width:format.width*100,height:format.height*100,shape:format.shape||'rectangle'});
   if(found>=0)target[found]={...target[found],...reviewed};else target.push(reviewed);
  }

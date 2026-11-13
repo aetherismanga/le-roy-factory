@@ -44,6 +44,11 @@ for(const product of [...catalogue.products,...review.products]){
  product.textureResolution=choice.resolution;product.definitionLimited=choice.definitionLimited===true;product.continuousDecor=choice.continuousDecor===true;
  product.textureSourceKind=mapped?'reference-face':choice.definitionLimited?'catalogue-sample':'manufacturer-face';enriched++;
  const actualSource=mapped?candidate:choice;
+ if(mapped&&actualSource.textureProvenance?.kind==='manufacturer-portal-original'){
+  product.textureVariants=structuredClone(actualSource.textureVariants);product.faces=structuredClone(actualSource.textureVariants.max);
+  product.textureProvenance=structuredClone(actualSource.textureProvenance);product.textureResolution=actualSource.resolution;
+  product.definitionLimited=actualSource.definitionLimited===true;product.preview=actualSource.textureVariants.balanced[0];
+ }
  if(actualSource.textureProvenance?.kind==='product-platform-image'){
   product.textureProvenance=structuredClone(actualSource.textureProvenance);product.textureSourceKind='product-platform-image';product.definitionLimited=false;
   product.textureResolution=actualSource.resolution;if(mapped)product.faces=structuredClone(candidate.textureVariants.max);

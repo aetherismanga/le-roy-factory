@@ -5,7 +5,7 @@ on:
       suite:
         description: Contrôles à exécuter
         type: choice
-        options: [all, elios-box]
+        options: [all, elios-box, elios-materials]
         default: all
   pull_request:
     branches: [main]
@@ -41,9 +41,10 @@ concurrency:
   group: lrf-quality-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  elios-box:
+  elios-materials:
+    if: github.event_name == 'workflow_dispatch' && inputs.suite == 'elios-materials'
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
@@ -51,8 +52,35 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
-      - run: npm run build:studio
-      - run: node --test tests/elios-samples.test.mjs tests/elios-samples-workflow.test.mjs functions/test/elios-samples*.cjs
+      - run: npm install --prefix functions --ignore-scripts --package-lock=false --no-audit --no-fund
+      - run: npm run build:studio && npm run build:general
+      - run: node tools/build-neobath-anima.mjs
+      - run: node --test tests/elios-mysterium-dynasty.test.mjs tests/elios-samples.test.mjs tests/elios-samples-workflow.test.mjs functions/test/elios-samples*.cjs tests/lrf-plan-pose/*.test.mjs tests/lrf-surface-contract.test.mjs tests/neobath-anima-studio-*.test.mjs tests/neobath-anima-continuous-ui.test.mjs functions/test/neobath-anima*.cjs
+      - run: node randal-general/qa/mysterium-native-selection.mjs --require-active
+      - run: npx playwright install --with-deps chromium
+      - name: Verify exact Dynasty finishes and Mysterium HD in both native ateliers
+        run: node tests/lrf-suite/active-configurators-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lrf-elios-materials-checks
+          path: reports/lrf-suite/active-configurators/
+          retention-days: 14
+  elios-box:
+    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-materials'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm run build:studio && npm run build:general
+      - run: npm install --prefix functions --ignore-scripts --package-lock=false --no-audit --no-fund
+      - run: node --test tests/elios-samples.test.mjs tests/elios-samples-workflow.test.mjs tests/elios-mysterium-dynasty.test.mjs functions/test/elios-samples*.cjs
+      - run: node randal-general/qa/mysterium-native-selection.mjs --require-active
       - run: npx playwright install --with-deps chromium
         id: elios_browser_runtime
       - name: Verify smartphone box, unified save and complete illustrated request
@@ -60,14 +88,19 @@ jobs:
       - name: Verify native Elios box, guided choices, drafts and HD capture
         if: ${{ !cancelled() && steps.elios_browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/elios-box-setup-browser.cjs
+      - name: Verify real HD Mysterium and Dynasty surfaces in both native ateliers
+        if: ${{ !cancelled() && steps.elios_browser_runtime.outcome == 'success' }}
+        run: node tests/lrf-suite/active-configurators-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: lrf-elios-box-checks
-          path: reports/lrf-suite/elios-box/
+          path: |
+            reports/lrf-suite/elios-box/
+            reports/lrf-suite/active-configurators/
           retention-days: 14
   legacy-recovery:
-    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
+    if: github.event_name != 'workflow_dispatch' || inputs.suite == 'all'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -115,7 +148,7 @@ jobs:
           path: reports/lrf-suite/niche-production/
           retention-days: 14
   verify:
-    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
+    if: github.event_name != 'workflow_dispatch' || inputs.suite == 'all'
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:
@@ -142,7 +175,7 @@ jobs:
           retention-days: 14
       # No deployment, credentials, environment pull or production mutation here.
   browser-rendering:
-    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
+    if: github.event_name != 'workflow_dispatch' || inputs.suite == 'all'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -174,7 +207,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   browser-surfaces:
-    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
+    if: github.event_name != 'workflow_dispatch' || inputs.suite == 'all'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -203,7 +236,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   browser-sanitary-commerce:
-    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
+    if: github.event_name != 'workflow_dispatch' || inputs.suite == 'all'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -237,7 +270,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   construction-panels:
-    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
+    if: github.event_name != 'workflow_dispatch' || inputs.suite == 'all'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
@@ -274,7 +307,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   construction-rugs-niches:
-    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
+    if: github.event_name != 'workflow_dispatch' || inputs.suite == 'all'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
@@ -308,7 +341,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   construction-locks-trays:
-    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
+    if: github.event_name != 'workflow_dispatch' || inputs.suite == 'all'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
@@ -345,7 +378,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   opening-and-product-placement:
-    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
+    if: github.event_name != 'workflow_dispatch' || inputs.suite == 'all'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
@@ -379,7 +412,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   public-compositions-and-visits:
-    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
+    if: github.event_name != 'workflow_dispatch' || inputs.suite == 'all'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:

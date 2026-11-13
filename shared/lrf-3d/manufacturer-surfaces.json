@@ -245,7 +245,83 @@
           208
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureVariantsByReference": {
+          "LB1205": {
+            "verified": true,
+            "reference": "LB1205",
+            "colorId": "acqua",
+            "format": "120x278",
+            "nativeFaces": true,
+            "definitionLimited": false,
+            "textureRotation": 0,
+            "resolution": [
+              2780,
+              1200
+            ],
+            "textureVariants": {
+              "fluid": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-001-7ed34dd2823f-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-002-d7bab88357ee-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-003-e294195ac00a-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-004-a3a3eb581708-fluid.webp"
+              ],
+              "balanced": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-001-7ed34dd2823f-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-002-d7bab88357ee-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-003-e294195ac00a-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-004-a3a3eb581708-balanced.webp"
+              ],
+              "max": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-001-7ed34dd2823f-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-002-d7bab88357ee-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-003-e294195ac00a-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-004-a3a3eb581708-max.webp"
+              ]
+            },
+            "textureProvenance": {
+              "kind": "manufacturer-portal-original",
+              "manufacturerOriginal": true,
+              "source": "https://portale.eliosceramica.it/",
+              "folder": "Magnus/Mysterium/Acqua",
+              "reference": "LB1205",
+              "format": "120x278",
+              "referenceAssignmentVerified": true,
+              "generated": false,
+              "upscaled": false,
+              "nativeDimensions": [
+                1200,
+                2780
+              ],
+              "renderDimensions": [
+                2780,
+                1200
+              ],
+              "sourceFiles": [
+                {
+                  "filename": "LB1205@1.jpg",
+                  "sha256": "7ad2e6aebe759cdcaae9331b7e018c852027f0a917d90655cb1b6663144d360e"
+                },
+                {
+                  "filename": "LB1205@2.jpg",
+                  "sha256": "5085f7d32e921a7658d3f2b733820bfc8a1be1d95528a29ee24d5c436bc00a12"
+                },
+                {
+                  "filename": "LB1205@3.jpg",
+                  "sha256": "0671148e8a6628290cba8d9436befdbeb90d1396313ee3f80585421d72c68a91"
+                },
+                {
+                  "filename": "LB1205@4.jpg",
+                  "sha256": "235905522c9ffc6ec48bf91705e5525dc36efef2b1360b59ea3670dd3ae6fb46"
+                }
+              ],
+              "colourConversion": "embedded-icc-to-srgb",
+              "rotateClockwise": 90
+            }
+          }
+        },
+        "preview": "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1205/acqua/120x278/face-001-7ed34dd2823f-balanced.webp",
+        "definitionLimited": true
       },
       {
         "id": "white",
@@ -265,7 +341,83 @@
           208
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureVariantsByReference": {
+          "LB1202": {
+            "verified": true,
+            "reference": "LB1202",
+            "colorId": "white",
+            "format": "120x278",
+            "nativeFaces": true,
+            "definitionLimited": false,
+            "textureRotation": 0,
+            "resolution": [
+              2780,
+              1200
+            ],
+            "textureVariants": {
+              "fluid": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-001-7287c974a1fe-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-002-82f3ddde76e7-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-003-2b69713201a2-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-004-60692fc943b2-fluid.webp"
+              ],
+              "balanced": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-001-7287c974a1fe-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-002-82f3ddde76e7-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-003-2b69713201a2-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-004-60692fc943b2-balanced.webp"
+              ],
+              "max": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-001-7287c974a1fe-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-002-82f3ddde76e7-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-003-2b69713201a2-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-004-60692fc943b2-max.webp"
+              ]
+            },
+            "textureProvenance": {
+              "kind": "manufacturer-portal-original",
+              "manufacturerOriginal": true,
+              "source": "https://portale.eliosceramica.it/",
+              "folder": "Magnus/Mysterium/White",
+              "reference": "LB1202",
+              "format": "120x278",
+              "referenceAssignmentVerified": true,
+              "generated": false,
+              "upscaled": false,
+              "nativeDimensions": [
+                1200,
+                2780
+              ],
+              "renderDimensions": [
+                2780,
+                1200
+              ],
+              "sourceFiles": [
+                {
+                  "filename": "LB1202@1.jpg",
+                  "sha256": "d6bee2d8331a7ec815e1cf9e7bd4868bcbfc3c04edf52d9e217f06b3c237d90b"
+                },
+                {
+                  "filename": "LB1202@2.jpg",
+                  "sha256": "aa0ec8be65db1487a60e054b0d3b4f3785a56c22ac2913b194a36773e19f45b5"
+                },
+                {
+                  "filename": "LB1202@3.jpg",
+                  "sha256": "5bf157dd6e4c848918ca366429a5be331fcec5eb8a8a7302e7c39b9cf0894a71"
+                },
+                {
+                  "filename": "LB1202@4.jpg",
+                  "sha256": "67e43afeeb22f6196db5841532ff1efc2c2384ad4374a89910ad1c6810a91a93"
+                }
+              ],
+              "colourConversion": "embedded-icc-to-srgb",
+              "rotateClockwise": 90
+            }
+          }
+        },
+        "preview": "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1202/white/120x278/face-001-7287c974a1fe-balanced.webp",
+        "definitionLimited": true
       },
       {
         "id": "amber",
@@ -285,7 +437,83 @@
           208
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureVariantsByReference": {
+          "LB1201": {
+            "verified": true,
+            "reference": "LB1201",
+            "colorId": "amber",
+            "format": "120x278",
+            "nativeFaces": true,
+            "definitionLimited": false,
+            "textureRotation": 0,
+            "resolution": [
+              2780,
+              1200
+            ],
+            "textureVariants": {
+              "fluid": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-001-d41cab85b708-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-002-82606cf07ae4-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-003-e2e7425ca18e-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-004-01ad07007c25-fluid.webp"
+              ],
+              "balanced": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-001-d41cab85b708-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-002-82606cf07ae4-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-003-e2e7425ca18e-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-004-01ad07007c25-balanced.webp"
+              ],
+              "max": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-001-d41cab85b708-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-002-82606cf07ae4-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-003-e2e7425ca18e-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-004-01ad07007c25-max.webp"
+              ]
+            },
+            "textureProvenance": {
+              "kind": "manufacturer-portal-original",
+              "manufacturerOriginal": true,
+              "source": "https://portale.eliosceramica.it/",
+              "folder": "Magnus/Mysterium/Amber",
+              "reference": "LB1201",
+              "format": "120x278",
+              "referenceAssignmentVerified": true,
+              "generated": false,
+              "upscaled": false,
+              "nativeDimensions": [
+                1200,
+                2780
+              ],
+              "renderDimensions": [
+                2780,
+                1200
+              ],
+              "sourceFiles": [
+                {
+                  "filename": "LB1201@1.jpg",
+                  "sha256": "6137572b82d4351aa8b189c0b7940d92ff36e6e8db45f160fd3cebc3df37d2aa"
+                },
+                {
+                  "filename": "LB1201@2.jpg",
+                  "sha256": "6298234f8790c8aec371c4ff93827bf1360891deca04d471aad9d1ee9ed28cc5"
+                },
+                {
+                  "filename": "LB1201@3.jpg",
+                  "sha256": "2ee7ad0900723ca0136d833c5cb9307dd41500785c23bf145bdd11679263df96"
+                },
+                {
+                  "filename": "LB1201@4.jpg",
+                  "sha256": "b2629fb0d8f0cf28327698c7d328012ae3f60d7d7be9aca478831619ce5b6d38"
+                }
+              ],
+              "colourConversion": "embedded-icc-to-srgb",
+              "rotateClockwise": 90
+            }
+          }
+        },
+        "preview": "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1201/amber/120x278/face-001-d41cab85b708-balanced.webp",
+        "definitionLimited": true
       },
       {
         "id": "ocean",
@@ -305,7 +533,83 @@
           208
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureVariantsByReference": {
+          "LB1206": {
+            "verified": true,
+            "reference": "LB1206",
+            "colorId": "ocean",
+            "format": "120x278",
+            "nativeFaces": true,
+            "definitionLimited": false,
+            "textureRotation": 0,
+            "resolution": [
+              2780,
+              1200
+            ],
+            "textureVariants": {
+              "fluid": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-001-447da4506981-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-002-021a6dcf829d-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-003-17a2d74178fc-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-004-27602333fb05-fluid.webp"
+              ],
+              "balanced": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-001-447da4506981-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-002-021a6dcf829d-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-003-17a2d74178fc-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-004-27602333fb05-balanced.webp"
+              ],
+              "max": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-001-447da4506981-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-002-021a6dcf829d-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-003-17a2d74178fc-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-004-27602333fb05-max.webp"
+              ]
+            },
+            "textureProvenance": {
+              "kind": "manufacturer-portal-original",
+              "manufacturerOriginal": true,
+              "source": "https://portale.eliosceramica.it/",
+              "folder": "Magnus/Mysterium/Ocean",
+              "reference": "LB1206",
+              "format": "120x278",
+              "referenceAssignmentVerified": true,
+              "generated": false,
+              "upscaled": false,
+              "nativeDimensions": [
+                1200,
+                2780
+              ],
+              "renderDimensions": [
+                2780,
+                1200
+              ],
+              "sourceFiles": [
+                {
+                  "filename": "LB1206@1.jpg",
+                  "sha256": "48fb8ceace443186cd32e1255ce162ab1bc8660503cb31a5ce6cae4a89df1f79"
+                },
+                {
+                  "filename": "LB1206@2.jpg",
+                  "sha256": "5e3edf9f6c6da8b667f9c04794d699fd3fd0dfff6f4e82f027b3adba41925004"
+                },
+                {
+                  "filename": "LB1206@3.jpg",
+                  "sha256": "934a1d9d0f04441d7d5839cfe1ad92daf33dcf4920f6f53ae29e779d88967148"
+                },
+                {
+                  "filename": "LB1206@4.jpg",
+                  "sha256": "91431b25b80d4bbb0bfc729f3dbc72e4bdabab6784d7ceb6f280d58eef8657b3"
+                }
+              ],
+              "colourConversion": "embedded-icc-to-srgb",
+              "rotateClockwise": 90
+            }
+          }
+        },
+        "preview": "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1206/ocean/120x278/face-001-447da4506981-balanced.webp",
+        "definitionLimited": true
       },
       {
         "id": "pearl",
@@ -325,7 +629,83 @@
           208
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureVariantsByReference": {
+          "LB1203": {
+            "verified": true,
+            "reference": "LB1203",
+            "colorId": "pearl",
+            "format": "120x278",
+            "nativeFaces": true,
+            "definitionLimited": false,
+            "textureRotation": 0,
+            "resolution": [
+              2780,
+              1200
+            ],
+            "textureVariants": {
+              "fluid": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-001-3f52e74a2824-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-002-db37711f19b5-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-003-016664a8613e-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-004-5bc3208da528-fluid.webp"
+              ],
+              "balanced": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-001-3f52e74a2824-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-002-db37711f19b5-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-003-016664a8613e-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-004-5bc3208da528-balanced.webp"
+              ],
+              "max": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-001-3f52e74a2824-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-002-db37711f19b5-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-003-016664a8613e-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-004-5bc3208da528-max.webp"
+              ]
+            },
+            "textureProvenance": {
+              "kind": "manufacturer-portal-original",
+              "manufacturerOriginal": true,
+              "source": "https://portale.eliosceramica.it/",
+              "folder": "Magnus/Mysterium/Pearl",
+              "reference": "LB1203",
+              "format": "120x278",
+              "referenceAssignmentVerified": true,
+              "generated": false,
+              "upscaled": false,
+              "nativeDimensions": [
+                1200,
+                2780
+              ],
+              "renderDimensions": [
+                2780,
+                1200
+              ],
+              "sourceFiles": [
+                {
+                  "filename": "LB1203@1.jpg",
+                  "sha256": "f44c9f4cf1b6c4b8b87496e20cb4bd66537e8413ab412aed3907ca8d00195cc3"
+                },
+                {
+                  "filename": "LB1203@2.jpg",
+                  "sha256": "aca639d43bbb132b223d1bdc75d3a784e129d0a8a78f05eba5ab0458f9dd0758"
+                },
+                {
+                  "filename": "LB1203@3.jpg",
+                  "sha256": "70bcd41bdbc6678b7a5409ab35b1400f6329d0eac7f785393bdd3b849974923f"
+                },
+                {
+                  "filename": "LB1203@4.jpg",
+                  "sha256": "d7499b0e9b5c43f4982fcf6ee15dac690bdc5421f56067cabcf8c466eee566de"
+                }
+              ],
+              "colourConversion": "embedded-icc-to-srgb",
+              "rotateClockwise": 90
+            }
+          }
+        },
+        "preview": "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1203/pearl/120x278/face-001-3f52e74a2824-balanced.webp",
+        "definitionLimited": true
       },
       {
         "id": "black",
@@ -345,7 +725,83 @@
           208
         ],
         "nativeFaces": false,
-        "definition": "Échantillon matière fabricant"
+        "definition": "Échantillon matière fabricant",
+        "textureVariantsByReference": {
+          "LB1204": {
+            "verified": true,
+            "reference": "LB1204",
+            "colorId": "black",
+            "format": "120x278",
+            "nativeFaces": true,
+            "definitionLimited": false,
+            "textureRotation": 0,
+            "resolution": [
+              2780,
+              1200
+            ],
+            "textureVariants": {
+              "fluid": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-001-b62a15f5ac2b-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-002-bef94eeec453-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-003-cc0022a405cc-fluid.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-004-98b18395a66e-fluid.webp"
+              ],
+              "balanced": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-001-b62a15f5ac2b-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-002-bef94eeec453-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-003-cc0022a405cc-balanced.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-004-98b18395a66e-balanced.webp"
+              ],
+              "max": [
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-001-b62a15f5ac2b-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-002-bef94eeec453-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-003-cc0022a405cc-max.webp",
+                "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-004-98b18395a66e-max.webp"
+              ]
+            },
+            "textureProvenance": {
+              "kind": "manufacturer-portal-original",
+              "manufacturerOriginal": true,
+              "source": "https://portale.eliosceramica.it/",
+              "folder": "Magnus/Mysterium/Black",
+              "reference": "LB1204",
+              "format": "120x278",
+              "referenceAssignmentVerified": true,
+              "generated": false,
+              "upscaled": false,
+              "nativeDimensions": [
+                1200,
+                2780
+              ],
+              "renderDimensions": [
+                2780,
+                1200
+              ],
+              "sourceFiles": [
+                {
+                  "filename": "LB1204@1.jpg",
+                  "sha256": "265d72465886c7b1c2113b84d9b536a6e1bdc3dfc3ed3f72e87b77972f198565"
+                },
+                {
+                  "filename": "LB1204@2.jpg",
+                  "sha256": "425bae7723a66995344e1940923bee379b2b128dcb1440028aae64f8e0ad6414"
+                },
+                {
+                  "filename": "LB1204@3.jpg",
+                  "sha256": "7403daa3320b5fc21b57ec02add149c41a861c2eca2d1b0e6466f232cc43287f"
+                },
+                {
+                  "filename": "LB1204@4.jpg",
+                  "sha256": "119e5d67fb250353c0d85fc464eb692c1c3e0a064d519cf1f43c88b0adc079f8"
+                }
+              ],
+              "colourConversion": "embedded-icc-to-srgb",
+              "rotateClockwise": 90
+            }
+          }
+        },
+        "preview": "https://leroyfactory.fr/assets/img/elios-mysterium-20261113/mysterium/LB1204/black/120x278/face-001-b62a15f5ac2b-balanced.webp",
+        "definitionLimited": true
       }
     ],
     "surfaces": [
@@ -16892,7 +17348,9 @@
         "width": 1.2,
         "height": 0.6,
         "shape": "rectangle",
-        "source": "https://eliosceramica.com/collezione/dynasty/"
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "pcsBox": 2,
+        "m2Box": 1.44
       },
       {
         "id": "30x30",
@@ -16909,9 +17367,9 @@
         "id": "bianco-aurora",
         "name": "Bianco Aurora",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/bianco-aurora.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/bianco-aurora.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/bianco-aurora.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/bianco-aurora.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -16921,16 +17379,29 @@
           1200,
           700
         ],
-        "nativeFaces": true,
-        "definition": "Échantillon matière fabricant"
+        "nativeFaces": false,
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/BIANCO-AURORA_Z.jpg",
+          "sourceSha256": "feaa22acca64c3fe83294411856033e38d2dabb31daffdb0c5918daf03966950",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "marfil",
         "name": "Marfil",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/marfil.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/marfil.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/marfil.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/marfil.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -16940,16 +17411,29 @@
           1200,
           700
         ],
-        "nativeFaces": true,
-        "definition": "Échantillon matière fabricant"
+        "nativeFaces": false,
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/MARFIL_Z.jpg",
+          "sourceSha256": "94fdba9d53806f80bf64fbfa5d43b495c0ffd8d60eb6845d5b75c5f72470c320",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "monet",
         "name": "Monet",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/monet.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/monet.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/monet.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/monet.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -16959,16 +17443,29 @@
           1200,
           700
         ],
-        "nativeFaces": true,
-        "definition": "Échantillon matière fabricant"
+        "nativeFaces": false,
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/MONET_Z.jpg",
+          "sourceSha256": "fad492fe1e75f531c8c6a65e183c75eb7fc55736c45256a0aa2d29bb42e97a2d",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "alpi",
         "name": "Alpi",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/alpi.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/alpi.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/alpi.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/alpi.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -16978,16 +17475,29 @@
           1200,
           700
         ],
-        "nativeFaces": true,
-        "definition": "Échantillon matière fabricant"
+        "nativeFaces": false,
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ALPI_Z.jpg",
+          "sourceSha256": "b59b9c1152386db6f4c3946732990bf5e7bf9cfecd977cfe8a45dc368c37a245",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "calacatta-viola",
         "name": "Calacatta Viola",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/calacatta-viola.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/calacatta-viola.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/calacatta-viola.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/calacatta-viola.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -16997,16 +17507,29 @@
           1200,
           700
         ],
-        "nativeFaces": true,
-        "definition": "Échantillon matière fabricant"
+        "nativeFaces": false,
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/CALACATTA-VIOLA_Z.jpg",
+          "sourceSha256": "bc9169657920e3dbb795efc2d68b30a98ce6c1b976881fce33ac18cf4965982a",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "lepanto",
         "name": "Lepanto",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/lepanto.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/lepanto.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/lepanto.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/lepanto.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -17016,16 +17539,29 @@
           1200,
           700
         ],
-        "nativeFaces": true,
-        "definition": "Échantillon matière fabricant"
+        "nativeFaces": false,
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/LEPANTO_Z.jpg",
+          "sourceSha256": "55b27745ce6cc1ead2fb4edf2b036c1831e5b968324db9ae9cf41e622abefd03",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "saint-laurent",
         "name": "Saint Laurent",
         "faces": [
-          "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/saint-laurent.webp"
+          "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/saint-laurent.jpg"
         ],
-        "file": "https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/surfaces/elios/dynasty/saint-laurent.webp",
+        "file": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/saint-laurent.jpg",
         "available3d": true,
         "formats": [
           "60x120"
@@ -17035,8 +17571,21 @@
           1200,
           700
         ],
-        "nativeFaces": true,
-        "definition": "Échantillon matière fabricant"
+        "nativeFaces": false,
+        "definition": "Échantillon matière fabricant",
+        "textureProvenance": {
+          "kind": "manufacturer-sample",
+          "source": "https://eliosceramica.com/wp-content/uploads/2026/08/SAINT-LAURENT_Z.jpg",
+          "sourceSha256": "82b365da3d95b2f5279525187a0f81915651ab9add190b791ca667f8154e0a69",
+          "nativeDimensions": [
+            1200,
+            700
+          ],
+          "generated": false,
+          "upscaled": false,
+          "manufacturerOriginal": true,
+          "originalBytesPreserved": true
+        }
       },
       {
         "id": "crown-green",
@@ -17860,6 +18409,482 @@
           "panelColumns": 2,
           "panelRows": 2
         }
+      },
+      {
+        "key": "ELIOS|04N6A10",
+        "reference": "04N6A10",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Alpi",
+        "colorId": "alpi",
+        "format": "60x120",
+        "finish": "Naturel R10 B · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/alpi.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A11",
+        "reference": "04N6A11",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Lepanto",
+        "colorId": "lepanto",
+        "format": "60x120",
+        "finish": "Naturel R10 B · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/lepanto.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A12",
+        "reference": "04N6A12",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Marfil",
+        "colorId": "marfil",
+        "format": "60x120",
+        "finish": "Naturel R10 B · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/marfil.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A13",
+        "reference": "04N6A13",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Monet",
+        "colorId": "monet",
+        "format": "60x120",
+        "finish": "Naturel R10 B · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/monet.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A14",
+        "reference": "04N6A14",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Saint Laurent",
+        "colorId": "saint-laurent",
+        "format": "60x120",
+        "finish": "Naturel R10 B · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/saint-laurent.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A15",
+        "reference": "04N6A15",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Calacatta Viola",
+        "colorId": "calacatta-viola",
+        "format": "60x120",
+        "finish": "Naturel R10 B · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/calacatta-viola.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A16",
+        "reference": "04N6A16",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Bianco Aurora",
+        "colorId": "bianco-aurora",
+        "format": "60x120",
+        "finish": "Naturel R10 B · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/bianco-aurora.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A00",
+        "reference": "04N6A00",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Alpi",
+        "colorId": "alpi",
+        "format": "60x120",
+        "finish": "3D Honed · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/alpi.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A01",
+        "reference": "04N6A01",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Lepanto",
+        "colorId": "lepanto",
+        "format": "60x120",
+        "finish": "3D Honed · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/lepanto.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A02",
+        "reference": "04N6A02",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Marfil",
+        "colorId": "marfil",
+        "format": "60x120",
+        "finish": "3D Honed · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/marfil.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A03",
+        "reference": "04N6A03",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Monet",
+        "colorId": "monet",
+        "format": "60x120",
+        "finish": "3D Honed · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/monet.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A04",
+        "reference": "04N6A04",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Saint Laurent",
+        "colorId": "saint-laurent",
+        "format": "60x120",
+        "finish": "3D Honed · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/saint-laurent.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A05",
+        "reference": "04N6A05",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Calacatta Viola",
+        "colorId": "calacatta-viola",
+        "format": "60x120",
+        "finish": "3D Honed · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/calacatta-viola.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
+      },
+      {
+        "key": "ELIOS|04N6A06",
+        "reference": "04N6A06",
+        "brand": "ELIOS",
+        "collection": "Dynasty",
+        "color": "Bianco Aurora",
+        "colorId": "bianco-aurora",
+        "format": "60x120",
+        "finish": "3D Honed · Rectifié · 8,5 mm",
+        "kind": "base",
+        "thicknessMm": 8.5,
+        "rectified": true,
+        "width": 120,
+        "height": 60,
+        "shape": "rectangle",
+        "surfaces": [
+          "floor",
+          "wall"
+        ],
+        "packPieces": 2,
+        "packArea": 1.44,
+        "packVerified": true,
+        "packSource": "Catalogue ELIOS Dynasty 2026 · tableau technique · 60x120",
+        "source": "https://eliosceramica.com/wp-content/uploads/2026/08/ELIOS_CATALOGO_DYNASTY.pdf",
+        "preview": "https://leroyfactory.fr/assets/img/elios-dynasty-20261113/bianco-aurora.jpg",
+        "priceUnit": "m²",
+        "priceTTC": null,
+        "priceSource": "",
+        "priceNote": "",
+        "native": true,
+        "nativeFaces": false,
+        "definitionLimited": false,
+        "available3d": true
       }
     ]
   },

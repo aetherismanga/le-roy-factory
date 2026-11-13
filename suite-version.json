@@ -1,7 +1,7 @@
 {
   "schema": "lrf-suite-release",
   "version": 1,
-  "releaseId": "20261113-elios-samples-box-mobile-v6",
+  "releaseId": "20261113-elios-mysterium-dynasty-v8",
   "baselineMain": "8571318620b70a7d7c0c9a0580b1d65bdc32db5e",
   "baselineStudio": "4668cd99df55734a46fcd3bd330acb60da53d3f5",
   "applications": [
@@ -781,6 +781,35 @@
     "woodDefaultPattern": "third",
     "webglVisualVerification": false,
     "materialImagesOnly": true,
-    "clientMail": true
+    "clientMail": true,
+    "catalogueVersion": "20261113-elios-mysterium-dynasty-v8"
+  },
+  "eliosMaterials": {
+    "releaseId": "20261113-elios-mysterium-dynasty-v8",
+    "mysterium": {
+      "colors": 6,
+      "nativeFaces": 24,
+      "nativeFormat": "120x278",
+      "nativeResolution": [
+        1200,
+        2780
+      ],
+      "profiles": [
+        "fluid",
+        "balanced",
+        "max"
+      ],
+      "smallFormatIndependent": true
+    },
+    "dynasty": {
+      "baseColors": 7,
+      "baseFormat": "60x120",
+      "references": 14,
+      "vracReferences": 7,
+      "packPieces": 2,
+      "packArea": 1.44,
+      "images": "reviewed manufacturer RGB samples",
+      "unprofiledCmykPublished": false
+    }
   }
 }
