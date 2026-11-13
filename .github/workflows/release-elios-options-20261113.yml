@@ -1,9 +1,15 @@
-# Read-only validation. This workflow cannot publish or access production secrets.
+# Read-only validation. No publication permissions or production secrets.
 name: Validate Elios sample options 2026-11-13
 on:
   push:
     branches: [main]
-    paths: [.github/workflows/release-elios-options-20261113.yml]
+    paths:
+      - .github/workflows/release-elios-options-20261113.yml
+      - tests/elios-samples-options*
+      - functions/test/elios-samples-images.test.cjs
+      - assets/js/elios-samples-options.mjs
+      - functions/elios-samples-options.cjs
+      - tools/apply-elios-sample-options-20261113.py
 permissions:
   contents: read
 concurrency:
@@ -11,7 +17,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   validate:
-    if: github.repository == 'aetherismanga/le-roy-factory' && github.ref == 'refs/heads/main' && github.event.head_commit.message == 'Validate Elios sample options without deployment permissions'
+    if: github.repository == 'aetherismanga/le-roy-factory' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -25,13 +31,15 @@ jobs:
       - name: Prepare application changes in the disposable test workspace
         run: |
           set -euo pipefail
-          python tools/apply-elios-sample-options-20261113.py
-          git restore .github/workflows/deploy-firebase-functions.yml
-          python - <<'PY'
+          if ! grep -q 'id="es-installation-panel"' echantillons-elios.html; then
+            python tools/apply-elios-sample-options-20261113.py
+            git restore .github/workflows/deploy-firebase-functions.yml
+            python - <<'PY'
           from pathlib import Path
           p=Path('functions/elios-samples-core.cjs');s=p.read_text();a="const VERSION='20261113-elios-samples-options-v9';";assert s.count(a)==1;p.write_text(s.replace(a,"const VERSION='20261113-elios-samples-direct-box-v8';"))
           p=Path('functions/elios-samples.js');s=p.read_text();a="res.set('X-LRF-Elios-Samples-Version',C.VERSION);";assert s.count(a)==1;p.write_text(s.replace(a,a+"res.set('X-LRF-Elios-Options-Version','20261113-energy-pose-v1');"))
           PY
+          fi
           node --check assets/js/elios-samples.js
           node --check functions/elios-samples-core.cjs
           node --check functions/elios-samples.js
