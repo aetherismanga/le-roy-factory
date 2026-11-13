@@ -92,6 +92,12 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
    {collection:'Mysterium',color:'amber',format:'120x278'}
   ]){
    await page.evaluate(async spec=>{const app=studioOnePrototype;app.setSurfaceCollection('floor',spec.collection);app.setSurface('floor',spec.color);if(!app.setTileFormat('floor',spec.format))throw Error('New format unavailable: '+JSON.stringify(spec));await app.waitForTextures();},surface);
+   if(surface.collection==='Mysterium'||surface.collection==='Dynasty'&&surface.format==='60x120'){
+    const reference=surface.collection==='Mysterium'?'LB1201':'04N6A10';
+    await page.locator('#floor-commercial [data-visual-choice-trigger]').click();
+    await page.locator('[data-visual-choice-popup]:visible').locator('[data-visual-choice-value='+JSON.stringify('ELIOS|'+reference)+']').click();
+    await page.evaluate(()=>studioOnePrototype.waitForTextures());
+   }
    const actual=await page.evaluate(()=>{const diagnostics=studioOnePrototype.getDiagnostics(),loaded=diagnostics.textures.surfaces;const textures=Array.isArray(loaded)?loaded:Object.entries(loaded).flatMap(([collection,entries])=>Object.entries(entries).map(([key,data])=>({collection,id:JSON.parse(key)[1],...data})));return {floor:studioOnePrototype.exportProject().floor,drawCalls:diagnostics.drawCalls,textures};});
    assert.equal(actual.floor.collection,surface.collection);assert.equal(actual.floor.color,surface.color);assert.equal(actual.floor.format,surface.format);assert(actual.drawCalls>0);
    if(surface.collection==='Mysterium')assert.equal(actual.floor.reference,'LB1201');

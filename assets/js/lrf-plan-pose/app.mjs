@@ -376,7 +376,7 @@ new ResizeObserver(()=>requestAnimationFrame(renderBoard)).observe($('.drawing')
 renderAll();fit();
 function loadCatalogue(){
  if(catalogue)return Promise.resolve(catalogue);
- if(!cataloguePromise){notify('Chargement du catalogue…');cataloguePromise=Promise.all(['catalogue.json?v=20261024-2','catalogue-review.json?v=20261024-2'].map(path=>fetch(new URL(path,import.meta.url)).then(r=>{if(!r.ok)throw Error('Catalogue indisponible.');return r.json();}))).then(([base,review])=>mergeCatalogue(base,review)).then(data=>{catalogue=data;hydrateCatalogue(project);verifyProSession();if(step==='tiles')renderSide();renderSummary();renderBoard();return data;}).catch(error=>{cataloguePromise=null;throw error;});}
+ if(!cataloguePromise){notify('Chargement du catalogue…');cataloguePromise=Promise.all(['catalogue.json?v=20261113-elios-hd-8','catalogue-review.json?v=20261113-elios-hd-8'].map(path=>fetch(new URL(path,import.meta.url)).then(r=>{if(!r.ok)throw Error('Catalogue indisponible.');return r.json();}))).then(([base,review])=>mergeCatalogue(base,review)).then(data=>{catalogue=data;hydrateCatalogue(project);verifyProSession();if(step==='tiles')renderSide();renderSummary();renderBoard();return data;}).catch(error=>{cataloguePromise=null;throw error;});}
  return cataloguePromise;
 }
 offerDraftRecovery();
