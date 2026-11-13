@@ -5,6 +5,7 @@
 
   const $=s=>document.querySelector(s);
   const clean=v=>String(v??'').trim();
+  const isMac=/Mac/.test(navigator.platform||'');
   const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 
   function installStyles(){
@@ -201,14 +202,14 @@
     const phoneField=$('#phones-container')?.closest('.form-field');
     if(!phoneField||$('#lrf-import-contact-btn'))return;
     installStyles();
-    if(isIOS)prepareAppleAutofill();
+    if(isIOS||isMac)prepareAppleAutofill();
 
     const file=document.createElement('input');
     file.type='file';file.id='lrf-contact-file';file.hidden=true;
     file.accept='.vcf,text/vcard,text/x-vcard,text/directory';
 
     const wrap=document.createElement('div');wrap.className='lrf-contact-import-wrap';
-    const help=isIOS?'iPhone : Remplissage auto depuis vos Contacts':'Android : sélection directe des contacts si disponible';
+    const help=isIOS?'iPhone : Remplissage auto depuis vos Contacts':(navigator.contacts?.select?'Sélection directe depuis vos contacts':'Importez un contact au format .vcf depuis Contacts');
     const label=isIOS?'👤 Ajouter depuis Contacts':'📲 Importer un contact';
     wrap.innerHTML=`<button type="button" id="lrf-import-contact-btn">${label}</button><span class="lrf-contact-import-help">${help}</span><span id="lrf-contact-import-status" class="lrf-contact-import-status"></span>`;
     phoneField.insertBefore(wrap,$('#phones-container'));
@@ -216,6 +217,11 @@
 
     const btn=$('#lrf-import-contact-btn');
     btn.addEventListener('click',async()=>{
+      // Keep file.click() in the original gesture on Safari for Mac.
+      if(!navigator.contacts?.select){
+        if(isIOS){showIOSFallback(file);return;}
+        file.value='';file.click();return;
+      }
       btn.disabled=true;
       const status=$('#lrf-contact-import-status');if(status)status.textContent='';
       const handled=await pickNativeContact();

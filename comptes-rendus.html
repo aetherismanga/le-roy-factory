@@ -59,6 +59,8 @@
     @media(max-width:560px){.cr-filter-grid{grid-template-columns:1fr}.cr-modal-grid{grid-template-columns:1fr}.cr-results-info{flex-direction:column;align-items:flex-start}.cr-client-name{font-size:1rem}.cr-card{border-left-width:3px}.cr-text{font-size:.92rem}}
   </style>
   <link rel="stylesheet" href="assets/css/crm-sidebar-sage.css?v=20260918-sage-global1">
+  <link rel="stylesheet" href="assets/css/crm-apple-forms.css?v=20261113-save1">
+  <script defer src="assets/js/crm-form-viewport.js?v=20261113-save1"></script>
 </head>
 <body class="crm-body">
   <aside class="crm-sidebar">
@@ -107,9 +109,9 @@
     <div id="cr-feed-container"><div style="background:#FFF;padding:2rem;text-align:center;border-radius:8px;color:#666;border:1px solid rgba(0,0,0,.08)">Chargement des comptes-rendus...</div></div>
   </main>
 
-  <div id="cr-modal" class="crm-modal" style="display:none">
+  <div id="cr-modal" class="crm-modal" role="dialog" aria-modal="true" aria-labelledby="cr-modal-title" style="display:none">
     <div class="modal-content" style="max-width:650px">
-      <button class="modal-close" id="btn-close-cr-modal">&times;</button>
+      <button type="button" class="modal-close" id="btn-close-cr-modal" aria-label="Fermer le compte-rendu">&times;</button>
       <div class="modal-header"><h2 id="cr-modal-title">Nouveau compte-rendu</h2></div>
       <form id="form-new-cr" style="display:flex;flex-direction:column;gap:1.15rem">
         <div><label class="form-label">Client / Prospect associé *</label><select id="cr-select-client" class="crm-select" style="width:100%" required><option value="" disabled selected>-- Sélectionner un client --</option></select></div>
@@ -141,7 +143,8 @@
   </dialog>
   <script defer src="assets/vendor/studio-one/jspdf.umd.min.js"></script>
   <script type="module">
-    import { db, auth, getAgentProfile } from "./assets/js/firebase.js";
+    import { db, auth, getAgentProfile, verifiedAgentProfile } from "./assets/js/firebase.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { collection, doc, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     import { localDate, reportField, reportFingerprint, unchangedReportIndex } from "./assets/js/crm-report-core.mjs?v=20261105-audit1";
@@ -150,13 +153,19 @@
     import { reportInPeriod, reportMatchesClient } from "./assets/js/crm-report-export-core.mjs?v=20261110-client2";
     import { initReportExport } from "./assets/js/crm-report-export.mjs?v=20261110-client2";
 
-    document.addEventListener("DOMContentLoaded",()=>{
-      if(!localStorage.getItem("agentLoggedIn")){location.href="agent.html";return;}
+    document.addEventListener("DOMContentLoaded",async()=>{
+      const profile = await new Promise(resolve => {
+        const stop = onAuthStateChanged(auth, async user => {
+          const verified = await verifiedAgentProfile(user);
+          stop(); resolve(verified);
+        });
+      });
+      if (!profile) return;
 
       const $=id=>document.getElementById(id);
       const modal=$("cr-modal"),form=$("form-new-cr"),clientSelect=$("cr-select-client"),dateInput=$("cr-input-date"),authorSelect=$("cr-select-author"),usineInput=$("cr-input-usine"),textInput=$("cr-input-text");
       const searchInput=$("cr-search-input"),filterAgent=$("cr-filter-agent"),filterUsine=$("cr-filter-usine"),filterClient=$("cr-filter-client"),filterDate=$("cr-filter-date"),filterEnd=$("cr-filter-end"),sortSelect=$("cr-sort"),feed=$("cr-feed-container");
-      const currentAgent=localStorage.getItem("agentName")||"Jérôme Hugol";
+      const currentAgent=profile.name;
       let globalCRs=[],allCRs=[],editing=null,clientCache=new Map(),crSnapshotVersion=0,saving=false,clientsReady=false,globalReady=false,loadFailed=false;
 
       const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
@@ -199,13 +208,14 @@
 
       function setDefaultAuthor(){authorSelect.value=currentAgent.toLowerCase().includes("coryne")?"Coryne":"Jérôme Hugol"}
       function resetForm(){editing=null;clientSelect.disabled=false;form.reset();dateInput.value=today();setDefaultAuthor();$("cr-modal-title").textContent="Nouveau compte-rendu";$("btn-save-cr").textContent="✓ Enregistrer"}
-      function openNew(){resetForm();modal.style.display="flex"}
+      function openNew(){if(saving)return;resetForm();modal.style.display="flex"}
       function openEdit(cr){
+        if(saving)return;
         editing={...cr};
         clientSelect.disabled=Boolean(cr.globalId);clientSelect.value=cr.globalId?"__global__":cr.clientId;dateInput.value=isoDate(cr.date)||today();authorSelect.value=(cr.author||"").toLowerCase().includes("coryne")?"Coryne":"Jérôme Hugol";usineInput.value=cr.usine||"";textInput.value=cr.text||"";
         $("cr-modal-title").innerHTML='Modifier le compte-rendu <span class="modal-mode-badge">MODIFICATION</span>';$("btn-save-cr").textContent="✓ Enregistrer les modifications";modal.style.display="flex";
       }
-      function closeModal(){modal.style.display="none";resetForm()}
+      function closeModal(){if(saving)return;modal.style.display="none";resetForm()}
       $("btn-open-cr-modal").addEventListener("click",openNew);$("btn-close-cr-modal").addEventListener("click",closeModal);$("btn-cancel-cr").addEventListener("click",closeModal);
       modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});
 
@@ -238,13 +248,12 @@
         });
       }
 
-      const cpCache={};async function villeFromCP(cp){if(!/^\d{5}$/.test(cp))return"";if(cpCache[cp])return cpCache[cp];try{const r=await fetch(`https://geo.api.gouv.fr/communes?codePostal=${cp}&fields=nom&format=json`),j=await r.json();if(j?.length)return cpCache[cp]=j[0].nom}catch(e){console.warn("Résolution ville impossible",e)}return""}
       onSnapshot(collection(db,"clients"),async snap=>{
         const version=++crSnapshotVersion,nextCRs=[],nextClients=new Map(),nextOptions=document.createDocumentFragment();
         const placeholder=document.createElement("option");placeholder.value="";placeholder.disabled=true;placeholder.selected=true;placeholder.textContent="-- Sélectionner un client --";nextOptions.appendChild(placeholder);
         const globalOption=document.createElement("option");globalOption.value="__global__";globalOption.disabled=true;globalOption.textContent="Tous les clients (campagne)";nextOptions.appendChild(globalOption);
         for(const ds of snap.docs){
-          const data=ds.data(),id=ds.id,societe=data.societe||"Entreprise sans nom";let cp=String(data.codePostal||data.code_postal||"").trim(),ville=String(data.ville||"").trim();if(/^\d{5}$/.test(ville)&&!/^\d{5}$/.test(cp)){[cp,ville]=[ville,cp]}if(!ville&&/^\d{5}$/.test(cp))ville=await villeFromCP(cp);
+          const data=ds.data(),id=ds.id,societe=data.societe||"Entreprise sans nom";let cp=String(data.codePostal||data.code_postal||"").trim(),ville=String(data.ville||"").trim();if(/^\d{5}$/.test(ville)&&!/^\d{5}$/.test(cp)){[cp,ville]=[ville,cp]}
           if(version!==crSnapshotVersion)return;
           const field=reportField(data),list=Array.isArray(data[field])?data[field]:[];nextClients.set(id,{data,field,list});
           const opt=document.createElement("option");opt.value=id;opt.textContent=`${societe} (${cp?cp+" ":""}${ville})`;nextOptions.appendChild(opt);
@@ -315,7 +324,7 @@
               tx.update(ref,{[field]:[newCR,...(data[field]||[])]});
             }
           });
-          closeModal();
+          saving=false;closeModal();
         }catch(err){console.error("Erreur sauvegarde compte-rendu",err);alert(err.message||"Impossible d’enregistrer le compte-rendu. Réessayez.")}
         finally{saving=false;btn.disabled=false;btn.textContent=editing?"✓ Enregistrer les modifications":"✓ Enregistrer"}
       });

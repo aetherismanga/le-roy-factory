@@ -78,6 +78,16 @@ test('contacts draft keeps hidden fields and a simple fiche save produces no con
   assert.equal(module.run(`elements['client-modal'].dataset.clientId='b';JSON.stringify(window.LRFClientExtras.getPatch())`),'{}');
 });
 
+test('Apple autofill without input events is read at save time and keeps historic fields',async()=>{
+  const module=await sandboxModule('crm-moovago.js','populateExtras');
+  const patch=module.run(`
+    exposed.populateExtras({id:'a',contacts:[{nom:'Martin',fixe:'0467000000',privateTag:'keep'}]},true);
+    document.querySelectorAll=()=>[{value:'Durand',dataset:{k:'nom'},closest:()=>({dataset:{ci:'0'}})}];
+    JSON.stringify(window.LRFClientExtras.getPatch());
+  `);
+  assert.deepEqual(JSON.parse(patch),{contacts:[{nom:'Durand',fixe:'0467000000',privateTag:'keep'}]});
+});
+
 test('activity draft survives snapshots and cannot be saved against a different client', async()=>{
   const module=await sandboxModule('crm-client-enhancements.js','refreshOpenClient');
   assert.equal(module.run(`exposed.refreshOpenClient({id:'a',categorieActivite:'architecte'},true);JSON.stringify(window.LRFClientEnhancements.getPatch())`),'{}');

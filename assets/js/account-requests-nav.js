@@ -47,7 +47,7 @@ if(lrfCurrentPage==='clients.html'){
 }
 
 if(lrfCurrentPage==='demandes-clients.html'){import('./elios-order-crm.js?v=20260907-order1').catch(err=>console.error('Erreur commandes ELIOS CRM :',err));}
-if(lrfCurrentPage==='comptes-rendus.html'){import('./comptes-rendus-simple.js?v=20260904-1').catch(err=>console.error('Erreur saisie simple compte-rendu :',err));}
+if(lrfCurrentPage==='comptes-rendus.html'){import('./comptes-rendus-simple.js?v=20261113-save1').catch(err=>console.error('Erreur saisie simple compte-rendu :',err));}
 if(lrfCurrentPage==='nouveau-compte-rendu.html'){import('./nouveau-cr-client-mail.js?v=20261106-crm-unified2').catch(err=>console.error('Erreur nouveau compte-rendu client/mail :',err));}
 if(new Set(['clients.html','mails-groupes.html']).has(lrfCurrentPage)){import('./mail-archive-enhancer.js?v=20261106-crm-unified2').catch(err=>console.error('Erreur archivage détaillé des mails :',err));}
 if(lrfCurrentPage==='dashboard.html'){

@@ -1,0 +1,48 @@
+/* CRM editors: a single reachable scroll surface, including Safari's keyboard. */
+body.crm-body #cr-modal,
+body.crm-body #client-modal {
+  z-index: 200000;
+  box-sizing: border-box;
+  top: var(--crm-viewport-top, 0px);
+  height: var(--crm-viewport-height, 100%);
+}
+body.crm-body #cr-modal {padding: 12px;overflow: hidden;}
+body.crm-body #cr-modal .modal-content {
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: 650px !important;
+  max-height: calc(var(--crm-viewport-height, 100dvh) - 24px) !important;
+  min-height: 0;
+  margin: 0 !important;
+  overflow: auto !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-padding: 16px;
+}
+body.crm-body #cr-modal input,
+body.crm-body #cr-modal select,
+body.crm-body #cr-modal textarea {box-sizing: border-box;min-width: 0;max-width: 100%;}
+body.crm-body #cr-modal .modal-footer {
+  position: sticky;
+  bottom: -1px;
+  z-index: 10;
+  background: #fffdf8;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+body.crm-editor-open .lrf-mobile-actions,
+body.crm-editor-open #lrf-mobile-fab,
+body.crm-editor-open .lrf-mobile-action-sheet,
+body.crm-editor-open #crm-mobile-menu-btn {display: none !important;}
+@media(max-width:900px){
+  body.crm-body #cr-modal .modal-content {padding:20px 16px !important;}
+  body.crm-body #client-modal .modal-content {min-height:calc(var(--crm-viewport-height, 100dvh) - 12px) !important;}
+  body.crm-body #client-modal input,
+  body.crm-body #client-modal select,
+  body.crm-body #client-modal textarea,
+  body.crm-body #cr-modal input,
+  body.crm-body #cr-modal select {font-size:16px !important;}
+  body.crm-body #cr-modal input[type=date] {min-height:46px;-webkit-appearance:none;appearance:none;text-align:left;}
+  body.crm-body #cr-modal .cr-modal-grid {grid-template-columns:minmax(0,1fr);}
+  body.crm-body #cr-modal .modal-close {top:10px;right:10px;min-width:44px;min-height:44px;}
+  body.crm-body #cr-modal .modal-header {padding-right:40px;}
+}

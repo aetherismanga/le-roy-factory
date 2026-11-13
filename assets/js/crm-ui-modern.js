@@ -159,6 +159,23 @@ function buildShell(){
     document.getElementById("lrf-client-summary").insertAdjacentElement("afterend",tabs);
     tabs.querySelectorAll(".lrf-tab").forEach(btn=>btn.addEventListener("click",()=>activateTab(btn.dataset.tab)));
   }
+  if(!form.dataset.validationReady){
+    form.dataset.validationReady='1';
+    const feedback=document.createElement('p');
+    feedback.id='lrf-client-validation';feedback.setAttribute('role','alert');feedback.hidden=true;
+    feedback.style.cssText='margin:8px 26px;color:#9d2525;font-size:.9rem';
+    form.insertAdjacentElement('beforebegin',feedback);
+    form.addEventListener('invalid',event=>{
+      event.preventDefault();
+      const input=event.target,pane=input.closest('[data-lrf-pane]');
+      if(pane)activateTab(pane.dataset.lrfPane);
+      const label=input.labels?.[0]?.textContent||input.getAttribute('aria-label')||input.placeholder||'Champ à vérifier';
+      feedback.textContent=label+' : '+input.validationMessage;feedback.hidden=false;
+      requestAnimationFrame(()=>{input.scrollIntoView({block:'center'});input.focus({preventScroll:true})});
+    },true);
+    form.addEventListener('input',()=>{feedback.hidden=true});
+    window.addEventListener('lrf-client-opened',()=>{feedback.hidden=true});
+  }
   classifySections();
   renderMailActivity();
   activateTab(document.querySelector("#lrf-client-tabs .lrf-tab.active")?.dataset.tab||"infos");

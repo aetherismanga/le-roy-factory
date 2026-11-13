@@ -1,4 +1,5 @@
-import { db } from "./firebase.js";
+import { db, auth, verifiedAgentProfile } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { collection, getDocs, doc, runTransaction, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 import { cloneExtra, extraSignature, extraPatch, assertImportUnchanged } from "./crm-extra-save-core.mjs?v=20261105-audit1";
@@ -174,7 +175,7 @@ function injectStyles(){ if(document.getElementById("moovago-crm-style"))return;
   .moovago-btn{background:#111;color:#FFD700;border:1px solid #D4AF37;border-radius:7px;padding:.65rem 1rem;font-weight:800;cursor:pointer}
   .moovago-overlay{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:100001;display:none;align-items:center;justify-content:center;padding:1rem}.moovago-dialog{width:min(900px,96vw);max-height:94vh;overflow:auto;background:#fff;border-radius:14px;padding:1.4rem;box-shadow:0 25px 70px rgba(0,0,0,.35)}
   .moovago-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.moovago-upload{border:1px dashed #D4AF37;background:#FFFCF2;border-radius:9px;padding:1rem}.moovago-upload label{display:block;font-weight:800;margin-bottom:.5rem}.moovago-result{margin-top:1rem;background:#F8FAFC;border-radius:9px;padding:1rem;line-height:1.8}
-  .crm-extra-section{margin-top:1.4rem;padding-top:1.2rem;border-top:1px dashed #D1D5DB}.crm-extra-title{font-size:1rem;font-weight:800;color:#1A2530;margin:0 0 .8rem}.contact-card{display:grid;grid-template-columns:1.1fr 1.1fr 1fr 1fr 1.4fr auto;gap:.5rem;align-items:center;background:#FAFAFA;border:1px solid #E5E7EB;border-radius:8px;padding:.6rem;margin:.5rem 0}.contact-card input{width:100%;box-sizing:border-box;padding:.55rem;border:1px solid #D1D5DB;border-radius:6px}.partner-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:.6rem}.partner-card-mini{border:1px solid #E5E7EB;background:#fff;border-radius:9px;padding:.65rem;display:flex;align-items:center;gap:.55rem;cursor:pointer;min-height:52px}.partner-card-mini.active{border:2px solid #D4AF37;background:#FFF9E8}.partner-card-mini img{width:48px;height:32px;object-fit:contain}.partner-card-mini span{font-size:.78rem;font-weight:700}.history-card{border-left:4px solid #D4AF37;background:#FAFAFA;padding:.75rem .9rem;border-radius:6px;margin:.55rem 0}.history-meta{font-size:.76rem;color:#666;font-weight:700;margin-bottom:.3rem}.history-text{white-space:pre-wrap;font-size:.88rem}.tiny-danger{border:0;background:#FEE2E2;color:#B91C1C;border-radius:6px;padding:.45rem .6rem;cursor:pointer;font-weight:800}
+  .crm-extra-section{margin-top:1.4rem;padding-top:1.2rem;border-top:1px dashed #D1D5DB}.crm-extra-title{font-size:1rem;font-weight:800;color:#1A2530;margin:0 0 .8rem}.contact-card{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;align-items:center;background:#FAFAFA;border:1px solid #E5E7EB;border-radius:8px;padding:.6rem;margin:.5rem 0}.contact-card input{width:100%;box-sizing:border-box;padding:.55rem;border:1px solid #D1D5DB;border-radius:6px}.partner-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:.6rem}.partner-card-mini{border:1px solid #E5E7EB;background:#fff;border-radius:9px;padding:.65rem;display:flex;align-items:center;gap:.55rem;cursor:pointer;min-height:52px}.partner-card-mini.active{border:2px solid #D4AF37;background:#FFF9E8}.partner-card-mini img{width:48px;height:32px;object-fit:contain}.partner-card-mini span{font-size:.78rem;font-weight:700}.history-card{border-left:4px solid #D4AF37;background:#FAFAFA;padding:.75rem .9rem;border-radius:6px;margin:.55rem 0}.history-meta{font-size:.76rem;color:#666;font-weight:700;margin-bottom:.3rem}.history-text{white-space:pre-wrap;font-size:.88rem}.tiny-danger{border:0;background:#FEE2E2;color:#B91C1C;border-radius:6px;padding:.45rem .6rem;cursor:pointer;font-weight:800}
   @media(max-width:800px){.moovago-grid{grid-template-columns:1fr}.contact-card{grid-template-columns:1fr 1fr}.contact-card .wide{grid-column:1/-1}}
   `; document.head.appendChild(s); }
 
@@ -200,7 +201,7 @@ function renderContacts(){
   const box=document.getElementById("crm-contacts-list");if(!box)return;
   box.innerHTML=contactDraft.length?contactDraft.map((stored,i)=>{
     const c=typeof stored==="string"?{email:stored}:(stored||{});
-    return `<div class="contact-card" data-ci="${i}"><input data-k="prenom" placeholder="Prénom" value="${esc(c.prenom)}"><input data-k="nom" placeholder="Nom" value="${esc(c.nom)}"><input data-k="fonction" placeholder="Fonction" value="${esc(c.fonction)}"><input data-k="mobile" placeholder="Mobile" value="${esc(c.mobile||"")}"><input class="wide" data-k="email" type="email" placeholder="E-mail" value="${esc(c.email||"")}"><button type="button" class="tiny-danger" data-del="${i}">×</button></div>`;
+    return `<div class="contact-card" data-ci="${i}"><input data-k="prenom" aria-label="Prénom" autocomplete="section-contact-${i} given-name" placeholder="Prénom" value="${esc(c.prenom)}"><input data-k="nom" aria-label="Nom" autocomplete="section-contact-${i} family-name" placeholder="Nom" value="${esc(c.nom)}"><input data-k="fonction" aria-label="Fonction" placeholder="Fonction" value="${esc(c.fonction)}"><input data-k="mobile" type="tel" aria-label="Mobile" autocomplete="section-contact-${i} mobile tel" placeholder="Mobile" value="${esc(c.mobile||"")}"><input data-k="fixe" type="tel" aria-label="Téléphone fixe" autocomplete="section-contact-${i} work tel" placeholder="Téléphone fixe" value="${esc(c.fixe||"")}"><input class="wide" data-k="email" type="email" aria-label="E-mail" autocomplete="section-contact-${i} email" autocapitalize="off" placeholder="E-mail" value="${esc(c.email||"")}"><button type="button" class="tiny-danger" data-del="${i}">×</button></div>`;
   }).join(""):`<div style="color:#777;font-style:italic;font-size:.85rem">Aucun interlocuteur enregistré.</div>`;
   box.querySelectorAll("input[data-k]").forEach(inp=>inp.oninput=()=>{
     const index=+inp.closest("[data-ci]").dataset.ci;
@@ -239,6 +240,17 @@ window.LRFClientExtras={
   getPatch(){
     const key=clean(document.getElementById("client-modal")?.dataset.clientId)||"new-client";
     if(!draftInitialized||draftClientKey!==key)return {};
+    // Apple autofill may commit a value without an input event. Read the actual
+    // controls at save time, while retaining unknown historical contact fields.
+    document.querySelectorAll('#crm-contacts-list input[data-k]').forEach(input=>{
+      const index=Number(input.closest('[data-ci]').dataset.ci), key=input.dataset.k;
+      const stored=contactDraft[index];
+      const value=input.value.trim();
+      if(value===String((typeof stored==='string'?{email:stored}:stored)?.[key]||''))return;
+      if(typeof stored==='string')contactDraft[index]={email:stored};
+      if(!contactDraft[index]||typeof contactDraft[index]!=='object')contactDraft[index]={};
+      contactDraft[index][key]=value;
+    });
     return extraSignature(contactDraft)===extraSignature(contactsBaseline)?{}:{contacts:cloneExtra(contactDraft)};
   },
   getBaseline(){return {contacts:cloneExtra(contactsBaseline)}}
@@ -330,6 +342,10 @@ function setupClientModal(){
 
 async function init(){
   injectStyles();injectImportUI();setupClientModal();
+  const profile=await new Promise(resolve=>{
+    const stop=onAuthStateChanged(auth,async user=>{const profile=await verifiedAgentProfile(user);stop();resolve(profile)});
+  });
+  if(!profile)return;
   try{fabricants=await fetch("data/fabricants.json").then(r=>r.json());}catch{fabricants=[];}
   onSnapshot(collection(db,"clients"),snap=>{
     clients=[];snap.forEach(d=>clients.push({...d.data(),id:d.id}));

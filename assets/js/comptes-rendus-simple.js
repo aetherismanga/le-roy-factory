@@ -68,7 +68,8 @@
     const form=document.getElementById('form-new-cr');
     if(!select||!form||document.getElementById('lrf-cr-client-search'))return;
 
-    const selectWrap=select.parentElement;
+    // Validate the visible picker: Safari cannot focus a display:none required select.
+    select.required=false;
     const picker=document.createElement('div');
     picker.className='lrf-cr-client-picker';
     picker.innerHTML=`
@@ -88,7 +89,29 @@
     const selectedLabel=selected.querySelector('strong');
     const changeBtn=selected.querySelector('.lrf-cr-change');
 
-    const options=()=>[...select.options].filter(o=>o.value);
+    const options=()=>[...select.options].filter(o=>o.value&&!o.disabled);
+    const selectedOption=()=>[...select.options].find(o=>o.value&&o.value===select.value);
+    function validateChoice(){
+      search.disabled=select.disabled;
+      search.required=!select.disabled;
+      search.setCustomValidity(select.disabled||selectedOption()?'':'Choisissez un client dans les résultats de recherche.');
+    }
+    function syncChoice(){
+      const opt=selectedOption();
+      selectedLabel.textContent=opt?'✓ '+opt.textContent.trim():'';
+      selected.classList.toggle('show',Boolean(opt));
+      changeBtn.hidden=select.disabled;
+      if(opt)search.value=opt.textContent.trim();
+      validateChoice();
+    }
+    function resolveTypedChoice(){
+      const query=norm(search.value);
+      const matches=options().filter(o=>query&&(norm(o.textContent)===query||norm(o.textContent.split('(')[0])===query));
+      select.value=matches.length===1?matches[0].value:'';
+      selectedLabel.textContent=matches.length===1?'✓ '+matches[0].textContent.trim():'';
+      selected.classList.toggle('show',matches.length===1);
+      validateChoice();
+    }
     function render(q=''){
       const term=q.trim();
       const matches=options().map(o=>({o,s:fuzzyScore(term,o.textContent)})).filter(x=>!term||fuzzyAccept(term,x.s)).sort((a,b)=>b.s-a.s||a.o.textContent.localeCompare(b.o.textContent,'fr')).slice(0,40).map(x=>x.o);
@@ -104,40 +127,33 @@
       const opt=options().find(o=>o.value===id);if(!opt)return;
       select.value=id;
       select.dispatchEvent(new Event('change',{bubbles:true}));
-      selectedLabel.textContent='✓ '+opt.textContent.trim();
-      selected.classList.add('show');
+      syncChoice();
       results.classList.remove('open');
-      search.value='';
-      search.style.display='none';
-      picker.querySelector('.lrf-cr-search-icon').style.display='none';
+      search.blur();
       document.getElementById('cr-input-text')?.focus();
     }
     function resetChoice(){
       select.value='';
       selected.classList.remove('show');
-      search.style.display='block';
-      picker.querySelector('.lrf-cr-search-icon').style.display='block';
       search.value='';
       results.classList.remove('open');
-      setTimeout(()=>search.focus(),0);
+      validateChoice();
+      search.focus();
     }
 
     search.addEventListener('focus',()=>render(search.value));
-    search.addEventListener('input',()=>render(search.value));
+    search.addEventListener('input',()=>{resolveTypedChoice();render(search.value)});
+    select.addEventListener('change',syncChoice);
     changeBtn.addEventListener('click',resetChoice);
     document.addEventListener('click',e=>{if(!picker.contains(e.target))results.classList.remove('open')});
 
     const modal=document.getElementById('cr-modal');
-    const openBtn=document.getElementById('btn-open-cr-modal');
-    openBtn?.addEventListener('click',()=>setTimeout(()=>{resetChoice();search.focus()},30));
-
-    // Le formulaire historique fait reset() après sauvegarde/fermeture : on synchronise notre interface.
-    form.addEventListener('reset',()=>setTimeout(resetChoice,0));
-
-    const observer=new MutationObserver(()=>{
-      if(modal?.style.display==='flex'&&!selected.classList.contains('show')&&document.activeElement!==search)setTimeout(()=>search.focus(),30);
-    });
-    if(modal)observer.observe(modal,{attributes:true,attributeFilter:['style']});
+    // Read the canonical field after resets/deep links; never clear a selected ID
+    // from a delayed click timer (which used to erase it after 30 ms).
+    form.addEventListener('reset',()=>setTimeout(()=>{search.value='';syncChoice();results.classList.remove('open')},0));
+    new MutationObserver(syncChoice).observe(select,{childList:true,subtree:true,attributes:true,attributeFilter:['disabled']});
+    if(modal)new MutationObserver(()=>{if(modal.style.display!=='none')syncChoice()}).observe(modal,{attributes:true,attributeFilter:['style']});
+    syncChoice();
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();

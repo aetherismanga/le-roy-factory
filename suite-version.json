@@ -815,5 +815,10 @@
       "images": "reviewed manufacturer RGB samples",
       "unprofiledCmykPublished": false
     }
+  },
+  "crmAppleForms": {
+    "releaseId": "20261113-crm-apple-save1",
+    "date": "2026-11-13",
+    "pages": ["clients.html", "comptes-rendus.html"]
   }
 }
