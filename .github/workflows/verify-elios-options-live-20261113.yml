@@ -1,0 +1,40 @@
+# Read-only release verification: no credentials, client records or mail actions.
+name: Verify live Elios sample options
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/verify-elios-options-live-20261113.yml
+permissions:
+  contents: read
+jobs:
+  live-check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - name: Verify public assets and authenticated API boundary
+        run: |
+          node - <<'JS'
+          const assert=require('node:assert/strict');
+          const {createHash}=require('node:crypto');
+          const files={
+            'echantillons-elios.html':'3391d472345dd446a1cefc383aa28b735262b66e',
+            'assets/js/elios-samples.js':'3fb08afd6adcfe0e26422af279bf838cb445c800',
+            'assets/css/elios-samples.css':'338c5fbf43c06b850945a5b41ce261ab395fa716'
+          };
+          const hash=bytes=>createHash('sha1').update(Buffer.from('blob '+bytes.length+'\0')).update(bytes).digest('hex');
+          async function check(){
+            for(const [path,expected] of Object.entries(files)){
+              const response=await fetch('https://leroyfactory.fr/'+path+'?release=elios-options-'+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(20000)});
+              assert.equal(response.status,200,path+' must be public');
+              assert.equal(hash(Buffer.from(await response.arrayBuffer())),expected,path+' must match the tested release');
+            }
+            const helper=await fetch('https://leroyfactory.fr/assets/js/elios-samples-options.mjs?release='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(20000)});
+            assert.equal(helper.status,200);assert.match(await helper.text(),/20261113-energy-pose-v1/);
+            const response=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/eliosSamples',{method:'POST',headers:{'Content-Type':'application/json',Origin:'https://leroyfactory.fr'},body:JSON.stringify({action:'quote'}),signal:AbortSignal.timeout(20000)});
+            assert.equal(response.status,401,'Anonymous access must remain denied');
+            assert.equal(response.headers.get('x-lrf-elios-options-version'),'20261113-energy-pose-v1');
+            assert.equal((await response.json()).success,false);
+          }
+          (async()=>{let last;for(let attempt=0;attempt<18;attempt++){try{await check();console.log('PASS: the exact tested HTML, JavaScript and stylesheet are live; new pricing API version is active; anonymous requests remain denied. No client data read, request prepared or email sent.');return;}catch(error){last=error;console.log('Release propagation check '+(attempt+1)+': '+error.message);if(attempt<17)await new Promise(resolve=>setTimeout(resolve,10000));}}throw last;})().catch(error=>{console.error(error.message);process.exit(1);});
+          JS
