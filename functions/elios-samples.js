@@ -35,7 +35,7 @@ async function prices(req,body){
  return C.currentPrices(catalogue,exact,rates.elios||{});
 }
 function contact(input,account){
- const c={name:C.text(input?.name||account.contact.name,160),email:C.text(input?.email||account.contact.email,254),telephone:C.text(input?.telephone||account.contact.telephone,60),address:C.text(input?.address||account.contact.address,600)};
+ const c={name:C.text(input?.name??account.contact.name,160),email:C.text(input?.email??account.contact.email,254),telephone:C.text(input?.telephone??account.contact.telephone,60),address:C.text(input?.address??account.contact.address,600)};
  if(!c.name||!c.address||!/^\S+@\S+\.\S+$/.test(c.email))throw C.fail('Renseignez le contact, son e-mail et l’adresse de livraison.');return c;
 }
 exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'512MiB',maxInstances:4},async(req,res)=>{
