@@ -24,6 +24,8 @@ const biopietraRequest = require('./biopietra-request');
 const cerastoneRequest = require('./cerastone-request');
 const planPoseAccess = require('./plan-pose-access');
 const neobathAnimaAccess = require('./neobath-anima-access');
+const unrealHostRegistry = require('./unreal-host-registry');
+Object.assign(exports, unrealHostRegistry);
 
 Object.assign(exports, base, tariffAccess, proSession, lrfAnalytics, eliosStock, eliosOrder, eliosSamples, eliosExpoBudget, eliosPoseOrder, eliosCatalog, biltOrder, biltAutoTask, biltSchedule, crmFiles, siteControl, aquahomeCatalog, opalCatalog, reitanoCatalog, randalProjects, configuratorPurchasePrices, feniceRequest, biopietraRequest, cerastoneRequest, planPoseAccess, neobathAnimaAccess);
 
