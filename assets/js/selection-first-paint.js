@@ -5,14 +5,14 @@
   const requested=normalise(query.get('partner'));
   // Keep membership and fallback order aligned with inspirations-v2.js.
   const categories=[
-    ['carrelage',['elios-ceramica','view-ceramica','la-fenice']],
+    ['carrelage',['elios-ceramica','selection-lrf-exterieur-r11','la-fenice','view-ceramica']],
     ['exception',['petracers','pecchioli-firenze','bulbo']],
     ['mosaique',['reviglass']],['parement',['saxso','biopietra']],
     ['meubles',['randal-pro','neobath','petracers','bulbo']],
     ['robinetterie',['aquahome','opal','reitano-rubinetterie','petracers']],
     ['sanitaire',['petracers','uptrend']],['outillages',['bilt']]
   ];
-  const aliases={elios:'elios-ceramica',view:'view-ceramica',petracer:'petracers',pecchioli:'pecchioli-firenze',randal:'randal-pro',opalhome:'opal',saxo:'saxso'};
+  const aliases={r11:'selection-lrf-exterieur-r11',exterieur:'selection-lrf-exterieur-r11',elios:'elios-ceramica',view:'view-ceramica',petracer:'petracers',pecchioli:'pecchioli-firenze',randal:'randal-pro',opalhome:'opal',saxo:'saxso'};
   const partner=categories.flatMap(([,partners])=>partners).find(slug=>normalise(slug)===requested)||aliases[requested]||'';
   const requestedCategory=query.get('category')||query.get('cat')||'';
   const categoryId=requestedCategory==='piscine'?'carrelage':requestedCategory;
