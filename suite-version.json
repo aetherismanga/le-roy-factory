@@ -766,7 +766,7 @@
     "firebaseReleaseMode": "manual"
   },
   "eliosSamples": {
-    "releaseId": "20261113-elios-samples-client-mail-v7",
+    "releaseId": "20261113-elios-samples-direct-box-v8",
     "lrfAuthenticationRequired": true,
     "dependentFormatFilter": true,
     "chevronPreviewShape": true,
@@ -782,7 +782,12 @@
     "webglVisualVerification": false,
     "materialImagesOnly": true,
     "clientMail": true,
-    "catalogueVersion": "20261113-elios-mysterium-dynasty-v8"
+    "catalogueVersion": "20261113-elios-mysterium-dynasty-v8",
+    "directBoxOrder": true,
+    "directBoxLoss": true,
+    "twoPanReturnSide": true,
+    "boxImportButton": false,
+    "exhibitionBanner": "assets/img/elios-box-expo-dynasty-yosemite-20261113.webp"
   },
   "eliosMaterials": {
     "releaseId": "20261113-elios-mysterium-dynasty-v8",

@@ -81,7 +81,8 @@ exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'
   const quote=C.buildQuote(body.items,catalogue,rates,body.profiles);
   if(body.action==='quote')return res.json({success:true,quote});
   const customer=contact(body.contact,account),hasBox=quote.rows.some(row=>row.type==='box');
-  const project=hasBox?C.checkedProject(body.project):null,visual=hasBox?C.pngAttachment(body.visual):null;
+  const hasProject=hasBox&&(body.project!=null||body.visual!=null);
+  const project=hasProject?C.checkedProject(body.project):null,visual=hasProject?C.pngAttachment(body.visual):null;
   const id=C.text(body.requestId,80);if(!/^[a-zA-Z0-9-]{20,80}$/.test(id))throw C.fail('Identifiant de demande manquant.');
   const fingerprint=C.requestFingerprint({...body,contact:customer},account),ref=db.collection('elios_sample_requests').doc(require('node:crypto').createHash('sha256').update(account.owner+'|'+id).digest('hex'));
   const existing=(await ref.get()).data();
@@ -107,7 +108,7 @@ exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'
   attachments.push(...await selectionImageAttachments(quote.rows,{fetchImage:fetch}));
   const title=C.text(body.title||'Échantillons et exposition',100).replace(/[\r\n]/g,' ');
   const subject=`${hasBox?'Demande d’expo':'Demande d’échantillons'} ELIOS — ${account.societe} — ${reference}`;
-  const content={reference,account,contact:customer,quote,title,note:C.text(body.note,2000),box:hasBox};
+  const content={reference,account,contact:customer,quote,title,note:C.text(body.note,2000),box:!!project};
   const html=C.mailHTML(content),text=C.mailText(content);
   const message={from:{name:customer.name,address:customer.email},to:C.TO,cc:C.CC,subject,html,text,headers:{'X-Unsent':'1'},attachments};
   // Compile a complete MIME draft in memory. This transport has no network or

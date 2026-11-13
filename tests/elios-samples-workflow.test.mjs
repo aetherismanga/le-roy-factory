@@ -83,3 +83,22 @@ test('a box without a floor skips its floor step and only its actual wall SKUs e
   assert(rows[0].paint);const groups=summarizeQuantities(rows);assert.equal(groups.length,1);assert(groups.every(g=>g.catalogueKey===wall.key));room.dispose();
  }
 });
+
+test('two-pan return can be switched left or right while preserving numbered surfaces, heights and quantities',()=>{
+ const wall=catalogue.products.find(p=>p.collection==='Stone Icon'&&p.colorId==='leccese'&&p.format==='60x90'&&p.packVerified);
+ const settings={count:2,includeFloor:false,width:240,depth:180,height1:240,height2:220,loss:10},selection={floor:'',walls:[wall.key,wall.key]};
+ const right=exhibitionProject(settings,selection);right.walls[1].groutColor='Gris';right.layouts.walls[1].x=.12;
+ const left=exhibitionProject({...settings,returnSide:'left'},selection,right);
+ assert.deepEqual(left.room.expoWalls.map(w=>w.enabled),[true,false,false,true]);assert.equal(left.room.expoWalls[3].height,220);assert.equal(left.room.expoWalls[3].label,'Mur 2');
+ assert.equal(left.walls[3].catalogueKey,wall.key);assert.equal(left.walls[3].groutColor,'Gris');assert.equal(left.layouts.walls[3].x,.12);assert.equal(left.floor.expoEnabled,false);
+ assert.deepEqual(cloneRoom(left.room),left.room);assert.equal(exhibitionSteps({...settings,returnSide:'left'}).find(s=>s.index===1).wall,3);
+ const restored=exhibitionProject(settings,selection,left);assert.deepEqual(restored.room.expoWalls,right.room.expoWalls);assert.equal(restored.walls[1].groutColor,'Gris');assert.equal(restored.layouts.walls[1].x,.12);
+});
+test('direct exhibition orders calculate loss once, use manufacturer full packs and combine with 3D quantities',async()=>{
+ const {directBoxQuantity,combinedSampleLines}=await import('../assets/js/elios-samples-core.mjs');
+ const p={key:'sample',packVerified:true,packArea:1.44,packPieces:4};
+ const direct=directBoxQuantity(p,10,'m2',10);assert.equal(direct.quantity,11);assert.equal(direct.boxes,8);assert.equal(direct.orderArea,11.52);
+ assert.equal(directBoxQuantity(p,2,'boxes',0).boxes,2);assert.equal(directBoxQuantity(p,2,'boxes',10).boxes,3);
+ const combined=combinedSampleLines([direct,{type:'box',key:'sample',quantity:1.5},{type:'vrac',key:'sample',quantity:1}]);assert.equal(combined.length,2);assert.equal(combined[0].quantity,12.5);assert.equal(direct.quantity,11);
+ for(const args of [[p,-1,'m2',10],[p,2.5,'boxes',0],[p,1,'m2',-1],[p,1,'m2',31],[{...p,packVerified:false},1,'m2',10]])assert.throws(()=>directBoxQuantity(...args));
+});
