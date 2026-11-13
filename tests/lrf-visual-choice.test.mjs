@@ -12,6 +12,15 @@ const listenerCount=target=>[...(target.listeners?.values()||[])].reduce((sum,ha
 const tick=()=>new Promise(resolve=>queueMicrotask(resolve));
 function setup(t){const dom=createVisualChoiceDOM();t.after(()=>dom.restore());const host=dom.element('div');dom.document.body.append(host);return {...dom,host};}
 
+test('an explicit confirmation can apply an initially displayed SKU without a programmatic refresh applying it',t=>{
+ const {document,host}=setup(t),changes=[];
+ const choice=renderVisualChoice(host,{entries,value:'sku-a',emitUnchanged:true,onChange:value=>changes.push(value)});
+ choice.value='sku-a';choice.update({value:'sku-a'});assert.deepEqual(changes,[]);
+ choice.open();document.querySelector('[data-visual-choice-value="sku-a"]').click();
+ assert.deepEqual(changes,['sku-a']);assert.equal(document.querySelector('[data-visual-choice-popup]'),null);
+ choice.destroy();
+});
+
 test('touching a photo previews without applying; clicking the reference applies exactly once after closing',t=>{
  const {document,host}=setup(t),changes=[];
  const choice=renderVisualChoice(host,{entries,value:'sku-a',label:'Référence',onChange:(value,entry)=>{assert.equal(document.querySelector('[data-visual-choice-popup]'),null);changes.push([value,entry.detail]);}});
