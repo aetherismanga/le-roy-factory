@@ -38,7 +38,8 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
   await context.route(/^https:\/\//,async route=>{
    const u=new URL(route.request().url());let dir,relative;
    if(u.hostname==='leroyfactory.fr'&&u.pathname.startsWith('/review-studio/assets/')){dir=roots.studio;relative=u.pathname.slice('/review-studio'.length);}
-   else if(u.hostname==='leroyfactory.fr'&&(u.pathname.startsWith('/assets/img/lrf-plan-pose/faces/')||u.pathname.startsWith('/assets/img/elios-samples-hd/'))){dir=root;relative=u.pathname;}
+   else if(u.hostname==='leroyfactory.fr'&&(u.pathname.startsWith('/assets/img/lrf-plan-pose/faces/')||u.pathname.startsWith('/assets/img/elios-samples-hd/')||u.pathname.startsWith('/assets/img/elios-mysterium-20261113/'))){dir=root;relative=u.pathname;}
+   else if(u.hostname==='storage.googleapis.com'&&u.pathname.includes('/assets/img/randal/surfaces/elios/dynasty/')){dir=root;relative=u.pathname.slice(u.pathname.indexOf('/assets/img/'));}
    else if(u.hostname==='studio-one-beta-test-v2.vercel.app'){dir=roots.studio;relative=u.pathname;}
    else if(u.hostname==='randal-catalogue-general-3d.vercel.app'){dir=roots.general;relative=u.pathname;}
    const asset=dir&&readWithin(dir,decodeURIComponent(relative));
@@ -86,7 +87,9 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
    {collection:'Yosemite',color:'honey',format:'23.4x95.7'},
    {collection:'Stone Icon',color:'campaspero',format:'60x60'},
    {collection:'Terraforma',color:'flora',format:'30x30'},
-   {collection:'Dynasty',color:'crown-green',format:'30x30'}
+   {collection:'Dynasty',color:'crown-green',format:'30x30'},
+   {collection:'Dynasty',color:'alpi',format:'60x120'},
+   {collection:'Mysterium',color:'amber',format:'120x278'}
   ]){
    await page.evaluate(async spec=>{const app=studioOnePrototype;app.setSurfaceCollection('floor',spec.collection);app.setSurface('floor',spec.color);if(!app.setTileFormat('floor',spec.format))throw Error('New format unavailable: '+JSON.stringify(spec));await app.waitForTextures();},surface);
    const actual=await page.evaluate(()=>{const diagnostics=studioOnePrototype.getDiagnostics(),loaded=diagnostics.textures.surfaces;const textures=Array.isArray(loaded)?loaded:Object.entries(loaded).flatMap(([collection,entries])=>Object.entries(entries).map(([key,data])=>({collection,id:JSON.parse(key)[1],...data})));return {floor:studioOnePrototype.exportProject().floor,drawCalls:diagnostics.drawCalls,textures};});

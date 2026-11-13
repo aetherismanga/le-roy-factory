@@ -57,14 +57,17 @@ def run(source):
         if p['brand']!='ELIOS':continue
         c=collections.get(p['collection'],{})
         color=next((x for x in c.get('colors',[]) if x['id']==p['colorId']),{})
-        faces=color.get('textureVariants',{}).get('max') or color.get('faces') or []
+        native=color.get('textureVariantsByReference',{}).get(p.get('reference'),{})
+        if not (native.get('verified') and native.get('format')==p.get('format')):native={}
+        faces=native.get('textureVariants',{}).get('max') or color.get('textureVariants',{}).get('max') or color.get('faces') or []
         image=faces[0] if faces else p.get('preview')
         products.append({k:p.get(k) for k in ['key','reference','collection','color','colorId','format','finish','packVerified','packArea','packPieces','packSource']}|{
             'slug':slugs.get(norm(p['collection']), 'pool-'+p['collection'].split('—')[-1].strip().lower().replace(' ','-') if p['collection'].startswith('Pool Surfaces') else p['collection']),
-            'image':image,'thumbnail':color.get('file') or image,'available3d':color.get('available3d',False),
-            'definitionLimited':bool(color.get('definitionLimited') or p.get('definitionLimited')),
+            'image':image,'thumbnail':(native.get('textureVariants',{}).get('fluid') or [color.get('file') or image])[0],'available3d':color.get('available3d',False),
+            'definitionLimited':bool(native.get('definitionLimited',color.get('definitionLimited') or p.get('definitionLimited'))),
             'reconstructed':color.get('textureProvenance',{}).get('kind')=='ai-reconstruction',
-            'vrac':allowed(p),'sampleReference':p['reference'],'priceUnit':p.get('priceUnit','m²')})
+            'vrac':allowed(p),'sampleReference':p['reference'],'priceUnit':p.get('priceUnit','m²'),
+            **({'legacy':True} if p.get('legacy') else {})})
     # The user explicitly requests these instrument values for information.
     # They are not client amounts payable; never include agent allocations.
     merchandising=read_merchandising(source/'source-0.xlsx')

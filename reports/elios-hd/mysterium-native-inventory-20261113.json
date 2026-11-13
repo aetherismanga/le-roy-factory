@@ -1,0 +1,2414 @@
+{
+  "schemaVersion": 1,
+  "manufacturer": "ELIOS Ceramica",
+  "entries": [
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1201",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 1,
+      "sourceFilename": "LB1201@1.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "6137572b82d4351aa8b189c0b7940d92ff36e6e8db45f160fd3cebc3df37d2aa",
+      "sourceBytes": 1400919,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "6137572b82d4351aa8b189c0b7940d92ff36e6e8db45f160fd3cebc3df37d2aa",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "d41cab85b708a9ad5b6a2054cedd900beea9f74925e002491452efbb12d49971",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1201/amber/120x278/face-001-d41cab85b708-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 5366,
+          "sha256": "083b515666eed1ec79d67a41b17437a904b31f18d74e299f368ed099e069527f",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1201/amber/120x278/face-001-d41cab85b708-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 40984,
+          "sha256": "eac29974c033a960e41c7ca74dbe72728411f812b70dee4122ee8aca1aa1e395",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1201/amber/120x278/face-001-d41cab85b708-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 339580,
+          "sha256": "b4e8236b9db2747ecd8e61ac351c50b85a28f96b2edcdadddf1d598053ea862d",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1201",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 2,
+      "sourceFilename": "LB1201@2.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "6298234f8790c8aec371c4ff93827bf1360891deca04d471aad9d1ee9ed28cc5",
+      "sourceBytes": 1216924,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "6298234f8790c8aec371c4ff93827bf1360891deca04d471aad9d1ee9ed28cc5",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "82606cf07ae437ae9ee02e3faf266971566636ddd494c584c4e0cfe933b334c9",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1201/amber/120x278/face-002-82606cf07ae4-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 5560,
+          "sha256": "e2ddda2d7482b8984170bbbc2a99d2a7815a48a771c48c70f66a5a999d6b35be",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1201/amber/120x278/face-002-82606cf07ae4-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 41594,
+          "sha256": "337e01d4e848e8c6d7910c752c8adc1e70131c9119a6579f6cf1682a59422511",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1201/amber/120x278/face-002-82606cf07ae4-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 370480,
+          "sha256": "eadd00e7baaacd817cb4ee8eb211b95aabd6d20023940d665570d9fa47cf7166",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1201",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 3,
+      "sourceFilename": "LB1201@3.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "2ee7ad0900723ca0136d833c5cb9307dd41500785c23bf145bdd11679263df96",
+      "sourceBytes": 683962,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "2ee7ad0900723ca0136d833c5cb9307dd41500785c23bf145bdd11679263df96",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "e2e7425ca18e279eca0d7ef03e05808173c10d40701ade2c6c6a0657978fd88d",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1201/amber/120x278/face-003-e2e7425ca18e-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 6130,
+          "sha256": "fdc2d2152ea7771679a6bb8dcad0f02198ab1e557331237fd2e719b29d395124",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1201/amber/120x278/face-003-e2e7425ca18e-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 56922,
+          "sha256": "fc7778678b8f994685cef2e5a16ffb7c5260057a39dbfbb6dca7215cce25f289",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1201/amber/120x278/face-003-e2e7425ca18e-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 575382,
+          "sha256": "314b7ca6652de97372a327f171ff58cfa745b905a331f553151532d1dee1dee8",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1201",
+      "colorId": "amber",
+      "color": "Amber",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 4,
+      "sourceFilename": "LB1201@4.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "b2629fb0d8f0cf28327698c7d328012ae3f60d7d7be9aca478831619ce5b6d38",
+      "sourceBytes": 1473376,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "b2629fb0d8f0cf28327698c7d328012ae3f60d7d7be9aca478831619ce5b6d38",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "01ad07007c2517c5ddcb202779a713fdec4dfd201cf2e83484ed6d75fcd2aa62",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1201/amber/120x278/face-004-01ad07007c25-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 5634,
+          "sha256": "fd25f351dc8e39a09d818d04f728fd5ee99ce62630d77062e4873a0c8d791112",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1201/amber/120x278/face-004-01ad07007c25-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 53266,
+          "sha256": "baca6d7616436cb9ac6d7932dd538af2adb3449754a6af13f0eccf86b808e561",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1201/amber/120x278/face-004-01ad07007c25-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 490510,
+          "sha256": "0e7e6ee24472e7547882b52d2783c02c0a97d4807783ebad240ebc7c7a4ae7f4",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1202",
+      "colorId": "white",
+      "color": "White",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 1,
+      "sourceFilename": "LB1202@1.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "d6bee2d8331a7ec815e1cf9e7bd4868bcbfc3c04edf52d9e217f06b3c237d90b",
+      "sourceBytes": 376822,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "d6bee2d8331a7ec815e1cf9e7bd4868bcbfc3c04edf52d9e217f06b3c237d90b",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "7287c974a1fe0b0618a392348ae52294516a92c5d6167e944fc1e9ce66bc81ff",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1202/white/120x278/face-001-7287c974a1fe-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 3444,
+          "sha256": "b6357f4b63cadf64fca28fec589c882b9915f644b76c419c3a76d80ced94be4f",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1202/white/120x278/face-001-7287c974a1fe-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 23644,
+          "sha256": "62a0b7f232a8764ee3930e3fdc4f75901a44748eab8ea76c5f58dd0d0a845b1a",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1202/white/120x278/face-001-7287c974a1fe-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 261596,
+          "sha256": "c5797a5a92d5154a644e8f850015b124f98ace85b52875764dae8a13b7ae6695",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1202",
+      "colorId": "white",
+      "color": "White",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 2,
+      "sourceFilename": "LB1202@2.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "aa0ec8be65db1487a60e054b0d3b4f3785a56c22ac2913b194a36773e19f45b5",
+      "sourceBytes": 1011622,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "aa0ec8be65db1487a60e054b0d3b4f3785a56c22ac2913b194a36773e19f45b5",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "82f3ddde76e77d2021f59841a428edc081fbc68cb54afd41802f52e3f5d72fc8",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1202/white/120x278/face-002-82f3ddde76e7-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 3206,
+          "sha256": "09e44dce72fd84fdc4a3ff6e81bcef2cfd56d9b4f9fc6012ab07fe47ee0f6630",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1202/white/120x278/face-002-82f3ddde76e7-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 22866,
+          "sha256": "9df1aadb1b85106acb49f592e804df6541ff7f2886ebaf4c96cc159dc9361aac",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1202/white/120x278/face-002-82f3ddde76e7-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 188998,
+          "sha256": "645b64ff7a99db177d6d53fcada031aa9d745d895443674ef920f6437a14650a",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1202",
+      "colorId": "white",
+      "color": "White",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 3,
+      "sourceFilename": "LB1202@3.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "5bf157dd6e4c848918ca366429a5be331fcec5eb8a8a7302e7c39b9cf0894a71",
+      "sourceBytes": 1254113,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "5bf157dd6e4c848918ca366429a5be331fcec5eb8a8a7302e7c39b9cf0894a71",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "2b69713201a25adc0a10316c68513444f3d3ccc3eb0b92063badf403a74d36c9",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1202/white/120x278/face-003-2b69713201a2-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 3626,
+          "sha256": "eb70accb33e884b60d1cdf517340a87e696e6df1881313800c1b89c50943e44b",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1202/white/120x278/face-003-2b69713201a2-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 25162,
+          "sha256": "6c6a73821132d788754a6691bb8eed2d7495ce2a4b98129f4dc128a9a7a568a1",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1202/white/120x278/face-003-2b69713201a2-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 209716,
+          "sha256": "1d79a168849c6b2f5478b161ff9a337809649980bd67aebab42d6b6bd8e9a089",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1202",
+      "colorId": "white",
+      "color": "White",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 4,
+      "sourceFilename": "LB1202@4.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "67e43afeeb22f6196db5841532ff1efc2c2384ad4374a89910ad1c6810a91a93",
+      "sourceBytes": 1242339,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "67e43afeeb22f6196db5841532ff1efc2c2384ad4374a89910ad1c6810a91a93",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "60692fc943b23077495a5a30dfd1bcc34efb9f9021f1b3b682f063aebf272f3f",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1202/white/120x278/face-004-60692fc943b2-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 3496,
+          "sha256": "9a286b7e07c03b984e1d22fcb72a241e36c9f2901aaefcbfd8d01cd014ee3cc1",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1202/white/120x278/face-004-60692fc943b2-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 28070,
+          "sha256": "a14b9a34d380a58d4e077ad625013c6c0377d4933892de2d6c91f6258e77e36f",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1202/white/120x278/face-004-60692fc943b2-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 289620,
+          "sha256": "bee718c957f2d2055dd3864ad24e0c431d409869dcc67c36a61f53f03e62e87d",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1203",
+      "colorId": "pearl",
+      "color": "Pearl",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 1,
+      "sourceFilename": "LB1203@1.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "f44c9f4cf1b6c4b8b87496e20cb4bd66537e8413ab412aed3907ca8d00195cc3",
+      "sourceBytes": 549586,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "f44c9f4cf1b6c4b8b87496e20cb4bd66537e8413ab412aed3907ca8d00195cc3",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "3f52e74a2824124925992a98d8f679e7869c78178e7dfc89f53cdd25038dce9a",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1203/pearl/120x278/face-001-3f52e74a2824-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 5080,
+          "sha256": "a65bd3e033cebe4f88c1832fb775b7108e13cea61b6df00d36dd6600a15287b8",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1203/pearl/120x278/face-001-3f52e74a2824-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 44204,
+          "sha256": "391e3018789fec626ad851e72a920cfb2d794675865f936ff41bac68ffca57d0",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1203/pearl/120x278/face-001-3f52e74a2824-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 452650,
+          "sha256": "12ee19e216adf484278a5c8d1a28b3ce2c77dd5cf2e36b676db3e804da0a6900",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1203",
+      "colorId": "pearl",
+      "color": "Pearl",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 2,
+      "sourceFilename": "LB1203@2.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "aca639d43bbb132b223d1bdc75d3a784e129d0a8a78f05eba5ab0458f9dd0758",
+      "sourceBytes": 1123199,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "aca639d43bbb132b223d1bdc75d3a784e129d0a8a78f05eba5ab0458f9dd0758",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "db37711f19b530c71af1e314316083c6617a6caa2b3e1ec7ea98bb53ed8c6448",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1203/pearl/120x278/face-002-db37711f19b5-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 4338,
+          "sha256": "ad272003c7ab2a350fd085e21fc759ccdf8d1cc79bcd9586052d684043b5c33c",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1203/pearl/120x278/face-002-db37711f19b5-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 33834,
+          "sha256": "7c839d05a4473557971d9fb184660bba7e87790e00d0916c9b788841818353c0",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1203/pearl/120x278/face-002-db37711f19b5-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 295688,
+          "sha256": "627c719124951875bedeba0fd87c0862238e5cd2e98efcda6451ec6e1de603ca",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1203",
+      "colorId": "pearl",
+      "color": "Pearl",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 3,
+      "sourceFilename": "LB1203@3.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "70bcd41bdbc6678b7a5409ab35b1400f6329d0eac7f785393bdd3b849974923f",
+      "sourceBytes": 1325518,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "70bcd41bdbc6678b7a5409ab35b1400f6329d0eac7f785393bdd3b849974923f",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "016664a8613efdfcd81d980b26f2315c88f4e162b9ddc2ba1100b3827e758f2e",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1203/pearl/120x278/face-003-016664a8613e-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 4458,
+          "sha256": "a1ff8b99c0a33e05b35190d775ea7d9e3bd7b402cd64b56e13ea41c7a094ffb3",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1203/pearl/120x278/face-003-016664a8613e-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 32066,
+          "sha256": "90ececa75075dcc5b67f285d9d02e195ac909ee91152c86ad37d723da348b0be",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1203/pearl/120x278/face-003-016664a8613e-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 275166,
+          "sha256": "c7144fd573c66912a63df118afcb4a741bd2242e3202926a6740f40a9d89a4ef",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1203",
+      "colorId": "pearl",
+      "color": "Pearl",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 4,
+      "sourceFilename": "LB1203@4.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "d7499b0e9b5c43f4982fcf6ee15dac690bdc5421f56067cabcf8c466eee566de",
+      "sourceBytes": 1427408,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "d7499b0e9b5c43f4982fcf6ee15dac690bdc5421f56067cabcf8c466eee566de",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "5bc3208da52888f8e716735761b62226fb7083323754c928b5dee3db666a598b",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1203/pearl/120x278/face-004-5bc3208da528-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 5232,
+          "sha256": "789131bd6159b04f64111b467a89af705cb8e03f639ea7a2bf01de3b1781bbc9",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1203/pearl/120x278/face-004-5bc3208da528-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 47266,
+          "sha256": "ef24929dd6209914db1f7d7366a7172c0743f6dc6d2f2f424308d463bc2d7a6c",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1203/pearl/120x278/face-004-5bc3208da528-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 493982,
+          "sha256": "ee2cf69110dd1c448763d7dcc41a02014f27dd1d1d2b75351f33e883e8c83538",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1204",
+      "colorId": "black",
+      "color": "Black",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 1,
+      "sourceFilename": "LB1204@1.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "265d72465886c7b1c2113b84d9b536a6e1bdc3dfc3ed3f72e87b77972f198565",
+      "sourceBytes": 1358730,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "265d72465886c7b1c2113b84d9b536a6e1bdc3dfc3ed3f72e87b77972f198565",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "b62a15f5ac2b68b0e44bb5b2e4c3c36d4b3646144bfb1a139a1f568e7ebaa588",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1204/black/120x278/face-001-b62a15f5ac2b-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 5098,
+          "sha256": "145aa4b01677d38120f8900297f12a95b354288fdb1d1f9ad8601b56305ced52",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1204/black/120x278/face-001-b62a15f5ac2b-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 39140,
+          "sha256": "a8f5aff42b14fbdb5ebe04b5571c24adb26e1720b69195e00dd802f62bda7e13",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1204/black/120x278/face-001-b62a15f5ac2b-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 312052,
+          "sha256": "047e6a23ec1a9908255681dacddc206a3b3169bc1ed16df19920937fe9ae15b9",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1204",
+      "colorId": "black",
+      "color": "Black",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 2,
+      "sourceFilename": "LB1204@2.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "425bae7723a66995344e1940923bee379b2b128dcb1440028aae64f8e0ad6414",
+      "sourceBytes": 1267193,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "425bae7723a66995344e1940923bee379b2b128dcb1440028aae64f8e0ad6414",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "bef94eeec453426af9f48620cc6f625c09c66db349229e1b21922557de40cd20",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1204/black/120x278/face-002-bef94eeec453-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 6030,
+          "sha256": "20ea839690470ce9755b8de281b8619aab5a75f7a38db598ab57e04b13670444",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1204/black/120x278/face-002-bef94eeec453-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 55430,
+          "sha256": "ceda03f791755131056bb60092ea1746a84a9acf72e02ee44e2c52fe2bc61bc2",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1204/black/120x278/face-002-bef94eeec453-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 469190,
+          "sha256": "9da2ce8aacd2f0dfa6d4466ba740c4da9d4328bb088be24cb40ff89f8052f9ee",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1204",
+      "colorId": "black",
+      "color": "Black",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 3,
+      "sourceFilename": "LB1204@3.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "7403daa3320b5fc21b57ec02add149c41a861c2eca2d1b0e6466f232cc43287f",
+      "sourceBytes": 1420528,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "7403daa3320b5fc21b57ec02add149c41a861c2eca2d1b0e6466f232cc43287f",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "cc0022a405cced71dbe3ed84ac573821589139a994b452d119d9a5d1f6842986",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1204/black/120x278/face-003-cc0022a405cc-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 5236,
+          "sha256": "beff9a9a0b37aec2a32b9f080eb959def3fd6107d37eb955dcf0359a3a5f975a",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1204/black/120x278/face-003-cc0022a405cc-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 49908,
+          "sha256": "5f1c61edf39627ad291df28c15111eca186305e1c1af3b5e5d443c79acd0e632",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1204/black/120x278/face-003-cc0022a405cc-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 512622,
+          "sha256": "266f47a5c929552113249721bb5a58c6d2ae9345ed08405226b3ff1258fe190d",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1204",
+      "colorId": "black",
+      "color": "Black",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 4,
+      "sourceFilename": "LB1204@4.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "119e5d67fb250353c0d85fc464eb692c1c3e0a064d519cf1f43c88b0adc079f8",
+      "sourceBytes": 1293973,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "119e5d67fb250353c0d85fc464eb692c1c3e0a064d519cf1f43c88b0adc079f8",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "98b18395a66eb7f62a7e05a3bef977c129ee17f0ed8409c38d96815a6bfc2c2e",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1204/black/120x278/face-004-98b18395a66e-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 5582,
+          "sha256": "7e4119435302c9910aa2a3aeb1b6f4c323c9953bcbd92faa603b58135ac8a58b",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1204/black/120x278/face-004-98b18395a66e-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 52956,
+          "sha256": "62e6f7c611b059f49af839bd8b34adedd63dc85da5f8e4875c66d83490c899f9",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1204/black/120x278/face-004-98b18395a66e-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 528826,
+          "sha256": "96d1e260a89a623b701ad2bf1fc0e1d94821255d52e961d1ceafcdf6ba03180e",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1205",
+      "colorId": "acqua",
+      "color": "Acqua",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 1,
+      "sourceFilename": "LB1205@1.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "7ad2e6aebe759cdcaae9331b7e018c852027f0a917d90655cb1b6663144d360e",
+      "sourceBytes": 1431030,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "7ad2e6aebe759cdcaae9331b7e018c852027f0a917d90655cb1b6663144d360e",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "7ed34dd2823f059ae5eba12edf6b3ffe6ecb2417c15e281433e4a57fcc524989",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1205/acqua/120x278/face-001-7ed34dd2823f-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 5616,
+          "sha256": "631469f76b71d4f774eed2e70c78080381143474575ce796ff33afdb8b0a15fd",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1205/acqua/120x278/face-001-7ed34dd2823f-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 45106,
+          "sha256": "63a15bfaadca6367bf68226497601eabbe3f87faa55b90eaba7184b6d896ecbe",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1205/acqua/120x278/face-001-7ed34dd2823f-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 368634,
+          "sha256": "580b0727765cffdd14928a93ba33cc674d33616d6a0e66f8acfd5a5bb92149d9",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1205",
+      "colorId": "acqua",
+      "color": "Acqua",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 2,
+      "sourceFilename": "LB1205@2.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "5085f7d32e921a7658d3f2b733820bfc8a1be1d95528a29ee24d5c436bc00a12",
+      "sourceBytes": 1226989,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "5085f7d32e921a7658d3f2b733820bfc8a1be1d95528a29ee24d5c436bc00a12",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "d7bab88357eed5359955a4543ef68a5193dfcad7f8410e4492ae1e3089683b2d",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1205/acqua/120x278/face-002-d7bab88357ee-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 5728,
+          "sha256": "3fb10671b9ccb2393be978d4161b6f2163c92dac50e43f36112e526f6aa027fe",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1205/acqua/120x278/face-002-d7bab88357ee-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 43796,
+          "sha256": "47872bf02464b8e9d35afe29bdadb616ce7a9fcd8997d0f0034851beebb6bdf4",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1205/acqua/120x278/face-002-d7bab88357ee-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 352530,
+          "sha256": "e9cc9ad535e9273d49e175d005d44e1125e485b72be873fd8c9abb5228990861",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1205",
+      "colorId": "acqua",
+      "color": "Acqua",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 3,
+      "sourceFilename": "LB1205@3.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "0671148e8a6628290cba8d9436befdbeb90d1396313ee3f80585421d72c68a91",
+      "sourceBytes": 1580428,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "0671148e8a6628290cba8d9436befdbeb90d1396313ee3f80585421d72c68a91",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "e294195ac00a58da3f6d07a7e1af9bd93ae4735bfafd77dddf86be5df6dd4bc8",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1205/acqua/120x278/face-003-e294195ac00a-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 6556,
+          "sha256": "d178aa99c7eda80b02121e80ee94e3ad43e456a5e56ba55884e2ca67fdf60f07",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1205/acqua/120x278/face-003-e294195ac00a-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 65824,
+          "sha256": "4762881523947defe4595113b2269cff8acbed7f57cc923b81d736f75e374b38",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1205/acqua/120x278/face-003-e294195ac00a-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 607588,
+          "sha256": "439e4419c353e12aad77dfbcfffa154fc521f711c1a0a7ddb79dc1d6b353b8d0",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1205",
+      "colorId": "acqua",
+      "color": "Acqua",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 4,
+      "sourceFilename": "LB1205@4.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "235905522c9ffc6ec48bf91705e5525dc36efef2b1360b59ea3670dd3ae6fb46",
+      "sourceBytes": 670141,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "235905522c9ffc6ec48bf91705e5525dc36efef2b1360b59ea3670dd3ae6fb46",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "a3a3eb581708b04039aa91c1a05632fb6d024f2fad44e4fb627662f87afae8be",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1205/acqua/120x278/face-004-a3a3eb581708-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 6270,
+          "sha256": "e8d8fcc29a8ea837eebd6ccd8a8c47948a8afd6779c79fafb70265110bf075d8",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1205/acqua/120x278/face-004-a3a3eb581708-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 55508,
+          "sha256": "fe28ceaeacbd9fc20f2c27f7f31452a837fff0fb40392d1e8dd11f19a486d8d1",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1205/acqua/120x278/face-004-a3a3eb581708-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 560904,
+          "sha256": "be52b0b4332c53f3b677f8e231815b4d572708d709aaa51e2b6b956ad6eeebe2",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1206",
+      "colorId": "ocean",
+      "color": "Ocean",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 1,
+      "sourceFilename": "LB1206@1.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "48fb8ceace443186cd32e1255ce162ab1bc8660503cb31a5ce6cae4a89df1f79",
+      "sourceBytes": 1428972,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "48fb8ceace443186cd32e1255ce162ab1bc8660503cb31a5ce6cae4a89df1f79",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "447da4506981029dc306f63c71d007e86d22dcd0dfcd8c5b658c36245c667d59",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1206/ocean/120x278/face-001-447da4506981-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 5904,
+          "sha256": "0767ae35cd219976381fddea09db64eaa2971bd42eff5bf1701f72d5454ff193",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1206/ocean/120x278/face-001-447da4506981-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 45366,
+          "sha256": "4ea4c4598b1359540af2fbd720cf948822eaae32fa9cf6b817bfe71cb4720017",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1206/ocean/120x278/face-001-447da4506981-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 366492,
+          "sha256": "ff84634601e858fdbe58cb19e91e2c9817281dbdd47080e6dd9d05fc376f63f9",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1206",
+      "colorId": "ocean",
+      "color": "Ocean",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 2,
+      "sourceFilename": "LB1206@2.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "5e3edf9f6c6da8b667f9c04794d699fd3fd0dfff6f4e82f027b3adba41925004",
+      "sourceBytes": 1349885,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "5e3edf9f6c6da8b667f9c04794d699fd3fd0dfff6f4e82f027b3adba41925004",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "021a6dcf829dd8509dc3127a074543cc1ee8c749877fb8babbf3620b8acc497a",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1206/ocean/120x278/face-002-021a6dcf829d-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 6466,
+          "sha256": "ea0fecae6e29f7bd0dfea35f34e0edc7f9456a5c64a1bb3194020335d55e898c",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1206/ocean/120x278/face-002-021a6dcf829d-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 58148,
+          "sha256": "8b0de1dc7ec5df732ccfac18d199ef4eef4a60d4cb6978f605f21294b7c48751",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1206/ocean/120x278/face-002-021a6dcf829d-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 529418,
+          "sha256": "dee082a79b00eb820c0df0bdd890fb33900c2c7dde9ca0ca35e561ca577b4e56",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1206",
+      "colorId": "ocean",
+      "color": "Ocean",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 3,
+      "sourceFilename": "LB1206@3.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "934a1d9d0f04441d7d5839cfe1ad92daf33dcf4920f6f53ae29e779d88967148",
+      "sourceBytes": 1595513,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "934a1d9d0f04441d7d5839cfe1ad92daf33dcf4920f6f53ae29e779d88967148",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "17a2d74178fcc43d6081d137c8cb4eab9b51cbb9fa8e413916f732565e1f9e33",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1206/ocean/120x278/face-003-17a2d74178fc-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 6718,
+          "sha256": "bdcfc4e9522419ae992326dbf541eed8acf8a738a90e663b070ab132c3ee2f23",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1206/ocean/120x278/face-003-17a2d74178fc-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 67958,
+          "sha256": "92bf000fe83cb613cfa3aaf3c4409076d1c375577140e639bbcb02ddf98632eb",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1206/ocean/120x278/face-003-17a2d74178fc-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 604506,
+          "sha256": "280d14213442988a4362655663b7a62c0e7b273f84eda5d0dccefcae8792bafb",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    },
+    {
+      "brand": "ELIOS",
+      "collection": "mysterium",
+      "reference": "LB1206",
+      "colorId": "ocean",
+      "color": "Ocean",
+      "format": "120x278",
+      "formatCm": [
+        120,
+        278
+      ],
+      "finish": "Poli · Rectifié · 6,5 mm",
+      "renderDimensionsCm": [
+        278,
+        120
+      ],
+      "textureRotation": 0,
+      "face": 4,
+      "sourceFilename": "LB1206@4.jpg",
+      "sourceArea": "Elios Ceramica professional phototheque / MINIMALI",
+      "sourceSHA256": "91431b25b80d4bbb0bfc729f3dbc72e4bdabab6784d7ceb6f280d58eef8657b3",
+      "sourceBytes": 632991,
+      "nativeDimensions": [
+        1200,
+        2780
+      ],
+      "sourceMode": "RGB",
+      "sourceImageFormat": "JPEG",
+      "decodedDimensions": [
+        1200,
+        2780
+      ],
+      "sourceICCsha256": "3f6d674174f3804eb0dabdac90ae17486e898c5063a66f861c116ea033da8301",
+      "exifOrientation": 1,
+      "rotateClockwise": 90,
+      "sourceOrientation": "portrait",
+      "renderOrientation": "landscape",
+      "colourConversion": "embedded-icc-to-srgb",
+      "renderingIntent": "relative-colorimetric-with-black-point-compensation",
+      "crop": null,
+      "mirror": false,
+      "upscaled": false,
+      "recipe": {
+        "pipelineVersion": 1,
+        "sourceSHA256": "91431b25b80d4bbb0bfc729f3dbc72e4bdabab6784d7ceb6f280d58eef8657b3",
+        "rotateClockwise": 90,
+        "limits": {
+          "fluid": 256,
+          "balanced": 1024,
+          "max": 4096
+        },
+        "webpMethod": 5,
+        "qualities": {
+          "fluid": 90,
+          "balanced": 90,
+          "max": 94
+        },
+        "pillowVersion": "13.0.0",
+        "srgbProfileSHA256": "6f6fe5cc53cd24ceeb7997fb24ce2889fdfb88d88ce4fdc5f8e25e0481294953"
+      },
+      "recipeSHA256": "27602333fb052492870ca361f5a87ba03e6e72dc3796f1bcb3278ffc1dd3c22d",
+      "variants": {
+        "fluid": {
+          "file": "mysterium/LB1206/ocean/120x278/face-004-27602333fb05-fluid.webp",
+          "width": 256,
+          "height": 111,
+          "bytes": 5966,
+          "sha256": "cc2202e0e77605ce2b84715357d940f73b17fb7362c0d940abc7d18a4a70f1df",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 256
+        },
+        "balanced": {
+          "file": "mysterium/LB1206/ocean/120x278/face-004-27602333fb05-balanced.webp",
+          "width": 1024,
+          "height": 442,
+          "bytes": 51526,
+          "sha256": "345e09623f3b0f921ff1c1ddbc7accd828c7e3f8c44ddaa395a86947868ac760",
+          "encoding": "webp-lossy",
+          "quality": 90,
+          "icc": "sRGB",
+          "maxSide": 1024
+        },
+        "max": {
+          "file": "mysterium/LB1206/ocean/120x278/face-004-27602333fb05-max.webp",
+          "width": 2780,
+          "height": 1200,
+          "bytes": 541122,
+          "sha256": "44a0f08b2e4f7e8baf9be41698ef09259fd872b2d5e15ca844c2c3fe7500d27e",
+          "encoding": "webp-lossy",
+          "quality": 94,
+          "icc": "sRGB",
+          "maxSide": 4096
+        }
+      },
+      "identityVerified": true,
+      "reuseAuthorization": "confirmed-by-user",
+      "readyForIntegration": true
+    }
+  ],
+  "updatedAt": "2026-11-13T10:32:27.944342+00:00",
+  "counts": {
+    "originals": 24,
+    "collections": 1,
+    "faces": 24,
+    "readyFaces": 24,
+    "variants": 72
+  }
+}
