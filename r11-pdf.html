@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Catalogue PDF · Sélection Le Roy Factory Extérieur R11</title>
+<meta name="description" content="Catalogue PDF 143 pages de la sélection extérieure R11 Le Roy Factory : 62 collections, 388 références, Elios, VIEW et La Fenice.">
+<link rel="icon" href="assets/img/logo03lrf.png">
+<link rel="canonical" href="https://leroyfactory.fr/r11-pdf.html">
+<style>
+:root{color-scheme:light;font-family:Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif;color:#263131;background:#f5f2ec}
+*{box-sizing:border-box} body{margin:0}header{background:#fff;border-bottom:1px solid #ddd5c8;display:flex;align-items:center;gap:16px;padding:12px clamp(12px,3vw,36px);box-shadow:0 3px 20px #252b2710}header img{width:54px;height:54px;object-fit:contain}h1{font-size:clamp(1.1rem,2.2vw,1.6rem);margin:0}.sub{color:#776e61;font-size:.8rem;margin:4px 0 0}.toolbar{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;background:#a07e45;color:white;text-decoration:none;border:1px solid #a07e45;border-radius:8px;padding:11px 15px;font-size:.86rem;font-weight:600;cursor:pointer;white-space:nowrap}.btn.secondary{color:#352e25;background:#fff;border-color:#ddd3c4}.btn:disabled{opacity:.55;cursor:wait}main{padding:12px clamp(12px,3vw,36px)}.notice{text-align:center;margin:18px auto;max-width:740px;line-height:1.65;background:#fff;border:1px solid #e8e1d5;border-radius:12px;padding:20px}.notice[hidden],#pdf[hidden]{display:none!important}progress{width:min(420px,100%);height:12px;accent-color:#a07e45}#pdf{width:100%;height:calc(100vh - 116px);min-height:550px;background:#fff;border:1px solid #ded8cd;border-radius:10px}#message{color:#786b58}.summary{margin:10px 0 12px;font-size:.79rem;color:#716858}
+@media(max-width:670px){header{flex-wrap:wrap;gap:8px}header img{height:42px;width:42px}header>div:first-of-type{flex:1;min-width:190px}.toolbar{width:100%;margin-left:0}.toolbar .btn{flex:1;min-height:43px}#pdf{height:calc(100dvh - 190px);min-height:460px}main{padding-top:6px}}
+</style>
+</head>
+<body>
+<header><a href="univers.html" aria-label="Retour à LE ROY FACTORY"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY"></a><div><h1>Sélection Le Roy Factory · Carrelage extérieur R11</h1><p class="sub">Catalogue PDF interactif · 143 pages · 62 collections · 388 références</p></div><nav class="toolbar"><a class="btn secondary" href="selection-lrf-exterieur-r11.html">Catalogue interactif</a><a class="btn secondary" href="catalogues.html">Tous les catalogues</a><button class="btn" id="download" disabled>Télécharger le PDF</button></nav></header>
+<main><div class="notice" id="loading"><p id="message" aria-live="polite">Chargement du catalogue PDF...</p><progress id="progress" value="0" max="23"></progress><p class="summary">Le sommaire du PDF est cliquable. Les liens vers les collections ouvrent le catalogue interactif.</p><p id="error-help" hidden>Si le PDF ne s'affiche pas sur votre appareil, utilisez le bouton « Télécharger le PDF ».</p></div><iframe id="pdf" title="Catalogue PDF extérieur R11 Le Roy Factory" hidden></iframe></main>
+<script>
+(()=>{
+'use strict';
+const TOTAL=23, MAX_WORKERS=5;
+const status=document.getElementById('message'),bar=document.getElementById('progress'),download=document.getElementById('download'),viewer=document.getElementById('pdf'),loading=document.getElementById('loading');
+let done=0, cursor=0, url=null;
+const chunks=new Array(TOTAL);
+async function worker(){
+ while(cursor<TOTAL){const n=cursor++;
+   const name='assets/pdf-r11/r11-pdf-'+String(n).padStart(2,'0')+'.txt';
+   const res=await fetch(name,{cache:'force-cache'});
+   if(!res.ok)throw new Error('Fichier PDF manquant ('+(n+1)+'/'+TOTAL+')');
+   const txt=(await res.text()).trim();if(!/^[A-Za-z0-9+/=]+$/.test(txt))throw new Error('Données PDF invalides');
+   chunks[n]=txt;bar.value=++done;status.textContent='Chargement du catalogue : '+Math.round(done/TOTAL*100)+' %';
+ }
+}
+async function start(){
+ try{
+   await Promise.all(Array.from({length:MAX_WORKERS},worker));
+   status.textContent='Préparation du catalogue PDF...';
+   const raw=atob(chunks.join(''));
+   const bytes=new Uint8Array(raw.length);
+   for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
+   if(String.fromCharCode(...bytes.subarray(0,5))!=='%PDF-')throw new Error('Format PDF non reconnu');
+   url=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));
+   viewer.src=url+'#view=FitH';viewer.hidden=false;loading.hidden=true;
+   download.disabled=false;
+ }catch(err){status.textContent='Impossible de charger automatiquement le PDF.';bar.hidden=true;document.getElementById('error-help').hidden=false;console.error(err);}
+}
+download.addEventListener('click',()=>{if(!url)return;const a=document.createElement('a');a.href=url;a.download='Selection_Le_Roy_Factory_Exterieur_R11.pdf';document.body.appendChild(a);a.click();a.remove();});
+start();
+})();
+</script>
+</body>
+</html>
