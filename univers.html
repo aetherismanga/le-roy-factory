@@ -115,6 +115,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
   <link rel="stylesheet" href="assets/css/opal-host.css?v=20261106-firstpaint1">
   <link id="lrf-mobile-public-v8-css" rel="stylesheet" href="assets/css/mobile-public-v8.css?v=20260901-2&amp;media=20261018" media="(max-width:900px)">
 <link rel="stylesheet" href="assets/css/neobath-selection.css?v=20261110-mobile1">
+  <link rel="stylesheet" href="assets/css/selections-mobile.css?v=20261113-mobile1">
 </head>
 <body class="insp-v2 lrf-premium-v2 lrf-light-page lrf-page-univers">
   <header>
@@ -134,7 +135,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
 
       <div id="partner-panel" class="partner-panel">
         <div class="partner-panel-head"><h3 id="partner-panel-title">Partenaires</h3><span style="font-size:.75rem;color:#81786b">2. Sélectionnez le fabricant</span></div>
-        <button id="mobile-partner-trigger" class="mobile-partner-trigger" type="button">☰ Choisir un fabricant</button>
+        <button id="mobile-partner-trigger" class="mobile-partner-trigger" type="button" aria-expanded="false" aria-controls="partner-grid">☰ Choisir un fabricant</button>
         <div id="partner-grid" class="partner-grid"></div>
       </div>
 
@@ -145,22 +146,23 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
         </div>
 
         <nav id="elios-pool-nav" class="elios-pool-nav" aria-label="Collections Elios" hidden>
-          <button id="elios-all-collections" type="button" aria-pressed="true">Toutes les collections</button>
-          <button id="elios-pool-collections" type="button" aria-pressed="false">Piscine · Pool Surfaces</button>
+          <button id="elios-all-collections" type="button" aria-pressed="true"><span class="selection-desktop-label">Toutes les collections</span><span class="selection-mobile-label">Toutes</span></button>
+          <button id="elios-pool-collections" type="button" aria-pressed="false"><span class="selection-desktop-label">Piscine · Pool Surfaces</span><span class="selection-mobile-label">Piscine</span></button>
         </nav>
 
         <div id="v2-filters" class="filters-bar">
-          <button id="mobile-filter-trigger" class="mobile-filter-trigger" type="button">☰ Produits, formats et filtres</button>
+          <button id="mobile-filter-trigger" class="mobile-filter-trigger" type="button" aria-expanded="false" aria-controls="v2-format v2-color v2-effect v2-finish selection-filter-actions">☰ Produits, formats et filtres</button>
           <div class="filters-inner">
-            <input id="v2-search" type="search" placeholder="Rechercher une collection ou un produit…">
-            <select id="v2-format"><option value="Tous">Tous les formats</option></select>
-            <select id="v2-color"><option value="Tous">Toutes les couleurs</option></select>
-            <select id="v2-effect"><option value="Tous">Tous les effets</option></select>
-            <select id="v2-finish"><option value="Tous">Toutes les finitions</option></select>
+            <input id="v2-search" type="search" placeholder="Rechercher…" aria-label="Rechercher dans cette sélection">
+            <label class="selection-filter-field"><span>Format</span><select id="v2-format"><option value="Tous">Tous les formats</option></select></label>
+            <label class="selection-filter-field"><span>Couleur</span><select id="v2-color"><option value="Tous">Toutes les couleurs</option></select></label>
+            <label class="selection-filter-field"><span>Effet</span><select id="v2-effect"><option value="Tous">Tous les effets</option></select></label>
+            <label class="selection-filter-field"><span>Finition</span><select id="v2-finish"><option value="Tous">Toutes les finitions</option></select></label>
+            <div id="selection-filter-actions" class="selection-filter-actions"><button id="selection-reset-filters" type="button">Tout effacer</button><button id="selection-show-results" type="button">Voir les résultats</button></div>
           </div>
         </div>
 
-        <div style="display:flex;justify-content:space-between;align-items:center;margin:.6rem 0 1rem"><strong id="partner-count">0 produit</strong><span style="font-size:.76rem;color:#81786b">Cliquez sur un produit pour les détails et tarifs PRO</span></div>
+        <div class="selection-results" style="display:flex;justify-content:space-between;align-items:center;margin:.6rem 0 1rem"><strong id="partner-count">0 produit</strong><span style="font-size:.76rem;color:#81786b">Cliquez sur un produit pour les détails et tarifs PRO</span></div>
         <div id="partner-products" class="product-grid-v2"><section class="opal-selection-catalogue" data-opal-shell><a class="opal-full-link" href="opal-catalogue-interactif.html">Ouvrir le catalogue en pleine page ↗</a><div data-opal-catalogue-content><div class="opal-initial" aria-label="Chargement de la sélection OPAL Home"><section class="opal-initial-hero"><div class="opal-initial-copy"><span>OPAL HOME · MIROIRS &amp; LUMIÈRE</span><h2>Un autre regard<br>sur votre salle de bain.</h2><p>Des lignes singulières, des reflets lumineux. Découvrez une collection de miroirs qui donne du caractère à chaque espace.</p><a href="opal-catalogue-interactif.html">Découvrir les collections ↓</a><small>22 collections · 53 références</small></div><img src="assets/img/opal-catalogue-2026/opal-aixa.jpg" alt="Miroir lumineux OPAL Aixa" width="800" height="800"></section><div class="opal-initial-browser"><aside>Lexique des collections</aside><div><h3>À chaque espace, son miroir.</h3><p role="status">Chargement des collections…</p><div class="opal-initial-grid"><div><div class="opal-initial-photo"></div><h4>Aixa</h4></div><div><div class="opal-initial-photo"></div><h4>Albaicín</h4></div><div><div class="opal-initial-photo"></div><h4>Alcaicería</h4></div><div><div class="opal-initial-photo"></div><h4>Alhambra</h4></div><div><div class="opal-initial-photo"></div><h4>Alixares</h4></div><div><div class="opal-initial-photo"></div><h4>Almona</h4></div><div><div class="opal-initial-photo"></div><h4>Arrayanes</h4></div><div><div class="opal-initial-photo"></div><h4>Bib Rambla</h4></div><div><div class="opal-initial-photo"></div><h4>Cármenes</h4></div><div><div class="opal-initial-photo"></div><h4>Damasqueros</h4></div><div><div class="opal-initial-photo"></div><h4>Daraxa</h4></div><div><div class="opal-initial-photo"></div><h4>Elvira</h4></div><div><div class="opal-initial-photo"></div><h4>Fajalauza</h4></div><div><div class="opal-initial-photo"></div><h4>Garnata</h4></div><div><div class="opal-initial-photo"></div><h4>Generalife</h4></div><div><div class="opal-initial-photo"></div><h4>Genil</h4></div><div><div class="opal-initial-photo"></div><h4>Monaita</h4></div><div><div class="opal-initial-photo"></div><h4>Sabika</h4></div><div><div class="opal-initial-photo"></div><h4>Sacromonte</h4></div><div><div class="opal-initial-photo"></div><h4>Veleta</h4></div><div><div class="opal-initial-photo"></div><h4>Zacatín</h4></div><div><div class="opal-initial-photo"></div><h4>Zaidín</h4></div></div></div></div></div></div></section></div>
       </section>
     </section>
@@ -192,7 +194,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
   <script defer src="assets/js/view-discovery-data.js?v=20261031"></script><script defer src="assets/js/view-discovery-search.js?v=20261031"></script><script defer src="assets/js/inspirations-view-mobile-safe.js?v=20261106-view-availability1"></script>
   <script defer src="assets/js/inspirations-reviglass-pool-2026.js?v=20261106-reviglass1"></script>
   <script defer src="assets/js/inspirations-reviglass-palette-qty.js?v=20260914-palettefix1"></script>
-  <script defer src="assets/js/inspirations-reviglass-reset.js?v=20261106-reviglass1"></script>
+  <script defer src="assets/js/inspirations-reviglass-reset.js?v=20261113-mobile1"></script>
   <script defer src="assets/js/inspirations-reviglass-action-bridge.js?v=20260911-actions4"></script>
   <script defer src="assets/js/inspirations-reviglass-flow-fix.js?v=20260911-flow2"></script>
   <script defer src="assets/js/inspirations-reviglass-ps-gallery.js?v=20261101-swipe1"></script>
@@ -210,6 +212,7 @@ html body:not(.crm-body) header .main-nav>li>a.lrf-promo-cersaie-tab:focus{
   <script defer src="assets/js/azuli-mood-badge.js?v=20261028-cersaie1"></script>
 <script type="module" src="assets/js/agent-tariffs.js?v=20261113-dynasty-secure1"></script>
 <script type="module" src="assets/js/elios-samples-entry.js?v=20261112-1"></script>
+  <script defer src="assets/js/selections-mobile.js?v=20261113-mobile2"></script>
 </body>
 </html>
 

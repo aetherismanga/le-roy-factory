@@ -40,7 +40,7 @@
     'assets/js/inspirations-search-bridge-v2.js?v=20261106-reviglass1',
     'assets/js/inspirations-reviglass-pool-2026.js?v=20261106-reviglass1',
     'assets/js/inspirations-reviglass-palette-qty.js?v=20260923-ios-parity1',
-    'assets/js/inspirations-reviglass-reset.js?v=20261106-reviglass1',
+    'assets/js/inspirations-reviglass-reset.js?v=20261113-mobile1',
     'assets/js/inspirations-reviglass-action-bridge.js?v=20260923-ios-parity1',
     'assets/js/inspirations-reviglass-flow-fix.js?v=20260923-ios-parity1',
     'assets/js/inspirations-reviglass-ps-gallery.js?v=20260923-ios-parity1',
