@@ -1,4 +1,5 @@
 export const ELIOS_ORIGIN='https://studio-one-beta-test-v2.vercel.app';
+export const MAX_BOX_VISUAL_CHARS=8100000;
 export const API='https://us-central1-le-roy-factory.cloudfunctions.net/eliosSamples';
 export const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';

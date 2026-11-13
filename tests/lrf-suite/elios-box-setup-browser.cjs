@@ -31,7 +31,7 @@ let browser,page;const checks=[],errors=[],quotes=[];
  await panel.getByRole('heading',{name:'Les dimensions de votre box',exact:true}).waitFor({timeout:90000});
  await frame.locator('body').evaluate(async()=>{await studioOnePrototype.waitForTextures();return true;});
  const project=()=>frame.locator('body').evaluate(()=>studioOnePrototype.exportProject());
- const choose=async p=>{await panel.locator('[data-collection]').selectOption(p.collection);await panel.locator('[data-color]').selectOption(p.colorId);await panel.locator('[data-format]').selectOption(p.format);await panel.locator('[data-reference]').selectOption(p.key);};
+ const choose=async p=>{for(const [field,value]of [['collection',p.collection],['color',p.colorId],['format',p.format],['reference',p.key]]){await panel.locator('[data-'+field+'] + [data-visual-choice] [data-visual-choice-trigger]').click();const popup=frame.locator('[data-visual-choice-popup]:visible');await popup.locator('[data-visual-choice-value='+JSON.stringify(value)+']').click();}};
  for(const count of [1,2,3]){
   if(count>1){await page.evaluate(count=>{window.bridgeId='qa-opening-'+count;window.loadBox({fresh:true});},count);await panel.getByRole('heading',{name:'Les dimensions de votre box',exact:true}).waitFor();}
   await panel.getByRole('button',{name:count===1?'1 mur':count+' pans',exact:true}).click();

@@ -5,12 +5,13 @@ import {createHash} from 'node:crypto';
 export async function buildEliosBox(root=resolve('.')){
  const transform=(source,from,to)=>{if(!source.includes(from))throw Error('ELIOS Studio One adapter contract changed: '+from.slice(0,80));return source.replace(from,to);};
  await build({absWorkingDir:root,entryPoints:['studio-one/src/app.js'],bundle:true,format:'esm',target:['es2020'],minify:true,outfile:'studio-one/dist/elios-box.js',legalComments:'eof',plugins:[{name:'elios-box-native-studio',setup(b){
-  b.onLoad({filter:/studio-one\/src\/app\.js$/},args=>{let source=readFileSync(args.path,'utf8');source="import {mountEliosBox} from '../elios-box/box.js';\nlet eliosController=null;\n"+source;
+  b.onLoad({filter:/studio-one\/src\/app\.js$/},args=>{let source=readFileSync(args.path,'utf8');source="import {mountEliosBox} from '../elios-box/box.js';\nimport {createBoxSceneControls} from '../elios-box/scene-controls.js';\nlet eliosController=null;\n"+source;
    source=transform(source,'mountRandalWorkshopAccess(createAccessIdentity);','');
    source=transform(source,"COLLECTIONS[data.floor?.collection]&&data.floor.collection!=='Peinture'?data.floor.collection:'Shell'","COLLECTIONS[data.floor?.collection]?data.floor.collection:'Shell'");
    source=transform(source,'refreshCommerce=mountCommerce(collectProject);','refreshCommerce=()=>eliosController?.changed();');
    source=transform(source,'  initializeWorkspace();','  projectWorkspace={locked:false,checkpoint(){},save(){return eliosController?.save();},download(){return document.querySelector("#elios-box-save")?.click();},showProjects(){document.querySelector("#elios-box-save")?.click();}};');
-   source=transform(source,'  const photoRoute=new URL(location.href);','  eliosController=mountEliosBox(window.studioOnePrototype);\n  const photoRoute=new URL(location.href);');
+   source=transform(source,'  const photoRoute=new URL(location.href);',"  window.studioOnePrototype.boxScene=createBoxSceneControls({getRoom:()=>roomScene,getFloor:()=>floorDesign,camera,controls,resize,stop(){viewTween=null;stopOrbit();walkMode?.setActive(false);},selectWall,invalidate});\n  eliosController=mountEliosBox(window.studioOnePrototype);\n  const photoRoute=new URL(location.href);");
+   source=transform(source,'captureSize(width,stage.clientWidth/stage.clientHeight,max)','captureSize(width,16/9,max)');
    return {contents:source,loader:'js'};
   });
   b.onLoad({filter:/shared\/lrf-3d\/demo-session\.js$/},args=>{let source=readFileSync(args.path,'utf8');source=transform(source,"export const localStorage=scopedDemoStorage(browserStorage('localStorage'));","export const localStorage=scopedDemoStorage(browserStorage('localStorage'),{demo:true,prefix:'lrf-elios-box-v1:'});");return {contents:source,loader:'js'};});

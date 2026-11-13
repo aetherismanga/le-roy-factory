@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {availableSampleFormats,samplePieceStyle,readSampleSelection,selectionStorageKey,boxDraftKey,boxBridgeMatches} from '../assets/js/elios-samples-core.mjs';
-import {exhibitionRoom,exhibitionProject} from '../studio-one/elios-box/box-setup.js';
+import {exhibitionRoom,exhibitionProject,exhibitionSteps} from '../studio-one/elios-box/box-setup.js';
 import {makeRoom,cloneRoom} from '../shared/lrf-3d/room.js';
 import {quantityForSurface,summarizeQuantities} from '../shared/lrf-3d/quantities.js';
 import {defaultSurfacePattern,normalizeLayout} from '../shared/lrf-3d/surface-catalog.js';
@@ -72,4 +72,14 @@ test('drafts and delayed iframe saves stay attached to their exact client and op
  const a='agent:uid:client:a',b='agent:uid:client:b',session={owner:a,bridgeId:'opening-a'};
  assert.notEqual(boxDraftKey(a),boxDraftKey(b));assert(boxBridgeMatches({bridgeId:'opening-a'},session,a));
  assert(!boxBridgeMatches({bridgeId:'opening-a'},session,b));assert(!boxBridgeMatches({bridgeId:'old-opening'},session,a));assert(!boxBridgeMatches({},session,a));assert(!boxBridgeMatches({bridgeId:'opening-a'},null,a));
+});
+
+test('a box without a floor skips its floor step and only its actual wall SKUs enter the order',()=>{
+ const wall=catalogue.products.find(p=>p.collection==='Stone Icon'&&p.colorId==='leccese'&&p.format==='60x90'&&p.finish.startsWith('Tumbled ·'));
+ for(const count of [1,2,3]){
+  const settings={count,includeFloor:false,width:240,depth:200,left:180,height1:240,height2:240,height3:240,loss:10},p=exhibitionProject(settings,{floor:'',walls:[wall.key,wall.key,wall.key]});
+  assert.equal(exhibitionSteps(settings).filter(s=>s.kind==='floor').length,0);assert.equal(exhibitionSteps(settings).filter(s=>s.kind==='wall').length,count);assert.equal(p.floor.expoEnabled,false);assert.equal(p.floor.collection,'Peinture');assert.deepEqual(p.floor.zones,[]);
+  const room=makeRoom(p.room,0),rows=[quantityForSurface(room.floor,p.floor,p.layouts.floor,10,'Sol'),...room.walls.map((w,i)=>quantityForSurface(w,p.walls[i],p.layouts.walls[i],10,w.expoLabel))];
+  assert(rows[0].paint);const groups=summarizeQuantities(rows);assert.equal(groups.length,1);assert(groups.every(g=>g.catalogueKey===wall.key));room.dispose();
+ }
 });

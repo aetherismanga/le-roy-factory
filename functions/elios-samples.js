@@ -7,6 +7,7 @@ const {getAgentFromRequest}=require('./auth');
 const {storagePath,normalizePrices}=require('./configurator-purchase-prices-core');
 const catalogue=require('./elios-samples-catalogue.json');
 const C=require('./elios-samples-core.cjs');
+const {selectionImageAttachments}=require('./elios-samples-images.cjs');
 const ORIGINS=new Set(['https://leroyfactory.fr','https://www.leroyfactory.fr','https://studio-one-beta-test-v2.vercel.app']);
 async function identity(req,body){
  const bearer=String(req.headers.authorization||'').replace(/^Bearer\s+/i,'');
@@ -43,7 +44,7 @@ exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'
  if(origin&&!ORIGINS.has(origin))return res.status(403).json({success:false,error:'Origine non autorisée.'});
  if(req.method==='OPTIONS')return res.status(204).send('');if(req.method!=='POST')return res.status(405).json({success:false,error:'Méthode non autorisée.'});
  try{
-  const body=req.body||{};if(JSON.stringify(body).length>4100000)throw C.fail('La demande dépasse la taille maximale.',413);
+  const body=req.body||{};if(JSON.stringify(body).length>8500000)throw C.fail('La demande dépasse la taille maximale.',413);
   const account=await identity(req,body);
   if(body.action==='clients'){
    if(!account.isAgent)throw C.fail('Accès agent requis.',403);
@@ -80,8 +81,9 @@ exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'
    paths={visual:prefix+'/visuel.png',configuration:prefix+'/configuration.json'};
    await bucket.file(paths.visual).save(visual.bytes,{resumable:false,contentType:'image/png',metadata:{cacheControl:'private, no-store'}});
    await bucket.file(paths.configuration).save(configuration,{resumable:false,contentType:'application/json',metadata:{cacheControl:'private, no-store'}});
-   attachments.push({filename:reference+'-visuel-HD.png',content:visual.bytes,contentType:'image/png'},{filename:reference+'-box.lrf.json',content:configuration,contentType:'application/json'});
+   attachments.push({filename:reference+'-visuel-HD.png',content:visual.bytes,contentType:'image/png',cid:'elios-box-hd@leroyfactory.fr',contentDisposition:'inline'},{filename:reference+'-box.lrf.json',content:configuration,contentType:'application/json'});
   }
+  attachments.push(...await selectionImageAttachments(quote.rows,{fetchImage:fetch}));
   const title=C.text(body.title||'Échantillons et exposition',100).replace(/[\r\n]/g,' ');
   await ref.update({paths,status:'sending'});
   const transport=nodemailer.createTransport({host:'ssl0.ovh.net',port:465,secure:true,auth:{user:'jerome@leroyfactory.fr',pass:process.env.SMTP_PASSWORD_JEROME},connectionTimeout:15000,socketTimeout:30000});

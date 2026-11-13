@@ -1,7 +1,7 @@
 {
   "schema": "lrf-suite-release",
   "version": 1,
-  "releaseId": "20261113-elios-samples-box-v5",
+  "releaseId": "20261113-elios-samples-box-mobile-v6",
   "baselineMain": "8571318620b70a7d7c0c9a0580b1d65bdc32db5e",
   "baselineStudio": "4668cd99df55734a46fcd3bd330acb60da53d3f5",
   "applications": [
@@ -765,7 +765,7 @@
     "firebaseReleaseMode": "manual"
   },
   "eliosSamples": {
-    "releaseId": "20261113-elios-samples-box-v5",
+    "releaseId": "20261113-elios-samples-box-mobile-v6",
     "lrfAuthenticationRequired": true,
     "dependentFormatFilter": true,
     "chevronPreviewShape": true,

@@ -1,6 +1,12 @@
 name: Verify LRF configurator suite
 on:
   workflow_dispatch:
+    inputs:
+      suite:
+        description: Contrôles à exécuter
+        type: choice
+        options: [all, elios-box]
+        default: all
   pull_request:
     branches: [main]
   push:
@@ -46,10 +52,10 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
       - run: npm run build:studio
-      - run: node --test tests/elios-samples.test.mjs tests/elios-samples-workflow.test.mjs
+      - run: node --test tests/elios-samples.test.mjs tests/elios-samples-workflow.test.mjs functions/test/elios-samples*.cjs
       - run: npx playwright install --with-deps chromium
       - name: Verify native Elios box, guided choices, drafts and HD capture
-        run: node tests/lrf-suite/elios-box-setup-browser.cjs
+        run: node tests/lrf-suite/elios-box-setup-browser.cjs && node tests/lrf-suite/elios-box-mobile-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -57,6 +63,7 @@ jobs:
           path: reports/lrf-suite/elios-box/
           retention-days: 14
   legacy-recovery:
+    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -104,6 +111,7 @@ jobs:
           path: reports/lrf-suite/niche-production/
           retention-days: 14
   verify:
+    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:
@@ -130,6 +138,7 @@ jobs:
           retention-days: 14
       # No deployment, credentials, environment pull or production mutation here.
   browser-rendering:
+    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -161,6 +170,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   browser-surfaces:
+    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -189,6 +199,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   browser-sanitary-commerce:
+    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -222,6 +233,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   construction-panels:
+    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
@@ -258,6 +270,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   construction-rugs-niches:
+    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
@@ -291,6 +304,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   construction-locks-trays:
+    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
@@ -327,6 +341,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   opening-and-product-placement:
+    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
@@ -360,6 +375,7 @@ jobs:
           path: reports/lrf-suite/
           retention-days: 14
   public-compositions-and-visits:
+    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'elios-box'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:

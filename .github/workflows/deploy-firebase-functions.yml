@@ -191,7 +191,7 @@ jobs:
           (async()=>{
             const response=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/eliosSamples',{method:'POST',headers:{'Content-Type':'application/json',Origin:'https://leroyfactory.fr'},body:JSON.stringify({action:'send',isAdmin:true})});
             const body=await response.json();
-            if(response.status!==401||body.success!==false||response.headers.get('x-lrf-elios-samples-version')!=='20261113-elios-samples-v4')throw Error('Elios sample release or authentication check failed.');
+            if(response.status!==401||body.success!==false||response.headers.get('x-lrf-elios-samples-version')!=='20261113-elios-samples-mobile-v6')throw Error('Elios sample release or authentication check failed.');
             console.log('Elios sample request API verified; forged roles rejected. No email sent.');
           })().catch(error=>{console.error(error.message);process.exit(1);});
           JS
