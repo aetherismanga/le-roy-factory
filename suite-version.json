@@ -786,8 +786,7 @@
     "directBoxOrder": true,
     "directBoxLoss": true,
     "twoPanReturnSide": true,
-    "boxImportButton": false,
-    "exhibitionBanner": "assets/img/elios-box-expo-dynasty-yosemite-20261113.webp"
+    "boxImportButton": false
   },
   "eliosMaterials": {
     "releaseId": "20261113-elios-mysterium-dynasty-v8",

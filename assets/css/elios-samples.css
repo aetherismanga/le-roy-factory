@@ -15,6 +15,6 @@
 .es-mail-handoff{margin-top:20px;padding:18px;border:1px solid #c5ad76;border-radius:14px;background:#f5f2eb;overflow-wrap:anywhere}.es-mail-handoff .es-button{margin:5px 0;max-width:100%;white-space:normal}.es-mail-handoff details{margin-top:14px}.es-mail-handoff p,#es-info-status{font-size:14px;line-height:1.6}.es-mail-handoff[hidden]{display:none}
 
 /* Catalogue order and 3D remain available together. */
-.es-compose{width:100%;margin-top:10px}.es-box-start>img{width:100%;height:auto;max-height:320px;object-fit:contain;aspect-ratio:3/2}.es-box-start{grid-template-columns:minmax(0,1fr) minmax(260px,.9fr)}
+.es-compose{width:100%;margin-top:10px}.es-box-start>img{width:100%;height:auto;max-height:320px;object-fit:contain;aspect-ratio:3/2}.es-box-start{grid-template-columns:1fr}
 #es-direct-form{display:grid;gap:14px}#es-direct-form label{display:grid;gap:6px}#es-direct-form input,#es-direct-form select{width:100%;min-height:44px;padding:10px;border:1px solid #c9cbbb;border-radius:5px;background:#fff;color:#27392e}#es-direct-result{padding:14px;background:#edf0e5;border-radius:5px;line-height:1.6}
 @media(max-width:700px){.es-box-start{grid-template-columns:1fr}.es-box-start>img{max-height:260px}#es-direct-dialog{max-height:90dvh;overflow:auto}}
