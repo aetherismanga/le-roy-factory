@@ -49,7 +49,7 @@ test('agent client selection reads the canonical CRM identity and never accepts 
 test('changing box dimensions preserves niches, rugs, tiled columns, grout and manual layouts',()=>{
  const floor=catalogue.products.find(p=>p.collection==='Yosemite'&&p.colorId==='honey'&&p.format==='23.4x119.5'),wall=catalogue.products.find(p=>p.collection==='Stone Icon'&&p.colorId==='leccese'&&p.format==='60x90'&&p.finish.startsWith('Tumbled ·'));
  const settings={count:3,width:240,depth:200,left:200,height1:240,height2:240,height3:240,loss:10},selection={floor:floor.key,walls:[wall.key,wall.key,wall.key]};
- const base=exhibitionProject(settings,selection);base.room.niches=[{id:'saved-niche',wallKey:'boundary-0',u:120,width:60,bottom:90,height:30,depth:8}];
+ const base=exhibitionProject(settings,selection);base.room.niches=[{id:'niche-saved',wallKey:'boundary-0',u:120,width:60,bottom:90,height:30,depth:8}];
  base.room.partitions=[{id:'saved-column',a:[20,70],b:[20,120],height:200,thickness:20}];base.floor.zones=[{id:'saved-rug',shape:'rectangle'}];base.walls[0].zones=[{id:'saved-wall-rug'}];
  base.floor.groutColor='Gris';base.walls[0].groutColor='Ivoire';base.layouts.floor={...base.layouts.floor,pattern:'herringbone',direction:'vertical',x:.17,y:.08,groutWidth:3};
  base.layouts.walls[0]={...base.layouts.walls[0],direction:'vertical',x:.11};base.room.expoComplete=true;
