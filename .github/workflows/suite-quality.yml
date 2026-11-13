@@ -54,8 +54,12 @@ jobs:
       - run: npm run build:studio
       - run: node --test tests/elios-samples.test.mjs tests/elios-samples-workflow.test.mjs functions/test/elios-samples*.cjs
       - run: npx playwright install --with-deps chromium
+        id: elios_browser_runtime
+      - name: Verify smartphone box, unified save and complete illustrated request
+        run: node tests/lrf-suite/elios-box-mobile-browser.cjs
       - name: Verify native Elios box, guided choices, drafts and HD capture
-        run: node tests/lrf-suite/elios-box-setup-browser.cjs && node tests/lrf-suite/elios-box-mobile-browser.cjs
+        if: ${{ !cancelled() && steps.elios_browser_runtime.outcome == 'success' }}
+        run: node tests/lrf-suite/elios-box-setup-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

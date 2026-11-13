@@ -48,7 +48,7 @@ let browser,page;const checks=[],errors=[],quotes=[];
   checks.push(count+' pans: native room, numbered dimensions, floor/wall selections, third-offset wood, complete packs and progressive estimate');
  }
  await frame.locator('body').evaluate(()=>{const p=studioOnePrototype.exportProject();p.room.niches=[{id:'niche-qa-preserved',wallKey:'boundary-0',u:130,width:60,bottom:90,height:30,depth:8}];p.floor.groutColor='Gris';p.layouts.floor.direction='vertical';p.layouts.floor.x=.17;if(!studioOnePrototype.restoreProject(p))throw Error('Native niche fixture failed: '+document.querySelector('#placement-status')?.textContent);});
- await frame.getByRole('button',{name:'Modifier la base du box',exact:true}).click();await panel.locator('[name=width]').fill('280');
+ await frame.getByText('Modifier les dimensions et les revêtements de base',{exact:true}).click();await frame.getByRole('button',{name:'Modifier la base du box',exact:true}).click();await panel.locator('[name=width]').fill('280');
  const edited=await project();assert.equal(edited.room.niches[0].id,'niche-qa-preserved');assert.equal(edited.floor.groutColor,'Gris');assert.equal(edited.layouts.floor.direction,'vertical');assert.equal(edited.layouts.floor.x,.17);
  await page.waitForFunction(()=>window.drafts.some(d=>d.bridgeId==='qa-opening-3'&&d.project.room.points[1][0]===280&&d.project.room.niches?.[0]?.id==='niche-qa-preserved'));
  checks.push('Changing the base preserves a native niche, joints and manual layout; its draft returns to the exact parent session');
