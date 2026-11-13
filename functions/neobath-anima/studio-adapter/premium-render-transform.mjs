@@ -41,6 +41,9 @@ export function transformPremiumRendering(source,relativePath){
  if(relativePath==='app.js'){
   source=source.replace("from './performance.js'","from '@anima-adapter/render-quality.js'");
   source=amendFunction(source,'requestFinishAssets',cabinetMaps);
+  // Plan choices capture full settings when drawn. Refresh those choices after
+  // a finish change in Unreal so applying a plan cannot restore the old finish.
+  source=amendFunction(source,'selectFinish',body=>body.replace('refreshInspector();','refreshInspector();if(unrealRender?.active)__animaPremiumSidebar();'));
   source=amendFunction(source,'applyFurnitureMaterial',body=>body
    .replace('const tx=finishTextures[finish.id];',"const tx=finish.textureMapped===false?null:finishTextures[finish.id],ribelle=asset.spec?.facade==='RIBELLE';asset.furniturePlanTextures=tx?{map:tx.front,bump:tx.frontBump}:null;")
    .replaceAll('front?tx.front:tx.map',"front?((type==='column'||ribelle)?tx.ribelleFront||tx.front:tx.front):tx.map")
