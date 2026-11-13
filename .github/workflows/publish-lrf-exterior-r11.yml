@@ -56,7 +56,7 @@ jobs:
         run: |
           node --check assets/js/r11-catalogue.js
           node --check assets/js/r11-prices.js
-          node --check assets/js/r11-pdf-reader.js
+          node --input-type=module --check < assets/js/r11-pdf-reader.js
           node --test tests/r11-prices.test.mjs tests/selection-native-state.test.mjs tests/catalogues-first-paint.test.mjs
       - name: Retain the verified source on the release branch
         run: |
