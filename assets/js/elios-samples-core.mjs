@@ -77,3 +77,18 @@ export function linesForBox(report){
 export function openDatabase(){return new Promise((resolve,reject)=>{const request=indexedDB.open('lrf-elios-expo-v1',1);request.onupgradeneeded=()=>request.result.createObjectStore('projects');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(Error('Le navigateur ne peut pas enregistrer le box.'));});}
 export async function boxStore(action,key,value){const db=await openDatabase();try{return await new Promise((resolve,reject)=>{const tx=db.transaction('projects',action==='get'?'readonly':'readwrite'),store=tx.objectStore('projects'),request=action==='get'?store.get(key):action==='delete'?store.delete(key):store.put(value,key);let result;request.onsuccess=()=>{result=request.result;};tx.oncomplete=()=>resolve(result);tx.onerror=()=>reject(Error('L’enregistrement du box a échoué.'));tx.onabort=()=>reject(Error('L’enregistrement du box a été interrompu.'));});}finally{db.close();}}
 export function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);}
+
+// Manufacturer packaging remains authoritative; quantities include the chosen loss.
+export function directBoxQuantity(product,inputQuantity,inputUnit='m2',loss=10){
+ if(!product?.packVerified||!(product.packArea>0)||!Number.isInteger(product.packPieces)||product.packPieces<1)throw Error('Le boîtage fabricant de cette référence doit être confirmé.');
+ const amount=Number(inputQuantity),percent=Number(loss);
+ if(!Number.isFinite(amount)||amount<=0||amount>10000||!['m2','boxes'].includes(inputUnit)||(inputUnit==='boxes'&&!Number.isInteger(amount)))throw Error('Indiquez une surface positive ou un nombre entier de boîtes.');
+ if(!Number.isFinite(percent)||percent<0||percent>30)throw Error('La perte doit être comprise entre 0 et 30 %.');
+ const netArea=inputUnit==='boxes'?amount*product.packArea:amount,quantity=Number((netArea*(1+percent/100)).toFixed(6));
+ if(quantity>10000)throw Error('La surface avec pertes dépasse 10 000 m².');
+ const boxes=Math.ceil((quantity-1e-8)/product.packArea);
+ return {type:'box',key:product.key,direct:true,inputQuantity:amount,inputUnit,loss:percent,netArea,quantity,boxes,orderArea:Number((boxes*product.packArea).toFixed(4))};
+}
+export function combinedSampleLines(items){
+ const result=[];for(const item of items){const previous=result.find(p=>p.type===item.type&&p.key===item.key);if(previous&&item.type==='box')previous.quantity+=item.quantity;else result.push({type:item.type,key:item.key,quantity:item.quantity});}return result;
+}

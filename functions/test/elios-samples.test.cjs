@@ -102,3 +102,10 @@ test('opening a draft is never treated as delivery and only an explicit declarat
  r=await f.request(payload);assert.equal(r.body.prepared,true);assert.equal(r.body.delivered,false);const key=[...f.values.keys()].find(k=>k.startsWith('elios_sample_requests/'));assert.equal(f.values.get(key).status,'prepared');assert.equal(f.values.get(key).sentAt,undefined);
  r=await f.request({action:'confirmClientSent',sessionToken:payload.sessionToken,requestId:payload.requestId});assert.equal(r.body.reportedByClient,true);assert.equal(f.values.get(key).deliveryStatus,'reported-by-client');assert.equal(f.mails.length,1);
 });
+
+test('a direct box order prepares the client mail without requiring a 3D project or inventing an HD attachment',async()=>{
+ const f=endpointFixture(),payload={action:'prepare',sessionToken:'synthetic-token',requestId:'synthetic-manual-box-123456',items:[{type:'box',key:'ELIOS|synthetic',quantity:2}],contact:{name:'Contact test',email:'contact@example.invalid',address:'1 rue Exemple'}};
+ const response=await f.request(payload);assert.equal(response.statusCode,200);assert.equal(response.body.prepared,true);assert.equal(response.body.delivered,false);assert.equal(f.mails.length,1);assert.equal(f.stored.size,0);
+ const mail=f.mails[0];assert(mail.html.includes('17,28'));assert(mail.html.includes('2 boîte(s)'));assert(!mail.html.includes('cid:elios-box-hd@'));assert(!mail.html.includes('configuration importable'));assert.equal(mail.from.address,'contact@example.invalid');
+ for(const extra of [{project:{version:2}},{visual:'data:image/png;base64,invalid'}]){const bad=await f.request({...payload,requestId:'synthetic-manual-invalid-123456',...extra});assert.equal(bad.statusCode,400);}
+});
