@@ -136,21 +136,34 @@
     if (old && old.principal === who.key && old.expiresAt > Date.now()) return old.data;
     const key = action + '|' + who.key;
     if (pending.has(key)) return pending.get(key);
-    const stamp = epoch;
     const job = (async () => {
-      const body = {action},headers = {};
-      if (who.user) headers.Authorization = 'Bearer ' + await who.user.getIdToken(true);
-      else body.sessionToken = who.token;
-      const data = await request(ENDPOINT,body,headers);
-      if (stamp !== epoch || identity().key !== who.key) throw new Error('Votre session a changé. Cliquez à nouveau sur l’œil.');
-      if (data.success !== true || data.version !== 1 || !Array.isArray(data.allowedPartners) || !Number.isFinite(data.expiresAt) || data.expiresAt <= Date.now()) throw new Error('Les tarifs n’ont pas pu être vérifiés.');
-      if (action === 'bootstrap' && (!Array.isArray(data.view) || !data.elios || typeof data.elios !== 'object' || Array.isArray(data.elios))) throw new Error('Réponse tarifaire invalide.');
-      if (action === 'fenice' && !Array.isArray(data.fenice)) throw new Error('Réponse tarifaire invalide.');
-      const expiresAt = Math.min(data.expiresAt,Date.now()+60000);
-      clearTimeout(caches.get(action)?.timer);
-      const timer = setTimeout(() => { caches.delete(action); emit(); },Math.max(1,expiresAt-Date.now()));
-      caches.set(action,{data,expiresAt,principal:who.key,timer});
-      return data;
+      // A normal Firebase token refresh keeps the same signed-in principal.
+      // Revalidate once when it overlaps a request; never reuse its old response.
+      for (let attempt = 0; attempt < 2; attempt++) {
+        let stamp = epoch;
+        try {
+          const body = {action},headers = {};
+          if (who.user) headers.Authorization = 'Bearer ' + await who.user.getIdToken();
+          else body.sessionToken = who.token;
+          if (identity().key !== who.key) throw new Error('Votre session a changé. Reconnectez-vous à l’espace PRO.');
+          // getIdToken() may renew an expired token and notify onIdTokenChanged.
+          // Capture the epoch after that renewal, before requesting fresh prices.
+          stamp = epoch;
+          const data = await request(ENDPOINT,body,headers);
+          if (stamp !== epoch || identity().key !== who.key) throw new Error('Votre session a changé. Cliquez à nouveau sur l’œil.');
+          if (data.success !== true || data.version !== 1 || !Array.isArray(data.allowedPartners) || !Number.isFinite(data.expiresAt) || data.expiresAt <= Date.now()) throw new Error('Les tarifs n’ont pas pu être vérifiés.');
+          if (action === 'bootstrap' && (!Array.isArray(data.view) || !data.elios || typeof data.elios !== 'object' || Array.isArray(data.elios))) throw new Error('Réponse tarifaire invalide.');
+          if (action === 'fenice' && !Array.isArray(data.fenice)) throw new Error('Réponse tarifaire invalide.');
+          const expiresAt = Math.min(data.expiresAt,Date.now()+60000);
+          clearTimeout(caches.get(action)?.timer);
+          const timer = setTimeout(() => { caches.delete(action); emit(); },Math.max(1,expiresAt-Date.now()));
+          caches.set(action,{data,expiresAt,principal:who.key,timer});
+          return data;
+        } catch (error) {
+          if (attempt === 0 && stamp !== epoch && identity().key === who.key) continue;
+          throw error;
+        }
+      }
     })();
     pending.set(key,job);
     try { return await job; } finally { if (pending.get(key) === job) pending.delete(key); }
@@ -218,8 +231,8 @@
     if (!data.allowedPartners.includes(partner)) return {locked:true,message:'Ce partenaire n’est pas autorisé pour votre compte.'};
     return partner === 'view-ceramica' ? viewQuote(data,product,collection) : partner === 'elios-ceramica' ? eliosQuote(data,product,collection) : feniceQuote(data,product,collection);
   }
-  window.R11Prices = Object.freeze({login,restore,logout,getPrice,getSession:() => currentSession});
-  window.addEventListener('lrf-pro-session-changed',() => { currentSession = null; invalidate(); });
+  window.R11Prices = Object.freeze({login,restore,logout,getPrice,getSession:() => explicitlyLoggedOut ? null : currentSession || storedSession()});
+  window.addEventListener('lrf-pro-session-changed',() => { currentSession = storedSession(); invalidate(); });
   window.addEventListener('storage',event => { if (['lrfProSession','lrfProSessionToken','lrfProRememberToken'].includes(event.key)) { currentSession = null; invalidate(); } });
   window.addEventListener('pageshow',() => {
     for (const [key,entry] of caches) if (entry.expiresAt <= Date.now() || entry.principal !== identity().key) { clearTimeout(entry.timer); caches.delete(key); emit(); }

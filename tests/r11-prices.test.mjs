@@ -6,8 +6,8 @@ import vm from 'node:vm';
 // All prices and tokens in these tests are synthetic.
 const source = readFileSync(new URL('../assets/js/r11-prices.js',import.meta.url),'utf8');
 const token = 'A'.repeat(43);
-function harness({session = {codeClient:'LRF-12345',departement:'34',sessionToken:token},respond} = {}) {
-  const events = new Map(), calls = [], writes = [], timers = new Set();
+function harness({session = {codeClient:'LRF-12345',departement:'34',sessionToken:token},respond,firebaseEmail} = {}) {
+  const events = new Map(), calls = [], writes = [], timers = new Set(), tokenCalls = [], authListeners = new Set();
   const storage = () => { const values = new Map(); return {getItem:k => values.get(k) || null,setItem:(k,v) => { values.set(k,v); writes.push([k,v]); },removeItem:k => values.delete(k)}; };
   let current = session;
   const window = {
@@ -19,7 +19,11 @@ function harness({session = {codeClient:'LRF-12345',departement:'34',sessionToke
     write(value) { current = value; window.dispatchEvent({type:'lrf-pro-session-changed'}); return value; },
     clear() { current = null; window.dispatchEvent({type:'lrf-pro-session-changed'}); }
   };
+  const user=firebaseEmail?{uid:'synthetic-agent',email:firebaseEmail,async getIdToken(force){tokenCalls.push(force);if(force)for(const listener of authListeners)listener(user);return 'synthetic-id-token';}}:null;
+  const firebaseAuth={currentUser:user,authStateReady:async()=>{}};
   const context = {window,AbortController,Intl,console,sessionStorage:storage(),localStorage:storage(),
+    testFirebaseApps:{getApps:()=>[{options:{projectId:'le-roy-factory'}}]},
+    testFirebaseAuth:{getAuth:()=>firebaseAuth,onIdTokenChanged:(_auth,listener)=>{authListeners.add(listener);listener(user);}},
     CustomEvent:class {constructor(type,options){this.type=type;this.detail=options?.detail;}},
     setTimeout(fn) { const id = {fn}; timers.add(id); return id; },clearTimeout(id) { timers.delete(id); },
     async fetch(url,options) {
@@ -28,8 +32,12 @@ function harness({session = {codeClient:'LRF-12345',departement:'34',sessionToke
       return {ok:result.status >= 200 && result.status < 300,status:result.status,json:async() => result.data};
     }
   };
-  vm.runInNewContext(source,context);
-  return {api:window.R11Prices,calls,writes,events,window,timers};
+  const executable=source.replace("import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js')",'Promise.resolve(testFirebaseApps)').replace("import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js')",'Promise.resolve(testFirebaseAuth)');
+  vm.runInNewContext(executable,context);
+  return {api:window.R11Prices,calls,writes,events,window,timers,tokenCalls,
+    refreshToken(){for(const listener of authListeners)listener(firebaseAuth.currentUser);},
+    signOut(){firebaseAuth.currentUser=null;for(const listener of authListeners)listener(null);}
+  };
 }
 const bootstrap = extra => ({status:200,data:{success:true,version:1,expiresAt:Date.now()+300000,allowedPartners:['elios-ceramica','view-ceramica'],elios:{},eliosExact:{},view:[],...extra}});
 const viewProduct = {format:'60×90',thickness:'20 mm',finish:'Grip R11',variantKey:'corso-6090-20'};
@@ -106,4 +114,46 @@ test('logout invalidates a tariff request that was already in flight',async() =>
   await api.logout();
   release(bootstrap({view:[{productId:'view-corso',variantKey:'corso-6090-20',proPrice:12.34}]}));
   await assert.rejects(pending,/session a changé/);
+});
+
+test('a connected Firebase agent can read Fenice rates without forcing a token refresh',async()=>{
+  const h=harness({session:{isAdmin:true,email:'jerome@leroyfactory.fr'},firebaseEmail:'jerome@leroyfactory.fr',respond:()=>bootstrap({allowedPartners:['la-fenice'],fenice:[{collection:'Briccole',description:'Briccole Grip R11',format:'20×120',unit:'m²',amount:12.34}]})});
+  const product={format:'20×120',thickness:'9 mm',finish:'Grip R11'},collection={brand:'La Fenice',name:'Briccole'};
+  await h.api.restore();
+  assert.equal((await h.api.getPrice(product,collection)).amount,12.34);
+  assert.equal((await h.api.getPrice(product,collection)).amount,12.34);
+  assert.equal(h.calls.length,1);
+  assert.deepEqual(h.tokenCalls,[undefined]);
+  assert.equal(h.calls[0].options.headers.Authorization,'Bearer synthetic-id-token');
+});
+
+test('a routine same-agent token change retries the verification and discards the old price',async()=>{
+  let h,requests=0;
+  h=harness({session:{isAdmin:true,email:'jerome@leroyfactory.fr'},firebaseEmail:'jerome@leroyfactory.fr',respond:()=>{
+    requests++;if(requests===1)h.refreshToken();
+    return bootstrap({view:[{productId:'view-corso',variantKey:'corso-6090-20',proPrice:requests===1?99.99:12.34}]});
+  }});
+  await h.api.restore();
+  assert.equal((await h.api.getPrice(viewProduct,viewCollection)).amount,12.34);
+  assert.equal(requests,2);
+});
+
+test('a Firebase sign-out during a request cannot reveal its response',async()=>{
+  let release;
+  const gate=new Promise(resolve=>{release=resolve;});
+  const h=harness({session:{isAdmin:true,email:'jerome@leroyfactory.fr'},firebaseEmail:'jerome@leroyfactory.fr',respond:()=>gate});
+  await h.api.restore();
+  const pending=h.api.getPrice(viewProduct,viewCollection);
+  for(let i=0;i<12&&!h.calls.length;i++)await Promise.resolve();
+  assert.equal(h.calls.length,1);
+  h.signOut();release(bootstrap({view:[{productId:'view-corso',variantKey:'corso-6090-20',proPrice:12.34}]}));
+  await assert.rejects(pending,/session a changé/);
+  assert.equal((await h.api.getPrice(viewProduct,viewCollection)).locked,true);
+});
+
+test('a bridge refresh keeps the connected client visible without authorizing prices locally',async()=>{
+  const h=harness({respond:()=>({status:403,data:{}})});
+  h.window.LRF_PRO_SESSION.write({codeClient:'LRF-12345',departement:'34',sessionToken:token,societe:'Synthetic client'});
+  assert.equal(h.api.getSession().societe,'Synthetic client');
+  assert.equal((await h.api.getPrice(viewProduct,viewCollection)).locked,true);
 });

@@ -484,13 +484,24 @@
       "nativeSourcePhotographsPreserved": true
     },
     "exteriorSelection": {
-      "releaseId": "20261113-lrf-exterieur-r11-1",
+      "releaseId": "20261113-r11-navigation-session2",
       "page": "catalogue-exterieur-r11.html",
       "pdf": "assets/pdf/selection-lrf-exterieur-r11.pdf",
       "collections": 62,
       "references": 388,
       "factoryPickerPosition": "between-elios-and-la-fenice",
-      "clientPurchasePrices": "server-authorized-per-partner"
+      "clientPurchasePrices": "server-authorized-per-partner",
+      "pdfReader": "catalogue-exterieur-r11-pdf.html",
+      "pdfPages": 150,
+      "illustratedFactoryIndex": true,
+      "collectionImages": 62,
+      "nativeSourceResolutionPreserved": true,
+      "red20mmBadge": true,
+      "collectionsWith20mm": 34,
+      "clickPageNavigation": true,
+      "wheelPageNavigation": true,
+      "agentTokenRefresh": "same-principal-revalidation",
+      "tariffRegressionTests": 11
     }
   },
   "configurators": {
