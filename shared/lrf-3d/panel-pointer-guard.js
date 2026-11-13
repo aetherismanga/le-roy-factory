@@ -19,7 +19,7 @@ export function pointerInsidePanels(event,panels,{view=globalThis.window,documen
  return false;
 }
 
-export function mountPanelPointerGuard({canvas,document=globalThis.document,view=globalThis.window,getPanels=()=>document.querySelectorAll('#settings,#object-editor,.lrf-workspace-overlay')}={}){
+export function mountPanelPointerGuard({canvas,document=globalThis.document,view=globalThis.window,getPanels=()=>document.querySelectorAll('#settings,#object-editor,.lrf-workspace-overlay,.lrf-visual-choice-popup,.lrf-visual-preview,.view-commands,.scene-tools,.scene-position-lock,.walk-toggle,.element-side-panel')}={}){
  const uiPointers=new Set(),listeners=[];
  const isPanelInteraction=event=>pointerInsidePanels(event,getPanels(),{document,view});
  const retargeted=event=>event.target===canvas&&uiPointers.has(event.pointerId);

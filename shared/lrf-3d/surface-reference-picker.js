@@ -30,7 +30,7 @@ function installStyle(){
 
 // Keep the native value/change contract for the scene, while the illustrated
 // choices expose each candidate's reviewed face on desktop and touch screens.
-export function renderSurfaceReferenceSelection(host,{choices,selected,onChange}){
+export function renderSurfaceReferenceSelection(host,{choices,selected,onChange,previews=true}){
  if(!host)return;host.replaceChildren();if(!selected)return;
  installStyle();
  const label=document.createElement('label');label.className='full-field';
@@ -53,7 +53,7 @@ export function renderSurfaceReferenceSelection(host,{choices,selected,onChange}
   if(url)image.src=url;
   disposePreview?.();
   preview.replaceChildren(image,unavailable);
-  disposePreview=attachVisualPreview(preview,{value:product.key,label:[product.reference,product.finish].filter(Boolean).join(' · '),detail:[product.collection,product.color,product.format].filter(Boolean).join(' · '),image:url});
+  disposePreview=previews?attachVisualPreview(preview,{value:product.key,label:[product.reference,product.finish].filter(Boolean).join(' · '),detail:[product.collection,product.color,product.format].filter(Boolean).join(' · '),image:url}):undefined;
   caption.textContent=[product.collection,product.color,product.format&&product.format.replaceAll('x',' × ')+' cm'].filter(Boolean).join(' · ');
   note.textContent=product.packVerified?product.packPieces+' pièces · '+fmt(product.packArea)+' m² par boîte':'Boîtage à confirmer sur la fiche fabricant';
  }
@@ -61,6 +61,6 @@ export function renderSurfaceReferenceSelection(host,{choices,selected,onChange}
  row.append(preview,select);label.append(row,caption);host.append(label,note);show(selected);
  // A displayed default is not necessarily recorded in the project yet.
  // Explicitly choosing that same SKU must still confirm its commercial identity.
- const visual=enhanceVisualSelect(select,{emitUnchanged:true,label:'Référence & finition',entries:choices.map(product=>({value:product.key,label:(product.reference||'Référence à confirmer')+' · '+product.finish,detail:[product.collection,product.color,product.format&&product.format.replaceAll('x',' × ')+' cm'].filter(Boolean).join(' · '),image:surfaceReferencePreview(product)})),searchPlaceholder:'Rechercher une référence ou une finition'});
+ const visual=enhanceVisualSelect(select,{previews,emitUnchanged:true,label:'Référence & finition',entries:choices.map(product=>({value:product.key,label:(product.reference||'Référence à confirmer')+' · '+product.finish,detail:[product.collection,product.color,product.format&&product.format.replaceAll('x',' × ')+' cm'].filter(Boolean).join(' · '),image:surfaceReferencePreview(product)})),searchPlaceholder:'Rechercher une référence ou une finition'});
  return {select,preview,visual};
 }

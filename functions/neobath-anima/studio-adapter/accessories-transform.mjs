@@ -19,7 +19,7 @@ export function transformFurnitureAccessoryAtelier(source){
  source=source.replace(wrapper,'function __animaRenderCabinetBaseControls(parent,item){');
  const allowed="if(!['furniture','basin','floor'";if(!source.includes(allowed))throw Error('Studio One accessory inspector target contract changed.');
  source=source.replace(allowed,"if(!['cabinet-accessories','furniture','basin','floor'")
-  .replace("furniture:'Meuble & plan',","'cabinet-accessories':'Accessoires du meuble',furniture:'Meuble & plan',")
+  .replace(/furniture:'(Meuble & plan|Le meuble)',/,"'cabinet-accessories':'Accessoires du meuble',furniture:'$1',")
   .replace("else if(editTarget==='profile'){grid.hidden=true;renderProfileInspector(body);}","else if(editTarget==='profile'){grid.hidden=true;renderProfileInspector(body);}\n else if(editTarget==='cabinet-accessories'){grid.hidden=true;__animaRenderFurnitureAccessories(body,composition.selected);}")
   .replace("function setupPicking(){","function setupPicking(){__animaMountFurnitureAccessoryPicking();")
   .replace("if(e.key==='Escape'){","if(e.key==='Escape'){__animaFurnitureAccessoryPicking?.cancel();")

@@ -11,12 +11,13 @@ export function transformAnimaCabinetUI(source){
  if(controlsStart<0||controlsEnd<0)throw Error('Studio One cabinet controls contract changed.');
  source=source.slice(0,controlsStart)+'function renderCabinetSizeControls(parent,item){return __animaRenderCabinetControls(parent,item);}\n'+source.slice(controlsEnd);
  const shared="if(['furniture','basin'].includes(editTarget)&&composition?.selected?.type==='cabinet')renderCabinetSizeControls(body,composition.selected);";
- if(!source.includes(shared))throw Error('Studio One inspector cabinet target contract changed.');
+ const cabinetOnly="if(editTarget==='furniture'&&composition?.selected?.type==='cabinet'){renderCabinetSizeControls(body,composition.selected);body.insertBefore(body.lastElementChild,grid);}";
+ if(!source.includes(shared)&&!source.includes(cabinetOnly))throw Error('Studio One inspector cabinet target contract changed.');
  source=source.replace(shared,"if(editTarget==='furniture'&&composition?.selected?.type==='cabinet')renderCabinetSizeControls(body,composition.selected);")
-  .replace("basin:'La vasque'","basin:'Plans et vasques'")
+  .replace(/basin:'(?:La vasque|Plan & vasque)'/,"basin:'Plans et vasques'")
   .replace("function refreshWidthUI(){","function refreshWidthUI(){__animaCabinetSidebar();")
   .replace("function openAddChooser(type){const dialog=$('#add-dialog'),body=$('#add-choices');body.replaceChildren();","function openAddChooser(type){const dialog=$('#add-dialog'),body=$('#add-choices');body.replaceChildren();if(type==='cabinet'){__animaOpenCabinetChooser(dialog,body);return;}")
   .replace("if(renovation?.tap(hit))return;","if(hit?.editTarget==='basin'&&hit?.itemId&&composition?.items.some(item=>item.id===hit.itemId&&item.type==='cabinet')){tileEditing=false;selectedTile=null;highlightIndividualTile();selectItem(hit.itemId);openInspector('basin');return;}if(renovation?.tap(hit))return;")
-  .replace("if(item.type==='cabinet'){\n   renderTopDrawerControl(body);","if(item.type==='cabinet'&&editTarget!=='basin'){\n   renderTopDrawerControl(body);");
+  .replace(/if\(item.type==='cabinet'\)\{\n   renderTopDrawerControl\((body|actions)\);/,"if(item.type==='cabinet'&&editTarget!=='basin'){\n   renderTopDrawerControl($1);");
  return cabinetAtelierPrelude+source;
 }

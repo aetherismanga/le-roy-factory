@@ -17,7 +17,7 @@ export function enrichQuantity(row,finish){
  if(result.packVerified){result.boxes=Math.ceil((result.needed-1e-8)/result.m2Box);result.orderArea=result.boxes*result.m2Box;result.orderPieces=result.boxes*result.pcsBox;}result.totalPurchaseHT=Number.isFinite(result.purchaseHT)&&result.orderArea!==null?Math.round(result.orderArea*result.purchaseHT*100)/100:null;return result;
 }
 export function renderCommercialSelection(host,finish,onChange){
- return renderSurfaceReferenceSelection(host,{choices:commercialOptions(finish),selected:commercialProduct(finish),onChange});
+ return renderSurfaceReferenceSelection(host,{choices:commercialOptions(finish),selected:commercialProduct(finish),onChange,previews:false});
 }
 
 export function renderCommercialGroups(host,groups,{showPurchase=false,plinths=null,plinthsCost=null}={}){

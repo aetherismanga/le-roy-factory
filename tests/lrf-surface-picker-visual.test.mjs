@@ -11,7 +11,7 @@ const asset=file=>'https://leroyfactory.fr/assets/img/elios-segmento-20261107/'+
 
 function fixture(options={}){
  const dom=createVisualChoiceDOM(),body=dom.element('div'),parent=dom.element('div'),calls=[];body.id='object-editor-body';body.append(parent);dom.document.body.append(body);
- const input={kind:'wall',collection:'Segmento',color:'duplex-c',format:'15x15',layout:segmentoLayout({},'S01-C'),urlFor:surfaceAssetURL,onCollection:id=>calls.push({type:'collection',id}),onColor:id=>calls.push({type:'color',id}),onFormat:id=>calls.push({type:'format',id}),onSegmento:id=>calls.push({type:'composition',id}),...options};
+ const input={previews:true,kind:'wall',collection:'Segmento',color:'duplex-c',format:'15x15',layout:segmentoLayout({},'S01-C'),urlFor:surfaceAssetURL,onCollection:id=>calls.push({type:'collection',id}),onColor:id=>calls.push({type:'color',id}),onFormat:id=>calls.push({type:'format',id}),onSegmento:id=>calls.push({type:'composition',id}),...options};
  const root=renderSurfacePicker(parent,input);
  return {...dom,body,parent,input,root,calls,widget:name=>{const widget=find(root,'surfaceVisualField',name);assert(widget,'Illustrated '+name+' control exists');return widget;},open(widget){find(widget,'visualChoiceTrigger','true').click();const popup=find(dom.document.body,'visualChoicePopup','true');assert(popup);return popup;},cleanup(){dom.restore();}};
 }
@@ -49,7 +49,7 @@ test('composition and secondary colour-card previews never trigger their separat
   fire(choice,'pointerenter',{pointerType:'mouse'});let hover=find(h.document.body,'visualHover','true');assert.equal(hover.querySelector('img').src,asset('compositions/s01-c.webp'));fire(choice,'pointerleave',{pointerType:'mouse'});
   preview.click();let modal=find(h.document.body,'visualPreview','true');assert.equal(modal.querySelector('img').src,asset('compositions/s01-c.webp'));modal.querySelector('button').click();assert.deepEqual(h.calls,[]);
   find(h.root,'segmentoComposition','S01-C').click();assert.deepEqual(h.calls,[{type:'composition',id:'S01-C'}]);
-  const parent=h.element('div');h.document.body.append(parent);const colors=[];const secondary=renderSurfacePicker(parent,{kind:'wall',collection:'Segmento',color:'albus',format:'15x15',urlFor:surfaceAssetURL,onColor:id=>colors.push(id)});
+  const parent=h.element('div');h.document.body.append(parent);const colors=[];const secondary=renderSurfacePicker(parent,{previews:true,kind:'wall',collection:'Segmento',color:'albus',format:'15x15',urlFor:surfaceAssetURL,onColor:id=>colors.push(id)});
   find(secondary,'surfacePreview','coelestis').click();modal=find(h.document.body,'visualPreview','true');assert.equal(modal.querySelector('img').src,asset('coelestis.webp'));modal.querySelector('button').click();assert.deepEqual(colors,[]);
   find(secondary,'surfaceColor','coelestis').click();assert.deepEqual(colors,['coelestis']);
  }finally{h.cleanup();}
@@ -107,5 +107,37 @@ test('real inspector replacement keeps illustrated filters and removes the aband
   }
   assert.equal(descendants(current).find(element=>element.tagName==='INPUT'&&element.dataset.segmentoFilter==='search').value,'04I15D0');
   assert.deepEqual(h.calls,[{type:'composition',id:'S11-G'}],'Refreshing the inspector never reapplies another composition');
+ }finally{h.cleanup();}
+});
+
+
+test('the default tile picker uses one direct choice without hover previews or enlarge buttons',()=>{
+ const h=fixture({previews:false,collection:'Stone Icon',color:'leccese',format:'60x90',layout:{},onSegmento:undefined});
+ try{
+  assert.equal(descendants(h.root).filter(e=>e.dataset?.surfacePreview).length,0);
+  assert.equal(descendants(h.root).filter(e=>e.tagName==='BUTTON'&&isVisible(e)&&/Agrandir/.test(e.textContent)).length,0);
+  const colour=find(h.root,'surfaceColor','francese');assert(colour,'Exact colour remains directly selectable');
+  fire(colour,'pointerenter',{pointerType:'mouse'});fire(colour,'focus');
+  assert.equal(find(h.document.body,'visualHover','true'),undefined);assert.equal(find(h.document.body,'visualPreview','true'),undefined);assert.deepEqual(h.calls,[]);
+  colour.click();assert.deepEqual(h.calls,[{type:'color',id:'francese'}]);
+  const popup=h.open(h.widget('collection'));
+  assert.equal(descendants(popup).filter(e=>e.dataset?.visualChoicePreview&&isVisible(e)).length,0);
+  const entry=find(popup,'visualChoiceValue','Creta');assert(entry.querySelector('img'),'The thumbnail is inside the single selection button');
+  fire(entry,'pointerenter',{pointerType:'mouse'});assert.equal(find(h.document.body,'visualHover','true'),undefined);
+  entry.click();assert.deepEqual(h.calls,[{type:'color',id:'francese'},{type:'collection',id:'Creta'}]);
+ }finally{h.cleanup();}
+});
+
+test('default Segmento motifs and references select without hover or enlarge surfaces',()=>{
+ const h=fixture({previews:false});
+ try{
+  assert.equal(descendants(h.root).filter(e=>e.dataset?.surfacePreview).length,0);
+  const composition=find(h.root,'segmentoComposition','S01-C');fire(composition,'pointerenter',{pointerType:'mouse'});
+  assert.equal(find(h.document.body,'visualHover','true'),undefined);assert.deepEqual(h.calls,[]);
+  composition.click();assert.deepEqual(h.calls,[{type:'composition',id:'S01-C'}]);
+  const popup=h.open(h.widget('segmento-reference'));
+  assert.equal(descendants(popup).filter(e=>e.dataset?.visualChoicePreview&&isVisible(e)).length,0);
+  find(popup,'visualChoiceValue','coelestis').click();
+  assert.deepEqual(h.calls,[{type:'composition',id:'S01-C'},{type:'color',id:'coelestis'}]);
  }finally{h.cleanup();}
 });

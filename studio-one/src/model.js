@@ -115,7 +115,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  const getBasinCenters=mode=>insets[mode]?.userData.basinCenters||(['neris','torne'].includes(mode)?basinCenters(chosenLayout,W):[0]);
  const mirror=includeMirror?makeMirrorFrame():null;if(mirror)root.add(mirror);
  const tops=createTopSet({wood:frontWood,ceramic,chrome,roundedRect,woodUV,width:W,basinLayout:chosenLayout});root.add(tops.root);
- cabinet.userData.editTarget='furniture';faucet.userData.editTarget='basin';
+ cabinet.userData.editTarget='furniture';faucet.userData.editTarget='basin';for(const basin of Object.values(insets))basin.userData.editTarget='basin';
  tops.root.userData.editTarget='basin';tops.solid.userData.editTarget='basin';tops.drilled.userData.editTarget='basin';
  for(const v of Object.values(tops.vessels))v.group.userData.editTarget='basin';
  const body=faucet.getObjectByName('Corps');

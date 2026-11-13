@@ -34,8 +34,8 @@ for(const app of ['studio-one','randal-general']){
   const prior=JSON.stringify(item.settings);assert.equal(c.setWindowAmbience('unknown'),false);assert.equal(c.setWindowType('unknown'),false);assert.equal(JSON.stringify(item.settings),prior);
   c.projectWorkspace={locked:true};assert.equal(c.setWindowType('sliding'),false);assert.equal(c.toggleRoomWindow(),false);assert.equal(c.setWindowAmbience('coast'),false);
  });
- test(`${app}: left selection stays closed and context/long press exposes all window appearance`,()=>{
-  const h=host(app),c=h.context;c.handleObjectTap({itemId:h.item.id,editTarget:'window'});assert.equal(h.calls.inspector,null);
+ test(`${app}: left click opens window options and context/long press retains every appearance action`,()=>{
+  const h=host(app),c=h.context;c.handleObjectTap({itemId:h.item.id,editTarget:'window'});assert.equal(h.calls.inspector,'window');
   const actions=c.itemContextActions(h.item);assert(actions.some(action=>action.id==='appearance'));assert(actions.some(action=>action.id==='window-open'));
   actions.find(action=>action.id==='appearance').run();assert.equal(h.calls.inspector,'window');
   c.renderWindowAppearance({append(){}},h.item);assert.deepEqual(Array.from(h.fields[0].options,choice=>choice.id),['sliding','casement']);assert.equal(h.fields[1].options.length,5);

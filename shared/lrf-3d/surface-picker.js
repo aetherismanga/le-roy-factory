@@ -77,15 +77,15 @@ export function surfacePreviewNote(color){
 
 // Every entry point uses the same manufacturer → series → colour → size flow.
 // Only the current series' thumbnails load; full tile faces remain on demand.
-export function renderSurfacePicker(parent,{kind,collection,color,format,urlFor,onCollection,onColor,onFormat,onPaint,paintHex,layout={},onSegmento,allowPaint=kind==='wall'}){
+export function renderSurfacePicker(parent,{kind,collection,color,format,urlFor,onCollection,onColor,onFormat,onPaint,paintHex,layout={},onSegmento,allowPaint=kind==='wall',previews=false}){
  installStyle();
  const root=document.createElement('div');root.className='surface-picker';root.dataset.surfacePicker=kind;
  let draft={brand:COLLECTIONS[collection]?.brand||'ELIOS',collection,color,format};
  const visualSelects=new Map(),previewSource=value=>typeof value==='string'&&value.startsWith('assets/')?'https://leroyfactory.fr/'+value:value;
  const colorPreview=co=>previewSource(co?.preview||co?.file||co?.faces?.[0]||'');
- function syncVisualSelect(select,entries,label){let choice=visualSelects.get(select);if(!choice){choice=enhanceVisualSelect(select,{entries,label,urlFor,searchPlaceholder:'Rechercher un nom ou une référence…'});choice.element.dataset.surfaceVisualField=select.dataset.surfaceField||select.dataset.segmentoFilter||(select.dataset.segmentoReference?'segmento-reference':'');choice.trigger.dataset.surfaceFocusField=select.dataset.surfaceField||(select.dataset.segmentoFilter?'segmento-'+select.dataset.segmentoFilter:'segmento-reference');visualSelects.set(select,choice);}else choice.sync(entries);return choice;}
+ function syncVisualSelect(select,entries,label){let choice=visualSelects.get(select);if(!choice){choice=enhanceVisualSelect(select,{entries,label,urlFor,previews,searchPlaceholder:'Rechercher un nom ou une référence…'});choice.element.dataset.surfaceVisualField=select.dataset.surfaceField||select.dataset.segmentoFilter||(select.dataset.segmentoReference?'segmento-reference':'');choice.trigger.dataset.surfaceFocusField=select.dataset.surfaceField||(select.dataset.segmentoFilter?'segmento-'+select.dataset.segmentoFilter:'segmento-reference');visualSelects.set(select,choice);}else choice.sync(entries);return choice;}
  function withPreview(button,entry){
-  if(!entry.image&&!entry.swatch)return button;
+  if(!previews||!entry.image&&!entry.swatch)return button;
   const card=document.createElement('div'),preview=document.createElement('button');card.className='surface-preview-card';preview.type='button';preview.className='surface-preview-action';preview.textContent='Agrandir';preview.setAttribute('aria-label','Agrandir '+entry.label);preview.dataset.visualChoicePreview=String(entry.value);preview.dataset.surfacePreview=String(entry.value);preview.onclick=event=>{event?.preventDefault?.();event?.stopPropagation?.();openVisualPreview(entry,{urlFor,opener:preview});};
   attachVisualPreview(button,entry,{urlFor});attachVisualPreview(preview,entry,{urlFor});card.append(button,preview);return card;
  }

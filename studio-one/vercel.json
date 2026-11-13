@@ -37,6 +37,10 @@
     },
     "api/commercial.js": {
       "includeFiles": "server/data/*.enc.json"
+    },
+    "api/tile-quote.js": {
+      "includeFiles": "server/data/*.enc.json",
+      "maxDuration": 60
     }
   },
   "git": {
