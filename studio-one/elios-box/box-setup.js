@@ -15,16 +15,20 @@ export function exhibitionRoom(settings){
  return {height,points:[[0,0],[width,0],[width,depth],[0,left]],expoWalls};
 }
 export function exhibitionProject(settings,selection,base={}){
- const room=exhibitionRoom(settings),paint={collection:'Peinture',color:'grey',paintHex:'#e8e5dc'},layout={width:1.2,height:.6,pattern:'straight',direction:'horizontal',x:0,y:0,groutWidth:2};
- const finish=key=>{if(!key)return {...paint};const p=products.products.find(p=>p.key===key&&p.brand==='ELIOS');if(!p)throw Error('Référence Elios inconnue.');return {collection:p.collection,color:p.colorId,format:p.format,catalogueKey:p.key,reference:p.reference,finish:p.finish,groutColor:'Beige'};};
- const floor=finish(selection.floor),walls=Array.from({length:4},()=>({...paint}));
- WALLS.slice(0,Number(settings.count)).forEach((index,i)=>{walls[index]=finish(selection.walls[i]);});
- const tileLayout=f=>normalizeLayout({...layout,pattern:defaultSurfacePattern(f.collection,f.color,f.format)},f.collection,f.format,f.color);
- return {...base,version:2,title:base.title||'Mon box expo Elios',room,floor:{...floor,zones:base.floor?.zones||[],jointProfiles:base.floor?.jointProfiles||[]},walls,items:base.items||[],renovation:base.renovation||{locked:false},profiles:base.profiles||{enabled:false,internalCorners:false,color:'Argent',walls:[]},tileLoss:Number(settings.loss),lighting:base.lighting||'day',brightness:base.brightness||100,temperature:base.temperature||4700,layouts:{floor:tileLayout(floor),walls:walls.map(tileLayout)}};
+ const room={...base.room,...exhibitionRoom(settings)},paint={collection:'Peinture',color:'grey',paintHex:'#e8e5dc'},layout={width:1.2,height:.6,pattern:'straight',direction:'horizontal',x:0,y:0,groutWidth:2};
+ delete room.expoComplete;
+ const loss=Number(settings.loss);if(!Number.isFinite(loss)||loss<0||loss>30)throw Error('Choisissez une marge de sécurité entre 0 et 30 %.');
+ const same=(a,b)=>a?.collection===b?.collection&&a?.color===b?.color&&a?.format===b?.format&&a?.catalogueKey===b?.catalogueKey;
+ const finish=(key,previous)=>{if(!key)return previous?.collection==='Peinture'?{...previous}:{...paint};const p=products.products.find(p=>p.key===key&&p.brand==='ELIOS');if(!p)throw Error('Référence Elios inconnue.');return {...(previous?.catalogueKey===key?previous:{}),collection:p.collection,color:p.colorId,format:p.format,catalogueKey:p.key,reference:p.reference,finish:p.finish,groutColor:previous?.groutColor||'Beige'};};
+ const floor=finish(selection.floor,base.floor),walls=Array.from({length:Math.max(4,base.walls?.length||0)},(_,i)=>i>=4?{...base.walls[i]}:{...paint});
+ WALLS.slice(0,Number(settings.count)).forEach((index,i)=>{walls[index]=finish(selection.walls[i],base.walls?.[index]);});
+ const tileLayout=(f,previous,prior)=>normalizeLayout(same(f,previous)&&prior?prior:{...layout,pattern:defaultSurfacePattern(f.collection,f.color,f.format)},f.collection,f.format,f.color);
+ return {...base,version:2,title:base.title||'Mon box expo Elios',room,floor:{...floor,zones:base.floor?.zones||[],jointProfiles:base.floor?.jointProfiles||[]},walls,items:base.items||[],renovation:base.renovation||{locked:false},profiles:base.profiles||{enabled:false,internalCorners:false,color:'Argent',walls:[]},tileLoss:loss,lighting:base.lighting||'day',brightness:base.brightness??100,temperature:base.temperature||4700,layouts:{floor:tileLayout(floor,base.floor,base.layouts?.floor),walls:walls.map((f,i)=>tileLayout(f,base.walls?.[i],base.layouts?.walls?.[i]))}};
 }
 export function mountBoxSetup({api,load,requestQuote,onFinish}){
  const panel=document.createElement('section');panel.id='elios-box-setup';panel.className='setting-section';document.querySelector('#settings').prepend(panel);
- let settings={count:3,width:240,depth:200,left:200,height1:240,height2:240,height3:240,loss:10},selection={floor:'',walls:['','','']},step=0,active=false,quoteTimer=null,revision=0;
+ const initialSettings=()=>({count:3,width:240,depth:200,left:200,height1:240,height2:240,height3:240,loss:10});
+ let settings=initialSettings(),selection={floor:'',walls:['','','']},step=0,active=false,quoteTimer=null,revision=0;
  const sampleByKey=new Map(samples.products.map(p=>[p.key,p]));
  const eligible=kind=>products.products.filter(p=>{const c=COLLECTIONS[p.collection],co=c?.colors.find(c=>c.id===p.colorId);return p.brand==='ELIOS'&&p.packVerified&&co?.available3d&&(!c.surfaces||c.surfaces.includes(kind))&&(!co.formats?.length||co.formats.includes(p.format));});
  function update(){const next=exhibitionProject(settings,selection,api.exportProject());if(!load(next))throw Error('Le box ne peut pas être affiché avec ces dimensions.');revision++;renderQuantities();}
@@ -49,7 +53,7 @@ export function mountBoxSetup({api,load,requestQuote,onFinish}){
   panel.querySelector('[data-next]').onclick=()=>{try{update();if(!ready())return;if(step===last){finish();api.setQualityMode('auto');onFinish?.();}else{step++;render();}}catch(error){panel.querySelector('[data-setup-status]').textContent=error.message;}};
   renderButtons();renderQuantities();
  }
- function start(project){active=true;step=0;panel.hidden=false;document.body.classList.add('elios-setup-active');if(project?.room?.expoWalls){const r=project.room;settings={...settings,count:r.expoWalls.filter(w=>w.enabled).length,width:r.points[1][0],depth:r.points[2][1],left:r.points[3][1],height1:r.expoWalls[0].height,height2:r.expoWalls[1].height,height3:r.expoWalls[3].height,loss:project.tileLoss||0};selection={floor:project.floor?.catalogueKey||'',walls:WALLS.map(i=>project.walls[i]?.catalogueKey||'')};}else selection={floor:'',walls:['','','']};update();render();}
+ function start(project){active=true;step=0;panel.hidden=false;document.body.classList.add('elios-setup-active');if(project?.room?.expoWalls){const r=project.room;settings={...initialSettings(),count:r.expoWalls.filter(w=>w.enabled).length,width:r.points[1][0],depth:r.points[2][1],left:r.points[3][1],height1:r.expoWalls[0].height,height2:r.expoWalls[1].height,height3:r.expoWalls[3].height,loss:project.tileLoss||0};selection={floor:project.floor?.catalogueKey||'',walls:WALLS.map(i=>project.walls[i]?.catalogueKey||'')};}else{settings=initialSettings();selection={floor:'',walls:['','','']};}update();render();}
  function finish(){active=false;clearTimeout(quoteTimer);panel.hidden=true;document.body.classList.remove('elios-setup-active');}
  panel.hidden=true;return {start,finish,isActive:()=>active,chooseProduct(key){const p=products.products.find(p=>p.key===key);if(!p)return;if(eligible('floor').some(p=>p.key===key))selection.floor=key;else selection.walls[0]=key;update();render();}};
 }

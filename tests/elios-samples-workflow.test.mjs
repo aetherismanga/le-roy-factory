@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
-import {availableSampleFormats,samplePieceStyle} from '../assets/js/elios-samples-core.mjs';
+import {availableSampleFormats,samplePieceStyle,readSampleSelection,selectionStorageKey,boxDraftKey,boxBridgeMatches} from '../assets/js/elios-samples-core.mjs';
 import {exhibitionRoom,exhibitionProject} from '../studio-one/elios-box/box-setup.js';
 import {makeRoom,cloneRoom} from '../shared/lrf-3d/room.js';
 import {quantityForSurface,summarizeQuantities} from '../shared/lrf-3d/quantities.js';
@@ -45,4 +45,31 @@ test('agent client selection reads the canonical CRM identity and never accepts 
  const db={collection:name=>{assert.equal(name,'clients');return {doc:id=>({get:async()=>({id,data:()=>id==='real'?{societe:'CRM magasin',codeClient:'LRF-99999',email:'test@example.invalid',adresse:'1 rue test'}:null})})};}};
  const account=await C.agentCustomer(db,{uid:'agent',email:'agent@example.invalid'},'real');assert.equal(account.societe,'CRM magasin');assert.equal(account.owner,'agent:agent:client:real');assert.equal(account.contact.email,'test@example.invalid');
  await assert.rejects(()=>C.agentCustomer(db,{uid:'agent'},'missing'));await assert.rejects(()=>C.agentCustomer(db,{uid:'agent'},'bad/id'));
+});
+test('changing box dimensions preserves niches, rugs, tiled columns, grout and manual layouts',()=>{
+ const floor=catalogue.products.find(p=>p.collection==='Yosemite'&&p.colorId==='honey'&&p.format==='23.4x119.5'),wall=catalogue.products.find(p=>p.collection==='Stone Icon'&&p.colorId==='leccese'&&p.format==='60x90'&&p.finish.startsWith('Tumbled ·'));
+ const settings={count:3,width:240,depth:200,left:200,height1:240,height2:240,height3:240,loss:10},selection={floor:floor.key,walls:[wall.key,wall.key,wall.key]};
+ const base=exhibitionProject(settings,selection);base.room.niches=[{id:'saved-niche',wallKey:'boundary-0',u:120,width:60,bottom:90,height:30,depth:8}];
+ base.room.partitions=[{id:'saved-column',a:[20,70],b:[20,120],height:200,thickness:20}];base.floor.zones=[{id:'saved-rug',shape:'rectangle'}];base.walls[0].zones=[{id:'saved-wall-rug'}];
+ base.floor.groutColor='Gris';base.walls[0].groutColor='Ivoire';base.layouts.floor={...base.layouts.floor,pattern:'herringbone',direction:'vertical',x:.17,y:.08,groutWidth:3};
+ base.layouts.walls[0]={...base.layouts.walls[0],direction:'vertical',x:.11};base.room.expoComplete=true;
+ const before=JSON.stringify(base),next=exhibitionProject({...settings,width:260},selection,base);
+ assert.deepEqual(next.room.niches,base.room.niches);assert.deepEqual(next.room.partitions,base.room.partitions);assert.deepEqual(next.floor.zones,base.floor.zones);assert.deepEqual(next.walls[0].zones,base.walls[0].zones);
+ assert.equal(next.floor.groutColor,'Gris');assert.equal(next.walls[0].groutColor,'Ivoire');assert.deepEqual(next.layouts.floor,normalizeLayout(base.layouts.floor,floor.collection,floor.format,floor.colorId));assert.deepEqual(next.layouts.walls[0],base.layouts.walls[0]);
+ assert.equal(next.room.points[1][0],260);assert.notEqual(next.room.expoComplete,true);assert.equal(JSON.stringify(base),before,'Editing the base must not mutate the saved source project');
+ assert.throws(()=>exhibitionProject({...settings,loss:NaN},selection,base));
+});
+test('legacy selections recover only into the verified own account and never overwrite a current selection',()=>{
+ const own={items:[{type:'vrac',key:'old-sample',quantity:1}],boxId:'old-box'},modern={items:[],boxId:null};
+ const records=new Map([[selectionStorageKey('LRF-00001'),JSON.stringify(own)],[selectionStorageKey('agent-agent@example.invalid'),JSON.stringify(own)]]),storage={getItem:key=>records.get(key)??null};
+ const client={owner:'client:canonical-id',customer:{codeClient:'LRF-00001'}};
+ assert.deepEqual(readSampleSelection(storage,client).selection,own);assert.equal(records.size,2,'Historical storage is preserved');
+ records.set(selectionStorageKey(client.owner),JSON.stringify(modern));assert.deepEqual(readSampleSelection(storage,client),{selection:modern,legacyKey:null});
+ assert.deepEqual(readSampleSelection(storage,{owner:'agent:uid',isAgent:true,customer:{email:'agent@example.invalid'}}).selection,own);
+ assert.deepEqual(readSampleSelection(storage,{owner:'agent:uid:client:canonical-id',isAgent:true,targetClientId:'canonical-id',customer:{codeClient:'LRF-00001',email:'agent@example.invalid'}}),{selection:null,legacyKey:null});
+});
+test('drafts and delayed iframe saves stay attached to their exact client and opening session',()=>{
+ const a='agent:uid:client:a',b='agent:uid:client:b',session={owner:a,bridgeId:'opening-a'};
+ assert.notEqual(boxDraftKey(a),boxDraftKey(b));assert(boxBridgeMatches({bridgeId:'opening-a'},session,a));
+ assert(!boxBridgeMatches({bridgeId:'opening-a'},session,b));assert(!boxBridgeMatches({bridgeId:'old-opening'},session,a));assert(!boxBridgeMatches({},session,a));assert(!boxBridgeMatches({bridgeId:'opening-a'},null,a));
 });

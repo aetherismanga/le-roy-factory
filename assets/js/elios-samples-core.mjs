@@ -3,6 +3,18 @@ export const API='https://us-central1-le-roy-factory.cloudfunctions.net/eliosSam
 export const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
 export const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+export const selectionStorageKey=owner=>`lrf-elios-selection-v1:${owner}`;
+export const boxDraftKey=owner=>`draft:${owner}`;
+export function readSampleSelection(storage,{owner,customer={},isAgent=false,targetClientId=''}){
+ const key=selectionStorageKey(owner),current=storage.getItem(key);
+ if(current!==null)return {selection:JSON.parse(current),legacyKey:null};
+ // Only the verified account's own historical cart can be recovered. An agent
+ // acting for a client always starts in that client's separate workspace.
+ const legacyOwner=targetClientId?'':isAgent&&customer.email?'agent-'+customer.email:!isAgent?customer.codeClient:'';
+ const legacyKey=legacyOwner?selectionStorageKey(legacyOwner):null,legacy=legacyKey&&storage.getItem(legacyKey);
+ return {selection:legacy?JSON.parse(legacy):null,legacyKey:legacy?legacyKey:null};
+}
+export const boxBridgeMatches=(message,session,owner)=>!!session&&session.owner===owner&&typeof session.bridgeId==='string'&&session.bridgeId.length>0&&message?.bridgeId===session.bridgeId;
 export function availableSampleFormats(products,{collection='',query='',mode='vrac'}={}){
  const q=norm(query);
  return [...new Set(products.filter(p=>(mode==='box'||p.vrac)&&(!collection||p.collection===collection)&&(!q||norm([p.reference,p.collection,p.color,p.description,p.format,p.finish].join(' ')).includes(q))).map(p=>p.format).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr',{numeric:true}));

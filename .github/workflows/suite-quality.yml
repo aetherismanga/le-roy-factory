@@ -35,6 +35,27 @@ concurrency:
   group: lrf-quality-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  elios-box:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm run build:studio
+      - run: node --test tests/elios-samples.test.mjs tests/elios-samples-workflow.test.mjs
+      - run: npx playwright install --with-deps chromium
+      - name: Verify native Elios box, guided choices, drafts and HD capture
+        run: node tests/lrf-suite/elios-box-setup-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lrf-elios-box-checks
+          path: reports/lrf-suite/elios-box/
+          retention-days: 14
   legacy-recovery:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -96,7 +117,7 @@ jobs:
       - name: Verify readable image cache recovery
         run: node tests/elios-phase2a/cache-regression.cjs
       - run: npm run check:core
-      - run: node --test tests/lrf-plan-pose/*.test.mjs tests/lrf-suite/*.test.mjs tests/security/*.test.mjs tests/secure-agent-tariffs.test.mjs tests/release-impact.test.mjs tests/lrf-surface-contract.test.mjs tests/randal-workspace/identity-state.test.mjs tests/elios-samples.test.mjs tests/elios-expo-budget-ui.test.mjs
+      - run: node --test tests/lrf-plan-pose/*.test.mjs tests/lrf-suite/*.test.mjs tests/security/*.test.mjs tests/secure-agent-tariffs.test.mjs tests/release-impact.test.mjs tests/lrf-surface-contract.test.mjs tests/randal-workspace/identity-state.test.mjs tests/elios-samples.test.mjs tests/elios-samples-workflow.test.mjs tests/elios-expo-budget-ui.test.mjs
       - run: npm run check --workspace=randal-general-3d
       - run: npm run check --workspace=studio-one-atelier-3d
       - run: npm run build:site

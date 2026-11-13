@@ -38,7 +38,7 @@ function readWithin(dir,relative){const file=path.resolve(dir,'.'+relative);if(!
   await context.route(/^https:\/\//,async route=>{
    const u=new URL(route.request().url());let dir,relative;
    if(u.hostname==='leroyfactory.fr'&&u.pathname.startsWith('/review-studio/assets/')){dir=roots.studio;relative=u.pathname.slice('/review-studio'.length);}
-   else if(u.hostname==='leroyfactory.fr'&&u.pathname.startsWith('/assets/img/lrf-plan-pose/faces/')){dir=root;relative=u.pathname;}
+   else if(u.hostname==='leroyfactory.fr'&&(u.pathname.startsWith('/assets/img/lrf-plan-pose/faces/')||u.pathname.startsWith('/assets/img/elios-samples-hd/'))){dir=root;relative=u.pathname;}
    else if(u.hostname==='studio-one-beta-test-v2.vercel.app'){dir=roots.studio;relative=u.pathname;}
    else if(u.hostname==='randal-catalogue-general-3d.vercel.app'){dir=roots.general;relative=u.pathname;}
    const asset=dir&&readWithin(dir,decodeURIComponent(relative));
