@@ -36,6 +36,6 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
-      - run: npm ci --prefix functions --ignore-scripts --no-audit --no-fund
+      - run: npm install --prefix functions --ignore-scripts --package-lock=false --no-audit --no-fund
       - run: node tools/build-neobath-anima.mjs
       - run: node --test tests/neobath-anima*.test.mjs functions/test/neobath-anima*.cjs
