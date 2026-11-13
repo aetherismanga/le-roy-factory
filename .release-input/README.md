@@ -1,0 +1,1 @@
+Temporary transport for the reviewed LRF exterior catalogue. The assembly job verifies the exact archive and per-file SHA-256 values before staging source on the release branch; it never updates main.

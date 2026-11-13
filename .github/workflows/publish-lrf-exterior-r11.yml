@@ -1,0 +1,65 @@
+name: Assemble reviewed LRF exterior catalogue
+on:
+  push:
+    branches: ['release/lrf-exterieur-r11-20261113']
+    paths: ['.release-input/r11-ready.json']
+permissions:
+  contents: write
+concurrency:
+  group: lrf-exterior-r11-20261113
+  cancel-in-progress: false
+jobs:
+  assemble:
+    if: github.repository == 'aetherismanga/le-roy-factory'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 20
+      - name: Verify and apply the reviewed publication archive
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, pathlib, tarfile, subprocess
+          root=pathlib.Path('.').resolve()
+          manifest=json.loads(pathlib.Path('.release-input/r11-ready.json').read_text())
+          assert manifest['schema']=='lrf-r11-publication-v1'
+          assert manifest['archiveSha256']=='2c27ecea32bf9d98afe5bb78e59e4fef631d006c207d6c65a1995fb32e2906a5'
+          subprocess.run(['git','merge-base','--is-ancestor',manifest['base'],'HEAD'],check=True)
+          bundle=pathlib.Path('/tmp/lrf-r11-release.tar.gz')
+          with bundle.open('wb') as out:
+           for part in manifest['parts']:
+            assert '/' not in part['name'] and part['name'].startswith('r11-release.part')
+            data=(pathlib.Path('.release-input')/part['name']).read_bytes()
+            assert len(data)==part['size'] and hashlib.sha256(data).hexdigest()==part['sha256']
+            out.write(data)
+          assert hashlib.sha256(bundle.read_bytes()).hexdigest()==manifest['archiveSha256']
+          allowed_roots={'univers.html','catalogues.html','catalogue-exterieur-r11.html','catalogue-exterieur-r11-pdf.html','suite-version.json'}
+          allowed_assets={'assets/css/r11-catalogue.css','assets/data/r11-catalogue.json','assets/js/catalogues-renderer.js','assets/js/inspirations-v2.js','assets/js/r11-catalogue.js','assets/js/r11-prices.js','assets/js/r11-pdf-reader.js','assets/pdf/selection-lrf-exterieur-r11.pdf'}
+          allowed_tests={'tests/r11-prices.test.mjs','tests/catalogues-first-paint.test.mjs','tests/selection-native-state.test.mjs'}
+          expected={entry['path']:entry for entry in manifest['files']}
+          assert len(expected)==636
+          for path in expected:
+           assert path in allowed_roots|allowed_assets|allowed_tests or path.startswith('assets/img/r11-')
+           assert not pathlib.PurePosixPath(path).is_absolute() and '..' not in pathlib.PurePosixPath(path).parts
+          with tarfile.open(bundle,'r:gz') as archive:
+           members=archive.getmembers()
+           assert {m.name for m in members}==set(expected) and all(m.isfile() for m in members)
+           archive.extractall(root,members=members,filter='data')
+          for path,entry in expected.items():
+           data=pathlib.Path(path).read_bytes()
+           assert len(data)==entry['size'] and hashlib.sha256(data).hexdigest()==entry['sha256'],path
+          subprocess.run(['git','add','--',*sorted(expected)],check=True)
+          print('Verified and staged',len(expected),'reviewed publication files.')
+          PY
+      - name: Check catalogue scripts and navigation
+        run: |
+          node --check assets/js/r11-catalogue.js
+          node --check assets/js/r11-prices.js
+          node --check assets/js/r11-pdf-reader.js
+          node --test tests/r11-prices.test.mjs tests/selection-native-state.test.mjs tests/catalogues-first-paint.test.mjs
+      - name: Retain the verified source on the release branch
+        run: |
+          git rm -r -- .release-input
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Publish reviewed exterior selection source and interactive PDF'
+          git push origin HEAD:refs/heads/release/lrf-exterieur-r11-20261113
