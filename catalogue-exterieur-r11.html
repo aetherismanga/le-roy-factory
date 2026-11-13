@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sélection Le Roy Factory — Carrelage extérieur R11</title>
+  <meta name="description" content="La sélection extérieure R11 Le Roy Factory : collections Elios, VIEW et La Fenice, ambiances, coloris et formats. Catalogue interactif et accès aux tarifs professionnels LRF.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://leroyfactory.fr/catalogue-exterieur-r11.html">
+  <meta name="theme-color" content="#f4f1eb">
+  <link rel="icon" href="assets/img/logo03lrf.png">
+  <link rel="stylesheet" href="assets/css/r11-catalogue.css">
+</head>
+<body>
+  <a class="r11-skip" href="#catalogue">Aller au catalogue</a>
+  <header class="r11-header">
+    <a class="r11-brand" href="index.html" aria-label="Le Roy Factory, accueil"><img src="assets/img/logo03lrf.png" width="70" height="70" alt="Logo officiel Le Roy Factory"></a>
+    <div class="r11-header-title"><span>LE ROY FACTORY</span><small>LES SÉLECTIONS</small></div>
+    <div class="r11-header-actions"><span class="r11-preview">Toutes collections · Extérieur R11</span><button class="r11-button r11-button-outline" id="pro-open" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span id="pro-label">Accès PRO LRF</span></button></div>
+  </header>
+  <main>
+    <section class="r11-cover" aria-labelledby="cover-title">
+      <img class="r11-cover-photo" src="assets/img/r11-web/677e601915c69d921c97.webp" alt="Terrasse en carrelage autour d’une piscine, collection COCO VIEW" fetchpriority="high" width="2385" height="1591">
+      <div class="r11-cover-shade"></div>
+      <div class="r11-cover-copy"><p class="r11-kicker">SÉLECTION LE ROY FACTORY · ÉDITION 2026</p><h1 id="cover-title">L’extérieur,<br><em>naturellement.</em></h1><p class="r11-cover-subtitle">Carrelage extérieur <span>R11</span></p><p class="r11-cover-description">Des matières de caractère pour prolonger<br class="desktop-only"> vos espaces à ciel ouvert.</p><a class="r11-button r11-button-cream" href="#catalogue">Explorer la sélection <span aria-hidden="true">↓</span></a></div>
+      <div class="r11-cover-bottom"><span>ELIOS &nbsp; / &nbsp; VIEW &nbsp; / &nbsp; LA FENICE</span><span>PHOTO : COCO · VIEW</span></div>
+    </section>
+    <section class="r11-intro r11-shell" aria-label="Présentation de la sélection"><div><p class="r11-kicker">MATIÈRES & ESPACES</p><h2>Vos projets prennent l’air.</h2></div><p>Le relief de la pierre, la douceur du travertin, la chaleur du bois. Retrouvez les versions R11 de nos collections, leurs coloris et leurs formats dans une seule sélection.</p><a class="r11-download" href="catalogue-exterieur-r11-pdf.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 15v6h14v-6"/></svg><span>Le catalogue PDF<small>Sommaire et liens interactifs</small></span><span aria-hidden="true">↗</span></a></section>
+    <section id="catalogue" class="r11-catalogue" aria-labelledby="catalogue-title">
+      <div class="r11-shell">
+        <div class="r11-section-heading"><div><p class="r11-kicker">LA COLLECTION EXTÉRIEUR</p><h2 id="catalogue-title">Trouvez votre matière.</h2></div><p id="catalogue-count" class="r11-count" aria-live="polite">Chargement des collections…</p></div>
+        <div class="r11-toolbar"><div class="r11-view-switch" role="group" aria-label="Mode d’affichage"><button id="view-catalogue" class="is-active" type="button" aria-pressed="true">Le catalogue</button><button id="view-products" type="button" aria-pressed="false">Tous les produits</button></div><label class="r11-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" id="search" placeholder="Collection, coloris, référence…" aria-label="Rechercher dans le catalogue"></label><button type="button" id="filters-open" class="r11-button r11-button-outline"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>Filtres <span id="filter-count"></span></button></div>
+        <div id="filter-scrim" class="r11-filter-scrim" hidden></div>
+        <aside id="filter-panel" class="r11-filters" aria-label="Filtres du catalogue"><div class="r11-filter-mobile-heading"><strong>Affiner la sélection</strong><button type="button" id="filters-close" class="r11-icon-button" aria-label="Fermer les filtres">×</button></div><label>Usine<select id="filter-brand"><option value="">Toutes les usines</option></select></label><label>Catégorie<select id="filter-category"><option value="">Toutes les matières</option></select></label><label>Format<select id="filter-format"><option value="">Tous les formats</option></select></label><label>Épaisseur<select id="filter-thickness"><option value="">Toutes les épaisseurs</option></select></label><label class="r11-sort-label">Classer par<select id="sort"><option value="name">Collection A → Z</option><option value="brand">Usine</option><option value="format">Format croissant</option></select></label><button type="button" id="reset" class="r11-text-button">Réinitialiser</button><button type="button" id="filters-apply" class="r11-button r11-button-dark">Afficher les résultats</button></aside>
+        <div class="r11-under-filters"><span>FINITIONS EXTÉRIEURES <strong>R11</strong></span><button type="button" id="favorites-toggle" class="r11-text-button" aria-pressed="false">♡ Ma sélection <span id="favorites-count">0</span></button></div>
+        <div id="results" class="r11-results" aria-busy="true"></div>
+        <div class="r11-more"><button id="load-more" class="r11-button r11-button-outline" hidden type="button">Voir la suite du catalogue <span aria-hidden="true">↓</span></button></div>
+        <p id="catalogue-status" class="r11-status" role="status"></p>
+      </div>
+    </section>
+    <section class="r11-end-note r11-shell"><span class="r11-small-seal">R11</span><div><h2>Le détail fait la différence.</h2><p>Le classement et les caractéristiques concernent la version indiquée. Les photos d’ambiance présentent la collection ; le choix final du coloris et de la finition se fait sur échantillon.</p></div><a class="r11-button r11-button-outline" href="contact.html">Parlons de votre projet <span aria-hidden="true">↗</span></a></section>
+  </main>
+  <footer class="r11-footer"><span>SÉLECTION LE ROY FACTORY</span><span>Carrelage extérieur R11 · 2026</span><a href="#cover-title">Retour en haut ↑</a></footer>
+  <dialog id="collection-dialog" class="r11-dialog r11-collection-dialog"><div id="collection-detail"></div><button class="r11-dialog-close r11-icon-button" type="button" data-close="collection-dialog" aria-label="Fermer la collection">×</button></dialog>
+  <dialog id="image-dialog" class="r11-dialog r11-image-dialog"><button class="r11-dialog-close r11-icon-button" type="button" data-close="image-dialog" aria-label="Fermer l’image">×</button><img id="hd-image" alt=""><div class="r11-image-caption"><p id="hd-caption"></p><a id="hd-original" target="_blank" rel="noopener">Ouvrir l’original fabricant ↗</a></div></dialog>
+  <dialog id="pro-dialog" class="r11-dialog r11-pro-dialog"><button class="r11-dialog-close r11-icon-button" type="button" data-close="pro-dialog" aria-label="Fermer l’accès professionnel">×</button><p class="r11-kicker">ESPACE PROFESSIONNEL</p><h2>Vos tarifs LRF,<br><em>en un regard.</em></h2><p>Connectez-vous avec vos codes LRF, puis touchez le petit œil sur une référence pour consulter son prix d’achat HT.</p><form id="pro-form"><label>Code client LRF<input id="pro-code" name="code" placeholder="LRF-00235" autocomplete="username" required></label><label>Département<input id="pro-department" name="department" placeholder="34" autocomplete="off" maxlength="3" required></label><button type="submit" class="r11-button r11-button-dark" id="pro-submit">Me connecter</button></form><p id="pro-status" class="r11-status" role="status"></p><div id="pro-connected" hidden><p id="pro-client"></p><button type="button" id="pro-logout" class="r11-text-button">Me déconnecter</button></div><small>Les tarifs sont réservés aux partenaires autorisés pour chaque usine. Aucun tarif professionnel n’est inclus dans le PDF.</small></dialog>
+  <script src="assets/js/pro-session-bridge.js"></script>
+  <script src="assets/js/r11-prices.js"></script>
+  <script src="assets/js/r11-catalogue.js"></script>
+</body>
+</html>

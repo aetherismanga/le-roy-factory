@@ -114,7 +114,22 @@
 
   function catMeta(c){return c.partners.length?c.partners.join(' · '):'Bientôt disponible'}
   function renderCategories(){categories.innerHTML=CATEGORIES.map(c=>`<button type="button" aria-label="${esc(c.label)}" aria-pressed="${c.id===state.category}" class="category-card ${c.id===state.category?'active':''}" data-cat="${c.id}"><span class="category-icon">${c.icon}</span><span class="category-name">${esc(c.label)}</span><span class="category-meta">${esc(catMeta(c))}</span></button>`).join('')}
-  function renderPartners(){const c=CATEGORIES.find(x=>x.id===state.category);const list=[...(c?.partners||[])].sort((a,b)=>['meubles','parement'].includes(c?.id)?c.partners.indexOf(a)-c.partners.indexOf(b):String(a).localeCompare(String(b),'fr',{sensitivity:'base'}));$('#partner-panel-title').textContent=c?.label||'Partenaires';partnerGrid.innerHTML=list.length?list.map(name=>{const p=PARTNERS[name];const allowed=hasAccess(p.slug),isBio=['SAXSO','Biopietra'].includes(name);return `<button class="partner-card ${name===state.partner?'active':''}" data-partner="${esc(name)}"><img src="${p.logo}" alt="${esc(name)}"><span><strong>${esc(name)}</strong><small>${esc(p.country)}</small>${isBio?'':name==="Petracer's"?'<span class="access">Catalogue & conseils</span>':`<span class="access ${allowed?'':'locked'}">${allowed?'✓ Tarif PRO autorisé':'🔒 Tarif PRO selon compte'}</span>`}</span></button>`}).join(''):`<div class="empty-partner"><strong>Sanitaire</strong><p>Aucun partenaire sanitaire n'est encore intégré.</p></div>`;partnerTrigger.textContent=`☰ Choisir une usine${state.partner?` — ${state.partner}`:''}`}
+  function exteriorSelectionCard(){
+    return '<a class="partner-card lrf-exterior-selection" data-r11-catalogue-link href="catalogue-exterieur-r11.html" style="text-decoration:none;color:inherit"><img src="assets/img/logo03lrf.png" alt="Logo officiel Le Roy Factory" width="70" height="70" style="width:70px;height:70px;object-fit:contain"><span><strong>Sélection Le Roy Factory extérieur</strong><small>Toutes collections</small><span class="access">Catalogue interactif · R11</span></span></a>';
+  }
+  function renderPartners(){
+    const c=CATEGORIES.find(x=>x.id===state.category);
+    const list=[...(c?.partners||[])].sort((a,b)=>['meubles','parement'].includes(c?.id)?c.partners.indexOf(a)-c.partners.indexOf(b):String(a).localeCompare(String(b),'fr',{sensitivity:'base'}));
+    $('#partner-panel-title').textContent=c?.label||'Partenaires';
+    partnerGrid.innerHTML=list.length?list.map(name=>{
+      const p=PARTNERS[name],allowed=hasAccess(p.slug),isBio=['SAXSO','Biopietra'].includes(name);
+      const card=`<button class="partner-card ${name===state.partner?'active':''}" data-partner="${esc(name)}"><img src="${p.logo}" alt="${esc(name)}"><span><strong>${esc(name)}</strong><small>${esc(p.country)}</small>${isBio?'':name==="Petracer's"?'<span class="access">Catalogue & conseils</span>':`<span class="access ${allowed?'':'locked'}">${allowed?'✓ Tarif PRO autorisé':'🔒 Tarif PRO selon compte'}</span>`}</span></button>`;
+      // This is a cross-manufacturer catalogue link, never a supplier identity.
+      return card+(c.id==='carrelage'&&name==='Elios Ceramica'?exteriorSelectionCard():'');
+    }).join(''):`<div class="empty-partner"><strong>Sanitaire</strong><p>Aucun partenaire sanitaire n'est encore intégré.</p></div>`;
+    partnerTrigger.textContent=`☰ Choisir une usine${state.partner?` — ${state.partner}`:''}`;
+  }
+
   function unique(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'fr',{numeric:true}))}
   function products(){
     if(state.partner==="Petracer's") return window.LRF_PETRACER_SELECTION?.normaliseProducts(state.category) || [];
