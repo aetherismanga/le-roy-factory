@@ -1,4 +1,7 @@
 import {animaIdentityState} from './identity.js';
+// The private host authorizes Anima through animaAPI. Its Firebase/session
+// credentials must never be forwarded to the separate RANDAL commerce API.
+export const getSessionCredential=()=>'';
 const mailOperations=new Map();
 export async function commercialRequest(){return animaIdentityState();}
 export async function projectRequest(action,payload={}) {

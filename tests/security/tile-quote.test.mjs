@@ -42,3 +42,15 @@ for(const variant of ['studio-one','randal-general'])test(variant+': real tile g
  const before=authorityCalls;response=await send({rows:[row]},{method:'GET'});assert.equal(response.status,405);response=await send({rows:[row]},{headers:{origin:'https://other.example'}});assert.equal(response.status,403);assert.equal(authorityCalls,before);
  response=await send({rows:[{...row,catalogueKey:'missing'}]});assert.equal(response.status,400);assert.equal(authorityCalls,before);
 });
+
+for(const variant of ['studio-one','randal-general'])test(variant+': native inherited request headers survive the real commercial gateway',async()=>{
+ const {default:commercial}=await import('../../'+variant+'/api/commercial.js');
+ const handler=createTileQuoteHandler({commercial,variant,request:async()=>{throw Error('Anonymous requests must not reach tariff services.');}});
+ const prototype=Object.create(null);
+ Object.defineProperties(prototype,{headers:{get(){return {host:'fixture.vercel.app'};}},method:{get(){return 'POST';}}});
+ const req=Object.assign(Object.create(prototype),{body:{rows:[]}});
+ assert.equal(Object.hasOwn(req,'headers'),false);assert.equal(Object.hasOwn(req,'method'),false);
+ let result;await handler(req,{setHeader(){},status(code){this.code=code;return this;},json(body){result={status:this.code,body};return body;}});
+ assert.equal(result.status,401);assert.equal(result.body.success,false);
+ assert.equal(result.body.error,'Connectez votre compte LRF pour chiffrer le carrelage.');
+});

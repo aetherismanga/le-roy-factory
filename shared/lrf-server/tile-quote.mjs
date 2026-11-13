@@ -72,7 +72,10 @@ export function createTileQuoteHandler({commercial,variant,request=fetch}={}){
    // Reuse the exact live account/revocation authority of the furniture quote.
    let status=200,identity;
    const capture={setHeader(){},status(code){status=code;return this;},json(value){identity=value;return value;}};
-   await commercial({...req,body:{action:'session'}},capture);
+   // IncomingMessage exposes headers through an inherited accessor; object
+   // spread alone drops it. Forward the fields used by the identity gateway
+   // explicitly, while keeping all caller body/identity fields excluded.
+   await commercial({method:req.method,headers:req.headers,body:{action:'session'}},capture);
    if(status!==200||!identity?.client)return res.status(status===200?401:status).json({success:false,error:identity?.error||'Connectez votre compte LRF pour chiffrer le carrelage.'});
    const auth=cookies(req,variant);
    const [tariffsResult,exactResult]=await Promise.allSettled([
