@@ -46,6 +46,7 @@ for(const app of ['studio-one','randal-general']){
   const activeTextureKeys=()=>({finishes:['fixture'],surfaces:[[finish.collection,finish.color,finish]],keys});
   const activeMaterialRequests=()=>({finishes:new Set(['fixture']),surfaces:new Map([[selection.sourceKey,[finish.collection,finish.color,finish]]])});
   const context=vm.createContext({
+   unrealRender:null,
    T,COLLECTIONS,normalizeLayout,resolveSurfaceTexture,normalizeProjectSurfaceIdentities,validateProject,migrateProject,sameProjectPlacement,
    console,performance,AbortController,Event,setTimeout,clearTimeout,URL,URLSearchParams,structuredClone,
    quality:{profile:{id:'balanced'},mobile:false},renderer:{capabilities:{getMaxAnisotropy:()=>8}},captureBusy:false,running:true,

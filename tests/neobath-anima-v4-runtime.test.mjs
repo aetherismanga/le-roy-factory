@@ -31,7 +31,7 @@ await build({stdin:{contents:`export * from ${JSON.stringify(join(adapter,'model
  b.onResolve({filter:/^@studio-one-original\//},a=>({path:join(studio,a.path.slice('@studio-one-original/'.length))}));
  b.onResolve({filter:/^@anima-adapter\//},a=>({path:join(adapter,a.path.slice('@anima-adapter/'.length))}));
  b.onResolve({filter:/^\./},a=>{const path=aliases.get(resolve(a.resolveDir,a.path));return path?{path}:undefined;});
- b.onLoad({filter:/studio-one\/src\/.*\.js$/},a=>{const name=a.path.slice(studio.length+1).replaceAll('\\','/');let source=readFileSync(a.path,'utf8');if(name==='model.js')source=transformOriginalModel(source);return {contents:transformCommonStudioSource(source,name),loader:'js',resolveDir:dirname(a.path)};});
+ b.onLoad({filter:/studio-one[\\/]src[\\/].*\.js$/},a=>{const name=a.path.slice(studio.length+1).replaceAll('\\','/');let source=readFileSync(a.path,'utf8');if(name==='model.js')source=transformOriginalModel(source);return {contents:transformCommonStudioSource(source,name),loader:'js',resolveDir:dirname(a.path)};});
 }}]});
 const M=await import(pathToFileURL(join(dir,'model.mjs')).href);after(()=>rmSync(dir,{recursive:true,force:true}));
 const priorLoad=T.TextureLoader.prototype.load,priorDocument=globalThis.document;

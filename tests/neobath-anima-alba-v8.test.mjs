@@ -54,14 +54,30 @@ test('Pura drawers keep horizontal grain while Ribelle and columns keep vertical
  for(const [key,saved]of Object.entries(before)){assert.equal(tx[key].rotation,saved.rotation);assert.deepEqual(tx[key].repeat.toArray(),saved.repeat);}disposeMaps(tx);
 });
 
-function previewContext(profile='balanced'){
+function previewContext(profile='balanced',premium=null){
  const calls=[],FakeThree={...T,TextureLoader:class{async loadAsync(url){calls.push(url);return texture(url);}}};
- const context={T:FakeThree,FINISHES,renderer,workingProfile:()=>profile,__animaAsset:x=>x,textures:new Map(),revision:0,lastProject:null,lastConfiguration:'',lastStructure:'',lastShape:'',current:null,innerWidth:1440,geometryBuilds:0,scene:new T.Scene(),disposeCurrent:noop,previewItems:p=>p.items,previewStructure:p=>JSON.stringify(p.items.map(i=>[i.id,i.type,i.settings])),applyPreviewSettings:noop,fit:noop,invalidate:noop,controls:{enabled:true},sun:{shadow:{map:null,mapSize:new T.Vector2(),needsUpdate:false}},buildPreview(project){const group=new T.Group(),items=project.items.map(i=>({...i,asset:asset(i.settings.format?.includes('ribelle')?'RIBELLE':'PURA')}));for(const i of items)group.add(i.asset.root);return {group,items};}};
+ const context={disposed:false,dimensions:null,presentation:null,premium,preparePresentationFinish:noop,options:{},T:FakeThree,FINISHES,renderer,workingProfile:()=>profile,__animaAsset:x=>x,textures:new Map(),revision:0,lastProject:null,lastConfiguration:'',lastStructure:'',lastShape:'',current:null,innerWidth:1440,geometryBuilds:0,scene:new T.Scene(),disposeCurrent:noop,previewItems:p=>p.items,previewStructure:p=>JSON.stringify(p.items.map(i=>[i.id,i.type,i.settings])),applyPreviewSettings:noop,fit:noop,invalidate:noop,controls:{enabled:true},sun:{shadow:{map:null,mapSize:new T.Vector2(),needsUpdate:false}},buildPreview(project){const group=new T.Group(),items=project.items.map(i=>({...i,asset:asset(i.settings.format?.includes('ribelle')?'RIBELLE':'PURA')}));for(const i of items)group.add(i.asset.root);return {group,items};}};
  vm.createContext(context);vm.runInContext(declaration(preview,previewNodes,'texture')+'\n'+declaration(preview,previewNodes,'update'),context);return {context,calls};
 }
 const project={room:{points:[[0,0],[300,0],[300,300],[0,300]]},items:[['pura','cabinet','pura-base-two'],['ribelle','cabinet','ribelle-base-two'],['column-pura','column','pura-column'],['column-ribelle','column','ribelle-column']].map(([id,type,format])=>({id,type,settings:{format,finish:'rovere-alba',width:80},placement:{wall:0,u:100,height:30}}))};
 function checkPainted(items,profile){for(const item of items){const vertical=item.type==='column'||item.asset.spec.facade==='RIBELLE';assert.equal(item.asset.wood.map.image.src,wood.textureVariants[profile]);assert.equal(item.asset.frontWood.map.image.src,wood.textureVariants[profile]);assert.equal(item.asset.frontWood.map.rotation,vertical?0:Math.PI/2,item.id);assert.deepEqual(item.asset.frontWood.map.repeat.toArray(),vertical?wood.textureRepeat:wood.frontRepeat,item.id);assert.equal(item.asset.frontWood.bumpMap.image,item.asset.frontWood.map.image);assert.equal(item.asset.frontWood.color.getHexString(),'ffffff');assert.equal(item.asset.frontWood.roughness,.46);assert.equal(item.asset.frontWood.clearcoat,.13);}}
 async function disposePreview(context){for(const pending of context.textures.values())disposeMaps(await pending);for(const item of context.current?.items||[]){item.asset.wood.dispose();item.asset.frontWood.dispose();}}
+
+test('premium Anima preview loads both grain orientations without introducing bump maps or duplicate downloads',async()=>{
+ const {context,calls}=previewContext('max',{});let prepared=0;context.preparePresentationFinish=()=>prepared++;
+ const tx=await context.texture(wood.id);
+ assert.equal(calls.length,1);assert.equal(calls[0],wood.textureVariants.max);assert.equal(prepared,1);
+ assert.equal(tx.front.image,tx.map.image);assert.equal(tx.ribelleFront.image,tx.map.image);
+ assert.equal(tx.front.rotation,Math.PI/2);assert.equal(tx.ribelleFront.rotation,0);
+ assert.deepEqual(tx.front.repeat.toArray(),wood.frontRepeat);assert.deepEqual(tx.ribelleFront.repeat.toArray(),wood.textureRepeat);
+ for(const key of ['bump','frontBump','ribelleFrontBump'])assert.equal(tx[key],null,key);
+ await disposePreview(context);
+});
+
+test('a closed Anima preview does not start texture loading or replace the current scene',async()=>{
+ const {context,calls}=previewContext();context.disposed=true;
+ assert.equal(await context.update(project),false);assert.equal(calls.length,0);assert.equal(context.current,null);
+});
 
 test('the actual live preview, column thumbnail paint and HD preparation use the same flat sample and per-model orientation',async()=>{
  const {context,calls}=previewContext();await context.update(project);assert.equal(calls.length,1);checkPainted(context.current.items,'balanced');

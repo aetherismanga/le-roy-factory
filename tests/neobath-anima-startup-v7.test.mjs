@@ -27,7 +27,7 @@ await build({stdin:{contents:[
  b.onResolve({filter:/^@studio-one-original\//},a=>({path:join(studio,a.path.slice('@studio-one-original/'.length))}));
  b.onResolve({filter:/^@anima-adapter\//},a=>({path:join(adapter,a.path.slice('@anima-adapter/'.length))}));
  b.onResolve({filter:/^\./},a=>{const target=aliases.get(resolve(a.resolveDir,a.path));return target?{path:target}:undefined;});
- b.onLoad({filter:/studio-one\/src\/.*\.js$/},a=>{const relative=a.path.slice(studio.length+1);let source=readFileSync(a.path,'utf8');if(relative==='model.js')source=transformOriginalModel(source);return {contents:transformCommonStudioSource(source,relative),loader:'js',resolveDir:dirname(a.path)};});
+ b.onLoad({filter:/studio-one[\\/]src[\\/].*\.js$/},a=>{const relative=a.path.slice(studio.length+1);let source=readFileSync(a.path,'utf8');if(relative==='model.js')source=transformOriginalModel(source);return {contents:transformCommonStudioSource(source,relative),loader:'js',resolveDir:dirname(a.path)};});
  }}]});
 const M=await import(pathToFileURL(join(directory,'factory.mjs')).href);after(()=>rmSync(directory,{recursive:true,force:true}));
 const source=transformCommonStudioSource(readFileSync(join(studio,'app.js'),'utf8'),'app.js'),ast=parse(source,{ecmaVersion:'latest',sourceType:'module'}),functions=new Map(ast.body.filter(node=>node.type==='FunctionDeclaration').map(node=>[node.id.name,node]));

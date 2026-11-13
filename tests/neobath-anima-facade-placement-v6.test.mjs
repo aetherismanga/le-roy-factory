@@ -25,7 +25,7 @@ await build({stdin:{contents:`export {makeModel} from ${JSON.stringify(join(adap
  b.onResolve({filter:/^@studio-one-original\//},a=>({path:join(studio,a.path.slice('@studio-one-original/'.length))}));
  b.onResolve({filter:/^@anima-adapter\//},a=>({path:join(adapter,a.path.slice('@anima-adapter/'.length))}));
  b.onResolve({filter:/^\./},a=>{const path=aliases.get(resolve(a.resolveDir,a.path));return path?{path}:undefined;});
- b.onLoad({filter:/studio-one\/src\/.*\.js$/},a=>{const name=a.path.slice(studio.length+1).replaceAll('\\','/');let source=readFileSync(a.path,'utf8');if(name==='model.js')source=transformOriginalModel(source);return {contents:transformCommonStudioSource(source,name),loader:'js',resolveDir:dirname(a.path)};});
+ b.onLoad({filter:/studio-one[\\/]src[\\/].*\.js$/},a=>{const name=a.path.slice(studio.length+1).replaceAll('\\','/');let source=readFileSync(a.path,'utf8');if(name==='model.js')source=transformOriginalModel(source);return {contents:transformCommonStudioSource(source,name),loader:'js',resolveDir:dirname(a.path)};});
 }}]});
 const M=await import(pathToFileURL(join(dir,'model.mjs')).href);after(()=>rmSync(dir,{recursive:true,force:true}));
 const oldLoad=T.TextureLoader.prototype.load;T.TextureLoader.prototype.load=function(url,onLoad){const texture=new T.Texture({src:url,width:16,height:16});queueMicrotask(()=>onLoad?.(texture));return texture;};after(()=>{T.TextureLoader.prototype.load=oldLoad;});

@@ -1,0 +1,41 @@
+name: Verify complete Anima catalogue
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'functions/neobath-anima/**'
+      - 'functions/neobath-anima-*.js'
+      - 'functions/neobath-anima-*.cjs'
+      - 'functions/test/neobath-anima*.cjs'
+      - 'tests/neobath-anima*.test.mjs'
+      - 'studio-one/src/**'
+      - 'shared/lrf-3d/**'
+      - 'tools/build-neobath-anima.mjs'
+      - 'package*.json'
+      - '.github/workflows/anima-quality.yml'
+permissions:
+  contents: read
+concurrency:
+  group: anima-quality-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  catalogue:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    steps:
+      - name: Preserve canonical source line endings in both test environments
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts --include=dev --no-audit --no-fund
+      - run: npm ci --prefix functions --ignore-scripts --no-audit --no-fund
+      - run: node tools/build-neobath-anima.mjs
+      - run: node --test tests/neobath-anima*.test.mjs functions/test/neobath-anima*.cjs
