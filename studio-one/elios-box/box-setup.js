@@ -25,7 +25,11 @@ export function exhibitionProject(settings,selection,base={}){
  const tileLayout=(f,previous,prior)=>normalizeLayout(same(f,previous)&&prior?prior:{...layout,pattern:defaultSurfacePattern(f.collection,f.color,f.format)},f.collection,f.format,f.color);
  return {...base,version:2,title:base.title||'Mon box expo Elios',room,floor:{...floor,expoEnabled:withFloor,zones:withFloor?base.floor?.zones||[]:[],jointProfiles:withFloor?base.floor?.jointProfiles||[]:[]},walls,items:base.items||[],renovation:base.renovation||{locked:false},plinths:{enabled:false,...base.plinths,walls:{...base.plinths?.walls,...Object.fromEntries(room.expoWalls.flatMap((w,i)=>w.enabled?[]:[['boundary-'+i,false]]))}},profiles:base.profiles||{enabled:false,internalCorners:false,color:'Argent',walls:[]},tileLoss:loss,lighting:base.lighting||'day',brightness:base.brightness??100,temperature:base.temperature||4700,layouts:{floor:tileLayout(floor,base.floor,base.layouts?.floor),walls:walls.map((f,i)=>tileLayout(f,base.walls?.[sourceIndex(i)],base.layouts?.walls?.[sourceIndex(i)]))}};
 }
-export function mountBoxSetup({api,load,requestQuote,onFinish}){
+export function exhibitionSurfaceStep(settings,target){
+ const wall=typeof target==='string'&&/^wall:\d+$/.test(target)?Number(target.slice(5)):null;
+ return exhibitionSteps(settings).findIndex(part=>target==='floor'?part.kind==='floor':wall!==null&&part.kind==='wall'&&part.wall===wall);
+}
+export function mountBoxSetup({api,load,requestQuote,onFinish,onFocus}){
  const panel=document.createElement('section');panel.id='elios-box-setup';panel.className='setting-section';document.querySelector('#settings').prepend(panel);
  const initialSettings=()=>({count:3,returnSide:'right',includeFloor:true,width:240,depth:200,left:200,height1:240,height2:240,height3:240,loss:10});
  let settings=initialSettings(),selection={floor:'',walls:['','','']},step=0,active=false,quoteTimer=null,revision=0,pickers=[];
@@ -61,7 +65,11 @@ export function mountBoxSetup({api,load,requestQuote,onFinish}){
   panel.querySelector('[data-next]').onclick=()=>{try{update();if(!ready())return;if(part.kind==='summary'){finish();api.setQualityMode('auto');onFinish?.();}else{step++;render();panel.parentElement.scrollTop=0;}}catch(error){panel.querySelector('[data-setup-status]').textContent=error.message;}};
   renderButtons();renderQuantities();focus();
  }
- function start(project){active=true;step=0;panel.hidden=false;document.body.classList.add('elios-setup-active');document.dispatchEvent(new Event('elios-setup-change'));if(project?.room?.expoWalls){const r=project.room,indices=r.expoWalls.filter(w=>w.enabled).length===2&&r.expoWalls[3].enabled?[0,3]:WALLS;settings={...initialSettings(),returnSide:indices[1]===3?'left':'right',includeFloor:project.floor?.expoEnabled!==false,count:r.expoWalls.filter(w=>w.enabled).length,width:r.points[1][0],depth:r.points[2][1],left:r.points[3][1],height1:r.expoWalls[0].height,height2:r.expoWalls[indices[1]].height,height3:r.expoWalls[3].height,loss:project.tileLoss||0};selection={floor:project.floor?.catalogueKey||'',walls:indices.map(i=>project.walls[i]?.catalogueKey||'')};}else{settings=initialSettings();selection={floor:'',walls:['','','']};}update();render();}
+ function start(project){onFocus?.();active=true;step=0;panel.hidden=false;document.body.classList.add('elios-setup-active');document.dispatchEvent(new Event('elios-setup-change'));if(project?.room?.expoWalls){const r=project.room,indices=r.expoWalls.filter(w=>w.enabled).length===2&&r.expoWalls[3].enabled?[0,3]:WALLS;settings={...initialSettings(),returnSide:indices[1]===3?'left':'right',includeFloor:project.floor?.expoEnabled!==false,count:r.expoWalls.filter(w=>w.enabled).length,width:r.points[1][0],depth:r.points[2][1],left:r.points[3][1],height1:r.expoWalls[0].height,height2:r.expoWalls[indices[1]].height,height3:r.expoWalls[3].height,loss:project.tileLoss||0};selection={floor:project.floor?.catalogueKey||'',walls:indices.map(i=>project.walls[i]?.catalogueKey||'')};}else{settings=initialSettings();selection={floor:'',walls:['','','']};}update();render();}
  function finish(){active=false;clearTimeout(quoteTimer);pickers.forEach(p=>p.close());panel.hidden=true;document.body.classList.remove('elios-setup-active');document.dispatchEvent(new Event('elios-setup-change'));}
- panel.hidden=true;return {start,finish,isActive:()=>active,chooseProduct(key){const p=products.products.find(p=>p.key===key);if(!p)return;if(current().kind==='wall'&&eligible('wall').some(p=>p.key===key))selection.walls[current().index]=key;else if(settings.includeFloor&&eligible('floor').some(p=>p.key===key))selection.floor=key;else selection.walls[0]=key;update();render();}};
+ panel.hidden=true;return {start,finish,isActive:()=>active,inspectSurface(target){
+  if(!active)return false;const index=exhibitionSurfaceStep(settings,target);
+  if(index<0)return target==='floor'||typeof target==='string'&&target.startsWith('wall:');
+  onFocus?.();step=index;render();panel.parentElement.scrollTop=0;return true;
+ },chooseProduct(key){const p=products.products.find(p=>p.key===key);if(!p)return;if(current().kind==='wall'&&eligible('wall').some(p=>p.key===key))selection.walls[current().index]=key;else if(settings.includeFloor&&eligible('floor').some(p=>p.key===key))selection.floor=key;else selection.walls[0]=key;update();render();}};
 }

@@ -37,6 +37,14 @@ let browser,page;const checks=[],errors=[],quotes=[];
   await panel.getByRole('button',{name:count===1?'1 mur':count+' pans',exact:true}).click();
   await panel.locator('[name=width]').fill('260');await panel.locator('[name=depth]').fill('200');if(count===3)await panel.locator('[name=left]').fill('180');
   let p=await project();assert.equal(p.room.expoWalls.filter(w=>w.enabled).length,count);assert.equal(p.room.points[1][0],260);
+  // Route actual native surface taps during the guide, before the native inspector can hide it.
+  await frame.locator('body').evaluate(()=>studioOnePrototype.handleObjectTap({editTarget:'wall:0'}));
+  await panel.getByRole('heading',{name:'Choisissez le mur 1',exact:true}).waitFor();assert(await panel.isVisible());
+  assert.equal(await frame.locator('#object-editor').isVisible(),false);
+  await frame.locator('body').evaluate(()=>studioOnePrototype.handleObjectTap({editTarget:'floor'}));
+  await panel.getByRole('heading',{name:'Choisissez votre sol',exact:true}).waitFor();assert(await panel.isVisible());
+  await panel.locator('[data-back]').click();
+
   await panel.locator('[data-next]').click();assert.equal(await panel.locator('[data-next]').isEnabled(),false);
   await choose(floor);p=await project();assert.equal(p.floor.catalogueKey,floor.key);assert.equal(p.layouts.floor.pattern,'third');await panel.locator('[data-next]').click();
   for(let i=0;i<count;i++){await panel.getByRole('heading',{name:'Choisissez le mur '+(i+1),exact:true}).waitFor();await choose(wall);await panel.locator('[data-next]').click();}
@@ -45,6 +53,11 @@ let browser,page;const checks=[],errors=[],quotes=[];
   const report=await frame.locator('body').evaluate(()=>studioOnePrototype.quantityReport());assert.equal(report.rows.filter(r=>!r.paint&&r.label!=='Sol').length,count,JSON.stringify(report.rows.map(r=>({label:r.label,paint:r.paint,area:r.area}))));assert(report.groups.every(g=>g.packVerified&&g.boxes>0&&g.orderArea>=g.needed));
   await panel.getByRole('button',{name:'Accéder aux finitions →',exact:true}).click();assert.equal((await project()).room.expoComplete,true);
   const diagnostics=await frame.locator('body').evaluate(async()=>{await studioOnePrototype.waitForTextures();return studioOnePrototype.getDiagnostics();});assert(diagnostics.drawCalls>0);assert(diagnostics.triangles>0);
+  await frame.locator('body').evaluate(()=>studioOnePrototype.handleObjectTap({editTarget:'wall:0'}));
+  await frame.locator('#object-editor.surface-context').waitFor();assert(await frame.locator('#object-editor').isVisible());
+  await frame.locator('body').evaluate(()=>studioOnePrototype.handleObjectTap({editTarget:'floor'}));
+  await frame.locator('#object-editor-title').filter({hasText:'Sol'}).waitFor();
+  await frame.locator('#object-editor-close').click();
   checks.push(count+' pans: native room, numbered dimensions, floor/wall selections, third-offset wood, complete packs and progressive estimate');
  }
  await frame.locator('body').evaluate(()=>{const p=studioOnePrototype.exportProject();p.room.niches=[{id:'niche-qa-preserved',wallKey:'boundary-0',u:130,width:60,bottom:90,height:30,depth:8}];p.floor.groutColor='Gris';p.layouts.floor.direction='vertical';p.layouts.floor.x=.17;if(!studioOnePrototype.restoreProject(p))throw Error('Native niche fixture failed: '+document.querySelector('#placement-status')?.textContent);});

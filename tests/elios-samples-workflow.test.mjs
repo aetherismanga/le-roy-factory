@@ -102,3 +102,13 @@ test('direct exhibition orders calculate loss once, use manufacturer full packs 
  const combined=combinedSampleLines([direct,{type:'box',key:'sample',quantity:1.5},{type:'vrac',key:'sample',quantity:1}]);assert.equal(combined.length,2);assert.equal(combined[0].quantity,12.5);assert.equal(direct.quantity,11);
  for(const args of [[p,-1,'m2',10],[p,2.5,'boxes',0],[p,1,'m2',-1],[p,1,'m2',31],[{...p,packVerified:false},1,'m2',10]])assert.throws(()=>directBoxQuantity(...args));
 });
+
+test('scene surface clicks target the matching guided choice, including a left return and a box without a floor',async()=>{
+ const {exhibitionSurfaceStep}=await import('../studio-one/elios-box/box-setup.js');
+ assert.equal(exhibitionSurfaceStep({count:2,includeFloor:true},'floor'),1);
+ assert.equal(exhibitionSurfaceStep({count:2,includeFloor:true},'wall:0'),2);
+ assert.equal(exhibitionSurfaceStep({count:2,includeFloor:true},'wall:1'),3);
+ assert.equal(exhibitionSurfaceStep({count:2,returnSide:'left',includeFloor:true},'wall:3'),3);
+ assert.equal(exhibitionSurfaceStep({count:2,returnSide:'left',includeFloor:false},'wall:3'),2);
+ for(const target of ['wall:1','wall:2','wall:-1','wall:nope','profile:0','floor',null])assert.equal(exhibitionSurfaceStep({count:2,returnSide:'left',includeFloor:false},target),-1);
+});
