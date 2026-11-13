@@ -37,6 +37,13 @@ for(const app of ['studio-one','randal-general']){
   f.run('invalidate(true,false)');assert.equal(f.counts.commerce,1);assert.equal(f.counts.checkpoint,0);
   f.run('invalidate(false,true)');assert.equal(f.counts.commerce,2);assert.equal(f.counts.checkpoint,1);
  });
+ test(app+': async material completion notifies Unreal without changing native shadows or commerce',()=>{
+  const f=fixture();let signals=0;f.context.unrealRender={invalidate:()=>signals++};
+  f.run('invalidate(false,false)');assert.equal(signals,1);
+  assert.equal(f.context.sceneRevision,0);assert.equal(f.context.shadowsDirty,false);
+  assert.equal(f.counts.commerce,0);assert.equal(f.counts.checkpoint,0);
+  f.context.sceneUpdates.defer=()=>true;f.run('invalidate(false,false)');assert.equal(signals,1,'deferred batches do not signal unfinished materials');
+ });
  test(app+': stationary first person visit sleeps and movement wakes it',()=>{
   const f=fixture();f.run('running=true;animate(1000)');
   assert.equal(f.counts.render,1);assert.equal(f.counts.raf,0);assert.equal(f.context.running,false);

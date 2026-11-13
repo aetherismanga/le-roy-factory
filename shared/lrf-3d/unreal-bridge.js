@@ -2,10 +2,12 @@ import * as T from 'three';
 import {hiddenSceneMeshes} from './unreal-scene.js';
 import {captureUnrealState,changedTransforms,sceneChanges} from './unreal-sync.js';
 
-export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision,prepareTextures,startSession,onFailure}){
+export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision:getSourceRevision,prepareTextures,startSession,onFailure}){
  let enabled=false,session=null,socket=null,stream=null,exporting=false,loadedRevision=-1,seenRevision=-1,changedAt=0,timer=null,token=0,sceneReady=false,lastVisibility='',visibilityAt=0;
  let acknowledged=null,importRevision=null,awaitingScene=false,motionFrame=0,lastCamera='',cameraAt=0,lastExamined=-1,videoReady=false,sessionStarted=0;
  const metrics={exports:0,skippedImports:0,transformPatches:0,materialPatches:0,cachedCommits:0,importedMeshes:0,lastChangeMs:0,lastMaterialMs:0,cameraMessages:0};
+ // Async textures can change without a native shadow/project revision.
+ let inputRevision=0;const getRevision=()=>getSourceRevision()+':'+inputRevision;
  let apiBase='',accessToken='';
  const remoteFetch=(url,options={})=>fetch(apiBase?new URL(url,apiBase).href:url,{...options,credentials:apiBase?'omit':'same-origin',headers:{...(options.headers||{}),...(accessToken?{Authorization:'Bearer '+accessToken}:{})}});
  const knownResources=new Set();let pendingResources=[],pendingStarted=0,protocol=1;
@@ -92,5 +94,5 @@ export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision,pr
   dialog.addEventListener('close',()=>{URL.revokeObjectURL(url);dialog.remove();},{once:true});dialog.append(heading,info,picture,link,close);document.body.append(dialog);dialog.showModal();
  }
  window.addEventListener('pagehide',disable);
- return{enable,disable,capture,previewCapture,get active(){return enabled;},get ready(){return sceneReady&&videoReady;}};
+ return{enable,disable,capture,previewCapture,invalidate(){if(enabled)inputRevision++;},get active(){return enabled;},get ready(){return sceneReady&&videoReady;}};
 }
