@@ -45,7 +45,7 @@
     phosphorescent:['luminis','lumak','luminescent','lu-']
   };
 
-  let priceVisible=true,mode='availability',lines=[],nextId=1,filtersSaved='';
+  let priceVisible=true,mode='availability',lines=[],nextId=1,filtersSaved=null;
 
   const flatRefs=s=>[...new Set((s?.rows||[]).flatMap(r=>r[0]||[]))];
   const supportsFor=(s,ref)=>[...new Set((s?.rows||[]).flatMap(r=>(r[0]||[]).includes(ref)?(r[1]||[]):[]))];
@@ -64,12 +64,16 @@
     `;document.head.appendChild(st);
   }
 
-  function restoreFilters(){const inner=$('#v2-filters .filters-inner');if(inner&&filtersSaved&&inner.dataset.revCustom==='1'){inner.innerHTML=filtersSaved;delete inner.dataset.revCustom}}
+  function restoreFilters(){const inner=$('#v2-filters .filters-inner');if(inner&&filtersSaved&&inner.dataset.revCustom==='1'){inner.replaceChildren(...filtersSaved);filtersSaved=null;delete inner.dataset.revCustom}}
+  // Restore the original nodes before native navigation refills them. This
+  // retains their input/change listeners and the mobile reset controls.
+  document.getElementById('insp-categories')?.addEventListener('click',event=>{const card=event.target.closest('[data-cat]');if(card&&card.dataset.cat!=='mosaique')restoreFilters();},true);
+  window.addEventListener('popstate',()=>{if(!/reviglass/i.test(new URLSearchParams(location.search).get('partner')||''))restoreFilters();},true);
   function installFilters(){
     if(!isReviglass())return;
     const inner=$('#v2-filters .filters-inner');if(!inner)return;
     if(inner.dataset.revCustom==='1')return;
-    if(!filtersSaved)filtersSaved=inner.innerHTML;
+    if(!filtersSaved)filtersSaved=Array.from(inner.childNodes);
     inner.dataset.revCustom='1';
     inner.innerHTML=`<div class="rev-filter-grid"><div><label>Format</label><select id="rev-filter-format"><option value="">Tous les formats</option>${FORMATS.map(f=>`<option>${esc(f)}</option>`).join('')}</select></div><div><label>Série</label><select id="rev-filter-series"><option value="">Toutes les séries</option></select></div><div><label>Couleur</label><select id="rev-filter-color">${COLORS.map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select></div></div>`;
     const f=$('#rev-filter-format'),s=$('#rev-filter-series'),c=$('#rev-filter-color');

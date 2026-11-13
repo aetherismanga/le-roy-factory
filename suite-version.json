@@ -700,6 +700,17 @@
       "conditionsSourceDate": "2026-05-18",
       "opalFrancoConfirmedDate": "2026-07-30",
       "orderContactsUpdated": "2026-10-07"
+    },
+    "selectionMobile": {
+      "releaseId": "20261113-mobile1",
+      "pages": [
+        "univers.html",
+        "univers-ios.html"
+      ],
+      "alwaysVisibleSearch": true,
+      "compactManufacturerActions": true,
+      "collapsibleFilters": true,
+      "nativeAccessRulesPreserved": true
     }
   },
   "segmento": {
