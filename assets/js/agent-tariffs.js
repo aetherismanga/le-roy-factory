@@ -3,7 +3,7 @@
 const ADMINS = new Set(['jerome@leroyfactory.fr', 'coryne@leroyfactory.fr']);
 const ENDPOINT = 'https://randal-catalogue-general-3d.vercel.app/api/agent-tariffs';
 const MAX_CACHE_AGE = 60 * 1000;
-let verified = false, elios = Object.create(null), view = [], epoch = 0, currentAuth = null;
+let verified = false, elios = Object.create(null), eliosExact = Object.create(null), view = [], epoch = 0, currentAuth = null;
 let accessStatus = 'signed-out';
 const accessMessage = () => accessStatus === 'loading' ? 'Vérification de votre accès aux tarifs…' : accessStatus === 'error' ? 'Les tarifs n’ont pas pu être chargés. Réessayez.' : accessStatus === 'denied' ? 'Votre accès aux tarifs n’a pas été validé. Reconnectez-vous à l’espace PRO.' : 'Connectez-vous à l’espace PRO pour afficher vos tarifs.';
 let allowedPartners = new Set(), validUntil = 0, principal = '', pending = null, refreshTimer = null, expiryTimer = null;
@@ -16,7 +16,7 @@ const keyFor = (p, f) => {
 const safeKey = v => typeof v === 'string' && v && v.length < 240 && !['__proto__', 'constructor', 'prototype'].includes(v);
 const canAccess = partner => verified && Date.now() < validUntil && allowedPartners.has(partnerKey(partner));
 function clear() {
- verified = false; elios = Object.create(null); view = []; allowedPartners = new Set(); validUntil = 0;
+ verified = false; elios = Object.create(null); eliosExact = Object.create(null); view = []; allowedPartners = new Set(); validUntil = 0;
  clearTimeout(refreshTimer); clearTimeout(expiryTimer); refreshTimer = null; expiryTimer = null;
  for (const p of window.VIEW_CATALOGUE || []) for (const v of p.variants || []) for (const k of ['proPrice', 'proDetail', 'proPalette']) delete v[k];
 }
@@ -44,7 +44,8 @@ function redraw() {
   const product = (window.ELIOS_CATALOGUE || []).find(p => p.name === title); if (!product) continue;
   for (const row of modal.querySelectorAll('.formats-table tbody tr')) {
    const cells = row.querySelectorAll('td'); if (cells.length < 2) continue;
-   const q = window.LRF_AGENT_TARIFFS.eliosPrice(product, cells[0].textContent);
+   const sku = row.getAttribute('data-elios-sku');
+   const q = sku ? window.LRF_AGENT_TARIFFS.eliosSkuPrice(sku) : window.LRF_AGENT_TARIFFS.eliosPrice(product, cells[0].textContent);
    cells[1].textContent = q.locked ? 'Connexion professionnelle requise' : q.label || 'Sur demande';
   }
   const notice = modal.querySelector('[data-tariff-status]');
@@ -64,6 +65,13 @@ Object.defineProperty(window, 'LRF_AGENT_TARIFFS', {value:Object.freeze({
  eliosPrice(product, format) {
   if (!canAccess('elios')) return {locked:true};
   const k = keyFor(product, format); return safeKey(k) && Object.hasOwn(elios, k) ? elios[k] : {unavailable:true};
+ },
+ eliosSkuPrice(reference) {
+  if (!canAccess('elios')) return {locked:true};
+  const amount = eliosExact[String(reference||'')];
+  return typeof amount==='number' && Number.isFinite(amount) && amount>0 && amount<10000
+   ? {amount,label:amount.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' € net HT/m²'}
+   : {unavailable:true};
  }
 }), configurable:false, writable:false});
 function clientToken() {
@@ -101,6 +109,7 @@ async function refresh({force = false} = {}) {
    clear();
    allowedPartners = new Set(data.allowedPartners.filter(p => ['elios-ceramica', 'view-ceramica'].includes(p)));
    elios = allowedPartners.has('elios-ceramica') ? Object.assign(Object.create(null), data.elios) : Object.create(null);
+   eliosExact = allowedPartners.has('elios-ceramica') && data.eliosExact && typeof data.eliosExact==='object' && !Array.isArray(data.eliosExact) ? Object.assign(Object.create(null),data.eliosExact) : Object.create(null);
    view = allowedPartners.has('view-ceramica') ? data.view : [];
    validUntil = Math.min(data.expiresAt, Date.now() + MAX_CACHE_AGE); verified = allowedPartners.size > 0;
    accessStatus = verified ? 'ready' : 'denied';
