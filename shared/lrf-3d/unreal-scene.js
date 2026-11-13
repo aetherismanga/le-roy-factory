@@ -1,6 +1,7 @@
 import * as T from 'three';
 import {GLTFExporter} from 'three/addons/exporters/GLTFExporter.js';
-import {materialState} from './unreal-sync.js';
+import {materialState,architectural,excluded} from './unreal-sync.js';
+import {keepInUnreal,unrealSolidShadow,applyUnrealSurface,unrealGeometry} from './unreal-photoreal.js';
 
 const generatedNormals=new WeakMap();
 
@@ -13,9 +14,7 @@ export function createUnrealScene(source,{names=null}={}){
  const scene=new T.Scene(),materials=new Map(),owned=new Set(),geometries=new Map(),lights=[],noShadow=[],cutaway=[],normalMaps=new Map(),ownedTextures=new Set();
  const stats={meshes:0,triangles:0,instances:0,mirrors:0,materials:0,textures:0};
  const textures=new Set(),matrix=new T.Matrix4(),world=new T.Matrix4(),uvTransforms=new Map();
- function excluded(o){for(let p=o;p;p=p.parent)if(p.userData.editorGuide||p.userData.presentationRasterOnly||p.name==='Occlusion_contact_caisson')return true;return false;}
  function effectivelyVisible(o){for(let p=o;p;p=p.parent)if(!p.visible)return false;return true;}
- function architectural(o){for(let p=o;p;p=p.parent){const target=p.userData.editTarget;if(target==='window'||target==='door'||String(target||'').startsWith('wall:')||p.userData.wallIndex!==undefined)return true;}return false;}
  function normalFromBump(texture,scale){
   const key=[texture.version,scale,...texture.repeat.toArray(),...texture.offset.toArray(),...texture.center.toArray(),texture.rotation,texture.flipY].join(':');let cached=generatedNormals.get(texture);if(!cached){cached=new Map();generatedNormals.set(texture,cached);}if(cached.has(key))return cached.get(key);
   const image=texture.image;if(!image)return null;
@@ -29,7 +28,7 @@ export function createUnrealScene(source,{names=null}={}){
   cached.clear();cached.set(key,normal);return normal;
  }
  function materialFor(m,o){
-  const key=m.uuid+(o.isReflector?'mirror':'');if(materials.has(key))return materials.get(key);
+  const key=m.uuid+(o.isReflector?'mirror':/^Carreaux/.test(o.name)?'tile':'');if(materials.has(key))return materials.get(key);
   let out;
   if(o.isReflector){out=new T.MeshPhysicalMaterial({color:0xffffff,metalness:1,roughness:.002,side:T.DoubleSide});stats.mirrors++;}
   else if(m.isMeshBasicMaterial){out=new T.MeshStandardMaterial({color:m.color,map:m.map,roughness:.8,transparent:m.transparent,opacity:m.opacity,side:m.side});let led=false;for(let p=o;p;p=p.parent)if(/LED|Lumiere|lumière/i.test(p.name))led=true;if(led){out.emissive.copy(m.color);out.emissiveIntensity=3;}}
@@ -37,6 +36,7 @@ export function createUnrealScene(source,{names=null}={}){
   // A photograph beyond the glazing is already lit; treating it as a wall
   // darkens it twice. Keep its original texture, geometry and UV framing.
   if(o.name==='Vue_exterieure_jardin'){out.color.set(0);out.map=null;out.emissive.copy(m.color);out.emissiveMap=m.map;out.emissiveIntensity=1;}
+  applyUnrealSurface(out,m,o);
   if(out.bumpMap&&!out.normalMap){const normal=normalFromBump(out.bumpMap,out.bumpScale??.001);if(normal){out.normalMap=normal;out.normalScale=new T.Vector2(1,1);}}
   // glTF's core normalTexture is supported by Interchange; EXT_materials_bump is not.
   out.bumpMap=null;out.bumpScale=1;
@@ -58,7 +58,7 @@ export function createUnrealScene(source,{names=null}={}){
   if(excluded(o))return;
   // Retain cutaway architecture, but don't import disabled product variants or
   // hidden lighting rigs. Those variants rebuild when the user selects them.
-  if(!effectivelyVisible(o)&&!(o.isMesh&&architectural(o)))return;
+  if(o.isMesh?!keepInUnreal(o):!effectivelyVisible(o))return;
   if(o.isMesh&&!o.isLine){
    const mats=(Array.isArray(o.material)?o.material:[o.material]);
    if(!o.geometry?.attributes.position||!mats.length||(!o.isReflector&&mats.every(m=>!m||!m.visible||m.isShaderMaterial)))return;
@@ -71,7 +71,7 @@ export function createUnrealScene(source,{names=null}={}){
    if(!selected.length)continue;
    const out=materialFor(material,o),transforms=uvTransforms.get(out),key=o.geometry.uuid+':'+out.uuid+':'+(group?group.start+':'+group.count:'all');
    if(!geometries.has(key)){
-    const g=o.geometry.clone();g.userData={};g.clearGroups();
+    const g=unrealGeometry(o);g.userData={};g.clearGroups();
     if(group){const indices=o.geometry.index?Array.from(o.geometry.index.array):Array.from({length:o.geometry.attributes.position.count},(_,i)=>i);g.setIndex(indices.slice(group.start,group.start+group.count));}
     for(let channel=0;channel<transforms.length;channel++){const t=transforms[channel],source=o.geometry.getAttribute(t.source?'uv'+t.source:'uv')||o.geometry.getAttribute('uv');if(!source)continue;const uv=new Float32Array(source.count*2),v=new T.Vector2();for(let i=0;i<source.count;i++){v.set(source.getX(i),source.getY(i)).applyMatrix3(t.matrix);uv[i*2]=v.x;uv[i*2+1]=v.y;}g.setAttribute(channel?'uv'+channel:'uv',new T.BufferAttribute(uv,2));}
     geometries.set(key,g);
@@ -82,7 +82,7 @@ export function createUnrealScene(source,{names=null}={}){
     let assigned=out;
     if(o.isInstancedMesh&&o.instanceColor){const color=new T.Color();o.getColorAt(i,color);assigned=out.clone();assigned.color.multiply(color);owned.add(assigned);}
     const mesh=new T.Mesh(geometry,assigned);mesh.name=name;mesh.matrix.copy(world);mesh.matrixAutoUpdate=false;
-    if(!o.castShadow||assigned.transmission>0||assigned.opacity<1)noShadow.push(mesh.name);
+    if(!unrealSolidShadow(o,assigned))noShadow.push(mesh.name);
     if(architectural(o))cutaway.push(mesh.name);
     scene.add(mesh);stats.meshes++;stats.triangles+=(geometry.index?.count||geometry.attributes.position.count)/3;
    }}

@@ -1,13 +1,14 @@
 import * as T from 'three';
+import {keepInUnreal,physicalLighting,unrealSurfaceParams,configureUnrealRoom} from './unreal-photoreal.js';
 
 const matrix=new T.Matrix4(),world=new T.Matrix4(),position=new T.Vector3(),rotation=new T.Quaternion(),scale=new T.Vector3();
 const rounded=a=>a.map(n=>Math.round(n*1e7)/1e7);
 function visible(o){for(let p=o;p;p=p.parent)if(!p.visible)return false;return true;}
-export function architectural(o){for(let p=o;p;p=p.parent){const t=p.userData.editTarget;if(t==='window'||t==='door'||String(t||'').startsWith('wall:')||p.userData.wallIndex!==undefined)return true;}return false;}
+export function architectural(o){if(o.name==='Plafond_occlusion_lumiere')return true;for(let p=o;p;p=p.parent){const t=p.userData.editTarget;if(t==='window'||t==='door'||String(t||'').startsWith('wall:')||p.userData.wallIndex!==undefined)return true;}return false;}
 export function excluded(o){for(let p=o;p;p=p.parent)if(p.userData.editorGuide||p.userData.presentationRasterOnly||p.name==='Occlusion_contact_caisson')return true;return false;}
 export function visitUnrealMeshes(source,visit){
  source.traverse(o=>{
-  if(!o.isMesh||excluded(o)||(!visible(o)&&!architectural(o))||!o.geometry?.attributes.position)return;
+  if(!o.isMesh||excluded(o)||!keepInUnreal(o)||!o.geometry?.attributes.position)return;
   const mats=Array.isArray(o.material)?o.material:[o.material];
   if(!o.isReflector&&mats.every(m=>!m||!m.visible||m.isShaderMaterial))return;
   const parts=Array.isArray(o.material)?o.geometry.groups.map(g=>({group:g,material:mats[g.materialIndex]})):[{group:null,material:mats[0]}];
@@ -18,7 +19,8 @@ export function unrealLights(source){
  const lights=[];source.traverse(o=>{
   if(excluded(o)||!visible(o)||!(o.isRectAreaLight||o.isDirectionalLight||o.isPointLight||o.isSpotLight))return;
   const p=o.getWorldPosition(new T.Vector3()),d=new T.Vector3();if(o.target)d.subVectors(o.target.getWorldPosition(new T.Vector3()),p).normalize();else o.getWorldDirection(d).negate();
-  lights.push({kind:o.isRectAreaLight?'rect':o.isDirectionalLight?'directional':o.isSpotLight?'spot':'point',position:p.toArray(),direction:d.toArray(),color:o.color.toArray(),intensity:o.intensity,width:o.width||.5,height:o.height||.5,angle:o.angle||Math.PI/4,penumbra:o.penumbra||0,distance:o.distance||0});
+  lights.push({id:o.uuid,name:o.name,up:new T.Vector3(0,1,0).applyQuaternion(o.getWorldQuaternion(new T.Quaternion())).toArray(),kind:o.isRectAreaLight?'rect':o.isDirectionalLight?'directional':o.isSpotLight?'spot':'point',position:p.toArray(),direction:d.toArray(),color:o.color.toArray(),intensity:o.intensity,width:o.width||.5,height:o.height||.5,angle:o.angle||Math.PI/4,penumbra:o.penumbra||0,distance:o.distance||0});
+  if(o.name==='Retro_eclairage'&&o.parent?.parent?.getObjectByName('Cadre_metal_noir')?.geometry?.type==='CircleGeometry')lights.at(-1).sourceShape='round';
  });return lights;
 }
 export function materialState(m){
@@ -31,7 +33,8 @@ export function materialState(m){
 }
 // A camera change does not change this signature. Geometry/material changes do;
 // transforms have their own small patches and never re-import the scene.
-export function captureUnrealState(source){
+export function captureUnrealState(source,lightingSettings){
+ configureUnrealRoom(lightingSettings?.room);
  source.updateMatrixWorld(true);const structure=[],transforms=new Map(),materials=new Map(),entries=new Map();
  visitUnrealMeshes(source,(o,m,group)=>{
   if(!materials.has(m.uuid))materials.set(m.uuid,materialState(m));
@@ -46,10 +49,10 @@ export function captureUnrealState(source){
    if(o.isInstancedMesh){o.getMatrixAt(i,matrix);world.multiplyMatrices(o.matrixWorld,matrix);}else world.copy(o.matrixWorld);
    world.decompose(position,rotation,scale);const name='LRF_'+o.uuid.replaceAll('-','')+'_'+i+'_'+(group?.start||0);
    transforms.set(name,{name,position:rounded(position.toArray()),rotation:rounded(rotation.toArray()),scale:rounded(scale.toArray())});
-   entries.set(name,{structural,layoutKey,paintable,params:{color:m.color?.toArray()||[1,1,1],roughness:m.roughness??1,metalness:m.metalness??0,clearcoat:m.clearcoat??0,clearcoatRoughness:m.clearcoatRoughness??0}});
+   entries.set(name,{structural,layoutKey,paintable,params:unrealSurfaceParams(m,o)});
   }
  });
- return{signature:JSON.stringify(structure),transforms,lights:unrealLights(source),entries};
+ return{signature:JSON.stringify(structure),transforms,...physicalLighting(unrealLights(source),lightingSettings),entries};
 }
 export function sceneChanges(previous,next){
  const replace=new Set(),remove=[],materials=[];

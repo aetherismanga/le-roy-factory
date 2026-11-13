@@ -2,7 +2,7 @@ import * as T from 'three';
 import {hiddenSceneMeshes} from './unreal-scene.js';
 import {captureUnrealState,changedTransforms,sceneChanges} from './unreal-sync.js';
 
-export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision:getSourceRevision,prepareTextures,startSession,onFailure}){
+export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision:getSourceRevision,prepareTextures,getLighting,startSession,onFailure}){
  let enabled=false,session=null,socket=null,stream=null,exporting=false,loadedRevision=-1,seenRevision=-1,changedAt=0,timer=null,token=0,sceneReady=false,lastVisibility='',visibilityAt=0;
  let acknowledged=null,importRevision=null,awaitingScene=false,motionFrame=0,lastCamera='',cameraAt=0,lastExamined=-1,videoReady=false,sessionStarted=0;
  const metrics={exports:0,skippedImports:0,transformPatches:0,materialPatches:0,cachedCommits:0,importedMeshes:0,lastChangeMs:0,lastMaterialMs:0,cameraMessages:0};
@@ -24,18 +24,18 @@ export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision:ge
   const current=token,targetSession=session;exporting=true;status('Unreal Engine · préparation des matériaux et de la scène…');
   try{
    await prepareTextures();const {prepareUnrealDelta,exportUnrealScene}=await import('./unreal-scene.js');
-   if(!enabled||current!==token)return;const snapshot=captureUnrealState(scene),snapshotRevision=getRevision();
+   if(!enabled||current!==token)return;const snapshot=captureUnrealState(scene,getLighting?.()),snapshotRevision=getRevision();
    if(!force&&acknowledged&&snapshot.signature===acknowledged.signature){applyPatch(snapshot);loadedRevision=snapshotRevision;metrics.skippedImports++;return;}
    if(protocol!==2){
     const result=await exportUnrealScene(scene);if(!enabled||current!==token)return;
-    const metadata=await request(`/unreal/${targetSession}/metadata`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lights:result.lights,noShadow:result.noShadow,cutaway:result.cutaway,stats:result.stats})});
+    const metadata=await request(`/unreal/${targetSession}/metadata`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lights:snapshot.lights,lighting:snapshot.lighting,noShadow:result.noShadow,cutaway:result.cutaway,stats:result.stats})});
     if(!enabled||current!==token)return;awaitingScene=true;pendingStarted=performance.now();
     const uploaded=await request(`/unreal/${targetSession}/scene`,{method:'POST',headers:{'Content-Type':'model/gltf-binary','X-LRF-Metadata':metadata.id},body:result.glb});
     if(!enabled||current!==token)return;acknowledged=snapshot;importRevision=uploaded.revision;loadedRevision=snapshotRevision;lastExamined=-1;metrics.exports++;return;
    }
    const changes=sceneChanges(acknowledged,snapshot);pendingStarted=performance.now();
    const result=await prepareUnrealDelta(scene,changes.replace,knownResources);if(!enabled||current!==token)return;
-   const metadata=await request(`/unreal/${targetSession}/metadata`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({protocol:2,reset:!acknowledged,lights:snapshot.lights,instances:result.instances,resources:result.resources,remove:changes.remove,materials:changes.materials,transforms:changedTransforms(acknowledged,snapshot),stats:{...result.stats,totalMeshes:snapshot.entries.size}})});
+   const metadata=await request(`/unreal/${targetSession}/metadata`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({protocol:2,reset:!acknowledged,lights:snapshot.lights,lighting:snapshot.lighting,instances:result.instances,resources:result.resources,remove:changes.remove,materials:changes.materials,transforms:changedTransforms(acknowledged,snapshot),stats:{...result.stats,totalMeshes:snapshot.entries.size}})});
    if(!enabled||current!==token)return;
    awaitingScene=true;pendingResources=Object.values(result.resources);const uploaded=await request(`/unreal/${targetSession}/${result.glb?'scene':'commit'}`,{method:'POST',headers:{'Content-Type':'model/gltf-binary','X-LRF-Metadata':metadata.id},body:result.glb});
    if(!enabled||current!==token)return;
@@ -44,9 +44,9 @@ export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision:ge
  }
  function applyPatch(snapshot){
   if(!importRevision||awaitingScene||socket?.readyState!==1)return;
-  const transforms=changedTransforms(acknowledged,snapshot),lights=JSON.stringify(snapshot.lights)!==JSON.stringify(acknowledged?.lights)?snapshot.lights:null,materials=sceneChanges(acknowledged,snapshot).materials;
+  const transforms=changedTransforms(acknowledged,snapshot),lights=JSON.stringify([snapshot.lights,snapshot.lighting])!==JSON.stringify([acknowledged?.lights,acknowledged?.lighting])?snapshot.lights:null,materials=sceneChanges(acknowledged,snapshot).materials;
   for(let i=0;i<transforms.length;i+=100){socket.send(JSON.stringify({type:'update',revision:importRevision,transforms:transforms.slice(i,i+100)}));metrics.transformPatches++;}
-  if(lights)socket.send(JSON.stringify({type:'update',revision:importRevision,lights}));
+  if(lights)socket.send(JSON.stringify({type:'update',revision:importRevision,lights,lighting:snapshot.lighting}));
   for(let i=0;i<materials.length;i+=100){socket.send(JSON.stringify({type:'update',revision:importRevision,materials:materials.slice(i,i+100),updateId:performance.now()}));metrics.materialPatches++;}
   acknowledged=snapshot;
  }
@@ -59,7 +59,7 @@ export function createUnrealBridge({app,scene,camera,canvas,stage,getRevision:ge
   if(enabled&&!videoReady){const video=layer.querySelector('video');if(sceneReady&&video?.readyState>=2&&video.videoWidth){videoReady=true;layer.hidden=false;}else if(sessionStarted&&performance.now()-sessionStarted>60000){fail(Error('La connexion vidéo Unreal n’a pas abouti. Réessayez sur un autre réseau.'));return;}}
   if(!enabled)return;if(socket?.readyState===1){const hidden=hiddenSceneMeshes(scene),signature=hidden.join();if(signature!==lastVisibility||performance.now()-visibilityAt>1000){socket.send(JSON.stringify({type:'visibility',hidden}));lastVisibility=signature;visibilityAt=performance.now();}}
   const revision=getRevision();if(revision!==seenRevision){seenRevision=revision;changedAt=performance.now();}
-  if(!exporting&&!awaitingScene&&acknowledged&&revision!==lastExamined){const snapshot=captureUnrealState(scene),changes=sceneChanges(acknowledged,snapshot);lastExamined=revision;if(protocol===2?!changes.replace.size&&!changes.remove.length:snapshot.signature===acknowledged.signature){applyPatch(snapshot);if(loadedRevision!==revision)metrics.skippedImports++;loadedRevision=revision;}}
+  if(!exporting&&!awaitingScene&&acknowledged&&revision!==lastExamined){const snapshot=captureUnrealState(scene,getLighting?.()),changes=sceneChanges(acknowledged,snapshot);lastExamined=revision;if(protocol===2?!changes.replace.size&&!changes.remove.length:snapshot.signature===acknowledged.signature){applyPatch(snapshot);if(loadedRevision!==revision)metrics.skippedImports++;loadedRevision=revision;}}
   if(!awaitingScene&&revision!==loadedRevision&&performance.now()-changedAt>120)upload();
  }
  function fail(error){if(!enabled)return;disable();onFailure(error.message);}
