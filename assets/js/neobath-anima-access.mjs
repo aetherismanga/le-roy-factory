@@ -1,5 +1,5 @@
 import {createAnimaSession, isAnimaAgent} from './neobath-anima-session.mjs?v=20261110-anima24';
-import {animaFrameDocument, animaRoute} from './neobath-anima-document.mjs?v=20261110-anima24';
+import {animaFrameDocument, animaRoute} from './neobath-anima-document.mjs?v=20261113-unreal25';
 
 const API = 'https://us-central1-le-roy-factory.cloudfunctions.net/neobathAnimaApplication';
 const shell = document.getElementById('anima-private-shell');
@@ -16,7 +16,7 @@ let currentFrame = null;
 let signOutAgent = null;
 const isAnimaUser=user=>isAnimaAgent(user)||!!user?.clientSessionToken;
 function clientUser(){try{const token=sessionStorage.getItem('lrfProSessionToken')||localStorage.getItem('lrfProRememberToken');return token?{uid:'lrf-client-'+token,clientSessionToken:token,getIdToken:async()=>''}:null;}catch{return null;}}
-const PROJECT_ACTIONS = new Set(['quote','projects-list', 'projects-save', 'projects-delete', 'projects-email', 'projects-order']);
+const PROJECT_ACTIONS = new Set(['unreal-session','quote','projects-list', 'projects-save', 'projects-delete', 'projects-email', 'projects-order']);
 const selectedView = () => new URL(location.href).searchParams.get('studioView') === 'atelier' ? 'atelier' : 'home';
 
 function unmount() {
@@ -97,13 +97,14 @@ addEventListener('message', async event => {
     const encoded = JSON.stringify(body);
     if (new TextEncoder().encode(encoded).length > 1048576) throw Error('Le projet dépasse la taille autorisée.');
     const token = await user.getIdToken();
-    const response = await fetch(API, {method: 'POST', cache: 'no-store', headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + token}, body: encoded, signal: AbortSignal.timeout(65000)});
+    const unreal=action==='unreal-session';
+    const response = await fetch(unreal?'https://studio-one-beta-test-v2.vercel.app/api/unreal':API, {method: 'POST', cache: 'no-store', headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + (unreal&&user.clientSessionToken?user.clientSessionToken:token)}, body: unreal?JSON.stringify({app:'neobath-anima',aspect:payload?.aspect}):encoded, signal: AbortSignal.timeout(65000)});
     const responseData = await response.json();
-    if ([401, 403].includes(response.status)) {
+    if (!unreal && [401, 403].includes(response.status)) {
       if (frame === currentFrame && currentUser?.uid === user.uid) {unmount();status.textContent = 'Votre session agent a expiré. Reconnectez-vous pour ouvrir cet atelier privé.';}
       return;
     }
-    result = {type: 'anima-api-result', requestId, ok: response.ok && responseData.success === true, data: responseData, error: responseData.error || '', status: response.status};
+    result = {type: 'anima-api-result', requestId, ok: response.ok && (unreal || responseData.success === true), data: responseData, error: responseData.error || '', status: response.status};
   } catch (error) {
     result = {type: 'anima-api-result', requestId, ok: false, error: error?.message || 'Connexion au serveur impossible.'};
   }

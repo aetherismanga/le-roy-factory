@@ -51,7 +51,7 @@ export function animaFrameDocument(data, moduleURL, parentOrigin = 'https://lero
         else {const error = new Error(event.data.error || 'Action impossible.');error.status=event.data.status;error.data=event.data.data;task.reject(error);}
       });
       window.animaAPI = (action, payload = {}) => new Promise((resolve, reject) => {
-        if (!['quote','projects-list','projects-save','projects-delete','projects-email','projects-order'].includes(action)) {reject(new Error('Action non autorisée.'));return;}
+        if (!['unreal-session','quote','projects-list','projects-save','projects-delete','projects-email','projects-order'].includes(action)) {reject(new Error('Action non autorisée.'));return;}
         const requestId = uuid();
         const timeout = setTimeout(() => {pending.delete(requestId);reject(new Error('Le serveur ne répond pas. Réessayez.'));}, 30000);
         pending.set(requestId, {resolve,reject,timeout});

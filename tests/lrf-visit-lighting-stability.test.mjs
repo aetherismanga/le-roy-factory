@@ -32,7 +32,7 @@ for(const [name,source,Quality] of variants){
   const shadowUpdates=[];
   let context;
   const draw=kind=>{counts[kind]++;shadowUpdates.push(context.renderer.shadowMap.needsUpdate);};
-  context=vm.createContext({
+  context=vm.createContext({unrealRender:null,
    quality,renderActivity:new RenderActivity(),interactionProfile,captureBusy:false,isMobile:false,
    renderer:{shadowMap:{enabled:true,autoUpdate:false,needsUpdate:false},transmissionResolutionScale:quality.profile.transmission,toneMappingExposure:.84,render:()=>draw('render')},
    ultraPipeline:{render:()=>draw('ultra')},

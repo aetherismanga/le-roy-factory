@@ -1,3 +1,6 @@
+import {createUnrealBridge} from '../../shared/lrf-3d/unreal-bridge.js';
+import {requestUnrealSession} from './commerce/unreal-session.js';
+let unrealRender=null,previousUnrealQuality='auto';
 import {createShowroomLighting} from '../../shared/lrf-3d/showroom-lighting.js';
 import {mountRandalWorkshopAccess} from '../../shared/lrf-3d/randal-workshop-access.js';
 import {createIdentity as createAccessIdentity} from './commerce/identity.js';
@@ -652,7 +655,7 @@ function makeUI(){
  document.addEventListener('keydown',e=>{if(e.defaultPrevented||walkMode?.active||$('#details').open||navigationInputTarget(e.target)||e.altKey||e.ctrlKey||e.metaKey)return;const focused=document.activeElement;if(focused&&focused!==document.body&&focused!==canvas&&!stage.contains(focused))return;const keys=['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','-','='];if(!keys.includes(e.key))return;e.preventDefault();if(e.key==='+'||e.key==='=')zoom(.88);else if(e.key==='-')zoom(1.14);else{stopOrbit();viewTween=null;if(translateCameraForKey(camera,controls,e.key,{step:e.shiftKey ? .45 : .18}))invalidate(false,false);}});
 }
 function setDrawer(i,open){if(!selectedCabinet()||i<0||i>=model.drawers.length)return;state.drawers[i]=open?1:0;const b=$(`[data-drawer="${i}"]`);b.setAttribute('aria-pressed',String(open));b.querySelector('i').textContent=open?'Fermer ↙':'Ouvrir ↗';saveCabinetState();syncCompositionToggle();renderComposition();refreshInspector();invalidate();}
-function updateQualityLabel(){const p=quality.profile;$('#render-quality').value=p.id;$('#auto-quality').checked=quality.mode==='auto';$('#quality-status').textContent=(quality.mode==='auto'?'Automatique · ':'')+p.label;$('#quality-description').textContent=p.description;}
+function updateQualityLabel(){$('#auto-quality').disabled=!!unrealRender?.active;if(unrealRender?.active){$('#render-quality').value='unreal';$('#quality-status').textContent='Rendu Unreal Engine';return;}const p=quality.profile;$('#render-quality').value=p.id;$('#auto-quality').checked=quality.mode==='auto';$('#quality-status').textContent=(quality.mode==='auto'?'Automatique · ':'')+p.label;$('#quality-description').textContent=p.description;}
 function renderProfile(){return captureBusy?quality.profile:renderActivity.active?interactionProfile(quality.profile,{mobile:isMobile}):quality.profile;}
 function applyRenderPhase(){
  if(!renderer)return;
@@ -671,7 +674,7 @@ function applyQuality(){if(sceneUpdates.defer('quality',applyQuality))return;
  if(p.ao&&!ultraPipeline&&renderer.getSize)ultraPipeline=createUltraPipeline(renderer,scene,camera);if(!p.ao&&ultraPipeline){ultraPipeline.dispose();ultraPipeline=null;}ultraPipeline?.resize(stage.clientWidth,stage.clientHeight,activePixelRatio);
  shadowsDirty=true;sceneRevision++;fitCompositionLights();applyRenderPhase();updateQualityLabel();refreshWorkingTextures();
 }
-function setQualityMode(mode){if(captureBusy)return false;if(!quality.setMode(mode,performance.now()))return false;try{localStorage.setItem('studio-one-render-quality',mode);}catch{}applyQuality();invalidate(true,false);return true;}
+function setQualityMode(mode){if(captureBusy)return false;if(mode==='unreal'){if(!unrealRender)return false;if(!unrealRender.active){previousUnrealQuality=quality.mode;quality.setMode('max',performance.now());applyQuality();unrealRender.enable();}updateQualityLabel();invalidate(true,false);return true;}if(unrealRender?.active)unrealRender.disable();if(!quality.setMode(mode,performance.now()))return false;try{localStorage.setItem('studio-one-render-quality',mode);}catch{}applyQuality();invalidate(true,false);return true;}
 function toggleDimensions(){state.dimensions=!state.dimensions;$('#show-dimensions').setAttribute('aria-pressed',String(state.dimensions));$('#dimension-overlay').hidden=!state.dimensions;invalidate();}
 function renderDimensions(){const overlay=$('#dimension-overlay');overlay.hidden=!(state.dimensions||selectedDimensions);if(!state.dimensions&&!selectedDimensions)return;const width=stage.clientWidth,height=stage.clientHeight;const svg=$('#dimension-svg');svg.setAttribute('viewBox',`0 0 ${width} ${height}`);const markup=dimensionMarkup(projectDimensions(dimensionSegments(composition,{room:state.dimensions}),camera,width,height));if(lastDimensionMarkup!==markup){svg.innerHTML=markup;lastDimensionMarkup=markup;}}
 function toggleNavigationDirection(){
@@ -710,7 +713,7 @@ function animate(time){if(captureBusy||document.hidden){running=false;lastTime=0
  if(roomScene){roomScene.updateCutaway(camera.position);renovation?.updateVisibility?.();for(const group of [...(profileAsset?.group.children||[]),...(plinthAsset?.group.children||[])])group.visible=roomScene.walls[group.userData.wallIndex]?.group.visible!==false;for(const item of composition?.items||[])if(isOpening(item.type)){const visible=walkMode?.interiorId===item.id||roomScene.walls[item.placement.wall].group.visible;if(item.root.visible!==visible){item.root.visible=visible;}}}else wall.visible=camera.position.z>-.10;
  roomGroup.visible=camera.position.z<2.9;
  if(geometryMoving){shadowsDirty=true;sceneRevision++;}if(renderer.shadowMap){renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=shadowsDirty;shadowsDirty=false;}
- showroomLighting?.update();renderDimensions();if(ultraPipeline&&renderProfile().ao)ultraPipeline.render(dt);else renderer.render(scene,camera);const qualityChanged=!phaseChanged&&renderActivity.active?quality.sample(time):false;if(qualityChanged)applyQuality();
+ showroomLighting?.update();renderDimensions();if(!unrealRender?.ready){if(ultraPipeline&&renderProfile().ao)ultraPipeline.render(dt);else renderer.render(scene,camera);}const qualityChanged=!phaseChanged&&renderActivity.active?quality.sample(time):false;if(qualityChanged)applyQuality();
  if(qualityChanged||moving||walking||avatarMoving||state.orbit||cameraMoved||renderActivity.active||time-lastMove<250){requestAnimationFrame(animate);}else{running=false;lastTime=0;quality.pause();}
 }
 async function start(){
@@ -730,6 +733,7 @@ async function start(){
   state.ready=true;refreshLayouts();$('#floor-collection').disabled=$('#wall-collection').disabled=false;$$('[data-surface-color]').forEach(b=>b.disabled=false);refreshWidthUI();syncCompositionToggle();renderComposition();setBrightness(100);applyQuality();initializeProjectSession();$('#loading').classList.add('done');canvas.setAttribute('aria-busy','false');running=false;invalidate();
   refreshCommerce=mountCommerce(collectProject);
   initializeWorkspace();
+  unrealRender=createUnrealBridge({app:'studio-one',scene,camera,canvas,stage,getRevision:()=>sceneRevision,prepareTextures:prepareActiveTextures,startSession:requestUnrealSession,onFailure:message=>{setQualityMode(previousUnrealQuality);placementStatus('Rendu Unreal indisponible : '+message);}});
   renovation=mountRenovation({canvas,camera,controls,scene,stage,stopCamera:()=>{viewTween=null;},getRoom:()=>roomScene,getRoomConfig:()=>cloneRoom(roomConfig),resetPartitionPositionUnlocks:()=>{for(const p of [...(roomConfig.partitions||[]),...(roomConfig.niches||[])])delete p.positionUnlocked;},getComposition:()=>composition,getNicheMetalFinish,getProfileSettings:()=>profileSettings,getSelectedWall:()=>selectedWall,getWallFinish:i=>wallFinishes[i],getFloorFinish:()=>Object.assign(floorDesign,{collection:state.floorCollection,color:state.floor,format:tileFormat(state.floorCollection,$('#floor-tile-format')?.value)?.id}),applySurface:(surface,collection,color,finish=surface.zone||{})=>applySurfaceTileColors(surface,{...finish,collection,color}),applyRoom,status:placementStatus,refresh:()=>{renderComposition();refreshInspector();refreshLayouts();},invalidate,checkpoint:scheduleProjectCheckpoint,readonly:()=>!!projectWorkspace?.locked,wallLabel});renovation.restore(initialRenovation);initialRenovation=null;settleEmptyStudioEntry(localStorage,collectProject());
   if(new URLSearchParams(location.search).has('plans')){setWorkspace('room');showBathroomPresets();}
   // First-person room visits remain available; the removed Avatar control is no longer mounted.
@@ -925,7 +929,8 @@ async function shareProject(){return projectWorkspace?.sendAdministrator();}
 
 let photorealProjectReady=false;
 const photorealExport=createPhotorealExport({name:'RANDAL STUDIO ONE',filename:'randal-studio-one',capture:()=>captureHD(),getProject:()=>collectProject(),getPrompt:buildStudioPhotorealPrompt});
-const captureHD=createHDCapture({
+const captureHD=options=>unrealRender?.active?Promise.resolve(unrealRender.capture()):captureNativeHD(options);
+const captureNativeHD=createHDCapture({
  snapshot(){
   if(!state.ready||!renderer)throw Error('Attendez la fin du chargement du projet.');
   const size=new T.Vector2();renderer.getSize(size);
@@ -954,7 +959,7 @@ const captureHD=createHDCapture({
   }finally{controls.enabled=previous.controls;document.body.inert=previous.inert;captureBusy=false;running=false;invalidate(false,false);}
  }
 });
-async function exportImage(){try{placementStatus('Préparation de l’image HD…');const data=await captureHD();const a=document.createElement('a');a.href=data;a.download='studio-one-composition.png';a.click();placementStatus('Image HD prête.');}catch(error){placementStatus('Image HD indisponible. '+error.message);}}
+async function exportImage(){try{if(unrealRender?.active)return unrealRender.previewCapture('studio-one-composition.png');placementStatus('Préparation de l’image HD…');const data=await captureHD();const a=document.createElement('a');a.href=data;a.download='studio-one-composition.png';a.click();placementStatus('Image HD prête.');}catch(error){placementStatus('Image HD indisponible. '+error.message);}}
 
 function centerSelectedMirror(){const item=composition?.selected;if(item?.type!=='mirror')return;const candidates=composition.items.filter(i=>i.type==='cabinet'&&i.placement.wall===item.placement.wall).sort((a,b)=>Math.abs(a.placement.u-item.placement.u)-Math.abs(b.placement.u-item.placement.u));if(!candidates.length){placementStatus('Placez un meuble sur ce mur.');return;}const c=candidates[0],result=composition.move(item.id,{...item.placement,u:c.placement.u,height:Math.min(roomScene.walls[item.placement.wall].height*100-item.dimensions.height*50-1,c.placement.height+cabinetFormat(c.settings.format).height*100+65)});placementStatus(result.error||'Miroir centré sur le meuble.');renderComposition();invalidate();}
 function setTemperature(value){const k=T.MathUtils.clamp(Number(value)||5500,2700,6500);state.temperature=k;const t=k/100;let r=t<=66?255:329.6987*Math.pow(t-60,-.1332),g=t<=66?99.4708*Math.log(t)-161.1196:288.1222*Math.pow(t-60,-.0755),b=t>=66?255:t<=19?0:138.5177*Math.log(t-10)-305.0448;const color=new T.Color().setRGB(T.MathUtils.clamp(r/255,0,1),T.MathUtils.clamp(g/255,0,1),T.MathUtils.clamp(b/255,0,1),T.SRGBColorSpace);key?.color.copy(color);sun?.color.copy(color);$('#temperature').value=k;$('#temperature-value').textContent=k.toLocaleString('fr-FR')+' K';invalidate();}
