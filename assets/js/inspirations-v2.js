@@ -1,6 +1,6 @@
 (() => {
   const CATEGORIES=[
-    {id:'carrelage',label:'Carrelage',icon:'▦',partners:['Elios Ceramica','View Ceramica','La Fenice']},
+    {id:'carrelage',label:'Carrelage',icon:'▦',partners:['Elios Ceramica','Sélection Le Roy Factory Extérieur','La Fenice','View Ceramica']},
     {id:'exception',label:"Carrelage d'exception",icon:'✦',partners:["Petracer's",'Pecchioli Firenze','Bulbo']},
     {id:'mosaique',label:'Mosaïque',icon:'◈',partners:['Reviglass']},
     {id:'parement',label:'Pierre',icon:'▤',partners:['SAXSO','Biopietra']},
@@ -11,6 +11,7 @@
   ];
   const PARTNERS={
     'Elios Ceramica':{slug:'elios-ceramica',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios.png',country:'Italie',data:'elios'},
+    'Sélection Le Roy Factory Extérieur':{slug:'selection-lrf-exterieur-r11',logo:'assets/img/logo03lrf.png',country:'Carrelage extérieur R11'},
     'View Ceramica':{slug:'view-ceramica',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png',country:'Italie'},
     'La Fenice':{slug:'la-fenice',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/lafenice.png',country:'Italie'},
     "Petracer's":{slug:'petracers',logo:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/petracer.png',country:'Italie'},
@@ -114,7 +115,7 @@
 
   function catMeta(c){return c.partners.length?c.partners.join(' · '):'Bientôt disponible'}
   function renderCategories(){categories.innerHTML=CATEGORIES.map(c=>`<button type="button" aria-label="${esc(c.label)}" aria-pressed="${c.id===state.category}" class="category-card ${c.id===state.category?'active':''}" data-cat="${c.id}"><span class="category-icon">${c.icon}</span><span class="category-name">${esc(c.label)}</span><span class="category-meta">${esc(catMeta(c))}</span></button>`).join('')}
-  function renderPartners(){const c=CATEGORIES.find(x=>x.id===state.category);const list=[...(c?.partners||[])].sort((a,b)=>['meubles','parement'].includes(c?.id)?c.partners.indexOf(a)-c.partners.indexOf(b):String(a).localeCompare(String(b),'fr',{sensitivity:'base'}));$('#partner-panel-title').textContent=c?.label||'Partenaires';partnerGrid.innerHTML=list.length?list.map(name=>{const p=PARTNERS[name];const allowed=hasAccess(p.slug),isBio=['SAXSO','Biopietra'].includes(name);return `<button class="partner-card ${name===state.partner?'active':''}" data-partner="${esc(name)}"><img src="${p.logo}" alt="${esc(name)}"><span><strong>${esc(name)}</strong><small>${esc(p.country)}</small>${isBio?'':name==="Petracer's"?'<span class="access">Catalogue & conseils</span>':`<span class="access ${allowed?'':'locked'}">${allowed?'✓ Tarif PRO autorisé':'🔒 Tarif PRO selon compte'}</span>`}</span></button>`}).join(''):`<div class="empty-partner"><strong>Sanitaire</strong><p>Aucun partenaire sanitaire n'est encore intégré.</p></div>`;partnerTrigger.textContent=`☰ Choisir une usine${state.partner?` — ${state.partner}`:''}`}
+  function renderPartners(){const c=CATEGORIES.find(x=>x.id===state.category);const list=[...(c?.partners||[])].sort((a,b)=>['meubles','parement','carrelage'].includes(c?.id)?c.partners.indexOf(a)-c.partners.indexOf(b):String(a).localeCompare(String(b),'fr',{sensitivity:'base'}));$('#partner-panel-title').textContent=c?.label||'Partenaires';partnerGrid.innerHTML=list.length?list.map(name=>{const p=PARTNERS[name];const allowed=hasAccess(p.slug),isBio=['SAXSO','Biopietra', 'Sélection Le Roy Factory Extérieur'].includes(name);return `<button class="partner-card ${name===state.partner?'active':''}" data-partner="${esc(name)}"><img src="${p.logo}" alt="${esc(name)}"><span><strong>${esc(name)}</strong><small>${esc(p.country)}</small>${name==='Sélection Le Roy Factory Extérieur'?'<span class="access">✓ Catalogue interactif R11</span>':isBio?'':name==="Petracer's"?'<span class="access">Catalogue & conseils</span>':`<span class="access ${allowed?'':'locked'}">${allowed?'✓ Tarif PRO autorisé':'🔒 Tarif PRO selon compte'}</span>`}</span></button>`}).join(''):`<div class="empty-partner"><strong>Sanitaire</strong><p>Aucun partenaire sanitaire n'est encore intégré.</p></div>`;partnerTrigger.textContent=`☰ Choisir une usine${state.partner?` — ${state.partner}`:''}`}
   function unique(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'fr',{numeric:true}))}
   function products(){
     if(state.partner==="Petracer's") return window.LRF_PETRACER_SELECTION?.normaliseProducts(state.category) || [];
@@ -158,6 +159,11 @@
     return true;
   }
   function renderProducts(){
+    if(state.partner==='Sélection Le Roy Factory Extérieur'){
+      count.textContent='62 collections · 388 références extérieures R11';
+      productGrid.innerHTML='<section style="grid-column:1/-1;width:100%;padding:clamp(12px,2vw,24px);border:1px solid #ded8cc;border-radius:16px;background:#fff"><div style="display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px"><div><h3 style="margin:0 0 6px;font-size:1.32rem">Sélection Le Roy Factory · Carrelage Extérieur R11</h3><p style="margin:0;color:#716b62">Toute collection · Elios, VIEW et La Fenice · Photos et filtres interactifs</p></div><nav style="display:flex;gap:9px;flex-wrap:wrap"><a class="pro-link" href="selection-lrf-exterieur-r11.html">Ouvrir le catalogue interactif ↗</a><a class="pro-link" href="r11-pdf.html">Catalogue PDF 143 pages ↗</a></nav></div><iframe title="Catalogue interactif extérieur R11 Le Roy Factory" src="selection-lrf-exterieur-r11.html" loading="lazy" style="width:100%;min-height:760px;border:1px solid #ddd6c8;border-radius:12px;background:#f9f6ef"></iframe></section>';
+      return;
+    }
     if(state.partner==='SAXSO'){
       count.textContent='Catalogue SAXSO · Pierres naturelles';
       let target=productGrid.querySelector('[data-saxso-selection]');
@@ -236,11 +242,12 @@
   function renderWorkspace(){const previousOpalBadge=state.partner==='Opal'&&productGrid.querySelector('[data-opal-catalogue-content]')?{text:$('#workspace-pro-badge').textContent,className:$('#workspace-pro-badge').className}:null;if(state.partner==="Petracer's")window.LRF_PETRACER_SELECTION?.setCategory?.(state.category);if(state.partner==='Bulbo')window.LRF_BULBO_SELECTION?.setCategory?.(state.category);workspace.dataset.category=state.category;workspace.dataset.partner=state.partner;const p=PARTNERS[state.partner];if(!p){workspace.classList.remove('open');return}workspace.classList.add('open');$('#workspace-logo').src=p.logo;$('#workspace-title').textContent=state.partner;$('#workspace-sub').textContent=state.partner==='Bilt'?'Outillage & systèmes de pose · espace produits dédié':state.poolGroup?'Pool Surfaces · collections piscine':`${p.country} · espace produits dédié`;const allowed=hasAccess(p.slug),isBio=state.partner==='Biopietra';const badge=$('#workspace-pro-badge');badge.style.display='';badge.textContent=allowed?'✓ Tarif PRO accessible':'🔒 Tarif PRO non associé à ce compte';badge.className=`pro-badge${allowed?' allowed':''}`;const link=$('#workspace-pro-link');link.hidden=!allowed;link.style.display=allowed?'inline-flex':'none';link.href=state.partner==='Bilt'&&allowed?'commande-bilt.html':'tarifs-pro.html';link.textContent=state.partner==='Bilt'&&allowed?'Commander BILT':`Voir tarif PRO ${state.partner}`;
     if(state.partner==='Opal'){badge.textContent=previousOpalBadge?.text||'Catalogue · prix publics TTC';badge.className=previousOpalBadge?.className||'pro-badge';link.hidden=true;link.style.display='none';}
     if(state.partner==='SAXSO'){badge.textContent='Catalogue · Demande de chiffrage';badge.className='pro-badge';link.hidden=true;link.style.display='none';}
+    if(state.partner==='Sélection Le Roy Factory Extérieur'){badge.textContent='Catalogue interactif · R11 · Toute collection';badge.className='pro-badge';link.hidden=true;link.style.display='none';}
     const isRandal=state.partner==='Randal Pro';
     const filters=$('#v2-filters');
     if(filters){
       // RANDAL est du mobilier : les filtres de carreaux et le lexique n'ont rien à faire ici.
-      filters.style.display=state.partner==='SAXSO'||state.category==='outillages'||state.category==='meubles'&&!["Petracer's",'Bulbo'].includes(state.partner)?'none':'';
+      filters.style.display=state.partner==='Sélection Le Roy Factory Extérieur'||state.partner==='SAXSO'||state.category==='outillages'||state.category==='meubles'&&!["Petracer's",'Bulbo'].includes(state.partner)?'none':'';
       filters.classList.remove('mobile-open');
     }
     const productHint=count?.parentElement?.querySelector('span');
