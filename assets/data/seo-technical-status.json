@@ -1,0 +1,50 @@
+{
+  "releaseId": "20261114-seo-territoires-v1",
+  "checkedAt": "2026-11-14",
+  "sitemapPages": 412,
+  "sitemapImageUrls": 1606,
+  "relativeImageUrls": 0,
+  "newEditorialPages": 21,
+  "regions": [
+    "PACA",
+    "Occitanie",
+    "Corse"
+  ],
+  "audiences": [
+    "Particuliers",
+    "Professionnels",
+    "Architectes"
+  ],
+  "actions": [
+    {
+      "date": "2026-10-31",
+      "title": "Mise en place des pages de présentation et balises SEO",
+      "detail": "Titres, descriptions, adresses canoniques et pages de présentation des configurateurs."
+    },
+    {
+      "date": "2026-11-01",
+      "title": "Déploiement des pages de collections",
+      "detail": "Collections et formats Elios, VIEW, La Fenice et BioPietra."
+    },
+    {
+      "date": "2026-11-06",
+      "title": "Présentations Reviglass",
+      "detail": "Pages MIDAS, S-TONES et actualité Reviglass."
+    },
+    {
+      "date": "2026-11-14",
+      "title": "Correction du sitemap des images",
+      "detail": "177 adresses d’images La Fenice converties en adresses complètes. L’état Google sera actualisé après sa prochaine lecture."
+    },
+    {
+      "date": "2026-11-14",
+      "title": "Territoires, publics et fabricants",
+      "detail": "21 guides publics pour la PACA, l’Occitanie, la Corse, sept villes et les projets des particuliers, professionnels et architectes."
+    },
+    {
+      "date": "2026-11-14",
+      "title": "Aperçus des configurateurs et suivi agent",
+      "detail": "Visuels des ateliers, courbe Search Console, pages trouvées, recherches par ville et export des journées disponibles."
+    }
+  ]
+}

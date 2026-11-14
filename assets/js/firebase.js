@@ -34,7 +34,7 @@ const CRM_PAGES = new Set([
   "mails-groupes.html", "carte.html", "statistiques.html", "demandes-clients.html",
   "nouveau-compte-rendu.html", "contacts-partenaires.html", "analyse-clients-lrf.html",
   "parametres.html", "contrats-usine-jerome.html", "merchandising-usines.html", "expo-clients.html",
-  "document-usines.html", "activite-randal.html"
+  "document-usines.html", "activite-randal.html", "suivi-referencement.html"
 ]);
 const currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
 const isCrmPage = CRM_PAGES.has(currentPage);

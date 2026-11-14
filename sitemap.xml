@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://leroyfactory.fr/</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-11-14</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/partenaires.html</loc>
@@ -17,10 +17,11 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/catalogues.html</loc>
+    <lastmod>2026-11-14</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/configurateurs.html</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-11-14</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/configurateurs-randal.html</loc>
@@ -39,20 +40,24 @@
     <loc>https://leroyfactory.fr/configurateur-elios-pose.html</loc>
   </url>
   <url>
+    <loc>https://leroyfactory.fr/configurateur-ragreage.html</loc>
+    <lastmod>2026-11-03</lastmod>
+  </url>
+  <url>
     <loc>https://leroyfactory.fr/contact.html</loc>
     <lastmod>2026-10-31</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/agence-carrelage-languedoc-paca.html</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-11-14</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/fabricants-carrelage-salle-de-bain.html</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-11-14</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/configurateur-salle-de-bain-3d.html</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <image:image>
       <image:loc>https://leroyfactory.fr/shared/lrf-3d/media/public-compositions/lrf-expo-studio-one.webp</image:loc>
     </image:image>
@@ -81,6 +86,26 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/politique-confidentialite.html</loc>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/reviglass-lyon-2026.html</loc>
+    <lastmod>2026-11-06</lastmod>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/reviglass-midas.html</loc>
+    <lastmod>2026-11-06</lastmod>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/reviglass-s-tones.html</loc>
+    <lastmod>2026-11-06</lastmod>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/catalogue-exterieur-r11.html</loc>
+    <lastmod>2026-11-13</lastmod>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/catalogue-exterieur-r11-pdf.html</loc>
+    <lastmod>2026-11-13</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-allure.html</loc>
@@ -218,7 +243,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-bavaria-stone.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Bavaria_Stone_1.jpg</image:loc>
     </image:image>
@@ -238,18 +263,12 @@
       <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Bavaria_Stone_DETTAGLIO.jpg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://leroyfactory.fr/assets/img/elios-seo/elios-bavaria-stone-visuel-b559860d40a4bab1.webp</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://leroyfactory.fr/assets/img/elios-seo/elios-bavaria-stone-visuel-3177df7615277881.webp</image:loc>
-    </image:image>
-    <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2020/06/Bavaria_Stone_pan.jpg</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-brooklyn.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2021/11/BROOKLYN_LVING_white.jpg</image:loc>
     </image:image>
@@ -310,7 +329,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-clay.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2021/11/CLAY_BAR_COTTON_EMERALD.jpg</image:loc>
     </image:image>
@@ -563,7 +582,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-dolomiti.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2021/11/DOLOMITI_LIVING_bianco_greige.jpg</image:loc>
     </image:image>
@@ -608,12 +627,6 @@
     </image:image>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_antracite_amb.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://leroyfactory.fr/assets/img/elios-seo/elios-dolomiti-visuel-20a314fabb0ba456.webp</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://leroyfactory.fr/assets/img/elios-seo/elios-dolomiti-visuel-e10ea9e0acedc1ca.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2021/11/Dolomiti_bianco_macro.jpg</image:loc>
@@ -679,7 +692,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-dust.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/dust/terrae-01.jpg</image:loc>
     </image:image>
@@ -986,7 +999,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-grand-place.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2021/01/Elios_GrandPlace_Bruxelles_1.jpg</image:loc>
     </image:image>
@@ -1171,7 +1184,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-hexagon.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2023/05/hexagon_frame_grey_amb.jpg</image:loc>
     </image:image>
@@ -1235,7 +1248,10 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-horizon.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
+    <image:image>
+      <image:loc>https://id-sol.fr/cdn/shop/files/Elios_Horizon_Carbone_1-scaled.jpg?v=1751116328</image:loc>
+    </image:image>
     <image:image>
       <image:loc>https://leroyfactory.fr/assets/img/elios/selection-20261028/horizon/ambiance-1.jpeg</image:loc>
     </image:image>
@@ -1257,7 +1273,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-lithos.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2023/10/Lithos_Ivory_amb2.jpg</image:loc>
     </image:image>
@@ -1279,7 +1295,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-loveanddecors-creative.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2021/05/LoveDecors_Equatorial_3.jpg</image:loc>
     </image:image>
@@ -1338,7 +1354,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-manhattan.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2023/10/Manhattan_Pearl_amb2.jpg</image:loc>
     </image:image>
@@ -1360,7 +1376,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-marechiaro.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2023/10/Marechiaro_Amalfi_amb_2.jpg</image:loc>
     </image:image>
@@ -1552,14 +1568,29 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-montreal.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
-      <image:loc>https://leroyfactory.fr/assets/img/elios-seo/elios-montreal-visuel-d46f1230d3e1b024.webp</image:loc>
+      <image:loc>https://peintner.shop/media/image/product/38853/md/montreal-boden-und-wandfliesen-85mm.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://peintner.shop/media/image/variation/24831/md/montreal-boden-und-wandfliesen-85mm_farbe_white.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://peintner.shop/media/image/variation/24832/md/montreal-boden-und-wandfliesen-85mm_farbe_grey.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://peintner.shop/media/image/variation/24833/md/montreal-boden-und-wandfliesen-85mm_farbe_beige.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://peintner.shop/media/image/variation/24834/md/montreal-boden-und-wandfliesen-85mm_farbe_taupe.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://peintner.shop/media/image/variation/24835/md/montreal-boden-und-wandfliesen-85mm_farbe_dark.jpg</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-mysterium.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2023/10/ELIOS_MYSTERIUM_ACQUA_LIVING.jpg</image:loc>
     </image:image>
@@ -1827,7 +1858,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-quercia.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_amb_kitchen.jpg</image:loc>
     </image:image>
@@ -1868,12 +1899,6 @@
       <image:loc>https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/quercia/quercia-amber-03.jpg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://leroyfactory.fr/assets/img/elios-seo/elios-quercia-visuel-582253f0235a6aaf.webp</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://leroyfactory.fr/assets/img/elios-seo/elios-quercia-visuel-633335d607842b17.webp</image:loc>
-    </image:image>
-    <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2022/11/Quercia_tacca_honey_zoom.jpg</image:loc>
     </image:image>
     <image:image>
@@ -1888,15 +1913,45 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-roma.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Aventino_pav.jpg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://leroyfactory.fr/assets/img/elios-seo/elios-roma-visuel-da7bf0b0eaa0fc8a.webp</image:loc>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Aventino_2.jpg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://leroyfactory.fr/assets/img/elios-seo/elios-roma-visuel-ea796fa1ce4afd31.webp</image:loc>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/ROMA_PALATINO_amb.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Roma_CELIO-1.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Celio_pav_Cop.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Viminale_cucina.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Roma_viminale-1.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_1.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_2.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_3.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Roma_palatino_esterno2.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_PART.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Roma_Palatino_riv.jpg</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2016/09/roma_aventino_z-e1613149566773.jpg</image:loc>
@@ -1965,7 +2020,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-segmento.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/segmento/lot1-01.jpg</image:loc>
     </image:image>
@@ -2093,9 +2148,33 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-slate.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2023/05/slate_amb_2-scaled.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.fliesengigant.de/out/pictures/master/product/1/03f60606.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.fliesengigant.de/out/pictures/master/product/4/ambiente3_dark.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.fliesengigant.de/out/pictures/master/product/4/slate_flame_cortile_04_1copia.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://id-sol.fr/cdn/shop/files/slate_amb_7-scaled_1024x1024.jpg?v=1751123554</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.fliesengigant.de/out/pictures/generated/product/4/1000_1000_75/stilllife_slate_gold60x120_30x60%281%29.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.fliesengigant.de/out/pictures/master/product/3/03f60602.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.fliesengigant.de/out/pictures/generated/product/1/1000_1000_75/03f60903.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.fliesengigant.de/out/pictures/generated/product/4/1000_1000_75/03f36004.jpg</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2023/05/slate_river_zoom.jpg</image:loc>
@@ -2280,7 +2359,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-tropical.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2021/02/Elios_Tropical_Salvia_1.jpg</image:loc>
     </image:image>
@@ -2351,7 +2430,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-venere.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2025/10/ELIOS_VENERE_BAGNO_ATLANTE_PERLA-MATERICA.jpg</image:loc>
     </image:image>
@@ -2406,7 +2485,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-yosemite.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amb4.jpg</image:loc>
     </image:image>
@@ -2447,10 +2526,10 @@
       <image:loc>https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/elios/yosemite/yosemite-amber-03.jpg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://leroyfactory.fr/assets/img/elios-seo/elios-yosemite-visuel-7614fa3be0854f4d.webp</image:loc>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amb3.jpg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://leroyfactory.fr/assets/img/elios-seo/elios-yosemite-visuel-1b812c3204d849d0.webp</image:loc>
+      <image:loc>https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_amb7.jpg</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://eliosceramica.com/wp-content/uploads/2023/05/YOSEMITE_honey_zoom.jpg</image:loc>
@@ -2467,11 +2546,11 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-100x100.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-10x10.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-120x120.html</loc>
@@ -2479,27 +2558,27 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-120x278.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-15x15.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-15x60.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-20x20.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-20x40.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-22x25.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-24x120.html</loc>
@@ -2511,7 +2590,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-30x60.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-4.8x45.html</loc>
@@ -2519,11 +2598,11 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-40x40.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-40x60.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-50x100.html</loc>
@@ -2531,11 +2610,11 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-60x120.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-60x60.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-format-7.5x30.html</loc>
@@ -2543,7 +2622,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-imitation-travertin.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-imitation-bois.html</loc>
@@ -2551,15 +2630,15 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-pierre-marbre.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-poli.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-brillant.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/elios-piscine.html</loc>
@@ -2567,7 +2646,7 @@
   </url>
   <url>
     <loc>https://leroyfactory.fr/carrelage-elios.html</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-04</lastmod>
   </url>
   <url>
     <loc>https://leroyfactory.fr/view-ardenne.html</loc>
@@ -2995,35 +3074,35 @@
     <loc>https://leroyfactory.fr/la-fenice-allure.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/allure.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/allure.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/allure-02.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/allure-02.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/allure-01.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/allure-01.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/allure-03.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/allure-03.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/allure-diamante.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/allure-diamante.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/allure-perla.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/allure-perla.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/allure-ambra.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/allure-ambra.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/allure-quarzo-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/allure-quarzo-hd.webp</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://leroyfactory.fr/la-fenice-amazing.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/amazing.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/amazing.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-amazing-1.jpg</image:loc>
@@ -3066,7 +3145,7 @@
     <loc>https://leroyfactory.fr/la-fenice-antique-aurea.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/antique-aurea.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/antique-aurea.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2024/04/LaFenice_Antique_Aurea_Gold_Living_2WEB-4.jpg</image:loc>
@@ -3103,7 +3182,7 @@
     <loc>https://leroyfactory.fr/la-fenice-apache.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/apache.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/apache.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-apache-01.jpg</image:loc>
@@ -3125,41 +3204,41 @@
     <loc>https://leroyfactory.fr/la-fenice-aspen.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/aspen.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/aspen.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/aspen-02.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/aspen-02.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/aspen-01.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/aspen-01.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/aspen-03.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/aspen-03.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/aspen-white-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/aspen-white-hd.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/aspen-sand-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/aspen-sand-hd.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/aspen-oak-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/aspen-oak-hd.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/aspen-ash-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/aspen-ash-hd.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/aspen-greige-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/aspen-greige-hd.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/aspen-dark-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/aspen-dark-hd.webp</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://leroyfactory.fr/la-fenice-beton-wall.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/beton-wall.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/beton-wall.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/LaFenice_Beton_Wall_amb_Grey.jpg</image:loc>
@@ -3187,10 +3266,10 @@
     <loc>https://leroyfactory.fr/la-fenice-bianchi.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/bianchi.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/bianchi.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/bianchi-01.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/bianchi-01.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2024/03/Bianchi-bianco.jpg</image:loc>
@@ -3200,7 +3279,7 @@
     <loc>https://leroyfactory.fr/la-fenice-briccole.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/briccole.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/briccole.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2024/12/Briccole_soggiorno.jpg</image:loc>
@@ -3228,7 +3307,7 @@
     <loc>https://leroyfactory.fr/la-fenice-calacatta-gold.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/calacatta-gold.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/calacatta-gold.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Calacatta_Gold_amb.jpg</image:loc>
@@ -3241,7 +3320,7 @@
     <loc>https://leroyfactory.fr/la-fenice-calcarea.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/calcarea.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/calcarea.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/LaFenice_Calcarea_amb_grigio.jpg</image:loc>
@@ -3272,7 +3351,7 @@
     <loc>https://leroyfactory.fr/la-fenice-circus.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/circus.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/circus.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/amb-circus-03.jpg</image:loc>
@@ -3297,41 +3376,41 @@
     <loc>https://leroyfactory.fr/la-fenice-city-loft.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/city-loft.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/city-loft.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/city-loft-02.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/city-loft-02.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/city-loft-01.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/city-loft-01.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/city-loft-03.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/city-loft-03.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/city-loft-tokyo.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/city-loft-tokyo.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/city-loft-new-york.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/city-loft-new-york.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/city-loft-milano.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/city-loft-milano.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/city-loft-berlino.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/city-loft-berlino.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/city-loft-oslo.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/city-loft-oslo.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/city-loft-miami.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/city-loft-miami.webp</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://leroyfactory.fr/la-fenice-core.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/core.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/core.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2023/01/ambiente-core.jpg</image:loc>
@@ -3359,13 +3438,13 @@
     <loc>https://leroyfactory.fr/la-fenice-cromie-2-0.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/cromie-2-0.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/cromie-2-0.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/cromie-2-0-01.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/cromie-2-0-01.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/cromie-2-0-02.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/cromie-2-0-02.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2024/03/Marengo.jpg</image:loc>
@@ -3417,7 +3496,7 @@
     <loc>https://leroyfactory.fr/la-fenice-docks-25.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/docks-25.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/docks-25.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2023/11/Docks25_Grigio_Esterno_Dett-1.jpg</image:loc>
@@ -3442,7 +3521,7 @@
     <loc>https://leroyfactory.fr/la-fenice-dolmen.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/dolmen.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/dolmen.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2023/01/LaFenice_Dolmen_amb_Corda_Carbone.jpg</image:loc>
@@ -3473,7 +3552,7 @@
     <loc>https://leroyfactory.fr/la-fenice-easy.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/easy.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/easy.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-easy-01.jpg</image:loc>
@@ -3492,7 +3571,7 @@
     <loc>https://leroyfactory.fr/la-fenice-emotion.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/emotion.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/emotion.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/04/amb-emotion-01.jpg</image:loc>
@@ -3511,7 +3590,7 @@
     <loc>https://leroyfactory.fr/la-fenice-etoile.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/etoile.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/etoile.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2025/10/Etoile_Ambiente_Bagno.jpg</image:loc>
@@ -3536,7 +3615,7 @@
     <loc>https://leroyfactory.fr/la-fenice-ever.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/ever.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/ever.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-ever-04.jpg</image:loc>
@@ -3564,7 +3643,7 @@
     <loc>https://leroyfactory.fr/la-fenice-fiordi.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/fiordi.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/fiordi.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/amb-fiordi-01.jpg</image:loc>
@@ -3586,7 +3665,7 @@
     <loc>https://leroyfactory.fr/la-fenice-flash.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/flash.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/flash.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Flash_amb_Flash_Black.jpg</image:loc>
@@ -3599,7 +3678,7 @@
     <loc>https://leroyfactory.fr/la-fenice-gate.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/gate.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/gate.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb_gate.jpg</image:loc>
@@ -3618,7 +3697,7 @@
     <loc>https://leroyfactory.fr/la-fenice-genesis.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/genesis.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/genesis.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/amb-genesis-03.jpg</image:loc>
@@ -3643,7 +3722,7 @@
     <loc>https://leroyfactory.fr/la-fenice-glowood.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/glowood.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/glowood.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/amb-glowood-02.jpg</image:loc>
@@ -3671,53 +3750,53 @@
     <loc>https://leroyfactory.fr/la-fenice-heritage.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/heritage.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/heritage.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/heritage-02.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/heritage-02.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/heritage-01.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/heritage-01.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/heritage-03.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/heritage-03.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/heritage-bianco-gioia.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/heritage-bianco-gioia.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/heritage-calacatta-oro.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/heritage-calacatta-oro.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/heritage-madreperla.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/heritage-madreperla.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/heritage-tortora-chiaro.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/heritage-tortora-chiaro.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/heritage-cashmere.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/heritage-cashmere.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/heritage-tabacco-brown.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/heritage-tabacco-brown.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/heritage-nero-antico.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/heritage-nero-antico.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/heritage-calacatta-cardinale.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/heritage-calacatta-cardinale.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/heritage-rosso-francia-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/heritage-rosso-francia-hd.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/heritage-verde-smeraldo-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/heritage-verde-smeraldo-hd.webp</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://leroyfactory.fr/la-fenice-hollywood.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/hollywood.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/hollywood.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-hollywood-01.jpg</image:loc>
@@ -3745,10 +3824,10 @@
     <loc>https://leroyfactory.fr/la-fenice-home-etagere.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/home-etagere.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/home-etagere.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/home-etagere.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/home-etagere.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/col-marble-velvet-statuario.jpg</image:loc>
@@ -3839,10 +3918,10 @@
     <loc>https://leroyfactory.fr/la-fenice-home-tables-dappoint.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/home-tables-dappoint.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/home-tables-dappoint.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/home-tables-dappoint.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/home-tables-dappoint.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/col-marble-velvet-statuario.jpg</image:loc>
@@ -3933,10 +4012,10 @@
     <loc>https://leroyfactory.fr/la-fenice-home-vasque-a-poser.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/home-vasque-a-poser.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/home-vasque-a-poser.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/home-vasque-a-poser.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/home-vasque-a-poser.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/col-marble-velvet-statuario.jpg</image:loc>
@@ -4027,10 +4106,10 @@
     <loc>https://leroyfactory.fr/la-fenice-home-vasque-sur-pied.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/home-vasque-sur-pied.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/home-vasque-sur-pied.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/home-vasque-sur-pied.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/home-vasque-sur-pied.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/col-marble-velvet-statuario.jpg</image:loc>
@@ -4121,10 +4200,10 @@
     <loc>https://leroyfactory.fr/la-fenice-home-vasque-suspendue.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/home-vasque-suspendue.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/home-vasque-suspendue.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/home-vasque-suspendue.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/home-vasque-suspendue.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/col-marble-velvet-statuario.jpg</image:loc>
@@ -4215,7 +4294,7 @@
     <loc>https://leroyfactory.fr/la-fenice-il-travertino.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/il-travertino.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/il-travertino.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2025/10/Il_Travertino_ambiente_bagno.jpg</image:loc>
@@ -4237,7 +4316,7 @@
     <loc>https://leroyfactory.fr/la-fenice-imperial-grey.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/imperial-grey.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/imperial-grey.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Imperial_Grey_amb.jpg</image:loc>
@@ -4250,7 +4329,7 @@
     <loc>https://leroyfactory.fr/la-fenice-jungle-wall.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/jungle-wall.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/jungle-wall.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-jungle-wall-02.jpg</image:loc>
@@ -4269,7 +4348,7 @@
     <loc>https://leroyfactory.fr/la-fenice-lapis.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/lapis.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/lapis.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2023/11/Travertino_Pubblico-1.jpg</image:loc>
@@ -4300,7 +4379,7 @@
     <loc>https://leroyfactory.fr/la-fenice-le-doghe.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/le-doghe.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/le-doghe.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2023/11/Ledoghe_esterno.jpg</image:loc>
@@ -4337,89 +4416,89 @@
     <loc>https://leroyfactory.fr/la-fenice-lifestile.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/lifestile.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/lifestile.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/lifestile-02.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/lifestile-02.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/lifestile-01.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/lifestile-01.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/lifestile-03.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/lifestile-03.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-charme-green.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-charme-green.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-charme-blue.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-charme-blue.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-clorofilla.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-clorofilla.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-dali.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-dali.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-flora-warm.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-flora-warm.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-flora-cold.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-flora-cold.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-foglie-panna.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-foglie-panna.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-foglie-caffe.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-foglie-caffe.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-ventaglio-platino.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-ventaglio-platino.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-ventaglio-oro.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-ventaglio-oro.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-motive-cold.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-motive-cold.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-motive-warm.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-motive-warm.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-peonia.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-peonia.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-jolie.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-jolie.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-tropical-blue.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-tropical-blue.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-tropical-green.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-tropical-green.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-garden-light.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-garden-light.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-bloom-gold.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-bloom-gold.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-spring-day.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-spring-day.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-track-nut.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-track-nut.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-spring-night.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-spring-night.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/lifestile-pattern-dark.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/lifestile-pattern-dark.webp</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://leroyfactory.fr/la-fenice-lime-evolution.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/lime-evolution.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/lime-evolution.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2024/04/Lime_Evolution_amb_Moon.jpg</image:loc>
@@ -4450,7 +4529,7 @@
     <loc>https://leroyfactory.fr/la-fenice-lithos.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/lithos.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/lithos.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2025/10/Lithos_Ambiente_Cucina2.jpg</image:loc>
@@ -4490,13 +4569,13 @@
     <loc>https://leroyfactory.fr/la-fenice-living-wall.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/living-wall.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/living-wall.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/living-wall-01.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/living-wall-01.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/living-wall-02.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/living-wall-02.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2024/03/Bianco-1.jpg</image:loc>
@@ -4515,7 +4594,7 @@
     <loc>https://leroyfactory.fr/la-fenice-lumiere.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/lumiere.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/lumiere.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2023/11/Lumiere_Milk_Bagno-1.jpg</image:loc>
@@ -4540,7 +4619,7 @@
     <loc>https://leroyfactory.fr/la-fenice-majestic.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/majestic.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/majestic.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Majestic_Mosaico_Versilia_Alpi.jpg</image:loc>
@@ -4595,7 +4674,7 @@
     <loc>https://leroyfactory.fr/la-fenice-marble-velvet.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/marble-velvet.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/marble-velvet.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/amb-marble-velvet-07.jpg</image:loc>
@@ -4641,7 +4720,7 @@
     <loc>https://leroyfactory.fr/la-fenice-marfil-creme.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/marfil-creme.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/marfil-creme.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Marfil_Creme_amb.jpg</image:loc>
@@ -4654,7 +4733,7 @@
     <loc>https://leroyfactory.fr/la-fenice-meco.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/meco.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/meco.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Meco_amb_Beige.jpg</image:loc>
@@ -4682,7 +4761,7 @@
     <loc>https://leroyfactory.fr/la-fenice-metal-wall.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/metal-wall.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/metal-wall.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2024/12/Metall_Wall_Bagno.jpg</image:loc>
@@ -4701,7 +4780,7 @@
     <loc>https://leroyfactory.fr/la-fenice-natural-resine.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/natural-resine.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/natural-resine.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Natural_Resine_amb_Panna_Caffe.jpg</image:loc>
@@ -4741,7 +4820,7 @@
     <loc>https://leroyfactory.fr/la-fenice-natural-terre.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/natural-terre.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/natural-terre.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2025/10/LaFenice_Natural_Terre_amb_Terra_Sabbia.jpg</image:loc>
@@ -4772,7 +4851,7 @@
     <loc>https://leroyfactory.fr/la-fenice-norbistone.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/norbistone.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/norbistone.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2024/12/Prime_Stone_negozio.jpg</image:loc>
@@ -4797,7 +4876,7 @@
     <loc>https://leroyfactory.fr/la-fenice-outside.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/outside.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/outside.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-outside-01.jpg</image:loc>
@@ -4813,66 +4892,66 @@
     <loc>https://leroyfactory.fr/la-fenice-oykos.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/oykos.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/oykos.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/oykos-ambiance.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/oykos-ambiance.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/oykos-01.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/oykos-01.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/oykos-03.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/oykos-03.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/oykos-white.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/oykos-white.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/oykos-ivory.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/oykos-ivory.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/oykos-beige.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/oykos-beige.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/oykos-taupe.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/oykos-taupe.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/oykos-grey-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/oykos-grey-hd.webp</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://leroyfactory.fr/la-fenice-oykos-fossil.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/oykos-fossil.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/oykos-fossil.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/oykos-fossil-ambiance.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/oykos-fossil-ambiance.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/oykos-fossil-01.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/oykos-fossil-01.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/oykos-fossil-white-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/oykos-fossil-white-hd.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/oykos-fossil-ivory-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/oykos-fossil-ivory-hd.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/oykos-fossil-beige-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/oykos-fossil-beige-hd.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/oykos-fossil-taupe-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/oykos-fossil-taupe-hd.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/oykos-fossil-grey-hd.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/oykos-fossil-grey-hd.webp</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://leroyfactory.fr/la-fenice-paris.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/paris.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/paris.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-paris-01.jpg</image:loc>
@@ -4894,7 +4973,7 @@
     <loc>https://leroyfactory.fr/la-fenice-patagonia.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/patagonia.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/patagonia.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2025/04/Patagonia_amb_Ghiaccio.jpg</image:loc>
@@ -4913,7 +4992,7 @@
     <loc>https://leroyfactory.fr/la-fenice-pietra-de-medici.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/pietra-de-medici.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/pietra-de-medici.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2024/12/Pietra_Medici_amb_Pitti_Sand.jpg</image:loc>
@@ -4938,7 +5017,7 @@
     <loc>https://leroyfactory.fr/la-fenice-polveri-vietresi.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/polveri-vietresi.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/polveri-vietresi.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-polveri-vietresi-04.jpg</image:loc>
@@ -4969,7 +5048,7 @@
     <loc>https://leroyfactory.fr/la-fenice-polveri-vietresi-wall.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/polveri-vietresi-wall.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/polveri-vietresi-wall.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-polveri-vietresi-wall-01.jpg</image:loc>
@@ -5006,35 +5085,35 @@
     <loc>https://leroyfactory.fr/la-fenice-prime-stone.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/prime-stone.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/prime-stone.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/prime-stone-02.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/prime-stone-02.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/prime-stone-01.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/prime-stone-01.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-selection-20261101/prime-stone-03.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-selection-20261101/prime-stone-03.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/prime-stone-white.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/prime-stone-white.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/prime-stone-bone.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/prime-stone-bone.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/prime-stone-beige.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/prime-stone-beige.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>/assets/img/fenice-color-20261101/prime-stone-taupe.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-color-20261101/prime-stone-taupe.webp</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://leroyfactory.fr/la-fenice-resinart-wall.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/resinart-wall.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/resinart-wall.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-resinart-wall-01.jpg</image:loc>
@@ -5059,7 +5138,7 @@
     <loc>https://leroyfactory.fr/la-fenice-rovere.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/rovere.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/rovere.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-rovere-01.jpg</image:loc>
@@ -5081,7 +5160,7 @@
     <loc>https://leroyfactory.fr/la-fenice-royal.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/royal.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/royal.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Royal_amb_Royal_Onix.jpg</image:loc>
@@ -5094,7 +5173,7 @@
     <loc>https://leroyfactory.fr/la-fenice-saturn.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/saturn.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/saturn.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2023/01/ambiente-saturn.jpg</image:loc>
@@ -5122,7 +5201,7 @@
     <loc>https://leroyfactory.fr/la-fenice-segesta.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/segesta.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/segesta.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2025/02/LaFenice_Segesta_amb_Ghiaccio_Moro.jpg</image:loc>
@@ -5150,7 +5229,7 @@
     <loc>https://leroyfactory.fr/la-fenice-shabby-wall.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/shabby-wall.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/shabby-wall.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-shabby-wall-02.jpg</image:loc>
@@ -5172,7 +5251,7 @@
     <loc>https://leroyfactory.fr/la-fenice-shabby-wood.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/shabby-wood.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/shabby-wood.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb_shabby-wood_2.jpg</image:loc>
@@ -5194,7 +5273,7 @@
     <loc>https://leroyfactory.fr/la-fenice-shapes.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/shapes.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/shapes.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2025/10/Shapes_ambiente_Ingresso.jpg</image:loc>
@@ -5216,7 +5295,7 @@
     <loc>https://leroyfactory.fr/la-fenice-slate.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/slate.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/slate.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2023/11/Slate_Greige_InOut.jpg</image:loc>
@@ -5244,7 +5323,7 @@
     <loc>https://leroyfactory.fr/la-fenice-statuario.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/statuario.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/statuario.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Statutario_amb.jpg</image:loc>
@@ -5257,7 +5336,7 @@
     <loc>https://leroyfactory.fr/la-fenice-steel-art.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/steel-art.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/steel-art.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2023/11/SteelArts_Corten_Nikel_Living-2.jpg</image:loc>
@@ -5285,7 +5364,7 @@
     <loc>https://leroyfactory.fr/la-fenice-stone.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/stone.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/stone.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/amb-stone-02.jpg</image:loc>
@@ -5307,7 +5386,7 @@
     <loc>https://leroyfactory.fr/la-fenice-supreme.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/supreme.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/supreme.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Supreme_amb_Supreme_Venatino.jpg</image:loc>
@@ -5320,7 +5399,7 @@
     <loc>https://leroyfactory.fr/la-fenice-suveya-reactive-3d-evo.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/suveya-reactive-3d-evo.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/suveya-reactive-3d-evo.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2023/11/LaFenice_NovitaCersaie2023_Suveya_Beige_Emperador_Living-1.jpg</image:loc>
@@ -5342,7 +5421,7 @@
     <loc>https://leroyfactory.fr/la-fenice-tendance.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/tendance.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/tendance.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-tendance-01.jpg</image:loc>
@@ -5361,7 +5440,7 @@
     <loc>https://leroyfactory.fr/la-fenice-thasos.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/thasos.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/thasos.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2026/03/LaFenice_Thasos_amb.jpg</image:loc>
@@ -5374,7 +5453,7 @@
     <loc>https://leroyfactory.fr/la-fenice-touch.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/touch.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/touch.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2023/01/LaFenice_Touch_amb_Foglie.jpg</image:loc>
@@ -5411,7 +5490,7 @@
     <loc>https://leroyfactory.fr/la-fenice-touch-evo.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/touch-evo.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/touch-evo.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/12/amb-touch-evo-02.jpg</image:loc>
@@ -5439,7 +5518,7 @@
     <loc>https://leroyfactory.fr/la-fenice-walk-materials.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/walk-materials.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/walk-materials.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2023/11/Walk-Materials_mud-1.jpg</image:loc>
@@ -5464,7 +5543,7 @@
     <loc>https://leroyfactory.fr/la-fenice-wall-rock.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/wall-rock.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/wall-rock.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-wall-rock-01.jpg</image:loc>
@@ -5486,7 +5565,7 @@
     <loc>https://leroyfactory.fr/la-fenice-woodland.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/woodland.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/woodland.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-woodland-01.jpg</image:loc>
@@ -5511,7 +5590,7 @@
     <loc>https://leroyfactory.fr/la-fenice-x-beton.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/x-beton.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/x-beton.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-x-beton-02.jpg</image:loc>
@@ -5533,7 +5612,7 @@
     <loc>https://leroyfactory.fr/la-fenice-x-metal.html</loc>
     <lastmod>2026-11-01</lastmod>
     <image:image>
-      <image:loc>/assets/img/fenice-covers/x-metal.webp</image:loc>
+      <image:loc>https://leroyfactory.fr/assets/img/fenice-covers/x-metal.webp</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://lafenicegc.com/wp-content/uploads/2022/11/amb-x-metal-01.jpg</image:loc>
@@ -6234,10 +6313,150 @@
     <lastmod>2026-11-01</lastmod>
   </url>
   <url>
-    <loc>https://leroyfactory.fr/configurateur-ragreage.html</loc>
-    <lastmod>2026-11-03</lastmod>
+    <loc>https://leroyfactory.fr/carrelage-paca.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/view-selection-20261031/coco/01-ambiance-preview.webp</image:loc>
+    </image:image>
   </url>
-<url><loc>https://leroyfactory.fr/reviglass-lyon-2026.html</loc><lastmod>2026-11-06</lastmod></url>
-<url><loc>https://leroyfactory.fr/reviglass-midas.html</loc><lastmod>2026-11-06</lastmod></url>
-<url><loc>https://leroyfactory.fr/reviglass-s-tones.html</loc><lastmod>2026-11-06</lastmod></url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-occitanie.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/view-selection-20261031/coco/01-ambiance-preview.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-corse.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/saxso-2026/photo-28.jpeg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-montpellier.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/view-selection-20261031/coco/01-ambiance-preview.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-toulon.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/view-selection-20261031/coco/01-ambiance-preview.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-marseille.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/view-selection-20261031/coco/01-ambiance-preview.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-nice.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/view-selection-20261031/coco/01-ambiance-preview.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-toulouse.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/view-selection-20261031/coco/01-ambiance-preview.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-ajaccio.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/saxso-2026/photo-28.jpeg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-bastia.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/saxso-2026/photo-28.jpeg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-particuliers.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/view-selection-20261031/coco/01-ambiance-preview.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-professionnels.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/view-selection-20261031/coco/01-ambiance-preview.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-architectes.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/shared/lrf-3d/demo/media/randal-studio-one-photoreal-v1-small.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/pierre-naturelle-saxso.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/saxso-2026/photo-28.jpeg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/miroirs-opal.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/opal-catalogue-2026/opal-aixa.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/robinetterie-aquahome.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/home-refresh-20261031/bathroom-wide-light.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/meubles-salle-de-bain-neobath.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/neobath-anima-2026/composition-01.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/mosaique-piscine-reviglass.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/reviglass-2026/midas-1.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/decoration-ceramique-bulbo.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/bulbo-20261101/amnesiaoro-4057a7feb5.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/ceramique-pecchioli-firenze.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/pecchioli-20261101/lava-delletna-32170ca33cb7.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://leroyfactory.fr/carrelage-paca-occitanie-corse.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <image:image>
+      <image:loc>https://leroyfactory.fr/assets/img/view-selection-20261031/coco/01-ambiance-preview.webp</image:loc>
+    </image:image>
+  </url>
 </urlset>

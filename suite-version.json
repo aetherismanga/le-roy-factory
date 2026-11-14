@@ -711,6 +711,24 @@
       "compactManufacturerActions": true,
       "collapsibleFilters": true,
       "nativeAccessRulesPreserved": true
+    },
+    "seoReach": {
+      "releaseId": "20261114-seo-territoires-v1",
+      "checkedAt": "2026-11-14",
+      "sitemapPages": 412,
+      "newEditorialPages": 21,
+      "regions": [
+        "PACA",
+        "Occitanie",
+        "Corse"
+      ],
+      "audiences": [
+        "Particuliers",
+        "Professionnels",
+        "Architectes"
+      ],
+      "agentDashboard": "suivi-referencement.html",
+      "applicationScriptsPreserved": true
     }
   },
   "segmento": {

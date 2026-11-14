@@ -16,6 +16,7 @@ exclude:
   - scripts
   - tests
   - tools
+  - .local-release
   - randal-general
   - studio-one/
   - review-studio-source

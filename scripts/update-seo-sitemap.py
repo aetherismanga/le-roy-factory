@@ -4,33 +4,40 @@ Dates are supplied only for pages actually edited in the SEO release. Do not
 replace them with the execution date during routine regeneration.
 """
 from pathlib import Path
+from urllib.parse import urljoin, urlsplit
 import json
 from xml.etree.ElementTree import Element, SubElement, ElementTree, register_namespace, indent
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://leroyfactory.fr/'
 PAGES = [
-    ('', '2026-10-31'),
+    ('', '2026-11-14'),
     ('partenaires.html', '2026-10-31'),
     ('univers.html', '2026-10-31'),
     ('realisations.html', None),
-    ('catalogues.html', None),
-    ('configurateurs.html', '2026-10-31'),
+    ('catalogues.html', '2026-11-14'),
+    ('configurateurs.html', '2026-11-14'),
     ('configurateurs-randal.html', '2026-10-31'),
     ('configurateur-croisillons.html', None),
     ('configurateur-joints.html', None),
     ('configurateur-plots.html', None),
     ('configurateur-elios-pose.html', None),
+    ('configurateur-ragreage.html', '2026-11-03'),
     ('contact.html', '2026-10-31'),
-    ('agence-carrelage-languedoc-paca.html', '2026-10-31'),
-    ('fabricants-carrelage-salle-de-bain.html', '2026-10-31'),
-    ('configurateur-salle-de-bain-3d.html', '2026-10-31'),
+    ('agence-carrelage-languedoc-paca.html', '2026-11-14'),
+    ('fabricants-carrelage-salle-de-bain.html', '2026-11-14'),
+    ('configurateur-salle-de-bain-3d.html', '2026-11-14'),
     ('logiciel-calepinage-carrelage.html', '2026-10-31'),
     ('guide-projet-carrelage.html', '2026-10-31'),
     ('bilt-talox-kit.html', '2026-10-31'),
     ('actualite-cersaie.html', '2026-10-31'),
     ('mentions-legales.html', None),
     ('politique-confidentialite.html', None),
+    ('reviglass-lyon-2026.html', '2026-11-06'),
+    ('reviglass-midas.html', '2026-11-06'),
+    ('reviglass-s-tones.html', '2026-11-06'),
+    ('catalogue-exterieur-r11.html', '2026-11-13'),
+    ('catalogue-exterieur-r11-pdf.html', '2026-11-13'),
 ]
 NS = 'http://www.sitemaps.org/schemas/sitemap/0.9'
 IMAGE = 'http://www.google.com/schemas/sitemap-image/1.1'
@@ -63,7 +70,23 @@ for brand in ['elios','view','fenice','biopietra']:
         SubElement(url, f'{{{NS}}}lastmod').text = item.get('updated') or data.get('updated') or '2026-11-01'
         for src in item.get('images', []):
             image = SubElement(url, f'{{{IMAGE}}}image')
-            SubElement(image, f'{{{IMAGE}}}loc').text = src
+            absolute = urljoin(BASE, src)
+            assert urlsplit(absolute).scheme in ['https', 'http'] and urlsplit(absolute).netloc, src
+            SubElement(image, f'{{{IMAGE}}}loc').text = absolute
+# Independently authored territory, audience and manufacturer guides.
+reach = ROOT / 'assets/data/seo-reach-pages.json'
+if reach.exists():
+    for item in json.loads(reach.read_text())['pages']:
+        page = item['file']
+        assert page.endswith('.html') and '/' not in page and (ROOT / page).is_file(), page
+        url = SubElement(tree, f'{{{NS}}}url')
+        SubElement(url, f'{{{NS}}}loc').text = BASE + page
+        SubElement(url, f'{{{NS}}}lastmod').text = item['updated']
+        for src in item.get('images', []):
+            image = SubElement(url, f'{{{IMAGE}}}image')
+            SubElement(image, f'{{{IMAGE}}}loc').text = urljoin(BASE, src)
+locations = [node.find(f'{{{NS}}}loc').text for node in tree]
+assert len(locations) == len(set(locations)), 'Duplicate public sitemap page'
 indent(tree, space='  ')
 ElementTree(tree).write(ROOT / 'sitemap.xml', encoding='utf-8', xml_declaration=True)
 print(f'{len(tree)} public canonical URLs; private pages excluded')

@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 
+# Tableau interne de résultats Google, réservé aux agents.
+Disallow: /suivi-referencement.html
+
 # Zones internes et outils commerciaux : hors indexation publique.
 Disallow: /agent.html
 Disallow: /dashboard.html
