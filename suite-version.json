@@ -786,6 +786,15 @@
       "clientFilter": true,
       "singleFactoryEditor": true,
       "separationMigration": "20261110-single1"
+    },
+    "randalActivity": {
+      "releaseId": "20261114-load1",
+      "page": "activite-randal.html",
+      "legacyHistory": "existing-agent-authenticated-api",
+      "independentSources": true,
+      "readTimeoutSeconds": 25,
+      "unavailableCounters": "unknown",
+      "firestoreRulesChanged": false
     }
   },
   "accessSecurity": {
