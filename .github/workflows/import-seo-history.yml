@@ -22,6 +22,15 @@ jobs:
     environment: firebase-production
     timeout-minutes: 10
     steps:
+      - name: Keep imported metrics out of workflow logs
+        run: |
+          node - <<'JS'
+          const fs=require('node:fs');
+          const event=JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH,'utf8'));
+          const value=event.inputs?.report_gzip_base64?.trim();
+          if(typeof value!=='string'||value.length>100000||!/^[A-Za-z0-9+/=]+$/.test(value))throw Error('A valid compressed report is required.');
+          process.stdout.write('::add-mask::'+value+'\n');
+          JS
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
@@ -37,6 +46,4 @@ jobs:
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
       - name: Save the reviewed history in protected agent settings
-        env:
-          SEO_REPORT_GZIP_BASE64: ${{ inputs.report_gzip_base64 }}
         run: node functions/scripts/import-seo-history.cjs

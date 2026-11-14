@@ -1,10 +1,12 @@
 'use strict';
 // One explicit, reviewed import. No deployment, user creation or rule changes.
 const admin=require('firebase-admin');
+const {readFileSync}=require('node:fs');
 const {decodeReport,mergeReport}=require('../seo-report-core.cjs');
 const {verifiedAgentClaims}=require('../agent-policy.cjs');
 async function main(){
- const incoming=decodeReport(process.env.SEO_REPORT_GZIP_BASE64);
+ const encoded=process.env.SEO_REPORT_GZIP_BASE64||(process.env.GITHUB_ACTIONS==='true'&&JSON.parse(readFileSync(process.env.GITHUB_EVENT_PATH,'utf8')).inputs?.report_gzip_base64);
+ const incoming=decodeReport(encoded);
  admin.initializeApp({projectId:'le-roy-factory'});
  for(const email of ['jerome@leroyfactory.fr','coryne@leroyfactory.fr']){
   const u=await admin.auth().getUserByEmail(email);

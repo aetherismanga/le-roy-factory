@@ -28,3 +28,10 @@ test('agent metrics require the existing verified agent gate and remain outside 
  assert.ok(html.includes('noindex,nofollow,noarchive'));assert.ok(firebase.includes('"suivi-referencement.html"'));assert.ok(js.includes('verifiedAgentProfile(next)'));assert.ok(js.includes("doc(db,'parametres','seoSearchConsole')"));
  assert.ok(!js.includes('localStorage.setItem'));assert.ok(!js.includes('sessionStorage.setItem'));assert.ok(read('parametres.html').includes('href="suivi-referencement.html"'));assert.ok(read('dashboard.html').includes('href="suivi-referencement.html"'));
 });
+test('manual history import keeps the payload out of public workflow commands and environment logs',()=>{
+ const workflow=read('.github/workflows/import-seo-history.yml');
+ assert.ok(workflow.includes('GITHUB_EVENT_PATH'));
+ assert.ok(workflow.includes('::add-mask::'));
+ assert.ok(!workflow.includes('${{ inputs.report_gzip_base64 }}'));
+ assert.ok(!workflow.includes('SEO_REPORT_GZIP_BASE64:'));
+});
