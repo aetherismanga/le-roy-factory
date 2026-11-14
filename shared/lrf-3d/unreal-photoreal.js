@@ -40,9 +40,48 @@ export function unrealGeometry(o){
 export function unrealSurfaceParams(m,o){
  const params={color:m.color?.toArray()||[1,1,1],roughness:m.roughness??1,metalness:m.metalness??0,clearcoat:m.clearcoat??0,clearcoatRoughness:m.clearcoatRoughness??0};
  if(o.isReflector)return {...params,color:[1,1,1],roughness:.002,metalness:1,clearcoat:0};
+ if(m.transmission>=.8&&m.roughness<.12&&(m.thickness||0)<=.015){params.color=[.995,1,.999];params.roughness=m.userData?.architecturalGlass?.008:.015;}
+ if(furnitureGrain(m)){
+  // Keep the selected manufacturer's albedo. The varnish, not the photograph's
+  // dark printed knots, determines the strength of the specular response.
+  params.roughness=Math.max(.32,Math.min(.58,params.roughness*.9));
+  params.clearcoat=.2;params.clearcoatRoughness=.28;
+ }
  // A catalogue matte tile remains matte. Preserve honed/gloss and grip finishes.
  if(/^Carreaux/.test(o.name)&&params.roughness>=.65&&params.roughness<.9)params.roughness*=.86;
  return params;
+}
+export function furnitureGrain(m){return !!(m.userData?.lrfFurnitureKind==='Bois'&&m.map&&m.bumpMap&&m.bumpScale>=.0002&&m.roughness>=.25);}
+const grainMaps=new WeakMap();
+export function furnitureMicroMaps(m){
+ const texture=m.bumpMap,image=texture?.image;if(!image)return null;
+ const key=[texture.version,m.bumpScale,...texture.repeat.toArray(),...texture.offset.toArray(),...texture.center.toArray(),texture.rotation,texture.flipY,texture.channel].join(':');
+ const previous=grainMaps.get(texture);if(previous?.key===key)return previous;
+ const iw=image.naturalWidth||image.width,ih=image.naturalHeight||image.height;
+ if(!iw||!ih||image.data)return null;
+ const factor=Math.min(1,1536/Math.max(iw,ih)),w=Math.round(iw*factor),h=Math.round(ih*factor);
+ const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+ const context=canvas.getContext('2d',{willReadFrequently:true});context.drawImage(image,0,0,w,h);
+ const pixels=context.getImageData(0,0,w,h).data,values=new Float32Array(w*h);
+ for(let i=0;i<values.length;i++)values[i]=(.2126*pixels[i*4]+.7152*pixels[i*4+1]+.0722*pixels[i*4+2])/255;
+ const at=(x,y)=>values[((y+h)%h)*w+(x+w)%w],normal=new Uint8Array(w*h*4),roughness=new Uint8Array(w*h*4);
+ // Appearance approximation only: no measured height map was supplied.
+ // Bounded slopes avoid engraving every dark knot into the lacquer.
+ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+  const dx=clamp((at(x+1,y)-at(x-1,y))*.00012*w,-.1,.1),dy=clamp((at(x,y+1)-at(x,y-1))*.00012*h,-.1,.1);
+  const length=Math.hypot(dx,dy,1),i=(y*w+x)*4;
+  normal[i]=Math.round((-.5*dx/length+.5)*255);normal[i+1]=Math.round((.5*dy/length+.5)*255);normal[i+2]=Math.round((.5/length+.5)*255);normal[i+3]=255;
+  const detail=at(x,y)-(at(x-2,y)+at(x+2,y)+at(x,y-2)+at(x,y+2))/4;
+  roughness[i]=roughness[i+1]=roughness[i+2]=Math.round(clamp(.92-detail*.35,.82,1)*255);roughness[i+3]=255;
+ }
+ const make=data=>{const result=new T.DataTexture(data,w,h);for(const property of ['wrapS','wrapT','rotation','flipY','channel'])result[property]=texture[property];for(const property of ['repeat','offset','center'])result[property].copy(texture[property]);result.generateMipmaps=true;result.minFilter=T.LinearMipmapLinearFilter;result.magFilter=T.LinearFilter;result.anisotropy=16;result.needsUpdate=true;return result;};
+ // GLTFExporter packs roughness/metalness through drawImage: unlike a normal
+ // map, its packing stage requires a CanvasImageSource, not a DataTexture.
+ const roughCanvas=document.createElement('canvas');roughCanvas.width=w;roughCanvas.height=h;
+ const roughContext=roughCanvas.getContext('2d'),roughImage=roughContext.createImageData(w,h);roughImage.data.set(roughness);roughContext.putImageData(roughImage,0,0);
+ const roughMap=new T.CanvasTexture(roughCanvas);for(const property of ['wrapS','wrapT','rotation','flipY','channel'])roughMap[property]=texture[property];for(const property of ['repeat','offset','center'])roughMap[property].copy(texture[property]);roughMap.anisotropy=16;
+ const result={key,normal:make(normal),roughness:roughMap};grainMaps.set(texture,result);return result;
 }
 let ceramicNormal;
 export function ceramicMicroNormal(){
@@ -57,10 +96,19 @@ export function applyUnrealSurface(out,m,o){
  // occluder, never an LED panel. Keep a neutral diffuse bounce surface.
  if(o.name==='Plafond_occlusion_lumiere'){out.emissive.set(0);out.emissiveIntensity=1;out.color.setRGB(.78,.78,.78);out.roughness=.9;return;}
  const p=unrealSurfaceParams(m,o);out.roughness=p.roughness;out.metalness=p.metalness;
+ if(out.isMeshPhysicalMaterial){out.clearcoat=p.clearcoat;out.clearcoatRoughness=p.clearcoatRoughness;}
+ if(furnitureGrain(m)){
+  const maps=furnitureMicroMaps(m);if(maps){out.normalMap=maps.normal;out.normalScale=new T.Vector2(1,1);out.roughnessMap=maps.roughness;out.bumpMap=null;}
+ }
  if(/^Carreaux/.test(o.name)&&!out.normalMap&&!out.bumpMap){out.normalMap=ceramicMicroNormal();out.normalScale=new T.Vector2(1,1);}
  // Fresnel/transmission already determine clear glazing. Alpha blending on top
  // removes the reflected surface a second time and produces a ghost window.
  if(out.transmission>0){out.opacity=1;out.transparent=true;if(out.transmission>=.8)out.transmission=1;}
+ if(m.transmission>=.8&&m.roughness<.12&&(m.thickness||0)<=.015){
+  // Clear thin glass: tint accumulates through volume, not opaque green faces.
+  out.color.setRGB(.995,1,.999);out.roughness=m.userData?.architecturalGlass?.008:.015;
+  out.ior=1.5;out.attenuationColor=new T.Color(.90,.98,.96);out.attenuationDistance=1.5;
+ }
  if(o.name==='Vue_exterieure_jardin'){out.emissiveIntensity=512;return;}
  if(out.emissiveIntensity>0&&out.emissive&&(out.emissive.r>0||out.emissive.g>0||out.emissive.b>0))out.emissiveIntensity*=128;
 }

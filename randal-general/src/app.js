@@ -345,7 +345,7 @@ function repaintFurnitureMaterials(){
 function applyFurnitureFinish(asset,f,frontFacing=true){
  const tx=finishTextures[f.id];
  if(f.texture&&!tx)requestFinishAssets(f.id).catch(()=>{});
- for(const [m,front]of [[asset.wood,false],[asset.frontWood,frontFacing]])if(m){m.userData.lrfFurnitureDetail=true;m.color.set(tx?'#ffffff':f.hex);m.map=tx?(front?tx.front:tx.map):null;m.bumpMap=tx?(front?tx.frontBump:tx.bump):grain;m.bumpScale=tx?.00045:.00004;m.roughness=f.roughness;m.clearcoat=tx?.13:.18;m.clearcoatRoughness=.35;m.needsUpdate=true;}
+ for(const [m,front]of [[asset.wood,false],[asset.frontWood,frontFacing]])if(m){m.userData.lrfFurnitureDetail=true;m.userData.lrfFurnitureKind=f.kind;m.color.set(tx?'#ffffff':f.hex);m.map=tx?(front?tx.front:tx.map):null;m.bumpMap=tx?(front?tx.frontBump:tx.bump):grain;m.bumpScale=tx?.00045:.00004;m.roughness=f.roughness;m.clearcoat=tx?.13:.18;m.clearcoatRoughness=.35;m.needsUpdate=true;}
 }
 function requestFinishAssets(id,profile=textureProfile()){
  const f=FINISHES.find(f=>f.id===id);if(!f?.texture)return Promise.resolve(null);

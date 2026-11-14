@@ -1,0 +1,22 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as T from 'three';
+import {applyUnrealSurface,unrealSurfaceParams,furnitureGrain,furnitureMicroMaps} from '../shared/lrf-3d/unreal-photoreal.js';
+import {createUnrealScene} from '../shared/lrf-3d/unreal-scene.js';
+const image={width:8,height:8};
+const pixels=new Uint8ClampedArray(8*8*4);for(let i=0;i<pixels.length;i+=4){pixels[i]=pixels[i+1]=pixels[i+2]=(i/4)%8*30;pixels[i+3]=255;}
+globalThis.document={createElement:()=>({width:8,height:8,getContext:()=>({drawImage(){},getImageData:()=>({data:pixels}),createImageData:(w,h)=>({data:new Uint8ClampedArray(w*h*4)}),putImageData(){}})})};
+const wood=()=>{const map=new T.Texture(image),m=new T.MeshPhysicalMaterial({color:'#ac8c69',map,bumpMap:map,bumpScale:.00045,roughness:.43,clearcoat:.13});m.userData.lrfFurnitureKind='Bois';return m;};
+test('wood keeps the original manufacturer albedo, UV mapping and native material',()=>{
+ const m=wood();m.map.repeat.set(1,.67);m.map.center.set(.5,.5);m.map.rotation=Math.PI/2;
+ const out=m.clone(),original={color:m.color.toArray(),roughness:m.roughness,bump:m.bumpMap,clearcoat:m.clearcoat};applyUnrealSurface(out,m,{});
+ assert.deepEqual(m.color.toArray(),original.color);assert.equal(m.roughness,original.roughness);assert.equal(m.bumpMap,original.bump);assert.equal(m.clearcoat,original.clearcoat);assert.equal(m.normalMap,null);assert.equal(m.roughnessMap,null);
+ assert.equal(out.map,m.map);assert.deepEqual(out.color.toArray(),m.color.toArray());assert(out.normalMap);assert(out.roughnessMap?.isCanvasTexture);assert.equal(out.normalMap.rotation,m.map.rotation);assert.deepEqual(out.normalMap.repeat.toArray(),m.map.repeat.toArray());assert.deepEqual(out.roughnessMap.center.toArray(),m.map.center.toArray());assert.equal(out.bumpMap,null);
+ assert.equal(out.roughness,unrealSurfaceParams(m,{}).roughness);
+});
+test('lacquers and unknown materials are never classified as wood',()=>{for(const kind of ['Laque mate','Uni','Uni texturé','Pierre',undefined]){const m=wood();m.userData.lrfFurnitureKind=kind;assert.equal(furnitureGrain(m),false);const out=m.clone();applyUnrealSurface(out,m,{});assert.equal(out.roughness,m.roughness);assert.equal(out.clearcoat,m.clearcoat);assert.equal(out.normalMap,null);}});
+test('micro-map cache retains the same texture and invalidates changed UV orientation',()=>{const m=wood(),a=furnitureMicroMaps(m);assert.equal(furnitureMicroMaps(m),a);m.bumpMap.center.set(.2,.5);const b=furnitureMicroMaps(m);assert.notEqual(a,b);assert.equal(b.normal.center.x,.2);});
+test('wood normal slopes are bounded rather than deeply engraving printed knots',()=>{const m=wood(),n=furnitureMicroMaps(m).normal.image.data;for(let i=0;i<n.length;i+=4){assert(Math.abs(n[i]-128)<=14);assert(Math.abs(n[i+1]-128)<=14);assert(n[i+2]>=253);}});
+test('clear glass material patches agree with the GLB, preserving native glass',()=>{for(const architecturalGlass of [true,false]){const m=new T.MeshPhysicalMaterial({color:'#e1ecea',transmission:.86,roughness:.028,thickness:.004,opacity:.2,transparent:true});m.userData.architecturalGlass=architecturalGlass;const original=m.color.toArray(),out=m.clone();applyUnrealSurface(out,m,{});const patch=unrealSurfaceParams(m,{});assert.deepEqual(out.color.toArray(),patch.color);assert.equal(out.roughness,patch.roughness);assert.equal(out.ior,1.5);assert.equal(out.transmission,1);assert.equal(out.opacity,1);assert.deepEqual(m.color.toArray(),original);assert.equal(m.opacity,.2);assert.equal(m.transmission,.86);}});
+test('frosted and tinted partial-transmission glass retains its appearance',()=>{const m=new T.MeshPhysicalMaterial({color:'#647e75',transmission:.5,roughness:.35,thickness:.008}),out=m.clone();applyUnrealSurface(out,m,{});assert.deepEqual(out.color.toArray(),m.color.toArray());assert.equal(out.roughness,m.roughness);assert.equal(out.transmission,m.transmission);});
+test('only clear architectural panes select the flat-glass Unreal parent',()=>{for(const architecture of [true,false]){const m=new T.MeshPhysicalMaterial({transmission:.9,roughness:.03,thickness:.004});m.name='Original';m.userData.architecturalGlass=architecture;const scene=new T.Scene();scene.add(new T.Mesh(new T.BoxGeometry(1,1,.004),m));const exported=createUnrealScene(scene);assert.equal(exported.scene.children[0].material.name.startsWith('LRF_FlatGlass_'),architecture);assert.equal(m.name,'Original');exported.dispose();}});

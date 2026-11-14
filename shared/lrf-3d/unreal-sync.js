@@ -24,7 +24,7 @@ export function unrealLights(source){
  });return lights;
 }
 export function materialState(m){
- const result={};for(const [k,v] of Object.entries(m)){
+ const result={lrfFurnitureKind:m.userData?.lrfFurnitureKind||null};for(const [k,v] of Object.entries(m)){
   if(['uuid','id','version','userData','needsUpdate'].includes(k))continue;
   if(v?.isTexture)result[k]=[v.source.uuid,v.image?.width||v.image?.naturalWidth,v.image?.height||v.image?.naturalHeight,v.offset.toArray(),v.repeat.toArray(),v.center.toArray(),v.rotation,v.channel,v.flipY,v.version];
   else if(typeof v==='number'||typeof v==='string'||typeof v==='boolean')result[k]=v;

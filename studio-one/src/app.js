@@ -327,7 +327,7 @@ function resetComposition(){
 function applyFurnitureMaterial(asset,type,finish){
  const tx=finishTextures[finish.id];
  for(const [material,front]of [[asset.wood,false],[asset.frontWood,type==='cabinet']]){
-  if(!material)continue;material.userData.lrfFurnitureDetail=true;material.color.set(tx?'#ffffff':finish.hex);material.map=tx?(front?tx.front:tx.map):null;
+  if(!material)continue;material.userData.lrfFurnitureDetail=true;material.userData.lrfFurnitureKind=finish.kind;material.color.set(tx?'#ffffff':finish.hex);material.map=tx?(front?tx.front:tx.map):null;
   material.bumpMap=tx?(front?tx.frontBump:tx.bump):grain;
   material.bumpScale=tx?(finish.bumpScale??(finish.id==='WHITE'?.00010:.00045)):.00004;
   material.roughness=finish.roughness;material.clearcoat=finish.clearcoat??(tx?.13:.18);material.clearcoatRoughness=finish.clearcoatRoughness??.35;material.needsUpdate=true;
