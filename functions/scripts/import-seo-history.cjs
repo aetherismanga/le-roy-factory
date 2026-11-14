@@ -18,6 +18,10 @@ async function main(){
   const merged=mergeReport(snapshot.exists?snapshot.data():{},incoming);
   transaction.set(ref,{...merged,updatedAt:admin.firestore.FieldValue.serverTimestamp()},{merge:true});
  });
- console.log('Verified Google Search Console history saved in the protected agent settings. No CRM record, permission or site function changed.');
+ const saved=await ref.get();
+ const data=saved.data();
+ const dates=new Set((data?.daily||[]).map(row=>row.date));
+ if(!saved.exists||data.site!==incoming.site||!incoming.daily.every(row=>dates.has(row.date)))throw Error('History readback verification failed.');
+ console.log('Verified Google Search Console history saved and read back from the protected agent settings. No CRM record, permission or site function changed.');
 }
 main().catch(error=>{console.error(error.message);process.exitCode=1;});

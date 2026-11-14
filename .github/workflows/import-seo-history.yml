@@ -41,7 +41,7 @@ jobs:
         run: node --test tests/seo-dashboard-model.test.mjs functions/test/seo-report-core.test.cjs
       - name: Install the existing Admin SDK without lifecycle scripts
         working-directory: functions
-        run: npm ci --ignore-scripts --omit=dev --no-audit --no-fund
+        run: npm install --ignore-scripts --omit=dev --package-lock=false --no-audit --no-fund
       - uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
