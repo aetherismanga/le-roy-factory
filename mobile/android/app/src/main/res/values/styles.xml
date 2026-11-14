@@ -1,0 +1,12 @@
+<resources>
+<style name="Base.Theme.LRF" parent="android:style/Theme.Material.Light.NoActionBar">
+    <item name="android:fontFamily">sans</item>
+    <item name="android:windowBackground">@color/cream</item>
+    <item name="android:colorAccent">@color/gold</item>
+    <item name="android:statusBarColor">@color/cream</item>
+    <item name="android:navigationBarColor">@color/ink</item>
+    <item name="android:windowLightStatusBar">true</item>
+    <item name="android:windowActionModeOverlay">true</item>
+</style>
+<style name="Theme.LRF" parent="Base.Theme.LRF"/>
+</resources>

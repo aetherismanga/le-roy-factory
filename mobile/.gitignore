@@ -2,6 +2,13 @@ node_modules/
 www/
 android/.gradle/
 android/local.properties
-android/app/build/
+android/**/build/
+android/.idea/
 *.jks
 *.keystore
+*.p12
+*.pfx
+*.dpapi
+keystore.properties
+signing*.json
+release-output/

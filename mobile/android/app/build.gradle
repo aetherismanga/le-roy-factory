@@ -1,0 +1,45 @@
+plugins { id 'com.android.application' }
+
+def signingValues = ['LRF_SIGNING_STORE_FILE', 'LRF_SIGNING_STORE_PASSWORD', 'LRF_SIGNING_KEY_ALIAS', 'LRF_SIGNING_KEY_PASSWORD'].collectEntries { [(it): System.getenv(it)] }
+def hasSigning = signingValues.values().every { it != null && !it.isEmpty() }
+android {
+    namespace 'fr.leroyfactory.crm'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'fr.leroyfactory.crm'
+        minSdk 24
+        targetSdk 36
+        versionCode 2026111401
+        versionName '1.0.0'
+    }
+    signingConfigs {
+        release {
+            if (hasSigning) {
+                storeFile file(signingValues.LRF_SIGNING_STORE_FILE)
+                storePassword signingValues.LRF_SIGNING_STORE_PASSWORD
+                keyAlias signingValues.LRF_SIGNING_KEY_ALIAS
+                keyPassword signingValues.LRF_SIGNING_KEY_PASSWORD
+            }
+        }
+    }
+    buildTypes {
+        debug { applicationIdSuffix '.debug'; versionNameSuffix '-debug' }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    lint { abortOnError true; checkReleaseBuilds true }
+}
+gradle.taskGraph.whenReady { graph ->
+    if (graph.allTasks.any { it.name.toLowerCase().contains('release') } && !hasSigning) {
+        throw new GradleException('Release signing is required. Use mobile/scripts/Build-Android.ps1 with the external signing vault; debug signing is never used for release.')
+    }
+}
+dependencies {
+    implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.7.4'
+    testImplementation 'junit:junit:4.13.2'
+}

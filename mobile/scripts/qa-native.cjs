@@ -1,0 +1,38 @@
+const {chromium}=require('@playwright/test');
+const {execFileSync}=require('node:child_process');
+const fs=require('node:fs/promises');const path=require('node:path');
+const adb=process.env.LRF_ADB;const serial=process.env.LRF_EMULATOR_SERIAL||'emulator-5560';
+if(!adb||!serial.startsWith('emulator-'))throw new Error('Set LRF_ADB and target a dedicated emulator, never a personal phone.');
+const out=path.resolve(__dirname,'../release-output/qa');const pkg='fr.leroyfactory.crm';
+const cmd=(...args)=>execFileSync(adb,['-s',serial,...args],{encoding:'utf8',timeout:30000,windowsHide:true}).trim();
+const pause=ms=>new Promise(r=>setTimeout(r,ms));
+const screenshot=async name=>{cmd('shell','screencap','-p','/sdcard/lrf-qa.png');cmd('pull','/sdcard/lrf-qa.png',path.join(out,name+'.png'));};
+const xml=async()=>{cmd('shell','uiautomator','dump','/sdcard/lrf-qa.xml');cmd('pull','/sdcard/lrf-qa.xml',path.join(out,'native-screen.xml'));return fs.readFile(path.join(out,'native-screen.xml'),'utf8');};
+(async()=>{await fs.mkdir(out,{recursive:true});const results=[];let b;
+try{
+ cmd('shell','svc','wifi','enable');cmd('shell','svc','data','enable');
+ cmd('shell','am','force-stop',pkg);cmd('logcat','-c');
+ const marker='lrf_android_qa='+Date.now();const start=cmd('shell','am','start','-W','-f','0x10008000','-a','android.intent.action.VIEW','-d','https://leroyfactory.fr/?'+marker,'-n',pkg+'/.MainActivity');await pause(5000);
+ b=await chromium.connectOverCDP('http://127.0.0.1:9226');const context=b.contexts()[0];
+ await context.route('**/*',r=>['GET','HEAD','OPTIONS'].includes(r.request().method())?r.continue():r.abort());
+ const p=context.pages().find(page=>page.url().includes(marker));if(!p)throw new Error('The app Custom Tab is not exposed on this Chrome CDP endpoint.');
+ await p.waitForLoadState('domcontentloaded');results.push({test:'signed-apk-launch',pass:true,start,url:p.url()});
+ await screenshot('native-accueil');
+ await p.goto('https://leroyfactory.fr/catalogues.html',{waitUntil:'domcontentloaded'});await pause(2000);await screenshot('native-catalogues');
+ cmd('shell','input','keyevent','4');await pause(1800);results.push({test:'android-back',pass:new URL(p.url()).pathname==='/',url:p.url()});
+ await p.goto('https://leroyfactory.fr/configurateurs.html',{waitUntil:'domcontentloaded'});await pause(1800);await screenshot('native-configurateurs');
+ await context.unrouteAll({behavior:'wait'});await b.close();b=null;
+ cmd('shell','am','force-stop','com.android.chrome');cmd('shell','svc','wifi','disable');cmd('shell','svc','data','disable');await pause(2000);
+ cmd('shell','am','force-stop',pkg);cmd('shell','am','start','-W','-n',pkg+'/.MainActivity');await pause(1500);
+ let ui=await xml();results.push({test:'offline-screen',pass:ui.toLowerCase().includes('hors connexion')&&ui.toLowerCase().includes('réessayer')});await screenshot('native-hors-connexion');
+ cmd('shell','svc','wifi','enable');cmd('shell','svc','data','enable');await pause(3000);
+ const node=(ui.match(/<node[^>]*>/g)||[]).find(n=>n.includes('resource-id="fr.leroyfactory.crm:id/retry"'));
+ const bounds=node?.match(/bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"/);
+ if(!bounds)throw new Error('Retry button not found');
+ cmd('shell','input','tap',String(Math.round((+bounds[1]+ +bounds[3])/2)),String(Math.round((+bounds[2]+ +bounds[4])/2)));await pause(3500);
+ const resumed=cmd('shell','dumpsys','activity','activities');const retryUi=await xml();results.push({test:'offline-retry',pass:resumed.includes('customtabs.CustomTabActivity')&&retryUi.includes('leroyfactory.fr')});
+ const crashes=cmd('logcat','-d','-b','crash');results.push({test:'no-native-crash',pass:!crashes.includes('Process: '+pkg)});
+ const permissions=cmd('shell','dumpsys','package',pkg);await fs.writeFile(path.join(out,'package-dump.txt'),permissions);
+ const payload={checkedAt:new Date().toISOString(),device:serial,results};await fs.writeFile(path.join(out,'native-tests.json'),JSON.stringify(payload,null,2));console.log(JSON.stringify(payload,null,2));if(results.some(r=>!r.pass))process.exitCode=1;
+}finally{cmd('shell','svc','wifi','enable');cmd('shell','svc','data','enable');if(b)await b.close();}
+})().catch(e=>{console.error(e);process.exitCode=1});

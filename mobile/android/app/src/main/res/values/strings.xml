@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LE ROY FACTORY</string>
+    <string name="brand_subtitle">CARRELAGE · SALLE DE BAIN · DESIGN</string>
+    <string name="welcome_title">Votre univers, vos projets.</string>
+    <string name="loading">Ouverture de votre espace…</string>
+    <string name="offline_title">Vous êtes hors connexion</string>
+    <string name="offline_message">Connectez-vous à Internet pour retrouver le site, vos catalogues et vos espaces sécurisés.</string>
+    <string name="browser_title">Un navigateur est nécessaire</string>
+    <string name="browser_message">Activez ou installez un navigateur compatible, comme Chrome, puis réessayez.</string>
+    <string name="retry">Réessayer</string>
+    <string name="asset_statements" translatable="false">[{\"relation\":[\"delegate_permission/common.handle_all_urls\"],\"target\":{\"namespace\":\"web\",\"site\":\"https://leroyfactory.fr\"}},{\"relation\":[\"delegate_permission/common.handle_all_urls\"],\"target\":{\"namespace\":\"web\",\"site\":\"https://studio-one-beta-test-v2.vercel.app\"}},{\"relation\":[\"delegate_permission/common.handle_all_urls\"],\"target\":{\"namespace\":\"web\",\"site\":\"https://randal-catalogue-general-3d.vercel.app\"}}]</string>
+    <string-array name="additional_trusted_origins">
+        <item>https://studio-one-beta-test-v2.vercel.app</item>
+        <item>https://randal-catalogue-general-3d.vercel.app</item>
+    </string-array>
+</resources>

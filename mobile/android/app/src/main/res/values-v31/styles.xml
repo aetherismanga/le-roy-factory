@@ -1,0 +1,10 @@
+<resources><style name="Theme.LRF" parent="Base.Theme.LRF">
+<item name="android:windowBackground">@color/cream</item>
+<item name="android:colorAccent">@color/gold</item>
+<item name="android:windowLightStatusBar">true</item>
+<item name="android:windowLightNavigationBar">true</item>
+<item name="android:navigationBarColor">@color/cream</item>
+<item name="android:windowSplashScreenBackground">@color/cream</item>
+<item name="android:windowSplashScreenAnimatedIcon">@drawable/lrf_logo</item>
+<item name="android:windowSplashScreenIconBackgroundColor">@color/cream</item>
+</style></resources>
