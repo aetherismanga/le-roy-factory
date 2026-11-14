@@ -41,7 +41,7 @@ export function createUnrealScene(source,{names=null}={}){
   // glTF's core normalTexture is supported by Interchange; EXT_materials_bump is not.
   out.bumpMap=null;out.bumpScale=1;
   // Carry the real PBR maps. Do not replace product finishes or their colours.
-  out.name=m.name||'Materiau_'+materials.size;
+  out.name=(m.userData?.architecturalGlass&&m.transmission>=.8&&m.roughness<.12?'LRF_FlatGlass_':'')+(m.name||'Materiau_'+materials.size);
   out.userData={};const transforms=[],keys=new Map();
   for(const [property,v] of Object.entries(out))if(v?.isTexture){
    textures.add(v.source.uuid);
