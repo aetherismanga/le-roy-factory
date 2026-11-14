@@ -1,4 +1,4 @@
-const BUILD = '20261114-visual-coherence-1';
+const BUILD = '20261114-scroll-fx-2';
 const CACHE_PREFIX = 'nuage-nomade-';
 const CACHE_NAME = CACHE_PREFIX + BUILD;
 const SCOPE_URL = new URL(self.registration.scope);

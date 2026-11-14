@@ -98,13 +98,15 @@
   // Install visual extensions with explicit access to this engine's private state.
   if(typeof window.installNuageNomadeVisuals !== 'function') throw new Error('Graphismes non chargés');
   const visualRuntime = window.installNuageNomadeVisuals({
-    state, W, H, ctx, HD_L1, HD_L4, HD_L4_RECTS, HD_L6,
+    state, W, H, ctx, HD_L1, HD_L1_RECTS, HD_L4, HD_L4_RECTS, HD_L6,
     level1AssetsReady, level4AssetsReady, preloadLevel1HD, preloadLevel4HD,
     drawSpriteCenter, drawLightningStrikeFancy, showToast,
     drawBg, drawStorm, startLevel, LEVEL_CARD_ART, levelTheme, initBackground
   });
   drawBg = visualRuntime.drawBg;
   drawStorm = visualRuntime.drawStorm;
+  drawLightningStrikeFancy = visualRuntime.drawLightningStrikeFancy;
+  drawParticles = visualRuntime.drawParticles;
   startLevel = visualRuntime.startLevel;
 
   // Buttons
@@ -157,7 +159,7 @@
   window.NuageNomadeDiagnostics = Object.freeze({
     assetsReady: () => level1AssetsReady(),
     allCoreAssetsReady: () => [level1AssetsReady(),level2AssetsReady(),level3AssetsReady(),level4AssetsReady(),level5AssetsReady(),level6AssetsReady(),level7AssetsReady()].every(Boolean),
-    version: '20261114-visual-coherence-1',
+    version: '20261114-scroll-fx-2',
     visuals: visualRuntime.diagnostics,
     levelCount: LEVELS.length,
     testAllLevels: TEST_ALL_LEVELS
@@ -173,7 +175,7 @@
 <script>
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js?v=20261114-visual-coherence-1', {scope:'./'}).catch(console.warn);
+    navigator.serviceWorker.register('./service-worker.js?v=20261114-scroll-fx-2', {scope:'./'}).catch(console.warn);
   });
 }
 </script>
