@@ -223,7 +223,7 @@
     if(state.partner==='Bilt'){
       const allowed=hasAccess('bilt');
       count.textContent=allowed?'Catalogue & commande BILT':'Catalogue BILT';
-      productGrid.innerHTML=`<section class="empty-partner bilt-selection-space" aria-label="Outillage BILT"><img src="${PARTNERS.Bilt.logo}" alt="Bilt" loading="lazy" decoding="async"><strong>${allowed?'Catalogue BILT 2026 prêt à commander':'Outillage & systèmes de pose BILT'}</strong><p>${allowed?'Choisissez vos produits, quantités et minimums de livraison dans le catalogue professionnel.':'Connectez-vous à votre compte professionnel pour retrouver vos tarifs et commander les produits BILT.'}</p><div><a class="pro-link" href="${allowed?'commande-bilt.html':'tarifs-pro.html'}">${allowed?'Ouvrir le catalogue & commander':'Accès PRO BILT'}</a>${allowed?' <a class="pro-link" href="commande-bilt.html#historique">Historique BILT</a>':''}</div></section>`;
+      productGrid.innerHTML=`<section class="empty-partner bilt-selection-space" aria-label="Outillage BILT"><img src="${PARTNERS.Bilt.logo}" alt="Bilt" loading="lazy" decoding="async"><strong>${allowed?'Catalogue BILT 2026 prêt à commander':'Outillage & systèmes de pose BILT'}</strong><p>${allowed?'Choisissez vos produits, quantités et minimums de livraison dans le catalogue professionnel.':'Connectez-vous à votre compte professionnel pour retrouver vos tarifs et commander les produits BILT.'}</p><div class="bilt-selection-actions"><a class="pro-link" href="${allowed?'commande-bilt.html':'tarifs-pro.html'}">${allowed?'Ouvrir le catalogue & commander':'Accès PRO BILT'}</a>${allowed?' <a class="pro-link" href="commande-bilt.html#historique">Historique BILT</a>':''}</div></section>`;
       return;
     }
     if(state.partner==='Randal Pro'){
