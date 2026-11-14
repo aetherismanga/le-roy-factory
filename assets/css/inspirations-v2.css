@@ -25,3 +25,35 @@ body.insp-v2{--lrf-gold:#c9a646;--lrf-ink:#202733;--lrf-cream:#faf5eb;--lrf-line
 
 /* The pool collections belong to the Elios workspace, below its manufacturer heading. */
 .elios-pool-nav{display:flex;flex-wrap:wrap;gap:.6rem;margin:0 0 .7rem}.elios-pool-nav[hidden]{display:none}.elios-pool-nav button{appearance:none;min-height:44px;padding:.65rem 1rem;border:1px solid #d9cba9;border-radius:10px;background:#fffdf8;color:#35372f;font:inherit;font-size:.86rem;font-weight:750;cursor:pointer}.elios-pool-nav button[aria-pressed="true"]{background:#e4ede2;border-color:#9ab298;color:#263c29}.elios-pool-nav button:focus-visible{outline:3px solid #b49b55;outline-offset:3px}
+
+/* BILT · actions catalogue et historique : boutons sans superposition sur mobile. */
+.insp-v2 .bilt-selection-space .bilt-selection-actions{
+  display:flex;
+  align-items:stretch;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin:20px auto 0;
+  max-width:100%;
+}
+.insp-v2 .bilt-selection-space .bilt-selection-actions > .pro-link{
+  display:inline-flex;
+  box-sizing:border-box;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  max-width:100%;
+  line-height:1.4;
+  text-align:center;
+  white-space:normal;
+}
+@media (max-width:640px){
+  .insp-v2 .bilt-selection-space .bilt-selection-actions{
+    flex-direction:column;
+    width:100%;
+    gap:12px;
+  }
+  .insp-v2 .bilt-selection-space .bilt-selection-actions > .pro-link{
+    width:100%;
+  }
+}
