@@ -51,7 +51,7 @@ jobs:
       - name: Unit and request regression tests
         run: |
           set -euo pipefail
-          node --test tests/elios-samples-options.test.mjs tests/elios-samples-workflow.test.mjs tests/elios-samples-client-mail.test.mjs tests/elios-mysterium-dynasty.test.mjs functions/test/elios-samples.test.cjs functions/test/elios-samples-images.test.cjs functions/test/elios-expo-budget.test.cjs | tee /tmp/elios-options-tests.txt
+          node --test tests/elios-samples-options.test.mjs tests/elios-samples-workflow.test.mjs tests/elios-samples-client-mail.test.mjs tests/elios-samples-all-variants.test.mjs tests/elios-samples-corrections-20261116.test.mjs tests/elios-mysterium-dynasty.test.mjs functions/test/elios-samples.test.cjs functions/test/elios-samples-images.test.cjs functions/test/elios-expo-budget.test.cjs | tee /tmp/elios-options-tests.txt
       - name: Install browser engines
         run: npx playwright install --with-deps chromium webkit
       - name: Desktop and iPhone tests using synthetic accounts
