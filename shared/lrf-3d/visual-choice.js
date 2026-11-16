@@ -148,10 +148,13 @@ export function renderVisualChoice(parent,options={}){
   if(!opened)return;if(element.isConnected===false){close();return;}const v=viewport(doc),rect=trigger.getBoundingClientRect(),width=Math.min(Math.max(element.getBoundingClientRect().width||rect.width,300),v.width-16),below=v.top+v.height-rect.bottom-12,above=rect.top-v.top-12,up=below<220&&above>below,height=Math.min(460,Math.max(120,up?above:below),v.height-16);
   popup.style.width=width+'px';popup.style.maxHeight=height+'px';popup.style.left=clamp(rect.left,v.left+8,v.left+v.width-width-8)+'px';const actual=Math.min(popup.getBoundingClientRect().height||height,height);popup.style.top=clamp(up?rect.top-actual-5:rect.bottom+5,v.top+8,v.top+v.height-actual-8)+'px';
  }
- function open({focusSearch=true}={}){
+ // Touch users browse the scrolling list first. Focusing its search input on
+ // opening summons the phone keyboard and covers the choices in the box iframe.
+ // Keep desktop search convenient; mobile search remains an explicit tap.
+ function open({focusSearch=viewport(doc).width>=700&&!!windowFor(doc).matchMedia?.('(hover: hover) and (pointer: fine)').matches}={}){
   if(destroyed||disabled||opened)return;opened=true;search.value='';popup.hidden=false;popupTitle.textContent=label;popup.setAttribute('aria-label',label);trigger.setAttribute('aria-expanded','true');portalFor(element,doc).append(popup);drawRows();place();
   const outside=event=>{if(element.isConnected===false){close();return;}if(element.contains(event.target)||popup.contains(event.target)||previews.get(doc)?.element.contains(event.target))return;close();};
-  openCleanups=[listen(doc,'pointerdown',outside,true),listen(doc,'focusin',outside,true),listen(windowFor(doc),'resize',place),listen(windowFor(doc),'scroll',place,true),listen(windowFor(doc).visualViewport,'resize',place),listen(windowFor(doc).visualViewport,'scroll',place)];unwatch=watchRemoval(element,()=>close());if(focusSearch)focus(search);
+  openCleanups=[listen(doc,'pointerdown',outside,true),listen(doc,'focusin',outside,true),listen(windowFor(doc),'resize',place),listen(windowFor(doc),'scroll',place,true),listen(windowFor(doc).visualViewport,'resize',place),listen(windowFor(doc).visualViewport,'scroll',place)];unwatch=watchRemoval(element,()=>close());focus(focusSearch?search:closeButton);
  }
  trigger.onclick=event=>{stop(event);if(opened)close(true);else open();};trigger.onkeydown=event=>{if(event.key==='ArrowDown'||event.key==='ArrowUp'){stop(event);open({focusSearch:false});const selected=rows.find(row=>row.entry.value===value&&!row.entry.disabled);if(selected)focus(selected.button);else move(null,event.key==='ArrowUp'?-1:1);}else if(event.key==='Escape'){stop(event);close(true);}};
  photo.onclick=event=>{stop(event);openVisualPreview(current(),{urlFor,opener:photo,document:doc});};const removeTriggerPreview=previewsEnabled?attachVisualPreview(photo,current,{urlFor}):()=>{},removeLabelPreview=previewsEnabled?attachVisualPreview(trigger,current,{urlFor}):()=>{};

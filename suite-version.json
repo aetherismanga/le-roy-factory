@@ -844,7 +844,14 @@
     "directBoxOrder": true,
     "directBoxLoss": true,
     "twoPanReturnSide": true,
-    "boxImportButton": false
+    "boxImportButton": false,
+    "mobileDropdowns": {
+      "releaseId": "20261116-box-dropdown-no-keyboard-1",
+      "automaticTouchKeyboard": false,
+      "explicitSearch": true,
+      "desktopSearchPreserved": true,
+      "boxBundleSha256": "bfe69ab8e9a99f64ac5610a20edac1d2cd7458c1418bf28ef3abdb8fa0602ecb"
+    }
   },
   "eliosMaterials": {
     "releaseId": "20261113-elios-mysterium-dynasty-v8",

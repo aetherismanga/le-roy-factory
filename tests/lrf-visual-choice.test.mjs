@@ -49,6 +49,33 @@ test('filtering by a reference or accents, keyboard navigation and disabled entr
  choice.value='missing-reference';assert.equal(choice.value,'missing-reference');assert(choice.trigger.textContent.includes('Référence indisponible'));assert.equal(changes.length,1,'Unknown saved references never fall back to the first product');choice.destroy();
 });
 
+test('phone and tablet dropdowns open without focusing a text field; search is an explicit action',t=>{
+ const {document,host}=setup(t),win=document.defaultView,changes=[];
+ const choice=renderVisualChoice(host,{entries,value:'sku-a',onChange:value=>changes.push(value)});
+ for(const [width,finePointer]of [[390,false],[412,false],[844,false],[1024,false],[390,true]]){
+  win.innerWidth=width;win.matchMedia=()=>({matches:finePointer});
+  choice.trigger.click();
+  assert.equal(choice.trigger.getAttribute('aria-expanded'),'true');
+  assert.equal(document.activeElement,document.querySelector('.lrf-visual-choice-close'),'Opening the scrolling list must focus a button, never the software keyboard');
+  assert.equal(document.querySelectorAll('[data-visual-choice-value]').length,entries.length);
+  choice.search.focus();assert.equal(document.activeElement,choice.search,'A deliberate tap still allows searching');
+  choice.search.value='celeste';fire(choice.search,'input');
+  assert.equal(document.querySelectorAll('[data-visual-choice-value]').length,1);
+  document.querySelector('[data-visual-choice-value="sku-b"]').click();
+  assert.equal(choice.value,'sku-b');assert.equal(document.activeElement,choice.trigger);
+ }
+ assert.deepEqual(changes,['sku-b'],'Reopening and searching never apply a product twice');choice.destroy();
+});
+
+test('desktop search focus and keyboard option navigation remain available',t=>{
+ const {document,host}=setup(t),choice=renderVisualChoice(host,{entries,value:'sku-a'});
+ choice.trigger.click();assert.equal(document.activeElement,choice.search);
+ choice.close();document.defaultView.innerWidth=390;
+ fire(choice.trigger,'keydown',{key:'ArrowDown'});
+ assert.equal(document.activeElement.dataset.visualChoiceValue,'sku-a');
+ choice.close();choice.open({focusSearch:true});assert.equal(document.activeElement,choice.search,'An explicit request to search is honoured');choice.destroy();
+});
+
 test('native select adapter retains its callbacks, metadata labels, value, dataset and mutability',t=>{
  const {document,host,element}=setup(t),select=element('select');select.dataset.referencePicker='wall-2';select.dataset.surfaceField='collection';
  for(const entry of entries){const option=element('option');option.value=entry.value;option.textContent=entry.label+' · native count';option.disabled=!!entry.disabled;select.append(option);}select.value='sku-a';host.append(select);
