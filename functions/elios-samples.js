@@ -40,7 +40,7 @@ function contact(input,account){
 }
 exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'512MiB',maxInstances:4},async(req,res)=>{
  const origin=String(req.headers.origin||'');if(ORIGINS.has(origin))res.set('Access-Control-Allow-Origin',origin);
- res.set('Vary','Origin');res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','POST, OPTIONS');res.set('Cache-Control','private, no-store');res.set('X-LRF-Elios-Samples-Version',C.VERSION);res.set('X-LRF-Elios-Options-Version','20261113-energy-pose-v1');
+ res.set('Vary','Origin');res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','POST, OPTIONS');res.set('Cache-Control','private, no-store');res.set('X-LRF-Elios-Samples-Version',C.VERSION);res.set('X-LRF-Elios-Catalogue-Version',catalogue.version);res.set('X-LRF-Elios-Options-Version','20261113-energy-pose-v1');
  if(origin&&!ORIGINS.has(origin))return res.status(403).json({success:false,error:'Origine non autorisée.'});
  if(req.method==='OPTIONS')return res.status(204).send('');if(req.method!=='POST')return res.status(405).json({success:false,error:'Méthode non autorisée.'});
  try{

@@ -57,6 +57,15 @@ export function selectMerchandisingLine(items,key,quantity,catalogue){
  if(index<0){if(items.length>=200)throw Error('La sélection contient déjà 200 références.');return [...items,line];}
  return items.map((item,i)=>i===index?line:item);
 }
+export function merchandisingBaseChoices(catalogue){
+ return (catalogue.merchandising||[]).filter(item=>/\bBASE\b/i.test(item.description||''));
+}
+export function selectMerchandisingWithBase(items,key,quantity,catalogue,baseKey='',baseQuantity=1){
+ if(baseKey&&!merchandisingBaseChoices(catalogue).some(item=>item.id===baseKey))throw Error('Choisissez un socle du catalogue Elios.');
+ if(baseKey===key)throw Error('Ce socle est déjà la référence principale.');
+ const selected=selectMerchandisingLine(items,key,quantity,catalogue);
+ return baseKey?selectMerchandisingLine(selected,baseKey,baseQuantity,catalogue):selected;
+}
 export function merchandisingValue(items,catalogue){
  const products=new Map((catalogue.merchandising||[]).map(item=>[item.id,item]));
  let knownValueHT=0,incomplete=false,references=0;

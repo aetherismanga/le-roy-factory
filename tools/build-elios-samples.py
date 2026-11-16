@@ -24,6 +24,8 @@ def run(source):
     for row in list(sheet.values)[1:]:
         if not row[0] or 'TOTAL' in str(row[0]):continue
         rules.append({'collection':str(row[0]).strip(),'format':str(row[1] or '').strip(),'finish':str(row[2] or '').strip(),'references':row[3],'decors':row[4]})
+    # Explicit addition requested by Jérôme on 16 November; standard R10 only.
+    rules.append({'collection':'BROOKLYN','format':'100X100','finish':'RETT R10','references':7,'decors':None,'source':'Demande Jérôme du 16 novembre 2026'})
     aliases={'millenniumquartz':'milleniumquartz','azulimood':'azuli','sedimenti':'sedimentiselected','designevo':'designevo'}
     def allowed(p):
         name=norm(p['collection']); fmt=dimensions(p['format']); finish=norm(p.get('finish'))

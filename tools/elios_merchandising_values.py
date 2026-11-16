@@ -48,7 +48,9 @@ def read_merchandising(path):
         for title in SOURCE_SHEETS:
             sheet = workbook[title]
             for index, row in enumerate(sheet.values, 1):
-                if not row[0] or not str(row[0]).startswith('E-') or not row[2]:
+                series = str(row[0] or '').strip()
+                generic = series == 'MERCHAND GENER. ELI'
+                if not (series.startswith('E-') or generic) or not row[2]:
                     continue
                 code = str(row[1] or '').strip()
                 key = code or 'sans-code-' + normalize(str(row[0]) + str(row[2]))
@@ -57,7 +59,7 @@ def read_merchandising(path):
                 result[key] = {
                     'id': key,
                     'reference': code,
-                    'collection': str(row[0])[2:].strip(),
+                    'collection': 'Socles et présentoirs' if generic else series[2:].strip(),
                     'description': str(row[2]).strip().rstrip('.').strip(),
                     'unit': 'pièce',
                     'status': ('Code à confirmer' if not code else

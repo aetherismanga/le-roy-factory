@@ -9,6 +9,23 @@ from elios_merchandising_values import read_merchandising, refresh_catalogue_val
 
 
 class MerchandisingValuesTest(unittest.TestCase):
+    def test_generic_bases_are_imported_with_only_their_article_value(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'input.xlsx'
+            workbook = openpyxl.Workbook()
+            workbook.active.title = 'Elenco merchandising'
+            workbook.active.append(['MERCHAND GENER. ELI', 'E99127', 'BASE 12 ALL INC 60X12', 'NR', 68, 9999, 999999])
+            sheet = workbook.create_sheet('BUDGET 2027')
+            sheet.append(['MERCHAND GENER. ELI', None, 'BASE INCLINATA 7 ALL FRANCIA', 'NR', None])
+            sheet.append(['TOTALE MERCHANDISING', None, 'INTERNAL TOTAL', None, 999999])
+            workbook.save(path)
+            result = read_merchandising(path)
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result['E99127']['collection'], 'Socles et présentoirs')
+        self.assertEqual(result['E99127']['valueUnitHT'], 68)
+        self.assertNotIn('9999', str(result))
+        self.assertTrue(any(not item['reference'] and item['valueUnitHT'] is None for item in result.values()))
+
     def test_2027_unit_values_override_older_values_without_agent_allocations(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder) / 'input.xlsx'
