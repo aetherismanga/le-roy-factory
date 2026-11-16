@@ -13,8 +13,8 @@ test('all existing Elios SKUs, formats, colors and packaging are preserved witho
  for(const p of elios){const imported=byKey.get(p.key);for(const key of ['reference','collection','color','format','finish','packArea','packPieces'])assert.equal(imported[key],p[key]);assert.equal(imported.purchaseHT,undefined);assert.equal(imported.price,undefined);assert.equal(imported.amount,undefined);}
  assert.deepEqual(JSON.parse(readFileSync(new URL('../functions/elios-samples-catalogue.json',import.meta.url),'utf8')),catalogue);
 });
-test('free sample eligibility never broadens to outdoor, 20 mm, polished or lapped variants',()=>{
- const free=catalogue.products.filter(p=>p.vrac);assert(free.length>200);
+test('standard offered samples retain their conditions while extra finishes remain subject to factory confirmation',()=>{
+ const free=catalogue.products.filter(p=>p.vrac&&p.sampleOffer!=='factory-confirmation');assert(free.length>200);
  for(const p of free){assert(!/20\s*mm|poli|lapp/i.test(p.finish),p.reference+' '+p.finish);if(/r11|outdoor/i.test(p.finish))assert(catalogue.rules.some(r=>r.collection.toLowerCase()===p.collection.toLowerCase()&&/r11/i.test(r.finish)),p.reference+' '+p.finish);}
  assert.equal(free.filter(p=>p.collection==='Segmento').length,16);
  assert(!free.some(p=>p.collection==='Harmony'));

@@ -9,7 +9,7 @@ import {defaultSurfacePattern,normalizeLayout} from '../shared/lrf-3d/surface-ca
 import catalogue from '../assets/data/elios-samples.json' with {type:'json'};
 const require=createRequire(import.meta.url),C=require('../functions/elios-samples-core.cjs');
 test('sample format choices follow collection and search and never include unavailable samples',()=>{
- assert.deepEqual(availableSampleFormats(catalogue.products,{collection:'Yosemite'}),['7.5x40.7','23.4x119.5']);
+ assert.deepEqual(availableSampleFormats(catalogue.products,{collection:'Yosemite'}),['7.5x40.7','15x85','23.4x95.7','23.4x119.5','23.4x148']);
  const creta=availableSampleFormats(catalogue.products,{collection:'Creta'});assert(!creta.includes('23.4x119.5'));assert(creta.includes('60x60'));
  assert.deepEqual(availableSampleFormats(catalogue.products,{collection:'Creta',query:'does-not-exist'}),[]);
 });

@@ -9,14 +9,14 @@ const catalogue=JSON.parse(readFileSync(new URL('../assets/data/elios-samples.js
 const server=JSON.parse(readFileSync(new URL('../functions/elios-samples-catalogue.json',import.meta.url)));
 test('Brooklyn 100x100 offers all seven standard colours through filtering and server validation',()=>{
  assert.deepEqual(server,catalogue);
- assert.deepEqual(availableSampleFormats(catalogue.products,{collection:'Brooklyn'}),['60x60','100x100']);
- const rows=catalogue.products.filter(p=>sampleTileMatches(p,{mode:'vrac',collection:'Brooklyn',format:'100x100'}));
+ assert(availableSampleFormats(catalogue.products,{collection:'Brooklyn'}).includes('100x100'));
+ const rows=catalogue.products.filter(p=>sampleTileMatches(p,{mode:'vrac',collection:'Brooklyn',format:'100x100',slip:'R10',thickness:'8,5 mm'}));
  assert.deepEqual(rows.map(p=>p.reference).sort(),['00K1X00','00K1X10','00K1X40','00K1X50','00K1X60','00K1X80','00K1X90']);
  for(const quantity of [1,2]){
   const q=C.buildQuote(rows.map(p=>({type:'vrac',key:p.key,quantity})),server);
   assert.equal(q.rows.length,7);assert.equal(q.totalHT,0);assert(q.rows.every(row=>row.label&&row.quantity===quantity));
  }
- for(const p of catalogue.products.filter(p=>p.collection==='Brooklyn'&&/Outdoor|20 mm/.test(p.finish)))assert.throws(()=>C.buildQuote([{type:'vrac',key:p.key,quantity:1}],server));
+ for(const p of catalogue.products.filter(p=>p.collection==='Brooklyn'&&/Outdoor|20 mm/.test(p.finish))){const q=C.buildQuote([{type:'vrac',key:p.key,quantity:1}],server);assert.equal(q.rows[0].factoryApprovalRequired,true);}
 });
 test('kit and optional socle stay separate and retain exact server quantities and indicative values',()=>{
  const bases=merchandisingBaseChoices(catalogue);

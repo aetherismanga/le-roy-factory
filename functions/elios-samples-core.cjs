@@ -49,7 +49,7 @@ function normalizedLines(input,catalogue,prices={}){
   const base={type:raw.type,key:id,reference:product.reference,collection:product.collection,description:product.description||[product.color,product.format,product.finish].filter(Boolean).join(' · '),image:product.image||product.images?.[0]?.image||'',unit:'pièce'};
   if(raw.type==='vrac'){
    if(product.vrac!==true||![1,2].includes(Number(raw.quantity)))throw fail('Le vrac est limité à 1 ou 2 pièces par référence éligible.');
-   return {...base,sampleReference:product.sampleReference,quantity:Number(raw.quantity),label:true,netHT:0,discount:0,unitHT:0,totalHT:0};
+   return {...base,sampleReference:product.sampleReference,quantity:Number(raw.quantity),label:true,netHT:0,discount:0,unitHT:0,totalHT:0,...(product.sampleOffer==='factory-confirmation'?{sampleOffer:'factory-confirmation',factoryApprovalRequired:true,status:'Conditions de l’échantillon à confirmer par Elios'}:{})};
   }
   const quantity=Number(raw.quantity);if(!Number.isFinite(quantity)||quantity<=0||quantity>10000)throw fail('Quantité incorrecte.');
   if(raw.type==='merchandising'){

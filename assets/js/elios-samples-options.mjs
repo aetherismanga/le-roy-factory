@@ -1,15 +1,24 @@
 import {esc,money,norm,sampleReviewTable} from './elios-samples-core.mjs?v=20261113-8';
 export const PRICING_VERSION='20261113-energy-pose-v1';
 const area=n=>Number(n).toLocaleString('fr-FR',{maximumFractionDigits:4});
+export function sampleVariantValue(product,key){
+ if(key==='slip')return String(product.finish||'').match(/\bR(?:9|10|11|12|13)\b/i)?.[0].toUpperCase()||'';
+ if(key==='thickness'){
+  const value=product.thicknessMm||String(product.finish||'').match(/(\d+(?:[.,]\d+)?(?:\s*[–-]\s*\d+(?:[.,]\d+)?)?)\s*mm\b/i)?.[1];
+  return value?String(value).replaceAll('.',',').replace(/\s*[–-]\s*/g,'–')+' mm':'';
+ }
+ return product[key]||'';
+}
 export function sampleTileMatches(product,filters={},omit=''){
  if(product.legacy||!(filters.mode==='box'||product.vrac))return false;
- for(const key of ['collection','format','color','finish'])if(key!==omit&&filters[key]&&product[key]!==filters[key])return false;
+ for(const key of ['collection','format','color','finish','slip','thickness'])if(key!==omit&&filters[key]&&sampleVariantValue(product,key)!==filters[key])return false;
  const query=norm(filters.query||'');
  return !query||norm([product.reference,product.collection,product.color,product.description,product.format,product.finish].join(' ')).includes(query);
 }
 export function sampleFacetValues(products,filters,key){
- if(!['format','color','finish'].includes(key))return [];
- return [...new Set(products.filter(p=>sampleTileMatches(p,filters,key)).map(p=>p[key]).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr',{numeric:true}));
+ if(!['format','color','finish','slip','thickness'].includes(key))return [];
+ const compatible=key==='slip'?{...filters,finish:'',thickness:''}:key==='thickness'?{...filters,finish:''}:filters;
+ return [...new Set(products.filter(p=>sampleTileMatches(p,compatible,key)).map(p=>sampleVariantValue(p,key)).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr',{numeric:true}));
 }
 export function sampleChargesSummary(q){
  if(!q.rows.some(row=>row.type==='box'))return '';

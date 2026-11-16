@@ -68,7 +68,7 @@ def run(source):
             'image':image,'thumbnail':(native.get('textureVariants',{}).get('fluid') or [color.get('file') or image])[0],'available3d':color.get('available3d',False),
             'definitionLimited':bool(native.get('definitionLimited',color.get('definitionLimited') or p.get('definitionLimited'))),
             'reconstructed':color.get('textureProvenance',{}).get('kind')=='ai-reconstruction',
-            'vrac':allowed(p),'sampleReference':p['reference'],'priceUnit':p.get('priceUnit','m²'),
+            'vrac':(bool(p.get('reference')) or allowed(p)) and not p.get('legacy',False),'sampleReferencePending':not bool(p.get('reference')) and allowed(p),'sampleOffer':'offered' if allowed(p) else 'factory-confirmation','sampleReference':p['reference'],'priceUnit':p.get('priceUnit','m²'),
             **({'legacy':True} if p.get('legacy') else {})})
     # The user explicitly requests these instrument values for information.
     # They are not client amounts payable; never include agent allocations.

@@ -1,0 +1,758 @@
+{
+  "date": "2026-11-16",
+  "catalogueVersion": "20261116-elios-all-variants-v2",
+  "products": 935,
+  "identifiedVariants": 804,
+  "extraVariantsOpened": 455,
+  "unidentifiedVisualsExcluded": 115,
+  "missingReferencedFloorOrWallVariants": [],
+  "sources": [
+    {
+      "url": "https://eliosceramica.com/wp-content/uploads/2018/02/ELIOS_CATALOGO-GENERALE-2026-1.pdf",
+      "sha256": "04bab2aba9802417df50b52d8ee4f42eba5f7c6fa3c74ad10e66c9d8187c90f1"
+    },
+    {
+      "url": "https://eliosceramica.com/wp-content/uploads/2026/07/ELIOS_CATALOGO_OUTDOOR_2026.pdf",
+      "sha256": "88126c383a38c8f39dce76bb5e35099bbee9451baf7f143d4f74d40d29435e09"
+    }
+  ],
+  "brooklyn": {
+    "R10Standard100x100": 7,
+    "R11Standard100x100": 2,
+    "R11TwentyMillimetre100x100": 6,
+    "R11Standard60x60": 0
+  },
+  "collections": [
+    {
+      "collection": "Allure",
+      "identifiedVariants": 5,
+      "formats": [
+        "60x120"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7 mm"
+      ]
+    },
+    {
+      "collection": "Azuli Mood",
+      "identifiedVariants": 22,
+      "formats": [
+        "10x10",
+        "5x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "8,5 mm",
+        "8 mm"
+      ]
+    },
+    {
+      "collection": "Bavaria Stone",
+      "identifiedVariants": 7,
+      "formats": [
+        "100x100",
+        "50x100",
+        "60x120",
+        "60x60",
+        "30x60",
+        "30.5x61",
+        "30x30"
+      ],
+      "slipRatings": [
+        "R11"
+      ],
+      "thicknesses": [
+        "20 mm",
+        "8,5 mm"
+      ]
+    },
+    {
+      "collection": "Brooklyn",
+      "identifiedVariants": 38,
+      "formats": [
+        "100x100",
+        "60x120",
+        "60x60",
+        "30x60",
+        "20.3x40.6",
+        "20.3x20.3"
+      ],
+      "slipRatings": [
+        "R10",
+        "R11"
+      ],
+      "thicknesses": [
+        "8,5 mm",
+        "20 mm"
+      ]
+    },
+    {
+      "collection": "Clay",
+      "identifiedVariants": 8,
+      "formats": [
+        "10x10"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "8,5 mm"
+      ]
+    },
+    {
+      "collection": "Creta",
+      "identifiedVariants": 26,
+      "formats": [
+        "60x60",
+        "60x120",
+        "120x120"
+      ],
+      "slipRatings": [
+        "R9",
+        "R10"
+      ],
+      "thicknesses": [
+        "8,5 mm"
+      ]
+    },
+    {
+      "collection": "D_esign Evo",
+      "identifiedVariants": 33,
+      "formats": [
+        "20x20",
+        "60x60"
+      ],
+      "slipRatings": [
+        "R10",
+        "R11"
+      ],
+      "thicknesses": [
+        "10 mm",
+        "20 mm"
+      ]
+    },
+    {
+      "collection": "Deco",
+      "identifiedVariants": 23,
+      "formats": [
+        "20x20"
+      ],
+      "slipRatings": [
+        "R10"
+      ],
+      "thicknesses": [
+        "9 mm"
+      ]
+    },
+    {
+      "collection": "Dolomiti",
+      "identifiedVariants": 29,
+      "formats": [
+        "60x120",
+        "60x60",
+        "30x60",
+        "30.5x60.5"
+      ],
+      "slipRatings": [
+        "R10",
+        "R11"
+      ],
+      "thicknesses": [
+        "8,5 mm",
+        "20 mm"
+      ]
+    },
+    {
+      "collection": "Domus",
+      "identifiedVariants": 7,
+      "formats": [
+        "4.8x45"
+      ],
+      "slipRatings": [
+        "R10"
+      ],
+      "thicknesses": [
+        "9,5 mm"
+      ]
+    },
+    {
+      "collection": "Dust",
+      "identifiedVariants": 56,
+      "formats": [
+        "5x20",
+        "17.5x20"
+      ],
+      "slipRatings": [
+        "R10"
+      ],
+      "thicknesses": [
+        "8 mm",
+        "14 mm",
+        "9 mm"
+      ]
+    },
+    {
+      "collection": "Dynasty",
+      "identifiedVariants": 21,
+      "formats": [
+        "30x30",
+        "60x120"
+      ],
+      "slipRatings": [
+        "R10"
+      ],
+      "thicknesses": [
+        "8,5 mm"
+      ]
+    },
+    {
+      "collection": "Glow",
+      "identifiedVariants": 10,
+      "formats": [
+        "4.8x45"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "9,5 mm"
+      ]
+    },
+    {
+      "collection": "Golden Hour",
+      "identifiedVariants": 8,
+      "formats": [
+        "4.8x20"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "9,5 mm"
+      ]
+    },
+    {
+      "collection": "Grand Place",
+      "identifiedVariants": 6,
+      "formats": [
+        "100x100",
+        "60x60"
+      ],
+      "slipRatings": [
+        "R11"
+      ],
+      "thicknesses": [
+        "20 mm"
+      ]
+    },
+    {
+      "collection": "Harmony",
+      "identifiedVariants": 18,
+      "formats": [
+        "100x100",
+        "50x100",
+        "60x60",
+        "30x60"
+      ],
+      "slipRatings": [
+        "R10"
+      ],
+      "thicknesses": [
+        "8,5 mm"
+      ]
+    },
+    {
+      "collection": "Hexagon",
+      "identifiedVariants": 7,
+      "formats": [
+        "25x22"
+      ],
+      "slipRatings": [
+        "R10"
+      ],
+      "thicknesses": [
+        "9 mm"
+      ]
+    },
+    {
+      "collection": "Horizon",
+      "identifiedVariants": 16,
+      "formats": [
+        "100x100",
+        "60x120",
+        "60x60",
+        "30x60"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "8,5 mm"
+      ]
+    },
+    {
+      "collection": "Lithos",
+      "identifiedVariants": 3,
+      "formats": [
+        "120x278"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "6,5 mm"
+      ]
+    },
+    {
+      "collection": "Love&Decors",
+      "identifiedVariants": 2,
+      "formats": [
+        "120x278"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "6,5 mm"
+      ]
+    },
+    {
+      "collection": "Love&Decors — Creative",
+      "identifiedVariants": 0,
+      "formats": [],
+      "slipRatings": [],
+      "thicknesses": []
+    },
+    {
+      "collection": "Love&Decors — Magnus",
+      "identifiedVariants": 0,
+      "formats": [],
+      "slipRatings": [],
+      "thicknesses": []
+    },
+    {
+      "collection": "Manhattan",
+      "identifiedVariants": 3,
+      "formats": [
+        "120x278"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "6,5 mm"
+      ]
+    },
+    {
+      "collection": "Marechiaro",
+      "identifiedVariants": 3,
+      "formats": [
+        "40.6x40.6",
+        "20.3x20.3"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "8,5 mm"
+      ]
+    },
+    {
+      "collection": "Millennium Quartz",
+      "identifiedVariants": 27,
+      "formats": [
+        "60x120",
+        "60x60",
+        "30x60",
+        "30.5x60.5",
+        "20.3x40.6"
+      ],
+      "slipRatings": [
+        "R11"
+      ],
+      "thicknesses": [
+        "8,5 mm",
+        "20 mm"
+      ]
+    },
+    {
+      "collection": "Montreal",
+      "identifiedVariants": 26,
+      "formats": [
+        "100x100",
+        "60x120",
+        "60x60",
+        "30x60"
+      ],
+      "slipRatings": [
+        "R10",
+        "R11"
+      ],
+      "thicknesses": [
+        "8,5 mm",
+        "20 mm"
+      ]
+    },
+    {
+      "collection": "Mysterium",
+      "identifiedVariants": 12,
+      "formats": [
+        "120x278",
+        "60x120"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "6,5 mm",
+        "8,5 mm"
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Abyss",
+      "identifiedVariants": 4,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7,5 mm"
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Acqua",
+      "identifiedVariants": 4,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7,5 mm"
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Greek Isles",
+      "identifiedVariants": 1,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7,5 mm"
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Italian Slate",
+      "identifiedVariants": 2,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7,5 mm"
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Lakes",
+      "identifiedVariants": 2,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7,5 mm"
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Mare",
+      "identifiedVariants": 3,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7,5 mm"
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Nevada",
+      "identifiedVariants": 4,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7,5 mm"
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Pacific",
+      "identifiedVariants": 3,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7,5 mm"
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Quantum",
+      "identifiedVariants": 3,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7,5 mm"
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Sea Breeze",
+      "identifiedVariants": 2,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7,5 mm"
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Seychelles",
+      "identifiedVariants": 5,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7,5 mm"
+      ]
+    },
+    {
+      "collection": "Pool Surfaces — Twelfth Night",
+      "identifiedVariants": 2,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [],
+      "thicknesses": [
+        "7,5 mm"
+      ]
+    },
+    {
+      "collection": "Quercia",
+      "identifiedVariants": 22,
+      "formats": [
+        "24x120",
+        "23.4x119.5",
+        "20.3x90.6",
+        "40x120"
+      ],
+      "slipRatings": [
+        "R10",
+        "R11"
+      ],
+      "thicknesses": [
+        "8,5 mm",
+        "20 mm"
+      ]
+    },
+    {
+      "collection": "Roma",
+      "identifiedVariants": 26,
+      "formats": [
+        "20.3x20.3",
+        "20.3x40.6",
+        "40.6x40.6",
+        "61x61",
+        "40.6x60.9",
+        "60x120"
+      ],
+      "slipRatings": [
+        "R10",
+        "R11"
+      ],
+      "thicknesses": [
+        "10 mm",
+        "20 mm"
+      ]
+    },
+    {
+      "collection": "Sedimenti",
+      "identifiedVariants": 80,
+      "formats": [
+        "120x278",
+        "60x120",
+        "120x120",
+        "60x60",
+        "30x30",
+        "7.5x30",
+        "7.5x7.5",
+        "4.8x45",
+        "20.3x20.3",
+        "20.3x40.6",
+        "40.6x40.6",
+        "40.6x60.9"
+      ],
+      "slipRatings": [
+        "R9",
+        "R10",
+        "R11"
+      ],
+      "thicknesses": [
+        "6,5 mm",
+        "8,5 mm",
+        "9,5 mm",
+        "20 mm"
+      ]
+    },
+    {
+      "collection": "Segmento",
+      "identifiedVariants": 16,
+      "formats": [
+        "15x15"
+      ],
+      "slipRatings": [
+        "R9"
+      ],
+      "thicknesses": [
+        "8,5 mm"
+      ]
+    },
+    {
+      "collection": "Shell",
+      "identifiedVariants": 24,
+      "formats": [
+        "60x60",
+        "60x120"
+      ],
+      "slipRatings": [
+        "R10",
+        "R11"
+      ],
+      "thicknesses": [
+        "8,5 mm"
+      ]
+    },
+    {
+      "collection": "Slate",
+      "identifiedVariants": 44,
+      "formats": [
+        "60x120",
+        "30.5x60.5",
+        "60x60",
+        "30x60",
+        "30x30",
+        "7.5x30",
+        "15x15"
+      ],
+      "slipRatings": [
+        "R11",
+        "R10"
+      ],
+      "thicknesses": [
+        "20 mm",
+        "8,5 mm",
+        "9 mm"
+      ]
+    },
+    {
+      "collection": "Stone Icon",
+      "identifiedVariants": 47,
+      "formats": [
+        "60x60",
+        "60x120",
+        "100x100",
+        "120x120",
+        "30x30",
+        "30x60",
+        "60x90"
+      ],
+      "slipRatings": [
+        "R9",
+        "R10",
+        "R11"
+      ],
+      "thicknesses": [
+        "8,5 mm",
+        "20 mm"
+      ]
+    },
+    {
+      "collection": "Terraforma",
+      "identifiedVariants": 12,
+      "formats": [
+        "5x30",
+        "30x30"
+      ],
+      "slipRatings": [
+        "R10"
+      ],
+      "thicknesses": [
+        "8,5 mm"
+      ]
+    },
+    {
+      "collection": "Terre Etrusche",
+      "identifiedVariants": 28,
+      "formats": [
+        "40.6x40.6",
+        "20.3x40.6",
+        "20.3x20.3",
+        "25x22"
+      ],
+      "slipRatings": [
+        "R10",
+        "R11"
+      ],
+      "thicknesses": [
+        "9 mm"
+      ]
+    },
+    {
+      "collection": "Tropical",
+      "identifiedVariants": 23,
+      "formats": [
+        "20x20",
+        "6x25",
+        "25x22"
+      ],
+      "slipRatings": [
+        "R10"
+      ],
+      "thicknesses": [
+        "10 mm",
+        "9,5 mm"
+      ]
+    },
+    {
+      "collection": "Twist",
+      "identifiedVariants": 5,
+      "formats": [
+        "20x20"
+      ],
+      "slipRatings": [
+        "R10"
+      ],
+      "thicknesses": [
+        "8,5 mm"
+      ]
+    },
+    {
+      "collection": "Venere",
+      "identifiedVariants": 8,
+      "formats": [
+        "33.3x100"
+      ],
+      "slipRatings": [
+        "R9"
+      ],
+      "thicknesses": [
+        "7 mm"
+      ]
+    },
+    {
+      "collection": "Yosemite",
+      "identifiedVariants": 18,
+      "formats": [
+        "23.4x148",
+        "23.4x119.5",
+        "23.4x95.7",
+        "15x85",
+        "7.5x40.7"
+      ],
+      "slipRatings": [
+        "R10"
+      ],
+      "thicknesses": [
+        "8,5 mm"
+      ]
+    }
+  ],
+  "pendingExistingSampleReferences": 16,
+  "selectableVariants": 820
+}

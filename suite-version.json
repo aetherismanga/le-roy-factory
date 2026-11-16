@@ -428,7 +428,7 @@
       "firstCampaign": "elios"
     },
     "eliosSamples": {
-      "releaseId": "20261116-brooklyn-socles-v1",
+      "releaseId": "20261116-elios-all-variants-v2",
       "page": "echantillons-elios.html",
       "paths": [
         "vrac",
@@ -436,7 +436,7 @@
         "merchandising"
       ],
       "products": 935,
-      "eligibleVrac": 365,
+      "eligibleVrac": 820,
       "merchandising": 232,
       "manufacturerMerchandisingVisuals": 157,
       "merchandisingWithoutConfirmedVisual": 75,
@@ -464,12 +464,19 @@
       "optionalSeparateSocle": true,
       "socles": 7,
       "sourceSha256": {
-        "echantillons-elios.html": "0b81b64ae03b623ac8382d4bf79028522fdebc2534c7754b035048da0bc73178",
-        "assets/css/elios-samples.css": "d62134db7a834f55fc84f50ac30ae961c6ff50c3073e9bbbadcccaab681c12b7",
-        "assets/js/elios-samples.js": "a19988009571bef77e210028feb852df7c2a3d8c8557d804bfd4c76cadfd330e",
+        "echantillons-elios.html": "22dc561629da8320447f63c63ad8dc64f2677db110e0e18c32f7e56634c1dc7d",
+        "assets/css/elios-samples.css": "52ed80dc707a2bde36121f7704b659183774efb48eb31967f53bb943fb089c86",
+        "assets/js/elios-samples.js": "86e88ebf40ab2fe3eaa7b161cf6a2fe102a5a888a04e01fe9deb24ce42977978",
         "assets/js/elios-samples-core.mjs": "a41b21c442a1a8163e675b7124d94de98599b5b1b5f29da622fdfd4dd1194659",
-        "assets/data/elios-samples.json": "763a3f1d4dd24f24221f0a8910ffe5d0d2f85ba81ead7e526611e2ee9089f5fd"
-      }
+        "assets/js/elios-samples-options.mjs": "5af2e2c196609062af50e57e6c279dd107ebbbe3b507c08df2f5fc1a42499852",
+        "assets/data/elios-samples.json": "6da1d2e3a3645db601ad4493b210d4cb8a0e2ec7ec89f8e996e41de8aec8ce91"
+      },
+      "allReferencedVariantsSelectable": true,
+      "slipRatingFilter": true,
+      "thicknessFilter": true,
+      "sourceAudit": "reports/elios-samples-variants-20261116.json",
+      "brooklynR11TwentyMillimetreColours": 6,
+      "brooklynR11StandardColours": 2
     },
     "saxso": {
       "releaseId": "20261112-saxso-published1",
