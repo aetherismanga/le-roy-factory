@@ -36,8 +36,11 @@ function database(initial = {}) {
       add: async values => { const ref = reference(name, `generated-${++serial}`); await ref.set(values); return ref; },
       where: (field, operator, value) => { assert.equal(operator, '=='); return query(name, [...filters, [field, value]], limit); },
       limit: count => query(name, filters, count),
-      get: async () => ({ docs: [...data.keys()].filter(key => key.startsWith(name + '/')).map(key => snapshot(name, key.slice(name.length + 1)))
-        .filter(row => filters.every(([field, value]) => row.data()[field] === value)).slice(0, limit) })
+      get: async () => {
+        const docs = [...data.keys()].filter(key => key.startsWith(name + '/')).map(key => snapshot(name, key.slice(name.length + 1)))
+          .filter(row => filters.every(([field, value]) => row.data()[field] === value)).slice(0, limit);
+        return { docs, forEach: callback => docs.forEach(callback) };
+      }
     };
   }
   return { data, collection: name => query(name),
@@ -89,6 +92,7 @@ function harness({ senderMode = 'jerome', failSmtp = false } = {}) {
     if (name === 'nodemailer') return smtp;
     if (name === './auth') return { requireAgent: async () => ({ email: 'agent@example.invalid' }) };
     if (name === './group-mail-history') return require('../group-mail-history');
+    if (name === './group-mail-recipients') return require('../group-mail-recipients');
     if (name === './account-requests' || name === './jarvis-ai') return {};
     throw new Error('Unexpected dependency: ' + name);
   };
