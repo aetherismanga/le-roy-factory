@@ -4,6 +4,7 @@ const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
 const { requireAgent } = require("./auth");
 const { appendGroupMailReports } = require("./group-mail-history");
+const { excludePiscinistes } = require("./group-mail-recipients");
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -132,7 +133,7 @@ exports.sendGroupEmail = onRequest({
   const agent = await requireAgent(req, res);
   if (!agent) return;
 
-  const payload = req.body || {};
+  let payload = req.body || {};
   try {
     let info;
     if (['account-invitation','client-direct'].includes(payload.mailKind)) {
@@ -145,6 +146,7 @@ exports.sendGroupEmail = onRequest({
       const { sendAccountInvitation, sendClientMail } = require('./account-invitation-mail.cjs');
       info = await (payload.mailKind==='account-invitation'?sendAccountInvitation:sendClientMail)(payload, config, transporter);
     } else {
+      payload = await excludePiscinistes(db, payload);
       info = await sendPayload(payload);
     }
     const acceptedPayload=info.sentCopy?{...payload,bccRecipients:payload.bccRecipients.filter(email=>(info.accepted||[]).some(value=>String(value).toLowerCase()===email.toLowerCase()))}:payload;
@@ -199,12 +201,12 @@ exports.scheduleGroupEmail = onRequest({
   if (!agent) return;
 
   try {
-    const payload = req.body || {};
+    const payload = await excludePiscinistes(db, req.body || {});
     const { senderMode, bccRecipients, subject, htmlContent, attachments, scheduledAt, clientIds } = payload;
     const date = new Date(scheduledAt);
 
     if (!Array.isArray(bccRecipients) || !bccRecipients.length || !subject || !htmlContent || Number.isNaN(date.getTime())) {
-      return res.status(400).json({ success:false, error:"Paramètres de programmation manquants." });
+      return res.status(400).json({ success:false, error:"Aucun destinataire éligible ou paramètres de programmation manquants." });
     }
     if (date.getTime() <= Date.now()) {
       return res.status(400).json({ success:false, error:"La date d'envoi doit être dans le futur." });
@@ -273,7 +275,14 @@ async function processScheduledDoc(docSnap, now) {
 
     const file = bucket.file(data.storagePath);
     const [buffer] = await file.download();
-    const payload = JSON.parse(buffer.toString("utf8"));
+    const payload = await excludePiscinistes(db, JSON.parse(buffer.toString("utf8")));
+    if (!payload.bccRecipients.length) {
+      await ref.update({ status:"annule", lastError:"Aucun destinataire éligible (piscinistes exclus)." });
+      if (historyRef) await historyRef.update({ statut:"Annulé — aucun destinataire éligible", destinataires:[], nbDestinataires:0 });
+      await file.delete().catch(() => {});
+      return;
+    }
+    if (historyRef) await historyRef.update({ destinataires:payload.bccRecipients, nbDestinataires:payload.bccRecipients.length, clientIds:payload.clientIds });
     const info = await sendPayload(payload);
     const sentAt = new Date();
 

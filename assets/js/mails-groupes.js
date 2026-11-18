@@ -22,7 +22,6 @@ const ACTIVITIES=[
   ["all","Toutes les activités"],
   ["negoce-independant","Négoce indépendant"],
   ["groupe","Groupe"],
-  ["pisciniste","Pisciniste"],
   ["architecte","Architecte"],
   ["cuisiniste","Cuisiniste"],
   ["carreleur","Carreleur"],
@@ -40,7 +39,7 @@ const normActivity=v=>String(v||"").trim().toLowerCase().normalize("NFD").replac
 const esc=v=>String(v||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 
 function activityKey(data){
-  const raw=normActivity(data.categorieActivite||data.sousCategorie||"");
+  const raw=normActivity(data.categorieActivite||data.sousCategorie||data.activite||"");
   if(!raw)return "negoce-independant";
   if(raw==="negoce-independant"||raw.includes("negoce"))return "negoce-independant";
   if(raw.includes("groupe"))return "groupe";
@@ -104,6 +103,8 @@ async function loadContacts(){
     const societe=data.societe||data.nomSociete||data.entreprise||data.nom||data.nomContact||"Sans nom";
     let rawDept=String(data.departement||data.Dept||"").trim();if(!rawDept&&(data.codePostal||data.cp))rawDept=String(data.codePostal||data.cp).trim().substring(0,2);let departement="-";if(rawDept){const n=rawDept.replace(/[^0-9A-Ba-b]/g,"");departement=n?"FR-"+n.toUpperCase():rawDept.toUpperCase()}
     const agentRaw=norm(data.agent||data.secteur||data.Agent);const agent=agentRaw.includes("coryne")?"Coryne":"Jérôme";const typeRaw=norm(data.type||data.Type||"client");const type=typeRaw.includes("prospect")?"prospect":"client";const partenaires=Array.isArray(data.partenaires)?data.partenaires:[];const activite=activityKey(data);
+    // Les piscinistes restent dans le CRM, mais ne sont jamais destinataires d'un mail groupé.
+    if(activite==="pisciniste")return;
     emailEntries(data).forEach((entry,index)=>allContacts.push({key:`${ds.id}|${norm(entry.email)}`,clientId:ds.id,nom:societe,type,departement,agent,email:entry.email,label:entry.label,kind:entry.kind,partenaires,activite,index}));
   });
   allContacts.sort((a,b)=>a.nom.localeCompare(b.nom,"fr")||a.email.localeCompare(b.email,"fr"));
