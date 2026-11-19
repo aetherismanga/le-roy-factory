@@ -2,6 +2,7 @@ import { db } from "./firebase.js";
 import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const PARTNERS = {
+  "life-ceramica":["Life Cerámica","life-ceramica.svg"],"saxso":["SAXSO","saxso-2026/saxso-logo.png"],"uptrend":["UPTREND","uptrend.svg"],"reitano-rubinetterie":["Reitano Rubinetterie","reitano.svg"],
   "elios-ceramica":["Elios Ceramica","elios.png"],"view-ceramica":["View Ceramica","view.png"],"la-fenice":["La Fenice","lafenice.png"],
   "reviglass":["Reviglass","reviglass.png"],"biopietra":["Biopietra","biopietra.png"],"petracers":["Petracer's","petracer.png"],
   "pecchioli-firenze":["Pecchioli Firenze","pecchioli.png"],"bulbo":["Bulbo","bulbo.png"],"randal-pro":["Randal Pro","randal.png"],
@@ -27,6 +28,8 @@ let storedActivityBaseline;
 let activityInitialized = false;
 let accessKeyBaseline = "", storedAccessKeyBaseline;
 
+const partnerId=value=>['saxo','saxco','saxso'].includes(String(value||'').trim().toLowerCase())?'saxso':value;
+const partnerLogo=id=>['saxso','life-ceramica'].includes(id)?'assets/img/'+PARTNERS[id][1]:'https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/'+PARTNERS[id][1];
 const norm = v => String(v || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 const esc = v => String(v || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 
@@ -139,7 +142,7 @@ function injectPartnerFilter() {
   const box = document.createElement("div");
   box.id = "partner-filter-box";
   box.className = "partner-filter";
-  box.innerHTML = `<button type="button" class="partner-filter-btn" id="pf-btn"><span id="pf-label">Tous les partenaires</span><span>▾</span></button><div class="partner-filter-panel" id="pf-panel"><div style="display:flex;justify-content:space-between;padding:.3rem .35rem .55rem"><strong>Partenaires</strong><button type="button" id="pf-clear" style="border:0;background:none;color:#9a6d00;cursor:pointer">Effacer</button></div>${Object.entries(PARTNERS).map(([id,[name,logo]])=>`<label class="pf-row"><input type="checkbox" value="${id}"><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/${logo}" alt=""><span>${name}</span></label>`).join("")}</div>`;
+  box.innerHTML = `<button type="button" class="partner-filter-btn" id="pf-btn"><span id="pf-label">Tous les partenaires</span><span>▾</span></button><div class="partner-filter-panel" id="pf-panel"><div style="display:flex;justify-content:space-between;padding:.3rem .35rem .55rem"><strong>Partenaires</strong><button type="button" id="pf-clear" style="border:0;background:none;color:#9a6d00;cursor:pointer">Effacer</button></div>${Object.entries(PARTNERS).map(([id,[name,logo]])=>`<label class="pf-row"><input type="checkbox" value="${id}"><img src="${partnerLogo(id)}" alt=""><span>${name}</span></label>`).join("")}</div>`;
   dept.parentElement.insertAdjacentElement("afterend", box);
   box.querySelector("#pf-btn").onclick = () => box.querySelector("#pf-panel").classList.toggle("open");
   box.querySelectorAll("input[type=checkbox]").forEach(cb => cb.onchange = () => {
@@ -165,7 +168,7 @@ function applyPartnerFilter() {
   document.querySelectorAll("#clients-table-body tr").forEach(row => {
     const c = clientForRow(row);
     if (!c) return;
-    const p = new Set(c.partenaires || []);
+    const p = new Set((c.partenaires || []).map(partnerId));
     const ok = !selectedPartners.size || [...selectedPartners].some(id => p.has(id));
     row.style.display = ok ? "" : "none";
   });
@@ -184,7 +187,7 @@ function decorateRows() {
       wrap.className = "row-partners";
       cells[1].appendChild(wrap);
     }
-    wrap.innerHTML = (c.partenaires || []).filter(id => PARTNERS[id]).map(id => `<img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/${PARTNERS[id][1]}" title="${esc(PARTNERS[id][0])}">`).join("");
+    wrap.innerHTML = [...new Set((c.partenaires || []).map(partnerId))].filter(id => PARTNERS[id]).map(id => `<img src="${partnerLogo(id)}" title="${esc(PARTNERS[id][0])}">`).join("");
     let pill = cells[0].querySelector(".activity-pill");
     const label = ACTIVITY.find(x => x[0] === (c.categorieActivite || c.sousCategorie))?.[1];
     if (label) {

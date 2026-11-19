@@ -34,7 +34,7 @@ test('disabled access or malformed partner data cannot partly update the other c
 test('the CRM, mail filters and agent sessions contain every current site partner',()=>{
  const read=path=>readFileSync(new URL('../'+path,'file://'+__filename),'utf8');
  const expected=JSON.parse(read('data/fabricants.json')).map(row=>row.id).sort();
- for(const path of ['assets/js/crm-client-partner-access.js','assets/js/mails-groupes-partenaires.js']){
+ for(const path of ['assets/js/crm-client-partner-access.js','assets/js/crm-client-enhancements.js','assets/js/mails-groupes-partenaires.js']){
   const source=read(path),literal=source.match(/const PARTNERS\s*=\s*(\{[\s\S]*?\});/)[1];
   assert.deepEqual(Object.keys(vm.runInNewContext('('+literal+')')).sort(),expected,path);
  }

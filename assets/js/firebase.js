@@ -114,7 +114,7 @@ if (currentPage === "clients.html") {
   import("./seed-bilt-annexe-clients.js?v=20260901").catch(err => console.error("Erreur chargement clients Annexe 1 BILT :", err));
   import("./client-direct-email.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement module e-mail client :", err));
   import("./crm-moovago.js?v=20261113-save1").catch(err => console.error("Erreur chargement enrichissement CRM :", err));
-  import("./crm-client-enhancements.js?v=20261105-audit1").catch(err => console.error("Erreur chargement améliorations Clients :", err));
+  import("./crm-client-enhancements.js?v=20261119-partners1").catch(err => console.error("Erreur chargement améliorations Clients :", err));
   import("./crm-ui-modern.js?v=20261113-save1").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
   import("./clients-tournee-ui.js?v=20260903-1").catch(err => console.error("Erreur chargement accès tournées :", err));
   import("./clients-operations.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
