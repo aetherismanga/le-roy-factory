@@ -906,5 +906,14 @@
       "clients.html",
       "comptes-rendus.html"
     ]
+  },
+  "saxsoNetPrices": {
+    "releaseId": "20261119-saxso-net1",
+    "condition": "Tarif rendu – 4 palettes mix",
+    "sourceReceived": "2026-11-18",
+    "tariffRows": 53,
+    "exactCatalogueMatches": 27,
+    "missingStandardNetReferences": 698,
+    "protectedPdfSource": true
   }
 }

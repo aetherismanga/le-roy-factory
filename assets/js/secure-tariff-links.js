@@ -105,38 +105,15 @@
       return;
     }
     if(anchor.getAttribute?.('aria-busy')==='true')return;
-    const s=session();
     anchor.setAttribute('aria-busy','true');
     const old=anchor.textContent;
     anchor.textContent='Ouverture…';
 
     try{
-      const headers={'Content-Type':'application/json'};
-      const body={tariffId:anchor.dataset.secureTariffId};
-
-      // The PRO page clears its client session when opening for an agent.
-      // Only the live Firebase identity, verified again by the server, can
-      // authorize an administrator; browser flags are never credentials.
-      const token=await adminToken();
-      if(token){
-        headers.Authorization=`Bearer ${token}`;
-      }else{
-        if(isAdminSession(s))throw new Error('Session administrateur Firebase introuvable. Reconnectez-vous à l’Espace Agent.');
-        if(!s)throw new Error('Votre accès PRO a expiré. Saisissez à nouveau votre Code LRF et votre département.');
-        body.codeClient=s.codeClient;
-        body.departement=s.departement;
-      }
-
-      const response=await fetch(ENDPOINT,{method:'POST',headers,body:JSON.stringify(body)});
-      if(!response.ok){
-        let message='Impossible d’ouvrir ce tarif.';
-        try{const j=await response.json();if(j?.error)message=j.error}catch(_){}
-        throw new Error(message);
-      }
-      const blob=await response.blob();
+      const blob=await requestTariffBlob(anchor.dataset.secureTariffId);
       const {showSecurePdf}=await import('./secure-pdf-viewer.mjs?v=20261101-compact1');
       await showSecurePdf(blob,{
-        title:anchor.closest('.card-premium')?.querySelector('h3')?.textContent?.trim()||'Tarif professionnel',
+        title:anchor.dataset.secureTariffId==='saxso-distributeurs-2026'?'SAXSO · Tarif rendu – 4 palettes mix':anchor.closest('.card-premium')?.querySelector('h3')?.textContent?.trim()||'Tarif professionnel',
         filename:anchor.dataset.secureTariffId+'.pdf',
         trigger:anchor
       });
@@ -147,6 +124,26 @@
       anchor.textContent=old;
     }
   }
+
+  async function requestTariffBlob(tariffId){
+    const s=session(),headers={'Content-Type':'application/json'},body={tariffId};
+    // The server rechecks the live agent identity or the client's SAXSO rights.
+    const token=await adminToken();
+    if(token)headers.Authorization=`Bearer ${token}`;
+    else{
+      if(isAdminSession(s))throw new Error('Reconnectez-vous à l’Espace Agent.');
+      if(!s)throw new Error('Votre accès PRO a expiré. Saisissez à nouveau votre Code LRF et votre département.');
+      body.codeClient=s.codeClient;body.departement=s.departement;
+    }
+    const response=await fetch(ENDPOINT,{method:'POST',headers,body:JSON.stringify(body),cache:'no-store'});
+    if(!response.ok){
+      let message='Impossible d’ouvrir ce tarif.';
+      try{const j=await response.json();if(j?.error)message=j.error}catch(_){}
+      throw new Error(message);
+    }
+    return response.blob();
+  }
+  window.LRF_SECURE_TARIFFS=Object.freeze({requestBlob:requestTariffBlob});
 
   // Public RANDAL documents on the PRO page use the same in-page reader.
   // The private agent document keeps its separate live Firebase verification.

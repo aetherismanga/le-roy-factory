@@ -1,0 +1,432 @@
+{
+  "documentSha256": "112b095394e3e09352cb40afb6b41373abef1c8819375d044a5da8a8176adaaa",
+  "tariffId": "saxso-distributeurs-2026",
+  "condition": "Tarif rendu – 4 palettes mix",
+  "rows": [
+    {
+      "label": "Quartzite du Brésil jaune · Opus incertum · 15/25 mm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-85-456-385-giallo-imperiale-mosaico-42-sp-1-5-2-5-cm"
+      ],
+      "page": 1,
+      "index": 0
+    },
+    {
+      "label": "Quartzite du Brésil rose · Opus incertum · 15/25 mm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-85-456-398-rosa-oriente-mosaico-42-sp-1-5-2-5-cm"
+      ],
+      "page": 1,
+      "index": 1
+    },
+    {
+      "label": "Luserna mordorée · Opus incertum · 20/40 mm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 1,
+      "index": 2
+    },
+    {
+      "label": "Luserna grise · Opus incertum · 20/40 mm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 1,
+      "index": 3
+    },
+    {
+      "label": "CG001Z · Quartzite mélangée · Parement 15×55 · 15/30 mm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-124-679-485-cg001z-quarzite-mista-muretto-ad-incastro-15x55-sp-1-5-3-cm"
+      ],
+      "page": 1,
+      "index": 4
+    },
+    {
+      "label": "CG002Z · Ardoise multicolor · Parement 15×55 · 15/30 mm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-125-679-485-cg002z-ardesia-multicolor-muretto-ad-incastro-15x55-sp-1-5-3-cm"
+      ],
+      "page": 1,
+      "index": 5
+    },
+    {
+      "label": "CG003Z · Ardoise noire · Parement 15×55 · 15/30 mm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-127-679-457-cg003z-ardesia-nera-muretto-ad-incastro-15x55-sp-1-5-3-cm"
+      ],
+      "page": 1,
+      "index": 6
+    },
+    {
+      "label": "CG014 · Quartzite blanche · Parement 15×60 · 15/30 mm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-133-679-456-cg014-quarzite-bianca-muretto-15x60-sp-1-5-3-cm"
+      ],
+      "page": 1,
+      "index": 7
+    },
+    {
+      "label": "CG025Z · Quartzite jaune sur ciment · 15×55 · 25/35 mm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-141-450-486-cg025z-quarzite-gialla-su-cemento-muretto-ad-incastro-15x55-sp-2-5-3-5-cm"
+      ],
+      "page": 1,
+      "index": 8
+    },
+    {
+      "label": "CG027Z · Ardoise noire sur ciment · 15×55 · 25/35 mm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-143-717-472-cg027z-ardesia-nera-su-cemento-muretto-ad-incastro-15x55-sp-2-5-3-5-cm"
+      ],
+      "page": 1,
+      "index": 9
+    },
+    {
+      "label": "CG028Z · Ardoise multicolor sur ciment · 15×55 · 25/35 mm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-145-183-486-cg-028-z-ardesia-multicolor-su-cemento-muretto-ad-incastro-15x55-sp-2-5-3-5-cm"
+      ],
+      "page": 1,
+      "index": 10
+    },
+    {
+      "label": "CG036Z · Gneiss mélangé sur ciment · 15×55 · 25/35 mm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-147-183-486-cg036z-gneis-mista-su-cemento-muretto-ad-incastro-15x55-sp-2-5-3-5-cm"
+      ],
+      "page": 1,
+      "index": 11
+    },
+    {
+      "label": "Pierre d’Orient couleurs mélangées · Pavés bruts 14×14 · 3/5 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-63-721-419-pietra-doriente-colori-misti-14x14-sp-3-5-cm"
+      ],
+      "page": 1,
+      "index": 12
+    },
+    {
+      "label": "Pierre d’Orient grise · Pavés bruts 14×14 · 3/5 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-63-449-419-pietra-doriente-grigio-14x14-sp-3-5-cm"
+      ],
+      "page": 1,
+      "index": 13
+    },
+    {
+      "label": "Himalaya Grey · Vieilli · 40×60 · 2 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-61-731-419-pietra-doriente-himalaya-grey-anticato-40x60-sp-2-cm"
+      ],
+      "page": 1,
+      "index": 14
+    },
+    {
+      "label": "Himalaya Grey · Vieilli · Module 20×20 / 20×40 / 40×40 / 40×60 · 2 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-61-731-432-pietra-doriente-himalaya-grey-anticato-mod-4-sp-2-cm"
+      ],
+      "page": 1,
+      "index": 15
+    },
+    {
+      "label": "Yellow Brown · Vieilli · 40×60 · 2 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-59-731-419-pietra-doriente-yellow-brown-anticato-40x60-sp-2-cm"
+      ],
+      "page": 1,
+      "index": 16
+    },
+    {
+      "label": "Yellow Brown · Vieilli · Module 20×20 / 20×40 / 40×40 / 40×60 · 2 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-59-731-432-pietra-doriente-yellow-brown-anticato-mod-4-sp-2-cm"
+      ],
+      "page": 1,
+      "index": 17
+    },
+    {
+      "label": "Travertin Classic 1er choix · Vieilli · Dalles 40,6×61 · 1,2 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-45-720-400-travertino-classico-anticato-40-6x61-sp-1-2-cm"
+      ],
+      "page": 2,
+      "index": 0
+    },
+    {
+      "label": "Travertin Classic 1er choix · Vieilli · Module 20,3×20,3 / 20,3×40,6 / 40,6×40,6 / 40,6×61 · 1,2 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-45-720-414-travertino-classico-anticato-mod-8-sp-1-2-cm"
+      ],
+      "page": 2,
+      "index": 1
+    },
+    {
+      "label": "Travertin Classic 1er choix · Vieilli · Margelles 33×61 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [
+        "saxso-47-195-424-travertino-classico-anticato-33x61-sp-3-cm"
+      ],
+      "page": 2,
+      "index": 2
+    },
+    {
+      "label": "Travertin Classic 1er choix · Vieilli · Marches 33×100 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [
+        "saxso-47-461-424-travertino-classico-anticato-33x100-sp-3-cm"
+      ],
+      "page": 2,
+      "index": 3
+    },
+    {
+      "label": "Travertin Classic 1er choix · Vieilli · Marches 33×120 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [
+        "saxso-47-461-437-travertino-classico-anticato-33x120-sp-3-cm"
+      ],
+      "page": 2,
+      "index": 4
+    },
+    {
+      "label": "Travertin C. Beige · Vieilli · Dalles 40,6×61 · 1,2 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 2,
+      "index": 5
+    },
+    {
+      "label": "Travertin C. Beige · Vieilli · Module 20,3×20,3 / 20,3×40,6 / 40,6×40,6 / 40,6×61 · 1,2 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 2,
+      "index": 6
+    },
+    {
+      "label": "Travertin C. Beige · Vieilli · Margelles 33×61 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [],
+      "page": 2,
+      "index": 7
+    },
+    {
+      "label": "Travertin C. Beige · Vieilli · Marches 33×100 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [],
+      "page": 2,
+      "index": 8
+    },
+    {
+      "label": "Travertin C. Beige · Vieilli · Marches 33×120 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [],
+      "page": 2,
+      "index": 9
+    },
+    {
+      "label": "Travertin Light · Vieilli · Dalles 40,6×61 · 1,2 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 2,
+      "index": 10
+    },
+    {
+      "label": "Travertin Light · Vieilli · Module 20,3×20,3 / 20,3×40,6 / 40,6×40,6 / 40,6×61 · 1,2 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 2,
+      "index": 11
+    },
+    {
+      "label": "Travertin Light · Vieilli · Margelles 33×61 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [],
+      "page": 2,
+      "index": 12
+    },
+    {
+      "label": "Travertin Light · Vieilli · Marches 33×100 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [],
+      "page": 2,
+      "index": 13
+    },
+    {
+      "label": "Travertin Light · Vieilli · Marches 33×120 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [],
+      "page": 2,
+      "index": 14
+    },
+    {
+      "label": "Sakkara Grey · Adouci et vieilli · Dalles 40×60 · 1 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-35-468-400-sakkara-grey-levigato-anticato-40x60-sp-1-cm"
+      ],
+      "page": 3,
+      "index": 0
+    },
+    {
+      "label": "Sakkara Grey · Adouci et vieilli · Module 4 formats · 1 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-35-468-414-sakkara-grey-levigato-anticato-mod-4-sp-1-cm"
+      ],
+      "page": 3,
+      "index": 1
+    },
+    {
+      "label": "Sakkara Grey · Adouci et vieilli · Dalles 40×60 · 2 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-35-468-428-sakkara-grey-levigato-anticato-40x60-sp-2-cm"
+      ],
+      "page": 3,
+      "index": 2
+    },
+    {
+      "label": "Sakkara Grey · Adouci et vieilli · Module 4 formats · 2 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-35-468-457-sakkara-grey-levigato-anticato-mod-4-sp-2-cm"
+      ],
+      "page": 3,
+      "index": 3
+    },
+    {
+      "label": "Sakkara Grey · Adouci et vieilli · Dalles 60×90 · 2 cm",
+      "unit": "m²",
+      "variantIds": [
+        "saxso-35-468-442-sakkara-grey-levigato-anticato-60x90-sp-2-cm"
+      ],
+      "page": 3,
+      "index": 4
+    },
+    {
+      "label": "Sakkara Grey · Adouci et vieilli · Margelles 30×60 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [
+        "saxso-37-187-383-sakkara-grey-levigato-anticato-30x60-sp-3-cm"
+      ],
+      "page": 3,
+      "index": 5
+    },
+    {
+      "label": "Desert Light · Adouci et vieilli · Dalles 40,6×61 · 1,2 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 3,
+      "index": 6
+    },
+    {
+      "label": "Desert Light · Adouci et vieilli · Module 4 formats · 1,2 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 3,
+      "index": 7
+    },
+    {
+      "label": "Desert Light · Adouci et vieilli · Dalles 61×91,5 · 1,5 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 3,
+      "index": 8
+    },
+    {
+      "label": "Desert Light · Adouci et vieilli · Dalles 40,6×61 · 3 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 3,
+      "index": 9
+    },
+    {
+      "label": "Desert Light · Adouci et vieilli · Dalles 61×91,5 · 3 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 3,
+      "index": 10
+    },
+    {
+      "label": "Desert Light · Adouci et vieilli · Margelles 33×61 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [],
+      "page": 3,
+      "index": 11
+    },
+    {
+      "label": "Desert Light · Adouci et vieilli · Marches 33×100 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [],
+      "page": 3,
+      "index": 12
+    },
+    {
+      "label": "Desert Light · Sablé et brossé · Dalles 40,6×61 · 1,2 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 3,
+      "index": 13
+    },
+    {
+      "label": "Desert Light · Sablé et brossé · Module 4 formats · 1,2 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 3,
+      "index": 14
+    },
+    {
+      "label": "Desert Light · Sablé et brossé · Dalles 61×91,5 · 1,5 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 3,
+      "index": 15
+    },
+    {
+      "label": "Desert Light · Sablé et brossé · Dalles 40,6×61 · 3 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 3,
+      "index": 16
+    },
+    {
+      "label": "Desert Light · Sablé et brossé · Dalles 61×91,5 · 3 cm",
+      "unit": "m²",
+      "variantIds": [],
+      "page": 3,
+      "index": 17
+    },
+    {
+      "label": "Desert Light · Sablé et brossé · Margelles 33×61 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [],
+      "page": 3,
+      "index": 18
+    },
+    {
+      "label": "Desert Light · Sablé et brossé · Marches 33×100 · 3 cm · 1/2 rond",
+      "unit": "ml",
+      "variantIds": [],
+      "page": 3,
+      "index": 19
+    }
+  ]
+}

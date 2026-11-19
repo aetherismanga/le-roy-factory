@@ -179,7 +179,7 @@
       if(!target){productGrid.innerHTML='<section class="saxso" data-saxso-selection></section>';target=productGrid.querySelector('[data-saxso-selection]');}
       if(target.dataset.saxsoSelectionLoading)return;
       target.dataset.saxsoSelectionLoading='true';
-      import('./saxso-catalogue.js?v=20261112-saxso1').then(module=>{if(target.isConnected)return module.renderSaxsoCatalogue(target);}).catch(()=>{if(target.isConnected)target.innerHTML='<p>Le catalogue ne se charge pas. <a href="saxso-catalogue-interactif.html">Ouvrir le catalogue SAXSO</a>.</p>';});
+      import('./saxso-catalogue.js?v=20261119-saxso-net1').then(module=>{if(target.isConnected)return module.renderSaxsoCatalogue(target);}).catch(()=>{if(target.isConnected)target.innerHTML='<p>Le catalogue ne se charge pas. <a href="saxso-catalogue-interactif.html">Ouvrir le catalogue SAXSO</a>.</p>';});
       return;
     }
     if(state.partner==='Opal'){

@@ -1,5 +1,6 @@
 import {STORAGE_KEY, normalizeCatalogueSearch, quantity, restoreSelection, palletEstimate, buildQuote} from './saxso-selection.mjs?v=20261112-saxso-hd2';
 import {renderProductVisual, renderMaterialDetail, productThumbnail} from './saxso-product-visual.mjs?v=20261112-saxso-hd2';
+import {readSaxsoNetPrices,netPriceLabel} from './saxso-net-prices.mjs?v=20261119-saxso-net1';
 
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm = normalizeCatalogueSearch;
@@ -63,7 +64,7 @@ export async function renderSaxsoCatalogue(root) {
   root.classList.add('saxso');
   if (!document.querySelector('[data-saxso-style]')) {
     const style = document.createElement('link'); style.rel='stylesheet';
-    style.href = new URL('../css/saxso-catalogue.css?v=20261112-saxso-hd2', import.meta.url);
+    style.href = new URL('../css/saxso-catalogue.css?v=20261119-saxso-net1', import.meta.url);
     style.dataset.saxsoStyle = ''; document.head.append(style);
   }
   root.innerHTML = '<p class="sx-loading" role="status">Ouverture du catalogue SAXSO…</p>';
@@ -75,6 +76,16 @@ export async function renderSaxsoCatalogue(root) {
     return;
   }
   if (!root.isConnected) return;
+  let netIndex;
+  try {
+    const response=await fetch(new URL('../data/saxso-net-index.json?v=20261119-saxso-net1',import.meta.url));
+    if(!response.ok)throw Error('Index indisponible');
+    netIndex=await response.json();
+  }catch {netIndex=null;}
+  if(!root.isConnected)return;
+  let netPrices=null,netEpoch=0;
+  const pricedIds=new Set(netIndex?.rows.flatMap(row=>row.variantIds)||[]);
+  const variantPrice=v=>netPrices?netPriceLabel(netPrices.byVariant.get(v.id)):pricedIds.has(v.id)?'Prix nets · Accès PRO':'Tarif net sur demande';
   const findVariant = id => {
     for (const c of data.collections) { const v = c.variants.find(v => v.id === id); if (v) return {c,v}; }
   };
@@ -89,6 +100,7 @@ export async function renderSaxsoCatalogue(root) {
       <div class="sx-hero-copy"><div class="sx-eyebrow">SAXSO · PIERRES NATURELLES · 2026</div><h1>La matière.<br><em>L’émotion.</em></h1><p>La pierre dans toute sa vérité. Explorez les matières, composez votre sélection et donnez forme à votre prochain projet.</p><div class="sx-hero-actions"><button class="sx-button" data-sx-explore>Explorer les collections <span>↓</span></button><button class="sx-outline" data-sx-pdf>Feuilleter le PDF →</button></div><div class="sx-hero-note">Édition française <span>·</span> Minimum de commande : <strong>4 palettes</strong></div></div>
       <div class="sx-hero-photo"><img src="${esc(hero?.url)}" alt="Terrasse en pierre naturelle SAXSO" fetchpriority="high"><div class="sx-photo-caption">PIERRE DE LUSERNA <span>Naturellement singulière.</span></div></div>
     </section>
+    <aside class="sx-net-access" aria-label="Tarifs nets SAXSO"><div><strong>Tarif rendu – 4 palettes mix</strong><p>Prix nets HT · Livraison non déchargée · Formats et finitions selon la grille.</p><p data-sx-net-status role="status">Connectez-vous à l’Accès PRO pour consulter les prix nets SAXSO.</p></div><div class="sx-net-actions"><button class="sx-outline" type="button" data-sx-net-load>Afficher les prix nets</button><a class="sx-outline" href="tarifs-pro.html">Accès PRO / Tarif PDF</a></div><details data-sx-net-details hidden><summary>Voir tous les produits du tarif net 2026</summary><p>Grille nette reçue le 18 novembre 2026. Les références absentes du catalogue restent consultables dans cette liste.</p><div class="sx-net-table-wrap"><table class="sx-net-table"><thead><tr><th>Produit / format / finition</th><th>Prix net HT</th></tr></thead><tbody data-sx-net-rows></tbody></table></div><p>Tarif rendu – 4 palettes mix. Livraison non déchargée ; zone, disponibilité et délai à confirmer avec l’agence.</p></details></aside>
     <div class="sx-intro"><p>Un paysage de matières.</p><span>${data.collections.length} collections · ${total} choix documentés<br>Extérieur / Parements / Intérieur</span></div>
     <section id="sx-collections" class="sx-collections" aria-label="Collections SAXSO"><div class="sx-tools"><div class="sx-tabs" role="group" aria-label="Usage">${['Tout','Extérieur','Parement','Intérieur'].map((x,i)=>`<button data-sx-filter="${x}" aria-pressed="${!i}">${x==='Parement'?'Parements':x}</button>`).join('')}</div><label class="sx-search"><span class="sx-sr-only">Rechercher une collection, une référence ou un format</span><span aria-hidden="true">⌕</span><input data-sx-search type="search" placeholder="Matière, référence, format…"></label></div><p data-sx-results class="sx-results" aria-live="polite"></p><div data-sx-grid class="sx-grid"></div></section>
     <section class="sx-contact"><div><div class="sx-eyebrow">VOTRE PROJET, ACCOMPAGNÉ</div><h2>Parlons pierre.</h2><p>Sélectionnez vos articles et préparez votre demande de chiffrage.<br>Minimum de commande : <strong>4 palettes</strong>.</p></div><div class="sx-contact-details"><span>Dora · Service export SAXSO</span><a href="mailto:export@saxso.it">export@saxso.it →</a><a href="tel:+390175518090">+39 0175 518090</a><button class="sx-outline" data-sx-pdf>Catalogue PDF français · 2026 →</button></div></section>
@@ -195,7 +207,7 @@ export async function renderSaxsoCatalogue(root) {
     $('[data-sx-choice-count]').textContent=`${variants.length} référence${variants.length>1?'s':''}`;
     grid.innerHTML=variants.map(v=>{
       const info=variantPresentation(v),initial=thumbnailUrls.get(v.id)||v.productPhoto?.preview||v.productPhoto?.url||v.materialPhoto?.preview||v.materialPhoto?.url||productThumbnail(v);
-      return `<button type="button" class="sx-variant-choice" data-sx-choice="${esc(v.id)}" aria-pressed="${v.id===selected}" aria-label="Choisir ${esc(v.label)}"><img src="${esc(initial)}" data-sx-format-thumb="${esc(v.id)}" alt="" loading="lazy" decoding="async"><strong>${esc(info.format||v.label)}</strong><span>${esc([info.piece,info.finish].filter(Boolean).join(' · ')||v.label)}</span></button>`;
+      return `<button type="button" class="sx-variant-choice" data-sx-choice="${esc(v.id)}" aria-pressed="${v.id===selected}" aria-label="Choisir ${esc(v.label)}"><img src="${esc(initial)}" data-sx-format-thumb="${esc(v.id)}" alt="" loading="lazy" decoding="async"><strong>${esc(info.format||v.label)}</strong><span>${esc([info.piece,info.finish].filter(Boolean).join(' · ')||v.label)}</span><span class="sx-net-price" data-sx-price-id="${esc(v.id)}">${esc(variantPrice(v))}</span></button>`;
     }).join('')||'<p class="sx-choice-empty">Aucune référence pour cette combinaison.</p>';
     grid.scrollTop=scrollTop;
     root.querySelectorAll('[data-sx-choice]').forEach(button=>button.onclick=()=>{$('[data-sx-variant]').value=button.dataset.sxChoice;updateVariant();});
@@ -213,6 +225,9 @@ export async function renderSaxsoCatalogue(root) {
     const info=variantPresentation(v);
     renderMedia(v);renderVariantChoices();
     $('[data-sx-variant-info]').innerHTML=`<strong>${esc(v.label)}</strong>${info.finish?`<span><b>Finition</b> ${esc(info.finish)}</span>`:''}${info.format?`<span><b>Format</b> ${esc(info.format)}</span>`:''}<span>Unité de demande : ${esc(v.unit)}${v.packaging&&v.packaging!=='-'?` · ${esc(v.packaging)} ${esc(v.unit)}/palette`:''}</span>${v.note?`<small>${esc(v.note)}</small>`:''}`;
+    const price=document.createElement('p');price.className='sx-net-product-price';
+    price.dataset.sxPriceId=v.id;price.textContent=variantPrice(v);$('[data-sx-variant-info]').append(price);
+    const condition=document.createElement('small');condition.textContent='Tarif rendu – 4 palettes mix';$('[data-sx-variant-info]').append(condition);
     $('[data-sx-unit]').textContent=v.unit||'';
     $('[data-sx-source]').dataset.sxSource=v.page||active.page;
     $('[data-sx-source]').textContent=`Voir la page ${v.page||active.page} du catalogue →`;
@@ -264,7 +279,7 @@ export async function renderSaxsoCatalogue(root) {
   function renderCart() {
     $('[data-sx-cart-items]').innerHTML=selection.length?selection.map(item=>{
       const found=findVariant(item.id);if(!found)return'';const {c,v}=found;
-      return `<div class="sx-cart-item"><img src="${esc(thumbnailUrls.get(v.id)||v.productPhoto?.preview||v.productPhoto?.url||v.visual?.preview||v.visual?.url||v.materialPhoto?.preview||v.materialPhoto?.url||c.cover?.preview)}" alt="${esc(v.label)}"><div><strong>${esc(c.name)}</strong><span>${esc(v.label)}</span><small>Catalogue p. ${v.page} · ${esc(c.category)}</small></div><label>Quantité (${esc(v.unit)})<input data-sx-quantity-id="${esc(item.id)}" type="text" inputmode="decimal" value="${number(item.quantity)}" aria-label="Quantité pour ${esc(v.label)}"></label><button class="sx-remove" data-sx-remove="${esc(item.id)}" aria-label="Retirer ${esc(v.label)}">×</button></div>`;
+      return `<div class="sx-cart-item"><img src="${esc(thumbnailUrls.get(v.id)||v.productPhoto?.preview||v.productPhoto?.url||v.visual?.preview||v.visual?.url||v.materialPhoto?.preview||v.materialPhoto?.url||c.cover?.preview)}" alt="${esc(v.label)}"><div><strong>${esc(c.name)}</strong><span>${esc(v.label)}</span><small>Catalogue p. ${v.page} · ${esc(c.category)}</small><span class="sx-net-price" data-sx-price-id="${esc(v.id)}">${esc(variantPrice(v))}</span></div><label>Quantité (${esc(v.unit)})<input data-sx-quantity-id="${esc(item.id)}" type="text" inputmode="decimal" value="${number(item.quantity)}" aria-label="Quantité pour ${esc(v.label)}"></label><button class="sx-remove" data-sx-remove="${esc(item.id)}" aria-label="Retirer ${esc(v.label)}">×</button></div>`;
     }).join(''):'<div class="sx-empty"><p>Votre sélection est encore vide. Choisissez une collection et ajoutez vos articles.</p><button class="sx-outline" data-sx-continue>Explorer les collections</button></div>';
     $('[data-sx-quote]').hidden=!selection.length;
     const estimate=palletEstimate(selection,data);
@@ -295,7 +310,35 @@ export async function renderSaxsoCatalogue(root) {
   }
   form.onsubmit=e=>{e.preventDefault();try{const q=quote();if(!q)return;const href=`mailto:${q.to}?cc=${encodeURIComponent(q.cc)}&subject=${encodeURIComponent(q.subject)}&body=${encodeURIComponent(q.body)}`;if(href.length>7000){download(q);$('[data-sx-quote-status]').textContent='Votre sélection est longue. La demande complète a été téléchargée : joignez-la à votre e-mail à export@saxso.it, avec jerome@leroyfactory.fr en copie.';return;}location.href=href;$('[data-sx-quote-status]').textContent='Demande préparée. Envoyez-la depuis votre messagerie. Si elle ne s’ouvre pas, téléchargez la demande.';}catch(error){$('[data-sx-quote-status]').textContent=error.message;}};
   $('[data-sx-download]').onclick=()=>{try{const q=quote();if(!q)return;download(q);$('[data-sx-quote-status]').textContent='Demande téléchargée. Vous pouvez la joindre à votre e-mail.';}catch(error){$('[data-sx-quote-status]').textContent=error.message;}};
+  function refreshPrices(){
+    root.querySelectorAll('[data-sx-price-id]').forEach(element=>{
+      const found=findVariant(element.dataset.sxPriceId);if(found)element.textContent=variantPrice(found.v);
+    });
+    $('[data-sx-net-details]').hidden=!netPrices;
+    $('[data-sx-net-rows]').innerHTML=netPrices?netPrices.rows.map(row=>`<tr><td>${esc(row.label)}</td><td>${esc(netPriceLabel(row))}</td></tr>`).join(''):'';
+  }
+  async function loadPrices(){
+    const epoch=++netEpoch,button=$('[data-sx-net-load]');
+    netPrices=null;refreshPrices();button.disabled=true;
+    $('[data-sx-net-status]').textContent='Vérification de votre accès et chargement des prix nets…';
+    try{
+      if(!netIndex)throw Error('La grille est momentanément indisponible. Rechargez la page ou consultez le tarif PDF dans l’Accès PRO.');
+      const loaded=await readSaxsoNetPrices(netIndex);
+      if(epoch!==netEpoch||!root.isConnected)return;
+      netPrices=loaded;refreshPrices();
+      $('[data-sx-net-status]').textContent='Prix nets HT affichés sur les références correspondantes. Les autres produits restent sur demande.';
+      button.textContent='Actualiser les prix nets';
+    }catch(error){if(epoch===netEpoch&&root.isConnected)$('[data-sx-net-status]').textContent=/accès PRO a expiré/.test(error.message)?'Connectez-vous à l’Accès PRO avec votre code LRF pour consulter les prix nets SAXSO.':error.message;}
+    finally{if(epoch===netEpoch&&root.isConnected)button.disabled=false;}
+  }
+  $('[data-sx-net-load]').onclick=loadPrices;
+  window.addEventListener('lrf-pro-session-changed',()=>{
+    ++netEpoch;netPrices=null;if(!root.isConnected)return;
+    refreshPrices();$('[data-sx-net-load]').disabled=false;
+    $('[data-sx-net-status]').textContent='Votre session a changé. Affichez à nouveau les prix nets pour vérifier votre accès.';
+  });
   renderGrid();updateCount();root.dataset.saxsoMounted='ready';
+  loadPrices();
   const requested=new URLSearchParams(location.search).get('collection');
   if(requested&&data.collections.some(c=>c.id===requested))openCollection(requested);
 }

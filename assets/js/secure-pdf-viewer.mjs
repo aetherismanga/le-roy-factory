@@ -53,6 +53,24 @@ function runtime() {
   return runtimePromise;
 }
 
+// Reuse the local, pinned PDF runtime for protected catalogue prices. The
+// caller supplies already authorized bytes; no private document is persisted.
+export async function extractSecurePdfText(blob) {
+  const {library,workerBlob}=await runtime();
+  const workerURL=URL.createObjectURL(workerBlob);
+  let nativeWorker,worker,task;
+  try {
+    nativeWorker=new Worker(workerURL,{type:'module'});
+    worker=new library.PDFWorker({port:nativeWorker});
+    task=library.getDocument({data:new Uint8Array(await blob.arrayBuffer()),worker,isEvalSupported:false,useSystemFonts:true,isImageDecoderSupported:false});
+    const pdf=await task.promise,pages=[];
+    for(let i=1;i<=pdf.numPages;i++)pages.push((await (await pdf.getPage(i)).getTextContent()).items);
+    return pages;
+  } finally {
+    await task?.destroy();worker?.destroy();nativeWorker?.terminate();URL.revokeObjectURL(workerURL);
+  }
+}
+
 // Render the visible part at the current zoom, never stretch a whole-page bitmap.
 // This keeps a dense tariff sharp on high-DPI phones without giant canvases.
 export function pdfTileGeometry(page, view, deviceScale=1, budget=4000000) {
