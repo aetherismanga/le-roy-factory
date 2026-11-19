@@ -925,5 +925,24 @@
       "life-ceramica"
     ],
     "allCurrentSitePartnersSelectable": true
+  },
+  "partitionWalls": {
+    "releaseId": "20261119-partitions-plan-1",
+    "applications": [
+      "studio-one",
+      "randal-general",
+      "neobath-anima"
+    ],
+    "editableDimensions": [
+      "length",
+      "height",
+      "thickness"
+    ],
+    "contextMenu": true,
+    "explicitPlacementValidation": true,
+    "positionFixedAfterValidation": true,
+    "twoIndependentWallFaces": true,
+    "projectRoundTrip": true,
+    "webglVisualVerification": false
   }
 }
