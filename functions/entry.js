@@ -43,3 +43,5 @@ exports.initializeTariffStorage = onRequest({ timeoutSeconds: 30, memory: '256Mi
   if (req.method === 'OPTIONS') return res.status(204).send('');
   return res.status(410).json({ success: false, complete: true, error: 'Migration des tarifs terminée et verrouillée.' });
 });
+
+Object.assign(exports,require('./saxso-order'));

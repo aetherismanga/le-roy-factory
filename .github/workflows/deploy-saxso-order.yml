@@ -1,0 +1,44 @@
+name: Deploy SAXSO orders
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'functions/saxso-order*'
+      - 'functions/data/saxso-order-version.json'
+      - 'functions/scripts/*saxso-order*'
+      - 'functions/test/saxso-order.test.cjs'
+      - 'assets/data/saxso-net-index.json'
+      - '.github/workflows/deploy-saxso-order.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: firebase-functions-production
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: firebase-production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install server dependencies
+        working-directory: functions
+        run: npm install --omit=dev --no-audit --no-fund
+      - name: Verify order calculations and PDF generation
+        run: node --test functions/test/saxso-order.test.cjs
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}
+      - name: Prepare the private supplier pricebook
+        run: |
+          command -v pdftotext || (sudo apt-get update && sudo apt-get install -y poppler-utils)
+          node functions/scripts/stage-saxso-order.cjs
+      - name: Deploy only the SAXSO order function
+        run: |
+          node functions/scripts/prepare-plan-pose.cjs
+          npx --yes firebase-tools@14 deploy --project le-roy-factory --only functions:saxsoOrder --non-interactive
+      - name: Verify authorized PDFs without sending email
+        run: node functions/scripts/smoke-saxso-order.cjs
