@@ -36,7 +36,7 @@ function prepareOrder(body, book, sending) {
     const row=book.get(id);
     if (!row || !(row.perPallet>0 && Number.isSafeInteger(row.cents) && row.cents>0)) throw failure('Le tarif ou le conditionnement de cette référence reste à confirmer.');
     const quantity=Math.round(row.perPallet*pallets*10000)/10000;
-    return {variantId:id,label:row.label,unit:row.unit,perPallet:row.perPallet,palettes:pallets,quantity,unitCents:row.cents,
+    return {variantId:id,label:row.label,reference:row.references?.[id] || '',unit:row.unit,perPallet:row.perPallet,palettes:pallets,quantity,unitCents:row.cents,
       weightKg:row.weightPerUnit>0 ? Math.round(row.weightPerUnit*quantity*100)/100 : null,
       cents:Math.round(row.cents*Math.round(quantity*10000)/10000)};
   });

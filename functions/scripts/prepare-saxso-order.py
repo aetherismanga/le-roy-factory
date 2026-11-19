@@ -17,6 +17,10 @@ parser.add_argument('--version', action='store_true')
 args = parser.parse_args()
 index = json.loads((ROOT / 'assets/data/saxso-net-index.json').read_text())
 rows = [{field: row[field] for field in FIELDS} for row in index['rows']]
+catalogue = json.loads((ROOT / 'assets/data/saxso-catalogue.json').read_text())
+references = {variant['id']: variant['reference'] for collection in catalogue['collections'] for variant in collection['variants']}
+for row in rows:
+    row['references'] = {key: references[key] for key in row['variantIds'] if references[key] != row['label']}
 digest = hashlib.sha256(json.dumps(rows, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()
 version = dict(sourceHash=PINNED, indexHash=digest, path='private-tariffs/saxso/orders/' + digest + '.json')
 version_file = ROOT / 'functions/data/saxso-order-version.json'

@@ -22,18 +22,36 @@ test('private source authorization and document identity are required before a p
  assert.equal(extracted,false);
  const blob=new Blob(['synthetic PDF for integration']),hash=createHash('sha256').update(Buffer.from(await blob.arrayBuffer())).digest('hex');
  const result=await readSaxsoNetPrices({...index,documentSha256:hash},{requestBlob:async()=>blob,extractText:async()=>pages});
- assert.equal(result.rows.length,53);assert.equal(result.byVariant.size,27);
+ assert.equal(result.rows.length,53);assert.equal(result.byVariant.size,53);
  for(const row of result.rows)for(const id of row.variantIds){assert.equal(result.byVariant.get(id),row);assert.equal(row.amount,100.25+row.index);}
 });
 test('only exact format, finish and unit matches receive prices; the public index contains no amounts',()=>{
  const variants=new Map(catalogue.collections.flatMap(c=>c.variants.map(v=>[v.id,v])));
- const ids=index.rows.flatMap(row=>row.variantIds);assert.equal(new Set(ids).size,27);
+ const ids=index.rows.flatMap(row=>row.variantIds);assert.equal(new Set(ids).size,53);
  for(const row of index.rows){
-  assert.deepEqual(Object.keys(row).sort(),['index','label','page','unit','variantIds']);
-  for(const id of row.variantIds){assert.ok(variants.has(id));assert.equal(variants.get(id).unit,row.unit);}
+  assert.deepEqual(Object.keys(row).sort(),['index','label','packType','page','perPallet','unit','variantIds','weightPerUnit']);
+  assert.equal(row.variantIds.length,1);
+  assert.ok(row.weightPerUnit>0&&row.perPallet>0);
+  for(const id of row.variantIds){
+   const v=variants.get(id);assert.ok(v);
+   for(const key of ['unit','weightPerUnit','perPallet','packType'])assert.equal(v[key],row[key],id);
+  }
  }
  assert.equal(variants.size-ids.length,698);
  assert.ok(!ids.includes('saxso-35-734-428-sakkara-grey-sabbiato-spazzolato-40x60-sp-2-cm'),'a different finish is not priced');
  assert.ok(!ids.includes('saxso-124-679-471-cg001-quarzite-mista-muretto-15x60-sp-1-5-3-cm'),'15x60 must not receive the price for 15x55');
  assert.ok(!ids.includes('saxso-21-719-444-luserna-losette-opus-incertum-sp-2-5-4-5-cm'),'different thickness and tonne unit must not receive a per m² price');
+});
+
+test('Desert Light keeps the documented logistics for each format in both finishes',()=>{
+ const c=catalogue.collections.find(c=>c.id==='desert-light-exterieur');
+ assert.equal(c.variants.length,14);
+ for(let i=0;i<14;i++){
+  const v=c.variants[i],index=i%7;
+  assert.equal(v.perPallet,[39.63,38.58,30.70,16.35,15.07,40.26,33][index]);
+  assert.equal(v.weightPerUnit,[32,32,40,80,80,26,26][index]);
+  assert.equal(v.unit,index<5?'m²':'ml');assert.equal(v.packType,'caisse');
+  assert.equal(v.finish,i<7?'Adouci et vieilli':'Sablé et brossé');
+  assert.equal(v.sourcePage,3);
+ }
 });

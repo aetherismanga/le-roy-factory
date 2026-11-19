@@ -20,9 +20,11 @@ test('SAXSO public catalogue contains documented choices, existing native assets
     for(const image of collection.images) {assert.ok(existsSync(root+image.url));assert.ok(existsSync(root+image.preview));}
     for(const variant of collection.variants) {
       assert.ok(!ids.has(variant.id));ids.add(variant.id);choices++;
-      assert.ok(variant.page>=collection.page&&variant.page<=collection.endPage);
+      if(variant.sourceDocument==='net-2026'){assert.equal(variant.page,null);assert.ok([1,2,3].includes(variant.sourcePage));}
+      else assert.ok(variant.page>=collection.page&&variant.page<=collection.endPage);
       assert.ok(variant.reference);assert.ok(variant.label);
-      assert.ok(!Object.keys(variant).some(k=>/price|tariff|discount|prix|remise/i.test(k)));
+      assert.ok(!Object.keys(variant).some(k=>k!=='tariffVisual'&&/price|tariff|discount|prix|remise/i.test(k)));
+      if(variant.tariffVisual)assert.deepEqual(Object.keys(variant.tariffVisual).sort(),['height','label','url','width']);
       assert.ok(variant.perPallet===null||variant.perPallet>0);
     }
   }

@@ -55,7 +55,7 @@ function runtime() {
 
 // Reuse the local, pinned PDF runtime for protected catalogue prices. The
 // caller supplies already authorized bytes; no private document is persisted.
-export async function extractSecurePdfText(blob) {
+export async function withSecurePdfDocument(blob, readDocument) {
   const {library,workerBlob}=await runtime();
   const workerURL=URL.createObjectURL(workerBlob);
   let nativeWorker,worker,task;
@@ -63,12 +63,18 @@ export async function extractSecurePdfText(blob) {
     nativeWorker=new Worker(workerURL,{type:'module'});
     worker=new library.PDFWorker({port:nativeWorker});
     task=library.getDocument({data:new Uint8Array(await blob.arrayBuffer()),worker,isEvalSupported:false,useSystemFonts:true,isImageDecoderSupported:false});
-    const pdf=await task.promise,pages=[];
-    for(let i=1;i<=pdf.numPages;i++)pages.push((await (await pdf.getPage(i)).getTextContent()).items);
-    return pages;
+    return await readDocument(await task.promise);
   } finally {
     await task?.destroy();worker?.destroy();nativeWorker?.terminate();URL.revokeObjectURL(workerURL);
   }
+}
+
+export function extractSecurePdfText(blob) {
+  return withSecurePdfDocument(blob, async pdf => {
+    const pages=[];
+    for(let i=1;i<=pdf.numPages;i++)pages.push((await (await pdf.getPage(i)).getTextContent()).items);
+    return pages;
+  });
 }
 
 // Render the visible part at the current zoom, never stretch a whole-page bitmap.

@@ -59,11 +59,13 @@ async function createOrderPdf(order,{draft=false,date=new Date()}={}) {
   block('Tarif net HT rendu pour 4 palettes minimum, références panachables.',{size:9,color:muted});y+=7;
   for(const line of order.lines){
     const text=wrap(line.label,370,11,bold);
-    ensure(47+text.length*15);
+    const referenceText=line.reference?'Réf. usine : '+line.reference:'';
+    ensure(47+text.length*15+(referenceText?wrap(referenceText,right-left,9,normal).length*13:0));
     const top=y;
     block(line.label,{size:11,font:bold,maxWidth:370});
     const amount=clean(money(line.cents));
     write(amount,right-bold.widthOfTextAtSize(amount,12),top,12,bold,accent);
+    if(referenceText) block(referenceText,{size:9,color:muted});
     block(number(line.palettes)+' pal. × '+number(line.perPallet)+' '+line.unit+'/pal.   =   '+number(line.quantity)+' '+line.unit+
       '   •   '+money(line.unitCents)+' HT/'+line.unit,{size:10});
     if(line.weightKg!==null) block('Poids produit : '+number(line.weightKg)+' kg',{size:9,color:muted});

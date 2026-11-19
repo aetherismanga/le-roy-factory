@@ -45,12 +45,17 @@ function nativeSize(url){
 }
 const sizes=new Map();
 
-test('all 725 SAXSO references have sourced matter, finite geometry and a valid SVG illustration',()=>{
-  assert.equal(variants.length,725);assert.equal(byId.size,725);
-  assert.equal(manifest.references.length,725);
+test('the complete catalogue and the net supplement have documented visuals and valid format illustrations',()=>{
+  assert.equal(variants.length,751);assert.equal(byId.size,751);
+  assert.equal(manifest.references.length,751);
   const allowedTypes=new Set(['tile','skirting','coping','cap','step','paver','wall-panel','corner','pebbles','sphere','kerb','opus']);
   for(const v of variants){
     assert.ok(v.productType,v.id);assert.ok(v.piece,v.id);assert.ok(v.materialPhoto,v.id);
+    if(v.sourceDocument==='net-2026'&&v.reference.startsWith('Travertin')){
+      const sample=v.materialPhoto;
+      assert.equal(sample.sourceDocument,'Listino SAXSO 2026.pdf');assert.equal(sample.sourcePage,26);
+      assert.equal(sample.sourceXref,v.reference.startsWith('Travertin Light')?153:151);
+    }
     const g=v.geometry;assert.ok(g&&allowedTypes.has(g.type),v.id);
     assert.equal(typeof g.dimensionsKnown,'boolean',v.id);
     assert.equal(typeof g.formatLabel,'string',v.id);assert.ok(g.formatLabel.length,v.id);
@@ -165,7 +170,8 @@ test('documented bullnoses, chamfers and drip edges survive the format illustrat
     if(fact.chamferMm)assert.equal(v.geometry.chamferMm,fact.chamferMm,id);
   }
   assert.ok(expectedBullnose.length>=19);
-  for(const v of variants.filter(v=>v.geometry.edge==='bullnose'))assert.ok(expectedBullnose.includes(v.id),`${v.id}: rounded edge must have a documented source`);
+  for(const v of variants.filter(v=>v.geometry.edge==='bullnose'&&v.sourceDocument==='net-2026')){assert.match(v.reference,/1\/2 rond/);assert.match(v.geometry.profileSource,/Tarif SAXSO 2026 p\. [23]/);}
+  for(const v of variants.filter(v=>v.geometry.edge==='bullnose'&&v.sourceDocument!=='net-2026'))assert.ok(expectedBullnose.includes(v.id),`${v.id}: rounded edge must have a documented source`);
   const rosso=byId.get('saxso-107-548-500-rosso-verona-granulati-812-16-mm');
   assert.deepEqual(rosso.geometry.grainMm,[12,16]);assert.match(rosso.format,/12[–-]16 mm/);
   assert.doesNotMatch(rosso.label,/812/);

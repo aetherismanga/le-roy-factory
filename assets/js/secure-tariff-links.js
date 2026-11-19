@@ -110,7 +110,12 @@
     anchor.textContent='Ouverture…';
 
     try{
-      const blob=await requestTariffBlob(anchor.dataset.secureTariffId);
+      let blob=await requestTariffBlob(anchor.dataset.secureTariffId);
+      if (anchor.dataset.secureTariffId === 'saxso-distributeurs-2026') {
+        anchor.textContent = 'Préparation du PDF…';
+        const {illustratedSaxsoBlob} = await import('./saxso-illustrated-tariff.mjs?v=20261119-1');
+        blob = await illustratedSaxsoBlob(blob);
+      }
       const {showSecurePdf}=await import('./secure-pdf-viewer.mjs?v=20261101-compact1');
       await showSecurePdf(blob,{
         title:anchor.dataset.secureTariffId==='saxso-distributeurs-2026'?'SAXSO · Tarif rendu – 4 palettes mix':anchor.closest('.card-premium')?.querySelector('h3')?.textContent?.trim()||'Tarif professionnel',
