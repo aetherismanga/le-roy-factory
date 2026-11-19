@@ -22,7 +22,8 @@ let server,browser,active='studio',currentPage;const checks=[],errors=[];
   await fields.getByLabel('Capacité (litres)').selectOption('80');
   const project=await page.evaluate(()=>studioOnePrototype.exportProject());await page.evaluate(p=>{if(!studioOnePrototype.restoreProject(p))throw Error('Heater restore failed');const item=studioOnePrototype.getState().items.find(i=>i.settings.model==='atlantic-lineo');studioOnePrototype.selectItem(item.id);studioOnePrototype.handleObjectTap({itemId:item.id,editTarget:'towel'});studioOnePrototype.setView('perspective',true);},project);
   await page.screenshot({path:path.join(out,kind+(mobile?'-mobile':'-desktop')+'-controls.png')});
-  await page.locator('#object-editor-close').click();await page.evaluate(()=>studioOnePrototype.waitForTextures());
+  // The heater is procedural; external floor textures are intentionally blocked in this isolated fixture.
+  await page.locator('#object-editor-close').click();await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   await page.screenshot({path:path.join(out,kind+(mobile?'-mobile':'-desktop')+'-perspective.png')});
   if(!mobile){await page.evaluate(()=>studioOnePrototype.setView('front',true));await page.screenshot({path:path.join(out,kind+'-front.png')});await page.evaluate(()=>studioOnePrototype.setView('side',true));await page.screenshot({path:path.join(out,kind+'-side.png')});}
   checks.push(kind+(mobile?' mobile':' desktop')+': native capacity controls, saved settings, complete rendered model and fitted camera');await context.close();currentPage=null;
