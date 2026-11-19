@@ -362,6 +362,9 @@ jobs:
       - run: npm run build:general && npm run build:studio
       - run: npx playwright install --with-deps chromium
         id: browser_runtime
+      - name: Verify Atlantic Lineo dimensions, capacity controls and rendered geometry
+        if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
+        run: node tests/lrf-suite/water-heater-browser.cjs
       - name: Verify individual locks and movement inside a locked room
         if: ${{ !cancelled() && steps.browser_runtime.outcome == 'success' }}
         run: node tests/lrf-suite/position-lock-browser.cjs

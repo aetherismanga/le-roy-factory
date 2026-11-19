@@ -944,5 +944,25 @@
     "twoIndependentWallFaces": true,
     "projectRoundTrip": true,
     "webglVisualVerification": false
+  },
+  "waterHeater": {
+    "releaseId": "20261119-lineo-flat-1",
+    "applications": [
+      "studio-one",
+      "randal-general",
+      "neobath-anima"
+    ],
+    "model": "Atlantic Linéo plat",
+    "category": "towel",
+    "defaultCapacityLitres": 80,
+    "capacitiesLitres": [
+      40,
+      65,
+      80,
+      100
+    ],
+    "dimensionsSource": "supplied Atlantic dimension sheet, 2026-11-19",
+    "orientation": "vertical-wall",
+    "actualMeshDimensionsVerified": true
   }
 }

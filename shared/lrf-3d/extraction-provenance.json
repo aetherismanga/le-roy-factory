@@ -27,14 +27,14 @@
       "bytes": 4183,
       "originalsIdentical": true,
       "current": {
-        "sha256": "8ee2201ed9a86cabcb66856d00fafa8023fd4892855c344f70c5dfa8cbdd0c5b",
-        "bytes": 5165,
-        "changeType": "functional-update-20261025",
-        "reason": "Replace generic AQUAHOME tap model illustrations with original, reference-matched manufacturer photographs extracted from the existing general catalogue; preserve other product cards and honestly identify photographs shown in a different finish.",
+        "sha256": "67c20ed95a95e73e8d2b9da146c445c0fe0fed06b9252499538471b3753aa201",
+        "bytes": 5265,
+        "changeType": "functional-update-20261119",
+        "reason": "Add the Atlantic Linéo flat water heater from the supplied dimension sheet, preserving exact capacity-specific mesh dimensions, independent white materials, placement, visual selection and saved project compatibility.",
         "validation": [
-          "tests/lrf-suite/aquahome-product-visuals.test.mjs",
-          "tests/lrf-suite/element-panels-browser.cjs",
-          "tests/lrf-suite/product-placement-drag-browser.cjs"
+          "tests/lrf-suite/water-heater.test.mjs",
+          "studio-one/qa/controls-check.mjs",
+          "tests/lrf-suite/aquahome-product-visuals.test.mjs"
         ]
       },
       "history": [
@@ -131,17 +131,14 @@
       "bytes": 4171,
       "originalsIdentical": true,
       "current": {
-        "sha256": "6a96274f03f443891e47413107041f2c949c7a369377eaafa94049d686250e25",
-        "bytes": 4497,
-        "changeType": "functional-update-20261101",
-        "reason": "Integrate the six additional photographed AquaHome installation types through a shared installation contract, with placement anchors and compatible wall/floor behaviour while retaining existing fixture and project contracts.",
+        "sha256": "e92ede10ae0744e096afe68a9441d96149cd9c475015f6ffb75970cf56881f8e",
+        "bytes": 4791,
+        "changeType": "functional-update-20261119",
+        "reason": "Add the Atlantic Linéo flat water heater from the supplied dimension sheet, preserving exact capacity-specific mesh dimensions, independent white materials, placement, visual selection and saved project compatibility.",
         "validation": [
-          "tests/lrf-suite/floor-wall-alignment.test.mjs",
-          "tests/lrf-suite/sanitary-mount.test.mjs",
-          "tests/lrf-suite/sanitary-support-cladding.test.mjs",
-          "tests/lrf-suite/stone-icon-big-opus.test.mjs",
-          "tests/lrf-suite/aquahome-installation.test.mjs",
-          "tests/lrf-suite/aquahome-geometry.test.mjs"
+          "tests/lrf-suite/water-heater.test.mjs",
+          "studio-one/qa/controls-check.mjs",
+          "tests/lrf-suite/aquahome-product-visuals.test.mjs"
         ]
       }
     },
@@ -278,14 +275,14 @@
       "bytes": 12444,
       "originalsIdentical": true,
       "current": {
-        "sha256": "cb5e6646131eccdac17206313e5090b181d71b864b30b166f29bc820db9a9d74",
-        "bytes": 20288,
-        "changeType": "functional-update-20261102",
-        "reason": "Retain window mechanism, desired opening and selected exterior view in the public visual brief without extending access to private commercial or personal fields.",
+        "sha256": "a7bfc2fcd02961358d93a67608af165e06e53bbf7fea5415e3ffc96a80b11dd9",
+        "bytes": 20310,
+        "changeType": "functional-update-20261119",
+        "reason": "Preserve the Atlantic Linéo water-heater capacity in the sanitized visual handoff so its genuine model dimensions survive a photographic brief without exposing project or account data.",
         "validation": [
-          "tests/lrf-suite/window-app-integration.test.mjs",
-          "tests/lrf-suite/window-loader-reflection.test.mjs",
-          "tests/lrf-suite/project-history-textures.test.mjs"
+          "tests/lrf-suite/water-heater.test.mjs",
+          "studio-one/qa/photoreal-export-check.mjs",
+          "tests/lrf-suite/partition-integration.test.mjs"
         ]
       },
       "history": [

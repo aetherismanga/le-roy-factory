@@ -1,8 +1,10 @@
+import {isWaterHeater} from '../../shared/lrf-3d/water-heater.js';
 import * as T from 'three';
 import {cabinetFormat} from './configuration.js';
 import {createDecorMaterials,addDecorBottle,addFoldedTowels,addHangingTowel,addDecorPlant,addDecorSoap} from '../../shared/lrf-3d/basin-decor.js';
-export const decorationVisible=(type,s={})=>s.decor!==false;
+export const decorationVisible=(type,s={})=>!isWaterHeater(s)&&s.decor!==false;
 export function decorateAsset(asset,type,s={}){
+ if(isWaterHeater(s))return;
  let group=asset.root.getObjectByName('Accessoires_decoratifs');if(group){group.visible=decorationVisible(type,s);return;}
  if(!['cabinet','towel','washstand'].includes(type))return;
  group=new T.Group();group.name='Accessoires_decoratifs';group.visible=decorationVisible(type,s);asset.root.add(group);

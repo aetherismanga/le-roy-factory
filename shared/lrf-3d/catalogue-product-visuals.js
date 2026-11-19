@@ -1,3 +1,4 @@
+import {WATER_HEATER_VISUAL} from './water-heater.js';
 // Product cards prefer manufacturer photographs when catalogue originals exist.
 // Other generic room objects retain clearly identified views of their editable
 // 3D models. These images never create additional items or change references.
@@ -26,6 +27,7 @@ export const PRODUCT_VISUALS=Object.freeze({
  'shower-tile':Object.freeze({src:'data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><rect width="800" height="600" fill="#f4f2eb"/><path d="M120 350L480 210L690 325L330 465Z" fill="#ded4bf" stroke="#b5ac99" stroke-width="3"/><path d="M120 350V382L330 497V465M330 497L690 357V325" fill="#c3b79f" stroke="#a59b88" stroke-width="3"/><g fill="none" stroke="#fbf8ef" stroke-width="3"><path d="M240 303L450 418M360 257L570 372M225 408L585 268"/></g><path d="M575 294L615 315L495 362L455 340Z" fill="#59645f"/><path d="M582 305L595 312L491 352L478 345Z" fill="#b8c1bb"/></svg>'),alt:'Schéma d’un receveur à carreler avec joints et caniveau, sur fond neutre',kind:'catalogue-drawing',provenance:'Schéma du receveur à carreler personnalisable, sans référence fabricant imposée'}),
  'screen-fixed':descriptor('screen-fixed','Paroi de douche fixe droite en verre, profilés noirs'),
  'screen-return':descriptor('screen-return','Paroi de douche en verre avec retour de 40 cm, profilés noirs'),
+ 'towel-atlantic-lineo':WATER_HEATER_VISUAL,
  'towel-round':descriptor('towel-round','Sèche-serviettes chromé à tubes ronds'),
  'towel-flat':descriptor('towel-flat','Sèche-serviettes chromé à lames plates'),
  'tap-shower':Object.freeze(defaultAquahomeProductVisual('shower')),
