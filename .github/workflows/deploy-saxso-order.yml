@@ -36,9 +36,16 @@ jobs:
         run: |
           command -v pdftotext || (sudo apt-get update && sudo apt-get install -y poppler-utils)
           node functions/scripts/stage-saxso-order.cjs
+      - uses: google-github-actions/setup-gcloud@v2
       - name: Deploy only the SAXSO order function
         run: |
-          node functions/scripts/prepare-plan-pose.cjs
-          npx --yes firebase-tools@14 deploy --project le-roy-factory --only functions:saxsoOrder --non-interactive
+          node functions/scripts/package-saxso-order.cjs "$RUNNER_TEMP/saxso-source"
+          runtime_account="$(gcloud functions describe sendGroupEmail --v2 --region=us-central1 --project=le-roy-factory --format='value(serviceConfig.serviceAccountEmail)')"
+          test -n "$runtime_account"
+          gcloud functions deploy saxsoOrder --gen2 --project=le-roy-factory --region=us-central1 \
+            --runtime=nodejs22 --source="$RUNNER_TEMP/saxso-source" --entry-point=saxsoOrder \
+            --service-account="$runtime_account" --trigger-http --allow-unauthenticated \
+            --set-secrets=SMTP_PASSWORD_JEROME=SMTP_PASSWORD_JEROME:latest \
+            --timeout=100s --memory=256MiB --quiet
       - name: Verify authorized PDFs without sending email
         run: node functions/scripts/smoke-saxso-order.cjs
