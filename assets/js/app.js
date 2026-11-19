@@ -113,7 +113,7 @@ function installProSessionBridge() {
     if (document.getElementById('lrf-pro-session-bridge')) return;
     const script = document.createElement('script');
     script.id = 'lrf-pro-session-bridge';
-    script.src = 'assets/js/pro-session-bridge.js?v=20261026-pro-access1';
+    script.src = 'assets/js/pro-session-bridge.js?v=20261119-partners1';
     script.defer = true;
     document.head.appendChild(script);
 }

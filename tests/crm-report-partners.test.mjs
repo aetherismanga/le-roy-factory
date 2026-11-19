@@ -13,6 +13,12 @@ test('Randal spelling, case, Pro, legacy IDs and unique typos identify one partn
   assert.deepEqual(normalizeReportPartners(variants), ['Randal']);
 });
 
+test('SAXSO aliases and LIFE share the current CRM report vocabulary',()=>{
+  for(const alias of ['SAXSO','Saxco','Saxo','saxso'])assert.equal(canonicalReportPartner(alias),'SAXSO');
+  for(const alias of ['Life','Life Cerámica','life-ceramica'])assert.equal(canonicalReportPartner(alias),'Life Cerámica');
+  assert.deepEqual(normalizeReportPartners('SAXCO, SAXSO, LIFE'),['SAXSO','Life Cerámica']);
+});
+
 test('all report partners share canonical names while the three bath brands stay distinct', () => {
   const examples = new Map([
     ['helios', 'Elios Ceramica'], ['ELIOS CÉRAMICA', 'Elios Ceramica'], ['VIEW', 'View Ceramica'],

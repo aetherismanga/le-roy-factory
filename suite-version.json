@@ -915,5 +915,14 @@
     "exactCatalogueMatches": 27,
     "missingStandardNetReferences": 698,
     "protectedPdfSource": true
+  },
+  "crmPartnerChoices": {
+    "releaseId": "20261119-partners1",
+    "partnerCount": 18,
+    "addedClientPartners": [
+      "saxso",
+      "life-ceramica"
+    ],
+    "allCurrentSitePartnersSelectable": true
   }
 }

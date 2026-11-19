@@ -1,4 +1,4 @@
-import { reportMatchesPartner } from './crm-report-partners.mjs?v=20261108-partners1';
+import { reportMatchesPartner } from './crm-report-partners.mjs?v=20261119-partners1';
 
 export function reportDateISO(value) {
   const raw = String(value || '').trim();

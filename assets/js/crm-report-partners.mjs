@@ -4,6 +4,8 @@ const definitions = [
   ['Elios Ceramica', 'Elios', 'Helios', 'Elios Ceramiche', 'Elios Ceramic'],
   ['View Ceramica', 'View', 'View Ceramiche', 'View Ceramic'],
   ['La Fenice', 'Fenice'],
+  ['Life Cerámica', 'Life', 'Life Ceramica', 'life-ceramica'],
+  ['SAXSO', 'Saxso', 'Saxco', 'Saxo'],
   ["Petracer's", 'Petracer', 'Petracers'],
   ['Pecchioli Firenze', 'Pecchioli', 'Pecchiolli', 'Pecchiolli Firenze'],
   ['Bulbo'], ['Reviglass', 'Revi Glass'], ['Biopietra', 'Bio Pietra', 'Bio Pietre'],

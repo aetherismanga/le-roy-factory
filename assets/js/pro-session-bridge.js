@@ -15,9 +15,9 @@
     ['coryne@leroyfactory.fr', 'Coryne']
   ]);
   const ALL_PARTNERS = [
-    'elios-ceramica', 'view-ceramica', 'la-fenice', 'reviglass', 'biopietra',
+    'elios-ceramica', 'life-ceramica', 'view-ceramica', 'la-fenice', 'reviglass', 'saxso', 'biopietra',
     'petracers', 'pecchioli-firenze', 'bulbo', 'randal-pro', 'neobath',
-    'koibath', 'aquahome', 'opal', 'reitano-rubinetterie', 'bilt'
+    'koibath', 'aquahome', 'opal', 'reitano-rubinetterie', 'uptrend', 'bilt'
   ];
   const FIREBASE_CONFIG = {
     apiKey: 'AIzaSyA3iuK5Ua8kFccURSqLihLshHnhA4rm2is',

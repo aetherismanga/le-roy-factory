@@ -70,3 +70,12 @@ test('opening with authoritative client data retains partners before the module 
   view.click('view-ceramica');
   assert.deepEqual(Array.from(view.globalApi.getPatch().partenaires),['elios-ceramica','unknown-factory','view-ceramica']);
 });
+
+test('SAXCO legacy spelling appears under the canonical SAXSO permission and keeps other partners',async()=>{
+  const view=await editor({id:'shop',partenaires:['saxco','elios-ceramica','unknown-factory']});
+  assert.deepEqual(Array.from(view.globalApi.getBaseline().partenaires),['saxso','elios-ceramica','unknown-factory']);
+  view.click('life-ceramica');
+  assert.deepEqual(Array.from(view.globalApi.getPatch().partenaires),['saxso','elios-ceramica','unknown-factory','life-ceramica']);
+  view.click('saxso');
+  assert.deepEqual(Array.from(view.globalApi.getPatch().partenaires),['elios-ceramica','unknown-factory','life-ceramica']);
+});

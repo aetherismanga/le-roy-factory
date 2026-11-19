@@ -2,7 +2,7 @@
 // Objectif : un seul formulaire Firestore pour créer/modifier les comptes-rendus,
 // quel que soit le point d'entrée (page CMR, fiche client ou bouton mobile +).
 
-import { REPORT_PARTNERS, normalizeReportPartners } from './crm-report-partners.mjs?v=20261108-partners1';
+import { REPORT_PARTNERS, normalizeReportPartners } from './crm-report-partners.mjs?v=20261119-partners1';
 
 const page = (location.pathname.split('/').pop() || '').toLowerCase();
 

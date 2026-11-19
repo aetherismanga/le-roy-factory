@@ -1,0 +1,35 @@
+name: CRM - Partenaires et accès SAXSO demandés le 19 novembre
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/crm-saxso-requested-clients-20261119.yml'
+      - 'scripts/grant-requested-saxso-20261119.cjs'
+permissions:
+  contents: read
+concurrency:
+  group: crm-saxso-requested-clients-20261119
+  cancel-in-progress: false
+jobs:
+  grant-requested-access:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify the scoped client update
+        run: node --test tests/crm-saxso-requested-clients.test.cjs tests/crm-client-partner-access.test.mjs tests/crm-report-partners.test.mjs
+      - name: Install existing CRM server dependencies
+        working-directory: functions
+        run: npm install --omit=dev --ignore-scripts --no-audit --no-fund
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
+      - name: Add SAXSO without changing other partner permissions
+        env:
+          CRM_SAXSO_GRANT_MODE: requested-four-clients
+        run: node scripts/grant-requested-saxso-20261119.cjs

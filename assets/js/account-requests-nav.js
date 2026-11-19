@@ -42,7 +42,7 @@ const lrfClientIntegrityReady=lrfCurrentPage==='clients.html'
   : Promise.resolve();
 
 if(lrfCurrentPage==='clients.html'){
-  lrfClientIntegrityReady.then(()=>import('./client-partners-sync.js?v=20260909-fix2'))
+  lrfClientIntegrityReady.then(()=>import('./client-partners-sync.js?v=20261119-partners1'))
     .catch(err=>console.error('Erreur synchronisation partenaires client :',err));
 }
 

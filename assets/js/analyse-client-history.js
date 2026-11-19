@@ -1,6 +1,6 @@
 // Read the same client-owned reports used by comptes-rendus.html.
 // No company-name matching and no writes: opening a report must not create a CRM action.
-import { reportPartnerLabel } from './crm-report-partners.mjs?v=20261108-partners1';
+import { reportPartnerLabel } from './crm-report-partners.mjs?v=20261119-partners1';
 
 const ALLOWED_AGENTS = new Set(['jerome@leroyfactory.fr', 'coryne@leroyfactory.fr']);
 

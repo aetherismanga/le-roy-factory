@@ -5,7 +5,7 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
   window.__LRF_CLIENT_PARTNER_ACCESS__ = true;
 
   const PARTNERS = {
-    'elios-ceramica':['Elios Ceramica','elios.png'], 'view-ceramica':['View Ceramica','view.png'], 'la-fenice':['La Fenice','lafenice.png'],
+    'elios-ceramica':['Elios Ceramica','elios.png'], 'life-ceramica':['Life Cerámica','life-ceramica.svg'], 'saxso':['SAXSO','saxso-2026/saxso-logo.png'], 'view-ceramica':['View Ceramica','view.png'], 'la-fenice':['La Fenice','lafenice.png'],
     'reviglass':['Reviglass','reviglass.png'], 'biopietra':['Biopietra','biopietra.png'], 'petracers':["Petracer's",'petracer.png'],
     'pecchioli-firenze':['Pecchioli Firenze','pecchioli.png'], 'bulbo':['Bulbo','bulbo.png'], 'randal-pro':['Randal Pro','randal.png'],
     'neobath':['Neobath','neobath.png'], 'koibath':['Koibath','koibath.png'], 'aquahome':['Aquahome','aquahome.png'],
@@ -19,7 +19,9 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
   let dirty = false;
   let draftClientId = null;
   let baseline = [];
-  const values = value => [...new Set((Array.isArray(value) ? value : []).map(item => String(item).trim()).filter(Boolean))];
+  const values = value => [...new Set((Array.isArray(value) ? value : []).map(item => {
+    const name=String(item).trim();return ['saxso','saxo','saxco'].includes(name.toLowerCase())?'saxso':name;
+  }).filter(Boolean))];
   const samePartners = (left, right) => JSON.stringify([...values(left)].sort()) === JSON.stringify([...values(right)].sort());
   const clean = v => String(v ?? '').trim();
   const norm = v => clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
@@ -104,7 +106,8 @@ if (!window.__LRF_CLIENT_PARTNER_ACCESS__) {
 
   function partnerVisual(id, logo) {
     if (id === 'opal') return '<span class="opal-mirror-logo" aria-label="Opal — miroir"></span>';
-    return `<img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/${esc(logo)}" alt="">`;
+    const source = id === 'saxso' || id === 'life-ceramica' ? `assets/img/${esc(logo)}` : `https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/${esc(logo)}`;
+    return `<img src="${source}" alt="">`;
   }
 
   function renderPartners() {
