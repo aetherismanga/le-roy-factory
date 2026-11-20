@@ -6,7 +6,7 @@ import {SURFACE_COLORS} from '../src/surfaces.js';
 import {readFileSync,writeFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 const m=makeModel();const close=(a,b,tol=.00001)=>assert(Math.abs(a-b)<tol,`${a} differs from ${b}`);
-assert.equal(TOP_OPTIONS.length,6);assert(TOP_OPTIONS.some(o=>o.id==='bare')); const result=[];
+assert.deepEqual(TOP_OPTIONS.map(o=>o.id).sort(),['bare','fiona','milo','neris','plain','sella','tampa','torne']);assert(TOP_OPTIONS.some(o=>o.id==='bare')); const result=[];
 for(const mode of ['neris','sella','tampa','torne','plain','bare','neris','tampa','torne','sella']){
  assert(m.setTop(mode));assert.equal(m.getTop(),mode);m.root.updateMatrixWorld(true);
  assert.equal(m.insetGroup.visible,mode==='sella');assert.equal(m.tops.root.visible,['plain','neris','torne'].includes(mode));assert.equal(m.insets.tampa.visible,mode==='tampa');assert.equal(m.faucet.visible,mode!=='plain'&&mode!=='bare');

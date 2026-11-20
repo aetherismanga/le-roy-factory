@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import * as T from 'three';
 import {makeModel,FINISHES} from '../src/model.js';
-import {CABINET_FORMATS,WIDTH_PRESETS,drawerTravel} from '../src/configuration.js';
+import {CABINET_FORMATS,WIDTH_PRESETS,validWidth,drawerTravel} from '../src/configuration.js';
 import {disposeObject} from '../src/composition.js';
 import {initialDraft,normalizeDraft,draftProject} from '../src/commerce/guided.js';
 import {buildPreview,previewStructure,applyPreviewSettings} from '../src/commerce/preview-model.js';
@@ -10,7 +10,7 @@ import {saveComposition,readStored,SAVED_KEY} from '../src/commerce/flow.js';
 
 const close=(actual,expected,label)=>assert.ok(Math.abs(actual-expected)<1e-6,`${label}: ${actual} ≠ ${expected}`);
 const bounds=object=>new T.Box3().setFromObject(object);
-const widths=[40,...WIDTH_PRESETS],modes=['overlay','inset'];
+const widths=[40,...WIDTH_PRESETS.filter(validWidth)],modes=['overlay','inset'];
 let configurations=0,animatedDrawers=0;
 
 // Exercise every format at both range limits and all offered width presets.

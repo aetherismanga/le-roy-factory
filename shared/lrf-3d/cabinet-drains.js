@@ -19,7 +19,7 @@ export function applyCabinetDrainFinish(asset,finish){
 export function syncCabinetDrain(item,finish){
  if(item?.type!=='cabinet')return null;
  const drain=applyCabinetDrainFinish(item.asset,finish);
- if(['sella','tampa','neris','torne','compact'].includes(item.settings.top)){
+ if(item.asset.insets?.[item.settings.top]||['sella','tampa','neris','torne','compact'].includes(item.settings.top)){
   item.settings.drainFinish=drain.finish;item.settings.drainReference=drain.reference;
  }else{delete item.settings.drainFinish;delete item.settings.drainReference;}
  return drain;

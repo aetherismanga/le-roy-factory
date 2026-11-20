@@ -30,6 +30,9 @@ test('Studio mirror reference uses verified terms while preserving its encrypted
   // their grid values instead of adopting the mirror conversion policy.
   const changedDrafts=[{width:100},{finish:'NOGAL'},{top:'plain'},{top:'sella'},{top:'neris'},{columnFinish:'NOGAL'}];
   for(const patch of changedDrafts)for(const row of quoteProject(draftProject({...base,...patch})).rows)if(!Object.hasOwn(prices,row.ref))prices[row.ref]=12347+Object.keys(prices).length;
+  const paired={...initialDraft(),width:140,basinLayout:'double'};
+  const pairedUnit=quoteProject(draftProject({...paired,top:'milo',basinColor:'matte'})).rows[0].ref;
+  assert.ok(Number.isInteger(prices[pairedUnit]));
   const key=randomBytes(32),iv=randomBytes(12),cipher=createCipheriv('aes-256-gcm',key,iv);cipher.setAAD(Buffer.from('lrf-purchase-grid/v1/studio-one'));
   const ciphertext=Buffer.concat([cipher.update(JSON.stringify({source:'Synthetic mirror integration fixture',prices})),cipher.final()]);
   await writeFile(path.join(data,'studio-one-purchase.enc.json'),JSON.stringify({version:1,algorithm:'A256GCM',variant:'studio-one',iv:iv.toString('base64'),tag:cipher.getAuthTag().toString('base64'),ciphertext:ciphertext.toString('base64')}));process.env.LRF_PURCHASE_GRID_KEY=key.toString('hex');
@@ -37,6 +40,13 @@ test('Studio mirror reference uses verified terms while preserving its encrypted
   const identity={client:{codeClient:'LRF-00317',societe:'Synthetic customer'},randalAllowed:true,isAdmin:false};
   const ref=project=>commercialReference(identity,purchaseQuote(project)).privateCode;
   assert.equal(purchaseQuote(bare).proHT,46800);assert.equal(ref(bare),'LRF-00317-468.00.00');
+  for(const [top,basinColor,ref,ttc] of [['tampa','gloss','6236',80760],['tampa','matte','13000',108240],['milo','matte','15012',40800],['fiona','matte','15026',43700]]){
+   const project=draftProject({...paired,top,basinColor}),result=purchaseQuote(project);
+   const basinAmount=Number((BigInt(ttc)*5n+6n)/12n);
+   assert.deepEqual(result.rows.map(row=>row.ref),[pairedUnit,pairedUnit,ref]);
+   assert.deepEqual(result.rows.map(row=>row.proHT),[prices[pairedUnit],prices[pairedUnit],basinAmount]);
+   assert.equal(result.proHT,prices[pairedUnit]*2+basinAmount);
+  }
   const round=draftProject({...base,mirror:'round',mirrorFinish:'Doré'});assert.equal(quoteProject(round).publicTTC,129280);assert.equal(purchaseQuote(round).proHT,54900);assert.equal(ref(round),'LRF-00317-549.00.00');
   let references=0;
   for(const mirror of C.mirrors)for(const [mirrorSize,size]of mirror.sizes.entries())for(const mirrorFinish of Object.keys(size.refs||{Noir:size.ref})){

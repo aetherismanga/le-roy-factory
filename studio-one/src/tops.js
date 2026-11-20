@@ -1,4 +1,5 @@
 import * as T from 'three';
+import {SOLID_SURFACE,solidDescription} from './solid-surface-catalog.js';
 import {basinCenters} from './integrated-basins.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
@@ -6,6 +7,7 @@ export const TOP_OPTIONS=Object.freeze([
  {id:'bare',name:'Meuble seul — sans plan',description:'Caisson seul, sans plan ni vasque',reference:null},
  {id:'sella',name:'Sella encastrée',description:'Céramique blanc brillant · 80 cm',reference:'2171'},
  {id:'tampa',name:'Tampa encastrée',description:'Blanc brillant, blanc mat ou noir mat',reference:'6228'},
+ ...Object.entries(SOLID_SURFACE).map(([id,plan])=>({id,name:plan.name+' double',description:solidDescription(plan),reference:plan.ref,image:plan.image,group:'integrated'})),
  {id:'plain',name:'Plan assorti seul',description:'Même finition que le meuble · ép. 2 cm',reference:'14215 80@FINITION'},
  {id:'neris',name:'Plan + Neris',description:'Vasque à poser · 46 × 33 × 14 cm',reference:'9567'},
  {id:'torne',name:'Plan + Torne',description:'Vasque à poser · Ø 37 × 12 cm',reference:'9559'}

@@ -11,6 +11,10 @@ for(const p of modules.filter(p=>p.subtype!=='column')){
 }
 export const CABINET_FORMATS=Object.freeze([...groups.values()].map(g=>Object.freeze({...g,allowedWidths:Object.freeze(g.allowedWidths.sort((a,b)=>a-b)),productsByWidth:Object.freeze(g.productsByWidth)})));
 export const WIDTH_RANGE=Object.freeze({min:40,max:120,step:20});
+// Anima assembles continuous plans from independent cabinets with its own size rules.
+export const PAIRED_WIDTH=null;
+export const validCompositionWidth=validWidth;
+export const cabinetUnitWidth=cm=>cm;
 export const WIDTH_PRESETS=Object.freeze([40,60,80,100,120]);
 export const DRAWER_TRAVEL=Object.freeze([.200,.315]);
 export const SELLA_REFS=Object.freeze({});

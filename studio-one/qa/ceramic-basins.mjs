@@ -15,7 +15,6 @@ for(const [top,colors]of Object.entries(INTEGRATED_BASINS))for(const [color,layo
  variants++;refs.add(r.ref);
  assert.equal(Number.isInteger(r.ttc),true);assert.equal(r.ttc,pdf[r.ref],r.ref+': independently extracted PDF public TTC');
  const format=general&&+width===140?'brent-three':form;
- if(!general&&+width>120)continue;
  if(!basinLayouts(top,+width,format,color).some(o=>o.layout===layout))continue;
  const a=makeModel({width:+width/100,format,basinLayout:layout,basinTop:top,includeMirror:false});a.setTop(top);a.root.updateMatrixWorld(true);
  const bowls=a.insets[top].children.filter(o=>o.name==='Vasque_'+top.toUpperCase()+'_coque_3D'),centers=basinCenters(layout,a.spec.width);

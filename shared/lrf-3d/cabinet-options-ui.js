@@ -1,6 +1,6 @@
 const media='https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/randal/accessories/hd/';
 export const topOptionPhoto=id=>['sella','tampa','neris','torne'].includes(id)?media+'basin-'+id+'.webp':null;
-const groups=[{title:'Sans vasque',ids:['bare','none','plain']},{title:'Vasque intégrée au plan',ids:['sella','tampa','compact']},{title:'Plan avec vasque à poser',ids:['neris','torne']}];
+const groups=[{title:'Sans vasque',ids:['bare','none','plain']},{id:'integrated',title:'Vasque intégrée au plan',ids:['sella','tampa','compact']},{title:'Plan avec vasque à poser',ids:['neris','torne']}];
 
 function styles(document){
  if(document.getElementById('cabinet-options-style'))return;
@@ -15,13 +15,13 @@ export function renderCabinetTopOptions(parent,{options,value,onSelect,photoFor=
  const document=parent.ownerDocument||globalThis.document;styles(document);
  const host=document.createElement('div');host.className='cabinet-top-options';
  for(const group of groups){
-  const choices=options.filter(option=>group.ids.includes(option.id));if(!choices.length)continue;
+  const choices=options.filter(option=>group.ids.includes(option.id)||(group.id&&option.group===group.id));if(!choices.length)continue;
   const section=document.createElement('section'),title=document.createElement('h4'),grid=document.createElement('div');title.textContent=group.title;grid.className='cabinet-top-grid';section.append(title,grid);
   for(const option of choices){
    const wrap=document.createElement('div'),choice=document.createElement('button'),name=document.createElement('strong'),detail=document.createElement('small');wrap.className='cabinet-top-option';choice.className='cabinet-top-choice';choice.type='button';choice.dataset.topOption=option.id;choice.setAttribute('aria-pressed',String(value===option.id));name.textContent=option.name;detail.textContent=option.id==='sella'?'Céramique blanc brillant · plan intégré':option.description||'';choice.append(name,detail);choice.onclick=()=>onSelect(option.id);wrap.append(choice);
-   const src=photoFor(option.id);
+   const src=option.image||photoFor(option.id);
    if(src){
-    const toggle=document.createElement('button'),figure=document.createElement('figure'),image=document.createElement('img'),caption=document.createElement('figcaption');toggle.type='button';toggle.className='cabinet-top-preview-toggle';toggle.textContent='i';toggle.setAttribute('aria-label','Aperçu '+option.name);toggle.setAttribute('aria-expanded','false');figure.className='cabinet-top-preview';figure.hidden=true;image.alt='Visuel catalogue RANDAL · '+option.name;image.width=134;image.height=106;image.decoding='async';caption.textContent=option.name;figure.append(image,caption);
+    const toggle=document.createElement('button'),figure=document.createElement('figure'),image=document.createElement('img'),caption=document.createElement('figcaption');toggle.type='button';toggle.className='cabinet-top-preview-toggle';toggle.textContent='i';toggle.setAttribute('aria-label','Aperçu '+option.name);toggle.setAttribute('aria-expanded','false');figure.className='cabinet-top-preview';figure.hidden=true;image.alt='Aperçu · '+option.name;image.width=134;image.height=106;image.decoding='async';caption.textContent=option.name;figure.append(image,caption);
     const show=()=>{for(const other of host.querySelectorAll('.cabinet-top-preview'))other.hidden=true;for(const other of host.querySelectorAll('.cabinet-top-preview-toggle'))other.setAttribute('aria-expanded','false');if(!image.src)image.src=src;figure.hidden=false;toggle.setAttribute('aria-expanded','true');};
     const hide=()=>{figure.hidden=true;toggle.setAttribute('aria-expanded','false');};
     wrap.addEventListener('pointerenter',event=>{if(event.pointerType!=='touch')show();});wrap.addEventListener('pointerleave',event=>{if(event.pointerType!=='touch')hide();});choice.addEventListener('focus',show);choice.addEventListener('blur',hide);toggle.onclick=event=>{event.stopPropagation();figure.hidden?show():hide();};wrap.addEventListener('keydown',event=>{if(event.key==='Escape')hide();});wrap.append(toggle,figure);

@@ -6,7 +6,7 @@ import {parse} from 'acorn';
 import {transformCommonStudioSource} from '../functions/neobath-anima/studio-adapter/studio-source-transform.mjs';
 import {TOP_OPTIONS,topSelection,isIntegratedTop,isVesselTop,CATALOGUE} from '../functions/neobath-anima/studio-adapter/anima-data.js';
 import * as basins from '../functions/neobath-anima/studio-adapter/basins.js';
-import {topAvailable,cabinetFormat,CABINET_FORMATS,animaCabinetDimensions,animaColumnDimensions} from '../functions/neobath-anima/studio-adapter/configuration.js';
+import {PAIRED_WIDTH,validCompositionWidth,topAvailable,cabinetFormat,CABINET_FORMATS,animaCabinetDimensions,animaColumnDimensions} from '../functions/neobath-anima/studio-adapter/configuration.js';
 import {continuousPlanOption} from '../functions/neobath-anima/studio-adapter/continuous-plan-ui.js';
 import {validateProject,encodeProject,decodeProject,ProjectJournal,continuousTopContext,continuousTopCompatible} from '../functions/neobath-anima/studio-adapter/projects.js';
 import {draftProject,initialDraft} from '../functions/neobath-anima/studio-adapter/commerce/guided.js';
@@ -39,7 +39,7 @@ function atelier(width=80,top='bare'){
     __animaRolePlanSettings:planSettings,__animaNormalizeRoles:normalizeCabinetRoles,__animaCabinetRole:cabinetSettingsForRole,projectWorkspace:{locked:false},isItemPositionLocked:()=>false,disposeObject:noop,validateProject,collectProject:()=>project(item),makeSceneAsset:(_type,s)=>makeModel({...s,width:s.width/100,basinTop:s.top}),refreshInspector:noop,scheduleProjectCheckpoint:noop,paintAsset:noop,
     __animaTopSelection:topSelection,__animaIntegrated:isIntegratedTop,__animaVessel:isVesselTop,__animaPlanOption:continuousPlanOption,
     __animaPremiumContext:continuousTopContext,__animaPremiumCompatible:continuousTopCompatible,
-    topAvailable,validWidth:(w,format)=>cabinetFormat(format||state.format).allowedWidths.includes(w),cabinetFormat,
+    PAIRED_WIDTH,validCompositionWidth,topAvailable,validWidth:(w,format)=>cabinetFormat(format||state.format).allowedWidths.includes(w),cabinetFormat,
     model:item.asset,makeModel,itemDimensions:(_type,s)=>animaCabinetDimensions(s),selectedCabinet:()=>true,
     $$:()=>[],$:()=>({textContent:''}),installCabinetTap:noop,decorateAsset:noop,refreshWidthUI:noop,refreshBasinUI:noop,
     selectFinish:noop,renderComposition:noop,setView:noop,releaseModel:noop,placementStatus:noop,invalidate:noop,

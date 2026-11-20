@@ -1,6 +1,8 @@
 import {readPurchaseGrid} from '../../shared/lrf-server/purchase-grid.mjs';
 import {purchaseRows} from '../../shared/lrf-server/commercial-reference.mjs';
 export {privateReference} from '../../shared/lrf-server/commercial-reference.mjs';
+import {basinEntry} from '../src/basins.js';
+import {PAIRED_WIDTH} from '../src/configuration.js';
 import {quoteProject} from '../src/commerce/pricing.js';
 import {checkedProject} from '../src/commerce/flow.js';
 
@@ -41,7 +43,18 @@ function mirrorPurchase(row,item){
 export function purchaseQuote(input){
  const project=checkedProject(input),q=quoteProject(project),grid=readPurchaseGrid(new URL('./data/studio-one-purchase.enc.json',import.meta.url),'studio-one');
  const byId=new Map(project.items.map(item=>[item.id,item]));
- const rows=purchaseRows(q,grid).rows.map(row=>({...row,proHT:byId.get(row.itemId)?.type==='mirror'?(grid?mirrorPurchase(row,byId.get(row.itemId)):null):row.proHT}));
+ const rows=purchaseRows(q,grid).rows.map(row=>{
+  const item=byId.get(row.itemId);
+  if(item?.type==='mirror')return {...row,proHT:grid?mirrorPurchase(row,item):null};
+  if(!grid||row.proHT!==null||item?.type!=='cabinet')return row;
+  // The published Studio basin terms apply only to a validated catalogue row.
+  const s=item.settings;
+  if(s.width===PAIRED_WIDTH&&(s.basinLayout??'double')==='double'){
+   const entry=basinEntry(s.top,s.basinColor,s.width,s.format,s.basinLayout);
+   if(entry&&entry.ref===row.ref&&entry.ttc===row.publicTTC)return {...row,proHT:Math.round(entry.ttc*5/12)};
+  }
+  return row;
+ });
  const complete=rows.length>0&&rows.every(row=>row.proHT!==null),total=complete?rows.reduce((sum,row)=>sum+row.proHT,0):null;
- return {rows,proHT:Number.isSafeInteger(total)?total:null,pricingUnavailable:!complete,source:grid?'Grille STUDIO ONE et conditions miroirs vérifiées':'Tarifs agents momentanément indisponibles',indicative:q.indicative};
+ return {rows,proHT:Number.isSafeInteger(total)?total:null,pricingUnavailable:!complete,source:grid?'Grille STUDIO ONE et conditions vasques et miroirs vérifiées':'Tarifs agents momentanément indisponibles',indicative:q.indicative};
 }

@@ -1,5 +1,7 @@
 import {AQUAHOME} from '../../../shared/lrf-3d/aquahome-catalog.js';
 import {matchingDrain} from '../../../shared/lrf-3d/plumbing-catalog.js';
+import {cabinetUnitWidth,topAvailable,PAIRED_WIDTH} from '../configuration.js';
+import {solidSurface,solidDescription,integratedTop} from '../solid-surface-catalog.js';
 import {basinEntry,BASIN_LAYOUT_NAMES} from '../basins.js';
 import {CATALOG as C} from './catalog.js';
 export const money=cents=>Number.isInteger(cents)?new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(cents/100):'Prix sur demande';
@@ -9,13 +11,17 @@ export function lineItems(item){
  const s=item.settings||{},f=finish(s.finish),rows=[];
  const row=(name,ref,ttc,detail='',note='')=>rows.push({itemId:item.id,name,ref:ref||'À confirmer',detail,publicTTC:Number.isInteger(ttc)?ttc:null,note});
  if(item.type==='cabinet'){
-  const m=C.models.find(m=>m.id===s.format),b=C.sizes.findIndex(b=>s.width>=b.lo&&s.width<=b.hi),top=s.top;
-  if(!m||!f||!Number.isInteger(s.width)||b<0||!['bare','plain','sella','tampa','neris','torne'].includes(top)){row('Meuble STUDIO ONE',null,null,'Configuration à vérifier');return rows;}
+  const m=C.models.find(m=>m.id===s.format),unit=cabinetUnitWidth(s.width),b=C.sizes.findIndex(b=>unit>=b.lo&&unit<=b.hi),top=s.top;
+  if(!m||!f||!Number.isInteger(s.width)||b<0||!topAvailable(top,s.width)){row('Meuble STUDIO ONE',null,null,'Configuration à vérifier');return rows;}
   const hasPlan=['plain','neris','torne'].includes(top),ref=(hasPlan?m.top:m.base)+' '+C.sizes[b].ref+'@'+f.refCode;
-  row('STUDIO ONE · '+m.name,ref,(hasPlan?m.topTTC:m.bareTTC)[b],`${s.width} × ${m.height} × 46 cm${m.legHeight?' · caisson '+m.bodyHeight+' cm + pieds '+m.legHeight+' cm':''} · ${f.name}${s.facadeMode==='inset'?' · Façade encastrée · chants latéraux de 19 mm':''} · ${hasPlan?'plan assorti':top==='bare'?'meuble seul · sans plan ni vasque':'sans plan bois'}`,s.width===40?'40 cm : à confirmer usine':'');
-  if(['sella','tampa'].includes(top)){
+  // Each physical cabinet retains its own orderable SKU and unit price.
+  const sides=s.width===PAIRED_WIDTH?['gauche','droit']:[''];
+  for(const side of sides)row('STUDIO ONE · '+m.name+(side?' · caisson '+side:''),ref,(hasPlan?m.topTTC:m.bareTTC)[b],`${unit} × ${m.height} × 46 cm${m.legHeight?' · caisson '+m.bodyHeight+' cm + pieds '+m.legHeight+' cm':''} · ${f.name}${s.facadeMode==='inset'?' · Façade encastrée · chants latéraux de 19 mm':''} · ${hasPlan?'plan assorti':top==='bare'?'meuble seul · sans plan ni vasque':'sans plan bois'}`,s.width===40?'40 cm : à confirmer usine':'');
+  if(integratedTop(top)){
    const color=s.basinColor||'gloss',r=basinEntry(top,color,s.width,s.format,s.basinLayout);
-   row('Vasque '+(top==='sella'?'Sella':'Tampa'),r?.ref,r?.ttc,`${s.width} cm · ${C.insetColors.find(c=>c.code===color)?.name||color}${r?' · '+r.name:''}${drainSummary(s)}`);
+   const plan=solidSurface(top),name=plan?.name||(top==='sella'?'Sella':'Tampa');
+   const detail=plan?solidDescription(plan):`${s.width} cm · ${C.insetColors.find(c=>c.code===color)?.name||color}${r?' · '+r.name:''}`;
+   row('Vasque '+name,r?.ref,r?.ttc,detail+drainSummary(s));
   }else if(['neris','torne'].includes(top)){
    const color=C.vesselColors.find(c=>c.code===(s.basinColor||'gloss')),name=top==='neris'?'Neris':'Torne';
    row('Vasque '+name,color?.[name],color&&s.width>=(top==='neris'?50:40)?C.vesselTTC:null,(color?.name||'Couleur à vérifier')+' · '+(BASIN_LAYOUT_NAMES[s.basinLayout]||BASIN_LAYOUT_NAMES.center)+drainSummary(s));

@@ -65,7 +65,7 @@ export function transformCommonStudioSource(input,relativePath){
    .replace('>132</text>','>140</text>').replace('>38</text>','>40</text>').replace('>27</text>','>22</text>');
  }
  if(relativePath==='composition.js'){
-  const old="type==='cabinet'?{width:(settings.width||80)/100,height:cabinetFormat(settings.format).height+.02+(settings.top==='neris'?.14:settings.top==='torne'?.12:0),depth:.46,base:cabinetFormat(settings.format).base}:type==='column'?{width:.38,height:1.32,depth:.27,base:.28}:";
+  const old="type==='cabinet'?cabinetDimensions(settings):type==='column'?{width:.38,height:1.32,depth:.27,base:.28}:";
   if(!source.includes(old))throw Error('Studio One composition dimensions changed; review Anima adapter.');
   source="import {animaCabinetDimensions,animaColumnDimensions} from '@anima-adapter/configuration.js';\n"+source.replace(old,"type==='cabinet'?animaCabinetDimensions(settings):type==='column'?animaColumnDimensions(settings):");
  }
@@ -106,10 +106,10 @@ export function transformCommonStudioSource(input,relativePath){
 }
 
 function transformAtelierSource(source){
- source="import {animaColumnDimensions as __animaColumnDimensions} from '@anima-adapter/configuration.js';\n"+topPrelude+source.replace(/\['sella','tampa'\]\.includes\(([^)]+)\)/g,'__animaIntegrated($1)').replace(/\['neris','torne'\]\.includes\(([^)]+)\)/g,'__animaVessel($1)');
+ source="import {animaColumnDimensions as __animaColumnDimensions} from '@anima-adapter/configuration.js';\n"+topPrelude+source.replaceAll('integratedTop(s.top)','__animaIntegrated(s.top)').replace(/\['sella','tampa'\]\.includes\(([^)]+)\)/g,'__animaIntegrated($1)').replace(/\['neris','torne'\]\.includes\(([^)]+)\)/g,'__animaVessel($1)');
  for(const value of ['state.top','wantedTop'])source=source.replaceAll(`${value}==='sella'||${value}==='tampa'`,`__animaIntegrated(${value})`);
  source=source.replace("const remembered=id==='tampa'?state.tampaColor:id==='neris'||id==='torne'?state.vesselColor:'gloss';","const offered=basinColors(id,state.width,state.format,state.basinLayout);const remembered=offered.some(c=>c.id===state.basinColor)?state.basinColor:offered[0]?.id||'standard';")
-  .replaceAll("state.basinColor=color?.id||'gloss'","state.basinColor=color?.id||'standard'").replaceAll("state.top==='neris'||state.top==='torne'","__animaVessel(state.top)")
+  .replaceAll("defaultBasinColor(id)","'standard'").replaceAll("state.basinColor=color?.id||'gloss'","state.basinColor=color?.id||'standard'").replaceAll("state.top==='neris'||state.top==='torne'","__animaVessel(state.top)")
   .replaceAll("selectTop('sella')","selectTop('bare')").replace('const front=map.clone();','const front=f.frontTexture?await loadTexture(tileAssetURL(f.frontTexture),profile):map.clone();front.wrapS=front.wrapT=T.RepeatWrapping;');
  source=source.replaceAll('topAvailable(id,state.width)','topAvailable(id,state.width,state.format)').replaceAll('topAvailable(b.dataset.top,state.width)','topAvailable(b.dataset.top,state.width,state.format)')
   .replaceAll("topAvailable('sella',state.width)","topAvailable(TOP_OPTIONS.find(o=>o.category==='integrated')?.id,state.width,state.format)").replaceAll('topAvailable(wantedTop,cm)','topAvailable(wantedTop,cm,state.format)')
@@ -128,7 +128,7 @@ function transformAtelierSource(source){
  source=source.replace("selected.type==='column'?'Colonne · 1 porte'","selected.type==='column'?((selected.settings.columnModel||'').includes('half-column')?'Demi-colonne · 1 porte':'Colonne · 1 porte')");
  source=source.replace("]:[{name:{column:'Colonne · 1 porte'", "]:type==='column'?StudioOneCatalog.columns.map(c=>({name:c.name,description:c.width+' × '+c.height+' × '+c.depth+' cm · '+(c.glassShelves===1?'1 étagère verre':c.glassShelves+' étagères verre'),options:{columnModel:c.id,facade:c.facade},icon:'column'})):[{name:{column:'Colonne · 1 porte'");
  source=source.replace('settings={...item.settings,format:id,drawers:Array(form.drawers).fill(0)}',"settings=(()=>{const value={...item.settings,format:id,drawers:Array(form.drawers).fill(0)};if(!form.allowedWidths.includes(value.width))value.width=form.allowedWidths[0];if(!topAvailable(value.top,value.width,id))value.top='bare';return value;})()");
- source=source.replace("if(!validWidth(cm,state.format)){$('#width-status').textContent='Saisissez une largeur entière entre 40 et 120 cm.';","if(!validWidth(cm,state.format)){$('#width-status').textContent='Largeurs disponibles : '+cabinetFormat(state.format).allowedWidths.join(', ')+' cm.';")
+ source=source.replace("if(!validCompositionWidth(cm,state.format)){$('#width-status').textContent='Choisissez une largeur entière de 40 à 120 cm ou la composition de 140 cm (2 × 70 cm).';","if(!validWidth(cm,state.format)){$('#width-status').textContent='Largeurs disponibles : '+cabinetFormat(state.format).allowedWidths.join(', ')+' cm.';")
   .replace('const active=Number(b.dataset.width)===state.width;b.classList','const allowed=cabinetFormat(state.format).allowedWidths.includes(Number(b.dataset.width));b.hidden=!allowed;b.disabled=!allowed;const active=Number(b.dataset.width)===state.width;b.classList');
  source=source.replaceAll("selected.asset.drawers.length===1?'Tiroir XL'","cabinetFormat(selected.settings.format).doors?(i===0?'Porte gauche':'Porte droite'):selected.asset.drawers.length===1?'Tiroir'")
   .replaceAll("item.asset.drawers.length===1?'Tiroir XL'","cabinetFormat(item.settings.format).doors?(i===0?'Porte gauche':'Porte droite'):item.asset.drawers.length===1?'Tiroir'");
@@ -150,7 +150,9 @@ function transformAtelierSource(source){
   .replace(/compatibility\.textContent=topAvailable\([^;]+;/,"compatibility.textContent='Plans et vasques Neobath compatibles avec les caissons. Les plans de 140 et 160 cm sont disponibles sur des caissons contigus de même profondeur et de même hauteur.';");
  source="function __animaTopSize(){const s=__animaTopSelection(state.top,state.width,state.format,state.basinLayout,state.topSpan);return s?.top?`${s.topWidth} × ${s.top.depth} × ${s.top.height} cm · ${s.top.label}`:'Sans plan ni vasque';}\n"+source;
  source=transformContinuousPlans(source).replaceAll('basinColors(','__animaTopColors(')
+  .replace("const nextTop=chooseDouble?'tampa':", "let nextTop=chooseDouble?'tampa':")
   .replace("?wantedTop:'plain'","?wantedTop:'bare'")
+  .replace('selectFinish(state.finish);selectTop(nextTop);refreshWidthUI();',"nextTop=__animaTopContext(wantedTop)?wantedTop:'bare';selectFinish(state.finish);selectTop(nextTop);refreshWidthUI();")
   .replace("top:topAvailable(selected.settings.top,width)?selected.settings.top:'plain'","top:topAvailable(selected.settings.top,width,selected.settings.format)?selected.settings.top:'bare'")
   .replace("if(color){model.ceramic.color.set(color.hex);","if(color&&color.ceramic!==false){model.ceramic.color.set(color.hex);")
   .replace("if(c){item.asset.ceramic.color.set(c.hex);","if(c&&c.ceramic!==false){item.asset.ceramic.color.set(c.hex);")
