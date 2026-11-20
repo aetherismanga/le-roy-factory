@@ -2,6 +2,7 @@
 // Context identifies the actual clicked item; unrelated project data stays intact.
 export {mirrorSpec} from './mirrors.js';
 import {MIRROR_METALS} from './mirrors.js';
+import {PAIRED_FIXING_NOTE} from './paired-basin-placement.js';
 import {presentationWall} from './randal-presentation-editing.js';
 import {integratedOptions,vesselLayoutOptions} from './integrated-basins.js';
 import {SOLID_FAMILIES,isSolidSurface,solidPlan,solidPlans,defaultBasinColor,integratedTop} from './solid-surface-catalog.js';
@@ -159,7 +160,7 @@ export function createPresentationProducts({catalog:C,finishes=C.finishes,normal
    else if(['basin','top','tap'].includes(context.part))groups.push({id:'basin',label:context.part==='top'?'Plan et vasque':'Vasque',fields:basinFields()});
    else groups.push({id:'cabinet',label:'Meuble',fields:[...cabinetFields(),...basinFields()]});
   }else groups.push({id:'cabinet',label:'Meuble',fields:cabinetFields()},{id:'column',label:'Colonne',fields:columnFields()},{id:'mirror',label:'Miroir',fields:mirrorFields()});
-  return {groups,primary:context.itemId||cabinet.id,multiple:!context.itemId&&project.items.filter(i=>i.type==='cabinet').length>1};
+  return {groups,assemblyNote:paired&&d.width===140&&state.selected.type==='cabinet'?PAIRED_FIXING_NOTE:'',primary:context.itemId||cabinet.id,multiple:!context.itemId&&project.items.filter(i=>i.type==='cabinet').length>1};
  }
  return {read,fields,apply};
 }

@@ -1,3 +1,4 @@
+import {PAIRED_FIXING_NOTE} from '../../../shared/lrf-3d/paired-basin-placement.js';
 import {mountTileComposition} from '../../../shared/lrf-3d/tile-composition-ui.js';
 import {getSessionCredential} from './client.js';
 import {FINISHES as PRESENTATION_FINISHES} from '../finishes.js';
@@ -15,7 +16,7 @@ import {createProjectDeletion} from './project-deletion.js';
 import {panelThickness,handleChoices,handleFinish,finishForHandle} from '../general-specs.js';
 import {createProjectNavigation} from './navigation.js';
 import '../viewport.js';
-import {validWidth,configurationWidths,cabinetWidthLabel} from '../configuration.js';
+import {validWidth,configurationWidths,cabinetWidthLabel,pairedCabinet} from '../configuration.js';
 import {CATALOG as C} from './catalog.js';
 import {money,quoteProject,finish} from './pricing.js';
 import {initialDraft,normalizeDraft,updateDraft,draftProject,DRAFT_KEY,TRANSFER_KEY} from './guided.js';
@@ -95,7 +96,7 @@ function renderWizard(){
  $('#step-count').textContent=`0${step+1} / 06`;$('#step-title').textContent=names[step];$('#step-description').textContent=hints[step];$('#progress-dots').innerHTML=Array.from({length:6},(_,i)=>`<span class="${i===step?'active':i<step?'done':''}"></span>`).join('');$('#bevel-open').hidden=true;$('#previous').textContent=step===0?'← Accueil':'← Précédent';$('#next').textContent=step===4?'Voir mon récapitulatif →':'Continuer →';
  const content=$('#step-content');content.className='step-content'+(step===0?' model-step':'');let html='';
  if(step===0){html='<div class="model-backdrop" aria-hidden="true">'+image(C.collections.find(c=>c.id===draft.collection).image,draft.collection)+'</div><div class="model-grid">'+C.models.filter(m=>m.collection===draft.collection).map(m=>`<button type="button" class="model-card" data-model="${m.id}" aria-label="Choisir ${esc(m.name)}" aria-pressed="${m.id===draft.format}"><span class="official-photo">${officialPhoto(m)}</span><span class="model-art">${cabinetDrawing(m,{range:true})}</span><span class="model-caption"><strong>${esc(m.name)}</strong><small>H ${String(m.height).replace('.',',')} · P ${m.depth} · ${Math.round(panelThickness(m)*1000)} mm</small></span>${m.id===draft.format?'<span class="selected-mark" aria-hidden="true">✓</span>':''}</button>`).join('')+'</div>';}
- else if(step===1){const m=C.models.find(m=>m.id===draft.format),f=finish(draft.finish);html=`<div class="dimension-layout"><p class="selected-finish-name">${esc(m.collectionName)} · ${esc(m.name)} · ${esc(f.name)}</p><div class="dimension-fields">${field('width','Largeur du meuble',draft.width,configurationWidths(m).map(w=>[w,cabinetWidthLabel(m,w)]))}<div class="preset-widths" aria-label="Largeurs fabricant">${configurationWidths(m).map(n=>`<button type="button" data-width="${n}" aria-pressed="${n===draft.width}">${cabinetWidthLabel(m,n)}</button>`).join('')}</div><label>Finition du meuble</label>${swatches('finish',C.finishes.filter(f=>m.finishes.includes(f.id)),draft.finish)}${hardwareMarkup(m)}<p class="selection-note">Dimensions fabricant · H ${m.height} cm · P ${m.depth} cm · panneaux ${Math.round(panelThickness(m)*1000)} mm. Les finitions choisies s’appliquent réellement en 3D.</p></div></div>`;}
+ else if(step===1){const m=C.models.find(m=>m.id===draft.format),f=finish(draft.finish);html=`<div class="dimension-layout"><p class="selected-finish-name">${esc(m.collectionName)} · ${esc(m.name)} · ${esc(f.name)}</p><div class="dimension-fields">${field('width','Largeur du meuble',draft.width,configurationWidths(m).map(w=>[w,cabinetWidthLabel(m,w)]))}<div class="preset-widths" aria-label="Largeurs fabricant">${configurationWidths(m).map(n=>`<button type="button" data-width="${n}" aria-pressed="${n===draft.width}">${cabinetWidthLabel(m,n)}</button>`).join('')}</div>${pairedCabinet(m,draft.width)?'<p class="selection-note" role="status"><strong>'+esc(PAIRED_FIXING_NOTE)+'</strong></p>':''}<label>Finition du meuble</label>${swatches('finish',C.finishes.filter(f=>m.finishes.includes(f.id)),draft.finish)}${hardwareMarkup(m)}<p class="selection-note">Dimensions fabricant · H ${m.height} cm · P ${m.depth} cm · panneaux ${Math.round(panelThickness(m)*1000)} mm. Les finitions choisies s’appliquent réellement en 3D.</p></div></div>`;}
  else if(step===2){
   const model=C.models.find(m=>m.id===draft.format),choices=basinChoices(draft);
   html='<div class="product-grid">'+choices.map(o=>{

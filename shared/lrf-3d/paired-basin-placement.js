@@ -1,5 +1,7 @@
 import {isItemPositionLocked} from './position-lock.js';
 
+export const PAIRED_FIXING_NOTE='Pour relier les deux caissons de 70 cm, les trous de fixation sont à percer et les fixations de liaison ne sont pas fournies.';
+
 // Previously saved projects may contain two independent 70 cm cabinets.
 // Only offer a shared top when their carcasses, fronts and mounting align.
 export function adjoiningCabinets(composition,item){

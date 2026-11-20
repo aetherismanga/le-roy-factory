@@ -1,3 +1,4 @@
+import {PAIRED_FIXING_NOTE} from '../../shared/lrf-3d/paired-basin-placement.js';
 import assert from 'node:assert/strict';
 import * as T from 'three';
 import {makeModel} from '../src/model.js';
@@ -20,6 +21,8 @@ for(const [top,basinColor,ref,ttc,thickness,bowlWidth,bowlDepth] of [
  assert.deepEqual(quote.rows.map(r=>r.publicTTC),[51500,51500,ttc]);
  assert.equal(quote.publicTTC,103000+ttc);
  assert.ok(orderText(restored).includes('Référence : '+ref));
+ assert.equal(quote.rows.filter(r=>r.detail.includes(PAIRED_FIXING_NOTE)).length,1);
+ assert.equal(orderText(restored).split(PAIRED_FIXING_NOTE).length-1,1);
  const preview=buildPreview(restored);applyPreviewSettings(preview,restored);
  const asset=preview.items[0].asset,group=asset.insets[top],plate=group.children[0];
  asset.root.removeFromParent();asset.root.updateMatrixWorld(true);
@@ -52,6 +55,7 @@ for(const [top,basinColor,ref,ttc,thickness,bowlWidth,bowlDepth] of [
 for(const params of [{top:'tampa',basinColor:'black'},{top:'milo',basinColor:'gloss'},{top:'fiona',basinLayout:'center',basinColor:'matte'},{top:'sella'},{width:141,top:'bare'}]){
  assert.throws(()=>normalizeDraft({...settings,...params}));
 }
+assert.ok(!orderText(draftProject({...initialDraft(),width:70})).includes(PAIRED_FIXING_NOTE));
 assert.equal(makeModel({width:.7}).setTop('milo'),true);
 assert.equal(makeModel({width:.73}).setTop('milo'),false);
 console.log('PASS · 140 cm · references, quote, transfer, order, two carcasses, double plumbing and solid-surface geometry');

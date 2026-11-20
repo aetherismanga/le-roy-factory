@@ -1,3 +1,4 @@
+import {PAIRED_FIXING_NOTE} from '../../../shared/lrf-3d/paired-basin-placement.js';
 import {AQUAHOME} from '../../../shared/lrf-3d/aquahome-catalog.js';
 import {matchingDrain} from '../../../shared/lrf-3d/plumbing-catalog.js';
 import {cabinetUnitWidth,topAvailable,PAIRED_WIDTH} from '../configuration.js';
@@ -17,6 +18,7 @@ export function lineItems(item){
   // Each physical cabinet retains its own orderable SKU and unit price.
   const sides=s.width===PAIRED_WIDTH?['gauche','droit']:[''];
   for(const side of sides)row('STUDIO ONE · '+m.name+(side?' · caisson '+side:''),ref,(hasPlan?m.topTTC:m.bareTTC)[b],`${unit} × ${m.height} × 46 cm${m.legHeight?' · caisson '+m.bodyHeight+' cm + pieds '+m.legHeight+' cm':''} · ${f.name}${s.facadeMode==='inset'?' · Façade encastrée · chants latéraux de 19 mm':''} · ${hasPlan?'plan assorti':top==='bare'?'meuble seul · sans plan ni vasque':'sans plan bois'}`,s.width===40?'40 cm : à confirmer usine':'');
+  if(sides.length===2)rows.at(-1).detail+=' · '+PAIRED_FIXING_NOTE;
   if(integratedTop(top)){
    const color=s.basinColor||defaultBasinColor(top),r=basinEntry(top,color,s.width,s.format,s.basinLayout);
    const plan=solidPlan(top,s.width,r?.layout),name=plan?.name||(top==='sella'?'Sella':'Tampa');

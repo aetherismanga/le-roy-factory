@@ -28,6 +28,7 @@ export const ES_COMMERCE = {
 'Cette suppression est définitive. Une fois le projet effacé, il sera impossible de revenir en arrière.':'Esta eliminación es definitiva. Una vez eliminado el proyecto, no se podrá recuperar.',
 'Cette vasque n’est pas disponible dans cette largeur et cette finition.':'Este lavabo no está disponible en esta anchura y este acabado.',
 'Cette vasque ou ce plan ne correspond pas au meuble.':'Este lavabo o esta encimera no es compatible con el mueble.',
+'Pour relier les deux caissons de 70 cm, les trous de fixation sont à percer et les fixations de liaison ne sont pas fournies.':'Para unir los dos módulos de 70 cm hay que realizar los taladros de fijación. Las fijaciones de unión no se suministran.',
 'Changer de vasque':'Cambiar de lavabo',
 'Choisir une vasque':'Elegir un lavabo',
 'Placement de la vasque':'Posición del lavabo',

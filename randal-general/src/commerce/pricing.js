@@ -1,3 +1,4 @@
+import {PAIRED_FIXING_NOTE} from '../../../shared/lrf-3d/paired-basin-placement.js';
 import {AQUAHOME} from '../../../shared/lrf-3d/aquahome-catalog.js';
 import {matchingDrain} from '../../../shared/lrf-3d/plumbing-catalog.js';
 import {integratedTop,solidPlan,solidDescription,defaultBasinColor} from '../../../shared/lrf-3d/solid-surface-catalog.js';
@@ -16,6 +17,7 @@ export function lineItems(item){
   if(!m||!f||!ref||!topAvailable(s.top,s.width,s.format)){row('Meuble RANDAL',null,null,'Configuration à vérifier');return rows;}
   const sides=pairedCabinet(m,s.width)?[' · caisson gauche',' · caisson droit']:[''];
   for(const side of sides)row(m.collectionName+' · '+m.name+side,ref,m.bareTTC[unit],`${m.collection==='harmony'&&unit===120?119:unit} × ${m.height} × ${m.depth} cm · ${f.name} · panneaux ${Math.round(panelThickness(m)*1000)} mm${m.collection==='amat'?' · poignées assorties au meuble':''}${handleFinish(m,s.finish)?' · poignée '+HANDLE_FINISHES[handleFinish(m,s.finish)].name:''}`);
+  if(sides.length===2)rows.at(-1).detail+=' · '+PAIRED_FIXING_NOTE;
   if(integratedTop(s.top)){
    const width=s.width===79?80:s.width,color=s.basinColor||defaultBasinColor(s.top);
    const r=basinEntry(s.top,color,s.width,s.format,s.basinLayout);

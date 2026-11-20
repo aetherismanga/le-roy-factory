@@ -14,7 +14,7 @@ import {Composition,itemDimensions,disposeObject} from '../src/composition.js';
 import {makeRoom,DEFAULT_ROOM} from '../src/room.js';
 import {bindPreviewBasinPicker} from '../../shared/lrf-3d/basin-preview-picking.js';
 import {pickSelection} from '../src/picking.js';
-import {adjoiningCabinets,joinBasinCabinets} from '../../shared/lrf-3d/paired-basin-placement.js';
+import {adjoiningCabinets,joinBasinCabinets,PAIRED_FIXING_NOTE} from '../../shared/lrf-3d/paired-basin-placement.js';
 import {topAvailable} from '../src/configuration.js';
 import {solidPlan} from '../../shared/lrf-3d/solid-surface-catalog.js';
 import {createPresentationProducts} from '../../shared/lrf-3d/randal-presentation-products.js';
@@ -35,6 +35,8 @@ for(const m of [...pairs,...CABINET_FORMATS.filter(m=>m.widths.includes(140))]){
   d=updateDraft(d,{top,basinColor});const project=decodeProject(encodeProject(draftProject(d))),q=quoteProject(project);
   assert.equal(q.rows.length,paired?3:2);assert.ok(q.rows.slice(0,-1).every(r=>r.ref===m.refs[unit][d.finish]&&r.publicTTC===m.bareTTC[unit]));
   assert.equal(q.rows.at(-1).ref,ref);assert.equal(q.rows.at(-1).publicTTC,ttc);assert.equal(q.publicTTC,m.bareTTC[unit]*(paired?2:1)+ttc);
+  assert.equal(q.rows.filter(r=>r.detail.includes(PAIRED_FIXING_NOTE)).length,paired?1:0);
+  assert.equal(orderText(project).split(PAIRED_FIXING_NOTE).length-1,paired?1:0);
   assert.ok(orderText(project).includes(ref));assert.equal(purchaseQuote(project).rows.at(-1).proHT,Math.round(ttc/2.4));
  }
  const model=makeModel({format:m.id,width:1.4,basinTop:'fiona',includeMirror:false});
