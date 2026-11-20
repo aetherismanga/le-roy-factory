@@ -28,7 +28,9 @@ for(const m of [...pairs,...CABINET_FORMATS.filter(m=>m.widths.includes(140))]){
  let d=updateDraft(initialDraft(m.collection),{format:m.id,width:140});assert.ok(configurationWidths(m).includes(140));
  const paired=pairedCabinet(m,140),unit=paired?70:140;
  assert.equal(cabinetWidthLabel(m,140).includes('2 × 70'),paired);
- assert.deepEqual(basinChoices(d).map(o=>o.id),['none','tampa','milo','fiona']);
+ const choices=basinChoices(d);assert.deepEqual(choices.map(o=>o.id),['none','tampa','milo','fiona']);
+ assert.equal(choices.find(o=>o.id==='tampa').image,'assets/tampa-double.webp');
+ assert.doesNotMatch(choices.find(o=>o.id==='tampa').description,/noir/i);
  for(const [top,basinColor,ref,ttc] of [['tampa','gloss','6236',80760],['tampa','matte','13000',108240],['milo','matte','15012',40800],['fiona','matte','15026',43700]]){
   d=updateDraft(d,{top,basinColor});const project=decodeProject(encodeProject(draftProject(d))),q=quoteProject(project);
   assert.equal(q.rows.length,paired?3:2);assert.ok(q.rows.slice(0,-1).every(r=>r.ref===m.refs[unit][d.finish]&&r.publicTTC===m.bareTTC[unit]));

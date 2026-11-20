@@ -10,6 +10,9 @@ export function basinChoices(settings){
  return TOP_OPTIONS.filter(o=>topAvailable(o.id,settings.width,settings.format)).map(o=>{
   const active=o.id===settings.top,layout=resolveBasinLayout(o.id,settings.width,settings.format,active?settings.basinLayout:undefined);
   const plan=solidPlan(o.id,settings.width,layout),price=basinChoicePrice(settings,o.id);
+  if(o.id==='tampa'&&settings.width===140){
+   return {...o,name:'Tampa double encastrée',description:'Double vasque · blanc brillant ou blanc mat',image:'assets/tampa-double.webp',price};
+  }
   const name=plan?plan.name+(plan.layout==='double'?' double':'')+' · Solid Surface':o.name;
   return {...o,name,image:plan?.image||o.image,description:plan?solidDescription(plan):o.description,price};
  });
