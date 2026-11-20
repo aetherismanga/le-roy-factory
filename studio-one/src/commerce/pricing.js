@@ -1,7 +1,7 @@
 import {AQUAHOME} from '../../../shared/lrf-3d/aquahome-catalog.js';
 import {matchingDrain} from '../../../shared/lrf-3d/plumbing-catalog.js';
 import {cabinetUnitWidth,topAvailable,PAIRED_WIDTH} from '../configuration.js';
-import {solidSurface,solidDescription,integratedTop} from '../solid-surface-catalog.js';
+import {solidPlan,solidDescription,integratedTop,defaultBasinColor} from '../solid-surface-catalog.js';
 import {basinEntry,BASIN_LAYOUT_NAMES} from '../basins.js';
 import {CATALOG as C} from './catalog.js';
 export const money=cents=>Number.isInteger(cents)?new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(cents/100):'Prix sur demande';
@@ -18,8 +18,8 @@ export function lineItems(item){
   const sides=s.width===PAIRED_WIDTH?['gauche','droit']:[''];
   for(const side of sides)row('STUDIO ONE · '+m.name+(side?' · caisson '+side:''),ref,(hasPlan?m.topTTC:m.bareTTC)[b],`${unit} × ${m.height} × 46 cm${m.legHeight?' · caisson '+m.bodyHeight+' cm + pieds '+m.legHeight+' cm':''} · ${f.name}${s.facadeMode==='inset'?' · Façade encastrée · chants latéraux de 19 mm':''} · ${hasPlan?'plan assorti':top==='bare'?'meuble seul · sans plan ni vasque':'sans plan bois'}`,s.width===40?'40 cm : à confirmer usine':'');
   if(integratedTop(top)){
-   const color=s.basinColor||'gloss',r=basinEntry(top,color,s.width,s.format,s.basinLayout);
-   const plan=solidSurface(top),name=plan?.name||(top==='sella'?'Sella':'Tampa');
+   const color=s.basinColor||defaultBasinColor(top),r=basinEntry(top,color,s.width,s.format,s.basinLayout);
+   const plan=solidPlan(top,s.width,r?.layout),name=plan?.name||(top==='sella'?'Sella':'Tampa');
    const detail=plan?solidDescription(plan):`${s.width} cm · ${C.insetColors.find(c=>c.code===color)?.name||color}${r?' · '+r.name:''}`;
    row('Vasque '+name,r?.ref,r?.ttc,detail+drainSummary(s));
   }else if(['neris','torne'].includes(top)){

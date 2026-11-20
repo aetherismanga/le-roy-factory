@@ -2,6 +2,7 @@ import {readPurchaseGrid} from '../../shared/lrf-server/purchase-grid.mjs';
 import {purchaseRows} from '../../shared/lrf-server/commercial-reference.mjs';
 export {privateReference} from '../../shared/lrf-server/commercial-reference.mjs';
 import {basinEntry} from '../src/basins.js';
+import {isSolidSurface} from '../src/solid-surface-catalog.js';
 import {PAIRED_WIDTH} from '../src/configuration.js';
 import {quoteProject} from '../src/commerce/pricing.js';
 import {checkedProject} from '../src/commerce/flow.js';
@@ -49,7 +50,7 @@ export function purchaseQuote(input){
   if(!grid||row.proHT!==null||item?.type!=='cabinet')return row;
   // The published Studio basin terms apply only to a validated catalogue row.
   const s=item.settings;
-  if(s.width===PAIRED_WIDTH&&(s.basinLayout??'double')==='double'){
+  if(isSolidSurface(s.top)||s.width===PAIRED_WIDTH&&(s.basinLayout??'double')==='double'){
    const entry=basinEntry(s.top,s.basinColor,s.width,s.format,s.basinLayout);
    if(entry&&entry.ref===row.ref&&entry.ttc===row.publicTTC)return {...row,proHT:Math.round(entry.ttc*5/12)};
   }

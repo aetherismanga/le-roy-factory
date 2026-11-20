@@ -4,7 +4,7 @@ import {inside,intersect} from './room.js';
 import {isFixture,fixtureDimensions} from './fixtures.js';
 import {equipmentDimensions,isAccessory,isFloorAccessory} from './equipment.js';
 import {mirrorSpec} from './mirrors.js';
-import {solidSurface} from './solid-surface-catalog.js';
+import {solidPlan} from './solid-surface-catalog.js';
 import {cabinetFormat} from './configuration.js';
 import {isOpening} from './openings.js';
 import {equipmentSolidCollision} from './equipment-collision.js';
@@ -12,7 +12,7 @@ import {screenMount,nearestScreenMount} from './screen-mount.js';
 import {isWallMountedSanitary,isFloorAnchoredSanitary,normalizeSanitaryPlacement,sanitaryMountError,remapSanitaryPlacement} from '../../shared/lrf-3d/sanitary-mount.js';
 export const OBJECT_LIMIT=32,MIRROR_LIMIT=3;
 function cabinetDimensions(settings){
- const form=cabinetFormat(settings.format),plan=solidSurface(settings.top);
+ const form=cabinetFormat(settings.format),plan=solidPlan(settings.top,settings.width);
  return {width:(plan?.width||settings.width||80)/100,height:form.height+(plan?.thickness??2)/100+(settings.top==='neris'?.14:settings.top==='torne'?.12:0),depth:.46,base:form.base};
 }
 export function itemDimensions(type,settings={}){return isAccessory(type)?equipmentDimensions(type,settings):isFixture(type)?fixtureDimensions(type,settings):isOpening(type)?{width:settings.width/100,height:settings.height/100,depth:.07,base:0}:type==='cabinet'?cabinetDimensions(settings):type==='column'?{width:.38,height:1.32,depth:.27,base:.28}:{width:mirrorSpec(settings).width,height:mirrorSpec(settings).height,depth:.038,base:1.40};}

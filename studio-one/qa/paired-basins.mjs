@@ -52,5 +52,6 @@ for(const [top,basinColor,ref,ttc,thickness,bowlWidth,bowlDepth] of [
 for(const params of [{top:'tampa',basinColor:'black'},{top:'milo',basinColor:'gloss'},{top:'fiona',basinLayout:'center',basinColor:'matte'},{top:'sella'},{width:141,top:'bare'}]){
  assert.throws(()=>normalizeDraft({...settings,...params}));
 }
-assert.equal(makeModel({width:.7}).setTop('milo'),false);
+assert.equal(makeModel({width:.7}).setTop('milo'),true);
+assert.equal(makeModel({width:.73}).setTop('milo'),false);
 console.log('PASS · 140 cm · references, quote, transfer, order, two carcasses, double plumbing and solid-surface geometry');

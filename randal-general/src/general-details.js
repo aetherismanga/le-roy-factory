@@ -1,10 +1,11 @@
 import {normalizeTopDrawer} from '../../shared/lrf-3d/drawer-options.js';
+import {isSolidSurface,SOLID_FAMILIES} from '../../shared/lrf-3d/solid-surface-catalog.js';
 import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {flutedFront,arubaPull,borealPull} from './general-fronts.js';
 import {HANDLE_FINISHES,handleFinish,handleChoices} from './general-specs.js';
 // Refine the reused chassis with each collection's actual front and hardware.
-export function adaptGeneralModel(asset,{form,W,H,B,topY,layout}){
+export function adaptGeneralModel(asset,{form,W,H,B,topY,layout,span,paired}){
  const {root,cabinet,wood,frontWood,drawers,frontMeshes,insets,tops,faucet}=asset;
  const metal=new T.MeshPhysicalMaterial({color:'#b8bdc0',metalness:.9,roughness:.32}),hardware=metal.clone(),dark=new T.MeshStandardMaterial({color:'#272a2c',roughness:.62});
  const box=(parent,w,h,d,m,x,y,z,name)=>{const o=new T.Mesh(new RoundedBoxGeometry(w,h,d,3,Math.min(.0008,w/5,h/5)),m);o.name=name;o.position.set(x,y,z);o.castShadow=o.receiveShadow=true;parent.add(o);return o;};
@@ -72,19 +73,52 @@ export function adaptGeneralModel(asset,{form,W,H,B,topY,layout}){
  if(form.counter){cabinet.clear();box(cabinet,W,H,.46,wood,0,B+H/2,0,'Plateau_SIMA_100mm');}
  const depth=form.depth,zShift=(depth-.46)/2;
  for(const part of [cabinet,tops.root]){part.scale.z=depth/.46;part.position.z+=zShift;}
- for(const part of [...Object.values(insets),...(asset.faucets||[faucet])]){if(form.collection==='less'&&part!==insets.compact)part.scale.z=depth/.46;part.position.z+=zShift;}
+ if(paired){
+  // Each tier drives both genuine 70 cm drawers; hardware and finish materials are shared.
+  const assembly=new T.Group(),right=cabinet.clone(true),offset=span/4;
+  assembly.name='Composition_2x70';assembly.userData.editTarget='furniture';
+  assembly.position.copy(cabinet.position);assembly.scale.copy(cabinet.scale);
+  const rightDrawers=drawers.map(left=>right.children[cabinet.children.indexOf(left)]);
+  for(const [unit,x] of [[cabinet,-offset],[right,offset]]){
+   unit.position.set(x,0,0);unit.scale.set(1,1,1);assembly.add(unit);
+  }
+  for(const [i,left] of drawers.entries()){
+   const tier=new T.Group();tier.name=left.name;
+   left.position.x=-offset;rightDrawers[i].position.x=offset;
+   tier.add(left,rightDrawers[i]);assembly.add(tier);drawers[i]=tier;
+  }
+  for(const foot of root.children.filter(o=>o.name==='Pied_RANDAL')){
+   const other=foot.clone();foot.position.x-=offset;other.position.x+=offset;root.add(other);
+  }
+  root.add(assembly);asset.cabinet=assembly;
+ }
+ for(const [id,part] of Object.entries(insets)){
+  if(form.collection==='less'&&part!==insets.compact)part.scale.z=depth/.46;
+  if(!isSolidSurface(id))part.position.z+=zShift;
+ }
+ for(const tap of asset.faucets)tap.position.z+=zShift;
+ // An empty opening remains selectable from above, without drawing a fake slab.
+ const placement=new T.Mesh(new T.PlaneGeometry(span,depth),new T.MeshBasicMaterial({visible:false}));
+ placement.name='Emplacement_de_la_vasque';placement.userData.editTarget='basin';
+ placement.rotation.x=-Math.PI/2;placement.position.set(0,topY+.0003,zShift);root.add(placement);
  if(form.counter)tops.root.position.y-=.02;
  const baseSet=asset.setTop;let mode=asset.getTop();
  asset.setTop=next=>{
-  if(next==='none'){asset.setTopDrawer('siphon');for(const g of Object.values(insets))g.visible=false;tops.root.visible=false;faucet.visible=false;mode=next;return true;}
-  if(next==='compact'&&form.collection==='less'){asset.setTopDrawer('siphon');for(const [key,g]of Object.entries(insets))g.visible=key==='compact';tops.root.visible=false;for(const f of asset.faucets)f.visible=false;mode=next;return true;}
-  const result=baseSet(next);if(result){mode=next;if(form.counter){tops.solid.visible=false;tops.drilled.visible=false;}}
+  if(next==='none'){placement.visible=true;asset.setTopDrawer('siphon');for(const g of Object.values(insets))g.visible=false;tops.root.visible=false;for(const tap of asset.faucets)tap.visible=false;mode=next;return true;}
+  if(next==='compact'&&form.collection==='less'){placement.visible=false;asset.setTopDrawer('siphon');for(const [key,g]of Object.entries(insets))g.visible=key==='compact';tops.root.visible=false;for(const f of asset.faucets)f.visible=false;mode=next;return true;}
+  const result=baseSet(next);if(result){
+   const plan=isSolidSurface(next)?SOLID_FAMILIES[next]:null;placement.visible=form.counter&&next==='plain';
+   for(const tap of asset.faucets){
+    tap.position.y=topY-.82+((plan?.thickness??2)-2)/100;
+    tap.position.z=(plan?0:zShift)+(['neris','torne'].includes(next)?-.017:0);
+   }
+   mode=next;if(form.counter){tops.solid.visible=false;tops.drilled.visible=false;}}
   return result;
  };
  const baseDrawer=asset.setTopDrawer;asset.setTopDrawer=value=>baseDrawer(normalizeTopDrawer(value,mode));
  asset.getTop=()=>mode;asset.handles=handles;asset.handleMaterial=hardware;asset.getHandleChoices=()=>handleChoices(form);
  asset.doors=doors;asset.setDoorProgress=value=>doors.forEach(p=>p.rotation.y=(p.userData.side==='right'?1:-1)*value*Math.PI*.52);
  asset.setMetalFinish=finish=>{const c=HANDLE_FINISHES[handleFinish(form,finish)];if(c){hardware.color.set(c.hex);hardware.metalness=c.metalness;hardware.roughness=c.roughness;}return c?.id||null;};
- asset.setMetalFinish(form.finishes[0]);asset.setTop(form.collection==='less'?'compact':form.counter?'neris':form.collection==='luce'||form.collection==='brent'?'tampa':'sella');
- root.name='RANDAL_'+form.collection+'_'+Math.round(W*100);return asset;
+ asset.setMetalFinish(form.finishes[0]);asset.setTop(form.collection==='less'?'compact':form.counter?'neris':paired||form.collection==='luce'||form.collection==='brent'?'tampa':'sella');
+ root.name='RANDAL_'+form.collection+'_'+Math.round(span*100);return asset;
 }

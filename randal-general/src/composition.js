@@ -4,13 +4,18 @@ import {inside,intersect} from './room.js';
 import {isFixture,fixtureDimensions} from './fixtures.js';
 import {equipmentDimensions,isAccessory,isFloorAccessory} from './equipment.js';
 import {mirrorSpec} from './mirrors.js';
+import {solidPlan} from '../../shared/lrf-3d/solid-surface-catalog.js';
 import {columnFormat,cabinetFormat} from './configuration.js';
 import {isOpening} from './openings.js';
 import {equipmentSolidCollision} from './equipment-collision.js';
 import {screenMount,nearestScreenMount} from './screen-mount.js';
 import {isWallMountedSanitary,isFloorAnchoredSanitary,normalizeSanitaryPlacement,sanitaryMountError,remapSanitaryPlacement} from '../../shared/lrf-3d/sanitary-mount.js';
 export const OBJECT_LIMIT=32,MIRROR_LIMIT=3;
-export function itemDimensions(type,settings={}){return isAccessory(type)?equipmentDimensions(type,settings):isFixture(type)?fixtureDimensions(type,settings):isOpening(type)?{width:settings.width/100,height:settings.height/100,depth:.07,base:0}:type==='cabinet'?{width:(settings.width||80)/100,height:cabinetFormat(settings.format).height+.02+(settings.top==='neris'?.14:settings.top==='torne'?.12:0),depth:cabinetFormat(settings.format).depth,base:cabinetFormat(settings.format).base}:type==='column'?{width:columnFormat(settings.columnModel).width/100,height:columnFormat(settings.columnModel).height/100,depth:columnFormat(settings.columnModel).depth/100,base:columnFormat(settings.columnModel).base/100}:{width:mirrorSpec(settings).width,height:mirrorSpec(settings).height,depth:.038,base:1.40};}
+function cabinetDimensions(settings){
+ const form=cabinetFormat(settings.format),plan=solidPlan(settings.top,settings.width);
+ return {width:(plan?.width??settings.width??80)/100,height:form.height+(plan?.thickness??2)/100+(settings.top==='neris'?.14:settings.top==='torne'?.12:0),depth:Math.max(form.depth,(plan?.depth??0)/100),base:form.base};
+}
+export function itemDimensions(type,settings={}){return isAccessory(type)?equipmentDimensions(type,settings):isFixture(type)?fixtureDimensions(type,settings):isOpening(type)?{width:settings.width/100,height:settings.height/100,depth:.07,base:0}:type==='cabinet'?cabinetDimensions(settings):type==='column'?{width:columnFormat(settings.columnModel).width/100,height:columnFormat(settings.columnModel).height/100,depth:columnFormat(settings.columnModel).depth/100,base:columnFormat(settings.columnModel).base/100}:{width:mirrorSpec(settings).width,height:mirrorSpec(settings).height,depth:.038,base:1.40};}
 export function boundsOnWall(room,item,placement=item.placement,dimensions=item.dimensions){
  const wall=room.walls[placement.wall];if(!wall)return null;const angle=wall.group.rotation.y+(isFloorItem(item)?(placement.rotation||0)*Math.PI/180:0),tangent=new T.Vector3(Math.cos(angle),0,-Math.sin(angle)),normal=new T.Vector3(Math.sin(angle),0,Math.cos(angle)),wallTangent=new T.Vector3(Math.cos(wall.group.rotation.y),0,-Math.sin(wall.group.rotation.y));
  const start=wall.start.clone().addScaledVector(wallTangent,placement.u/100).addScaledVector(wall.normal,(placement.offset||0)/100+(isFloorItem(item)?dimensions.depth/2:0)),half=dimensions.width/2-(isFloorItem(item)?.002:0);

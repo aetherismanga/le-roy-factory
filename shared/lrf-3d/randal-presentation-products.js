@@ -4,6 +4,8 @@ export {mirrorSpec} from './mirrors.js';
 import {MIRROR_METALS} from './mirrors.js';
 import {presentationWall} from './randal-presentation-editing.js';
 import {integratedOptions,vesselLayoutOptions} from './integrated-basins.js';
+import {SOLID_FAMILIES,isSolidSurface,solidPlan,solidPlans,defaultBasinColor,integratedTop} from './solid-surface-catalog.js';
+import {BASIN_LAYOUT_NAMES} from './integrated-basins.js';
 import {fullTopDrawerAvailable} from './drawer-options.js';
 import {presentationMaterialPreview,presentationAssetURL} from './randal-presentation-choice-previews.js';
 
@@ -11,7 +13,7 @@ export function createPresentationProducts({catalog:C,finishes=C.finishes,normal
  const general=Array.isArray(C.columns),modelOf=d=>C.models.find(m=>m.id===d.format);
  const cabinetKeys=['format','width','finish','facadeMode','top','basinColor','basinLayout','topFinish','topDrawer'];
  const columnKeys=['column','columnModel','columnFinish'],mirrorKeys=['mirror','mirrorSize','mirrorFinish'];
- const topNames={bare:'Meuble seul — sans plan',none:'Meuble seul — sans plan',compact:'Vasque Compact intégrée',plain:general?'Plan seul':'Plan assorti seul',sella:'Sella encastrée',tampa:'Tampa encastrée',neris:'Plan + Neris à poser',torne:'Plan + Torne à poser'};
+ const topNames={...Object.fromEntries(Object.entries(SOLID_FAMILIES).map(([id,f])=>[id,f.name+' · Solid Surface'])),bare:'Meuble seul — sans plan',none:'Meuble seul — sans plan',compact:'Vasque Compact intégrée',plain:general?'Plan seul':'Plan assorti seul',sella:'Sella encastrée',tampa:'Tampa encastrée',neris:'Plan + Neris à poser',torne:'Plan + Torne à poser'};
  function read(project,context={}){
   const selected=context.itemId?project.items.find(i=>i.id===context.itemId):null;
   if(context.itemId&&!selected)throw Error('Cet élément ne fait plus partie de la composition.');
@@ -37,7 +39,7 @@ export function createPresentationProducts({catalog:C,finishes=C.finishes,normal
   return {d:normalizeDraft(d),cabinet,column,mirror,selected: selected||cabinet,synthetic};
  }
  function dimensions(item){
-  if(item.type==='cabinet'){const m=modelOf(item.settings);if(!m)throw Error('Modèle de meuble non reconnu.');return {w:item.settings.width,h:m.height,center:false};}
+  if(item.type==='cabinet'){const m=modelOf(item.settings);if(!m)throw Error('Modèle de meuble non reconnu.');const plan=solidPlan(item.settings.top,item.settings.width,item.settings.basinLayout);return {w:plan?.width||item.settings.width,h:m.height+(plan?.thickness||0),center:false};}
   if(item.type==='column'){const c=general?C.columns.find(c=>c.id===item.settings.columnModel):C.column;if(!c)throw Error('Modèle de colonne non reconnu.');return {w:c.width||38,h:c.height||132,center:false};}
   return {w:item.settings.width,h:item.settings.height,center:true};
  }
@@ -62,6 +64,10 @@ export function createPresentationProducts({catalog:C,finishes=C.finishes,normal
  function cabinetHeight(old,d,current){
   const previous=modelOf(old),m=modelOf(d);return general?m.base:m.legHeight?0:previous.legHeight?28:current;
  }
+ function layoutChoices(d){
+  if(isSolidSurface(d.top))return solidPlans(d.top,d.width).map(p=>({...p,name:p.layout==='long'?'Vasque longue':BASIN_LAYOUT_NAMES[p.layout]}));
+  return ['neris','torne'].includes(d.top)?vesselLayoutOptions(d.top,d.width):integratedOptions(d.top,d.width,d.basinColor);
+ }
  function normalizedCandidate(state,patch){
   const d={...state.d,...patch};
   if(Object.hasOwn(patch,'mirror'))d.mirrorSize=0;
@@ -72,17 +78,20 @@ export function createPresentationProducts({catalog:C,finishes=C.finishes,normal
    // A newly chosen basin starts with a real compatible layout/color. Width
    // remains explicit: selecting a basin never silently resizes the cabinet.
    d.basinLayout=undefined;
-   const colors=[...new Set([d.basinColor,'gloss',...C.insetColors.map(c=>c.code),...C.vesselColors.map(c=>c.code)])];
+   const colors=[...new Set([d.basinColor,defaultBasinColor(d.top),'gloss',...C.insetColors.map(c=>c.code),...C.vesselColors.map(c=>c.code)])];
    let failure;for(const color of colors){try{return normalizeDraft({...d,basinColor:color});}catch(e){failure=e;}}throw failure;
   }
   try{return normalizeDraft(d);}catch(error){
-   if(!Object.hasOwn(patch,'basinLayout')&&['width','format'].some(key=>Object.hasOwn(patch,key))&&['sella','tampa','neris','torne'].includes(d.top)){
+   if(!Object.hasOwn(patch,'basinLayout')&&['width','format'].some(key=>Object.hasOwn(patch,key))&&(integratedTop(d.top)||['neris','torne'].includes(d.top))){
     // A 100 cm centred Sella has no centred 120 cm SKU. Preserve an existing
     // compatible layout; otherwise prefer a real 120 cm double, then let the
     // native catalogue resolve its own compatible layout at the chosen width.
-    const options=['neris','torne'].includes(d.top)?vesselLayoutOptions(d.top,d.width):integratedOptions(d.top,d.width,d.basinColor);
+    const options=layoutChoices(d);
     const layouts=[...(d.width>=120&&options.some(o=>o.layout==='double')?['double']:[]),undefined,...options.map(o=>o.layout)];
     for(const basinLayout of layouts){try{return normalizeDraft({...d,basinLayout});}catch{}}
+   }
+   if(patch.width===140){
+    return normalizeDraft({...d,top:'tampa',basinColor:'gloss',basinLayout:'double'});
    }
    throw error;
   }
@@ -106,7 +115,7 @@ export function createPresentationProducts({catalog:C,finishes=C.finishes,normal
    const index=next.items.findIndex(i=>i.id===item.id);if(index>=0)next.items[index]=item;else next.items.push(item);
   }
   if(resizing)reflowResizedCabinet(next,state.cabinet.id);
-  if(keys.some(k=>['format','width','column','columnModel','mirror','mirrorSize'].includes(k)))placementValid(next);return next;
+  if(keys.some(k=>['format','width','top','column','columnModel','mirror','mirrorSize'].includes(k)))placementValid(next);return next;
  }
  function fields(project,context={}){
   const state=read(project,context),{d,cabinet}=state,model=modelOf(d),groups=[];
@@ -115,30 +124,33 @@ export function createPresentationProducts({catalog:C,finishes=C.finishes,normal
     const native=C.finishes.find(f=>f.id===value);if(!native)return null;
     return presentationMaterialPreview({...native,...finishes.find(f=>f.id===value)});
    }
-   if(key==='basinColor')return presentationMaterialPreview((['sella','tampa'].includes(d.top)?C.insetColors:C.vesselColors).find(c=>c.code===value));
+   if(key==='basinColor')return presentationMaterialPreview((integratedTop(d.top)?C.insetColors:C.vesselColors).find(c=>c.code===value));
    if(key==='mirrorFinish')return presentationMaterialPreview(MIRROR_METALS.find(f=>f.id===value),{label:value});
    let product;
    if(key==='format')product=C.models.find(m=>m.id===value);
    if(key==='columnModel')product=general?C.columns.find(c=>c.id===value):value==='studio-column'?C.column:null;
    if(key==='mirror')product=C.mirrors.find(m=>m.id===value);
    if(product){const src=presentationAssetURL(product.photoImage||product.image);return src?{type:'image',src,alt:product.name,caption:product.name+' · Illustration catalogue'}:null;}
+   if(key==='top'&&isSolidSurface(value)){const p=solidPlan(value,d.width);if(p)return {type:'image',src:p.image,alt:p.name,caption:topNames[value]};}
    if(key==='top'&&['sella','tampa','neris','torne'].includes(value)&&C.media)return {type:'image',src:C.media+'accessories/hd/basin-'+value+'.webp',alt:topNames[value],caption:topNames[value]+' · Illustration catalogue'};
    return null;
   }
   const field=(key,label,choices,value=d[key],{compact=false}={})=>({key,label,value:String(value??''),choices:choices.map(([value,label])=>{let error='';try{apply(project,{[key]:typeof d[key]==='number'?Number(value):value},{...context,validateOnly:true});}catch(e){error=e.message;}return {value:String(value??''),label,disabled:!!error,reason:error,preview:previewFor(key,value)};}).filter(choice=>!(compact||key==='width')||!choice.disabled||choice.value===String(value))});
   function basinFields(){
    const result=[field('top','Plan et vasque',Object.entries(topNames).filter(([id])=>general?id!=='bare':!['none','compact'].includes(id)),d.top,{compact:true})];
-   if(['sella','tampa','neris','torne'].includes(d.top)){
-    const colors=['sella','tampa'].includes(d.top)?C.insetColors:C.vesselColors;
+   if(integratedTop(d.top)||['neris','torne'].includes(d.top)){
+    const colors=integratedTop(d.top)?C.insetColors:C.vesselColors;
     result.push(field('basinColor','Couleur de la vasque',colors.map(c=>[c.code,c.name]),d.basinColor,{compact:true}));
-    const options=['neris','torne'].includes(d.top)?vesselLayoutOptions(d.top,d.width):integratedOptions(d.top,d.width,d.basinColor);
+    const options=layoutChoices(d);
     result.push(field('basinLayout','Implantation de la vasque',options.map(o=>[o.layout,o.name]),d.basinLayout,{compact:true}));
    }
    if(general&&['plain','neris','torne'].includes(d.top))result.push(field('topFinish','Finition du plan',C.topFinishes.map(f=>[f.id,f.name]),d.topFinish,{compact:true}));
    if(fullTopDrawerAvailable(d.top)&&(!general||model.drawers))result.push(field('topDrawer','Tiroir supérieur',[['siphon','Avec passage de siphon'],['full','Plein — sans découpe siphon']]));
    return result;
   }
-  const cabinetFields=()=>[field('format','Modèle',C.models.filter(m=>!general||m.collection===model.collection).map(m=>[m.id,m.name])),field('width','Largeur',(model.widths||Array.from({length:81},(_,i)=>i+40)).map(w=>[w,w+' cm'])),field('finish','Finition',C.finishes.filter(f=>!model.finishes||model.finishes.includes(f.id)).map(f=>[f.id,f.name])),...(!general?[field('facadeMode','Façade',[['overlay','En applique'],['inset','Encastrée']])]:[])];
+  const widths=model.widths||Array.from({length:81},(_,i)=>i+40);
+  const paired=widths.includes(70)&&!widths.includes(140),offeredWidths=paired?[...widths,140]:widths;
+  const cabinetFields=()=>[field('format','Modèle',C.models.filter(m=>!general||m.collection===model.collection).map(m=>[m.id,m.name])),field('width','Largeur',offeredWidths.map(w=>[w,paired&&w===140?'140 cm (2 × 70 cm)':w+' cm'])),field('finish','Finition',C.finishes.filter(f=>!model.finishes||model.finishes.includes(f.id)).map(f=>[f.id,f.name])),...(!general?[field('facadeMode','Façade',[['overlay','En applique'],['inset','Encastrée']])]:[])];
   const columnFields=()=>{const columns=general?C.columns.filter(c=>c.collection===model.collection):[{id:'studio-column',name:C.column.name}];return [field('columnModel','Modèle de colonne',[['none','Sans colonne'],...columns.map(c=>[c.id,c.name])],d.column?(general?d.columnModel:'studio-column'):'none'),...(d.column?[field('columnFinish','Finition de colonne',C.finishes.filter(f=>!general||C.columns.find(c=>c.id===d.columnModel)?.finishes.includes(f.id)).map(f=>[f.id,f.name]))]:[])];};
   const mirrorFields=()=>{const mirror=C.mirrors.find(m=>m.id===d.mirror);return [field('mirror','Modèle de miroir',[[null,'Sans miroir'],...C.mirrors.map(m=>[m.id,m.name])]),...(mirror?[field('mirrorSize','Dimensions du miroir',mirror.sizes.map((s,i)=>[i,s.label])),...(mirror.metal?[field('mirrorFinish','Finition du cadre',Object.keys(mirror.sizes[d.mirrorSize].refs).map(id=>[id,id]))]:[])]:[])];};
   if(context.itemId){

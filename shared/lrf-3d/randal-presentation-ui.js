@@ -15,7 +15,7 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
   if(origin){if(restricted){if(origin.textContent!==presentationOrigin)originalOrigin=origin.textContent;origin.textContent=presentationOrigin;}else if(wasRestricted&&originalOrigin)origin.textContent=originalOrigin;}wasRestricted=restricted;
   if(!restricted&&dialog)close();
  }
- async function open(input=getProject()){
+ async function open(input=getProject(),basinItem=null){
   if(!isRandalPresentation(getIdentity())||!input)return false;
   if(dialog)close();previousFocus=document.activeElement;project=structuredClone(input);const turn=++opening;
   dialog=element('dialog');dialog.className='randal-presentation';dialog.id='randal-presentation';dialog.setAttribute('aria-label','Votre composition en plein écran');
@@ -100,6 +100,7 @@ export function createRandalPresentation({getIdentity,getProject,createPreview,p
     else item.settings={...item.settings,hingeSide:edit.hingeSide};
     onChange(structuredClone(project));reflectContext();
    });renderProducts();
+   if(basinItem&&project.items.some(i=>i.type==='cabinet'&&i.id===basinItem))engine.presentation.editing.selectItem(basinItem,'basin');
    const help=element('p','Glissez un élément pour le déplacer. Cliquez dessus pour modifier ses options. Glissez le fond pour tourner ; pincez pour zoomer.');help.className='randal-presentation-help';controls.append(reset,help);responsiveOptions.register(reset,'view');responsiveOptions.register(help,'view');
    const initialSurfaces=await Promise.all(['floor','wall'].map(kind=>engine.presentation.setSurface(kind,selection[kind])));if(turn!==opening)return false;if(initialSurfaces.some(applied=>!applied))throw Error('Un revêtement n’a pas pu être chargé.');status.textContent='';if(migrateDefaults)onChange(structuredClone(project));return true;
   }catch(e){if(turn===opening){engine?.dispose();engine=null;controls.replaceChildren();status.textContent='Affichage indisponible. Fermez puis réessayez. '+e.message;}return false;}

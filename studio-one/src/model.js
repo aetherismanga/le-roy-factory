@@ -8,7 +8,7 @@ import * as T from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { createTopSet, TOP_OPTIONS } from './tops.js';
 import {createSolidSurfaceBasin} from './solid-surface-model.js';
-import {SOLID_SURFACE,solidSurface,integratedTop} from './solid-surface-catalog.js';
+import {isSolidSurface,solidPlan,integratedTop} from './solid-surface-catalog.js';
 import { validCompositionWidth, PAIRED_WIDTH, cabinetUnitWidth, topAvailable, cabinetFormat } from './configuration.js';
 export const SPEC={series:'STUDIO ONE · 2 tiroirs',width:.80,height:.54,depth:.46,bottom:.28,panel:.019,mirrorDiameter:.60,basin:'Sella 80 · blanc brillant',cabinetRef:'13692',basinRef:'2171',mirrorRef:'3717'};
 export {FINISHES} from './finishes.js';
@@ -125,9 +125,16 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  for(const kind of paired?['tampa']:['sella','tampa']){
   insets[kind]=createIntegratedBasin({parent:root,W:span,kind,layout:resolveBasinLayout(kind,widthCm,format,basinLayout)||chosenLayout,ceramic,chrome,dark,roundedRect,mesh,box});
  }
- if(paired)for(const kind of Object.keys(SOLID_SURFACE)){
-  insets[kind]=createSolidSurfaceBasin({kind,parent:root,ceramic,chrome,roundedRect,mesh});
+ const planFor=mode=>solidPlan(mode,widthCm,resolveBasinLayout(mode,widthCm,format,basinLayout));
+ function ensureSolid(mode){
+  if(insets[mode]||!isSolidSurface(mode))return;
+  const plan=planFor(mode);if(!plan)return;
+  const group=createSolidSurfaceBasin({kind:mode,plan,parent:root,ceramic,chrome,roundedRect,mesh});
+  group.position.y=topY-.82;insets[mode]=group;
  }
+ const placement=new T.Mesh(new T.PlaneGeometry(span,.46),new T.MeshBasicMaterial({visible:false}));
+ placement.name='Emplacement_de_la_vasque';placement.rotation.x=-Math.PI/2;placement.position.y=topY+.0003;
+ placement.userData.editTarget='basin';root.add(placement);
  const insetGroup=insets.sella||insets.tampa;
  // Generic demonstration mixer. Not asserted to be a RANDAL catalogue reference.
  const faucet=new T.Group();faucet.name='Mitigeur_illustratif';root.add(faucet);
@@ -141,7 +148,7 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  const getBasinCenters=mode=>insets[mode]?.userData.basinCenters||(['neris','torne'].includes(mode)?basinCenters(chosenLayout,W):[0]);
  const mirror=includeMirror?makeMirrorFrame():null;if(mirror)root.add(mirror);
  const tops=createTopSet({wood:frontWood,ceramic,chrome,roundedRect,woodUV,width:W,basinLayout:chosenLayout});root.add(tops.root);
- cabinet.userData.editTarget='furniture';faucet.userData.editTarget='basin';for(const basin of Object.values(insets))basin.userData.editTarget='basin';
+ cabinet.userData.editTarget='furniture';faucet.userData.editTarget=secondFaucet.userData.editTarget='basin';for(const basin of Object.values(insets))basin.userData.editTarget='basin';
  tops.root.userData.editTarget='basin';tops.solid.userData.editTarget='basin';tops.drilled.userData.editTarget='basin';
  for(const v of Object.values(tops.vessels))v.group.userData.editTarget='basin';
  const body=faucet.getObjectByName('Corps');
@@ -150,18 +157,19 @@ export function makeModel({width=.80,includeMirror=true,basinLayout,basinTop='se
  let topMode=basinTop;
  function setTop(mode){
   if(!TOP_OPTIONS.some(o=>o.id===mode)||!topAvailable(mode,widthCm))return false;
-  topMode=mode;const centers=getBasinCenters(mode),plumbingChanged=!paired&&integratedTop(mode)&&JSON.stringify(centers)!==JSON.stringify(plumbing);if(plumbingChanged)plumbing.splice(0,plumbing.length,...centers);setTopDrawer(drawerMode,plumbingChanged);faucet.position.x=centers[0];secondFaucet.position.x=centers[1]||0;secondFaucet.visible=centers.length===2;for(const [id,group] of Object.entries(insets))group.visible=mode===id;tops.root.visible=mode==='plain'||mode==='neris'||mode==='torne';
+  ensureSolid(mode);placement.visible=mode==='bare';topMode=mode;const centers=getBasinCenters(mode),plumbingChanged=!paired&&integratedTop(mode)&&JSON.stringify(centers)!==JSON.stringify(plumbing);if(plumbingChanged)plumbing.splice(0,plumbing.length,...centers);setTopDrawer(drawerMode,plumbingChanged);faucet.position.x=centers[0];secondFaucet.position.x=centers[1]||0;secondFaucet.visible=centers.length===2;for(const [id,group] of Object.entries(insets))group.visible=mode===id;tops.root.visible=mode==='plain'||mode==='neris'||mode==='torne';
   tops.solid.visible=mode==='plain';tops.drilled.visible=mode==='neris'||mode==='torne';
   for(const [kind,vessel] of Object.entries(tops.vessels))vessel.group.visible=mode===kind;
   faucet.visible=mode!=='plain'&&mode!=='bare';faucet.position.z=mode==='neris'||mode==='torne'?-.017:0;
-  const deckOffset=(solidSurface(mode)?.thickness??2)/100-.02;
+  const deckOffset=(planFor(mode)?.thickness??2)/100-.02;
   faucet.position.y=secondFaucet.position.y=topY-.82+deckOffset;
   const extra=mode==='neris'?.150:mode==='torne'?.130:0;
   body.scale.y=(.131+extra)/.131;body.position.y=.911+extra/2;
   heads.forEach((o,i)=>o.position.y=headY[i]+extra);
   return true;
  }
- setTop(topAvailable(basinTop,widthCm)?basinTop:paired?'tampa':topAvailable('sella',widthCm)?'sella':'plain');setTopDrawer(topDrawer);for(const group of [...Object.values(insets),tops.root])group.position.y+=topY-.82;
+ for(const group of [...Object.values(insets),tops.root])group.position.y+=topY-.82;
+ setTop(topAvailable(basinTop,widthCm)?basinTop:paired?'tampa':topAvailable('sella',widthCm)?'sella':'plain');setTopDrawer(topDrawer);
  // The live Reflector disk is supplied by the renderer, keeping the model testable without WebGL.
  return {root,cabinet:assembly,legs,drawers,mirror,format:form,facadeMode,wood,frontWood,drawerMetal:inner,ceramic,frontMeshes,panels,fasteners,spec,tops,insetGroup,insets,faucet,faucets:[faucet,secondFaucet],getBasinCenters,basinLayout:chosenLayout,setTop,setTopDrawer,getTopDrawer:()=>drawerMode,getTop:()=>topMode};
 }

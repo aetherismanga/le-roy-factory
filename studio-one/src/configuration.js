@@ -1,4 +1,4 @@
-import {solidSurface} from './solid-surface-catalog.js';
+import {isSolidSurface,solidPlan} from './solid-surface-catalog.js';
 export const WIDTH_RANGE=Object.freeze({min:40,max:120,step:1});
 export const PAIRED_WIDTH=140;
 export const WIDTH_PRESETS=Object.freeze([60,70,80,90,100,120,PAIRED_WIDTH]);
@@ -9,7 +9,8 @@ export function validWidth(cm){return Number.isInteger(cm)&&cm>=WIDTH_RANGE.min&
 export const validCompositionWidth=cm=>validWidth(cm)||cm===PAIRED_WIDTH;
 export const cabinetUnitWidth=cm=>cm===PAIRED_WIDTH?cm/2:cm;
 export function topAvailable(mode,cm){
- if(cm===PAIRED_WIDTH)return mode==='bare'||mode==='tampa'||!!solidSurface(mode);
+ if(isSolidSurface(mode))return !!solidPlan(mode,cm);
+ if(cm===PAIRED_WIDTH)return mode==='bare'||mode==='tampa';
  if(!validWidth(cm))return false;if((mode==='sella'||mode==='tampa'))return Object.hasOwn(SELLA_REFS,cm);if(mode==='neris')return cm>=50;return mode==='bare'||mode==='plain'||mode==='torne';}
 export const BRIGHTNESS_RANGE=Object.freeze({min:40,max:180,default:100});
 
