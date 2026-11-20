@@ -34,6 +34,12 @@
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
     }
 
+    .client-list-title {
+      margin: 0 0 .65rem;
+      font-size: 1.1rem;
+      scroll-margin-block-start: 4rem;
+    }
+
     /* Styles pour les Badges de Statut */
     .badge {
       display: inline-block;
@@ -144,7 +150,7 @@
       </div>
 
       <div class="select-filters">
-        <select id="filter-type" class="crm-select">
+        <select id="filter-type" class="crm-select" aria-label="Type de dossier">
           <option value="">Tous les types</option>
           <option value="client">Clients uniquement (Vert)</option>
           <option value="prospect">Prospects uniquement (Orange)</option>
@@ -154,10 +160,34 @@
           <option value="">Tous les départements</option>
         </select>
       </div>
+
+      <div id="client-ops-bar" class="client-ops-bar">
+        <select id="ops-activity" aria-label="Activité du dossier">
+          <option value="">Toutes les activités</option>
+          <option value="groupe">Groupe</option>
+          <option value="negoce-independant">Négoce indépendant</option>
+          <option value="pisciniste">Pisciniste</option>
+          <option value="architecte">Architecte</option>
+          <option value="cuisiniste">Cuisiniste</option>
+          <option value="carreleur">Carreleur</option>
+          <option value="plombier">Plombier</option>
+        </select>
+        <select id="ops-followup" aria-label="Suivi commercial">
+          <option value="">Toutes les relances</option>
+          <option value="recent">Contact ≤ 30 jours</option>
+          <option value="suivre">31 à 60 jours</option>
+          <option value="over60">À relancer +60 j</option>
+          <option value="relancer">61 à 90 jours</option>
+          <option value="urgent">Urgents +90 j</option>
+          <option value="never">Jamais contactés</option>
+        </select>
+        <button type="button" id="ops-reset" class="client-ops-reset">↺ Réinitialiser</button>
+      </div>
     </div>
 
+    <h2 id="liste-clients" class="client-list-title">Liste des dossiers</h2>
     <div class="crm-table-container">
-      <table class="crm-table">
+      <table class="crm-table" aria-labelledby="liste-clients">
         <thead>
           <tr>
             <th>Statut</th>
@@ -294,6 +324,8 @@
     import "./assets/js/crm-client-partner-access.js?v=20261119-partners1";
     import { fingerprint, changedFields, assertUnchanged, reconcileList, sameValue, safeDocumentUrl, localDate, matchesClientSearch } from "./assets/js/client-form-core.mjs?v=20261105-audit1";
     import { ready as integrityReady, canonicalId } from "./assets/js/crm-client-integrity.js?v=20261112-auth-ready1";
+    import { active as isActiveClient } from "./assets/js/crm-client-integrity-core.mjs?v=20261105-audit1";
+    import { clientFollowup, matchesFollowup, portfolioType } from "./assets/js/client-activity-core.mjs?v=20261120-suivi1";
     import { cloneExtra } from "./assets/js/crm-extra-save-core.mjs";
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { collection, doc, setDoc, getDocs, runTransaction, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -729,52 +761,62 @@
       const filterType = document.getElementById("filter-type");
       const filterDep = document.getElementById("filter-departement");
 
-      // Pré-filtrage si venant du lien menu "Prospects"
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get("filter") === "prospect" && filterType) {
-        filterType.value = "prospect";
+      const filterActivity = document.getElementById("ops-activity");
+      const filterFollowup = document.getElementById("ops-followup");
+      const listTitle = document.getElementById("liste-clients");
+      const linkedFilters = [[filterType, "filter"], [filterFollowup, "followup"]];
+      const params = new URLSearchParams(location.search);
+      for (const [select, param] of linkedFilters) {
+        const value = params.get(param);
+        select.value = Array.from(select.options).some(option => option.value === value) ? value : "";
+      }
+
+      function syncFilterUrl() {
+        const url = new URL(location.href);
+        for (const [select, param] of linkedFilters) {
+          if (select.value) url.searchParams.set(param, select.value);
+          else url.searchParams.delete(param);
+        }
+        history.replaceState(history.state, "", url);
       }
 
       function renderTable() {
         if (!tableBody) return;
 
-        const search = searchInput ? searchInput.value.toLowerCase().trim() : "";
-        const type = filterType ? filterType.value : "";
-        const dep = filterDep ? filterDep.value : "";
-
-        let clientsCount = 0;
-        let prospectsCount = 0;
+        const search = searchInput.value.toLowerCase().trim();
+        const type = filterType.value;
+        const dep = filterDep.value;
+        const activity = filterActivity.value;
+        const followupFilter = filterFollowup.value;
+        const now = Date.now();
+        const totals = { client: 0, prospect: 0 };
         const depsSet = new Set();
-
-        const filtered = clientsData.filter(c => {
-          // Les fiches archivées restent dans Firebase pour les statistiques,
-          // mais ne sont plus affichées ni comptées parmi les clients/prospects actifs.
-          if (c.archived === true || c.archive === true) return false;
+        const filtered = [];
+        for (const c of clientsData) {
+          if (!isActiveClient(c)) continue;
+          const cType = portfolioType(c);
+          totals[cType]++;
 
           let cp = (c.codePostal || c.code_postal || "").toString().trim();
           let ville = (c.ville || "").toString().trim();
-
-          if (/^\d{5}$/.test(ville) && !/^\d{5}$/.test(cp)) {
-            const tmp = cp; cp = ville; ville = tmp;
-          }
-
+          if (/^\d{5}$/.test(ville) && !/^\d{5}$/.test(cp)) [cp, ville] = [ville, cp];
           if (cp.length >= 2) depsSet.add(cp.substring(0, 2));
 
-          const cType = (c.type || "client").toLowerCase();
-          if (cType === "client") clientsCount++;
-          else if (cType === "prospect") prospectsCount++;
+          if (type && cType !== type) continue;
+          if (dep && !cp.startsWith(dep)) continue;
+          if (activity && (c.categorieActivite || c.sousCategorie) !== activity) continue;
+          if (!matchesClientSearch({...c, codePostal: cp, ville}, search)) continue;
 
-          const matchType = !type || cType === type;
-          const matchDep = !dep || cp.startsWith(dep);
-          const matchSearch = matchesClientSearch({...c,codePostal:cp,ville},search);
+          const followup = clientFollowup(c, now);
+          if (matchesFollowup(followup.key, followupFilter)) filtered.push({ c, cType, cp, ville, followup });
+        }
 
-          return matchType && matchDep && matchSearch;
-        });
-
-        // Mise à jour des compteurs
-        document.getElementById("stat-total-clients").textContent = clientsCount;
-        document.getElementById("stat-total-prospects").textContent = prospectsCount;
+        document.getElementById("stat-total-clients").textContent = totals.client;
+        document.getElementById("stat-total-prospects").textContent = totals.prospect;
         document.getElementById("stat-secteur-count").textContent = filtered.length;
+        const typeLabel = type === "prospect" ? "Prospects" : type === "client" ? "Clients" : "";
+        const followupLabel = followupFilter && filterFollowup.selectedOptions[0].textContent;
+        listTitle.textContent = [typeLabel, followupLabel].filter(Boolean).join(" · ") || "Clients et prospects";
 
         // Remplissage dynamique des départements
         if (filterDep && filterDep.children.length <= 1) {
@@ -786,22 +828,14 @@
         }
 
         if (filtered.length === 0) {
-          tableBody.innerHTML = `<tr><td colspan="7" class="no-results">Aucune entreprise ne correspond à votre recherche.</td></tr>`;
+          tableBody.innerHTML = `<tr><td colspan="7" class="no-results">Aucun dossier ne correspond aux filtres sélectionnés.</td></tr>`;
           return;
         }
 
         tableBody.innerHTML = "";
-        filtered.forEach(c => {
-          let cp = (c.codePostal || c.code_postal || "").toString().trim();
-          let ville = (c.ville || "").toString().trim();
-          if (/^\d{5}$/.test(ville) && !/^\d{5}$/.test(cp)) {
-            const tmp = cp; cp = ville; ville = tmp;
-          }
-
-          const cType = (c.type || "client").toLowerCase();
+        filtered.forEach(({ c, cType, cp, ville, followup }) => {
           const badgeClass = cType === "prospect" ? "badge-prospect" : "badge-client";
-          const crList = c.comptes_rendus || c.comptesRendus || [];
-          const lastCR = crList.length > 0 ? crList[0].date : "Aucun";
+          const lastContact = followup.date ? followup.date.toLocaleDateString("fr-FR") : "Aucun";
 
           const tr = document.createElement("tr");
           tr.dataset.clientId = c.id;
@@ -812,7 +846,7 @@
             <td>${esc(cp ? cp + ' ' : '')}${esc(ville)}</td>
             <td>${esc(c.contact || '-')}</td>
             <td>${esc(c.telephone || '-')}</td>
-            <td>${esc(lastCR)}</td>
+            <td>${esc(lastContact)}<br><span class="followup-pill ${followup.cls}">${esc(followup.label)}</span></td>
             <td>
               <button class="filter-btn btn-edit-row" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">✏️ Éditer</button>
             </td>
@@ -830,21 +864,38 @@
 
       const editParam = canonicalId(new URLSearchParams(location.search).get("edit"));
       let directOpened = false;
+      let jumpToList = location.hash === "#liste-clients";
       onSnapshot(collection(db, "clients"), (snapshot) => {
         clientsData = [];
         snapshot.forEach(docSnap => {
           clientsData.push({ ...docSnap.data(), id: docSnap.id });
         });
         renderTable();
+        if (jumpToList) {
+          jumpToList = false;
+          listTitle.scrollIntoView({ block: "start" });
+        }
         if (!directOpened && editParam && clientsData.some(c=>c.id===editParam)) { directOpened=true; openModal(editParam); }
       }, error => {
         console.error('Chargement clients',error);
         tableBody.textContent='Impossible de charger les clients. Vérifiez votre connexion puis actualisez la page.';
       });
 
-      searchInput?.addEventListener("input", renderTable);
-      filterType?.addEventListener("change", renderTable);
-      filterDep?.addEventListener("change", renderTable);
+      searchInput.addEventListener("input", renderTable);
+      filterActivity.addEventListener("change", renderTable);
+      filterDep.addEventListener("change", renderTable);
+      for (const [select] of linkedFilters) {
+        select.addEventListener("change", () => {
+          syncFilterUrl();
+          renderTable();
+        });
+      }
+      document.getElementById("ops-reset").addEventListener("click", () => {
+        for (const field of [searchInput, filterType, filterDep, filterActivity, filterFollowup]) field.value = "";
+        document.getElementById("pf-clear")?.click();
+        syncFilterUrl();
+        searchInput.dispatchEvent(new Event("input", { bubbles: true }));
+      });
 
     });
   </script>

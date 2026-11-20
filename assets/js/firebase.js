@@ -117,7 +117,7 @@ if (currentPage === "clients.html") {
   import("./crm-client-enhancements.js?v=20261119-partners1").catch(err => console.error("Erreur chargement améliorations Clients :", err));
   import("./crm-ui-modern.js?v=20261113-save1").catch(err => console.error("Erreur chargement interface moderne CRM :", err));
   import("./clients-tournee-ui.js?v=20260903-1").catch(err => console.error("Erreur chargement accès tournées :", err));
-  import("./clients-operations.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
+  import("./clients-operations.js?v=20261120-suivi1").catch(err => console.error("Erreur chargement outils opérationnels Clients :", err));
   import("./client-codes.js?v=20261105-map2").catch(err => console.error("Erreur chargement codes clients LRF :", err));
   import("./clients-export.js?v=20261105-audit1").catch(err => console.error("Erreur chargement impression/export clients :", err));
   import("./account-form-send.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement envoi formulaire ouverture/mise à jour :", err));
@@ -128,7 +128,7 @@ if (currentPage === "dashboard.html") {
     .then(() => import("./dashboard-weather-geofix.js?v=20260904-geofix1"))
     .then(() => import("./dashboard-weather-daily.js?v=20260904-weather2"))
     .catch(err => console.error("Erreur chargement horloge / météo dashboard :", err));
-  import("./dashboard-commercial.js?v=20261106-crm-unified2").catch(err => console.error("Erreur chargement dashboard commercial :", err));
+  import("./dashboard-commercial.js?v=20261120-suivi1").catch(err => console.error("Erreur chargement dashboard commercial :", err));
 }
 if (currentPage === "mails-groupes.html") {
   import("./mails-groupes-programmation.js?v=20261105-audit1").catch(err => console.error("Erreur chargement mails programmés :", err));

@@ -1,4 +1,5 @@
-import { clientActivity } from './client-activity-core.mjs';
+import { clientActivity, clientFollowup, matchesFollowup, portfolioType } from './client-activity-core.mjs?v=20261120-suivi1';
+import { active as isActiveClient } from './crm-client-integrity-core.mjs?v=20261105-audit1';
 import { db, auth, getAgentProfile } from './firebase.js';
 import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { PARTNER_CONTACTS } from './partner-contacts.js?v=20260903-search&media=20261018';
@@ -6,8 +7,6 @@ import { PARTNER_CONTACTS } from './partner-contacts.js?v=20260903-search&media=
 const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;');
 const norm=v=>String(v??'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 function parseDate(v){if(!v)return null;if(v?.toDate)return v.toDate();const s=String(v).trim();const fr=s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})/);if(fr){let y=+fr[3];if(y<100)y+=2000;const d=new Date(y,+fr[2]-1,+fr[1]);return isNaN(d)?null:d}const d=new Date(s);return isNaN(d)?null:d}
-function latest(c){return clientActivity(c)[0]?.date||null}
-function days(c){const d=latest(c);return d?Math.max(0,Math.floor((Date.now()-d.getTime())/86400000)):null}
 function localDateKey(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 function clock(v){const d=parseDate(v);return d?d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):''}
 function duration(sec){const m=Math.round((Number(sec)||0)/60);return m<60?`${m} min`:`${Math.floor(m/60)} h ${String(m%60).padStart(2,'0')}`}
@@ -44,6 +43,10 @@ function injectStyle(){if(document.getElementById('lrf-dashboard-v2-style'))retu
 .comdash{display:grid;gap:1.05rem}.dash-actions{display:flex;gap:.5rem;flex-wrap:wrap}.dash-action{display:inline-flex;align-items:center;gap:.4rem;border:1px solid #d9cfbf;background:linear-gradient(180deg,#fff,#fff9ef);border-radius:10px;padding:.58rem .78rem;text-decoration:none;color:#252525;font-weight:850;font-size:.78rem;box-shadow:0 4px 10px rgba(70,45,20,.055)}.dash-action:hover{border-color:#d4a12b;transform:translateY(-1px)}.dash-action.tour{color:#fff;border-color:#118b82;background:linear-gradient(180deg,#35c3b8,#11867f);box-shadow:0 6px 14px rgba(17,134,127,.18)}.dash-action.saved-tour{border-color:#d8a51e;background:linear-gradient(180deg,#fff7cf,#ffe59a);color:#5a4300}
 .dash-search-wrap{position:relative}.dash-search{display:flex;align-items:center;gap:.65rem;min-height:56px;padding:0 15px;border:1px solid #decfae;border-radius:16px;background:linear-gradient(145deg,#fffefb,#fff7e9);box-shadow:0 8px 22px rgba(82,58,33,.08)}.dash-search span{font-size:1.15rem}.dash-search input{flex:1;border:0!important;background:transparent!important;box-shadow:none!important;outline:0!important;font-size:.95rem;font-weight:650;min-width:0}.dash-search kbd{border:1px solid #e0d4c3;background:#fff;border-radius:7px;padding:3px 6px;font-size:.65rem;color:#777}.dash-search-results{position:absolute;left:0;right:0;top:calc(100% + 7px);z-index:5000;display:none;max-height:430px;overflow:auto;border:1px solid #dcccae;border-radius:15px;background:#fffdf9;box-shadow:0 18px 45px rgba(54,37,17,.18);padding:7px}.dash-search-results.open{display:block}.dash-search-result{display:grid;grid-template-columns:38px 1fr auto;gap:9px;align-items:center;padding:9px;border-radius:11px;text-decoration:none;color:#242424}.dash-search-result:hover{background:#fff5e3}.dash-search-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#f5eee3}.dash-search-result b{display:block;font-size:.82rem}.dash-search-result small{display:block;color:#777;font-size:.7rem;margin-top:2px}.dash-search-kind{font-size:.62rem;font-weight:850;color:#8b6a23;background:#fff3cf;border-radius:999px;padding:4px 7px}.dash-search-empty{padding:20px;text-align:center;color:#7e7569;font-size:.8rem}
 .dash-alert{padding:.75rem .9rem;border-radius:12px;background:#fff8df;border:1px solid #ead892;color:#5f4a00;font-size:.8rem}.dash-kpis{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:.75rem}.dash-card{background:linear-gradient(145deg,#fffefb,#fff9f0);border:1px solid #e8decf;border-radius:15px;padding:1rem;box-shadow:0 7px 18px rgba(56,37,16,.055)}.dash-kpi-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.055em;color:#777;font-weight:850}.dash-kpi-value{font-size:1.75rem;font-weight:900;color:#151515;margin:.25rem 0}.dash-kpi-sub{font-size:.72rem;color:#777}.dash-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:.9rem}.dash-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:.75rem}.dash-title h3{font-size:.95rem;margin:0}.dash-title a{font-size:.7rem;font-weight:800;color:#7e611d;text-decoration:none}.activity-list{display:flex;flex-direction:column;gap:.35rem}.activity-row{display:grid;grid-template-columns:1fr auto;gap:.7rem;padding:.5rem .05rem;border-bottom:1px solid #f0e9de}.activity-row:last-child{border-bottom:0}.priority-name{font-weight:800;color:#20252b;font-size:.8rem}.priority-meta{font-size:.7rem;color:#777;margin-top:2px}.dash-empty{color:#888;font-size:.8rem;padding:.75rem 0}.dash-today{grid-column:1/-1}.today-list{display:grid;gap:8px}.today-tour{border:1px solid #d8e5de;border-radius:13px;padding:10px 12px;background:linear-gradient(145deg,#f8fffc,#effaf5)}.today-tour-head{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center}.today-time{font-size:.92rem;font-weight:900;color:#087b75}.today-tour-name{font-weight:850;font-size:.84rem}.today-meta{font-size:.7rem;color:#6e756f;margin-top:3px}.today-stops{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;padding-left:80px}.today-stop{font-size:.67rem;border-radius:999px;padding:4px 7px;background:#fff;border:1px solid #d9e9e0;color:#45554d}.today-event{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;border:1px solid #e6ddcf;border-radius:12px;padding:9px 12px;background:#fff}.today-event-time{font-weight:900;color:#8a660d}.today-badge{font-size:.62rem;font-weight:850;border-radius:999px;padding:4px 7px;background:#fff0cb;color:#8a6405}.today-badge.tour{background:#dcf5ed;color:#147566}.today-create{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.today-create a{text-decoration:none;font-size:.72rem;font-weight:850;border:1px solid #d9c9aa;border-radius:9px;padding:7px 9px;color:#554527;background:#fff}.dash-state-list{display:grid;gap:.58rem;font-size:.8rem}
+.dash-kpi-link{display:block;color:inherit;text-decoration:none}
+.dash-kpi-link .dash-kpi-label{text-decoration:underline;text-decoration-color:#c9b78c;text-underline-offset:.22em}
+.dash-kpi-link:hover,.dash-kpi-link:focus-visible{border-color:#9a751f}
+.dash-kpi-link:focus-visible{outline:3px solid #8a690e;outline-offset:2px}
 @media(max-width:1100px){.dash-kpis{grid-template-columns:repeat(3,1fr)}}@media(max-width:950px){.dash-grid{grid-template-columns:1fr}.dash-today{grid-column:auto}}
 @media(max-width:650px){body.crm-body .crm-sidebar .sidebar-brand{display:flex!important}body.crm-body .crm-mobile-logo,body.crm-body #crm-mobile-logo,body.crm-body .lrf-mobile-logo{display:none!important}body.crm-body .lrf-mobile-actions{display:none!important}body.crm-body{padding-bottom:0!important}.comdash{padding-bottom:1rem!important}.dash-kpis{grid-template-columns:repeat(2,1fr)}.dash-search kbd{display:none}.today-tour-head,.today-event{grid-template-columns:55px 1fr}.today-tour-head>a,.today-event>.today-badge{grid-column:2}.today-stops{padding-left:65px}.dash-search-result{grid-template-columns:34px 1fr}.dash-search-kind{display:none}}
 @media(max-width:430px){.dash-kpis{grid-template-columns:1fr 1fr}.dash-kpi-value{font-size:1.4rem}.dash-kpi-label{font-size:.61rem}.dash-kpi-sub{font-size:.65rem}}
@@ -119,13 +122,42 @@ async function reloadDashboard(){
   try{
     const [clients,tours,requests,events]=await loadDashboardData();
   const myTours=document.getElementById('dash-my-tours');if(myTours)myTours.textContent=`🗂 Mes tournées${tours.length?` (${tours.length})`:''}`;
-  const active=clients.filter(c=>!c.archived&&!c.archive&&!c.duplicateOf);const nbClients=active.filter(c=>String(c.type||'client').toLowerCase()!=='prospect').length;const prospects=active.length-nbClients;const known=active.filter(c=>days(c)!==null);const never=active.length-known.length;const d60=known.filter(c=>days(c)>60).length;const d90=known.filter(c=>days(c)>90).length;
-  document.getElementById('dash-kpis').innerHTML=`<div class=\"dash-card\"><div class=\"dash-kpi-label\">Clients</div><div class=\"dash-kpi-value\">${nbClients}</div><div class=\"dash-kpi-sub\">portefeuille actif</div></div><div class=\"dash-card\"><div class=\"dash-kpi-label\">Prospects</div><div class=\"dash-kpi-value\">${prospects}</div><div class=\"dash-kpi-sub\">à convertir</div></div><div class=\"dash-card\"><div class=\"dash-kpi-label\">À relancer +60 j</div><div class=\"dash-kpi-value\">${d60}</div><div class=\"dash-kpi-sub\">contact connu</div></div><div class=\"dash-card\"><div class=\"dash-kpi-label\">Urgents +90 j</div><div class=\"dash-kpi-value\">${d90}</div><div class=\"dash-kpi-sub\">priorité commerciale</div></div><div class=\"dash-card\"><div class=\"dash-kpi-label\">Jamais contactés</div><div class=\"dash-kpi-value\">${never}</div><div class=\"dash-kpi-sub\">à qualifier</div></div>`;
+  const active = clients.filter(isActiveClient);
+  const now = Date.now();
+  const counts = { client: 0, prospect: 0, recent: 0, suivre: 0, relancer: 0, urgent: 0, never: 0, over60: 0 };
+  for (const client of active) {
+    counts[portfolioType(client)]++;
+    const { key } = clientFollowup(client, now);
+    counts[key]++;
+    if (matchesFollowup(key, 'over60')) counts.over60++;
+  }
+  const { never, urgent: d90, recent, suivre: mid, relancer: late } = counts;
+  const cards = [
+    ['Clients', counts.client, 'portefeuille actif', 'filter=client'],
+    ['Prospects', counts.prospect, 'à convertir', 'filter=prospect'],
+    ['À relancer +60 j', counts.over60, 'contact connu', 'followup=over60'],
+    ['Urgents +90 j', d90, 'priorité commerciale', 'followup=urgent'],
+    ['Jamais contactés', never, 'à qualifier', 'followup=never']
+  ];
+  document.getElementById('dash-kpis').innerHTML = cards.map(([label, count, detail, query]) => `
+    <a class="dash-card dash-kpi-link" href="clients.html?${query}#liste-clients">
+      <div class="dash-kpi-label">${label}</div>
+      <div class="dash-kpi-value">${count}</div>
+      <div class="dash-kpi-sub">${detail}</div>
+    </a>`).join('');
   document.getElementById('dash-alert').innerHTML=d90?`⚠️ <strong>${d90} dossier(s)</strong> ont un dernier contact connu datant de plus de 90 jours. ${never?`<strong>${never}</strong> autre(s) n'ont encore aucun contact enregistré.`:''}`:never?`ℹ️ Aucun dossier avec contact connu n'est au-delà de 90 jours. <strong>${never}</strong> dossier(s) n'ont encore aucun contact enregistré.`:'✅ Portefeuille à jour : aucun dossier au-delà de 90 jours.';
   renderToday(tours,events);setupSearch(makeSearchIndex(active,tours,requests));
 
-  const acts=[];active.forEach(c=>{(c.comptes_rendus||c.comptesRendus||[]).forEach(x=>{const d=parseDate(x.date||x.dateCreation);if(d)acts.push({d,label:x.type||'Compte-rendu',name:c.societe})});(c.historiqueMails||[]).forEach(x=>{const d=parseDate(x.date);if(d)acts.push({d,label:'Mail envoyé',name:c.societe})})});acts.sort((a,b)=>b.d-a.d);document.getElementById('dash-activities').innerHTML=acts.slice(0,8).map(a=>`<div class=\"activity-row\"><div><div class=\"priority-name\">${esc(a.label)}</div><div class=\"priority-meta\">${esc(a.name||'')}</div></div><span class=\"priority-meta\">${a.d.toLocaleDateString('fr-FR')}</span></div>`).join('')||'<div class=\"dash-empty\">Aucune activité enregistrée.</div>';
-  const recent=known.filter(c=>days(c)<=30).length,mid=known.filter(c=>days(c)>30&&days(c)<=60).length,late=known.filter(c=>days(c)>60&&days(c)<=90).length;document.getElementById('dash-state').innerHTML=`<div class=\"dash-state-list\"><div>🟢 Contact récent ≤30 j : <strong>${recent}</strong></div><div>🟡 31–60 jours : <strong>${mid}</strong></div><div>🟠 61–90 jours : <strong>${late}</strong></div><div>🔴 +90 jours : <strong>${d90}</strong></div><div>⚪ Jamais contacté : <strong>${never}</strong></div></div>`;
+  const acts = [];
+  for (const client of active) {
+    for (const entry of clientActivity(client)) {
+      if (entry.kind === 'Contact') continue;
+      const label = entry.kind === 'Mail' ? 'Mail envoyé' : entry.type || 'Compte-rendu';
+      acts.push({ d: entry.date, label, name: client.societe });
+    }
+  }
+  acts.sort((a,b)=>b.d-a.d);document.getElementById('dash-activities').innerHTML=acts.slice(0,8).map(a=>`<div class=\"activity-row\"><div><div class=\"priority-name\">${esc(a.label)}</div><div class=\"priority-meta\">${esc(a.name||'')}</div></div><span class=\"priority-meta\">${a.d.toLocaleDateString('fr-FR')}</span></div>`).join('')||'<div class=\"dash-empty\">Aucune activité enregistrée.</div>';
+  document.getElementById('dash-state').innerHTML=`<div class=\"dash-state-list\"><div>🟢 Contact récent ≤30 j : <strong>${recent}</strong></div><div>🟡 31–60 jours : <strong>${mid}</strong></div><div>🟠 61–90 jours : <strong>${late}</strong></div><div>🔴 +90 jours : <strong>${d90}</strong></div><div>⚪ Jamais contacté : <strong>${never}</strong></div></div>`;
     dashboardLoaded=true;dashboardLoadFailed=false;
   }catch(error){
     console.error('Chargement du tableau de bord impossible',error);

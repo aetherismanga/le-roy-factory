@@ -1,14 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import { clientActivity } from '../assets/js/client-activity-core.mjs';
+import { clientActivity, clientFollowup, matchesFollowup, portfolioType } from '../assets/js/client-activity-core.mjs';
+import { active as isActiveClient } from '../assets/js/crm-client-integrity-core.mjs';
 import { readFile } from 'node:fs/promises';
 
-async function dashboardSandbox(){
+async function dashboardSandbox(clientDocs = [{id:'real-id', data:() => ({id:'untrusted-field', societe:'Magasin', type:'client'})}]){
   const source=(await readFile(new URL('../assets/js/dashboard-commercial.js',import.meta.url),'utf8'))
     .replace(/^import .*;\s*$/gm,'')
     .replace(/^if\(document\.readyState[\s\S]*$/m,'');
-  const context=vm.createContext({clientActivity,setTimeout,clearTimeout,console:{error(){},warn(){}}});
+  const context=vm.createContext({clientDocs,clientActivity,clientFollowup,matchesFollowup,portfolioType,isActiveClient,setTimeout,clearTimeout,console:{error(){},warn(){}}});
   vm.runInContext(`
     const auth={currentUser:null};
     const db={};const PARTNER_CONTACTS={};
@@ -23,7 +24,7 @@ async function dashboardSandbox(){
     function collection(database,name){return name}
     async function getDocs(name){
       reads++;if(failReads)throw new Error('unavailable');
-      return name==='clients'?[{id:'real-id',data(){return {id:'untrusted-field',societe:'Magasin',type:'client'}}}]:[];
+      return name==='clients'?clientDocs:[];
     }
     const hosts=Object.fromEntries(['dash-alert','dash-kpis','dash-my-tours','dash-today-list','dash-activities','dash-state'].map(id=>[id,{textContent:'',innerHTML:'unchanged'}]));
     const document={getElementById(id){return hosts[id]||null}};
@@ -54,4 +55,28 @@ test('a failed dashboard read shows retry and never substitutes zero counts; ret
   assert.equal(run('dashboardLoaded'),true);
   assert.equal(run('dashboardLoadFailed'),false);
   assert.match(run(`hosts['dash-kpis'].innerHTML`),/dash-kpi-value[^>]*>1</);
+});
+
+test('each portfolio card links to the matching active dossiers, including the overlapping 60 and 90 day groups', async () => {
+  const ago = days => new Date(Date.now() - days * 86400000).toISOString();
+  const data = [
+    { type:'CLIENT', historiqueMails:[{sentAt:ago(60)}] },
+    { type:'prospect', comptesRendus:[{date:ago(61)}] },
+    { dernierEchange:ago(90) },
+    { moovagoDernierSuivi:ago(91) },
+    { type:'prospect', contact:'Interlocuteur connu', email:'contact@example.test' },
+    { comptes_rendus:[null,{date:'inconnue'}], historiqueMails:{} },
+    { lastContact:ago(91), historiqueMails:[{date:ago(1)}] },
+    { archived:true }, { archive:true }, { duplicateOf:'client-0' }
+  ];
+  const run = await dashboardSandbox(data.map((row, i) => ({id:`client-${i}`, data:() => row})));
+  await run("auth.currentUser={email:'jerome@leroyfactory.fr'};reloadDashboard()");
+  const cards = [...run("hosts['dash-kpis'].innerHTML").matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>[\s\S]*?class="dash-kpi-value">(\d+)</g)];
+  assert.deepEqual(cards.map(([, href, count]) => [href, Number(count)]), [
+    ['clients.html?filter=client#liste-clients', 5],
+    ['clients.html?filter=prospect#liste-clients', 2],
+    ['clients.html?followup=over60#liste-clients', 3],
+    ['clients.html?followup=urgent#liste-clients', 1],
+    ['clients.html?followup=never#liste-clients', 2]
+  ]);
 });
