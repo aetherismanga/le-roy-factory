@@ -5,7 +5,7 @@
 .tibur-promo{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,30%);gap:20px;align-items:center;padding:18px;border:1px solid #dbc79e;border-radius:18px;background:#fffaf0}
 .tibur-promo h2{margin:0;font:500 1.8rem Georgia,serif}.tibur-promo p{margin:6px 0 12px;color:#514d46}.tibur-promo img{width:100%;max-height:175px;object-fit:cover;border-radius:12px}
 .tibur-formats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.tibur-format{display:grid;grid-template-columns:20px 1fr;align-items:center;gap:9px;padding:10px;background:white;border:1px solid var(--line);border-radius:10px;cursor:pointer;min-height:50px}.tibur-format input{width:18px;height:18px;margin:0;accent-color:var(--gold)}.tibur-format strong,.tibur-format small{display:block}.tibur-format small{margin-top:3px;color:#76581e}
-.tibur-pallet{display:block;margin-top:4px;color:#514d46;font-size:.82rem;line-height:1.35}.tibur-pallet span{display:block}
+.tibur-pallet{display:block;margin-top:4px;color:#514d46;font-size:.82rem;line-height:1.35}
 @media(max-width:760px){.tibur-promo{display:block}.tibur-promo img{display:none}.tibur-formats{grid-template-columns:1fr}.tibur-format strong,.tibur-format small{display:inline-block}.tibur-format small{margin:0 0 0 8px}}
 </style>  <link rel="stylesheet" href="assets/css/lrf-sage-bars.css?v=20260918-sage3d1">
 </head><body><header><div class="container topbar"><a class="brand" href="index.html"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY"></a><a class="back" href="index.html">Fermer</a></div></header><main><section class="hero"><div class="container heroIn"><div><h1>VIEW — Lot MS novembre 2026</h1><p>Retrouvez la promo Tibur et les lots disponibles. Sélectionnez vos formats ou vos lots pour préparer une demande de disponibilité à VIEW.</p></div><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png" alt="VIEW Ceramiche"></div></section><section class="content"><div class="container"><section class="login"><div><h2>Afficher les tarifs</h2><p>Identifiez votre compte professionnel LRF pour voir les tarifs réservés.</p></div><div class="fields"><input id="client-code" placeholder="Code LRF"><input id="client-dep" placeholder="Département"><button id="login-btn" class="btn primary">Voir mes tarifs</button></div><div id="login-msg" class="msg"></div></section><section class="tibur-promo" aria-labelledby="tibur-promo-title">
@@ -45,7 +45,7 @@ const lots=[
 const tiburPromo=[
   {id:'promo-tibur-30x60',series:'TIBUR',name:'Promotion',format:'30×60 cm',price:'11,90 € / m²',palletArea:'43,20',promo:true},
   {id:'promo-tibur-60x60',series:'TIBUR',name:'Promotion',format:'60×60 cm',price:'11,90 € / m²',palletArea:'43,20',promo:true},
-  {id:'promo-tibur-60x90',series:'TIBUR',name:'Promotion',format:'60×90 cm',price:'13,00 € / m²',palletArea:'48,60',carbonPalletArea:'51,84',promo:true}
+  {id:'promo-tibur-60x90',series:'TIBUR',name:'Promotion',format:'60×90 cm',price:'13,00 € / m²',palletArea:'48,60',promo:true}
 ];
 let pricesVisible=false,currentClient=null,activeThickness=10;const checkedLots=new Set();const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');const totalQty=s=>(String(s||'').match(/\d+(?:[,.]\d+)?/g)||[]).reduce((a,n)=>a+Number(n.replace(',','.')),0);const paletteEligible=l=>Number(l.m2Pal)>0&&totalQty(l.qty)>2*Number(l.m2Pal);const paletteCount=l=>Number(l.m2Pal)>0?totalQty(l.qty)/Number(l.m2Pal):0;
 // Les stocks disponibles les plus importants passent en premier. Les lots vendus
@@ -58,10 +58,7 @@ function renderPromo(){
       <input class="lot-check" data-id="${offer.id}" type="checkbox"${checkedLots.has(offer.id)?' checked':''}>
       <span>
         <strong>${offer.format}</strong><small>${pricesVisible?offer.price:'🔒 Masqué'}</small>
-        <span class="tibur-pallet">
-          ${offer.palletArea} m² / palette
-          ${offer.carbonPalletArea?`<span>Carbon rectifié / Vintage · ${offer.carbonPalletArea} m² / palette</span>`:''}
-        </span>
+        <span class="tibur-pallet">${offer.palletArea} m² / palette</span>
       </span>
     </label>`).join('');
 }
