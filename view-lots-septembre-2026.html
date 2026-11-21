@@ -5,6 +5,7 @@
 .tibur-promo{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,30%);gap:20px;align-items:center;padding:18px;border:1px solid #dbc79e;border-radius:18px;background:#fffaf0}
 .tibur-promo h2{margin:0;font:500 1.8rem Georgia,serif}.tibur-promo p{margin:6px 0 12px;color:#514d46}.tibur-promo img{width:100%;max-height:175px;object-fit:cover;border-radius:12px}
 .tibur-formats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.tibur-format{display:grid;grid-template-columns:20px 1fr;align-items:center;gap:9px;padding:10px;background:white;border:1px solid var(--line);border-radius:10px;cursor:pointer;min-height:50px}.tibur-format input{width:18px;height:18px;margin:0;accent-color:var(--gold)}.tibur-format strong,.tibur-format small{display:block}.tibur-format small{margin-top:3px;color:#76581e}
+.tibur-pallet{display:block;margin-top:4px;color:#514d46;font-size:.82rem;line-height:1.35}.tibur-pallet span{display:block}
 @media(max-width:760px){.tibur-promo{display:block}.tibur-promo img{display:none}.tibur-formats{grid-template-columns:1fr}.tibur-format strong,.tibur-format small{display:inline-block}.tibur-format small{margin:0 0 0 8px}}
 </style>  <link rel="stylesheet" href="assets/css/lrf-sage-bars.css?v=20260918-sage3d1">
 </head><body><header><div class="container topbar"><a class="brand" href="index.html"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY"></a><a class="back" href="index.html">Fermer</a></div></header><main><section class="hero"><div class="container heroIn"><div><h1>VIEW — Lot MS novembre 2026</h1><p>Retrouvez la promo Tibur et les lots disponibles. Sélectionnez vos formats ou vos lots pour préparer une demande de disponibilité à VIEW.</p></div><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png" alt="VIEW Ceramiche"></div></section><section class="content"><div class="container"><section class="login"><div><h2>Afficher les tarifs</h2><p>Identifiez votre compte professionnel LRF pour voir les tarifs réservés.</p></div><div class="fields"><input id="client-code" placeholder="Code LRF"><input id="client-dep" placeholder="Département"><button id="login-btn" class="btn primary">Voir mes tarifs</button></div><div id="login-msg" class="msg"></div></section><section class="tibur-promo" aria-labelledby="tibur-promo-title">
@@ -42,9 +43,9 @@ const lots=[
 {id:"digione-oro-7x30x20",thickness:20,series:"DIGIONE",name:"ORO BRICK · GRIP R11",format:"7,5×30×2 cm",qty:"20 m²",price:"28,00 € / m²",m2Pal:0,url:"https://viewceramiche.com/wp-content/uploads/2023/11/View-DIGIONE-2024_LR.pdf",note:"Nouveau format · 0,60 € / pièce · boîte de 22 pièces = 0,5 m²"}
 ]
 const tiburPromo=[
-  {id:'promo-tibur-30x60',series:'TIBUR',name:'Promotion',format:'30×60 cm',price:'11,90 € / m²',promo:true},
-  {id:'promo-tibur-60x60',series:'TIBUR',name:'Promotion',format:'60×60 cm',price:'11,90 € / m²',promo:true},
-  {id:'promo-tibur-60x90',series:'TIBUR',name:'Promotion',format:'60×90 cm',price:'13,00 € / m²',promo:true}
+  {id:'promo-tibur-30x60',series:'TIBUR',name:'Promotion',format:'30×60 cm',price:'11,90 € / m²',palletArea:'43,20',promo:true},
+  {id:'promo-tibur-60x60',series:'TIBUR',name:'Promotion',format:'60×60 cm',price:'11,90 € / m²',palletArea:'43,20',promo:true},
+  {id:'promo-tibur-60x90',series:'TIBUR',name:'Promotion',format:'60×90 cm',price:'13,00 € / m²',palletArea:'48,60',carbonPalletArea:'51,84',promo:true}
 ];
 let pricesVisible=false,currentClient=null,activeThickness=10;const checkedLots=new Set();const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');const totalQty=s=>(String(s||'').match(/\d+(?:[,.]\d+)?/g)||[]).reduce((a,n)=>a+Number(n.replace(',','.')),0);const paletteEligible=l=>Number(l.m2Pal)>0&&totalQty(l.qty)>2*Number(l.m2Pal);const paletteCount=l=>Number(l.m2Pal)>0?totalQty(l.qty)/Number(l.m2Pal):0;
 // Les stocks disponibles les plus importants passent en premier. Les lots vendus
@@ -55,7 +56,13 @@ function renderPromo(){
   document.querySelector('#tibur-formats').innerHTML=tiburPromo.map(offer=>`
     <label class="tibur-format">
       <input class="lot-check" data-id="${offer.id}" type="checkbox"${checkedLots.has(offer.id)?' checked':''}>
-      <span><strong>${offer.format}</strong><small>${pricesVisible?offer.price:'🔒 Masqué'}</small></span>
+      <span>
+        <strong>${offer.format}</strong><small>${pricesVisible?offer.price:'🔒 Masqué'}</small>
+        <span class="tibur-pallet">
+          ${offer.palletArea} m² / palette
+          ${offer.carbonPalletArea?`<span>Carbon rectifié / Vintage · ${offer.carbonPalletArea} m² / palette</span>`:''}
+        </span>
+      </span>
     </label>`).join('');
 }
 function render(){renderPromo();document.querySelector('#lots').innerHTML=displayLots().map((l,i,all)=>`${(i===0||all[i-1].thickness!==l.thickness)?'<h2 class="lot-section">'+l.thickness+' mm <small>'+lots.filter(x=>x.thickness===l.thickness).length+' lots · stocks décroissants</small></h2>':''}`+`<article class="lot${l.sold?' sold':''}" data-id="${l.id}"><input class="lot-check" type="checkbox"${checkedLots.has(l.id)?' checked':''}${l.sold?' disabled aria-label="Lot vendu"':''}>${l.sold?'<span class="sold-badge">VENDU</span>':''}<h3>${esc(l.series)} ${esc(l.name)}</h3><div class="grid"><div>Format<br><strong>${esc(l.format)}</strong></div><div>Quantité<br><strong>${esc(l.qty)}</strong></div><div>Palette<br><strong>${Number(l.m2Pal)>0?String(l.m2Pal).replace('.',',')+' m²':'—'}</strong></div><div>Tarif<br><strong>${pricesVisible?esc(l.price):'🔒 Masqué'}</strong></div><div><strong>${paletteEligible(l)?'À la palette possible':'Lot complet'}</strong>${paletteEligible(l)?`<br><small>≈ ${paletteCount(l).toFixed(2).replace('.',',')} palettes</small>`:''}</div></div>${l.note?`<div class="note">${esc(l.note)}</div>`:''}${l.url?`<a class="link" href="${l.url}" target="_blank" rel="noopener">Lien du carreau</a>`:''}</article>`).join('');document.querySelectorAll('.lot-check').forEach(c=>c.onchange=()=>{const id=c.dataset.id||c.closest('.lot').dataset.id;if(c.checked)checkedLots.add(id);else checkedLots.delete(id);updateSelection()});updateSelection()}
