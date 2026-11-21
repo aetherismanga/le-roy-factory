@@ -25,6 +25,9 @@ function harness({email=null,session=null,restoring=false,tokenError=false,respo
   const context={window,document:{readyState:'loading',addEventListener(){}},location,sessionStorage:{getItem:()=>null},
     MutationObserver:class{},URL:TrackedURL,setTimeout(){},alert:message=>alerts.push(message),
     async loadModule(url){
+      if(url.includes('view-tariff-notice'))return {async viewTariffWithNotice(blob){
+        assert.equal(blob,pdf);order.push('view-notice');return blob;
+      }};
       if(url.includes('secure-pdf-viewer'))return {async showSecurePdf(blob,options){
         order.push('viewer');assert.equal(blob,pdf);assert.equal(options.trigger.getAttribute('aria-busy'),'true');
         viewers.push({blob,options});if(viewerError)throw Error('Reader temporarily unavailable');
@@ -61,6 +64,7 @@ for(const email of ['jerome@leroyfactory.fr','coryne@leroyfactory.fr'])test(emai
     assert.equal(h.viewers[i].options.filename,tariffIds[i]+'.pdf');
   }
   assert.deepEqual(h.order.slice(0,4),['ready','token','request','viewer'],'Identity restoration and authorized response precede PDF display');
+  assert.equal(h.order.filter(step=>step==='view-notice').length,1);
 });
 
 test('a Firebase agent takes precedence over a stale client session',async()=>{
@@ -77,6 +81,7 @@ test('signed-out visitors remain blocked and real clients retain their manufactu
   const anonymous=harness();await anonymous.open();assert.equal(anonymous.requests.length,0);assert.equal(anonymous.viewers.length,0);assert.match(anonymous.alerts[0],/accès PRO a expiré/);
   const client=harness({email:'client@example.test',session:{codeClient:'LRF-99998',departement:'34'}});
   await client.open('view-2026');assert.deepEqual(client.alerts,[]);assert.deepEqual(client.requests[0].body,{tariffId:'view-2026',codeClient:'LRF-99998',departement:'34'});assert.equal(client.requests[0].headers.Authorization,undefined);assert.equal(client.viewers.length,1);
+  assert.deepEqual(client.order,['ready','request','view-notice','viewer']);
 });
 
 test('revoked credentials and server refusals never display a document or fall back to a stale client',async()=>{

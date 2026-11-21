@@ -116,6 +116,10 @@
         const {illustratedSaxsoBlob} = await import('./saxso-illustrated-tariff.mjs?v=20261119-1');
         blob = await illustratedSaxsoBlob(blob);
       }
+      if (anchor.dataset.secureTariffId === 'view-2026') {
+        const {viewTariffWithNotice} = await import('./view-tariff-notice.mjs?v=20261121-1');
+        blob = await viewTariffWithNotice(blob);
+      }
       const {showSecurePdf}=await import('./secure-pdf-viewer.mjs?v=20261101-compact1');
       await showSecurePdf(blob,{
         title:anchor.dataset.secureTariffId==='saxso-distributeurs-2026'?'SAXSO · Tarif rendu – 4 palettes mix':anchor.closest('.card-premium')?.querySelector('h3')?.textContent?.trim()||'Tarif professionnel',
