@@ -100,7 +100,7 @@
   function accessMessage() {
     if (hasEliosAccess()) {
       const session = pricingApi()?.getSession?.();
-      return `<div class="price-access-callout allowed"><strong>✓ Accès tarif ELIOS actif</strong>${session?.societe ? `<span>${esc(session.societe)}</span>` : ''}<span>Source : ELIOS TARIF NET - 2026 V01</span></div>`;
+      return `<div class="price-access-callout allowed"><strong>✓ Accès tarif ELIOS actif</strong>${session?.societe ? `<span>${esc(session.societe)}</span>` : ''}<span>Tarifs nets du 20 octobre 2026</span></div>`;
     }
     return `<div class="price-access-callout"><strong>🔒 Tarifs réservés aux comptes autorisés</strong><span>Connectez-vous avec votre identifiant client LRF pour afficher les tarifs ELIOS.</span><a href="tarifs-pro.html">Se connecter à l’accès PRO</a></div>`;
   }
@@ -136,7 +136,7 @@
         </div>
       </div>
       <div class="modal-sections"><div class="modal-section"><h3>Formats & tarifs ELIOS 2026</h3>
-        ${formats.length ? `<table class="formats-table"><thead><tr><th>Format</th><th>Tarif net 2026</th></tr></thead><tbody>${formats.map(f => `<tr><td>${esc(f)}</td><td>${pricingCell(p, f)}</td></tr>`).join('')}</tbody></table>` : `<p class="tariff-message">Formats en cours de saisie.</p>`}
+        ${formats.length ? `<p class="tariff-message">Taxe énergétique en sus des tarifs : actuellement 1,20 €/m² pour les carreaux de 10 mm d’épaisseur.</p><table class="formats-table"><thead><tr><th>Format</th><th>Tarif net 2026</th></tr></thead><tbody>${formats.map(f => `<tr><td>${esc(f)}</td><td>${pricingCell(p, f)}</td></tr>`).join('')}</tbody></table>` : `<p class="tariff-message">Formats en cours de saisie.</p>`}
         ${accessMessage()}
       </div></div>`;
 

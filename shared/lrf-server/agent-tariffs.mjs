@@ -103,24 +103,15 @@ function feniceRows(value){
  return Buffer.byteLength(JSON.stringify(rows))<=MAX_BYTES?rows:null;
 }
 
-// Recent, reference-specific Elios net prices are supplied only through a
-// protected production environment variable, never through public source.
-function eliosExactPrices(){
- const raw=process.env.LRF_ELIOS_EXACT_HT_JSON||'';
- if(!raw||raw.length>4096)return {};
- try{
-  const value=JSON.parse(raw);
-  if(!value||typeof value!=='object'||Array.isArray(value))return {};
-  const allowed=new Set(['04N6A05','04N6A01','04N3D03','04Q1002']);
-  const prices={};
-  for(const [reference,amount] of Object.entries(value)){
-   if(allowed.has(reference)&&typeof amount==='number'&&Number.isFinite(amount)&&amount>0&&amount<10000)prices[reference]=amount;
-  }
-  return prices;
- }catch{return {};}
+const ELIOS_RATES_URL='https://us-central1-le-roy-factory.cloudfunctions.net/getTariffPdf';
+async function readEliosRates({authorization,sessionToken}){
+ const response=await fetch(ELIOS_RATES_URL,{method:'POST',headers:{'Content-Type':'application/json',...(authorization?{Authorization:authorization}:{})},body:JSON.stringify({tariffId:'elios-2026-rates',sessionToken}),signal:AbortSignal.timeout(10000)});
+ if(!response.ok)return null;
+ const data=await response.json();
+ return data.success===true&&data.eliosRevision==='2026-10-20'&&data.elios&&data.eliosExact?data:null;
 }
 
-export function createAgentTariffsHandler({verify=verifyAgentToken,verifyClient=verifyClientToken,read,readFenice}={}){
+export function createAgentTariffsHandler({verify=verifyAgentToken,verifyClient=verifyClientToken,read,readFenice,readElios=readEliosRates}={}){
  return async(req,res)=>{
   res.setHeader('Cache-Control','private, no-store, max-age=0');res.setHeader('Pragma','no-cache');res.setHeader('Vary','Authorization, Origin');res.setHeader('X-Content-Type-Options','nosniff');
   const origin=req.headers?.origin,host=String(req.headers?.host||'');
@@ -159,6 +150,11 @@ export function createAgentTariffsHandler({verify=verifyAgentToken,verifyClient=
    return res.status(200).send(bytes);
   }
   const allowedPartners=agent?CLIENT_TARIFF_PARTNERS.slice():CLIENT_TARIFF_PARTNERS.filter(partner=>client.allowedPartners.includes(partner));
-  return res.status(200).json({success:true,version:1,accessType:agent?'agent':'client',allowedPartners,expiresAt:agent?Date.now()+300000:client.expiresAt,view:allowedPartners.includes('view-ceramica')?data.view:[],elios:allowedPartners.includes('elios-ceramica')?data.elios:{},eliosExact:allowedPartners.includes('elios-ceramica')?eliosExactPrices():{}});
+  let eliosRates=null;
+  if(allowedPartners.includes('elios-ceramica')){
+   try{eliosRates=await readElios({authorization:agent?req.headers?.authorization:undefined,sessionToken:agent?undefined:body.sessionToken});}catch{}
+   if(!eliosRates&&!allowedPartners.includes('view-ceramica'))return res.status(503).json({success:false,error:'Tarifs Elios momentanément indisponibles.'});
+  }
+  return res.status(200).json({success:true,version:1,accessType:agent?'agent':'client',allowedPartners,expiresAt:agent?Date.now()+300000:client.expiresAt,view:allowedPartners.includes('view-ceramica')?data.view:[],elios:eliosRates?.elios||{},eliosExact:eliosRates?.eliosExact||{},eliosRevision:eliosRates?.eliosRevision||null});
  };
 }

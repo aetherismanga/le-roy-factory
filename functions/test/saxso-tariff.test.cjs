@@ -20,6 +20,8 @@ function harness({agent=false,partners=['SAXSO'],disabled=false,corrupt=false}={
   const db={collection(){return {where(){return this},limit(){return this},async get(){return {empty:false,docs:[{id:'synthetic-client',data:()=>record}]}}}}};
   const mocks={
     './pro-client-access.cjs':require('../pro-client-access.cjs'),
+    './pro-session':{clientFromSessionToken:async()=>null},
+    './elios-tariff-release.cjs':require('../elios-tariff-release.cjs'),
     'firebase-functions/v2/https':{onRequest:(_opts,handler)=>handler},
     'firebase-admin':{firestore:()=>db,storage:()=>({bucket:()=>bucket})},
     'google-auth-library':{GoogleAuth:class {async getClient(){return {request:async options=>{driveRequests.push(options);return {data:corrupt?Buffer.from('%PDF-tampered'.repeat(1500)):bytes}}}}}},

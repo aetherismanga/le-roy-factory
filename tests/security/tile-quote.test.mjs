@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import catalogue from '../../shared/lrf-3d/commercial-surfaces.json' with {type:'json'};
 import {checkedTileRequests,quoteTiles,createTileQuoteHandler} from '../../shared/lrf-server/tile-quote.mjs';
 
-const product=catalogue.products.find(p=>p.brand==='ELIOS'&&p.packVerified&&p.packArea>0&&Number.isInteger(p.packPieces)&&p.packPieces>0&&p.priceTTC===null);
+const product=catalogue.products.find(p=>p.brand==='ELIOS'&&/\b10 mm/.test(p.finish)&&p.packVerified&&p.packArea>0&&Number.isInteger(p.packPieces)&&p.packPieces>0&&p.priceTTC===null);
 assert(product,'A canonical exact-SKU reference supports the synthetic pricing fixture');
 const row={catalogueKey:product.key,needed:product.packArea*2+.001};
 const identity={client:{codeClient:'LRF-12345'},isAdmin:false,randalAllowed:true};
@@ -19,13 +19,14 @@ test('tile quantities reject unknown references, duplicates and invalid needs be
 test('tile quote uses canonical full boxes, independent sale and energy totals and own verified LRF code',()=>{
  const requests=checkedTileRequests([{...row,packArea:.00001,pcsBox:9000,purchaseHT:.01,publicTTC:.01,privateCode:'LRF-99999-0.01.00'}]);
  const result=quoteTiles(requests,{rates,identity}),area=Number((3*product.packArea).toFixed(4));
- const unit=round(17.23*3),subtotal=round(area*unit),energy=round(area*.84);
+ const unit=round(17.23*3),subtotal=round(area*unit),energy=round(area*1.44);
  assert.equal(result.rows[0].boxes,3);assert.equal(result.rows[0].orderArea,area);assert.equal(result.rows[0].orderPieces,3*product.packPieces);
  assert.equal(result.rows[0].unitPublicTTC,unit);assert.equal(result.rows[0].publicTTC,subtotal);assert.equal(result.totals.energyTax.amountTTC,energy);assert.equal(result.totals.publicTTC,round(subtotal+energy));
- const purchaseCents=Math.round(area*17.23*100)+Math.round(area*.70*100);
+ const purchaseCents=Math.round(area*17.23*100)+Math.round(area*1.20*100);
  assert.equal(result.privateCode,'LRF-12345-'+(purchaseCents/100).toFixed(2)+'.00');
  for(const key of ['_proHT','purchaseHT','purchasePaletteHT','proRows','proHT'])assert.equal(JSON.stringify(result).includes('"'+key+'"'),false);
  const unknown=quoteTiles(requests,{rates:{...rates,eliosExact:{}},identity});assert.equal(unknown.privateCode,'');assert.equal(unknown.totals.publicTTC,null);assert.equal(unknown.rows[0].publicTTC,null);
+ const noTax=quoteTiles([{product:{...product,finish:'R10 · 8,5 mm'},needed:row.needed},{product:{...product,finish:'R10'},needed:row.needed}],{rates,identity});assert.equal(noTax.totals.energyTax.amountTTC,0);
  const other=quoteTiles(requests,{rates,identity:{...identity,client:{codeClient:'LRF-54321'}}});assert(other.privateCode.startsWith('LRF-54321-'));
 });
 

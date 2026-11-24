@@ -58,7 +58,8 @@
   poolProducts.forEach(product => { if (!knownSlugs.has(product.slug)) window.ELIOS_CATALOGUE.push(product); });
 
   window.LRF_INSPIRATIONS_PRICING = {
-    source: 'ELIOS TARIF NET - 2026 V01',
+    source: 'Tarifs nets ELIOS du 20 octobre 2026',
+    energyNotice: 'Taxe énergétique en sus des tarifs : actuellement 1,20 €/m² pour les carreaux de 10 mm d’épaisseur.',
     sessionKey: SESSION_KEY,
     getSession: readSession,
     canAccess(partner = PARTNER) { return ['elios-ceramica','elios','eliosceramica'].includes(norm(partner)) && window.LRF_AGENT_TARIFFS?.canAccess?.(PARTNER) === true; },

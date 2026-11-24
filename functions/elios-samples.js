@@ -4,7 +4,7 @@ const admin=require('firebase-admin');
 const nodemailer=require('nodemailer');
 const {clientFromSessionToken}=require('./pro-session');
 const {getAgentFromRequest}=require('./auth');
-const {storagePath,normalizePrices}=require('./configurator-purchase-prices-core');
+const {readEliosRelease}=require('./elios-tariff-release.cjs');
 const catalogue=require('./elios-samples-catalogue.json');
 const C=require('./elios-samples-core.cjs');
 const {selectionImageAttachments}=require('./elios-samples-images.cjs');
@@ -20,27 +20,13 @@ async function identity(req,body){
  if(!(client.partenaires||[]).some(p=>['elios','eliosceramica'].includes(String(p).toLowerCase().replace(/[^a-z]/g,''))))throw C.fail('L’accès Elios n’est pas activé pour ce compte.',403);
  return {owner:'client:'+client.id,societe:C.text(client.societe),codeClient:C.text(client.codeClient),contact:{name:C.text(client.contact),email:C.text(client.email),telephone:C.text(client.telephone),address:[client.adresse,client.codePostal||client.code_postal,client.ville].filter(Boolean).join(' ')}};
 }
-async function prices(req,body){
- let exact={};
- try{
- const file=admin.storage().bucket().file(storagePath('studio-one'));
- const [metadata]=await file.getMetadata();if(Number(metadata.size)>2*1024*1024||metadata.metadata?.firebaseStorageDownloadTokens)throw Error('Invalid private catalogue');
- const [bytes]=await file.download({validation:'crc32c'});exact=normalizePrices(JSON.parse(bytes.toString('utf8')),'studio-one').products;
- }catch{}
- // Reuse the live catalogue already used on the Elios selection pages. The
- // gateway independently verifies the same original credential and partner.
- const bearer=String(req.headers.authorization||'').replace(/^Bearer\s+/i,''),token=body.sessionToken||(!bearer.includes('.')?bearer:'');
- const response=await fetch('https://randal-catalogue-general-3d.vercel.app/api/agent-tariffs',{method:'POST',headers:{'Content-Type':'application/json',...(bearer.includes('.')?{Authorization:'Bearer '+bearer}:{})},body:JSON.stringify({action:'bootstrap',...(token?{sessionToken:token}:{})}),signal:AbortSignal.timeout(20000)});
- const rates=await response.json();if(!response.ok||rates.success!==true||!rates.allowedPartners?.includes('elios-ceramica')||!Number.isFinite(rates.expiresAt)||rates.expiresAt<=Date.now())throw Error('Current Elios tariff unavailable');
- return C.currentPrices(catalogue,exact,rates.elios||{},rates.eliosExact||{});
-}
 function contact(input,account){
  const c={name:C.text(input?.name??account.contact.name,160),email:C.text(input?.email??account.contact.email,254),telephone:C.text(input?.telephone??account.contact.telephone,60),address:C.text(input?.address??account.contact.address,600)};
  if(!c.name||!c.address||!/^\S+@\S+\.\S+$/.test(c.email))throw C.fail('Renseignez le contact, son e-mail et l’adresse de livraison.');return c;
 }
 exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'512MiB',maxInstances:4},async(req,res)=>{
  const origin=String(req.headers.origin||'');if(ORIGINS.has(origin))res.set('Access-Control-Allow-Origin',origin);
- res.set('Vary','Origin');res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','POST, OPTIONS');res.set('Cache-Control','private, no-store');res.set('X-LRF-Elios-Samples-Version',C.VERSION);res.set('X-LRF-Elios-Catalogue-Version',catalogue.version);res.set('X-LRF-Elios-Options-Version','20261113-energy-pose-v1');
+ res.set('Vary','Origin');res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','POST, OPTIONS');res.set('Cache-Control','private, no-store');res.set('X-LRF-Elios-Samples-Version',C.VERSION);res.set('X-LRF-Elios-Catalogue-Version',catalogue.version);res.set('X-LRF-Elios-Options-Version','20261124-elios-energy-v2');
  if(origin&&!ORIGINS.has(origin))return res.status(403).json({success:false,error:'Origine non autorisée.'});
  if(req.method==='OPTIONS')return res.status(204).send('');if(req.method!=='POST')return res.status(405).json({success:false,error:'Méthode non autorisée.'});
  try{
@@ -77,7 +63,7 @@ exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'
    return res.json({success:true,reportedByClient:true,reference:record.reference});
   }
   if(!['quote','prepare'].includes(body.action))throw C.fail('Action inconnue.');
-  let rates={};if(body.items?.some(i=>i.type==='box')){try{rates=await prices(req,body);}catch{throw C.fail('Les tarifs HT ne sont pas disponibles. Votre projet reste enregistré ; réessayez avant l’envoi.',503);}}
+  let rates={};if(body.items?.some(i=>i.type==='box')){try{rates=(await readEliosRelease(admin.storage().bucket())).purchase;}catch{throw C.fail('Les tarifs HT ne sont pas disponibles. Votre projet reste enregistré ; réessayez avant l’envoi.',503);}}
   const quote=C.buildQuote(body.items,catalogue,rates,body.profiles,body.installationRequested??false);
   if(body.action==='quote')return res.json({success:true,quote});
   const customer=contact(body.contact,account),hasBox=quote.rows.some(row=>row.type==='box');

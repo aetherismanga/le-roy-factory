@@ -46,7 +46,7 @@ test('only explicit canonical manufacturer aliases grant tariff rights',async()=
 
 test('client bootstrap transmits only the manufacturers validated server-side',async()=>{
  for(const [partners,elios,view] of [[['elios-ceramica'],true,false],[['view-ceramica'],false,true],[['elios-ceramica','view-ceramica'],true,true]]){
-  const handler=createAgentTariffsHandler({verify:async()=>null,verifyClient:t=>verifyClientToken(t,{now,request:upstream(validated(partners))}),read:async()=>grid});
+  const handler=createAgentTariffsHandler({verify:async()=>null,verifyClient:t=>verifyClientToken(t,{now,request:upstream(validated(partners))}),read:async()=>grid,readElios:async()=>({elios:grid.elios,eliosExact:{},eliosRevision:'2026-10-20'})});
   const res=response();
   await handler(request({action:'bootstrap',sessionToken:token,isAdmin:true,partenaires:['elios-ceramica','view-ceramica','la-fenice']}),res);
   assert.equal(res.statusCode,200);assert.equal(res.body.accessType,'client');assert.deepEqual(res.body.allowedPartners,partners);
@@ -58,7 +58,7 @@ test('client bootstrap transmits only the manufacturers validated server-side',a
 
 test('live partner revocation takes effect on the next bootstrap without caching identity',async()=>{
  let partners=['elios-ceramica','view-ceramica'];
- const handler=createAgentTariffsHandler({verify:async()=>null,verifyClient:t=>verifyClientToken(t,{now,request:async()=>upstream(validated(partners))()}),read:async()=>grid});
+ const handler=createAgentTariffsHandler({verify:async()=>null,verifyClient:t=>verifyClientToken(t,{now,request:async()=>upstream(validated(partners))()}),read:async()=>grid,readElios:async()=>({elios:grid.elios,eliosExact:{},eliosRevision:'2026-10-20'})});
  let res=response();await handler(request(),res);assert.equal(res.body.view.length,1);
  partners=['elios-ceramica'];res=response();await handler(request(),res);assert.deepEqual(res.body.view,[]);assert.deepEqual(res.body.allowedPartners,partners);
  partners=[];res=response();await handler(request(),res);assert.equal(res.statusCode,403);assert.equal(res.body.elios,undefined);
@@ -93,7 +93,7 @@ test('temporary authority failures return unavailable without exposing grids or 
 
 test('verified agent bootstrap and private PDF remain available with no client token',async()=>{
  let checks=0;
- const handler=createAgentTariffsHandler({verify:async()=>({uid:'synthetic-agent'}),verifyClient:async()=>{checks++;throw Error();},read:async()=>grid});
+ const handler=createAgentTariffsHandler({verify:async()=>({uid:'synthetic-agent'}),verifyClient:async()=>{checks++;throw Error();},read:async()=>grid,readElios:async()=>({elios:grid.elios,eliosExact:{},eliosRevision:'2026-10-20'})});
  let res=response();await handler(request({action:'bootstrap'}),res);
  assert.equal(res.statusCode,200);assert.equal(res.body.accessType,'agent');assert.deepEqual(res.body.elios,grid.elios);assert.deepEqual(res.body.view,grid.view);assert.equal(res.body.documents,undefined);
  res=response();await handler(request({action:'document',id:'randal-studio-one-basins'}),res);assert.equal(res.statusCode,200);assert.equal(res.body.subarray(0,5).toString(),'%PDF-');assert.equal(checks,0);

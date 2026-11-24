@@ -18,6 +18,7 @@ on:
           - neobath-anima
           - elios-samples
           - elios-configurators
+          - elios-tariffs
 
 concurrency:
   group: firebase-functions-production
@@ -60,7 +61,7 @@ jobs:
         run: npm install --global firebase-tools
 
       - name: Verify existing Elios agent roles before activation
-        if: (inputs.function_group == 'elios-samples' || inputs.function_group == 'elios-configurators')
+        if: (inputs.function_group == 'elios-samples' || inputs.function_group == 'elios-configurators' || inputs.function_group == 'elios-tariffs')
         working-directory: functions
         run: |
           node - <<'JS'
@@ -147,6 +148,8 @@ jobs:
               target='functions:eliosSamples,functions:planPoseApplication,functions:neobathAnimaApplication'
           if os.environ['FUNCTION_GROUP']=='elios-samples':
               target='functions:eliosSamples,functions:eliosExpoBudget'
+          if os.environ['FUNCTION_GROUP']=='elios-tariffs':
+              target='functions:getTariffPdf,functions:getConfiguratorPurchasePrices,functions:eliosSamples,functions:planPoseApplication'
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('only='+target+'\n')
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('mail_verify_only='+str(mail_verify_only).lower()+'\n')
           with open(os.environ['GITHUB_OUTPUT'],'a') as out:out.write('group_mail_consolidation='+str(mail_consolidation).lower()+'\n')
@@ -161,6 +164,10 @@ jobs:
           npm ci --ignore-scripts --include=dev --no-audit --no-fund
           node tools/build-neobath-anima.mjs
           node --test tests/neobath-anima-studio-*.test.mjs tests/neobath-anima-continuous-ui.test.mjs functions/test/neobath-anima-*.test.cjs
+
+      - name: Verify staged private Elios prices and PDF
+        if: inputs.function_group == 'elios-tariffs'
+        run: node functions/scripts/verify-elios-tariff-release.cjs
 
       - name: Deploy secured tariff, session, analytics, ELIOS, BILT, CRM file and site control functions
         if: steps.targets.outputs.mail_verify_only != 'true'
@@ -205,6 +212,18 @@ jobs:
             const body=await response.json();
             if(response.status!==401||body.success!==false||response.headers.get('x-lrf-elios-expo-version')!=='20261112-elios-expo-budget-v1')throw Error('Elios exhibition budget release or authentication check failed.');
             console.log('Private Elios budget access verified. No budget or request changed.');
+          })().catch(error=>{console.error(error.message);process.exit(1);});
+          JS
+
+      - name: Verify Elios prices and PDF require professional authentication
+        if: inputs.function_group == 'elios-tariffs'
+        run: |
+          node - <<'JS'
+          (async()=>{
+            for(const [tariffId,expected] of [['elios-2026',403],['elios-2026-rates',401]]){
+              const response=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/getTariffPdf',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tariffId})});
+              if(response.status!==expected)throw Error('Elios access check failed: '+response.status);
+            }
           })().catch(error=>{console.error(error.message);process.exit(1);});
           JS
 

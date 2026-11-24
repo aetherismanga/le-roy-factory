@@ -16,7 +16,8 @@ test('subtracts real window opening and prints actual cell polygons',()=>{
 test('groups identical references before rounding complete boxes',()=>{
  const p=project(),q=buildTileComposition(p);
  assert.equal(q.rows.length,1);assert.equal(q.rows[0].boxes,Math.ceil((q.rows[0].needed-1e-8)/q.rows[0].m2Box));
- assert.equal(q.totals.energyTax.amountTTC,Math.round(q.totals.orderArea*.84*100)/100);
+ const eligible=q.rows.filter(row=>row.brand==='ELIOS'&&/\b10 mm/.test(row.finish)).reduce((sum,row)=>sum+row.orderArea,0);
+ assert.equal(q.totals.energyTax.amountTTC,Math.round(eligible*1.44*100)/100);
  assert.equal(q.totals.publicTTC,null);
 });
 test('captured reports exclude purchases and recalculate loss without stale prices',()=>{

@@ -60,7 +60,7 @@ test('anonymous and client-local role fields cannot trigger a private read',asyn
 });
 
 test('verified agents receive only requested data, and PDF is never in bootstrap JSON',async()=>{
- const handler=createAgentTariffsHandler({verify:async()=>({uid:'agent-test'}),read:async()=>payload});
+ const handler=createAgentTariffsHandler({verify:async()=>({uid:'agent-test'}),read:async()=>payload,readElios:async()=>({elios:payload.elios,eliosRevision:'2026-10-20',eliosExact:{}})});
  let res=result();await handler(request(),res);assert.equal(res.statusCode,200);assert.deepEqual(res.body.view,payload.view);assert.deepEqual(res.body.elios,payload.elios);assert.equal(res.body.documents,undefined);
  res=result();await handler(request({action:'document',id:'randal-studio-one-basins'}),res);assert.equal(res.statusCode,200);assert.equal(res.headers['Content-Type'],'application/pdf');assert.equal(res.body.subarray(0,5).toString(),'%PDF-');
  res=result();await handler(request({action:'document',id:'other'}),res);assert.equal(res.statusCode,404);

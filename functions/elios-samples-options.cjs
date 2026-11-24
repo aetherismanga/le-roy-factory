@@ -1,6 +1,6 @@
 'use strict';
 // Commercial rules explicitly requested by LRF. This is not a supplier price grid.
-const PRICING_VERSION='20261113-energy-pose-v1';
+const PRICING_VERSION='20261124-elios-energy-v2';
 const INSTALLATION_TERMS='Règlement de la pose à voir avec LE ROY FACTORY. Hors fournitures et sur support prêt à carreler.';
 const round=n=>Math.round((n+Number.EPSILON)*100)/100;
 const money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
@@ -10,12 +10,13 @@ function withSampleCharges(base,requested=false){
  if(typeof requested!=='boolean')throw Object.assign(Error('Le choix de la pose doit être coché ou décoché.'),{status:400});
  const boxArea=Number(base.rows.filter(row=>row.type==='box').reduce((sum,row)=>sum+row.quantity,0).toFixed(4));
  const tilesSubtotalHT=round(base.rows.reduce((sum,row)=>sum+(row.totalHT??0),0));
- const energyTax={area:boxArea,rateHT:0.70,amountHT:round(boxArea*0.70)};
+ const eligibleArea=Number(base.rows.filter(row=>row.type==='box'&&row.thicknessMm===10).reduce((sum,row)=>sum+row.quantity,0).toFixed(4));
+ const energyTax={area:eligibleArea,rateHT:1.20,amountHT:round(eligibleArea*1.20)};
  const installation={requested:requested&&boxArea>0,area:boxArea,mode:boxArea<=8?'forfait':'surface',rateHT:16,amountHT:requested&&boxArea>0?(boxArea<=8?160:round(boxArea*16)):0,terms:INSTALLATION_TERMS};
  const supplierSubtotalHT=round(tilesSubtotalHT+energyTax.amountHT);
  const subtotalHT=round(supplierSubtotalHT+installation.amountHT);
  return {...base,pricingVersion:PRICING_VERSION,boxArea,tilesSubtotalHT,energyTax,installation,supplierSubtotalHT,supplierTotalHT:base.incomplete?null:supplierSubtotalHT,subtotalHT,totalHT:base.incomplete?null:subtotalHT,
-  notice:'Demande soumise à validation Elios. Taxe énergétique sur les m² de carrelage des box commandés, après arrondi aux boîtes complètes. Pose optionnelle calculée sur ces mêmes m² : forfait 160 € HT jusqu’à 8 m² inclus, puis 16 € HT/m² au-delà. '+INSTALLATION_TERMS+' Transport et profilés non compris. Vrac : 1 ou 2 pièces avec étiquette par référence éligible. Le merchandising reste hors montant à payer, sous réserve d’attribution Elios.'};
+  notice:'Demande soumise à validation Elios. Taxe énergétique en sus des tarifs : actuellement 1,20 €/m² pour les carreaux de 10 mm d’épaisseur. Elle est calculée après arrondi aux boîtes complètes. Pose optionnelle calculée sur ces mêmes m² : forfait 160 € HT jusqu’à 8 m² inclus, puis 16 € HT/m² au-delà. '+INSTALLATION_TERMS+' Transport et profilés non compris. Vrac : 1 ou 2 pièces avec étiquette par référence éligible. Le merchandising reste hors montant à payer, sous réserve d’attribution Elios.'};
 }
 function sampleChargesHTML(q){
  if(!q.rows.some(row=>row.type==='box'))return '';

@@ -40,6 +40,8 @@
       "mediaAuditDate": "2026-11-04",
       "exactColorMapping": true,
       "imageQualityRelease": "20261104-elios-quality1",
+      "tariffRevision": "2026-10-20",
+      "tariffRelease": "20261124-elios-tariffs",
       "smallGalleryImagesRemoved": 13,
       "restoredColorGalleries": 66,
       "nativeImageSize": true,

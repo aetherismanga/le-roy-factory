@@ -23,7 +23,7 @@ function rows(){
   return {share,series:D.sedimentiSelected.series,color,...format,finish:'Selected · R10 · 8,5 mm'};
  });
 }
-function tariff(r){const api=window.LRF_INSPIRATIONS_PRICING;if(!api?.getPrice)return {unavailable:true};const p=api.getPrice('elios-ceramica',{slug:S.productSlugs[r.series]||S.slug(r.series),finishes:[r.finish||'']},r.key||r.label);return !p||p.locked||p.unavailable||!Number.isFinite(Number(p.amount))?{unavailable:true,locked:!!p?.locked}:{amount:Number(p.amount),unit:p.unit||'net/m²',label:p.label||''};}
+function tariff(r){const api=window.LRF_INSPIRATIONS_PRICING;if(!api?.getPrice)return {unavailable:true};const exact=window.LRF_AGENT_TARIFFS?.eliosSkuPrice(r.ref);const p=Number.isFinite(exact?.amount)?exact:api.getPrice('elios-ceramica',{slug:S.productSlugs[r.series]||S.slug(r.series),finishes:[r.finish||'']},r.key||r.label);return !p||p.locked||p.unavailable||!Number.isFinite(Number(p.amount))?{unavailable:true,locked:!!p?.locked}:{amount:Number(p.amount),unit:p.unit||'net/m²',label:p.label||''};}
 function lineTotal(r,p){if(!p||p.unavailable)return null;const u=String(p.unit||'').toLowerCase();if(u.includes('m²')||u.includes('m2')||u.includes('/mq'))return r.ordered*p.amount;if(u.includes('pièce')||u.includes('piece'))return r.pieces*p.amount;return null;}
 function unavailable(message){
  state.last=null;const order=$('#ep-order');if(order){order.disabled=true;order.title=message;}

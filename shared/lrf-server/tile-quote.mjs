@@ -1,3 +1,4 @@
+import {tileEnergyTax} from '../lrf-3d/tile-energy.js';
 import catalogue from '../lrf-3d/commercial-surfaces.json' with {type:'json'};
 import {privateReference} from './commercial-reference.mjs';
 import {normaliseTariffSlug,tariffKey} from './agent-tariffs.mjs';
@@ -6,7 +7,7 @@ const PURCHASE_ENDPOINT='https://us-central1-le-roy-factory.cloudfunctions.net/g
 const round=n=>Math.round((n+Number.EPSILON)*100)/100;
 const amount=n=>typeof n==='number'&&Number.isFinite(n)&&n>=0&&n<1000000;
 const fail=message=>Object.assign(Error(message),{status:400});
-export const TILE_COMMERCIAL_POLICY=Object.freeze({version:'20261113-standard-tiles-v1',saleHTMultiplier:2.5,vat:20,energyHTPerM2:.70,exhibitionDiscount:false});
+export const TILE_COMMERCIAL_POLICY=Object.freeze({version:'20261124-elios-tiles-v2',saleHTMultiplier:2.5,vat:20,eliosEnergyHTPerM2:1.20,exhibitionDiscount:false});
 export function checkedTileRequests(input,products=catalogue.products){
  if(!Array.isArray(input)||input.length>200)throw fail('Le relevé doit contenir au plus 200 références.');
  const byKey=new Map(products.map(p=>[p.key,p])),seen=new Set();
@@ -21,6 +22,7 @@ export function tariffForTile(product,rates,exact={}){
  if(!partner||!rates?.allowedPartners?.includes(partner))return null;
  if(product.brand==='ELIOS'){
   const sku=rates.eliosExact?.[product.reference];if(amount(sku))return sku;
+  if(rates.eliosRevision==='2026-10-20'||rates.eliosRevision===null)return null;
   // Exact manufacturer references outrank collection-format defaults. Decor
   // and special units never inherit the price of an ordinary field tile.
   const exactAmount=exact[product.key]?.purchaseHT;
@@ -42,16 +44,16 @@ export function quoteTiles(requests,{rates=null,exact={},identity={}}={}){
   const publicTTC=orderArea!==null&&unitPublicTTC!==null?round(orderArea*unitPublicTTC):null;
   const proHT=orderArea!==null&&purchase!==null?Math.round(orderArea*purchase*100):null;
   if(proHT!==null)purchaseCents+=proHT;
-  return {catalogueKey:p.key,reference:p.reference,packVerified,boxes,m2Box:packVerified?p.packArea:null,pcsBox:packVerified?p.packPieces:null,orderArea,orderPieces:packVerified?boxes*p.packPieces:null,unitPublicTTC,publicTTC,_proHT:proHT};
+  return {catalogueKey:p.key,reference:p.reference,brand:p.brand,finish:p.finish,packVerified,boxes,m2Box:packVerified?p.packArea:null,pcsBox:packVerified?p.packPieces:null,orderArea,orderPieces:packVerified?boxes*p.packPieces:null,unitPublicTTC,publicTTC,_proHT:proHT};
  });
  const orderArea=Number(rows.reduce((n,r)=>n+(r.orderArea||0),0).toFixed(4));
- const energyTax={area:orderArea,rateHT:.70,rateTTC:.84,amountTTC:round(orderArea*.84)};
+ const energyTax=tileEnergyTax(rows);
  const subtotal=round(rows.reduce((sum,r)=>sum+(r.publicTTC??0),0)),missing=rows.some(r=>r.publicTTC===null||!r.packVerified);
  const purchaseComplete=rows.length>0&&rows.every(r=>r._proHT!==null&&r.packVerified);
  // Same complete-box and energy policy as functions/elios-samples-options.cjs.
  // Exhibition -50% is restricted to sample/box requests; standard bathroom
  // selling prices use the established purchase x2.5 HT then 20% VAT policy.
- const privateCode=purchaseComplete?privateReference(identity.client?.codeClient,purchaseCents+Math.round(orderArea*.70*100),true):'';
+ const privateCode=purchaseComplete?privateReference(identity.client?.codeClient,purchaseCents+Math.round(energyTax.amountHT*100),true):'';
  return {success:true,policy:TILE_COMMERCIAL_POLICY.version,rows:rows.map(({_proHT,...row})=>row),totals:{orderArea,orderPieces:rows.reduce((n,r)=>n+(r.orderPieces||0),0),boxes:rows.reduce((n,r)=>n+(r.boxes||0),0),subtotal,energyTax,publicTTC:missing?null:round(subtotal+energyTax.amountTTC)},privateCode,pricingStatus:missing?'prices-to-confirm':'verified'};
 }
 function cookies(req,variant){

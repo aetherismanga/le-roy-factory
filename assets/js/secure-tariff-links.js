@@ -123,7 +123,7 @@
       const {showSecurePdf}=await import('./secure-pdf-viewer.mjs?v=20261101-compact1');
       await showSecurePdf(blob,{
         title:anchor.dataset.secureTariffId==='saxso-distributeurs-2026'?'SAXSO · Tarif rendu – 4 palettes mix':anchor.closest('.card-premium')?.querySelector('h3')?.textContent?.trim()||'Tarif professionnel',
-        filename:anchor.dataset.secureTariffId+'.pdf',
+        filename:anchor.dataset.secureTariffId==='elios-2026'?'ELIOS-Tarifs-nets-2026-10-20.pdf':anchor.dataset.secureTariffId+'.pdf',
         trigger:anchor
       });
     }catch(e){

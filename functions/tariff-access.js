@@ -6,6 +6,8 @@ const { GoogleAuth } = require('google-auth-library');
 const { getAgentFromRequest } = require('./auth');
 const { writeClientActivity } = require('./lrf-analytics-core');
 const {findEligibleProClient} = require('./pro-client-access.cjs');
+const {clientFromSessionToken} = require('./pro-session');
+const {REVISION, PDF_NAME, readEliosRelease, readEliosPdf} = require('./elios-tariff-release.cjs');
 
 const db = admin.firestore();
 const bucket = admin.storage().bucket();
@@ -121,9 +123,46 @@ async function ensureDrivePdf(def) {
 }
 
 const getTariffPdf=onRequest({timeoutSeconds:120,memory:'512MiB'},async(req,res)=>{
-  if(cors(req,res))return;if(req.method!=='POST')return res.status(405).json({success:false,error:'Méthode non autorisée'});
-  try{const{codeClient,departement,tariffId}=req.body||{};const def=TARIFFS[String(tariffId||'')];if(!def)return res.status(404).json({success:false,error:'Tarif inconnu'});const agent=await getAgentFromRequest(req);if(agent){if(tariffId==='life-2026')await ensureLifeTariffPdf();if(tariffId==='bulbo-2026')await ensureBulboTariffPdf();if(def.driveId)await ensureDrivePdf(def);return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}const client=await verifiedClient(codeClient,departement);if(!client)return res.status(403).json({success:false,error:'Identifiant client ou département incorrect.'});if(!clientCanAccess(client,def.partner))return res.status(403).json({success:false,error:'Ce tarif n’est pas autorisé pour ce compte.'});await writeClientActivity(client,{action:'tariff_view',page:`tarif:${tariffId}`,title:def.filename,partner:def.partner,tariffId:String(tariffId||'')}).catch(()=>{});if(tariffId==='life-2026')await ensureLifeTariffPdf();if(tariffId==='bulbo-2026')await ensureBulboTariffPdf();if(def.driveId)await ensureDrivePdf(def);return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');}
-  catch(e){console.error('getTariffPdf',e);return res.status(500).json({success:false,error:'Impossible d’ouvrir ce tarif.'});}
+  if(cors(req,res))return;
+  if(req.method!=='POST')return res.status(405).json({success:false,error:'Méthode non autorisée'});
+  try {
+    const {codeClient,departement,tariffId,sessionToken}=req.body||{};
+    if(tariffId==='elios-2026-rates'){
+      const agent=await getAgentFromRequest(req);
+      const session=agent?null:await clientFromSessionToken(sessionToken,{renew:false});
+      if(!agent&&!session?.client)return res.status(401).json({success:false,error:'Connexion professionnelle requise.'});
+      if(!agent&&!clientCanAccess(session.client,'elios-ceramica'))return res.status(403).json({success:false,error:'Ce tarif n’est pas autorisé pour ce compte.'});
+      const {elios,eliosExact}=await readEliosRelease(bucket);
+      res.set('Cache-Control','private, no-store, max-age=0');
+      res.set('X-Content-Type-Options','nosniff');
+      return res.json({success:true,eliosRevision:REVISION,elios,eliosExact});
+    }
+    const def=Object.hasOwn(TARIFFS,tariffId)?TARIFFS[tariffId]:null;
+    if(!def)return res.status(404).json({success:false,error:'Tarif inconnu'});
+    const agent=await getAgentFromRequest(req);
+    if(!agent){
+      const client=await verifiedClient(codeClient,departement);
+      if(!client)return res.status(403).json({success:false,error:'Identifiant client ou département incorrect.'});
+      if(!clientCanAccess(client,def.partner))return res.status(403).json({success:false,error:'Ce tarif n’est pas autorisé pour ce compte.'});
+      await writeClientActivity(client,{action:'tariff_view',page:`tarif:${tariffId}`,title:def.filename,partner:def.partner,tariffId:String(tariffId)}).catch(()=>{});
+    }
+    if(tariffId==='elios-2026'){
+      const bytes=await readEliosPdf(bucket);
+      res.set('Content-Type','application/pdf');
+      res.set('Content-Disposition',`inline; filename="${PDF_NAME}"`);
+      res.set('Cache-Control','private, no-store, max-age=0');
+      res.set('X-Content-Type-Options','nosniff');
+      res.set('X-LRF-Tariff-Revision',REVISION);
+      return res.send(bytes);
+    }
+    if(tariffId==='life-2026')await ensureLifeTariffPdf();
+    if(tariffId==='bulbo-2026')await ensureBulboTariffPdf();
+    if(def.driveId)await ensureDrivePdf(def);
+    return streamPrivateFile(res,bucket.file(def.storagePath),def.filename,'application/pdf');
+  } catch(e){
+    console.error('getTariffPdf',e.code||e.name);
+    return res.status(req.body?.tariffId?.startsWith?.('elios-2026')?503:500).json({success:false,error:'Impossible d’ouvrir ce tarif.'});
+  }
 });
 
 const getNeobathDnaTariff=onRequest({timeoutSeconds:60,memory:'256MiB'},async(req,res)=>{

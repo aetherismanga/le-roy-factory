@@ -1,3 +1,4 @@
+import {tileEnergyTax} from './tile-energy.js';
 import catalogue from './commercial-surfaces.json' with {type:'json'};
 import {commercialSurfaceProduct} from './surface-identity.mjs';
 import {makeRoom} from './room.js';
@@ -95,7 +96,7 @@ export function buildTileComposition(project,{report=project?.tileCompositionRep
  });
  const rows=summarizeQuantities(quantities.map(row=>row.paint?row:quantityIdentity(row))).map(quantityIdentity),area=round(rows.reduce((sum,r)=>sum+(r.area||0),0)),needed=round(rows.reduce((sum,r)=>sum+(r.needed||0),0));
  const orderArea=Number(rows.reduce((sum,r)=>sum+(r.orderArea||0),0).toFixed(4)),missing=rows.filter(row=>row.publicTTC===null||!row.packVerified);
- const subtotal=round(rows.reduce((sum,r)=>sum+(r.publicTTC||0),0)),energyTax={area:orderArea,rateHT:.70,rateTTC:.84,amountTTC:round(orderArea*.84)};
+ const subtotal=round(rows.reduce((sum,r)=>sum+(r.publicTTC||0),0)),energyTax=tileEnergyTax(rows);
  return {version:1,rows,surfaceRows:quantities,surfaces:measured.surfaces,lossPercent:loss,profiles:Number(report?.profiles)||0,privateCode:'',missing,totals:{area,needed,orderArea,orderPieces:rows.reduce((sum,r)=>sum+(r.orderPieces||0),0),boxes:rows.reduce((sum,r)=>sum+(r.boxes||0),0),subtotal,energyTax,publicTTC:missing.length?null:round(subtotal+energyTax.amountTTC)}};
 }
 export async function loadTileCompositionQuote(model,{credential='',signal}={}){

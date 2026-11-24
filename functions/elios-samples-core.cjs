@@ -65,7 +65,7 @@ function normalizedLines(input,catalogue,prices={}){
   const netHT=typeof net==='number'&&Number.isFinite(net)&&net>=0?net:null;
   // Compute from the unrounded 50% amount, then round each line to cents.
   const unitHT=netHT===null?null:netHT*.5;
-  return {...base,unit:'m²',requested:quantity,quantity:ordered,boxes,pieces:boxes*product.packPieces,packArea:product.packArea,netHT,discount:50,unitHT,totalHT:unitHT===null?null:round(ordered*unitHT)};
+  return {...base,unit:'m²',thicknessMm:Number(String(product.finish||'').match(/(?:^|[^\d,.])(\d+(?:[,.]\d+)?)\s*mm\b/i)?.[1]?.replace(',','.'))||null,requested:quantity,quantity:ordered,boxes,pieces:boxes*product.packPieces,packArea:product.packArea,netHT,discount:50,unitHT,totalHT:unitHT===null?null:round(ordered*unitHT)};
  });
 }
 function buildQuote(input,catalogue,prices,profiles=0,installationRequested=false){

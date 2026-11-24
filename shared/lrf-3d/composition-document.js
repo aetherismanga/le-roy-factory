@@ -38,7 +38,7 @@ export async function createCompositionPDF({kind='furniture',title='Ma salle de 
   const details=[row.detail,row.reference?'Réf. '+row.reference:'',row.privateCode?'Code LRF : '+row.privateCode:''].filter(Boolean),lines=details.flatMap(line=>split(line,body-38,8.5)),nameLines=split(row.name||row.collection||'Article',body-38,10,'bold'),height=nameLines.length*4.4+lines.length*3.8+9;
   room(height);txt(nameLines,M,y,10,'bold');txt(documentMoney(row.total),right,y,10,'bold',{align:'right'});y+=nameLines.length*4.4;for(const line of lines){txt(line,M,y,8.5);y+=3.8;}y+=3;rule(y);y+=6;
  }
- room(42);if(energy){txt('Taxe énergétique',M,y,10);txt(documentMoney(energy.amount),right,y,10,'normal',{align:'right'});y+=5;txt(documentNumber(energy.area)+' m² x '+documentMoney(energy.rate)+'/m²',M,y,8);y+=7;rule(y);y+=8;}
+ room(42);for(const line of (Array.isArray(energy)?energy:energy?[energy]:[])){room(20);txt('Taxe énergétique',M,y,10);txt(documentMoney(line.amount),right,y,10,'normal',{align:'right'});y+=5;txt(documentNumber(line.area)+' m² x '+documentMoney(line.rate)+'/m²',M,y,8);y+=7;rule(y);y+=8;}
  txt(total===null?'Sous-total renseigné':'Total '+(kind==='tiles'?'carrelage':'mobilier'),M,y,12,'bold');txt(documentMoney(total??subtotal),right,y,19,'bold',{align:'right'});y+=10;
  if(privateCode)paragraph('Code composition : '+privateCode,9);
  for(const note of notes)paragraph(note,8);
