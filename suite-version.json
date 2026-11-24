@@ -430,25 +430,25 @@
       "firstCampaign": "elios"
     },
     "eliosSamples": {
-      "releaseId": "20261116-elios-all-variants-v2",
+      "releaseId": "20261124-elios-v9-cersaie",
       "page": "echantillons-elios.html",
       "paths": [
         "vrac",
         "box-expo",
         "merchandising"
       ],
-      "products": 935,
-      "eligibleVrac": 820,
-      "merchandising": 232,
-      "manufacturerMerchandisingVisuals": 157,
-      "merchandisingWithoutConfirmedVisual": 75,
+      "products": 1026,
+      "eligibleVrac": 395,
+      "merchandising": 256,
+      "manufacturerMerchandisingVisuals": 200,
+      "merchandisingWithoutConfirmedVisual": 56,
       "engine": "studio-one",
       "boxPage": "https://studio-one-beta-test-v2.vercel.app/elios-box.html",
       "requestEndpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/eliosSamples",
       "expoDiscountOnCurrentNetHT": 50,
       "privateServerPrices": true,
       "webglVisualVerification": false,
-      "merchandisingPriced": 231,
+      "merchandisingPriced": 254,
       "merchandisingIncludedInCustomerPayable": false,
       "individualMerchandisingReferenceChoice": true,
       "factoryApprovalRequired": true,
@@ -461,24 +461,33 @@
         "endpoint": "https://us-central1-le-roy-factory.cloudfunctions.net/eliosExpoBudget"
       },
       "clientMail": true,
-      "brooklyn100x100VracColours": 7,
+      "brooklyn100x100VracColours": 0,
       "mobileStickyReturn": true,
       "optionalSeparateSocle": true,
-      "socles": 7,
+      "socles": 6,
       "sourceSha256": {
-        "echantillons-elios.html": "22dc561629da8320447f63c63ad8dc64f2677db110e0e18c32f7e56634c1dc7d",
-        "assets/css/elios-samples.css": "52ed80dc707a2bde36121f7704b659183774efb48eb31967f53bb943fb089c86",
-        "assets/js/elios-samples.js": "86e88ebf40ab2fe3eaa7b161cf6a2fe102a5a888a04e01fe9deb24ce42977978",
-        "assets/js/elios-samples-core.mjs": "a41b21c442a1a8163e675b7124d94de98599b5b1b5f29da622fdfd4dd1194659",
-        "assets/js/elios-samples-options.mjs": "5af2e2c196609062af50e57e6c279dd107ebbbe3b507c08df2f5fc1a42499852",
-        "assets/data/elios-samples.json": "6da1d2e3a3645db601ad4493b210d4cb8a0e2ec7ec89f8e996e41de8aec8ce91"
+        "echantillons-elios.html": "4b9fd6206f1d9a70ab3f5d8b39ebd0e28b1f13618fb3b01a5d8ae5a154d08083",
+        "assets/css/elios-samples.css": "74fa54028c839770713f5e5fec34d1440f847ec43f7e74c059ac83487a9bd0d6",
+        "assets/js/elios-samples.js": "f31145ada015e6cccba4fc16cd61076fcb573ce7da409f119b4863d7aff20ec1",
+        "assets/js/elios-samples-core.mjs": "1e54d61c6c29e0cdfce64effbebec7205e6901b44ad12b6e56fd04738514328d",
+        "assets/js/elios-samples-options.mjs": "8802a0c1a20ec0a3324244e9514d852e418383ccf47471ab64dadba8b2486d7e",
+        "assets/data/elios-samples.json": "96c76cae75fac9a6535c80e37d08501e511538d1b56f37295a2914f40bdb0780",
+        "merchandising-usines.html": "a8c9c75aacb23eeaec2fb143aa2b5989de870364a9ed21f690ae5be9ff594b0b",
+        "assets/js/merchandising-files.js": "58f12d1a27e4e749670259f479a192b0fd3a6c2c6a3c254b6ecd511344331426",
+        "assets/pdf/elios-cersaie-novembre-2026.pdf": "1852d89f24f688c203ff3d2a0909dffd75d3ce59e6582277383fac9ee97e9e21"
       },
-      "allReferencedVariantsSelectable": true,
       "slipRatingFilter": true,
       "thicknessFilter": true,
-      "sourceAudit": "reports/elios-samples-variants-20261116.json",
+      "sourceAudit": "tools/elios-samples-v9/rubiera.json",
       "brooklynR11TwentyMillimetreColours": 6,
-      "brooklynR11StandardColours": 2
+      "brooklynR11StandardColours": 2,
+      "sampleSelectionPolicy": 9,
+      "boxMinimum": 1,
+      "cersaieSupplement": {
+        "title": "Nouveautés Cersaie — novembre 2026",
+        "path": "assets/pdf/elios-cersaie-novembre-2026.pdf",
+        "pages": 22
+      }
     },
     "saxso": {
       "releaseId": "20261119-saxso-commande",

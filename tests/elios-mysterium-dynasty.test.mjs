@@ -40,26 +40,26 @@ test('All six Mysterium colours are offered for floors and walls with exact HD s
  assert.equal(inventory.entries.length,24);
 });
 
-test('Dynasty 60x120 permits seven R10 samples and seven independent Honed requests with actual boxes',()=>{
+test('Dynasty 60x120 permits seven R10 samples and seven independent Honed articles in Box Expo',()=>{
  const colors=['alpi','lepanto','marfil','monet','saint-laurent','calacatta-viola','bianco-aurora'];
  const rows=samples.products.filter(p=>p.collection==='Dynasty'&&p.format==='60x120'&&!p.legacy);
- assert.equal(rows.length,14);assert.equal(rows.filter(p=>p.vrac).length,14);
- assert.equal(samples.products.filter(p=>p.collection==='Dynasty'&&p.format==='30x30'&&p.vrac).length,7);
+ assert.equal(rows.length,14);assert.equal(rows.filter(p=>p.vrac).length,7);
+ assert.equal(samples.products.filter(p=>p.collection==='Dynasty'&&p.format==='30x30'&&p.vrac).length,14);
  for(const [index,color] of colors.entries()){
   const options=commercialSurfaceOptions({collection:'Dynasty',color,format:'60x120'},commercial);
   assert.equal(options.length,2);assert(options.every(p=>p.reference&&p.packPieces===2&&p.packArea===1.44));
   const reference='04N6A'+(index+10),r10=rows.find(p=>p.reference===reference),honed=rows.find(p=>p.reference==='04N6A0'+index);
-  assert(r10&&honed);assert.equal(r10.colorId,color);assert.equal(r10.vrac,true);assert.equal(honed.vrac,true);
-  assert.equal(r10.sampleOffer,'offered');assert.equal(honed.sampleOffer,'factory-confirmation');
-  const request=buildQuote([{type:'vrac',key:honed.key,quantity:2}],samples,{});
-  assert.equal(request.rows[0].reference,honed.reference);assert.equal(request.rows[0].quantity,2);assert.equal(request.rows[0].factoryApprovalRequired,true);
+  assert(r10&&honed);assert.equal(r10.colorId,color);assert.equal(r10.vrac,true);assert.equal(honed.vrac,false);
+  assert.equal(r10.sampleOffer,'offered');assert.equal(honed.sampleOffer,undefined);
+  assert.throws(()=>buildQuote([{type:'vrac',key:honed.key,quantity:2}],samples,{}),/programme V9/);
+  assert.equal(buildQuote([{type:'box',key:honed.key,quantity:0.01}],samples,{}).rows[0].boxes,1);
   assert.match(r10.finish,/R10 B/);assert.match(honed.finish,/3D Honed/);assert(r10.image&&r10.thumbnail);
   const old=commercialSurfaceProduct({collection:'Dynasty',color,format:'60x120',catalogueKey:'ELIOS|Dynasty|'+color+'|60x120'},commercial);
   assert.equal(old.reference,reference,'A historical visual key resolves to the reviewed standard finish');
   const free=buildQuote([{type:'vrac',key:r10.key,quantity:1}],samples,{});
   assert.equal(free.totalHT,0);assert.equal(free.rows[0].reference,reference);assert(free.rows[0].label);
   const quote=buildQuote([{type:'box',key:r10.key,quantity:2}],samples,{[r10.key]:{purchaseHT:30}});
-  assert.equal(quote.rows[0].boxes,2);assert.equal(quote.rows[0].quantity,2.88);assert.equal(quote.totalHT,45.22);
+  assert.equal(quote.rows[0].boxes,2);assert.equal(quote.rows[0].quantity,2.88);assert.equal(quote.totalHT,43.2);assert.equal(quote.energyTax.amountHT,0);
  }
  assert.deepEqual(samples,read('functions/elios-samples-catalogue.json'));
 });

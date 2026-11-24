@@ -26,7 +26,7 @@ function contact(input,account){
 }
 exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'512MiB',maxInstances:4},async(req,res)=>{
  const origin=String(req.headers.origin||'');if(ORIGINS.has(origin))res.set('Access-Control-Allow-Origin',origin);
- res.set('Vary','Origin');res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','POST, OPTIONS');res.set('Cache-Control','private, no-store');res.set('X-LRF-Elios-Samples-Version',C.VERSION);res.set('X-LRF-Elios-Catalogue-Version',catalogue.version);res.set('X-LRF-Elios-Options-Version','20261124-elios-energy-v2');
+ res.set('Vary','Origin');res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','POST, OPTIONS');res.set('Access-Control-Expose-Headers','X-LRF-Elios-Catalogue-Version');res.set('Cache-Control','private, no-store');res.set('X-LRF-Elios-Samples-Version',C.VERSION);res.set('X-LRF-Elios-Catalogue-Version',catalogue.version);res.set('X-LRF-Elios-Options-Version','20261124-elios-energy-v2');
  if(origin&&!ORIGINS.has(origin))return res.status(403).json({success:false,error:'Origine non autorisée.'});
  if(req.method==='OPTIONS')return res.status(204).send('');if(req.method!=='POST')return res.status(405).json({success:false,error:'Méthode non autorisée.'});
  try{
@@ -63,7 +63,8 @@ exports.eliosSamples=onRequest({region:'us-central1',timeoutSeconds:120,memory:'
    return res.json({success:true,reportedByClient:true,reference:record.reference});
   }
   if(!['quote','prepare'].includes(body.action))throw C.fail('Action inconnue.');
-  let rates={};if(body.items?.some(i=>i.type==='box')){try{rates=(await readEliosRelease(admin.storage().bucket())).purchase;}catch{throw C.fail('Les tarifs HT ne sont pas disponibles. Votre projet reste enregistré ; réessayez avant l’envoi.',503);}}
+  if(body.catalogueVersion!==undefined&&body.catalogueVersion!==catalogue.version)throw C.fail('Rechargez la page pour utiliser le catalogue Elios en vigueur.',409);
+  let rates={};if(body.items?.some(i=>i.type==='box')){try{const release=await readEliosRelease(admin.storage().bucket());rates=C.currentPrices(catalogue,{},release.elios,release.eliosExact);Object.assign(rates,release.purchase);}catch{throw C.fail('Les tarifs HT ne sont pas disponibles. Votre projet reste enregistré ; réessayez avant l’envoi.',503);}}
   const quote=C.buildQuote(body.items,catalogue,rates,body.profiles,body.installationRequested??false);
   if(body.action==='quote')return res.json({success:true,quote});
   const customer=contact(body.contact,account),hasBox=quote.rows.some(row=>row.type==='box');

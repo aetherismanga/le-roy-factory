@@ -1,7 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict');
 const C=require('../elios-samples-core.cjs');
-const catalogue={budgetYear:2027,products:[{key:'ELIOS|synthetic',reference:'synthetic',collection:'Exemple',color:'Beige',format:'60x60',finish:'R10 · 10 mm',packVerified:true,packArea:1.44,packPieces:4,vrac:true},{key:'ELIOS|other',reference:'other',collection:'Exemple',packVerified:false,vrac:false}],merchandising:[{id:'kit-synthetic',reference:'KIT',collection:'Exemple',description:'Kit exemple',valueUnitHT:170},{id:'kit-unpriced',reference:'UNKNOWN',collection:'Exemple',description:'Prix non confirmé'}]};
+const catalogue={version:'v9-fixture',budgetYear:2027,products:[{key:'ELIOS|synthetic',reference:'synthetic',collection:'Exemple',color:'Beige',format:'60x60',finish:'R10 · 10 mm',packVerified:true,packArea:1.44,packPieces:4,vrac:true},{key:'ELIOS|other',reference:'other',collection:'Exemple',packVerified:false,vrac:false}],merchandising:[{id:'kit-synthetic',reference:'KIT',collection:'Exemple',description:'Kit exemple',valueUnitHT:170},{id:'kit-unpriced',reference:'UNKNOWN',collection:'Exemple',description:'Prix non confirmé'}]};
 test('exhibition is 50% of the current net HT, rounded to full boxes and line cents',()=>{
  const q=C.buildQuote([{type:'box',key:'ELIOS|synthetic',quantity:2}],catalogue,{'ELIOS|synthetic':{purchaseHT:12}});
  assert.equal(q.rows[0].boxes,2);assert.equal(q.rows[0].quantity,2.88);assert.equal(q.rows[0].unitHT,6);assert.equal(q.totalHT,20.74);
@@ -67,7 +67,8 @@ function endpointFixture(){
 }
 test('the complete request handler revalidates access and never sends during quote or anonymous calls',async()=>{
  const f=endpointFixture(),items=[{type:'vrac',key:'ELIOS|synthetic',quantity:1}];let r=await f.request({action:'send',items,isAdmin:true});assert.equal(r.statusCode,401);assert.equal(f.mails.length,0);
- r=await f.request({action:'quote',items,sessionToken:'synthetic-token'});assert.equal(r.statusCode,200);assert.equal(r.body.quote.totalHT,0);assert.equal(f.mails.length,0);assert.equal(f.values.size,0);
+ r=await f.request({action:'quote',items,sessionToken:'synthetic-token',catalogueVersion:catalogue.version});assert.equal(r.statusCode,200);assert.equal(r.body.quote.totalHT,0);assert.equal(r.body.quote.catalogueVersion,catalogue.version);assert.equal(r.headers['X-LRF-Elios-Catalogue-Version'],catalogue.version);assert.equal(f.mails.length,0);assert.equal(f.values.size,0);
+ r=await f.request({action:'quote',items,sessionToken:'synthetic-token',catalogueVersion:'previous-version'});assert.equal(r.statusCode,409);assert.equal(f.values.size,0);
  f.revoke();r=await f.request({action:'quote',items,sessionToken:'synthetic-token'});assert.equal(r.statusCode,401);
 });
 test('a client draft addresses Caterina and exactly three CCs without an SMTP send',async()=>{

@@ -9,8 +9,8 @@ import {defaultSurfacePattern,normalizeLayout} from '../shared/lrf-3d/surface-ca
 import catalogue from '../assets/data/elios-samples.json' with {type:'json'};
 const require=createRequire(import.meta.url),C=require('../functions/elios-samples-core.cjs');
 test('sample format choices follow collection and search and never include unavailable samples',()=>{
- assert.deepEqual(availableSampleFormats(catalogue.products,{collection:'Yosemite'}),['7.5x40.7','15x85','23.4x95.7','23.4x119.5','23.4x148']);
- const creta=availableSampleFormats(catalogue.products,{collection:'Creta'});assert(!creta.includes('23.4x119.5'));assert(creta.includes('60x60'));
+ assert.deepEqual(availableSampleFormats(catalogue.products,{collection:'Yosemite'}),['7.5x40.7','23.4x119.5']);
+ const creta=availableSampleFormats(catalogue.products,{collection:'Creta'});assert(!creta.includes('23.4x119.5'));assert(creta.includes('60x120'));
  assert.deepEqual(availableSampleFormats(catalogue.products,{collection:'Creta',query:'does-not-exist'}),[]);
 });
 test('chevron shape follows its real SKU, and its preview proportions come from the format',()=>{
@@ -95,10 +95,12 @@ test('two-pan return can be switched left or right while preserving numbered sur
  const restored=exhibitionProject(settings,selection,left);assert.deepEqual(restored.room.expoWalls,right.room.expoWalls);assert.equal(restored.walls[1].groutColor,'Gris');assert.equal(restored.layouts.walls[1].x,.12);
 });
 test('direct exhibition orders calculate loss once, use manufacturer full packs and combine with 3D quantities',async()=>{
- const {directBoxQuantity,combinedSampleLines}=await import('../assets/js/elios-samples-core.mjs');
- const p={key:'sample',packVerified:true,packArea:1.44,packPieces:4};
+ const {directBoxQuantity,combinedSampleLines,restoreSampleItems}=await import('../assets/js/elios-samples-core.mjs');
+ const p={key:'sample',reference:'sample',packVerified:true,packArea:1.44,packPieces:4};
  const direct=directBoxQuantity(p,10,'m2',10);assert.equal(direct.quantity,11);assert.equal(direct.boxes,8);assert.equal(direct.orderArea,11.52);
- assert.equal(directBoxQuantity(p,2,'boxes',0).boxes,2);assert.equal(directBoxQuantity(p,2,'boxes',10).boxes,3);
+ assert.equal(directBoxQuantity(p,2,'boxes',0).boxes,2);assert.equal(directBoxQuantity(p,2,'boxes',10).boxes,2);
+ const restored=restoreSampleItems([{type:'box',key:p.key,inputQuantity:2,inputUnit:'boxes',loss:10,quantity:3.168}],{products:[p],merchandising:[]});
+ assert.equal(restored.items[0].boxes,3);assert.equal(restored.items[0].loss,0);
  const combined=combinedSampleLines([direct,{type:'box',key:'sample',quantity:1.5},{type:'vrac',key:'sample',quantity:1}]);assert.equal(combined.length,2);assert.equal(combined[0].quantity,12.5);assert.equal(direct.quantity,11);
  for(const args of [[p,-1,'m2',10],[p,2.5,'boxes',0],[p,1,'m2',-1],[p,1,'m2',31],[{...p,packVerified:false},1,'m2',10]])assert.throws(()=>directBoxQuantity(...args));
 });

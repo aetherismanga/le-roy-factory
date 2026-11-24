@@ -4,7 +4,7 @@ const {withSampleCharges,sampleChargesHTML,sampleChargesText}=require('./elios-s
 const TO=Object.freeze(['ctoni@eliosceramica.it']);
 const CC=Object.freeze(['glebreton@eliosceramica.it','jerome@leroyfactory.fr','coryne@leroyfactory.fr']);
 const RECIPIENTS=Object.freeze([...TO,...CC]);
-const VERSION='20261113-elios-samples-direct-box-v8';
+const VERSION='20261124-elios-samples-v9';
 const text=(v,n=180)=>String(v??'').trim().slice(0,n);
 const fail=(message,status=400)=>Object.assign(Error(message),{status});
 const money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
@@ -25,7 +25,7 @@ function currentPrices(catalogue,exact={},tariffs={},exactSku={}){
   if(!format)continue;
   const key=clean(p.slug||p.collection)+'|'+format[0].replace(/\s/g,'').replace('×','x').toLowerCase()+'|'+(/20\s*mm/i.test(p.finish)?'20':'standard'),rate=tariffs[key];
   if(!rate||!Number.isFinite(rate.amount)||rate.amount<0||rate.amount>1000000||rate.unavailable||rate.locked)continue;
-  if(clean(p.collection)==='dynasty')continue; // Exact finishes and decor SKUs only.
+  if(clean(p.collection)==='dynasty'||p.decor===true)continue; // Exact finishes and decor SKUs only.
   // A collection-wide base tariff never proves the price of a decor or a
   // special unit. Keep its exact SKU price, or require Elios confirmation.
   if(/décor|decor|fenix|rebel|palm|prestige|intars|duplex/i.test(p.color+' '+p.finish))continue;
@@ -48,11 +48,13 @@ function normalizedLines(input,catalogue,prices={}){
   const product=(raw.type==='merchandising'?merch:products).get(id);if(!product)throw fail('Référence ELIOS inconnue.');
   const base={type:raw.type,key:id,reference:product.reference,collection:product.collection,description:product.description||[product.color,product.format,product.finish].filter(Boolean).join(' · '),image:product.image||product.images?.[0]?.image||'',unit:'pièce'};
   if(raw.type==='vrac'){
-   if(product.vrac!==true||![1,2].includes(Number(raw.quantity)))throw fail('Le vrac est limité à 1 ou 2 pièces par référence éligible.');
-   return {...base,sampleReference:product.sampleReference,quantity:Number(raw.quantity),label:true,netHT:0,discount:0,unitHT:0,totalHT:0,...(product.sampleOffer==='factory-confirmation'?{sampleOffer:'factory-confirmation',factoryApprovalRequired:true,status:'Conditions de l’échantillon à confirmer par Elios'}:{})};
+   if(product.vrac!==true||product.legacy||!product.reference||product.sampleOffer==='factory-confirmation')throw fail('Cette référence ne figure plus dans le programme V9 avec étiquette. Retrouvez-la dans Box Expo si elle est commercialisée.');
+   if(![1,2].includes(Number(raw.quantity)))throw fail('Le vrac est limité à 1 ou 2 pièces par référence éligible.');
+   return {...base,sampleReference:product.reference,quantity:Number(raw.quantity),label:true,netHT:0,discount:0,unitHT:0,totalHT:0};
   }
   const quantity=Number(raw.quantity);if(!Number.isFinite(quantity)||quantity<=0||quantity>10000)throw fail('Quantité incorrecte.');
   if(raw.type==='merchandising'){
+   if(product.orderable===false)throw fail('Faites confirmer ce code de merchandising par Elios.');
    if(!Number.isInteger(quantity)||quantity>50)throw fail('Quantité de merchandising incorrecte.');
    // The manufacturer's merchandising valuation is visible, but attribution
    // remains an Elios decision and never becomes a customer amount to pay.
@@ -60,8 +62,8 @@ function normalizedLines(input,catalogue,prices={}){
    const valueUnitHT=typeof value==='number'&&Number.isFinite(value)&&value>=0&&value<=1000000?value:null;
    return {...base,quantity,netHT:null,discount:0,unitHT:0,totalHT:0,payable:false,valueUnitHT,valueTotalHT:valueUnitHT===null?null:round(valueUnitHT*quantity),factoryApprovalRequired:true,status:'Attribution soumise à validation Elios'};
   }
-  if(!product.packVerified||!(product.packArea>0)||!Number.isInteger(product.packPieces)||product.packPieces<=0)throw fail('Le conditionnement de '+product.reference+' doit être confirmé avant chiffrage.');
-  const boxes=Math.ceil((quantity-1e-8)/product.packArea),ordered=Number((boxes*product.packArea).toFixed(4)),net=prices[id]?.purchaseHT;
+  if(product.legacy||!product.reference||!product.packVerified||!(product.packArea>0)||!Number.isInteger(product.packPieces)||product.packPieces<=0)throw fail('Le conditionnement de '+product.reference+' doit être confirmé avant chiffrage.');
+  const boxes=Math.max(1,Math.ceil(quantity/product.packArea-1e-10)),ordered=Number((boxes*product.packArea).toFixed(4)),net=prices[id]?.purchaseHT;
   const netHT=typeof net==='number'&&Number.isFinite(net)&&net>=0?net:null;
   // Compute from the unrounded 50% amount, then round each line to cents.
   const unitHT=netHT===null?null:netHT*.5;
@@ -76,7 +78,7 @@ function buildQuote(input,catalogue,prices,profiles=0,installationRequested=fals
  const merchandisingValueIncomplete=merchandising.some(row=>row.valueTotalHT===null);
  const merchandisingValueHT=round(merchandising.reduce((sum,row)=>sum+(row.valueTotalHT??0),0));
  const budgetYear=Number.isInteger(catalogue.budgetYear)&&catalogue.budgetYear>=2026&&catalogue.budgetYear<=2100?catalogue.budgetYear:2027;
- return withSampleCharges({rows,profiles:metres,discount:50,budgetYear,subtotalHT:round(rows.reduce((s,row)=>s+(row.totalHT??0),0)),totalHT:incomplete?null:round(rows.reduce((s,row)=>s+row.totalHT,0)),incomplete,merchandisingValueHT,merchandisingValueIncomplete,notice:'Demande soumise à validation Elios. Le merchandising est valorisé à titre indicatif, hors montant à payer ; son attribution reste à la décision de l’usine. Hors pose, transport et profilés ; boîtes complètes. Vrac : 1 ou 2 pièces avec étiquette.'},installationRequested);
+ return withSampleCharges({catalogueVersion:catalogue.version,rows,profiles:metres,discount:50,budgetYear,subtotalHT:round(rows.reduce((s,row)=>s+(row.totalHT??0),0)),totalHT:incomplete?null:round(rows.reduce((s,row)=>s+row.totalHT,0)),incomplete,merchandisingValueHT,merchandisingValueIncomplete,notice:'Demande soumise à validation Elios. Le merchandising est valorisé à titre indicatif, hors montant à payer ; son attribution reste à la décision de l’usine. Hors pose, transport et profilés ; boîtes complètes. Vrac : 1 ou 2 pièces avec étiquette.'},installationRequested);
 }
 function checkedProject(input){
  if(!input||input.version!==2||!input.room||!Array.isArray(input.room.points)||input.room.points.length<3||input.room.points.length>12||!Array.isArray(input.items)||input.items.length>32||JSON.stringify(input).length>100000)throw fail('Le projet de box est invalide.');

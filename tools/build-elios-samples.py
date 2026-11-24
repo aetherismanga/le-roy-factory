@@ -4,6 +4,7 @@ from pathlib import Path
 import fitz
 import openpyxl
 from elios_merchandising_values import read_merchandising, refresh_catalogue_values
+from elios_samples_v9 import read_v9, refresh_v9, write_catalogue
 
 ROOT = Path(__file__).resolve().parents[1]
 def norm(value):
@@ -19,41 +20,7 @@ def run(source):
     source_text=(ROOT/'assets/js/inspirations-elios-data.js').read_text()
     existing=json.loads(re.search(r'window.ELIOS_CATALOGUE\s*=\s*(\[.*?\]);',source_text,re.S).group(1))
     slugs={norm(p['name']):p['slug'] for p in existing}
-    rules=[]
-    sheet=openpyxl.load_workbook(source/'source-2.xlsx',data_only=True)['magazzino_Rubiera_']
-    for row in list(sheet.values)[1:]:
-        if not row[0] or 'TOTAL' in str(row[0]):continue
-        rules.append({'collection':str(row[0]).strip(),'format':str(row[1] or '').strip(),'finish':str(row[2] or '').strip(),'references':row[3],'decors':row[4]})
-    # Explicit addition requested by Jérôme on 16 November; standard R10 only.
-    rules.append({'collection':'BROOKLYN','format':'100X100','finish':'RETT R10','references':7,'decors':None,'source':'Demande Jérôme du 16 novembre 2026'})
-    aliases={'millenniumquartz':'milleniumquartz','azulimood':'azuli','sedimenti':'sedimentiselected','designevo':'designevo'}
-    def allowed(p):
-        name=norm(p['collection']); fmt=dimensions(p['format']); finish=norm(p.get('finish'))
-        for rule in rules:
-            rname=norm(rule['collection'])
-            if not (aliases.get(name,name)==rname or name=='sedimenti' and rname=='sedimentitumbled' or name.startswith('poolsurfaces') and rname=='piscine' or name=='terreetrusche' and rname=='terreetruscheesagonetta'):continue
-            rfmt=dimensions(rule['format'])
-            # Commercial dimensions are actual calibrated sizes. These two
-            # explicit catalogue labels are the supplier's nominal formats.
-            same=fmt==rfmt or name=='venere' and rfmt==(33.0,100.0) and fmt==(33.3,100.0) or name in ['yosemite','quercia'] and rfmt==(24.0,120.0) and fmt==(23.4,119.5)
-            if not same and not ('ESAG' in rule['format'].upper() and ('hex' in finish or 'esag' in finish)):continue
-            # The version-9 list names the standard samples. It does not
-            # authorize outdoor / 20 mm, polished or lapped variants merely
-            # because the collection and dimensions happen to match.
-            if '20mm' in finish and '20' not in rule['finish']:continue
-            if 'r11' in finish and 'R11' not in rule['finish'].upper():continue
-            if any(x in finish for x in ['poli','lapp','polish']) and not any(x in norm(rule['finish']) for x in ['poli','lap']):continue
-            if name in ['quercia','yosemite'] and 'RETT' in rule['finish'].upper() and not any(x in finish for x in ['rectif','rett']):continue
-            if 'tumbled' in rname and 'tumbled' not in finish:continue
-            if 'selected' in rname and 'tumbled' in finish:continue
-            if 'R9' in rule['finish'].upper() and 'r9' not in finish:continue
-            if 'R10' in rule['finish'].upper() and 'r10' not in finish:continue
-            if 'R11' in rule['finish'].upper() and 'r11' not in finish:continue
-            if 'SOFT' in rule['finish'].upper() and not any(x in finish for x in ['soft','matt']):continue
-            if 'GLOS' in rule['finish'].upper() and not any(x in finish for x in ['gloss','lucid']):continue
-            if rule['decors'] is None and re.search(r'decor|prestige|intars|fenix|rebel|palm|art\b',p['color']+' '+p.get('finish',''),re.I):continue
-            return True
-        return False
+    rules, _ = read_v9(source/'source-2.xlsx')
     products=[]
     for p in catalogue['products']:
         if p['brand']!='ELIOS':continue
@@ -68,7 +35,7 @@ def run(source):
             'image':image,'thumbnail':(native.get('textureVariants',{}).get('fluid') or [color.get('file') or image])[0],'available3d':color.get('available3d',False),
             'definitionLimited':bool(native.get('definitionLimited',color.get('definitionLimited') or p.get('definitionLimited'))),
             'reconstructed':color.get('textureProvenance',{}).get('kind')=='ai-reconstruction',
-            'vrac':(bool(p.get('reference')) or allowed(p)) and not p.get('legacy',False),'sampleReferencePending':not bool(p.get('reference')) and allowed(p),'sampleOffer':'offered' if allowed(p) else 'factory-confirmation','sampleReference':p['reference'],'priceUnit':p.get('priceUnit','m²'),
+            'priceUnit':p.get('priceUnit','m²'),
             **({'legacy':True} if p.get('legacy') else {})})
     # The user explicitly requests these instrument values for information.
     # They are not client amounts payable; never include agent allocations.
@@ -111,11 +78,10 @@ def run(source):
     for generated in out.glob('book-*.webp'):
         if generated.name not in used:generated.unlink()
     data={'version':'20261112-elios-samples-v2','budgetYear':2027,'sourceDate':'2026-11-12','rules':rules,'products':products,'merchandising':list(merchandising.values()),'documents':pages,'sources':[{'file':p.name,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in source.glob('*') if p.suffix in ['.xlsx','.pdf']]}
-    dest=ROOT/'assets/data/elios-samples.json';dest.write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')))
-    # The function receives the same public definitions for canonical validation.
-    (ROOT/'functions/elios-samples-catalogue.json').write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')))
+    write_catalogue(data)
     subprocess.run(['node', str(ROOT/'tools/refresh-elios-sample-media.mjs')], cwd=ROOT, check=True)
-    print(json.dumps({'products':len(products),'vrac':sum(p['vrac'] for p in products),'merchandising':len(merchandising),'merchandisingWithImages':sum(bool(p['images']) for p in merchandising.values()),'pages':len(pages)}))
+    refresh_v9(source/'source-2.xlsx', source/'merch-cersaie-novembre-2026.pdf')
+    print(json.dumps({'products':len(products),'vrac':sum(p.get('vrac', False) for p in products),'merchandising':len(merchandising),'merchandisingWithImages':sum(bool(p['images']) for p in merchandising.values()),'pages':len(pages)}))
 
 def refresh_values(source):
     merchandising=read_merchandising(source/'source-0.xlsx')
@@ -127,6 +93,11 @@ def refresh_values(source):
 if __name__=='__main__':
     parser=argparse.ArgumentParser()
     parser.add_argument('source',type=Path)
-    parser.add_argument('--values-only',action='store_true',help='Refresh values without rebuilding any media')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--values-only',action='store_true',help='Refresh values without rebuilding any media')
+    mode.add_argument('--v9-refresh',action='store_true',help='Apply the V9 workbook and November PDF to the existing product catalogue')
     args=parser.parse_args()
-    (refresh_values if args.values_only else run)(args.source)
+    if args.v9_refresh:
+        refresh_v9(args.source/'source-2.xlsx', args.source/'merch-cersaie-novembre-2026.pdf')
+    else:
+        (refresh_values if args.values_only else run)(args.source)

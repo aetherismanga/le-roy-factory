@@ -198,7 +198,9 @@ jobs:
           (async()=>{
             const response=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/eliosSamples',{method:'POST',headers:{'Content-Type':'application/json',Origin:'https://leroyfactory.fr'},body:JSON.stringify({action:'send',isAdmin:true})});
             const body=await response.json();
-            if(response.status!==401||body.success!==false||response.headers.get('x-lrf-elios-samples-version')!=='20261113-elios-samples-direct-box-v8')throw Error('Elios sample release or authentication check failed.');
+            const {VERSION}=require('./functions/elios-samples-core.cjs');
+            const {version}=require('./functions/elios-samples-catalogue.json');
+            if(response.status!==401||body.success!==false||response.headers.get('x-lrf-elios-samples-version')!==VERSION||response.headers.get('x-lrf-elios-catalogue-version')!==version)throw Error('Elios sample release or authentication check failed.');
             console.log('Elios sample request API verified; forged roles rejected. No email sent.');
           })().catch(error=>{console.error(error.message);process.exit(1);});
           JS
@@ -210,7 +212,9 @@ jobs:
           (async()=>{
             const response=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/eliosExpoBudget',{method:'POST',headers:{'Content-Type':'application/json',Origin:'https://leroyfactory.fr'},body:JSON.stringify({action:'read',year:2027,isAdmin:true})});
             const body=await response.json();
-            if(response.status!==401||body.success!==false||response.headers.get('x-lrf-elios-expo-version')!=='20261112-elios-expo-budget-v1')throw Error('Elios exhibition budget release or authentication check failed.');
+            const {VERSION}=require('./functions/elios-expo-budget-core.cjs');
+            const {version}=require('./functions/elios-samples-catalogue.json');
+            if(response.status!==401||body.success!==false||response.headers.get('x-lrf-elios-expo-version')!==VERSION||response.headers.get('x-lrf-elios-catalogue-version')!==version)throw Error('Elios exhibition budget release or authentication check failed.');
             console.log('Private Elios budget access verified. No budget or request changed.');
           })().catch(error=>{console.error(error.message);process.exit(1);});
           JS

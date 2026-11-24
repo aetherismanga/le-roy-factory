@@ -1,5 +1,5 @@
-import {esc,money,norm,sampleReviewTable} from './elios-samples-core.mjs?v=20261113-8';
-export const PRICING_VERSION='20261113-energy-pose-v1';
+import {esc,money,norm,sampleReviewTable,sampleIsEligible,BOX_MINIMUM} from './elios-samples-core.mjs?v=20261124-v9';
+export const PRICING_VERSION='20261124-elios-energy-v2';
 const area=n=>Number(n).toLocaleString('fr-FR',{maximumFractionDigits:4});
 export function sampleVariantValue(product,key){
  if(key==='slip')return String(product.finish||'').match(/\bR(?:9|10|11|12|13)\b/i)?.[0].toUpperCase()||'';
@@ -10,7 +10,7 @@ export function sampleVariantValue(product,key){
  return product[key]||'';
 }
 export function sampleTileMatches(product,filters={},omit=''){
- if(product.legacy||!(filters.mode==='box'||product.vrac))return false;
+ if(product.legacy||!(filters.mode==='box'||sampleIsEligible(product)))return false;
  for(const key of ['collection','format','color','finish','slip','thickness'])if(key!==omit&&filters[key]&&sampleVariantValue(product,key)!==filters[key])return false;
  const query=norm(filters.query||'');
  return !query||norm([product.reference,product.collection,product.color,product.description,product.format,product.finish].join(' ')).includes(query);
@@ -23,7 +23,7 @@ export function sampleFacetValues(products,filters,key){
 export function sampleChargesSummary(q){
  if(!q.rows.some(row=>row.type==='box'))return '';
  const tax=q.energyTax,pose=q.installation;
- return `<section class="es-charge-summary" aria-label="Détail du chiffrage HT"><dl><div><dt>Carrelage après remise expo</dt><dd>${money(q.tilesSubtotalHT??q.subtotalHT)}</dd></div>${tax?`<div data-energy-tax><dt>Taxe énergétique <small>${area(tax.area)} m² × ${money(tax.rateHT)}/m²</small></dt><dd>${money(tax.amountHT)} HT</dd></div>`:''}<div><dt>Fourniture + taxe${q.incomplete?' (montant connu)':''}</dt><dd>${money(q.supplierSubtotalHT??q.subtotalHT)} HT</dd></div>${pose?.requested?`<div data-installation-charge><dt>Pose LE ROY FACTORY <small>${area(pose.area)} m² · ${pose.mode==='forfait'?'forfait jusqu’à 8 m² inclus':money(pose.rateHT)+' HT/m²'}</small></dt><dd>${money(pose.amountHT)} HT</dd></div>`:''}</dl><p class="es-recap-total">${q.incomplete?'Sous-total HT connu':pose?.requested?'Total HT avec pose':'Total à payer HT'} <strong>${money(q.subtotalHT)}</strong></p>${pose?.requested?`<p class="es-installation-terms">${esc(pose.terms)}</p>`:''}<p class="es-charge-basis">Calcul sur le total des m² de carrelage commandés pour les box, boîtes complètes et pertes incluses. Transport et profilés non compris.${q.incomplete?' Certains prix restent à confirmer.':''}</p></section>`;
+ return `<section class="es-charge-summary" aria-label="Détail du chiffrage HT"><dl><div><dt>Carrelage après remise expo</dt><dd>${money(q.tilesSubtotalHT??q.subtotalHT)}</dd></div>${tax?`<div data-energy-tax><dt>Taxe énergétique <small>${area(tax.area)} m² × ${money(tax.rateHT)}/m²</small></dt><dd>${money(tax.amountHT)} HT</dd></div>`:''}<div><dt>Fourniture + taxe${q.incomplete?' (montant connu)':''}</dt><dd>${money(q.supplierSubtotalHT??q.subtotalHT)} HT</dd></div>${pose?.requested?`<div data-installation-charge><dt>Pose LE ROY FACTORY <small>${area(pose.area)} m² · ${pose.mode==='forfait'?'forfait jusqu’à 8 m² inclus':money(pose.rateHT)+' HT/m²'}</small></dt><dd>${money(pose.amountHT)} HT</dd></div>`:''}</dl><p class="es-recap-total">${q.incomplete?'Sous-total HT connu':pose?.requested?'Total HT avec pose':'Total à payer HT'} <strong>${money(q.subtotalHT)}</strong></p>${pose?.requested?`<p class="es-installation-terms">${esc(pose.terms)}</p>`:''}<p class="es-charge-basis">${BOX_MINIMUM}. Le calcul utilise les m² réellement commandés, pertes incluses. Transport et profilés non compris.${q.incomplete?' Certains prix restent à confirmer.':''}</p></section>`;
 }
 export function samplePrintDocument({customer={},details={},quote,visual='',title='Votre récapitulatif Elios'}){
  const boxVisual=/^data:image\/png;base64,[A-Za-z0-9+/]+=*$/.test(visual)?`<figure><img class="box-visual" src="${esc(visual)}" alt="Visuel du box exposition"></figure>`:'';

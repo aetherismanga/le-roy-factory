@@ -7,21 +7,19 @@ import {sampleTileMatches} from '../assets/js/elios-samples-options.mjs';
 const require=createRequire(import.meta.url),C=require('../functions/elios-samples-core.cjs');
 const catalogue=JSON.parse(readFileSync(new URL('../assets/data/elios-samples.json',import.meta.url)));
 const server=JSON.parse(readFileSync(new URL('../functions/elios-samples-catalogue.json',import.meta.url)));
-test('Brooklyn 100x100 offers all seven standard colours through filtering and server validation',()=>{
+test('Brooklyn 100x100 remains available by full boxes, including the seven standard colours',()=>{
  assert.deepEqual(server,catalogue);
- assert(availableSampleFormats(catalogue.products,{collection:'Brooklyn'}).includes('100x100'));
- const rows=catalogue.products.filter(p=>sampleTileMatches(p,{mode:'vrac',collection:'Brooklyn',format:'100x100',slip:'R10',thickness:'8,5 mm'}));
+ assert(!availableSampleFormats(catalogue.products,{collection:'Brooklyn'}).includes('100x100'));
+ const rows=catalogue.products.filter(p=>sampleTileMatches(p,{mode:'box',collection:'Brooklyn',format:'100x100',slip:'R10',thickness:'8,5 mm'}));
  assert.deepEqual(rows.map(p=>p.reference).sort(),['00K1X00','00K1X10','00K1X40','00K1X50','00K1X60','00K1X80','00K1X90']);
- for(const quantity of [1,2]){
-  const q=C.buildQuote(rows.map(p=>({type:'vrac',key:p.key,quantity})),server);
-  assert.equal(q.rows.length,7);assert.equal(q.totalHT,0);assert(q.rows.every(row=>row.label&&row.quantity===quantity));
- }
- for(const p of catalogue.products.filter(p=>p.collection==='Brooklyn'&&/Outdoor|20 mm/.test(p.finish))){const q=C.buildQuote([{type:'vrac',key:p.key,quantity:1}],server);assert.equal(q.rows[0].factoryApprovalRequired,true);}
+ const q=C.buildQuote(rows.map(p=>({type:'box',key:p.key,quantity:0.01})),server);
+ assert.equal(q.rows.length,7);assert(q.rows.every(row=>row.boxes===1));
+ for(const p of rows)assert.throws(()=>C.buildQuote([{type:'vrac',key:p.key,quantity:1}],server),/programme V9/);
 });
 test('kit and optional socle stay separate and retain exact server quantities and indicative values',()=>{
  const bases=merchandisingBaseChoices(catalogue);
- assert.equal(bases.length,7);
- for(const code of ['E99106','E99114','E99120','E99127','E99113','E99179'])assert(bases.some(p=>p.reference===code));
+ assert(!bases.some(p=>p.reference==='E99179'));
+ for(const code of ['E99106','E99114','E99120','E99127','E99113'])assert(bases.some(p=>p.reference===code));
  const items=selectMerchandisingWithBase([],'EBRK34',2,catalogue,'E99127',1);
  assert.deepEqual(items,[{type:'merchandising',key:'EBRK34',quantity:2},{type:'merchandising',key:'E99127',quantity:1}]);
  const quote=C.buildQuote(items,server);

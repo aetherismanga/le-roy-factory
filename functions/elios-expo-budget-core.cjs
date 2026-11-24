@@ -120,7 +120,7 @@ async function handleAction({db,catalogue,agent,body}){
 }
 function createHandler({admin,getAgentFromRequest,catalogue}){return async(req,res)=>{
  const origin=String(req.headers?.origin||''),origins=['https://leroyfactory.fr','https://www.leroyfactory.fr'];
- res.set('Vary','Origin');res.set('Cache-Control','private, no-store');res.set('X-LRF-Elios-Expo-Version',VERSION);res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','POST, OPTIONS');
+ res.set('Vary','Origin');res.set('Cache-Control','private, no-store');res.set('X-LRF-Elios-Expo-Version',VERSION);if(catalogue.version)res.set('X-LRF-Elios-Catalogue-Version',catalogue.version);res.set('Access-Control-Allow-Headers','Content-Type, Authorization');res.set('Access-Control-Allow-Methods','POST, OPTIONS');
  if(origin&&!origins.includes(origin))return res.status(403).json({success:false,error:'Origine non autorisée.'});
  if(origin)res.set('Access-Control-Allow-Origin',origin);
  if(req.method==='OPTIONS')return res.status(204).send('');if(req.method!=='POST')return res.status(405).json({success:false,error:'Méthode non autorisée.'});

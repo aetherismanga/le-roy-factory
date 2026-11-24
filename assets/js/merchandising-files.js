@@ -6,6 +6,11 @@ const input=document.getElementById('merch-files');
 const list=document.getElementById('merch-docs');
 const status=document.getElementById('merch-status');
 const count=document.getElementById('merch-count');
+const cersaieOriginal=document.getElementById('merch-elios-cersaie-novembre');
+const normalizedName=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
+const novemberNames=new Set([
+  'Elios_Merchandising_2026 news nov .pdf','elios-cersaie-novembre-2026.pdf','Nouveautés Cersaie — novembre 2026'
+].map(normalizedName));
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const size=n=>n>1048576?`${(n/1048576).toFixed(1)} Mo`:n>1024?`${(n/1024).toFixed(1)} Ko`:`${n||0} o`;
 
@@ -39,10 +44,11 @@ input?.addEventListener('change',async()=>{
 });
 
 onSnapshot(query(collection(db,'merchandisingFiles'),orderBy('createdAt','desc')),snap=>{
-  const rows=snap.docs.map(d=>({id:d.id,...d.data()})).filter(x=>x.manufacturer==='elios');
-  if(count)count.textContent=`${rows.length} fichier${rows.length>1?'s':''}`;
+  const rows=snap.docs.map(d=>({id:d.id,...d.data()})).filter(x=>x.manufacturer==='elios'&&(!cersaieOriginal||!novemberNames.has(normalizedName(x.name))));
+  const total=rows.length+Number(Boolean(cersaieOriginal));
+  if(count)count.textContent=`${total} fichier${total===1?'':'s'}`;
   if(!list)return;
-  if(!rows.length){list.innerHTML='<div class="merch-empty">Aucun fichier ajouté.</div>';return}
+  if(!rows.length){list.innerHTML=cersaieOriginal?'':'<div class="merch-empty">Aucun fichier ajouté.</div>';return}
   list.innerHTML=rows.map(x=>{
     const img=(x.type||'').startsWith('image/');
     const preview=img?`<img src="${esc(x.url)}" alt="">`:`<span>${(x.name||'').toLowerCase().endsWith('.pdf')?'PDF':'DOC'}</span>`;

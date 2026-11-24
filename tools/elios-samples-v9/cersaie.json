@@ -1,0 +1,101 @@
+{
+  "pdfSha256": "1852d89f24f688c203ff3d2a0909dffd75d3ce59e6582277383fac9ee97e9e21",
+  "ambiguousCodes": [
+    "ESTI06", "EDNS04", "EMNB04", "E99179", "sans-code-estoneiconpannellofrancese"
+  ],
+  "pages": {
+    "1": [
+      ["EDNS00", "DYNASTY", "Catalogue de collection", "21 × 28 cm fermé", 1.85],
+      ["EDNS03", "DYNASTY", "Dépliant architectes", "", 35]
+    ],
+    "2": [
+      ["EDNS01", "DYNASTY", "Kit Dynasty 3D Honed · sept fonds", "60 × 120 cm", 220]
+    ],
+    "3": [
+      ["EDNS14", "DYNASTY", "Kit de décors Dynasty", "30 × 30 cm", 190],
+      ["E99159", "DYNASTY", "Présentoir vide, 12 logements", "60 × 120 cm", null],
+      ["E99127", "DYNASTY", "Socle aluminium, 12 logements", "", null]
+    ],
+    "4": [
+      ["EDNS15", "DYNASTY", "Présentoir de comptoir, neuf logements", "60 × 50 × 5 cm", 130]
+    ],
+    "5": [
+      ["EDNS06", "DYNASTY", "Dépliant R10 B · Alpi, Monet, Lepanto et Calacatta Viola", "68 × 68 cm", 35],
+      ["EDNS07", "DYNASTY", "Dépliant R10 B · Marfil, Saint Laurent et Bianco Aurora", "68 × 68 cm", 35],
+      ["EDNS12", "DYNASTY", "Dépliant de décors · Marfil, Saint Laurent et Bianco Aurora", "68 × 68 cm", 35]
+    ],
+    "6": [
+      ["EDNS19", "DYNASTY", "Panneau synoptique · coloris", "100 × 200 cm", 100],
+      ["EDNS20", "DYNASTY", "Panneau synoptique · décors", "100 × 200 cm", 110]
+    ],
+    "7": [
+      ["EDNS21", "DYNASTY", "Panneau Lepanto et Kingdom Red", "100 × 200 cm", 110],
+      ["EDNS22", "DYNASTY", "Panneau Monet et Alpi", "100 × 200 cm", 100],
+      ["EDNS23", "DYNASTY", "Panneau Monet, Victoria Green et Alpi", "100 × 200 cm", 110],
+      ["EDNS24", "DYNASTY", "Panneau Lepanto et Calacatta Viola", "100 × 200 cm", 100],
+      ["EDNS25", "DYNASTY", "Panneau Marfil et Prestige Black", "100 × 200 cm", 100],
+      ["EDNS26", "DYNASTY", "Panneau Saint Laurent et Imperial Black", "100 × 200 cm", 100],
+      ["EDNS27", "DYNASTY", "Panneau Kingdom White et Bianco Aurora", "100 × 200 cm", 100]
+    ],
+    "8": [
+      ["EMNB00", "MONTBLANC", "Catalogue de collection", "21 × 28 cm fermé", null],
+      ["EMNB03", "MONTBLANC", "Dépliant architectes", "", 20]
+    ],
+    "9": [
+      ["EMNB01", "MONTBLANC", "Kit de fonds et décors avec panneau récapitulatif en Forex", "60 × 120 cm", 170],
+      ["E99127", "MONTBLANC", "Socle aluminium, 12 logements", "", null],
+      ["E99159", "MONTBLANC", "Présentoir vide, 12 logements", "60 × 120 cm", null]
+    ],
+    "10": [
+      ["EMNB05", "MONTBLANC", "Kit avec poignée et QR code", "60 × 60 cm", 75],
+      ["EMNB06", "MONTBLANC", "Kit quatre fonds", "120 × 120 cm", 140],
+      ["E99128", "MONTBLANC", "Présentoir vide, six logements double face", "161 × 76 × 130 cm", 770]
+    ],
+    "11": [
+      ["EMNB07", "MONTBLANC", "Kit extérieur quatre fonds, 20 mm", "60 × 120 cm", 110],
+      ["E99113", "MONTBLANC", "Socle extérieur six logements pour carreaux de 20 mm", "", null]
+    ],
+    "12": [
+      ["EMNB08", "MONTBLANC", "Panneau synoptique", "100 × 200 cm", 90]
+    ],
+    "13": [
+      ["EMNB09", "MONTBLANC", "Panneau Imperial et Art Imperial", "100 × 200 cm", 90],
+      ["EMNB10", "MONTBLANC", "Panneau Reserve et Art Reserve", "100 × 200 cm", 90],
+      ["EMNB11", "MONTBLANC", "Panneau Prestige et Art Prestige", "100 × 200 cm", 90],
+      ["EMNB12", "MONTBLANC", "Panneau Eclipse et Art Eclipse", "100 × 200 cm", 90],
+      ["EMNB13", "MONTBLANC", "Panneau Reserve et Dynasty Lepanto", "100 × 200 cm", 90],
+      ["EMNB14", "MONTBLANC", "Panneau Prestige et Dynasty Alpi", "100 × 200 cm", 90]
+    ],
+    "14": [
+      ["ESTI03", "STONE ICON", "Dépliant architectes", "", 30]
+    ],
+    "15": [
+      ["E99128", "STONE ICON", "Présentoir vide, six logements double face", "161 × 76 × 130 cm", 770]
+    ],
+    "16": [
+      ["ESTI01", "STONE ICON", "Kit de huit panneaux Stone Icon et Terraforma", "61 × 155 cm par panneau", 240],
+      ["E99159", "STONE ICON", "Présentoir vide, 12 logements", "60 × 120 cm", null]
+    ],
+    "17": [
+      ["ESTI05", "STONE ICON", "Kit avec poignée", "60 × 60 cm", 65]
+    ],
+    "18": [
+      ["ESTI04", "STONE ICON", "Dépliant Tumbled · Campaspero, Leccese et Francese", "68 × 68 cm", 28]
+    ],
+    "20": [
+      ["ESTI07", "STONE ICON", "Dépliant Campaspero Tumbled", "68 × 68 cm", 28],
+      ["ESTI08", "STONE ICON", "Dépliant Leccese Tumbled", "68 × 68 cm", 28],
+      ["ESTI09", "STONE ICON", "Dépliant Francese Tumbled", "68 × 68 cm", 28]
+    ],
+    "21": [
+      ["ESTI10", "STONE ICON", "Panneau synoptique", "100 × 200 cm", 90]
+    ],
+    "22": [
+      ["ESTI11", "STONE ICON", "Panneau Leccese, pose modulaire", "100 × 200 cm", 85],
+      ["ESTI12", "STONE ICON", "Panneau Francese, pose modulaire", "100 × 200 cm", 85],
+      ["ESTI13", "STONE ICON", "Panneau Campaspero, pose modulaire", "100 × 200 cm", 85],
+      ["ESTI14", "STONE ICON", "Panneau Leccese et Terraforma Marna", "100 × 200 cm", 95],
+      ["ESTI15", "STONE ICON", "Panneau Campaspero et Terraforma Duna", "100 × 200 cm", 95]
+    ]
+  }
+}

@@ -1,5 +1,8 @@
 export const ELIOS_ORIGIN='https://studio-one-beta-test-v2.vercel.app';
 export const MAX_BOX_VISUAL_CHARS=8100000;
+export const BOX_MINIMUM='Commande par boîte complète — minimum 1 boîte';
+export const LABEL_AVAILABLE='Échantillon avec étiquette disponible';
+export const sampleIsEligible=product=>!!product?.reference&&!product.legacy&&product.vrac===true&&product.sampleOffer!=='factory-confirmation';
 export const API='https://us-central1-le-roy-factory.cloudfunctions.net/eliosSamples';
 export const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À confirmer';
@@ -37,7 +40,7 @@ export function readSampleSelection(storage,{owner,customer={},isAgent=false,tar
 export const boxBridgeMatches=(message,session,owner)=>!!session&&session.owner===owner&&typeof session.bridgeId==='string'&&session.bridgeId.length>0&&message?.bridgeId===session.bridgeId;
 export function availableSampleFormats(products,{collection='',query='',mode='vrac'}={}){
  const q=norm(query);
- return [...new Set(products.filter(p=>(mode==='box'||p.vrac)&&(!collection||p.collection===collection)&&(!q||norm([p.reference,p.collection,p.color,p.description,p.format,p.finish].join(' ')).includes(q))).map(p=>p.format).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr',{numeric:true}));
+ return [...new Set(products.filter(p=>!p.legacy&&(mode==='box'||sampleIsEligible(p))&&(!collection||p.collection===collection)&&(!q||norm([p.reference,p.collection,p.color,p.description,p.format,p.finish].join(' ')).includes(q))).map(p=>p.format).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr',{numeric:true}));
 }
 export function samplePieceStyle(product){
  const dimensions=String(product.format||'').replaceAll(',','.').match(/(\d+(?:\.\d+)?)\s*[x×]\s*(\d+(?:\.\d+)?)/i);
@@ -46,19 +49,19 @@ export function samplePieceStyle(product){
 }
 export function merchandisingChoices(catalogue,product,image=product?.images?.[0]?.image){
  const codes=new Set((catalogue.documents||[]).filter(page=>page.image===image).flatMap(page=>page.codes||[]));
- const choices=(catalogue.merchandising||[]).filter(item=>item.id===product?.id||item.reference&&codes.has(item.reference));
+ const choices=(catalogue.merchandising||[]).filter(item=>item.orderable!==false&&(item.id===product?.id||item.reference&&codes.has(item.reference)));
  return [...new Map(choices.map(item=>[item.id,item])).values()];
 }
 export function selectMerchandisingLine(items,key,quantity,catalogue){
  const product=catalogue.merchandising?.find(item=>item.id===key);
- if(!product)throw Error('Choisissez une référence de merchandising.');
+ if(!product||product.orderable===false)throw Error('Choisissez une référence de merchandising confirmée.');
  if(!Number.isInteger(quantity)||quantity<1||quantity>50)throw Error('Choisissez une quantité entière entre 1 et 50.');
  const line={type:'merchandising',key:product.id,quantity},index=items.findIndex(item=>item.type==='merchandising'&&item.key===product.id);
  if(index<0){if(items.length>=200)throw Error('La sélection contient déjà 200 références.');return [...items,line];}
  return items.map((item,i)=>i===index?line:item);
 }
 export function merchandisingBaseChoices(catalogue){
- return (catalogue.merchandising||[]).filter(item=>/\bBASE\b/i.test(item.description||''));
+ return (catalogue.merchandising||[]).filter(item=>item.orderable!==false&&/\b(?:BASE|SOCLE)\b/i.test(item.description||''));
 }
 export function selectMerchandisingWithBase(items,key,quantity,catalogue,baseKey='',baseQuantity=1){
  if(baseKey&&!merchandisingBaseChoices(catalogue).some(item=>item.id===baseKey))throw Error('Choisissez un socle du catalogue Elios.');
@@ -89,15 +92,41 @@ export function download(blob,name){const url=URL.createObjectURL(blob),a=docume
 
 // Manufacturer packaging remains authoritative; quantities include the chosen loss.
 export function directBoxQuantity(product,inputQuantity,inputUnit='m2',loss=10){
- if(!product?.packVerified||!(product.packArea>0)||!Number.isInteger(product.packPieces)||product.packPieces<1)throw Error('Le boîtage fabricant de cette référence doit être confirmé.');
- const amount=Number(inputQuantity),percent=Number(loss);
+ if(!product?.reference||product.legacy||!product.packVerified||!(product.packArea>0)||!Number.isInteger(product.packPieces)||product.packPieces<1)throw Error('Le boîtage fabricant de cette référence doit être confirmé.');
+ const amount=Number(inputQuantity),percent=inputUnit==='boxes'?0:Number(loss);
  if(!Number.isFinite(amount)||amount<=0||amount>10000||!['m2','boxes'].includes(inputUnit)||(inputUnit==='boxes'&&!Number.isInteger(amount)))throw Error('Indiquez une surface positive ou un nombre entier de boîtes.');
  if(!Number.isFinite(percent)||percent<0||percent>30)throw Error('La perte doit être comprise entre 0 et 30 %.');
  const netArea=inputUnit==='boxes'?amount*product.packArea:amount,quantity=Number((netArea*(1+percent/100)).toFixed(6));
  if(quantity>10000)throw Error('La surface avec pertes dépasse 10 000 m².');
- const boxes=Math.ceil((quantity-1e-8)/product.packArea);
+ const boxes=Math.max(1,Math.ceil(quantity/product.packArea-1e-10));
  return {type:'box',key:product.key,direct:true,inputQuantity:amount,inputUnit,loss:percent,netArea,quantity,boxes,orderArea:Number((boxes*product.packArea).toFixed(4))};
 }
+export function restoreSampleItems(items,catalogue){
+ const selected=[],removed=[];
+ const products=new Map(catalogue.products.map(product=>[product.key,product]));
+ const merchandise=new Map(catalogue.merchandising.map(product=>[product.id,product]));
+ for(const item of items){
+  const product=(item?.type==='merchandising'?merchandise:products).get(item?.key);
+  const quantity=Number(item?.quantity);
+  if(item?.type==='vrac'&&sampleIsEligible(product)&&[1,2].includes(quantity)){
+   selected.push({...item,quantity});
+  }else if(item?.type==='merchandising'&&product&&product.orderable!==false&&Number.isInteger(quantity)&&quantity>=1&&quantity<=50){
+   selected.push({...item,quantity});
+  }else if(item?.type==='box'){
+   try{
+    // Older saved values could apply losses on top of an explicit box count.
+    // Keep the number of boxes the customer saw when saving that choice.
+    const previousBoxes=item.inputUnit==='boxes'&&item.loss>0;
+    const amount=previousBoxes?Math.max(1,Math.ceil(quantity/product.packArea-1e-10)):item.inputQuantity??quantity;
+    selected.push(directBoxQuantity(product,amount,item.inputUnit||'m2',item.loss??0));
+   }catch{removed.push(product?.reference||item.key);}
+  }else if(item?.key){
+   removed.push(product?.reference||item.key);
+  }
+ }
+ return {items:selected,removed};
+}
+
 export function combinedSampleLines(items){
  const result=[];for(const item of items){const previous=result.find(p=>p.type===item.type&&p.key===item.key);if(previous&&item.type==='box')previous.quantity+=item.quantity;else result.push({type:item.type,key:item.key,quantity:item.quantity});}return result;
 }

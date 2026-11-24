@@ -8,16 +8,19 @@ import {quantityForSurface} from '../shared/lrf-3d/quantities.js';
 const catalogue=JSON.parse(readFileSync(new URL('../assets/data/elios-samples.json',import.meta.url),'utf8'));
 const canonical=JSON.parse(readFileSync(new URL('../shared/lrf-3d/commercial-surfaces.json',import.meta.url),'utf8'));
 test('all existing Elios SKUs, formats, colors and packaging are preserved without embedded net prices',()=>{
- const elios=canonical.products.filter(p=>p.brand==='ELIOS');assert.equal(catalogue.products.length,elios.length);
- const byKey=new Map(catalogue.products.map(p=>[p.key,p]));assert.equal(byKey.size,elios.length);
+ const elios=canonical.products.filter(p=>p.brand==='ELIOS');assert(catalogue.products.length>=elios.length);
+ const byKey=new Map(catalogue.products.map(p=>[p.key,p]));assert.equal(byKey.size,catalogue.products.length);
  for(const p of elios){const imported=byKey.get(p.key);for(const key of ['reference','collection','color','format','finish','packArea','packPieces'])assert.equal(imported[key],p[key]);assert.equal(imported.purchaseHT,undefined);assert.equal(imported.price,undefined);assert.equal(imported.amount,undefined);}
  assert.deepEqual(JSON.parse(readFileSync(new URL('../functions/elios-samples-catalogue.json',import.meta.url),'utf8')),catalogue);
 });
-test('standard offered samples retain their conditions while extra finishes remain subject to factory confirmation',()=>{
- const free=catalogue.products.filter(p=>p.vrac&&p.sampleOffer!=='factory-confirmation');assert(free.length>200);
- for(const p of free){assert(!/20\s*mm|poli|lapp/i.test(p.finish),p.reference+' '+p.finish);if(/r11|outdoor/i.test(p.finish))assert(catalogue.rules.some(r=>r.collection.toLowerCase()===p.collection.toLowerCase()&&/r11/i.test(r.finish)),p.reference+' '+p.finish);}
+test('labeled samples are bound to specific workbook rows without inheriting other finished variants',()=>{
+ const free=catalogue.products.filter(p=>p.vrac);assert(free.length>350);
+ for(const p of free){
+  const rule=catalogue.rules.find(r=>r.row===p.sampleV9.row);
+  assert(rule?.format);assert.equal(p.sampleOffer,'offered');assert.equal(p.sampleReference,p.reference);
+ }
  assert.equal(free.filter(p=>p.collection==='Segmento').length,16);
- assert(!free.some(p=>p.collection==='Harmony'));
+ assert(!free.some(p=>p.collection==='Harmony'||/20\s*mm|lapp/i.test(p.finish)));
 });
 test('merchandising photos identify the exact reference and are present at both sizes',()=>{
  const pictured=catalogue.merchandising.filter(p=>p.images.length);assert(pictured.length>100);
