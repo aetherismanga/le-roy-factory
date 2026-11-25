@@ -152,7 +152,7 @@
     }
     const blob = await response.blob();
     if (tariffId === 'elios-2026') {
-      const {eliosTariffForDisplay} = await import('./elios-tariff-layout.mjs?v=20261125-1');
+      const {eliosTariffForDisplay} = await import('./elios-tariff-layout.mjs?v=20261125-2');
       return eliosTariffForDisplay(blob);
     }
     return blob;

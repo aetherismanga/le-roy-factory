@@ -31,7 +31,7 @@ function reviseOctoberSheet(ops) {
   const smallFormat = String.raw`(10 \001 10 gr\004s c\003rame)`;
   const stone = String.raw`(Stone Icon : Big Opus non pr\003bo\006t\003\007)`;
   const formatNote = rest.match(/\(\\007 Big Opus non [^:()]+ : ([^()]+)\.\)/);
-  const sizes = formatNote?.[1].split(' / ') || [];
+  const sizes = formatNote?.[1].split(' / ').map(size => size.replaceAll(' ', '')) || [];
   if (rows.length !== 29 || rows.filter(row => row.includes('20 mm')).length !== 3 ||
       sizes.length !== 4 || !rows.some(row => row.includes(stone)) || !rest.includes(smallFormat)) return null;
 
@@ -47,13 +47,9 @@ function reviseOctoberSheet(ops) {
         .replace('.968627 .894118 .85098 rg', sand + ' rg');
       thick.push(place(coloured, 301 - 25 * scaleX, bottomOffset, scaleX));
     } else {
-      const formats = row.includes(stone)
-        ? sizes.map(size => row.replace(stone, String.raw`(Stone Icon ${size} \002 \012 l'unit\003)`))
-        : [row];
-      for (const format of formats) {
-        const labelled = format.replace(/^[.\d ]+ rg/, (standard.length % 2 ? '1 1 1' : grey) + ' rg');
-        standard.push(place(labelled, 0, (index - standard.length) * rowHeight));
-      }
+      const labelled = row.replace(stone, String.raw`(Stone Icon \012 l'unit\003 \002 ${sizes.join(' / ')})`)
+        .replace(/^[.\d ]+ rg/, (standard.length % 2 ? '1 1 1' : grey) + ' rg');
+      standard.push(place(labelled, 0, (index - standard.length) * rowHeight));
     }
   }
 
