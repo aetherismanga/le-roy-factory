@@ -150,7 +150,12 @@
       try{const j=await response.json();if(j?.error)message=j.error}catch(_){}
       throw new Error(message);
     }
-    return response.blob();
+    const blob = await response.blob();
+    if (tariffId === 'elios-2026') {
+      const {eliosTariffForDisplay} = await import('./elios-tariff-layout.mjs?v=20261125-1');
+      return eliosTariffForDisplay(blob);
+    }
+    return blob;
   }
   window.LRF_SECURE_TARIFFS=Object.freeze({requestBlob:requestTariffBlob});
 

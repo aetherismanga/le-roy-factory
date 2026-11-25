@@ -25,6 +25,9 @@ function harness({email=null,session=null,restoring=false,tokenError=false,respo
   const context={window,document:{readyState:'loading',addEventListener(){}},location,sessionStorage:{getItem:()=>null},
     MutationObserver:class{},URL:TrackedURL,setTimeout(){},alert:message=>alerts.push(message),
     async loadModule(url){
+      if(url.includes('elios-tariff-layout'))return {async eliosTariffForDisplay(blob){
+        assert.equal(blob,pdf);order.push('elios-layout');return blob;
+      }};
       if(url.includes('view-tariff-notice'))return {async viewTariffWithNotice(blob){
         assert.equal(blob,pdf);order.push('view-notice');return blob;
       }};
@@ -61,9 +64,9 @@ for(const email of ['jerome@leroyfactory.fr','coryne@leroyfactory.fr'])test(emai
   for(let i=0;i<tariffIds.length;i++){
     assert.equal(h.requests[i].headers.Authorization,'Bearer synthetic-firebase-token');
     assert.deepEqual(h.requests[i].body,{tariffId:tariffIds[i]});
-    assert.equal(h.viewers[i].options.filename,tariffIds[i]+'.pdf');
+    assert.equal(h.viewers[i].options.filename,tariffIds[i]==='elios-2026'?'ELIOS-Tarifs-nets-2026-10-20.pdf':tariffIds[i]+'.pdf');
   }
-  assert.deepEqual(h.order.slice(0,4),['ready','token','request','viewer'],'Identity restoration and authorized response precede PDF display');
+  assert.deepEqual(h.order.slice(0,5),['ready','token','request','elios-layout','viewer'],'Identity restoration and authorized response precede PDF display');
   assert.equal(h.order.filter(step=>step==='view-notice').length,1);
 });
 
