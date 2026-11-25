@@ -824,7 +824,7 @@
   },
   "crm": {
     "contactImport": {
-      "releaseId": "20261125-contacts4",
+      "releaseId": "20261125-contacts5",
       "page": "clients.html"
     },
     "reportExport": {

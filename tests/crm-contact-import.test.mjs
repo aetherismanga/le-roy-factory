@@ -1,6 +1,14 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { parseContactCards, toContactDraft } from '../assets/js/crm-contact-import.mjs';
+import { isAppleMobile } from '../assets/js/crm-apple-contact.mjs';
+
+test('Apple AutoFill is offered on iPhone and iPad, including iPad desktop mode', () => {
+  assert.equal(isAppleMobile({ userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 26_0 like Mac OS X)' }), true);
+  assert.equal(isAppleMobile({ userAgent: 'Mozilla/5.0 (Macintosh)', platform: 'MacIntel', maxTouchPoints: 5 }), true);
+  assert.equal(isAppleMobile({ userAgent: 'Mozilla/5.0 (Macintosh)', platform: 'MacIntel', maxTouchPoints: 0 }), false);
+  assert.equal(isAppleMobile({ userAgent: 'Mozilla/5.0 (Linux; Android 17)' }), false);
+});
 
 test('Apple vCard keeps structured names, labels, folded values and preferred email', () => {
   const result = parseContactCards([

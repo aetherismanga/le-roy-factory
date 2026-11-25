@@ -25,10 +25,20 @@ export function toContactDraft({ displayName, prenom, nom, fonction, phones = []
   };
 }
 
-export async function pickDeviceContact() {
+function nativeContactsBridge() {
   const capacitor = globalThis.Capacitor;
-  if (capacitor?.isNativePlatform?.() && typeof capacitor.Plugins?.ClientContacts?.pickContact === 'function') {
-    const { contact } = await capacitor.Plugins.ClientContacts.pickContact({});
+  const bridge = capacitor?.Plugins?.ClientContacts;
+  return capacitor?.isNativePlatform?.() && typeof bridge?.pickContact === 'function' ? bridge : null;
+}
+
+export function canPickDeviceContact() {
+  return Boolean(nativeContactsBridge()) || typeof navigator.contacts?.select === 'function';
+}
+
+export async function pickDeviceContact() {
+  const bridge = nativeContactsBridge();
+  if (bridge) {
+    const { contact } = await bridge.pickContact({});
     return contact ? toContactDraft(contact) : null;
   }
   const picker = navigator.contacts;

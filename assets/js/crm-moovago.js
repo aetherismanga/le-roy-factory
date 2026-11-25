@@ -3,7 +3,8 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/fi
 import { collection, getDocs, doc, runTransaction, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 import { cloneExtra, extraSignature, extraPatch, assertImportUnchanged } from "./crm-extra-save-core.mjs?v=20261105-audit1";
-import { parseContactCards, pickDeviceContact } from "./crm-contact-import.mjs?v=20261125-contacts2";
+import { canPickDeviceContact, parseContactCards, pickDeviceContact } from "./crm-contact-import.mjs?v=20261125-contacts5";
+import { isAppleMobile, openAppleContactForm } from "./crm-apple-contact.mjs?v=20261125-contacts5";
 import { normPhone } from "./crm-client-integrity-core.mjs?v=20261105-audit1";
 
 const PARTNER_LOGOS = {
@@ -225,6 +226,12 @@ function injectStyles(){ if(document.getElementById("moovago-crm-style"))return;
   .crm-main-contact p{margin:.15rem 0;color:#444;overflow-wrap:anywhere}
   .crm-main-contact small{display:block;color:#666}
   .crm-main-contact button{padding-inline:.35rem}
+  #crm-apple-contact-dialog{box-sizing:border-box;width:min(440px,calc(100% - 24px));max-height:calc(100dvh - 24px);margin:max(12px,env(safe-area-inset-top)) auto auto;padding:16px;border:1px solid #d8c779;border-radius:14px;background:#fffdf7;color:#1a2530}
+  #crm-apple-contact-dialog::backdrop{background:#0008}
+  #crm-apple-contact-dialog h3,#crm-apple-contact-dialog p{margin:0 0 .6rem}
+  #crm-apple-contact-dialog label{display:block;margin:.5rem 0;font-weight:700}
+  #crm-apple-contact-dialog input{display:block;box-sizing:border-box;width:100%;min-height:44px;margin-top:.2rem;padding:.5rem;border:1px solid #cac5b5;border-radius:8px;background:#fff;color:inherit;font:inherit;font-size:16px;font-weight:400}
+  #crm-apple-contact-dialog [data-feedback]:empty{display:none}
   `; document.head.appendChild(s); }
 
 function injectImportUI(){
@@ -346,12 +353,14 @@ function setupDeviceContactImport(wrap){
   const status=wrap.querySelector('#crm-contact-import-status');
   let importSession=null;
   let pendingFileSession=null;
+  let closeAppleForm;
   let cards=[];
   const setBusy=busy=>{
     button.disabled=addButton.disabled=fileButton.disabled=busy;
   };
   const clearChoices=()=>{cards=[];choice.hidden=true;choice.replaceChildren();};
   const reset=()=>{
+    closeAppleForm?.();
     pendingFileSession=null;
     clearChoices();
     options.hidden=true;
@@ -397,14 +406,37 @@ function setupDeviceContactImport(wrap){
     const label=details.name||details.phones[0]||details.email||'Interlocuteur';
     status.textContent=`${label} ajouté à la liste. Enregistre la fiche client pour le conserver.`;
   };
+  const showAppleForm=target=>{
+    try{
+      closeAppleForm=openAppleContactForm({
+        onSelect:contact=>{if(isCurrentContactEditor(target))apply(contact);},
+        onFile:()=>{
+          if(!isCurrentContactEditor(target))return;
+          options.hidden=false;
+          fileButton.click();
+        },
+        onClose:()=>{
+          closeAppleForm=undefined;
+          if(isCurrentContactEditor(target))setBusy(false);
+        }
+      });
+      options.hidden=true;
+      status.textContent='';
+      return true;
+    }catch{
+      return false;
+    }
+  };
   const startImport=async()=>{
     const target=contactEditorSession();
     if(!isCurrentContactEditor(target)||button.disabled)return;
     setBusy(true);
     captureContactInputs();
     removeEmptyContactRows();
-    status.textContent='Sélectionne le contact dans le carnet d’adresses.';
+    const appleForm=isAppleMobile()&&typeof globalThis.HTMLDialogElement?.prototype.showModal==='function';
     try{
+      if(appleForm&&!canPickDeviceContact()&&showAppleForm(target))return;
+      status.textContent='Sélectionne le contact dans le carnet d’adresses.';
       const contact=await pickDeviceContact();
       if(!isCurrentContactEditor(target))return;
       if(contact===undefined){
@@ -414,12 +446,12 @@ function setupDeviceContactImport(wrap){
     }catch(error){
       if(!isCurrentContactEditor(target))return;
       if(error?.name==='AbortError')showNoContact();
-      else{
+      else if(!appleForm||!showAppleForm(target)){
         options.hidden=false;
         status.textContent='Le carnet d’adresses est indisponible. Tu peux importer une fiche .vcf.';
       }
     }finally{
-      if(isCurrentContactEditor(target))setBusy(false);
+      if(!closeAppleForm&&isCurrentContactEditor(target))setBusy(false);
     }
   };
   button.onclick=startImport;
