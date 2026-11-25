@@ -40,8 +40,8 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&
 const contacts=partnerContacts('View Ceramica');const alessio=contacts.find(c=>/alessio/i.test(c.name||''));const orders=contacts.find(c=>/commande/i.test(c.role||''));document.querySelector('#recipient').textContent=`Demande préparée pour ${[alessio?.name,orders?.name].filter(Boolean).join(' et ')||'VIEW Ceramica'}.`;
 function promoLine(item,i){
   return `<article class="item" data-i="${i}">
-    <input class="includeLot" type="checkbox" checked aria-label="Inclure Tibur ${esc(item.format)} dans le mail">
-    <div class="itemHead"><div><h3>Promo Tibur</h3><div class="meta">${esc(item.format)}${item.price?` · ${esc(item.price)}`:''}</div></div></div>
+    <input class="includeLot" type="checkbox" checked aria-label="Inclure Tibur 1er choix ${esc(item.format)} dans le mail">
+    <div class="itemHead"><div><h3>Promo Tibur 1er choix</h3><div class="meta">${esc(item.format)}${item.price?` · ${esc(item.price)}`:''}</div></div></div>
     <div class="paletteBox show"><label>Nombre de palettes <input class="paletteQty" type="number" min="1" step="1" value="2" required></label></div>
   </article>`;
 }
@@ -56,7 +56,7 @@ function rows(){return(data?.items||[]).map((l,i)=>{const a=itemsEl.querySelecto
 function message(selected){
   const c=data.client||{};
   const lines=selected.map((l,i)=>l.promo
-    ? `${i+1}. Promo Tibur · ${l.format}\n   Quantité demandée : ${l.palettes} palette${l.palettes===1?'':'s'}${l.price?`\n   Tarif promo : ${l.price}`:''}`
+    ? `${i+1}. Promo Tibur 1er choix · ${l.format}\n   Quantité demandée : ${l.palettes} palette${l.palettes===1?'':'s'}${l.price?`\n   Tarif promo : ${l.price}`:''}`
     : `${i+1}. Référence : ${articleRef(l)}\n   Article : ${l.series} ${l.name}\n   Format : ${l.format}\n   Stock annoncé : ${l.qty}${l.m2Pal?`\n   Conditionnement : ${String(l.m2Pal).replace('.',',')} m² / palette`:''}\n   Quantité demandée : ${l.mode==='palette'?`${l.palettes} palette${l.palettes>1?'s':''} (env. ${(l.palettes*l.m2Pal).toFixed(2).replace('.',',')} m²)`:`lot complet (${l.qty})`}`).join('\n\n');const com=commentEl.value.trim();return`Bonjour Alessio, bonjour,\n\nPouvez-vous nous confirmer la disponibilité des articles VIEW sélectionnés ci-dessous :\n\n${lines||'Aucun lot sélectionné'}\n\nClient : ${c.societe||c.name||'Client professionnel'}${c.codeClient?`\nCode LRF : ${c.codeClient}`:''}${c.departement?`\nDépartement : ${c.departement}`:''}${com?`\n\nCommentaire :\n${com}`:''}\n\nMerci de nous confirmer la disponibilité ainsi que les conditions d’expédition ou d’enlèvement.\n\nBien cordialement,\nLE ROY FACTORY`}
 function refresh(){
   const selected=rows();
