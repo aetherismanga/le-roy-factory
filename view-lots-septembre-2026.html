@@ -11,7 +11,7 @@
 </style>  <link rel="stylesheet" href="assets/css/lrf-sage-bars.css?v=20260918-sage3d1">
 </head><body><header><div class="container topbar"><a class="brand" href="index.html"><img src="assets/img/logo03lrf.png" alt="LE ROY FACTORY"></a><a class="back" href="index.html">Fermer</a></div></header><main><section class="hero"><div class="container heroIn"><div><h1>VIEW — Lot MS novembre 2026</h1><p>Retrouvez la promo Tibur et les lots disponibles. Sélectionnez vos formats ou vos lots pour préparer une demande de disponibilité à VIEW.</p></div><img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/view.png" alt="VIEW Ceramiche"></div></section><section class="content"><div class="container"><section class="login"><div><h2>Afficher les tarifs</h2><p>Identifiez votre compte professionnel LRF pour voir les tarifs réservés.</p></div><div class="fields"><input id="client-code" placeholder="Code LRF"><input id="client-dep" placeholder="Département"><button id="login-btn" class="btn primary">Voir mes tarifs</button></div><div id="login-msg" class="msg"></div></section><section class="tibur-promo" aria-labelledby="tibur-promo-title">
   <div>
-    <h2 id="tibur-promo-title">Promo Tibur</h2>
+    <h2 id="tibur-promo-title">Promo Tibur 1er choix</h2>
     <p>Dès 2 palettes · Coloris et disponibilité à confirmer auprès de VIEW.</p>
     <div id="tibur-formats" class="tibur-formats"></div>
     <a class="link" href="view-tibur.html" target="_blank" rel="noopener">Voir la collection Tibur</a>
@@ -98,5 +98,5 @@ async function authenticate(){let code=document.querySelector('#client-code').va
 document.querySelector('#login-btn').onclick=authenticate;document.querySelectorAll('#client-code,#client-dep').forEach(i=>i.onkeydown=e=>{if(e.key==='Enter')authenticate()});document.querySelector('#filter-10').onclick=()=>setThickness(10);document.querySelector('#filter-20').onclick=()=>setThickness(20);document.querySelector('#clear-all').onclick=document.querySelector('#clear-bottom').onclick=()=>{checkedLots.clear();document.querySelectorAll('.lot-check').forEach(c=>c.checked=false);updateSelection()};document.querySelector('#request-btn').onclick=()=>{const s=selectedLots();if(!s.length)return;const client=currentClient||window.LRF_PRO_SESSION?.read?.()||{societe:'Client professionnel'};sessionStorage.setItem(REQUEST_KEY,JSON.stringify({client,items:s.map(l=>{
   const {price,...item}=l;
   return {...item, ...(pricesVisible?{price}:{}), paletteEligible:paletteEligible(l)};
-}),createdAt:Date.now()}));location.href='view-lots-demande.html?v=20261121-tibur'};window.addEventListener('lrf-pro-session-changed',applySession);render();applySession();
+}),createdAt:Date.now()}));location.href='view-lots-demande.html?v=20261125-tibur-premier-choix'};window.addEventListener('lrf-pro-session-changed',applySession);render();applySession();
 </script></body></html>
