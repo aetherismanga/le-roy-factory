@@ -44,7 +44,7 @@ async function sandboxModule(file,exposed){
   const context=vm.createContext({console,normPhone});
   vm.runInContext(`
     const elements={
-      'client-modal':{dataset:{clientId:'a'},querySelector(){return null}},
+      'client-modal':{dataset:{clientId:'a',editorSession:'1'},querySelector(){return null}},
       'crm-contacts-list':{innerHTML:'',querySelectorAll(){return []}},
       'crm-main-contact':{innerHTML:'',querySelector(){return null}},
       'crm-contacts-empty':{hidden:false},
@@ -96,15 +96,33 @@ test('the primary name and phone from Infos appear without writing a second stor
   assert.deepEqual(result.patch,{});
 });
 
-test('a device import reuses a blank draft row and saves the populated fields once', async()=>{
-  const module=await sandboxModule('crm-moovago.js','populateExtras,appendContact');
+test('a device import removes empty drafts and appends after existing contacts', async()=>{
+  const module=await sandboxModule('crm-moovago.js','populateExtras,appendContact,removeEmptyContactRows');
   const patch=JSON.parse(module.run(`
-    exposed.populateExtras({id:'a',contacts:[]},true);
+    exposed.populateExtras({id:'a',contacts:[{prenom:'Existing',nom:'First'}]});
     exposed.appendContact({prenom:'',nom:'',mobile:''});
-    exposed.appendContact({prenom:'Alice',nom:'Martin',mobile:'0600000002'},true);
+    exposed.appendContact({prenom:'Existing',nom:'Second'});
+    exposed.removeEmptyContactRows();
+    exposed.appendContact({prenom:'Alice',nom:'Martin',mobile:'0600000002'});
     JSON.stringify(window.LRFClientExtras.getPatch());
   `));
-  assert.deepEqual(patch,{contacts:[{prenom:'Alice',nom:'Martin',mobile:'0600000002'}]});
+  assert.deepEqual(patch,{contacts:[{prenom:'Existing',nom:'First'},{prenom:'Existing',nom:'Second'},{prenom:'Alice',nom:'Martin',mobile:'0600000002'}]});
+});
+
+test('refreshing the open fiche keeps the import session, while reopening the same client expires it',async()=>{
+  const module=await sandboxModule('crm-moovago.js','contactEditorSession,isCurrentContactEditor,populateExtras');
+  const result=JSON.parse(module.run(`
+    exposed.populateExtras({id:'a',contacts:[{nom:'Martin'}]});
+    const pending=exposed.contactEditorSession();
+    contactDraft[0].nom='Martin modifié';
+    exposed.populateExtras({id:'a',contacts:[{nom:'Nouvelle valeur distante'}]});
+    const sameOpening=exposed.isCurrentContactEditor(pending);
+    const unsaved=contactDraft[0].nom;
+    elements['client-modal'].dataset.editorSession='2';
+    exposed.populateExtras({id:'a',contacts:[{nom:'Martin'}]});
+    JSON.stringify({sameOpening,unsaved,reopened:exposed.isCurrentContactEditor(pending)});
+  `));
+  assert.deepEqual(result,{sameOpening:true,unsaved:'Martin modifié',reopened:false});
 });
 
 test('Apple autofill without input events is read at save time and keeps historic fields',async()=>{

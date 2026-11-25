@@ -210,5 +210,12 @@ function watchModal(){
   modal.addEventListener("change",()=>setTimeout(updateSummary,30));
 }
 
-function init(){injectStyles();watchModal();window.addEventListener('lrf-client-opened',()=>{buildShell();activateTab('infos');});const modal=document.getElementById("client-modal");if(modal&&getComputedStyle(modal).display!=="none")buildShell();}
+function init(){injectStyles();watchModal();const modal=document.getElementById("client-modal");let editorSession;
+  window.addEventListener('lrf-client-opened',event=>{
+    const session=modal?.dataset.editorSession;
+    if(!event.detail?.client||session===editorSession)return;
+    editorSession=session;buildShell();activateTab('infos');
+  });
+  if(modal&&getComputedStyle(modal).display!=="none")buildShell();
+}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();

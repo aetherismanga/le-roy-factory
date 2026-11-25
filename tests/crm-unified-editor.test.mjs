@@ -24,7 +24,9 @@ test('the client page owns a single contact editor and both buttons use it',asyn
   const html=await readFile(new URL('../clients.html',import.meta.url),'utf8');
   const loader=await readFile(new URL('../assets/js/firebase.js',import.meta.url),'utf8');
   const contacts=await readFile(new URL('../assets/js/crm-moovago.js',import.meta.url),'utf8');
+  const integrity=await readFile(new URL('../assets/js/crm-client-integrity.js',import.meta.url),'utf8');
   assert.equal((html.match(/import "\.\/assets\/js\/crm-moovago\.js\?/g)||[]).length,1);
+  assert.doesNotMatch(integrity,/dispatchEvent\(new CustomEvent\('lrf-client-opened'/);
   assert.doesNotMatch(loader,/crm-moovago\.js|client-contact-import\.js/);
   assert.match(html,/id="btn-import-contact-infos"/);
   assert.match(contacts,/button\.onclick=startImport/);

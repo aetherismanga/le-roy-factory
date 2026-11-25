@@ -7,7 +7,6 @@ import { clean, active, norm, postal, phones, normPhone, safeDuplicate, duplicat
 // Transactions re-read every source; archived aliases retain their original
 // content and historic IDs so reports, files and authentication references survive.
 let latestClients = [];
-let activeCanonicalId = null;
 const aliasToCanonical = new Map();
 
 function rebuildAliasMaps(rows) {
@@ -66,22 +65,9 @@ function decorateRows() {
     if (candidates.length === 1) row.dataset.clientId = candidates[0].id;
   });
 }
-function dispatchOpened(id) {
-  const canonical = canonicalId(id);
-  if (!canonical || activeCanonicalId === canonical) return;
-  activeCanonicalId = canonical;
-  window.dispatchEvent(new CustomEvent('lrf-client-opened', { detail: { clientId: canonical } }));
-}
 function installUiGuards() {
   const tbody = document.getElementById('clients-table-body');
   if (tbody) new MutationObserver(decorateRows).observe(tbody, { childList: true });
-  document.addEventListener('click', event => {
-    const row = event.target.closest('#clients-table-body tr');
-    if (row) { decorateRows(); dispatchOpened(clean(row.dataset.clientId)); }
-    if (event.target.closest('#btn-add-client')) activeCanonicalId = null;
-  }, true);
-  window.addEventListener('lrf-client-opened', event => { activeCanonicalId = canonicalId(event.detail?.clientId); });
-  window.addEventListener('lrf-client-closed', () => { activeCanonicalId = null; });
   // Form saves are owned by clients.html. No delayed duplicate write: a failed
   // save must not be silently committed by a different script 180 ms later.
 }

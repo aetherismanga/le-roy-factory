@@ -23,8 +23,7 @@ let activeClientId = null;
 let contactDraft = [];
 let partnerDraft = [];
 let contactsBaseline = [];
-let draftClientKey = null;
-let draftInitialized = false;
+let draftEditorSession = null;
 let importBusy = false;
 let analysedImport = null;
 
@@ -36,6 +35,15 @@ const validEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean(v));
 const firstNonEmpty = (...vals) => vals.map(clean).find(Boolean) || "";
 const isActive = c => !!c && c.archived !== true && c.archive !== true;
 const contactFields = ['prenom','nom','fonction','mobile','fixe','email'];
+
+function contactEditorSession(){
+  const data=document.getElementById('client-modal')?.dataset;
+  return data?.editorSession?`${data.editorSession}:${clean(data.clientId)}`:null;
+}
+
+function isCurrentContactEditor(session){
+  return session!==null&&session===draftEditorSession&&session===contactEditorSession();
+}
 
 function isBlankContact(contact){
   if(!contact || typeof contact==='string')return !clean(contact);
@@ -254,6 +262,7 @@ function injectClientExtras(){
   <div id="crm-extra-history" class="crm-extra-section"><h3 class="crm-extra-title">🕘 Historique commercial Moovago / CRM</h3><div id="crm-history-list"></div></div>`;
   if(footer)footer.insertAdjacentElement("beforebegin",wrap);else form.appendChild(wrap);
   document.getElementById("btn-add-contact-crm").onclick=()=>{
+    if(!isCurrentContactEditor(contactEditorSession()))return;
     captureContactInputs();
     appendContact({prenom:"",nom:"",fonction:"",mobile:"",fixe:"",email:""});
   };
@@ -284,10 +293,15 @@ function captureContactInputs(){
   });
 }
 
-function appendContact(contact, replaceBlank=false){
-  let index=replaceBlank ? contactDraft.findIndex(isBlankContact) : -1;
-  if(index<0)index=contactDraft.push(contact)-1;
-  else contactDraft[index]=contact;
+function removeEmptyContactRows(){
+  const filled=contactDraft.filter(contact=>!isBlankContact(contact));
+  if(filled.length===contactDraft.length)return;
+  contactDraft=filled;
+  renderContacts();
+}
+
+function appendContact(contact){
+  const index=contactDraft.push(contact)-1;
   renderContacts();
   document.querySelector(`#crm-contacts-list [data-ci="${index}"]`)?.scrollIntoView({block:"nearest"});
 }
@@ -324,32 +338,52 @@ function renderMainContact(){
 
 function setupDeviceContactImport(wrap){
   const button=wrap.querySelector('#btn-import-device-contact');
+  const addButton=wrap.querySelector('#btn-add-contact-crm');
+  const infosButton=document.getElementById('btn-import-contact-infos');
   const options=wrap.querySelector('#crm-contact-file-options');
   const fileButton=wrap.querySelector('#btn-choose-contact-file');
   const fileInput=wrap.querySelector('#crm-contact-file');
   const choice=wrap.querySelector('#crm-contact-card-choice');
   const status=wrap.querySelector('#crm-contact-import-status');
-  let pendingFileDraft;
+  let importSession=null;
+  let pendingFileSession=null;
   let cards=[];
+  const setBusy=busy=>{
+    button.disabled=addButton.disabled=fileButton.disabled=busy;
+    if(infosButton)infosButton.disabled=busy;
+  };
   const clearChoices=()=>{cards=[];choice.hidden=true;choice.replaceChildren();};
   const reset=()=>{
-    pendingFileDraft=undefined;
+    pendingFileSession=null;
     clearChoices();
     options.hidden=true;
     status.textContent='';
     fileInput.value='';
-    button.disabled=fileButton.disabled=false;
+    setBusy(false);
   };
-  window.addEventListener('lrf-client-opened',reset);
-  window.addEventListener('lrf-client-closed',reset);
+  window.addEventListener('lrf-client-opened',event=>{
+    const session=contactEditorSession();
+    if(!event.detail?.client||importSession===session)return;
+    importSession=session;
+    reset();
+  });
+  window.addEventListener('lrf-client-closed',()=>{
+    importSession=null;
+    reset();
+  });
+
+  const showNoContact=()=>{
+    options.hidden=false;
+    status.textContent='Aucun contact transmis. Touche le nom du contact dans la liste, puis OK, ou importe sa fiche .vcf.';
+  };
 
   const apply=contact=>{
     if(!contact||isBlankContact(contact)){
-      options.hidden=false;
-      status.textContent='Aucune coordonnée partagée. Sélectionne le nom ou un numéro, ou importe une fiche .vcf.';
+      showNoContact();
       return;
     }
     captureContactInputs();
+    removeEmptyContactRows();
     clearChoices();
     options.hidden=true;
     const details=contactDetails(contact);
@@ -361,49 +395,56 @@ function setupDeviceContactImport(wrap){
       document.querySelector(existing)?.scrollIntoView({block:'nearest'});
       return;
     }
-    appendContact(contact,true);
-    status.textContent='Interlocuteur ajouté. Vérifie ses coordonnées puis enregistre la fiche client.';
+    appendContact(contact);
+    const label=details.name||details.phones[0]||details.email||'Interlocuteur';
+    status.textContent=`${label} ajouté à la liste. Enregistre la fiche client pour le conserver.`;
   };
   const startImport=async()=>{
-    if(!draftInitialized||button.disabled)return;
-    const target=contactDraft;
-    button.disabled=true;
-    status.textContent='';
+    const target=contactEditorSession();
+    if(!isCurrentContactEditor(target)||button.disabled)return;
+    setBusy(true);
+    captureContactInputs();
+    removeEmptyContactRows();
+    status.textContent='Sélectionne le contact dans le carnet d’adresses.';
     try{
       const contact=await pickDeviceContact();
-      if(target!==contactDraft)return;
-      if(contact)apply(contact);
-      else if(contact===undefined)options.hidden=false;
+      if(!isCurrentContactEditor(target))return;
+      if(contact===undefined){
+        options.hidden=false;
+        status.textContent='';
+      }else apply(contact);
     }catch(error){
-      if(target!==contactDraft||error?.name==='AbortError')return;
-      options.hidden=false;
-      status.textContent='Le carnet d’adresses est indisponible. Tu peux importer une fiche .vcf.';
+      if(!isCurrentContactEditor(target))return;
+      if(error?.name==='AbortError')showNoContact();
+      else{
+        options.hidden=false;
+        status.textContent='Le carnet d’adresses est indisponible. Tu peux importer une fiche .vcf.';
+      }
     }finally{
-      if(target===contactDraft)button.disabled=false;
+      if(isCurrentContactEditor(target))setBusy(false);
     }
   };
   button.onclick=startImport;
-  const infosButton=document.getElementById('btn-import-contact-infos');
   if(infosButton)infosButton.onclick=()=>{
     document.querySelector('#lrf-client-tabs [data-tab="contacts"]')?.click();
     startImport();
   };
   fileButton.onclick=()=>{
-    pendingFileDraft=contactDraft;
+    pendingFileSession=contactEditorSession();
     fileInput.value='';
     fileInput.click();
   };
   fileInput.onchange=async()=>{
-    const target=pendingFileDraft;
+    const target=pendingFileSession;
     const file=fileInput.files[0];
-    if(!file||target!==contactDraft)return;
+    if(!file||!isCurrentContactEditor(target))return;
     clearChoices();
     status.textContent='';
-    fileButton.disabled=true;
+    setBusy(true);
     try{
       if(file.size>10*1024*1024)throw Error('La fiche est trop volumineuse. Exporte un seul contact.');
       const contacts=parseContactCards(await file.text());
-      if(target!==contactDraft)return;
+      if(!isCurrentContactEditor(target))return;
       if(contacts.length===1)apply(contacts[0]);
       else if(contacts.length){
         cards=contacts;
@@ -417,13 +458,13 @@ function setupDeviceContactImport(wrap){
         choice.focus();
       }else status.textContent='Aucune fiche contact lisible dans ce fichier.';
     }catch(error){
-      if(target===contactDraft)status.textContent=error?.message||'Impossible de lire cette fiche contact.';
+      if(isCurrentContactEditor(target))status.textContent=error?.message||'Impossible de lire cette fiche contact.';
     }finally{
-      if(target===contactDraft)fileButton.disabled=false;
+      if(isCurrentContactEditor(target))setBusy(false);
     }
   };
   choice.onchange=()=>{
-    if(pendingFileDraft===contactDraft&&choice.value!=='')apply(cards[Number(choice.value)]);
+    if(isCurrentContactEditor(pendingFileSession)&&choice.value!=='')apply(cards[Number(choice.value)]);
   };
 }
 
@@ -451,11 +492,11 @@ function currentClientFromForm(){
   const id=clean(document.getElementById("client-modal")?.dataset.clientId);
   return id ? exactClient(id) : null;
 }
-function populateExtras(client, force=false){
+function populateExtras(client){
   const modal=document.getElementById("client-modal");
   const id=clean(modal?.dataset.clientId);
-  const key=id||"new-client";
-  if(!force && draftInitialized && draftClientKey===key)return;
+  const session=contactEditorSession();
+  if(!session||draftEditorSession===session)return;
   const c=client||currentClientFromForm();
   if(id&&!c)return; // Wait for the first authenticated snapshot, without erasing a draft.
   activeClientId=id||null;
@@ -463,15 +504,13 @@ function populateExtras(client, force=false){
   contactsBaseline=cloneExtra(Array.isArray(c?.contacts)?c.contacts:[]);
   contactDraft=cloneExtra(contactsBaseline.filter(contact=>!isBlankContact(contact)));
   partnerDraft=[...(Array.isArray(c?.partenaires)?c.partenaires:[])];
-  draftClientKey=key;
-  draftInitialized=true;
+  draftEditorSession=session;
   renderContacts();renderHistory(c);
 }
 
 const clientExtras={
   getPatch(){
-    const key=clean(document.getElementById("client-modal")?.dataset.clientId)||"new-client";
-    if(!draftInitialized||draftClientKey!==key)return {};
+    if(!isCurrentContactEditor(contactEditorSession()))return {};
     captureContactInputs();
     const contacts=contactDraft.filter(contact=>!isBlankContact(contact));
     const savedContacts=contactsBaseline.filter(contact=>!isBlankContact(contact));
@@ -547,12 +586,14 @@ function setupClientModal(){
   const syncOpen=()=>{
     if(!modal)return;
     if(getComputedStyle(modal).display!=="none")populateExtras();
-    else {draftInitialized=false;draftClientKey=null;clearExactClient();}
+    else if(!contactEditorSession()){draftEditorSession=null;clearExactClient();}
   };
-  if(modal)new MutationObserver(syncOpen).observe(modal,{attributes:true,attributeFilter:["style","data-client-id"]});
-  window.addEventListener("lrf-client-opened",e=>populateExtras(e.detail?.client,true));
+  if(modal)new MutationObserver(syncOpen).observe(modal,{attributes:true,attributeFilter:["style","data-editor-session"]});
+  window.addEventListener("lrf-client-opened",event=>{
+    if(event.detail?.client)populateExtras(event.detail.client);
+  });
   window.addEventListener("lrf-client-closed",()=>{
-    draftInitialized=false;draftClientKey=null;contactsBaseline=[];contactDraft=[];clearExactClient();
+    draftEditorSession=null;contactsBaseline=[];contactDraft=[];clearExactClient();
   });
   window.addEventListener("lrf-client-saved",e=>{
     if(clean(e.detail?.clientId)!==clean(modal?.dataset.clientId))return;
@@ -576,7 +617,7 @@ async function init(){
   onSnapshot(collection(db,"clients"),snap=>{
     clients=[];snap.forEach(d=>clients.push({...d.data(),id:d.id}));
     const modal=document.getElementById("client-modal");
-    if(modal&&getComputedStyle(modal).display!=="none"&&!draftInitialized)populateExtras();
+    if(modal&&getComputedStyle(modal).display!=="none")populateExtras();
   });
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();

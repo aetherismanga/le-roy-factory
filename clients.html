@@ -319,13 +319,13 @@
   <script type="module">
     import { db, auth, verifiedAgentProfile } from "./assets/js/firebase.js";
     import "./assets/js/client-facade.js?v=20261105-audit2";
-    import "./assets/js/crm-moovago.js?v=20261125-contacts2";
-    import "./assets/js/crm-ui-modern.js?v=20261125-contacts2";
+    import "./assets/js/crm-moovago.js?v=20261125-contacts3";
+    import "./assets/js/crm-ui-modern.js?v=20261125-contacts3";
     import "./assets/js/crm-client-enhancements.js?v=20261119-partners1";
     import "./assets/js/client-direct-email.js?v=20261106-crm-unified2";
     import "./assets/js/crm-client-partner-access.js?v=20261119-partners1";
     import { fingerprint, changedFields, assertUnchanged, reconcileList, sameValue, safeDocumentUrl, localDate, matchesClientSearch } from "./assets/js/client-form-core.mjs?v=20261105-audit1";
-    import { ready as integrityReady, canonicalId } from "./assets/js/crm-client-integrity.js?v=20261112-auth-ready1";
+    import { ready as integrityReady, canonicalId } from "./assets/js/crm-client-integrity.js?v=20261125-contacts3";
     import { active as isActiveClient } from "./assets/js/crm-client-integrity-core.mjs?v=20261105-audit1";
     import { clientFollowup, matchesFollowup, portfolioType } from "./assets/js/client-activity-core.mjs?v=20261120-suivi1";
     import { cloneExtra } from "./assets/js/crm-extra-save-core.mjs";
@@ -400,7 +400,7 @@
       let currentDocList = [];
       let currentCRList = [];
       let baselineClient = {}, baselineForm = {}, baselineDocuments = [], baselineReports = [];
-      let draftClientRef = null, saving = false;
+      let draftClientRef = null, saving = false, editorRevision = 0;
       const clone = cloneExtra;
       const esc = value => String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
       function readForm() {
@@ -466,6 +466,7 @@
         if (docId && !selected) { alert('Cette fiche est introuvable ou archivée. Actualisez la liste des clients.'); return; }
         currentEditingId = docId;
         draftClientRef = doc(db, 'clients', docId || doc(collection(db, 'clients')).id);
+        modal.dataset.editorSession = String(++editorRevision);
         modal.dataset.clientId = docId || '';
         phonesContainer.innerHTML = "";
         currentDocList = [];
@@ -534,6 +535,7 @@
         modal.style.display = "none";
         currentEditingId = null;
         modal.dataset.clientId = '';
+        delete modal.dataset.editorSession;
         window.dispatchEvent(new CustomEvent('lrf-client-closed'));
       }
 
