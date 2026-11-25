@@ -1,4 +1,4 @@
-import {isSolidSurface,solidPlans,integratedTop,defaultBasinColor} from './solid-surface-catalog.js';
+import {isSolidSurface,solidPlans,solidLayoutName,integratedTop,defaultBasinColor} from './solid-surface-catalog.js';
 import {integratedOptions,vesselLayoutOptions,BASIN_LAYOUT_NAMES} from './integrated-basins.js';
 export {BASIN_LAYOUT_NAMES};
 // RANDAL V04 catalogue, pp. 38 and 41. Colour chips are catalogue references,
@@ -21,12 +21,16 @@ export const VESSEL_COLORS=Object.freeze([
 ]);
 export function basinLayouts(top,width,format,color=defaultBasinColor(top)){
  const w=width===79?80:width;
- if(isSolidSurface(top))return color==='matte'?solidPlans(top,width).map(p=>({...p,color,name:p.layout==='long'?'Vasque longue':BASIN_LAYOUT_NAMES[p.layout]})):[];
+ if(isSolidSurface(top))return color==='matte'?solidPlans(top,width).map(p=>({...p,color,name:solidLayoutName(p)})):[];
  if(['neris','torne'].includes(top))return vesselLayoutOptions(top,w).map(o=>({...o,ref:VESSEL_COLORS.find(c=>c.id===color)?.[top]||null,color}));
  return integratedOptions(top,w,color);
 }
-export function resolveBasinLayout(top,width,format,layout){
+export function resolveBasinLayout(top,width,format,layout,previous){
  const options=basinLayouts(top,width,format);if(!options.length)return null;
+ if(top==='fiona'&&width===120){
+  const changed=previous&&(previous.top!==top||previous.width!==width);
+  if(changed||!options.some(o=>o.layout===layout))return options[0].layout;
+ }
  if(options.some(o=>o.layout===layout))return layout;
  const preferred=width===120&&top==='sella'?'offset':'center';
  return options.find(o=>o.layout===preferred)?.layout||options[0].layout;

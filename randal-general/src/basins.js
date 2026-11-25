@@ -1,4 +1,4 @@
-import {isSolidSurface,solidPlans,integratedTop,defaultBasinColor} from '../../shared/lrf-3d/solid-surface-catalog.js';
+import {isSolidSurface,solidPlans,solidLayoutName,integratedTop,defaultBasinColor} from '../../shared/lrf-3d/solid-surface-catalog.js';
 import {integratedOptions,vesselLayoutOptions,BASIN_LAYOUT_NAMES} from './integrated-basins.js';
 export {BASIN_LAYOUT_NAMES};
 import {CATALOG as C} from './commerce/catalog.js';
@@ -24,12 +24,15 @@ export const VESSEL_COLORS=Object.freeze([
 export function basinLayouts(top,width,format,color=defaultBasinColor(top)){
  const form=cabinetFormat(format),w=width===79?80:width;
  if(['neris','torne'].includes(top))return vesselLayoutOptions(top,w).map(o=>({...o,ref:VESSEL_COLORS.find(c=>c.id===color)?.[top]||null,color}));
- let options=isSolidSurface(top)?(color==='matte'&&topAvailable(top,width,format)?solidPlans(top,width).map(p=>({...p,color,name:p.layout==='long'?'Vasque longue':BASIN_LAYOUT_NAMES[p.layout]})):[]):integratedOptions(top,w,color);
+ let options=isSolidSurface(top)?(color==='matte'&&topAvailable(top,width,format)?solidPlans(top,width).map(p=>({...p,color,name:solidLayoutName(p)})):[]):integratedOptions(top,w,color);
  if(w===120&&!['luce','amat','sima','less'].includes(form.collection))options=options.filter(o=>o.layout!=='center'&&o.layout!=='long');
  return options;
 }
-export function resolveBasinLayout(top,width,format,layout){
+export function resolveBasinLayout(top,width,format,layout,previous){
  const options=basinLayouts(top,width,format);if(!options.length)return null;
+ // A newly chosen Fiona 120 starts with its 100 cm bowl. An explicit layout
+ // on this same product still identifies the exact reference in a saved project.
+ if(options.some(o=>o.layout==='long')&&(!layout||(previous&&(previous.top!==top||previous.width!==width))))return 'long';
  if(options.some(o=>o.layout===layout))return layout;
  const preferred=width>=119&&cabinetFormat(format).collection!=='luce'?'double':'center';
  return options.find(o=>o.layout===preferred)?.layout||options[0].layout;

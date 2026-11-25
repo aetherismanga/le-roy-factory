@@ -271,6 +271,16 @@ for(const plan of ['milo','fiona']){
  assert.equal(vm.runInContext('composition.selected.asset.getTop()',context),plan);
  assert.equal(vm.runInContext('composition.selected.asset.getBasinCenters(state.top).length',context),2);
 }
+// Entering Fiona at 120 cm selects the 100 cm bowl, including on a resize.
+assert(vm.runInContext('setWidth(120,true)',context));
+assert.equal(vm.runInContext('state.basinLayout',context),'long');
+assert.equal(ids.get('basin-reference').textContent,'Réf. 15024 · Blanc mat');
+assert.match(ids.get('basin-description').textContent,/100 × 26 cm/);
+assert(vm.runInContext("selectBasinLayout('center');restoreProject(collectProject())",context));
+assert.equal(vm.runInContext('state.basinLayout',context),'center');
+assert.equal(ids.get('basin-reference').textContent,'Réf. 15021 · Blanc mat');
+assert(vm.runInContext("selectTop('milo');selectTop('fiona')",context));
+assert.equal(vm.runInContext('state.basinLayout',context),'long');
 // Cabinet size/model are available directly through the actual click palette.
 vm.runInContext("restoreFurnishedSceneForControls();selectFinish('AZUL');selectTop('torne');selectBasinColor('blue');openInspector('furniture');",context);
 const sizePanel=()=>ids.get('object-editor-body').children.find(c=>c.className==='cabinet-size-controls');assert(sizePanel());let picker=sizePanel().children[0].children.find(c=>c.tag==='select');assert.equal(picker.children.length,4);picker.value='one-xl';picker.onchange();assert.equal(vm.runInContext('composition.selected.settings.format',context),'one-xl');assert.equal(vm.runInContext('model.drawers.length',context),1);

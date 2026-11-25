@@ -5,8 +5,7 @@ import {MIRROR_METALS} from './mirrors.js';
 import {PAIRED_FIXING_NOTE} from './paired-basin-placement.js';
 import {presentationWall} from './randal-presentation-editing.js';
 import {integratedOptions,vesselLayoutOptions} from './integrated-basins.js';
-import {SOLID_FAMILIES,isSolidSurface,solidPlan,solidPlans,defaultBasinColor,integratedTop} from './solid-surface-catalog.js';
-import {BASIN_LAYOUT_NAMES} from './integrated-basins.js';
+import {SOLID_FAMILIES,SOLID_SURFACE_LEAD_TIME,isSolidSurface,solidPlan,solidPlans,solidLayoutName,solidDescription,defaultBasinColor,integratedTop} from './solid-surface-catalog.js';
 import {fullTopDrawerAvailable} from './drawer-options.js';
 import {presentationMaterialPreview,presentationAssetURL} from './randal-presentation-choice-previews.js';
 
@@ -66,11 +65,12 @@ export function createPresentationProducts({catalog:C,finishes=C.finishes,normal
   const previous=modelOf(old),m=modelOf(d);return general?m.base:m.legHeight?0:previous.legHeight?28:current;
  }
  function layoutChoices(d){
-  if(isSolidSurface(d.top))return solidPlans(d.top,d.width).map(p=>({...p,name:p.layout==='long'?'Vasque longue':BASIN_LAYOUT_NAMES[p.layout]}));
+  if(isSolidSurface(d.top))return solidPlans(d.top,d.width).map(p=>({...p,name:solidLayoutName(p)}));
   return ['neris','torne'].includes(d.top)?vesselLayoutOptions(d.top,d.width):integratedOptions(d.top,d.width,d.basinColor);
  }
  function normalizedCandidate(state,patch){
   const d={...state.d,...patch};
+  if(d.top==='fiona'&&d.width===120&&state.d.width!==120&&!Object.hasOwn(patch,'basinLayout'))d.basinLayout=undefined;
   if(Object.hasOwn(patch,'mirror'))d.mirrorSize=0;
   if(Object.hasOwn(patch,'columnModel'))d.column=patch.columnModel!=='none';
   if(general&&d.column&&Object.hasOwn(patch,'columnModel')){const c=C.columns.find(c=>c.id===d.columnModel);if(c&&!c.finishes.includes(d.columnFinish))d.columnFinish=c.finishes.includes(d.finish)?d.finish:c.finishes[0];}
@@ -78,7 +78,7 @@ export function createPresentationProducts({catalog:C,finishes=C.finishes,normal
   if(Object.hasOwn(patch,'top')){
    // A newly chosen basin starts with a real compatible layout/color. Width
    // remains explicit: selecting a basin never silently resizes the cabinet.
-   d.basinLayout=undefined;
+   d.basinLayout=patch.basinLayout;
    const colors=[...new Set([d.basinColor,defaultBasinColor(d.top),'gloss',...C.insetColors.map(c=>c.code),...C.vesselColors.map(c=>c.code)])];
    let failure;for(const color of colors){try{return normalizeDraft({...d,basinColor:color});}catch(e){failure=e;}}throw failure;
   }
@@ -160,7 +160,13 @@ export function createPresentationProducts({catalog:C,finishes=C.finishes,normal
    else if(['basin','top','tap'].includes(context.part))groups.push({id:'basin',label:context.part==='top'?'Plan et vasque':'Vasque',fields:basinFields()});
    else groups.push({id:'cabinet',label:'Meuble',fields:[...cabinetFields(),...basinFields()]});
   }else groups.push({id:'cabinet',label:'Meuble',fields:cabinetFields()},{id:'column',label:'Colonne',fields:columnFields()},{id:'mirror',label:'Miroir',fields:mirrorFields()});
-  return {groups,assemblyNote:paired&&d.width===140&&state.selected.type==='cabinet'?PAIRED_FIXING_NOTE:'',primary:context.itemId||cabinet.id,multiple:!context.itemId&&project.items.filter(i=>i.type==='cabinet').length>1};
+  const notes=[];
+  if(state.selected.type==='cabinet'){
+   if(paired&&d.width===140)notes.push(PAIRED_FIXING_NOTE);
+   const plan=solidPlan(d.top,d.width,d.basinLayout);
+   if(plan)notes.push(solidDescription(plan)+' · '+(plan.ttc/100).toLocaleString('fr-FR')+' € TTC',SOLID_SURFACE_LEAD_TIME);
+  }
+  return {groups,notes,primary:context.itemId||cabinet.id,multiple:!context.itemId&&project.items.filter(i=>i.type==='cabinet').length>1};
  }
  return {read,fields,apply};
 }

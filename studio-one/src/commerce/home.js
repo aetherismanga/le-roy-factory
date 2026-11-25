@@ -109,7 +109,7 @@ function patchDraft(patch){
   note=next.width===PAIRED_WIDTH?'Deux caissons de 70 cm sous un plan double vasque.':'Le plan assorti est sélectionné pour cette largeur.';
  }
  if(integratedTop(next.top)){
-  next.basinLayout=resolveBasinLayout(next.top,next.width,next.format,next.basinLayout);
+  next.basinLayout=resolveBasinLayout(next.top,next.width,next.format,next.basinLayout,draft);
   if(!basinEntry(next.top,next.basinColor,next.width,next.format,next.basinLayout))next.basinColor=defaultBasinColor(next.top);
  }
  try{const normalized=normalizeDraft(next);if(JSON.stringify(normalized)===JSON.stringify(draft))return;draft=normalized;project=null;persistDraft();
@@ -127,7 +127,7 @@ function basinChoice(id){
  const entry=basinEntry(id,color,draft.width,draft.format,id===draft.top?draft.basinLayout:undefined);
  const plan=solidPlan(id,draft.width,entry?.layout);
  const description=plan?solidDescription(plan):integratedTop(id)?draft.width+' cm · '+(entry?.name||'vasque intégrée'):'Vasque à poser + plan assorti';
- return {id,name:plan?plan.name+(plan.layout==='double'?' double':'')+' · Solid Surface':names[id],price:entry?.ttc,detail:description+(entry?.ttc?' · '+money(entry.ttc):''),url:basinPhoto(id,draft.width,entry?.layout)};
+ return {id,name:plan?plan.name+(plan.layout==='double'?' double':'')+' · Solid Surface':names[id],price:entry?.ttc,detail:description+(entry?.ttc?' · '+money(entry.ttc)+(plan?' TTC':''):''),url:basinPhoto(id,draft.width,entry?.layout)};
 }
 function renderWizard(){
  const names=['Le modèle','Dimensions & finition','Le plan & la vasque','La colonne','Le miroir'];

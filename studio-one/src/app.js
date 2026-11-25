@@ -469,7 +469,7 @@ function applyRoom(config,resetFinishes=false,authorizedPartitionId=null,authori
 }
 function selectTop(id){
  if(!selectedCabinet()||!TOP_OPTIONS.some(o=>o.id===id)||!topAvailable(id,state.width))return false;const selected=composition?.selected;if(selected){const dimensions=itemDimensions('cabinet',{...selected.settings,top:id});const error=composition.resize(selected,dimensions);if(error){placementStatus(error);return false;}}
- const nextLayout=resolveBasinLayout(id,state.width,state.format,state.basinLayout);if(nextLayout&&model.basinLayout!==nextLayout){state.top=id;state.basinLayout=nextLayout;return setWidth(state.width,true,true);}
+ const nextLayout=resolveBasinLayout(id,state.width,state.format,state.basinLayout,state);if(nextLayout&&model.basinLayout!==nextLayout){state.top=id;state.basinLayout=nextLayout;return setWidth(state.width,true,true);}
  if(!model.setTop(id))return false;state.top=id;state.topDrawer=model.setTopDrawer(state.topDrawer);if(nextLayout)state.basinLayout=nextLayout;
  $$('[data-top]').forEach(b=>{const a=b.dataset.top===id;b.classList.toggle('active',a);b.setAttribute('aria-pressed',String(a));});
  const remembered=id==='tampa'?state.tampaColor:id==='neris'||id==='torne'?state.vesselColor:'gloss';
@@ -483,7 +483,7 @@ function studioBasinChoices(){
  return TOP_OPTIONS.filter(o=>topAvailable(o.id,state.width,state.format)).map(o=>{
   const layout=resolveBasinLayout(o.id,state.width,state.format,o.id===state.top?state.basinLayout:undefined);
   const plan=solidPlan(o.id,state.width,layout);
-  if(plan)return {...o,name:plan.name+(plan.layout==='double'?' double':'')+' · Solid Surface',description:solidDescription(plan),image:plan.image,price:plan.ttc};
+  if(plan)return {...o,name:plan.name+(plan.layout==='double'?' double':'')+' · Solid Surface',description:solidDescription(plan)+' · '+money(plan.ttc)+' TTC',image:plan.image,price:plan.ttc};
   const entry=basinEntry(o.id,o.id===state.top?state.basinColor:defaultBasinColor(o.id),state.width,state.format,layout);
   return {...o,price:entry?.ttc,...(o.id==='tampa'&&state.width===PAIRED_WIDTH?{image:'assets/tampa-double.webp',description:'Double vasque · blanc brillant ou blanc mat'}:{})};
  });
@@ -633,6 +633,10 @@ function refreshWidthUI(){
  $('#detail-sella-ref').textContent=model.spec.basinRef?'Réf. '+model.spec.basinRef:'Non disponible dans cette largeur';
  $$('[data-top]').forEach(b=>{const allowed=topAvailable(b.dataset.top,state.width);b.disabled=!allowed;b.setAttribute('aria-disabled',String(!allowed));
   if(b.dataset.top==='tampa')b.querySelector('small').textContent=state.width===PAIRED_WIDTH?'Double vasque · blanc brillant ou blanc mat':'Blanc brillant, blanc mat ou noir mat';
+  if(b.dataset.top==='fiona'){
+   const fiona=solidPlan('fiona',state.width,state.top==='fiona'?state.basinLayout:undefined);
+   b.querySelector('small').textContent=fiona?solidDescription(fiona)+' · '+money(fiona.ttc)+' TTC':'Solid Surface blanc mat';
+  }
   if(b.dataset.top==='sella')b.querySelector('small').textContent=allowed?`Céramique blanc brillant · ${state.width} cm`:'Formats : 60, 70, 80, 90, 100, 120 cm';
   if(b.dataset.top==='neris')b.querySelector('small').textContent=allowed?'Vasque à poser · 46 × 33 × 14 cm':'Disponible dès 50 cm de largeur';
  });
@@ -646,7 +650,7 @@ function setWidth(value,preserveCamera=false,forceRebuild=false,continuous=false
  const previous=model,wantedTop=state.top,selected=composition?.selected;
  const chooseDouble=cm===PAIRED_WIDTH&&cm!==state.width&&(wantedTop==='bare'||!topAvailable(wantedTop,cm));
  const nextTop=chooseDouble?'tampa':topAvailable(wantedTop,cm)?wantedTop:'plain';
- const nextLayout=resolveBasinLayout(nextTop,cm,state.format,state.basinLayout);
+ const nextLayout=resolveBasinLayout(nextTop,cm,state.format,state.basinLayout,state);
  if(selected){const error=composition.resize(selected,itemDimensions('cabinet',{...selected.settings,width:cm,top:nextTop}));if(error){$('#width-status').textContent=error;return false;}}const next=makeModel({width:cm/100,includeMirror:!composition,basinLayout:nextLayout,basinTop:nextTop,topDrawer:state.topDrawer,format:state.format,facadeMode:state.facadeMode});
  if(composition){previous.root.removeFromParent();model=next;selected.asset=next;selected.root.add(next.root);for(const d of selected.decor)next.root.add(d.mesh);}else{if(mirror)mirror.removeFromParent();scene.remove(previous.root);model=next;scene.add(model.root);if(mirror)model.mirror.add(mirror);}
  state.width=cm;state.basinLayout=nextLayout;if(selected)decorateAsset(model,'cabinet',{...selected.settings,width:cm});installCabinetTap(selected);model.drawers.forEach((d,i)=>d.position.z=currentDrawers[i]);

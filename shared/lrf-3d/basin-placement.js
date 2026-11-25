@@ -1,3 +1,5 @@
+import {isSolidSurface,SOLID_SURFACE_LEAD_TIME} from './solid-surface-catalog.js';
+
 // The same accessible control changes either the current layout or the basin family.
 export function mountBasinPlacement(parent,settings,{onModel,onLayout,id,layouts,alternatives,money}){
  const doc=parent.ownerDocument||globalThis.document,label=doc.createElement('label'),select=doc.createElement('select');
@@ -14,5 +16,9 @@ export function mountBasinPlacement(parent,settings,{onModel,onLayout,id,layouts
  }
  select.value=layouts.some(o=>o.layout===settings.basinLayout)?settings.basinLayout:layouts[0]?.layout||'';
  select.onchange=()=>select.value.startsWith('top:')?onModel(select.value.slice(4)):onLayout(select.value);
- label.append(select);parent.append(label);return select;
+ label.append(select);parent.append(label);
+ if(isSolidSurface(settings.top)){
+  const note=doc.createElement('p');note.textContent=SOLID_SURFACE_LEAD_TIME;parent.append(note);
+ }
+ return select;
 }

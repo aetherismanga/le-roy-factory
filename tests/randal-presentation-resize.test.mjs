@@ -17,6 +17,18 @@ const selected=(project,part='cabinet')=>({itemId:project.items.find(i=>i.type==
 const field=(products,project,key,part='cabinet')=>products.fields(project,selected(project,part)).groups.flatMap(g=>g.fields).find(f=>f.key===key);
 for(const [name,adapter,C,quote,checked,basinLayouts] of adapters){
  const products=createPresentationProducts({...adapter,catalog:C});
+ test(name+': resizing Fiona to 120 cm selects the long centred bowl and keeps the smaller variant available',()=>{
+  const source=adapter.draftProject({...adapter.initialDraft('amat'),width:100,top:'fiona',basinColor:'matte',basinLayout:'center'});
+  const resized=products.apply(source,{width:120},selected(source));
+  const context=selected(resized,'basin'),details=products.fields(resized,context);
+  assert.equal(resized.items[0].settings.basinLayout,'long');
+  assert.ok(quote(resized).rows.some(row=>row.ref==='15024'&&row.publicTTC===39400));
+  assert.match(details.notes.join(' '),/121 × 46 × 1,5 cm.*100 × 26 cm.*394 € TTC.*5 à 6 jours/);
+  const smaller=products.apply(resized,{basinLayout:'center'},context);
+  assert.ok(quote(smaller).rows.some(row=>row.ref==='15021'&&row.publicTTC===37400));
+  const ceramic=products.apply(smaller,{top:'tampa'},context);
+  assert.equal(products.fields(ceramic,context).notes.length,0);
+ });
  test(name+': a centred 100 cm Sella changes to a genuine 120 cm double basin without losing its furniture identity',()=>{
   const source=adapter.draftProject({...adapter.initialDraft(),width:100,top:'sella',basinLayout:'center',column:true,mirror:'zen'}),context=selected(source),before=structuredClone(source),cabinet=source.items.find(i=>i.type==='cabinet');
   cabinet.settings.tap='existing-catalogue-tap';cabinet.settings.drawers=[1,0];const original=structuredClone(source);

@@ -21,7 +21,7 @@ Object.assign(ES_COMMERCE,{
  'Déverrouillez le meuble pour changer sa façade.':'Desbloquea el mueble para cambiar su frente.'
 });
 ES_COMMERCE_PATTERNS.unshift(
- [/^Solid Surface blanc mat · (.+?) cm · 2 cuves de (.+?) cm(.*)$/u,(_m,size,bowls,rest)=>`Solid Surface blanco mate · ${size} cm · 2 senos de ${bowls} cm${rest}`],
+ [/^Solid Surface blanc mat · (.+?) cm · 2 cuves de ([\d., ×]+) cm$/u,(_m,size,bowls)=>`Solid Surface blanco mate · ${size} cm · 2 senos de ${bowls} cm`],
  [/^De 40 à 120 cm au centimètre\. En 140 cm, deux caissons de 70 cm\.(.*)$/u,(_m,rest)=>`De 40 a 120 cm de centímetro en centímetro. En 140 cm, dos módulos de 70 cm.${rest.replace('Hauteur','Altura').replace('profondeur','fondo')}`],
  [/^Dessin coté STUDIO ONE (.+), hauteur totale ([\d.,]+) cm(.*), profondeur 46 cm(?:, largeur ([\d.,]+) cm)?, façade encastrée, chants latéraux de 19 mm$/u,(_m,name,height,detail,width)=>`Plano acotado STUDIO ONE ${ES_COMMERCE[name]??name}, altura total ${height} cm${detail.replace('caisson','casco').replace('pieds','patas').replace(' et ',' y ')}, fondo 46 cm${width?', anchura '+width+' cm':''}, frente enrasado, cantos laterales de 19 mm`]
 );

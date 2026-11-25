@@ -16,7 +16,7 @@ import {bindPreviewBasinPicker} from '../../shared/lrf-3d/basin-preview-picking.
 import {pickSelection} from '../src/picking.js';
 import {adjoiningCabinets,joinBasinCabinets,PAIRED_FIXING_NOTE} from '../../shared/lrf-3d/paired-basin-placement.js';
 import {topAvailable} from '../src/configuration.js';
-import {solidPlan} from '../../shared/lrf-3d/solid-surface-catalog.js';
+import {solidPlan,SOLID_SURFACE_LEAD_TIME} from '../../shared/lrf-3d/solid-surface-catalog.js';
 import {createPresentationProducts} from '../../shared/lrf-3d/randal-presentation-products.js';
 import {CATALOG} from '../src/commerce/catalog.js';
 import {normalizeDraft} from '../src/commerce/guided.js';
@@ -55,11 +55,28 @@ const ranges=[['milo',70,'center','15002',24000],['milo',100,'offset-right','150
 for(const [top,width,basinLayout,ref,price] of ranges){
  const m=basinLayout==='long'?'luce':'harmony',d=updateDraft(initialDraft(m),{width,top,basinLayout});
  const p=draftProject(d),row=quoteProject(p).rows.at(-1);assert.equal(row.ref,ref);assert.equal(row.publicTTC,price);assert.equal(d.basinColor,'matte');
+ assert.equal(row.note,SOLID_SURFACE_LEAD_TIME);
  const {asset}=buildPreview(p).items[0],plan=solidPlan(top,width,basinLayout);
  assert.ok(asset.insets[top].visible);assert.equal(asset.insets[top].children.filter(c=>c.name.startsWith('Cuve_')).length,basinLayout==='double'?2:1);
  near(itemDimensions('cabinet',p.items[0].settings).width,plan.width/100);
  if(top==='hebe-toallero')assert.ok(asset.root.getObjectByName('Prise_porte_serviette'));
  disposeObject(asset.root);
+}
+for(const m of CABINET_FORMATS.filter(m=>m.widths.includes(120)&&['luce','amat'].includes(m.collection))){
+ const ceramic=updateDraft(initialDraft(m.collection),{format:m.id,width:120,top:'tampa'});
+ assert.ok(!orderText(draftProject(ceramic)).includes(SOLID_SURFACE_LEAD_TIME));
+ const card=basinChoices(ceramic).find(o=>o.id==='fiona');
+ assert.equal(card.price,39400);
+ assert.match(card.description,/121 × 46 × 1,5 cm · Cuve centrée de 100 × 26 cm/);
+ const chosen=updateDraft(ceramic,{top:'fiona'});
+ assert.equal(chosen.basinLayout,'long');
+ const project=decodeProject(encodeProject(draftProject(chosen))),row=quoteProject(project).rows.at(-1);
+ assert.deepEqual([row.ref,row.publicTTC,row.note],['15024',39400,SOLID_SURFACE_LEAD_TIME]);
+ assert.ok(orderText(project).includes(SOLID_SURFACE_LEAD_TIME));
+ const standard=updateDraft(chosen,{basinLayout:'center'}),oldProject=decodeProject(encodeProject(draftProject(standard)));
+ assert.equal(quoteProject(oldProject).rows.at(-1).ref,'15021');
+ const smaller=updateDraft(chosen,{width:80});
+ assert.equal(updateDraft(smaller,{width:120}).basinLayout,'long');
 }
 assert.ok(!basinLayouts('fiona',120,'harmony-two','matte').some(o=>o.layout==='long'));
 

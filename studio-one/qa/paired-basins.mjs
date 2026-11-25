@@ -1,3 +1,4 @@
+import {SOLID_SURFACE_LEAD_TIME} from '../src/solid-surface-catalog.js';
 import {PAIRED_FIXING_NOTE} from '../../shared/lrf-3d/paired-basin-placement.js';
 import assert from 'node:assert/strict';
 import * as T from 'three';
@@ -54,6 +55,20 @@ for(const [top,basinColor,ref,ttc,thickness,bowlWidth,bowlDepth] of [
 }
 for(const params of [{top:'tampa',basinColor:'black'},{top:'milo',basinColor:'gloss'},{top:'fiona',basinLayout:'center',basinColor:'matte'},{top:'sella'},{width:141,top:'bare'}]){
  assert.throws(()=>normalizeDraft({...settings,...params}));
+}
+const fiona=draftProject({...initialDraft(),width:120,top:'fiona',basinColor:'matte'});
+const restoredFiona=decodeProject(encodeProject(fiona));
+const fionaRow=quoteProject(restoredFiona).rows.find(r=>r.name==='Vasque Fiona');
+assert.equal(fionaRow.ref,'15024');assert.equal(fionaRow.publicTTC,39400);
+assert.match(fionaRow.detail,/121 × 46 × 1,5 cm/);assert.match(fionaRow.detail,/100 × 26 cm/);
+assert.ok(orderText(restoredFiona).includes(SOLID_SURFACE_LEAD_TIME));
+const previewFiona=buildPreview(restoredFiona).items[0].asset;
+const bowlFiona=previewFiona.insets.fiona.children.find(o=>o.name.startsWith('Cuve_'));
+const bowlSize=new T.Box3().setFromObject(bowlFiona).getSize(new T.Vector3());
+close(bowlFiona.position.x,0);close(bowlSize.x,1);close(bowlSize.z,.26);
+for(const top of ['milo','hebe','aria','hebe-toallero','tampa','sella']){
+ const label=orderText(draftProject({...initialDraft(),width:80,top,basinColor:['tampa','sella'].includes(top)?'gloss':'matte'}));
+ assert.equal(label.includes(SOLID_SURFACE_LEAD_TIME),!['tampa','sella'].includes(top));
 }
 assert.ok(!orderText(draftProject({...initialDraft(),width:70})).includes(PAIRED_FIXING_NOTE));
 assert.equal(makeModel({width:.7}).setTop('milo'),true);

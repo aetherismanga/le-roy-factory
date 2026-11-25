@@ -14,7 +14,7 @@ export function updateDraft(input,patch){
  // An integrated double bowl is not a countertop-bowl placement. Resolve the
  // previous choice against the new top before validating or updating the scene.
  if(integratedTop(next.top)||['neris','torne'].includes(next.top)){
-  next.basinLayout=resolveBasinLayout(next.top,next.width,next.format,next.basinLayout);
+  next.basinLayout=resolveBasinLayout(next.top,next.width,next.format,next.basinLayout,Object.hasOwn(patch,'basinLayout')?undefined:input);
   if(!basinEntry(next.top,next.basinColor,next.width,next.format,next.basinLayout))next.basinColor=defaultBasinColor(next.top);
  }
  return normalizeDraft(next);

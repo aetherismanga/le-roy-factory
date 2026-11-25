@@ -2,7 +2,7 @@ import {PAIRED_FIXING_NOTE} from '../../../shared/lrf-3d/paired-basin-placement.
 import {AQUAHOME} from '../../../shared/lrf-3d/aquahome-catalog.js';
 import {matchingDrain} from '../../../shared/lrf-3d/plumbing-catalog.js';
 import {cabinetUnitWidth,topAvailable,PAIRED_WIDTH} from '../configuration.js';
-import {solidPlan,solidDescription,integratedTop,defaultBasinColor} from '../solid-surface-catalog.js';
+import {solidPlan,solidDescription,SOLID_SURFACE_LEAD_TIME,integratedTop,defaultBasinColor} from '../solid-surface-catalog.js';
 import {basinEntry,BASIN_LAYOUT_NAMES} from '../basins.js';
 import {CATALOG as C} from './catalog.js';
 export const money=cents=>Number.isInteger(cents)?new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(cents/100):'Prix sur demande';
@@ -23,7 +23,7 @@ export function lineItems(item){
    const color=s.basinColor||defaultBasinColor(top),r=basinEntry(top,color,s.width,s.format,s.basinLayout);
    const plan=solidPlan(top,s.width,r?.layout),name=plan?.name||(top==='sella'?'Sella':'Tampa');
    const detail=plan?solidDescription(plan):`${s.width} cm · ${C.insetColors.find(c=>c.code===color)?.name||color}${r?' · '+r.name:''}`;
-   row('Vasque '+name,r?.ref,r?.ttc,detail+drainSummary(s));
+   row('Vasque '+name,r?.ref,r?.ttc,detail+drainSummary(s)+(plan?' · '+SOLID_SURFACE_LEAD_TIME:''));
   }else if(['neris','torne'].includes(top)){
    const color=C.vesselColors.find(c=>c.code===(s.basinColor||'gloss')),name=top==='neris'?'Neris':'Torne';
    row('Vasque '+name,color?.[name],color&&s.width>=(top==='neris'?50:40)?C.vesselTTC:null,(color?.name||'Couleur à vérifier')+' · '+(BASIN_LAYOUT_NAMES[s.basinLayout]||BASIN_LAYOUT_NAMES.center)+drainSummary(s));

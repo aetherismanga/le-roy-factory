@@ -33,6 +33,8 @@ export const ES_COMMERCE = {
 'Choisir une vasque':'Elegir un lavabo',
 'Placement de la vasque':'Posición del lavabo',
 'Vasque longue':'Lavabo alargado',
+'Solid Surface blanc mat':'Solid Surface blanco mate',
+'Pour une vasque Solid Surface, prévoir 5 à 6 jours de plus que le délai habituel.':'Para un lavabo Solid Surface, hay que añadir de 5 a 6 días al plazo habitual.',
 'Changer de collection':'Cambiar de colección',
 'Chiffrage par pièce':'Presupuesto por estancia',
 'Choisir comment commencer':'Elegir cómo empezar',
@@ -424,6 +426,11 @@ export const ES_COMMERCE = {
 
 /** Whole-message patterns preserve interpolated numbers and official names. */
 export const ES_COMMERCE_PATTERNS = [
+[/^Cuve centrée (\d+ × \d+ cm)$/u,'Seno centrado $1'],
+[/^Cuve centrée de (\d+ × \d+ cm)$/u,'Seno centrado de $1'],
+[/^Cuve à gauche de (\d+ × \d+ cm)$/u,'Seno a la izquierda de $1'],
+[/^Cuve à droite de (\d+ × \d+ cm)$/u,'Seno a la derecha de $1'],
+[/^2 cuves de (\d+ × \d+ cm)$/u,'2 senos de $1'],
 [/^Demande de commande (STUDIO ONE|RANDAL GÉNÉRAL)(.*)$/u,(_m,app,suffix)=>`Solicitud de pedido ${app==='RANDAL GÉNÉRAL'?'RANDAL GENERAL':app}${suffix}`],
 [/^Demande de rappel (STUDIO ONE|RANDAL GÉNÉRAL)(.*)$/u,(_m,app,suffix)=>`Solicitud de contacto ${app==='RANDAL GÉNÉRAL'?'RANDAL GENERAL':app}${suffix}`],
 [/^Vasque : (.+)$/u,'Lavabo: $1'],

@@ -1,7 +1,7 @@
 import {PAIRED_FIXING_NOTE} from '../../../shared/lrf-3d/paired-basin-placement.js';
 import {AQUAHOME} from '../../../shared/lrf-3d/aquahome-catalog.js';
 import {matchingDrain} from '../../../shared/lrf-3d/plumbing-catalog.js';
-import {integratedTop,solidPlan,solidDescription,defaultBasinColor} from '../../../shared/lrf-3d/solid-surface-catalog.js';
+import {integratedTop,solidPlan,solidDescription,defaultBasinColor,SOLID_SURFACE_LEAD_TIME} from '../../../shared/lrf-3d/solid-surface-catalog.js';
 import {basinEntry,BASIN_LAYOUT_NAMES} from '../basins.js';
 import {panelThickness,handleFinish,HANDLE_FINISHES} from '../general-specs.js';
 import {topAvailable,unitWidth,pairedCabinet} from '../configuration.js';
@@ -24,7 +24,7 @@ export function lineItems(item){
    const plan=solidPlan(s.top,s.width,r?.layout);
    const name=plan?plan.name+(r?.layout==='double'?' double':''):s.top==='sella'?'Sella':'Tampa';
    const detail=plan?solidDescription(plan):`${width} cm · ${C.insetColors.find(c=>c.code===color)?.name||''}${r?' · '+r.name:''}`;
-   row('Vasque '+name,r?.ref,r?.ttc,detail+drainSummary(s));
+   row('Vasque '+name,r?.ref,r?.ttc,detail+drainSummary(s),plan?SOLID_SURFACE_LEAD_TIME:'');
   }else if(['plain','neris','torne'].includes(s.top)){
    if(!m.counter){const top=C.topFinishes.find(f=>f.id===s.topFinish);row('Plan pour vasque à poser',top?.refs[s.width],top?.prices[s.width],`${s.width} × 46 × 2 cm · ${top?.name||'Finition à choisir'}`);}
    if(s.top!=='plain'){const color=C.vesselColors.find(c=>c.code===(s.basinColor||'gloss')),name=s.top==='neris'?'Neris':'Torne';row('Vasque '+name,color?.[name],color?C.vesselTTC:null,(color?.name||'')+' · '+(BASIN_LAYOUT_NAMES[s.basinLayout]||BASIN_LAYOUT_NAMES.center)+drainSummary(s));}
