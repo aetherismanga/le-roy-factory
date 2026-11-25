@@ -3,6 +3,7 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/fi
 import { collection, getDocs, doc, runTransaction, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 import { cloneExtra, extraSignature, extraPatch, assertImportUnchanged } from "./crm-extra-save-core.mjs?v=20261105-audit1";
+import { parseContactCards, pickDeviceContact } from "./crm-contact-import.mjs?v=20261125-contacts1";
 
 const PARTNER_LOGOS = {
   "elios-ceramica":"elios.png","view-ceramica":"view.png","la-fenice":"lafenice.png","reviglass":"reviglass.png",
@@ -177,6 +178,15 @@ function injectStyles(){ if(document.getElementById("moovago-crm-style"))return;
   .moovago-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.moovago-upload{border:1px dashed #D4AF37;background:#FFFCF2;border-radius:9px;padding:1rem}.moovago-upload label{display:block;font-weight:800;margin-bottom:.5rem}.moovago-result{margin-top:1rem;background:#F8FAFC;border-radius:9px;padding:1rem;line-height:1.8}
   .crm-extra-section{margin-top:1.4rem;padding-top:1.2rem;border-top:1px dashed #D1D5DB}.crm-extra-title{font-size:1rem;font-weight:800;color:#1A2530;margin:0 0 .8rem}.contact-card{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;align-items:center;background:#FAFAFA;border:1px solid #E5E7EB;border-radius:8px;padding:.6rem;margin:.5rem 0}.contact-card input{width:100%;box-sizing:border-box;padding:.55rem;border:1px solid #D1D5DB;border-radius:6px}.partner-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:.6rem}.partner-card-mini{border:1px solid #E5E7EB;background:#fff;border-radius:9px;padding:.65rem;display:flex;align-items:center;gap:.55rem;cursor:pointer;min-height:52px}.partner-card-mini.active{border:2px solid #D4AF37;background:#FFF9E8}.partner-card-mini img{width:48px;height:32px;object-fit:contain}.partner-card-mini span{font-size:.78rem;font-weight:700}.history-card{border-left:4px solid #D4AF37;background:#FAFAFA;padding:.75rem .9rem;border-radius:6px;margin:.55rem 0}.history-meta{font-size:.76rem;color:#666;font-weight:700;margin-bottom:.3rem}.history-text{white-space:pre-wrap;font-size:.88rem}.tiny-danger{border:0;background:#FEE2E2;color:#B91C1C;border-radius:6px;padding:.45rem .6rem;cursor:pointer;font-weight:800}
   @media(max-width:800px){.moovago-grid{grid-template-columns:1fr}.contact-card{grid-template-columns:1fr 1fr}.contact-card .wide{grid-column:1/-1}}
+  .crm-contact-actions,.crm-contact-file-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .8rem}
+  .crm-contact-actions{margin-bottom:.5rem}
+  .crm-contact-actions .crm-extra-title{margin-inline-end:auto!important}
+  #crm-extra-contacts .crm-contact-actions .crm-extra-title{margin-block:0!important}
+  .crm-contact-actions button,.crm-contact-file-actions button,.crm-contact-file-actions select{min-height:44px}
+  .crm-contact-import-box{margin:.5rem 0;padding:.7rem .85rem;border:1px solid #E5E0D1;border-radius:10px;background:#FCFAF3;color:#333;font-size:.875rem}
+  .crm-contact-import-box p{margin:0}
+  .crm-contact-file-actions select{max-width:100%;font:inherit}
+  #crm-contact-import-status:not(:empty){margin:.5rem 0;font-size:.875rem;color:#444}
   `; document.head.appendChild(s); }
 
 function injectImportUI(){
@@ -192,11 +202,137 @@ function injectClientExtras(){
   const form=document.getElementById("client-form"); if(!form||document.getElementById("crm-extra-contacts"))return;
   const footer=form.querySelector(".modal-footer");
   const wrap=document.createElement("div"); wrap.innerHTML=`
-  <div id="crm-extra-contacts" class="crm-extra-section"><div style="display:flex;justify-content:space-between;align-items:center"><h3 class="crm-extra-title">👤 Interlocuteurs</h3><button id="btn-add-contact-crm" type="button" class="btn-add-phone-link">+ Ajouter un interlocuteur</button></div><div id="crm-contacts-list"></div></div>
+  <div id="crm-extra-contacts" class="crm-extra-section">
+    <div class="crm-contact-actions">
+      <h3 class="crm-extra-title">👤 Interlocuteurs</h3>
+      <button id="btn-add-contact-crm" type="button" class="btn-add-phone-link">+ Ajouter un interlocuteur</button>
+      <button id="btn-import-device-contact" type="button" class="btn-add-phone-link" aria-controls="crm-contact-file-options">Importer depuis mes contacts</button>
+    </div>
+    <div id="crm-contact-file-options" class="crm-contact-import-box" hidden>
+      <p>Dans l’app Contacts du téléphone, ouvre la fiche, partage-la et enregistre-la dans Fichiers. Sélectionne ensuite le fichier .vcf ici.</p>
+      <div class="crm-contact-file-actions">
+        <input id="crm-contact-file" type="file" accept=".vcf,.vcard,text/vcard,text/x-vcard" aria-label="Fiche contact vCard" hidden>
+        <button id="btn-choose-contact-file" type="button" class="btn-add-phone-link">Choisir une fiche contact (.vcf)</button>
+        <select id="crm-contact-card-choice" aria-label="Interlocuteur à importer" hidden></select>
+      </div>
+    </div>
+    <div id="crm-contact-import-status" role="status"></div>
+    <div id="crm-contacts-list"></div>
+  </div>
   <div id="crm-extra-history" class="crm-extra-section"><h3 class="crm-extra-title">🕘 Historique commercial Moovago / CRM</h3><div id="crm-history-list"></div></div>`;
   if(footer)footer.insertAdjacentElement("beforebegin",wrap);else form.appendChild(wrap);
-  document.getElementById("btn-add-contact-crm").onclick=()=>{contactDraft.push({prenom:"",nom:"",fonction:"",mobile:"",fixe:"",email:""});renderContacts()};
+  document.getElementById("btn-add-contact-crm").onclick=()=>appendContact({prenom:"",nom:"",fonction:"",mobile:"",fixe:"",email:""});
+  setupDeviceContactImport(wrap);
 }
+
+function captureContactInputs(){
+  // Apple autofill may change a value without firing an input event.
+  document.querySelectorAll('#crm-contacts-list input[data-k]').forEach(input=>{
+    const index=Number(input.closest('[data-ci]').dataset.ci), field=input.dataset.k;
+    const stored=contactDraft[index];
+    const value=input.value.trim();
+    if(value===String((typeof stored==='string'?{email:stored}:stored)?.[field]||''))return;
+    if(typeof stored==='string')contactDraft[index]={email:stored};
+    if(!contactDraft[index]||typeof contactDraft[index]!=='object')contactDraft[index]={};
+    contactDraft[index][field]=value;
+  });
+}
+
+function appendContact(contact){
+  captureContactInputs();
+  const index=contactDraft.push(contact)-1;
+  renderContacts();
+  document.querySelector(`#crm-contacts-list [data-ci="${index}"]`)?.scrollIntoView({block:"nearest"});
+}
+
+function setupDeviceContactImport(wrap){
+  const button=wrap.querySelector('#btn-import-device-contact');
+  const options=wrap.querySelector('#crm-contact-file-options');
+  const fileButton=wrap.querySelector('#btn-choose-contact-file');
+  const fileInput=wrap.querySelector('#crm-contact-file');
+  const choice=wrap.querySelector('#crm-contact-card-choice');
+  const status=wrap.querySelector('#crm-contact-import-status');
+  let pendingFileDraft;
+  let cards=[];
+  const clearChoices=()=>{cards=[];choice.hidden=true;choice.replaceChildren();};
+  const reset=()=>{
+    pendingFileDraft=undefined;
+    clearChoices();
+    options.hidden=true;
+    status.textContent='';
+    fileInput.value='';
+    button.disabled=fileButton.disabled=false;
+  };
+  window.addEventListener('lrf-client-opened',reset);
+  window.addEventListener('lrf-client-closed',reset);
+
+  const apply=contact=>{
+    if(!Object.values(contact).some(Boolean)){
+      status.textContent='Cette fiche ne contient aucune coordonnée utilisable.';
+      return;
+    }
+    appendContact(contact);
+    clearChoices();
+    options.hidden=true;
+    status.textContent='Interlocuteur ajouté. Vérifie ses coordonnées puis enregistre la fiche client.';
+  };
+  button.onclick=async()=>{
+    if(!draftInitialized)return;
+    const target=contactDraft;
+    button.disabled=true;
+    status.textContent='';
+    try{
+      const contact=await pickDeviceContact();
+      if(target!==contactDraft)return;
+      if(contact)apply(contact);
+      else if(contact===undefined)options.hidden=false;
+    }catch(error){
+      if(target!==contactDraft||error?.name==='AbortError')return;
+      options.hidden=false;
+      status.textContent='Le carnet d’adresses est indisponible. Tu peux importer une fiche .vcf.';
+    }finally{
+      if(target===contactDraft)button.disabled=false;
+    }
+  };
+  fileButton.onclick=()=>{
+    pendingFileDraft=contactDraft;
+    fileInput.value='';
+    fileInput.click();
+  };
+  fileInput.onchange=async()=>{
+    const target=pendingFileDraft;
+    const file=fileInput.files[0];
+    if(!file||target!==contactDraft)return;
+    clearChoices();
+    status.textContent='';
+    fileButton.disabled=true;
+    try{
+      if(file.size>10*1024*1024)throw Error('La fiche est trop volumineuse. Exporte un seul contact.');
+      const contacts=parseContactCards(await file.text());
+      if(target!==contactDraft)return;
+      if(contacts.length===1)apply(contacts[0]);
+      else if(contacts.length){
+        cards=contacts;
+        choice.add(new Option('Choisir un interlocuteur', ''));
+        contacts.forEach((contact,index)=>{
+          const name=[contact.prenom,contact.nom].filter(Boolean).join(' ');
+          const details=contact.mobile||contact.fixe||contact.email;
+          choice.add(new Option([name,details].filter(Boolean).join(' · ')||'Contact sans nom', String(index)));
+        });
+        choice.hidden=false;
+        choice.focus();
+      }else status.textContent='Aucune fiche contact lisible dans ce fichier.';
+    }catch(error){
+      if(target===contactDraft)status.textContent=error?.message||'Impossible de lire cette fiche contact.';
+    }finally{
+      if(target===contactDraft)fileButton.disabled=false;
+    }
+  };
+  choice.onchange=()=>{
+    if(pendingFileDraft===contactDraft&&choice.value!=='')apply(cards[Number(choice.value)]);
+  };
+}
+
 function renderContacts(){
   const box=document.getElementById("crm-contacts-list");if(!box)return;
   box.innerHTML=contactDraft.length?contactDraft.map((stored,i)=>{
@@ -240,17 +376,7 @@ window.LRFClientExtras={
   getPatch(){
     const key=clean(document.getElementById("client-modal")?.dataset.clientId)||"new-client";
     if(!draftInitialized||draftClientKey!==key)return {};
-    // Apple autofill may commit a value without an input event. Read the actual
-    // controls at save time, while retaining unknown historical contact fields.
-    document.querySelectorAll('#crm-contacts-list input[data-k]').forEach(input=>{
-      const index=Number(input.closest('[data-ci]').dataset.ci), key=input.dataset.k;
-      const stored=contactDraft[index];
-      const value=input.value.trim();
-      if(value===String((typeof stored==='string'?{email:stored}:stored)?.[key]||''))return;
-      if(typeof stored==='string')contactDraft[index]={email:stored};
-      if(!contactDraft[index]||typeof contactDraft[index]!=='object')contactDraft[index]={};
-      contactDraft[index][key]=value;
-    });
+    captureContactInputs();
     return extraSignature(contactDraft)===extraSignature(contactsBaseline)?{}:{contacts:cloneExtra(contactDraft)};
   },
   getBaseline(){return {contacts:cloneExtra(contactsBaseline)}}

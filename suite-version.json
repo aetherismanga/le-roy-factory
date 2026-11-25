@@ -822,6 +822,10 @@
     "nativeFieldIdentityPreserved": true
   },
   "crm": {
+    "contactImport": {
+      "releaseId": "20261125-contacts1",
+      "page": "clients.html"
+    },
     "reportExport": {
       "releaseId": "20261110-client2",
       "page": "comptes-rendus.html",

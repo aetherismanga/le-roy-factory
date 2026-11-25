@@ -31,6 +31,11 @@ for (const permission of permissions) {
     manifest = manifest.replace(/<manifest([^>]*)>/, `<manifest$1>\n    <uses-permission android:name="${permission}" />`);
   }
 }
+// Android 17+ grants access to the selected contact through its system picker.
+const legacyContactsPermission = 'android.permission.READ_CONTACTS';
+if (!manifest.includes(legacyContactsPermission)) {
+  manifest = manifest.replace(/<manifest([^>]*)>/, `<manifest$1>\n    <uses-permission android:name="${legacyContactsPermission}" android:maxSdkVersion="36" />`);
+}
 
 // Icône Android officielle LRF : on utilise directement le logo rond du site.
 const iconDir = join(androidRoot, 'app', 'src', 'main', 'res', 'drawable-nodpi');
@@ -50,6 +55,7 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         registerPlugin(GoogleCalendarNativePlugin.class);
+        registerPlugin(ClientContactsPlugin.class);
         super.onCreate(savedInstanceState);
     }
 }
@@ -118,5 +124,6 @@ public class GoogleCalendarNativePlugin extends Plugin {
 }
 `;
 await writeFile(join(javaDir, 'GoogleCalendarNativePlugin.java'), googlePlugin, 'utf8');
+await cp(join(mobileRoot, 'native', 'ClientContactsPlugin.java'), join(javaDir, 'ClientContactsPlugin.java'));
 
 console.log('Pont Google Calendar + localisation + icone LRF Android installés');
