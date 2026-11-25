@@ -216,7 +216,7 @@ function injectStyles(){ if(document.getElementById("moovago-crm-style"))return;
   .crm-contact-actions{margin-bottom:.5rem}
   .crm-contact-actions .crm-extra-title{margin-inline-end:auto!important}
   #crm-extra-contacts .crm-contact-actions .crm-extra-title{margin-block:0!important}
-  .crm-contact-actions button,.crm-contact-file-actions button,.crm-contact-file-actions select,.crm-main-contact button,#btn-import-contact-infos{min-height:44px}
+  .crm-contact-actions button,.crm-contact-file-actions button,.crm-contact-file-actions select,.crm-main-contact button{min-height:44px}
   .crm-contact-import-box{margin:.5rem 0;padding:.7rem .85rem;border:1px solid #E5E0D1;border-radius:10px;background:#FCFAF3;color:#333;font-size:.875rem}
   .crm-contact-import-box p{margin:0}
   .crm-contact-file-actions select{max-width:100%;font:inherit}
@@ -224,7 +224,7 @@ function injectStyles(){ if(document.getElementById("moovago-crm-style"))return;
   .crm-main-contact{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 1rem;padding:.7rem .85rem}
   .crm-main-contact p{margin:.15rem 0;color:#444;overflow-wrap:anywhere}
   .crm-main-contact small{display:block;color:#666}
-  .crm-main-contact button,#btn-import-contact-infos{padding-inline:.35rem}
+  .crm-main-contact button{padding-inline:.35rem}
   `; document.head.appendChild(s); }
 
 function injectImportUI(){
@@ -238,7 +238,7 @@ function injectImportUI(){
 
 function injectClientExtras(){
   const form=document.getElementById("client-form"); if(!form||document.getElementById("crm-extra-contacts"))return;
-  const footer=form.querySelector(".modal-footer");
+  const infos=form.querySelector(".modal-grid-edit");
   const wrap=document.createElement("div"); wrap.innerHTML=`
   <div id="crm-extra-contacts" class="crm-extra-section">
     <div class="crm-contact-actions">
@@ -260,7 +260,7 @@ function injectClientExtras(){
     <div id="crm-contacts-empty" style="color:#777;font-style:italic;font-size:.85rem">Aucun interlocuteur enregistré.</div>
   </div>
   <div id="crm-extra-history" class="crm-extra-section"><h3 class="crm-extra-title">🕘 Historique commercial Moovago / CRM</h3><div id="crm-history-list"></div></div>`;
-  if(footer)footer.insertAdjacentElement("beforebegin",wrap);else form.appendChild(wrap);
+  if(infos)infos.insertAdjacentElement("afterend",wrap);else form.appendChild(wrap);
   document.getElementById("btn-add-contact-crm").onclick=()=>{
     if(!isCurrentContactEditor(contactEditorSession()))return;
     captureContactInputs();
@@ -339,7 +339,6 @@ function renderMainContact(){
 function setupDeviceContactImport(wrap){
   const button=wrap.querySelector('#btn-import-device-contact');
   const addButton=wrap.querySelector('#btn-add-contact-crm');
-  const infosButton=document.getElementById('btn-import-contact-infos');
   const options=wrap.querySelector('#crm-contact-file-options');
   const fileButton=wrap.querySelector('#btn-choose-contact-file');
   const fileInput=wrap.querySelector('#crm-contact-file');
@@ -350,7 +349,6 @@ function setupDeviceContactImport(wrap){
   let cards=[];
   const setBusy=busy=>{
     button.disabled=addButton.disabled=fileButton.disabled=busy;
-    if(infosButton)infosButton.disabled=busy;
   };
   const clearChoices=()=>{cards=[];choice.hidden=true;choice.replaceChildren();};
   const reset=()=>{
@@ -425,10 +423,6 @@ function setupDeviceContactImport(wrap){
     }
   };
   button.onclick=startImport;
-  if(infosButton)infosButton.onclick=()=>{
-    document.querySelector('#lrf-client-tabs [data-tab="contacts"]')?.click();
-    startImport();
-  };
   fileButton.onclick=()=>{
     pendingFileSession=contactEditorSession();
     fileInput.value='';

@@ -20,7 +20,7 @@ test('partner changes use the one fiche transaction and its one external form su
   assert.match(editor,/Enregistrer la fiche/);
 });
 
-test('the client page owns a single contact editor and both buttons use it',async()=>{
+test('the client page owns one contact editor and one import action',async()=>{
   const html=await readFile(new URL('../clients.html',import.meta.url),'utf8');
   const loader=await readFile(new URL('../assets/js/firebase.js',import.meta.url),'utf8');
   const contacts=await readFile(new URL('../assets/js/crm-moovago.js',import.meta.url),'utf8');
@@ -28,9 +28,30 @@ test('the client page owns a single contact editor and both buttons use it',asyn
   assert.equal((html.match(/import "\.\/assets\/js\/crm-moovago\.js\?/g)||[]).length,1);
   assert.doesNotMatch(integrity,/dispatchEvent\(new CustomEvent\('lrf-client-opened'/);
   assert.doesNotMatch(loader,/crm-moovago\.js|client-contact-import\.js/);
-  assert.match(html,/id="btn-import-contact-infos"/);
+  assert.doesNotMatch(html,/id="btn-import-contact-infos"/);
   assert.match(contacts,/button\.onclick=startImport/);
-  assert.match(contacts,/infosButton\.onclick=\(\)=>\{[^}]*startImport\(\)/s);
+});
+
+test('Infos and Interlocuteurs both enable the same editor without moving or replacing its fields',async()=>{
+  const source=await readFile(new URL('../assets/js/crm-ui-modern.js',import.meta.url),'utf8');
+  const start=source.indexOf('function activateTab(key)');
+  const end=source.indexOf('function updateTabCounts()',start);
+  const pane=(id,key)=>{
+    const flags=new Set();
+    return {id,dataset:{lrfPane:key},classList:{contains:name=>flags.has(name),toggle:(name,on)=>on?flags.add(name):flags.delete(name)}};
+  };
+  const infos=pane('infos','infos');
+  const contacts=pane('crm-extra-contacts','contacts');
+  const history=pane('history','history');
+  const modal={dataset:{},querySelectorAll:selector=>selector==='.lrf-tab-pane'?[infos,contacts,history]:[]};
+  const context=vm.createContext({document:{getElementById:()=>modal}});
+  vm.runInContext(source.slice(start,end),context);
+
+  for(const [tab, expected] of [['infos',[true,true,false]],['contacts',[false,true,false]],['history',[false,false,true]],['infos',[true,true,false]]]){
+    context.activateTab(tab);
+    assert.deepEqual([infos,contacts,history].map(element=>element.classList.contains('active')),expected);
+    assert.equal(modal.dataset.activeTab,tab);
+  }
 });
 
 test('typing a personalised opening message survives email lookup and live refresh',async()=>{
