@@ -13,6 +13,12 @@
           e.preventDefault();e.stopImmediatePropagation();
 
           const lines=checks.map((c,i)=>{
+            const promo = c.closest('.tibur-format');
+            if (promo) {
+              const title = doc.getElementById('tibur-promo-title').textContent.trim();
+              const format = promo.querySelector('strong').textContent.trim();
+              return `${i+1}. ${title} · ${format}`;
+            }
             const lot=c.closest('.lot, tr');
             const lotRef=(lot?.dataset?.id||'').trim().toUpperCase();
             const product=(lot?.querySelector('h3')||lot?.querySelector('.product strong'))?.textContent?.trim()||'Lot VIEW';
