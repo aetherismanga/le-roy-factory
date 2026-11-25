@@ -20,6 +20,17 @@ test('partner changes use the one fiche transaction and its one external form su
   assert.match(editor,/Enregistrer la fiche/);
 });
 
+test('the client page owns a single contact editor and both buttons use it',async()=>{
+  const html=await readFile(new URL('../clients.html',import.meta.url),'utf8');
+  const loader=await readFile(new URL('../assets/js/firebase.js',import.meta.url),'utf8');
+  const contacts=await readFile(new URL('../assets/js/crm-moovago.js',import.meta.url),'utf8');
+  assert.equal((html.match(/import "\.\/assets\/js\/crm-moovago\.js\?/g)||[]).length,1);
+  assert.doesNotMatch(loader,/crm-moovago\.js|client-contact-import\.js/);
+  assert.match(html,/id="btn-import-contact-infos"/);
+  assert.match(contacts,/button\.onclick=startImport/);
+  assert.match(contacts,/infosButton\.onclick=\(\)=>\{[^}]*startImport\(\)/s);
+});
+
 test('typing a personalised opening message survives email lookup and live refresh',async()=>{
   const source=(await readFile(new URL('../assets/js/account-form-send.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');
   const fields=new Map(['account-send-subject','account-send-message','account-send-type','account-send-email'].map(id=>[id,{value:id==='account-send-type'?'ouverture':'',style:{}}]));

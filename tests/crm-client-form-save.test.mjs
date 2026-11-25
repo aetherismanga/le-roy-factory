@@ -31,7 +31,7 @@ async function editor({fresh=false,current={},draft={},baseline={}}={}) {
     window:{LRFClientFacade:{prepareSave:async()=>({})},dispatchEvent:event=>events.push(event)},
     document:{getElementById:()=>({addEventListener:(_name,callback)=>{state.callback=callback}}),querySelectorAll:()=>[submit],querySelector:()=>submit}
   };
-  const helperStart=html.indexOf('function serverForm(client)');
+  const helperStart=html.indexOf('function clientPhones(client)');
   const helperEnd=html.indexOf('// Modale',helperStart);
   vm.runInNewContext(html.slice(helperStart,helperEnd)+'\n'+handler,state);
   return {state,writes,alerts,events,save:()=>state.callback({preventDefault(){}})};

@@ -1,4 +1,5 @@
 const clean = value => String(value ?? '').trim();
+const list = value => Array.isArray(value) ? value : value == null ? [] : [value];
 
 export function toContactDraft({ displayName, prenom, nom, fonction, phones = [], emails = [] }) {
   const [firstName = '', ...lastNames] = clean(displayName).split(/\s+/);
@@ -34,9 +35,9 @@ export async function pickDeviceContact() {
   if (typeof picker?.select !== 'function') return undefined;
   const [contact] = await picker.select(['name', 'tel', 'email'], { multiple: false });
   return contact ? toContactDraft({
-    displayName: contact.name?.[0],
-    phones: (contact.tel || []).map(value => ({ value })),
-    emails: contact.email
+    displayName: list(contact.name).find(value => clean(value)),
+    phones: list(contact.tel).map(value => ({ value })),
+    emails: list(contact.email)
   }) : null;
 }
 
@@ -60,7 +61,7 @@ function readProperty(line) {
   if (separator < 1) return null;
   const [name, ...params] = line.slice(0, separator).toUpperCase().split(';');
   const [group, property] = name.includes('.') ? name.split('.', 2) : ['', name];
-  if (!['N', 'FN', 'TITLE', 'ROLE', 'TEL', 'EMAIL', 'X-ABLABEL'].includes(property)) return null;
+  if (!['N', 'FN', 'ORG', 'TITLE', 'ROLE', 'TEL', 'EMAIL', 'X-ABLABEL'].includes(property)) return null;
   let value = line.slice(separator + 1);
   if (params.includes('ENCODING=QUOTED-PRINTABLE')) {
     let decoder;
@@ -87,7 +88,7 @@ function readCard(lines) {
     return { value: unescapeValue(value), type };
   });
   return toContactDraft({
-    displayName: unescapeValue(get('FN')), prenom, nom,
+    displayName: unescapeValue(get('FN')) || unescapeValue(get('ORG')?.split(';', 1)[0]), prenom, nom,
     fonction: unescapeValue(get('TITLE')) || unescapeValue(get('ROLE')),
     phones, emails: ordered('EMAIL').map(({ value }) => unescapeValue(value))
   });

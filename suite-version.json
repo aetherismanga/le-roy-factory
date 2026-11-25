@@ -823,7 +823,7 @@
   },
   "crm": {
     "contactImport": {
-      "releaseId": "20261125-contacts1",
+      "releaseId": "20261125-contacts2",
       "page": "clients.html"
     },
     "reportExport": {

@@ -3,7 +3,8 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/fi
 import { collection, getDocs, doc, runTransaction, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 import { cloneExtra, extraSignature, extraPatch, assertImportUnchanged } from "./crm-extra-save-core.mjs?v=20261105-audit1";
-import { parseContactCards, pickDeviceContact } from "./crm-contact-import.mjs?v=20261125-contacts1";
+import { parseContactCards, pickDeviceContact } from "./crm-contact-import.mjs?v=20261125-contacts2";
+import { normPhone } from "./crm-client-integrity-core.mjs?v=20261105-audit1";
 
 const PARTNER_LOGOS = {
   "elios-ceramica":"elios.png","view-ceramica":"view.png","la-fenice":"lafenice.png","reviglass":"reviglass.png",
@@ -34,6 +35,31 @@ const esc = v => clean(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/
 const validEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean(v));
 const firstNonEmpty = (...vals) => vals.map(clean).find(Boolean) || "";
 const isActive = c => !!c && c.archived !== true && c.archive !== true;
+const contactFields = ['prenom','nom','fonction','mobile','fixe','email'];
+
+function isBlankContact(contact){
+  if(!contact || typeof contact==='string')return !clean(contact);
+  return Object.entries(contact).every(([key,value])=>contactFields.includes(key)&&!clean(value));
+}
+
+function contactDetails(stored){
+  const contact=typeof stored==='string'?{email:stored}:stored;
+  return {
+    name:[contact?.prenom,contact?.nom].map(clean).filter(Boolean).join(' '),
+    fonction:clean(contact?.fonction),
+    email:clean(contact?.email),
+    phones:[contact?.mobile,contact?.fixe,contact?.telephone].map(clean).filter(Boolean)
+  };
+}
+
+function containsContact(candidate, details){
+  if(details.name && norm(candidate.name)!==norm(details.name))return false;
+  if(details.email && lower(candidate.email)!==lower(details.email))return false;
+  if(details.fonction && norm(candidate.fonction)!==norm(details.fonction))return false;
+  const phoneKey=value=>normPhone(value)||clean(value);
+  const phones=new Set(candidate.phones.map(phoneKey));
+  return details.phones.every(value=>phones.has(phoneKey(value)));
+}
 
 function normalizeCp(v){ const s=clean(v).replace(/\.0$/,""); return /^\d+$/.test(s) ? s.padStart(5,"0") : s; }
 function companyKey(name, cp, city){ return `${norm(name)}|${normalizeCp(cp)}|${norm(city)}`; }
@@ -182,11 +208,15 @@ function injectStyles(){ if(document.getElementById("moovago-crm-style"))return;
   .crm-contact-actions{margin-bottom:.5rem}
   .crm-contact-actions .crm-extra-title{margin-inline-end:auto!important}
   #crm-extra-contacts .crm-contact-actions .crm-extra-title{margin-block:0!important}
-  .crm-contact-actions button,.crm-contact-file-actions button,.crm-contact-file-actions select{min-height:44px}
+  .crm-contact-actions button,.crm-contact-file-actions button,.crm-contact-file-actions select,.crm-main-contact button,#btn-import-contact-infos{min-height:44px}
   .crm-contact-import-box{margin:.5rem 0;padding:.7rem .85rem;border:1px solid #E5E0D1;border-radius:10px;background:#FCFAF3;color:#333;font-size:.875rem}
   .crm-contact-import-box p{margin:0}
   .crm-contact-file-actions select{max-width:100%;font:inherit}
   #crm-contact-import-status:not(:empty){margin:.5rem 0;font-size:.875rem;color:#444}
+  .crm-main-contact{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 1rem;padding:.7rem .85rem}
+  .crm-main-contact p{margin:.15rem 0;color:#444;overflow-wrap:anywhere}
+  .crm-main-contact small{display:block;color:#666}
+  .crm-main-contact button,#btn-import-contact-infos{padding-inline:.35rem}
   `; document.head.appendChild(s); }
 
 function injectImportUI(){
@@ -217,12 +247,28 @@ function injectClientExtras(){
       </div>
     </div>
     <div id="crm-contact-import-status" role="status"></div>
+    <div id="crm-main-contact"></div>
     <div id="crm-contacts-list"></div>
+    <div id="crm-contacts-empty" style="color:#777;font-style:italic;font-size:.85rem">Aucun interlocuteur enregistré.</div>
   </div>
   <div id="crm-extra-history" class="crm-extra-section"><h3 class="crm-extra-title">🕘 Historique commercial Moovago / CRM</h3><div id="crm-history-list"></div></div>`;
   if(footer)footer.insertAdjacentElement("beforebegin",wrap);else form.appendChild(wrap);
-  document.getElementById("btn-add-contact-crm").onclick=()=>appendContact({prenom:"",nom:"",fonction:"",mobile:"",fixe:"",email:""});
+  document.getElementById("btn-add-contact-crm").onclick=()=>{
+    captureContactInputs();
+    appendContact({prenom:"",nom:"",fonction:"",mobile:"",fixe:"",email:""});
+  };
   setupDeviceContactImport(wrap);
+
+  const refreshMainFields=event=>{
+    if(event.target.matches('#edit-contact,#edit-email,#phones-container input'))renderMainContact();
+  };
+  form.addEventListener('input',refreshMainFields);
+  form.addEventListener('change',refreshMainFields);
+  const phones=document.getElementById('phones-container');
+  if(phones)new MutationObserver(renderMainContact).observe(phones,{childList:true});
+  document.getElementById('client-modal')?.addEventListener('click',event=>{
+    if(event.target.closest('[data-tab="contacts"]'))renderMainContact();
+  });
 }
 
 function captureContactInputs(){
@@ -238,11 +284,42 @@ function captureContactInputs(){
   });
 }
 
-function appendContact(contact){
-  captureContactInputs();
-  const index=contactDraft.push(contact)-1;
+function appendContact(contact, replaceBlank=false){
+  let index=replaceBlank ? contactDraft.findIndex(isBlankContact) : -1;
+  if(index<0)index=contactDraft.push(contact)-1;
+  else contactDraft[index]=contact;
   renderContacts();
   document.querySelector(`#crm-contacts-list [data-ci="${index}"]`)?.scrollIntoView({block:"nearest"});
+}
+
+function readMainContact(){
+  const name=clean(document.getElementById('edit-contact')?.value);
+  if(!name)return null;
+  return {
+    name,
+    email:clean(document.getElementById('edit-email')?.value),
+    phones:[...document.querySelectorAll('#phones-container input.phone-input')].map(input=>clean(input.value)).filter(Boolean)
+  };
+}
+
+function renderMainContact(){
+  const host=document.getElementById('crm-main-contact');
+  if(!host)return;
+  const main=readMainContact();
+  const show=main&&!contactDraft.some(stored=>containsContact(contactDetails(stored),main));
+  const empty=document.getElementById('crm-contacts-empty');
+  if(empty)empty.hidden=Boolean(show||contactDraft.length);
+  const markup=show?`<div class="contact-card crm-main-contact">
+    <div><small>Interlocuteur principal</small><strong>${esc(main.name)}</strong>
+    ${[...main.phones,main.email].filter(Boolean).map(value=>`<p>${esc(value)}</p>`).join('')}</div>
+    <button type="button" class="btn-add-phone-link" data-edit-main-contact>Modifier dans Infos</button>
+  </div>`:'';
+  if(host.innerHTML===markup)return;
+  host.innerHTML=markup;
+  host.querySelector('[data-edit-main-contact]')?.addEventListener('click',()=>{
+    document.querySelector('#lrf-client-tabs [data-tab="infos"]')?.click();
+    document.getElementById('edit-contact')?.focus();
+  });
 }
 
 function setupDeviceContactImport(wrap){
@@ -267,17 +344,28 @@ function setupDeviceContactImport(wrap){
   window.addEventListener('lrf-client-closed',reset);
 
   const apply=contact=>{
-    if(!Object.values(contact).some(Boolean)){
-      status.textContent='Cette fiche ne contient aucune coordonnée utilisable.';
+    if(!contact||isBlankContact(contact)){
+      options.hidden=false;
+      status.textContent='Aucune coordonnée partagée. Sélectionne le nom ou un numéro, ou importe une fiche .vcf.';
       return;
     }
-    appendContact(contact);
+    captureContactInputs();
     clearChoices();
     options.hidden=true;
+    const details=contactDetails(contact);
+    const main=readMainContact();
+    const existingIndex=contactDraft.findIndex(stored=>containsContact(contactDetails(stored),details));
+    if(existingIndex>=0 || (main&&containsContact(main,details))){
+      status.textContent='Cet interlocuteur figure déjà dans la fiche.';
+      const existing=existingIndex>=0 ? `#crm-contacts-list [data-ci="${existingIndex}"]` : '#crm-main-contact .contact-card';
+      document.querySelector(existing)?.scrollIntoView({block:'nearest'});
+      return;
+    }
+    appendContact(contact,true);
     status.textContent='Interlocuteur ajouté. Vérifie ses coordonnées puis enregistre la fiche client.';
   };
-  button.onclick=async()=>{
-    if(!draftInitialized)return;
+  const startImport=async()=>{
+    if(!draftInitialized||button.disabled)return;
     const target=contactDraft;
     button.disabled=true;
     status.textContent='';
@@ -293,6 +381,12 @@ function setupDeviceContactImport(wrap){
     }finally{
       if(target===contactDraft)button.disabled=false;
     }
+  };
+  button.onclick=startImport;
+  const infosButton=document.getElementById('btn-import-contact-infos');
+  if(infosButton)infosButton.onclick=()=>{
+    document.querySelector('#lrf-client-tabs [data-tab="contacts"]')?.click();
+    startImport();
   };
   fileButton.onclick=()=>{
     pendingFileDraft=contactDraft;
@@ -335,17 +429,19 @@ function setupDeviceContactImport(wrap){
 
 function renderContacts(){
   const box=document.getElementById("crm-contacts-list");if(!box)return;
-  box.innerHTML=contactDraft.length?contactDraft.map((stored,i)=>{
+  box.innerHTML=contactDraft.map((stored,i)=>{
     const c=typeof stored==="string"?{email:stored}:(stored||{});
     return `<div class="contact-card" data-ci="${i}"><input data-k="prenom" aria-label="Prénom" autocomplete="section-contact-${i} given-name" placeholder="Prénom" value="${esc(c.prenom)}"><input data-k="nom" aria-label="Nom" autocomplete="section-contact-${i} family-name" placeholder="Nom" value="${esc(c.nom)}"><input data-k="fonction" aria-label="Fonction" placeholder="Fonction" value="${esc(c.fonction)}"><input data-k="mobile" type="tel" aria-label="Mobile" autocomplete="section-contact-${i} mobile tel" placeholder="Mobile" value="${esc(c.mobile||"")}"><input data-k="fixe" type="tel" aria-label="Téléphone fixe" autocomplete="section-contact-${i} work tel" placeholder="Téléphone fixe" value="${esc(c.fixe||"")}"><input class="wide" data-k="email" type="email" aria-label="E-mail" autocomplete="section-contact-${i} email" autocapitalize="off" placeholder="E-mail" value="${esc(c.email||"")}"><button type="button" class="tiny-danger" data-del="${i}">×</button></div>`;
-  }).join(""):`<div style="color:#777;font-style:italic;font-size:.85rem">Aucun interlocuteur enregistré.</div>`;
+  }).join("");
   box.querySelectorAll("input[data-k]").forEach(inp=>inp.oninput=()=>{
     const index=+inp.closest("[data-ci]").dataset.ci;
     if(typeof contactDraft[index]==="string")contactDraft[index]={email:contactDraft[index]};
     if(!contactDraft[index]||typeof contactDraft[index]!=="object")contactDraft[index]={};
     contactDraft[index][inp.dataset.k]=inp.value;
+    renderMainContact();
   });
   box.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{contactDraft.splice(+b.dataset.del,1);renderContacts()});
+  renderMainContact();
 }
 
 function renderPartners(){ const box=document.getElementById("crm-partner-grid"); if(!box)return; box.innerHTML=fabricants.map(f=>{const active=partnerDraft.includes(f.id);const logo=PARTNER_LOGOS[f.id];return `<div class="partner-card-mini ${active?"active":""}" data-pid="${esc(f.id)}">${logo?`<img src="https://storage.googleapis.com/le-roy-factory.firebasestorage.app/public-site-assets/le-roy-factory/064a2492b7c0/assets/img/${logo}" alt="${esc(f.nom)}">`:""}<span>${esc(f.nom)}</span></div>`}).join(""); box.querySelectorAll("[data-pid]").forEach(el=>el.onclick=()=>{const id=el.dataset.pid;partnerDraft=partnerDraft.includes(id)?partnerDraft.filter(x=>x!==id):[...partnerDraft,id];renderPartners()}); }
@@ -365,19 +461,21 @@ function populateExtras(client, force=false){
   activeClientId=id||null;
   if(c)rememberExactClient(c.id);else clearExactClient();
   contactsBaseline=cloneExtra(Array.isArray(c?.contacts)?c.contacts:[]);
-  contactDraft=cloneExtra(contactsBaseline);
+  contactDraft=cloneExtra(contactsBaseline.filter(contact=>!isBlankContact(contact)));
   partnerDraft=[...(Array.isArray(c?.partenaires)?c.partenaires:[])];
   draftClientKey=key;
   draftInitialized=true;
   renderContacts();renderHistory(c);
 }
 
-window.LRFClientExtras={
+const clientExtras={
   getPatch(){
     const key=clean(document.getElementById("client-modal")?.dataset.clientId)||"new-client";
     if(!draftInitialized||draftClientKey!==key)return {};
     captureContactInputs();
-    return extraSignature(contactDraft)===extraSignature(contactsBaseline)?{}:{contacts:cloneExtra(contactDraft)};
+    const contacts=contactDraft.filter(contact=>!isBlankContact(contact));
+    const savedContacts=contactsBaseline.filter(contact=>!isBlankContact(contact));
+    return extraSignature(contacts)===extraSignature(savedContacts)?{}:{contacts:cloneExtra(contacts)};
   },
   getBaseline(){return {contacts:cloneExtra(contactsBaseline)}}
 };
@@ -467,6 +565,8 @@ function setupClientModal(){
 }
 
 async function init(){
+  if(window.LRFClientExtras)return;
+  window.LRFClientExtras=clientExtras;
   injectStyles();injectImportUI();setupClientModal();
   const profile=await new Promise(resolve=>{
     const stop=onAuthStateChanged(auth,async user=>{const profile=await verifiedAgentProfile(user);stop();resolve(profile)});

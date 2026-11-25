@@ -39,9 +39,9 @@ function injectStyles(){
 }
 
 function countContacts(){
-  const cards=document.querySelectorAll("#crm-contacts-list .contact-card");
-  if(cards.length) return cards.length;
-  return field("edit-contact") ? 1 : 0;
+  const cards=[...document.querySelectorAll("#crm-contacts-list .contact-card")];
+  const filled=cards.filter(card=>[...card.querySelectorAll('input[data-k]')].some(input=>input.value.trim()));
+  return filled.length+Number(Boolean(document.querySelector('#crm-main-contact .contact-card')));
 }
 function countPartners(){
   return document.querySelectorAll("#crm-partner-grid .partner-card-mini.active").length;

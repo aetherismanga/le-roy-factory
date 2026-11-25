@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
+import { normPhone } from '../assets/js/crm-client-integrity-core.mjs';
 import { cloneExtra, extraPatch, assertImportUnchanged } from '../assets/js/crm-extra-save-core.mjs';
 
 test('import analysis does not mutate contacts or reports in its saved baseline', () => {
@@ -40,11 +41,14 @@ async function sandboxModule(file,exposed){
   const source=(await readFile(new URL(`../assets/js/${file}`,import.meta.url),'utf8'))
     .replace(/^import .*;\s*$/gm,'')
     .replace(/^if\s*\(document\.readyState[\s\S]*$/m,'');
-  const context=vm.createContext({console});
+  const context=vm.createContext({console,normPhone});
   vm.runInContext(`
     const elements={
       'client-modal':{dataset:{clientId:'a'},querySelector(){return null}},
       'crm-contacts-list':{innerHTML:'',querySelectorAll(){return []}},
+      'crm-main-contact':{innerHTML:'',querySelector(){return null}},
+      'crm-contacts-empty':{hidden:false},
+      'edit-contact':{value:''},
       'crm-history-list':{innerHTML:''},
       'edit-activity':{value:''},
       'edit-pro-access-key':{value:''},
@@ -54,11 +58,11 @@ async function sandboxModule(file,exposed){
     };
     const handlers={};
     const window={addEventListener(name,fn){(handlers[name]??=[]).push(fn)}};
-    const document={readyState:'loading',getElementById(id){return elements[id]||null},querySelectorAll(){return []},addEventListener(){}};
+    const document={readyState:'loading',getElementById(id){return elements[id]||null},querySelector(){return null},querySelectorAll(){return []},addEventListener(){}};
     const sessionStorage={setItem(){},removeItem(){},getItem(){return ''}};
     class MutationObserver{observe(){}}
     function getComputedStyle(){return {display:'flex'}};
-    ${core}\n${source}\nconst exposed={${exposed}};
+    ${core}\n${source}\nif(typeof clientExtras!=='undefined')window.LRFClientExtras=clientExtras;\nconst exposed={${exposed}};
   `,context);
   return {run:code=>vm.runInContext(code,context)};
 }
@@ -76,6 +80,31 @@ test('contacts draft keeps hidden fields and a simple fiche save produces no con
   `),'{'+'"contacts":[{"nom":"Durand","fixe":"0467000000","privateTag":"keep"}]'+'}');
   assert.equal(module.run(`JSON.stringify(window.LRFClientExtras.getBaseline())`),'{"contacts":[{"nom":"Martin","fixe":"0467000000","privateTag":"keep"}]}');
   assert.equal(module.run(`elements['client-modal'].dataset.clientId='b';JSON.stringify(window.LRFClientExtras.getPatch())`),'{}');
+});
+
+test('the primary name and phone from Infos appear without writing a second stored contact', async()=>{
+  const module=await sandboxModule('crm-moovago.js','populateExtras');
+  const result=JSON.parse(module.run(`
+    elements['edit-contact'].value='Atelier Exemple';
+    elements['edit-email'].value='atelier@example.test';
+    document.querySelectorAll=selector=>selector.startsWith('#phones-container')?[{value:'06 00 00 00 01'}]:[];
+    exposed.populateExtras({id:'a',contacts:[{prenom:'',nom:'',mobile:''}]},true);
+    JSON.stringify({markup:elements['crm-main-contact'].innerHTML,empty:elements['crm-contacts-empty'].hidden,patch:window.LRFClientExtras.getPatch()});
+  `));
+  assert.match(result.markup,/Atelier Exemple.*06 00 00 00 01.*atelier@example\.test/s);
+  assert.equal(result.empty,true);
+  assert.deepEqual(result.patch,{});
+});
+
+test('a device import reuses a blank draft row and saves the populated fields once', async()=>{
+  const module=await sandboxModule('crm-moovago.js','populateExtras,appendContact');
+  const patch=JSON.parse(module.run(`
+    exposed.populateExtras({id:'a',contacts:[]},true);
+    exposed.appendContact({prenom:'',nom:'',mobile:''});
+    exposed.appendContact({prenom:'Alice',nom:'Martin',mobile:'0600000002'},true);
+    JSON.stringify(window.LRFClientExtras.getPatch());
+  `));
+  assert.deepEqual(patch,{contacts:[{prenom:'Alice',nom:'Martin',mobile:'0600000002'}]});
 });
 
 test('Apple autofill without input events is read at save time and keeps historic fields',async()=>{

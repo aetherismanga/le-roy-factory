@@ -248,16 +248,17 @@
 
           <div class="form-field">
             <label for="edit-contact">Nom & Prénom Interlocuteur</label>
-            <input type="text" id="edit-contact" placeholder="Ex: Jean Dupont">
+            <input type="text" id="edit-contact" autocomplete="name" placeholder="Ex: Jean Dupont">
           </div>
 
           <div class="form-field">
             <label for="edit-email">Email professionnel</label>
-            <input type="email" id="edit-email" placeholder="Ex: contact@aubade.fr">
+            <input type="email" id="edit-email" autocomplete="email" placeholder="Ex: contact@aubade.fr">
           </div>
 
           <div class="form-field full-width">
             <label>Téléphone(s) de contact</label>
+            <button type="button" id="btn-import-contact-infos" class="btn-add-phone-link">Importer un interlocuteur</button>
             <div id="phones-container" class="multi-phones-box"></div>
             <button type="button" id="btn-add-phone" class="btn-add-phone-link">+ Ajouter un autre numéro</button>
           </div>
@@ -318,7 +319,8 @@
   <script type="module">
     import { db, auth, verifiedAgentProfile } from "./assets/js/firebase.js";
     import "./assets/js/client-facade.js?v=20261105-audit2";
-    import "./assets/js/crm-moovago.js?v=20261125-contacts1";
+    import "./assets/js/crm-moovago.js?v=20261125-contacts2";
+    import "./assets/js/crm-ui-modern.js?v=20261125-contacts2";
     import "./assets/js/crm-client-enhancements.js?v=20261119-partners1";
     import "./assets/js/client-direct-email.js?v=20261106-crm-unified2";
     import "./assets/js/crm-client-partner-access.js?v=20261119-partners1";
@@ -415,10 +417,16 @@
           notes: document.getElementById('edit-notes').value.trim()
         };
       }
+      function clientPhones(client) {
+        const entries=Array.isArray(client.telephones)?client.telephones:[];
+        const saved=entries.map(phone=>String(phone??'').trim()).filter(Boolean);
+        return saved.length?saved:[String(client.telephone??'').trim()].filter(Boolean);
+      }
+
       function serverForm(client) {
         let cp=String(client.codePostal || client.code_postal || '').trim(), city=String(client.ville || '').trim();
         if (/^\d{5}$/.test(city) && !/^\d{5}$/.test(cp)) [cp,city]=[city,cp];
-        const phones=Array.isArray(client.telephones)?client.telephones:(client.telephone?[client.telephone]:[]);
+        const phones=clientPhones(client);
         return {type:String(client.type||'client').toLowerCase(),societe:client.societe||'',adresse:client.adresse||'',codePostal:cp,ville:city,contact:client.contact||'',email:client.email||'',telephones:phones,telephone:phones[0]||'',notes:client.notes||''};
       }
 
@@ -491,8 +499,8 @@
             document.getElementById("edit-email").value = item.email || "";
             document.getElementById("edit-notes").value = item.notes || "";
 
-            const phones = Array.isArray(item.telephones) ? item.telephones : (item.telephone ? [item.telephone] : [""]);
-            phones.forEach(p => addPhoneRow(p));
+            const phones=clientPhones(item);
+            (phones.length ? phones : [""]).forEach(p => addPhoneRow(p));
 
             currentDocList = Array.isArray(item.documents) ? [...item.documents] : [];
             currentCRList = serverReports(item);
@@ -584,7 +592,7 @@
         row.className = "phone-row";
         row.style.cssText = "display: flex; gap: 0.5rem; margin-bottom: 0.5rem;";
         row.innerHTML = `
-          <input type="tel" class="phone-input crm-select" placeholder="Ex: 04 67 00 00 00" value="${esc(value)}" style="flex: 1;">
+          <input type="tel" autocomplete="tel" class="phone-input crm-select" placeholder="Ex: 04 67 00 00 00" value="${esc(value)}" style="flex: 1;">
           <button type="button" class="btn-remove-phone filter-btn" style="color: #DC2626;">&times;</button>
         `;
         row.querySelector(".btn-remove-phone").addEventListener("click", () => {
