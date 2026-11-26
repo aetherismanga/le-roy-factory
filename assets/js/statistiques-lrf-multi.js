@@ -146,6 +146,7 @@ function decorateTable(){
   document.querySelectorAll('#stats-body tr').forEach(tr=>{
     const cells=tr.querySelectorAll('td');if(cells.length<3)return;
     let clientId=makeFactoryReadonly(cells[1]),c=clientId?canonicalClient(byId(clientId)):null;
+    if(tr.hasAttribute('data-elios-exact'))return;
     if(!c)c=findClientFromLRFCell(cells[2]);
     const meta=cells[0].querySelector('small')?.textContent||'';
     if(!c||!meta.includes('Associé au CRM')||cells[2].querySelector('[data-manual-lrf]'))return;
@@ -158,6 +159,7 @@ function decorateMobile(){
     const factoryZone=zones.find(z=>/Codes? usine|N° usine/i.test(z.querySelector('small')?.textContent||''));
     const lrfZone=zones.find(z=>/Code LRF/i.test(z.querySelector('small')?.textContent||''));
     let clientId=factoryZone?makeFactoryReadonly(factoryZone):'',c=clientId?canonicalClient(byId(clientId)):null;
+    if(card.hasAttribute('data-elios-exact'))return;
     if(!c)c=findClientFromLRFCell(lrfZone);
     if(!c||!lrfZone||lrfZone.querySelector('[data-manual-lrf]'))return;
     const label=lrfZone.querySelector('small')?.outerHTML||'<small>Code LRF</small>';decorateLRFCell(lrfZone,c,label);

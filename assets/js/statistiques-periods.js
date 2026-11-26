@@ -19,6 +19,7 @@ STATS_PERIODS['randal-pro'].periods['2026-12'] = {
 };
 
 let latestElios = null;
+let latestEliosRows = [];
 const frDay = new Intl.DateTimeFormat('fr-FR', {dateStyle:'long',timeZone:'UTC'});
 const eliosKey = sales => sales.dateTo.slice(0,7);
 
@@ -45,11 +46,22 @@ export function installEliosStatsPeriod(sales) {
     missingLabel:incomplete ? 'du ' + frDay.format(nextDay) + ' au 31 décembre ' + year : '',
   };
   latestElios = sales;
+  latestEliosRows = sales.rows.map(row => ({...row, crmClientId:null}));
+  return true;
+}
+
+export function installEliosStatsLinks(sales, report) {
+  if (!report || latestElios !== sales || report.dateTo !== sales.dateTo) return false;
+  const ids = new Map();
+  for (const [clientId, {accounts}] of report.byClientId) {
+    for (const {code} of accounts) ids.set(code,clientId);
+  }
+  latestEliosRows = latestEliosRows.map(row => ({...row, crmClientId:ids.get(row.elios) ?? null}));
   return true;
 }
 
 export function eliosStatsRows(key) {
-  if (latestElios && (key === eliosKey(latestElios) || key === latestElios.dateTo.slice(0,4) + '-12')) return latestElios.rows;
+  if (latestElios && (key === eliosKey(latestElios) || key === latestElios.dateTo.slice(0,4) + '-12')) return latestEliosRows;
   if (key === '2026-07') return ELIOS_STATS_CLIENTS_2026_07;
   if (key === '2026-08' || key === '2026-12') return ELIOS_STATS_CLIENTS_2026_08;
   return [];

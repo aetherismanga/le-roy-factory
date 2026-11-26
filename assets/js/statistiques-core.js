@@ -6,7 +6,7 @@ import { MI_JUIN_2025_STATS } from './statistiques-mi-juin-2025-data.js';
 import { FIN_2025_STATS } from './statistiques-fin-2025-data.js';
 import { RANDAL_FIN_2025_STATS } from './statistiques-randal-fin-2025-data.js';
 import { RANDAL_STATS_2026_10_25 } from './statistiques-randal-octobre-2026-data.js';
-import { STATS_PERIODS, eliosStatsRows } from './statistiques-periods.js?v=20261126-elios';
+import { STATS_PERIODS, eliosStatsRows } from './statistiques-periods.js?v=20261126-elios-links';
 
 const PARTNERS=[
   ['elios-ceramica','ELIOS CERAMICA'],['view-ceramica','VIEW CERAMICA'],['la-fenice','LA FENICE'],
@@ -163,6 +163,7 @@ function clientFactoryCodes(c,partner){
 }
 function rowFactoryCode(r){return String(r.factory||r.elios||'').trim()}
 function matchClient(sale){
+  if(Object.hasOwn(sale,'crmClientId'))return crmClients.find(c=>c.id===sale.crmClientId)||null;
   const partner=sale.partner||currentPartner;
   const factory=rowFactoryCode(sale);
   let c=factory?crmClients.find(x=>clientFactoryCodes(x,partner).some(code=>code===factory)):null;
@@ -223,6 +224,7 @@ function allCodesForGroup(g){
   const entries=[...g.codes];
   if(g.client){
     for(const partner of g.partners){
+      if(partner==='elios-ceramica'&&g.sourceRows.some(row=>Object.hasOwn(row,'crmClientId')))continue;
       for(const code of clientFactoryCodes(g.client,partner)){
         if(!entries.some(x=>x.partner===partner&&x.code===code))entries.push({partner,code});
       }
@@ -242,8 +244,9 @@ function factoryCodesHtml(g){
   }).join('');
 }
 
-function lrfEditor(c){
+function lrfEditor(c,verified){
   if(!c)return '<span class="muted-code">—</span>';
+  if(verified)return `<a class="lrf-code" href="clients.html?edit=${encodeURIComponent(c.id)}">${esc(c.codeClient||'Fiche CRM')}</a>`;
   if(c.codeClient)return `<strong class="lrf-code">${esc(c.codeClient)}</strong>`;
   return `<div class="lrf-edit"><input type="text" maxlength="30" placeholder="Code LRF" data-lrf-input="${esc(c.id)}"><button type="button" class="lrf-save" data-save-lrf="${esc(c.id)}" title="Enregistrer">✓</button></div>`;
 }
@@ -389,11 +392,13 @@ function renderClients(){
   const y=p.y;
   tbody.innerHTML=rows.map(g=>{
     const c=g.client,st=statusOf(g),ev=pct(g.evolution),r=g.sourceRows[0];
-    return `<tr><td><strong>${esc(g.name)}</strong><small>${c?'Associé au CRM':'Non associé au CRM'} · ${rowMeta(g)}</small></td><td>${factoryCodesHtml(g)}</td><td>${lrfEditor(c)}</td><td>${esc(g.dept||'—')}</td><td>${esc(ownerLabel(c,{...r,dept:g.dept}))}</td><td>${euro(g.current)}</td><td>${euro(g.previous)}</td><td><span class="evo ${st}">${ev}</span></td></tr>`;
+    const verified=g.sourceRows.some(row=>Object.hasOwn(row,'crmClientId'));
+    return `<tr${verified?' data-elios-exact':''}><td><strong>${esc(g.name)}</strong><small>${c?'Associé au CRM':'Non associé au CRM'} · ${rowMeta(g)}</small></td><td>${factoryCodesHtml(g)}</td><td>${lrfEditor(c,verified)}</td><td>${esc(g.dept||'—')}</td><td>${esc(ownerLabel(c,{...r,dept:g.dept}))}</td><td>${euro(g.current)}</td><td>${euro(g.previous)}</td><td><span class="evo ${st}">${ev}</span></td></tr>`;
   }).join('')||(hasDetail?'<tr><td colspan="8" class="no-data">Aucun résultat avec ces filtres</td></tr>':'');
   cards.innerHTML=rows.map(g=>{
     const c=g.client,st=statusOf(g),ev=pct(g.evolution),r=g.sourceRows[0];
-    return `<article class="client-stat-card"><div class="client-stat-head"><div><strong>${esc(g.name)}</strong><small>${rowMeta(g)}</small></div><span class="evo ${st}">${ev}</span></div><div class="client-stat-values"><div><small>CA ${y}</small><b>${euro(g.current)}</b></div><div><small>CA ${y-1}</small><b>${euro(g.previous)}</b></div></div><div class="mobile-lrf"><small>Codes usine</small>${factoryCodesHtml(g)}</div><div class="mobile-lrf"><small>Code LRF</small>${lrfEditor(c)}</div></article>`;
+    const verified=g.sourceRows.some(row=>Object.hasOwn(row,'crmClientId'));
+    return `<article class="client-stat-card"${verified?' data-elios-exact':''}><div class="client-stat-head"><div><strong>${esc(g.name)}</strong><small>${rowMeta(g)}</small></div><span class="evo ${st}">${ev}</span></div><div class="client-stat-values"><div><small>CA ${y}</small><b>${euro(g.current)}</b></div><div><small>CA ${y-1}</small><b>${euro(g.previous)}</b></div></div><div class="mobile-lrf"><small>Codes usine</small>${factoryCodesHtml(g)}</div><div class="mobile-lrf"><small>Code LRF</small>${lrfEditor(c,verified)}</div></article>`;
   }).join('')||(hasDetail?'<div class="no-data">Aucun résultat avec ces filtres</div>':'');
 }
 
@@ -449,6 +454,7 @@ function init(){
   if(!annualKeyForYear(selectedYear))periodMode='month';
   renderPartners();renderPeriodSelectors();render();
   window.addEventListener('lrf-elios-stats-updated',()=>{renderPartners();renderPeriodSelectors();render()});
+  window.addEventListener('lrf-elios-stats-links-updated',renderClients);
 
   document.getElementById('stats-year').addEventListener('change',e=>{
     selectedYear=Number(e.target.value);currentPeriodKey='';

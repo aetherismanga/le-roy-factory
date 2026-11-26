@@ -1,4 +1,4 @@
-import './statistiques-lrf-multi.js?v=20260818-1300';
+import './statistiques-lrf-multi.js?v=20261126-elios-links';
 import { db } from './firebase.js';
 import { collection, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { VIEW_STATS_CLIENTS_2026_08 } from './statistiques-view-data.js';
@@ -6,7 +6,7 @@ import { MI_JUIN_2025_STATS } from './statistiques-mi-juin-2025-data.js';
 import { FIN_2025_STATS } from './statistiques-fin-2025-data.js';
 import { RANDAL_FIN_2025_STATS } from './statistiques-randal-fin-2025-data.js';
 import { RANDAL_STATS_2026_10_25 } from './statistiques-randal-octobre-2026-data.js';
-import { STATS_PERIODS, eliosStatsRows } from './statistiques-periods.js?v=20261126-elios';
+import { STATS_PERIODS, eliosStatsRows } from './statistiques-periods.js?v=20261126-elios-links';
 
 const PARTNERS=[
   ['elios-ceramica','ELIOS CERAMICA'],['view-ceramica','VIEW CERAMICA'],['la-fenice','LA FENICE'],['reviglass','REVIGLASS'],['biopietra','BIOPIETRA'],['petracers',"PETRACER'S"],['pecchioli-firenze','PECCHIOLI FIRENZE'],['bulbo','BULBO'],['randal-pro','RANDAL PRO'],['floor-italia','FLOOR ITALIA'],['propamsa','PROPAMSA'],['cermed','CERMED'],['neobath','NEOBATH'],['koibath','KOIBATH'],['aquahome','AQUAHOME'],['opal','OPAL'],['bilt','BILT']
@@ -55,6 +55,7 @@ function clientFactoryCodes(c,partner){
 }
 function rowFactoryCode(r){return String(r.factory||r.elios||'').trim()}
 function matchClient(row,partner){
+  if(Object.hasOwn(row,'crmClientId'))return byId(row.crmClientId);
   const factory=rowFactoryCode(row);
   if(factory){const raw=clients.find(c=>clientFactoryCodes(c,partner).includes(factory));if(raw)return canonicalClient(raw)}
   const k=norm(row.name);if(k.length<4)return null;
@@ -98,7 +99,7 @@ function filteredAnnualRows(){
   }).sort((a,b)=>b.current-a.current);
 }
 function factoryHtml(g){if(!g.codes.length)return '<span class="stats-factory-readonly">—</span>';const all=activePartner()==='all';return g.codes.map(x=>`<span class="stats-factory-readonly">${esc(all?`${PARTNER_NAMES[x.partner]||x.partner} : ${x.code}`:x.code)}</span>`).join('')}
-function lrfHtml(c){if(!c)return '<span class="muted-code">—</span>';const root=canonicalClient(c),codes=allLRFCodes(root),main=root.codeClient||codes[0]||'Code LRF',more=Math.max(0,codes.length-1);return `<button type="button" class="stats-lrf-multi-btn" data-edit-lrf-client="${esc(root.id)}"><span>${esc(main)}</span>${more?`<span class="stats-lrf-more">+${more}</span>`:''}<span class="edit">✎</span></button>`}
+function lrfHtml(c,verified){if(!c)return '<span class="muted-code">—</span>';if(verified)return `<a class="lrf-code" href="clients.html?edit=${encodeURIComponent(c.id)}">${esc(c.codeClient||'Fiche CRM')}</a>`;const root=canonicalClient(c),codes=allLRFCodes(root),main=root.codeClient||codes[0]||'Code LRF',more=Math.max(0,codes.length-1);return `<button type="button" class="stats-lrf-multi-btn" data-edit-lrf-client="${esc(root.id)}"><span>${esc(main)}</span>${more?`<span class="stats-lrf-more">+${more}</span>`:''}<span class="edit">✎</span></button>`}
 function renderDeptOptions(rows){const sel=document.getElementById('stats-dept');if(!sel)return;const current=sel.value,deps=[...new Set(rows.map(g=>g.dept).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr',{numeric:true}));sel.innerHTML='<option value="all">Tous les départements</option>'+deps.map(d=>`<option value="${esc(d)}">${esc(d)}</option>`).join('');if([...sel.options].some(o=>o.value===current))sel.value=current}
 function annualNotice(){
   const year=selectedYear(),partner=activePartner(),targets=partner==='all'?PARTNERS.map(x=>x[0]):[partner],used=targets.map(id=>({id,p:annualSource(id,year)})).filter(x=>x.p),full=used.filter(x=>Number(x.p.m)===12&&!x.p.incomplete),partial=used.filter(x=>x.p.incomplete||Number(x.p.m)!==12),none=targets.filter(id=>!used.some(x=>x.id===id));
@@ -111,8 +112,8 @@ function renderAnnualListing(){
   const all=groupedAnnualRows();renderDeptOptions(all);const rows=filteredAnnualRows(),tbody=document.getElementById('stats-body'),mobile=document.getElementById('stats-mobile-list');if(!tbody||!mobile)return;
   document.getElementById('stats-empty').style.display=all.length?'none':'block';document.getElementById('stats-table-wrap').style.display=all.length?'block':'none';document.getElementById('stats-result-count').textContent=all.length?`${rows.length} client${rows.length>1?'s':''} affiché${rows.length>1?'s':''}`:'';
   const notice=document.getElementById('stats-detail-notice');if(notice){notice.style.display='block';notice.innerHTML=annualNotice()}
-  tbody.innerHTML=rows.map(g=>{const st=status(g),client=g.client;return `<tr><td><strong>${esc(g.name)}</strong><small>${client?'Associé au CRM':'Non associé au CRM'}${g.dept?` · Dép. ${esc(g.dept)}`:''} · ${esc(ownerLabel(g.dept))}</small></td><td data-client-id="${esc(client?.id||'')}">${factoryHtml(g)}</td><td>${lrfHtml(client)}</td><td>${esc(g.dept||'—')}</td><td>${esc(ownerLabel(g.dept))}</td><td>${euro(g.current)}</td><td>${euro(g.previous)}</td><td><span class="evo ${st}">${pct(g.evolution)}</span></td></tr>`}).join('')||(all.length?'<tr><td colspan="8" class="no-data">Aucun résultat avec ces filtres</td></tr>':'');
-  mobile.innerHTML=rows.map(g=>{const st=status(g),client=g.client;return `<article class="client-stat-card"><div class="client-stat-head"><div><strong>${esc(g.name)}</strong><small>${g.dept?`Dép. ${esc(g.dept)} · `:''}${esc(ownerLabel(g.dept))}</small></div><span class="evo ${st}">${pct(g.evolution)}</span></div><div class="client-stat-values"><div><small>CA ${year}</small><b>${euro(g.current)}</b></div><div><small>CA ${year-1}</small><b>${euro(g.previous)}</b></div></div><div class="mobile-lrf" data-client-id="${esc(client?.id||'')}"><small>N° usine</small>${factoryHtml(g)}</div><div class="mobile-lrf"><small>Code LRF</small>${lrfHtml(client)}</div></article>`}).join('');
+  tbody.innerHTML=rows.map(g=>{const st=status(g),client=g.client,verified=g.rows.some(row=>Object.hasOwn(row,'crmClientId'));return `<tr${verified?' data-elios-exact':''}><td><strong>${esc(g.name)}</strong><small>${client?'Associé au CRM':'Non associé au CRM'}${g.dept?` · Dép. ${esc(g.dept)}`:''} · ${esc(ownerLabel(g.dept))}</small></td><td data-client-id="${esc(client?.id||'')}">${factoryHtml(g)}</td><td>${lrfHtml(client,verified)}</td><td>${esc(g.dept||'—')}</td><td>${esc(ownerLabel(g.dept))}</td><td>${euro(g.current)}</td><td>${euro(g.previous)}</td><td><span class="evo ${st}">${pct(g.evolution)}</span></td></tr>`}).join('')||(all.length?'<tr><td colspan="8" class="no-data">Aucun résultat avec ces filtres</td></tr>':'');
+  mobile.innerHTML=rows.map(g=>{const st=status(g),client=g.client,verified=g.rows.some(row=>Object.hasOwn(row,'crmClientId'));return `<article class="client-stat-card"${verified?' data-elios-exact':''}><div class="client-stat-head"><div><strong>${esc(g.name)}</strong><small>${g.dept?`Dép. ${esc(g.dept)} · `:''}${esc(ownerLabel(g.dept))}</small></div><span class="evo ${st}">${pct(g.evolution)}</span></div><div class="client-stat-values"><div><small>CA ${year}</small><b>${euro(g.current)}</b></div><div><small>CA ${year-1}</small><b>${euro(g.previous)}</b></div></div><div class="mobile-lrf" data-client-id="${esc(client?.id||'')}"><small>N° usine</small>${factoryHtml(g)}</div><div class="mobile-lrf"><small>Code LRF</small>${lrfHtml(client,verified)}</div></article>`}).join('');
 }
 
 function milestoneOptions(partner,year){const ids=partner==='all'?PARTNERS.map(x=>x[0]):[partner],byKey=new Map();for(const id of ids)for(const [key,p] of Object.entries(periodMap(id))){if(Number(p.y)!==year||Number(p.m)===12)continue;if(!byKey.has(key))byKey.set(key,p)}return [...byKey.entries()].sort((a,b)=>Number(a[1].m)-Number(b[1].m))}
@@ -146,6 +147,7 @@ function fixHeadings(){const th=document.querySelector('.stats-table th:nth-chil
 function refreshAfterMain(){setTimeout(()=>{ensureSimplePeriod();normalizeOldAnnualMode();rebuildSimplePeriod();fixHeadings();if(hiddenMode()==='annual')renderAnnualListing()},90)}
 function init(){
   window.addEventListener('lrf-elios-stats-updated',refreshAfterMain);
+  window.addEventListener('lrf-elios-stats-links-updated',renderAnnualListing);
   injectStyles();ensureSimplePeriod();fixHeadings();document.addEventListener('click',e=>{if(e.target.closest('.partner-tab'))refreshAfterMain()});document.getElementById('stats-year')?.addEventListener('change',refreshAfterMain);document.getElementById('stats-period-type')?.addEventListener('change',refreshAfterMain);document.getElementById('stats-month')?.addEventListener('change',refreshAfterMain);document.getElementById('stats-range-apply')?.addEventListener('click',refreshAfterMain);document.getElementById('stats-search')?.addEventListener('input',()=>{if(hiddenMode()==='annual')setTimeout(renderAnnualListing,0)});['stats-filter','stats-owner','stats-dept'].forEach(id=>document.getElementById(id)?.addEventListener('change',()=>{if(hiddenMode()==='annual')setTimeout(renderAnnualListing,0)}));
   onSnapshot(collection(db,'clients'),snap=>{clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));refreshAfterMain()});refreshAfterMain();
 }

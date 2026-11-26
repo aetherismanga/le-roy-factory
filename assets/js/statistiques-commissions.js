@@ -7,7 +7,7 @@ import { MI_JUIN_2025_STATS } from './statistiques-mi-juin-2025-data.js';
 import { FIN_2025_STATS } from './statistiques-fin-2025-data.js';
 import { RANDAL_FIN_2025_STATS } from './statistiques-randal-fin-2025-data.js';
 import { RANDAL_STATS_2026_10_25 } from './statistiques-randal-octobre-2026-data.js';
-import { STATS_PERIODS, eliosStatsRows } from './statistiques-periods.js?v=20261126-elios';
+import { STATS_PERIODS, eliosStatsRows } from './statistiques-periods.js?v=20261126-elios-links';
 
 const JEROME_DEPTS=new Set(['11','30','34','66']);
 const SETTINGS_KEY='lrf-commission-rates-v1';
@@ -40,6 +40,7 @@ function factoryCodes(c,partner){
 }
 function rowCode(r){return String(r.factory||r.elios||'').trim()}
 function matchClient(r,partner){
+  if(Object.hasOwn(r,'crmClientId'))return clients.find(c=>c.id===r.crmClientId)||null;
   const code=rowCode(r);
   let c=code?clients.find(x=>factoryCodes(x,partner).includes(code)):null;
   if(c)return c;
@@ -109,6 +110,7 @@ function render(){
 }
 function observeUI(){
   window.addEventListener('lrf-elios-stats-updated',render);
+  window.addEventListener('lrf-elios-stats-links-updated',render);
   document.addEventListener('click',e=>{if(e.target.closest('.partner-tab'))setTimeout(render,50)});
   document.addEventListener('change',e=>{if(e.target.matches('#stats-month,#stats-year,#stats-period-type,#stats-date-from,#stats-date-to'))setTimeout(render,20)});
 }

@@ -1,5 +1,5 @@
-import {STATS_PERIODS} from './statistiques-periods.js?v=20261126-elios';
-import './statistiques-lrf-multi.js';
+import {STATS_PERIODS} from './statistiques-periods.js?v=20261126-elios-links';
+import './statistiques-lrf-multi.js?v=20261126-elios-links';
 
 const PARTNERS=[
   ['elios-ceramica','ELIOS CERAMICA'],['view-ceramica','VIEW CERAMICA'],['la-fenice','LA FENICE'],['reviglass','REVIGLASS'],['biopietra','BIOPIETRA'],['petracers',"PETRACER'S"],['pecchioli-firenze','PECCHIOLI FIRENZE'],['bulbo','BULBO'],['randal-pro','RANDAL PRO'],['floor-italia','FLOOR ITALIA'],['propamsa','PROPAMSA'],['cermed','CERMED'],['neobath','NEOBATH'],['koibath','KOIBATH'],['aquahome','AQUAHOME'],['opal','OPAL'],['bilt','BILT']
