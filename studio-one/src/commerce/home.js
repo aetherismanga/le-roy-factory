@@ -19,6 +19,7 @@ import {createWorkspace} from './workspace.js';
 import {createProjectNavigation} from './navigation.js';
 import {CATALOG as C} from './catalog.js';
 import {money,quoteProject,finish} from './pricing.js';
+import {furnitureOrderRows} from './order-summary.js';
 import {initialDraft,normalizeDraft,draftProject,DRAFT_KEY,TRANSFER_KEY} from './guided.js';
 import {createIdentity,privateMarkup,existingAdministrator} from './identity.js';
 import {chipStyle,APPEARANCE} from './appearance.js';
@@ -78,6 +79,7 @@ async function updatePreview(p){
    const png=await engine.thumbnail(draftProject({...draft,column:true}));
    if(ticket===previewTurn&&png&&$('#column-thumbnail')){columnThumbnails.set(draft.columnFinish,png);const img=document.createElement('img');img.src=png;img.alt='Colonne STUDIO ONE 14177 en 3D · '+finish(draft.columnFinish).name;$('#column-thumbnail').replaceChildren(img);}
   }
+  return ticket===previewTurn;
  }catch(e){if(ticket!==previewTurn)return;previewFailed=true;if(!preview){previewPromise=null;host.querySelector('canvas')?.remove();}status.hidden=false;status.dataset.reason=e.message;status.querySelector('span').textContent='La composition 3D ne peut pas s’afficher. Vérifiez WebGL et votre connexion. Vos choix sont conservés.';$('#preview-retry').hidden=false;}
 }
 function attachPreview(){const on=view==='quote'||view==='wizard'&&step>0,shell=$('#preview-shell');shell.hidden=!on;$('#live-estimate').hidden=!(view==='wizard'&&step>0);if(!on){previewTurn++;clearTimeout(previewCapture);preview?.setActive(false);return;}const parent=view==='quote'?$('#quote-layout'):$('#wizard-body');if(shell.parentElement!==parent)parent.prepend(shell);const p=currentComposition();if(p){updatePreview(p);if(view==='wizard')renderLiveQuote();commercialChanged();}}
@@ -221,14 +223,23 @@ $('#preview-composition').onclick=()=>{previewScope='composition';const p=curren
 $('#preview-column').onclick=()=>{if(!draft.column)return;previewScope='column';const p=currentComposition();if(p)updatePreview(p);};
 
 const projectWorkspace=createWorkspace({onPublicCompositions:()=>homePublicGallery.show(),getProject:currentComposition,getThumbnail:()=>previewScope==='composition'&&cachedThumbnailConfiguration===JSON.stringify(currentComposition()?.items)?cachedThumbnail:null,onDeletedActive:()=>{project=null;draft=initialDraft();projectTitle=t('Ma salle de bains');siteReference='';switchView('home');},onUpdate:data=>{project=data;projectTitle=data.title;siteReference=data.siteReference||'';storeQuote(localStorage,data,quoteMode);renderQuote();},
+ getOrderRows:furnitureOrderRows,
+ async getOrderSnapshot(data){
+  const error='Le visuel 3D du PDF ne peut pas être préparé. Vérifiez que l’aperçu du mobilier s’affiche, puis réessayez.';
+  if(!await updatePreview(data))throw Error(error);
+  let snapshot;
+  try{snapshot=await preview.snapshot({width:1200,format:'image/jpeg',frameFurniture:true});}catch{throw Error(error);}
+  if(!snapshot?.startsWith('data:image/jpeg;base64,')||snapshot.length>400000)throw Error(error);
+  return snapshot;
+ },
  onOpen:(data,id,record)=>{if(record?.kind==='house'){if(isRandalPresentation(identity.state)){error('Les plans maison ne sont pas disponibles dans cet espace.','#quote-status');return;}location.href=demoRoute('maison.html?project='+encodeURIComponent(id));return;}openSaved(data,id);},
- onLock:(locked)=>{for(const selector of ['#quote-title','#quote-site','#edit-choices','#save-composition','#prepare-order']){const el=$(selector);if(el)el.disabled=locked;}},status:text=>error(text,'#quote-status')});
+ onLock:(locked)=>{for(const selector of ['#quote-title','#quote-site','#edit-choices','#save-composition','#prepare-order']){const el=$(selector);if(el)el.disabled=locked;}const send=$('#send-project-administrator');if(send)send.hidden=locked;},status:text=>error(text,'#quote-status')});
 projectWorkspace.setAccount(identity.state);
 $('#saved-projects').onclick=()=>projectWorkspace.showProjects();
 $('#save-composition').onclick=async()=>{try{persistQuote();await projectWorkspace.save();}catch(e){error(e.message,'#quote-status');}};
 $('#project-import').onchange=e=>{projectWorkspace.importFile(e.target.files?.[0]);e.target.value='';};
 $('#prepare-order').onclick=()=>partnerForProject(project)?beginDocument('send'):projectWorkspace.order();
-const adminSend=document.createElement('button');adminSend.type='button';adminSend.className='lrf-admin-send';adminSend.id='send-project-administrator';adminSend.textContent='Envoyer le projet à l’administrateur';adminSend.onclick=()=>projectWorkspace.sendAdministrator();$('#quote-panel').append(adminSend);
+const adminSend=document.createElement('button');adminSend.type='button';adminSend.className='lrf-admin-send';adminSend.id='send-project-administrator';adminSend.textContent='Transmettre un brouillon à l’administrateur';adminSend.onclick=()=>projectWorkspace.sendAdministrator();$('#quote-panel').append(adminSend);projectWorkspace.refreshLock();
 // A draft starts being checkpointed after the model step; choosing a model never opens a save dialog.
 const checkpointHome=()=>{if(currentComposition())projectWorkspace.checkpoint();};
 $('#next').addEventListener('click',checkpointHome);document.addEventListener('click',e=>{if(e.target.closest('[data-choice],[data-swatch],[data-width],[data-model],[data-collection]'))queueMicrotask(checkpointHome);});

@@ -5,7 +5,7 @@ const crypto = require('node:crypto');
 const nodemailer = require('nodemailer');
 const {clientFromSessionToken} = require('./pro-session');
 const {getAgentFromRequest} = require('./auth');
-const {VERSION, text, failure, checkedInput, assertEditable, assertRevision, keyFor, publicRecord} = require('./configurator-projects-core');
+const {VERSION, RANDAL_VARIANTS, text, failure, checkedOrderComment, checkedInput, assertEditable, assertRevision, keyFor, publicRecord} = require('./configurator-projects-core');
 const {orderDocument} = require('./configurator-projects-document.cjs');
 const db = admin.firestore(), COLLECTION = 'configurator_projects', TO = 'jerome@leroyfactory.fr';
 const ORIGINS = new Set(['https://leroyfactory.fr', 'https://www.leroyfactory.fr', 'https://studio-one-beta-test-v2.vercel.app', 'https://randal-catalogue-general-3d.vercel.app']);
@@ -41,29 +41,32 @@ function transport() {
   if (!process.env.SMTP_PASSWORD_JEROME) throw Object.assign(failure('Le service d’envoi LRF est indisponible. Votre projet reste sauvegardé.', 503), {code: 'SMTP_NOT_CONFIGURED'});
   return nodemailer.createTransport({host: 'ssl0.ovh.net', port: 465, secure: true, auth: {user: TO, pass: process.env.SMTP_PASSWORD_JEROME}, connectionTimeout: 15000, socketTimeout: 30000});
 }
-async function prepareMail(record, a, recipient, order, summary) {
+async function prepareMail(record, a, recipient, {order = false, summary, comment} = {}) {
   const title = text(record.title, 100).replace(/[\r\n]/g, ' '), store = a.store.replace(/[\r\n]/g, ' '), code = a.code || 'ADMIN';
   const subject = `${store} · ${code} — ${order ? 'COMMANDE' : 'PROJET'} ${record.number} — ${title}`;
   const envelope = {format: 'lrf-project', version: 1, variant: record.variant, record: {...publicRecord(record), status: 'draft', revision: 0}};
   const json = {filename: record.number + '.lrf3d.json', content: JSON.stringify(envelope, null, 2), contentType: 'application/json'};
-  if (record.variant === 'randal-general' && summary !== undefined) {
-    const {rows, attachment} = await orderDocument(record, a, summary, order);
-    const body = [
-      order ? 'Commande RANDAL — Catalogue Général' : 'Projet RANDAL — Catalogue Général',
+  const body = order ? ['Bonjour,', '', 'Merci de prendre en compte cette commande.', ''] : [];
+  const commentLines = order && comment ? ['', 'Commentaire client', comment] : [];
+  const mail = {from: {name: 'Projets RANDAL · LE ROY FACTORY', address: TO}, to: recipient, ...(a.email ? {replyTo: a.email} : {}), subject};
+  if (summary !== undefined) {
+    const {rows, attachment} = await orderDocument(record, a, summary, order, order ? comment : '');
+    body.push(...[
+      `${order ? 'Commande' : 'Projet'} RANDAL — ${RANDAL_VARIANTS[record.variant].title}`,
       `Magasin  ${a.store} · ${code}`,
       `Dossier  ${record.number} · ${record.title}`,
       record.customer.name && `Client / chantier  ${record.customer.name}`,
       record.customer.site && `Référence chantier  ${record.customer.site}`,
       record.customer.email && `E-mail  ${record.customer.email}`,
       record.customer.telephone && `Téléphone  ${record.customer.telephone}`,
-    ].filter(Boolean);
-    body.push('', 'Composition', ...rows.map(row => `${row.quantity} × ${row.name} — Réf. ${row.reference}${row.details ? '\n    ' + row.details : ''}`), '',
+    ].filter(Boolean));
+    body.push('', 'Composition', ...rows.map(row => `${row.quantity} × ${row.name} — Réf. ${row.reference}${row.details ? '\n    ' + row.details : ''}`), ...commentLines, '',
       'Le PDF joint présente le descriptif et le rendu 3D de la composition.',
       'Le fichier de configuration permet de reprendre le projet dans Mes projets → Importer.');
-    return {from: {name: 'Projets RANDAL · LE ROY FACTORY', address: TO}, to: recipient, ...(a.email ? {replyTo: a.email} : {}), subject, text: body.join('\n'), attachments: [attachment, json]};
+    return {...mail, text: body.join('\n'), attachments: [attachment, json]};
   }
-  const body = [`MAGASIN : ${a.store}`, `NUMÉRO LRF : ${code}`, `PROJET : ${record.number}`, `NOM : ${record.title}`, `CLIENT / CHANTIER : ${record.customer.name || 'À renseigner'}`, `E-MAIL CLIENT : ${record.customer.email || 'Non renseigné'}`, `TÉLÉPHONE : ${record.customer.telephone || 'Non renseigné'}`, `RÉFÉRENCE CHANTIER : ${record.customer.site || ''}`, '', order ? 'Commande transmise par le compte LRF vérifié. Le projet est désormais verrouillé ; une duplication reste possible.' : 'Copie du projet en pièce jointe. Pour la reprendre sur un autre poste : Mes projets → Importer, puis nommer la copie.', '', 'Les références, tarifs et disponibilités restent à contrôler dans le dossier commercial LRF. Le fichier contient la configuration et ne contient aucun identifiant de connexion.'].join('\n');
-  return {from: {name: 'Projets RANDAL · LE ROY FACTORY', address: TO}, to: recipient, ...(a.email ? {replyTo: a.email} : {}), subject, text: body, attachments: [json]};
+  body.push(`MAGASIN : ${a.store}`, `NUMÉRO LRF : ${code}`, `PROJET : ${record.number}`, `NOM : ${record.title}`, `CLIENT / CHANTIER : ${record.customer.name || 'À renseigner'}`, `E-MAIL CLIENT : ${record.customer.email || 'Non renseigné'}`, `TÉLÉPHONE : ${record.customer.telephone || 'Non renseigné'}`, `RÉFÉRENCE CHANTIER : ${record.customer.site || ''}`, ...commentLines, '', order ? 'Commande transmise par le compte LRF vérifié. Le projet est désormais verrouillé ; une duplication reste possible.' : 'Copie du projet en pièce jointe. Pour la reprendre sur un autre poste : Mes projets → Importer, puis nommer la copie.', '', 'Les références, tarifs et disponibilités restent à contrôler dans le dossier commercial LRF. Le fichier contient la configuration et ne contient aucun identifiant de connexion.');
+  return {...mail, text: body.join('\n'), attachments: [json]};
 }
 async function deliver(mail) {
   const result = await transport().sendMail(mail);
@@ -86,7 +89,7 @@ function deliverableReceipt(receipt, alreadyDelivered) {
   return {success: true, delivered: true, number: receipt.number, documentAttached: receipt.documentAttached === true,
     ...(alreadyDelivered ? {alreadyDelivered} : {})};
 }
-async function sendLocalToAdministrator(record, a, order, summary) {
+async function sendLocalToAdministrator(record, a, {order = false, summary, comment} = {}) {
   const receipts = db.collection('configurator_local_mail_receipts');
   const orderRef = receipts.doc(keyFor(a.owner, record.variant, 'order:' + record.id));
   const ref = order ? orderRef : receipts.doc(keyFor(a.owner, record.variant, 'project:' + record.id));
@@ -94,7 +97,7 @@ async function sendLocalToAdministrator(record, a, order, summary) {
   // Draft copies can be resent after editing, without being sent twice when unchanged.
   const fingerprint = order ? '' : crypto.createHash('sha256')
     .update(JSON.stringify({title: record.title, customer: record.customer, data: record.data})).digest('hex');
-  const mail = await prepareMail(record, a, TO, order, summary);
+  const mail = await prepareMail(record, a, TO, {order, summary, comment});
   const documentAttached = mail.attachments[0].contentType === 'application/pdf';
   const pending = {status: 'sending', number: record.number, fingerprint, startedAt: new Date().toISOString()};
   const prior = await db.runTransaction(async tx => {
@@ -133,9 +136,8 @@ exports.randalProjects = onRequest({region: 'us-central1', timeoutSeconds: 90, m
   if (req.method !== 'POST' || origin && !ORIGINS.has(origin)) return res.status(403).json({success: false, error: 'Origine non autorisée.'});
   try {
     const a = await account(req), b = req.body || {}, variant = b.variant;
-    if (!['studio-one', 'randal-general'].includes(variant)) throw failure('Configurateur inconnu.');
+    if (typeof variant !== 'string' || !Object.hasOwn(RANDAL_VARIANTS, variant)) throw failure('Configurateur inconnu.');
     const requiresDocument = b.action === 'local-order-with-document';
-    if (requiresDocument && variant !== 'randal-general') throw failure('Action inconnue.');
     if (requiresDocument && !b.orderSummary) throw failure('Le descriptif et le visuel de la composition sont manquants.', 422);
     // Local-only projects are never written to Firestore. Authentication, rate
     // limiting and SMTP delivery stay server-side, and the attached project is
@@ -150,11 +152,12 @@ exports.randalProjects = onRequest({region: 'us-central1', timeoutSeconds: 90, m
       const recipient = b.action === 'local-email' ? text(b.recipient, 254) : TO;
       if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(recipient)) throw failure('Adresse e-mail du destinataire invalide.');
       const record = {...raw, number, variant, account: {store: a.store, code: a.code}, date: new Date().toISOString(), status: 'draft'};
-      if (variant === 'randal-general' && recipient.toLowerCase() === TO) {
-        return res.json(await sendLocalToAdministrator(record, a, order, b.orderSummary));
+      if (recipient.toLowerCase() === TO) {
+        const comment = order ? checkedOrderComment(b.orderComment) : '';
+        return res.json(await sendLocalToAdministrator(record, a, {order, summary: b.orderSummary, comment}));
       }
       await db.runTransaction(tx => reserveMailQuota(tx, a));
-      await deliver(await prepareMail(record, a, recipient, order));
+      await deliver(await prepareMail(record, a, recipient));
       return res.json({success: true, delivered: true, number});
     }
     if (b.action === 'list') {
@@ -174,17 +177,19 @@ exports.randalProjects = onRequest({region: 'us-central1', timeoutSeconds: 90, m
     if (b.action === 'email' || b.action === 'administrator') {
       const recipient = b.action === 'administrator' ? TO : text(b.recipient, 254);
       if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(recipient)) throw failure('Adresse e-mail du destinataire invalide.');
-      if (variant === 'randal-general' && recipient.toLowerCase() === TO) {
+      if (recipient.toLowerCase() === TO) {
         if (record.status === 'validated') return res.json({...deliverableReceipt({number: record.number, documentAttached: record.orderDocumentAttached}, 'order'), record: publicRecord(record)});
         assertEditable(record);
-        return res.json({...await sendLocalToAdministrator(record, a, false, b.orderSummary), record: publicRecord(record)});
+        return res.json({...await sendLocalToAdministrator(record, a, {summary: b.orderSummary}), record: publicRecord(record)});
       }
       await db.runTransaction(tx => reserveMailQuota(tx, a));
-      await deliver(await prepareMail(record, a, recipient, false));
+      await deliver(await prepareMail(record, a, recipient));
       return res.json({success: true, record: publicRecord(record), delivered: true});
     }
     if (b.action === 'order') {
-      const mail = record.status === 'validated' ? null : await prepareMail(record, a, TO, true, b.orderSummary);
+      const mail = record.status === 'validated' ? null : await prepareMail(record, a, TO, {
+        order: true, summary: b.orderSummary, comment: checkedOrderComment(b.orderComment),
+      });
       const op = crypto.randomUUID();
       const current = await db.runTransaction(async tx => {
         const r = (await tx.get(ref)).data();

@@ -26,6 +26,13 @@ function harness(){
 }
 const record=()=>({id:'project-aaaaaaaa-bbbb-cccc',kind:'bathroom',title:'Salle de bains',revision:0,customer:{name:'Mme Exemple',email:'test@example.com'},data:{version:2,room:{points:[[0,0],[300,0],[300,250],[0,250]],height:260},items:[]}});
 test('server validates bounded portable projects and forbids embedded credentials',()=>{assert.throws(()=>core.checkedInput({...record(),data:{...record().data,sessionToken:'secret'}}));assert.throws(()=>core.checkedInput({...record(),id:'../unsafe'}));assert.throws(()=>core.checkedInput({...record(),customer:{email:'bad\nBcc:test@example.com'}}));assert.throws(()=>core.assertEditable({status:'validated'}),/dupliquez/);assert.throws(()=>core.assertRevision({revision:3},2),/autre poste/);assert.notEqual(core.keyFor('a','studio-one','id'),core.keyFor('b','studio-one','id'));});
+test('optional order comments preserve line breaks, normalize controls and stay within 1000 characters',()=>{
+ assert.equal(core.checkedOrderComment(undefined),'');
+ assert.equal(core.checkedOrderComment('  \r\n  '),'');
+ assert.equal(core.checkedOrderComment('  Prévenir avant la livraison.\r\nPlan A\u0000.  '),'Prévenir avant la livraison.\nPlan A.');
+ assert.equal(core.checkedOrderComment('A'.repeat(1200)).length,1000);
+ assert.throws(()=>core.checkedOrderComment({note:'invalid'}),{status:422});
+});
 test('owner isolation, authoritative number, save revisions and irreversible draft deletion',async()=>{const h=harness();const s=await h.call({action:'save',record:record()});assert.equal(s.status,200);assert.match(s.record.number,/^LRF-\d{4}-\d{6}$/);assert.equal(s.record.status,'draft');assert.equal(s.record.revision,1);assert.equal(s.record.account.code,'LRF-00003');assert.equal(s.record.owner,undefined);
  const conflict=await h.call({action:'save',record:record()});assert.equal(conflict.status,409);
  const other=await h.call({action:'delete',id:s.record.id,revision:1},'valid-b');assert.equal(other.status,200);assert.equal((await h.call({action:'list'})).projects.length,1);
@@ -50,6 +57,8 @@ test('local-only projects are sent and ordered without project storage in Firest
  assert.equal(forwarded.delivered,true);assert.equal(h.messages[1].to,'recipient@example.com');
  const order=await h.call({action:'local-order',record:local});
  assert.equal(order.delivered,true);assert.match(h.messages[2].subject,/COMMANDE/);
+ assert.match(h.messages[2].text,/^Bonjour,\n\nMerci de prendre en compte cette commande\.\n\n/);
+ assert.doesNotMatch(h.messages[2].text,/Commentaire client/);
  assert.equal((await h.call({action:'list'})).projects.length,0);
  assert.equal([...h.documents.keys()].some(k=>k.startsWith('configurator_projects/')),false);
  assert.equal((await h.call({action:'local-email',record:local,recipient:'bad\nBcc:evil@example.com'})).status,400);
@@ -64,31 +73,71 @@ const summary=()=>({snapshot,rows:[
 const generalRequest=(action,recordInput=record(),orderSummary=summary())=>({
  variant:'randal-general',action,record:{number:'LOCAL-20261126-TEST1234',...recordInput},orderSummary,
 });
+const pdfPageInstructions=(pdf,page)=>page.node.Contents().asArray()
+ .map(ref=>Buffer.from(decodePDFRawStream(pdf.context.lookup(ref)).decode()).toString('ascii')).join('\n');
+const pdfHasText=(instructions,value)=>instructions.includes(Buffer.from(value,'latin1').toString('hex').toUpperCase());
 
 test('General order email includes readable references, a real PDF with the rendered image, and an importable project',async()=>{
- const h=harness(),request=generalRequest('local-order-with-document'),response=await h.call(request);
+ const h=harness(),orderComment='Prévenir avant livraison.\nAccès par le portail côté cour.';
+ const request={...generalRequest('local-order-with-document'),orderComment},response=await h.call(request);
  assert.equal(response.status,200);
  assert.equal(response.documentAttached,true);
  assert.equal(h.messages.length,1);
  const [mail]=h.messages,[pdfFile,projectFile]=mail.attachments;
  assert.match(mail.subject,/COMMANDE/);
+ assert.match(mail.text,/^Bonjour,\n\nMerci de prendre en compte cette commande\.\n\n/);
  assert.match(mail.text,/1 × Meuble sous-vasque Aruba rainuré — Réf. ARUBA-REF-TEST/);
  assert.match(mail.text,/1 × Colonne Aruba — Réf. COL-REF-TEST/);
+ assert.ok(mail.text.includes('Commentaire client\n'+orderComment));
  assert.equal(pdfFile.contentType,'application/pdf');
  assert.match(pdfFile.filename,/LOCAL-20261126-TEST1234.*\.pdf$/);
  const pdf=await PDFDocument.load(pdfFile.content);
  assert.equal(pdf.getPageCount(),1);
  const [page]=pdf.getPages();
- const instructions=page.node.Contents().asArray().map(ref=>Buffer.from(decodePDFRawStream(pdf.context.lookup(ref)).decode()).toString('ascii')).join('\n');
+ const instructions=pdfPageInstructions(pdf,page);
  const {XObject}=page.node.normalizedEntries();
  const [imageRef]=XObject.values(),image=pdf.context.lookup(imageRef);
  assert.equal(image.dict.get(PDFName.of('Subtype')).toString(),'/Image');
  assert.equal(image.dict.get(PDFName.of('Width')).asNumber(),240);
  for(const {reference} of request.orderSummary.rows) {
-  assert.ok(instructions.includes(Buffer.from('Réf. '+reference,'latin1').toString('hex').toUpperCase()));
+  assert.ok(pdfHasText(instructions,'Réf. '+reference));
  }
+ for(const line of ['Commentaire client',...orderComment.split('\n')])assert.ok(pdfHasText(instructions,line));
  assert.equal(JSON.parse(projectFile.content).record.id,request.record.id);
  assert.equal(JSON.parse(projectFile.content).record.owner,undefined);
+ assert.doesNotMatch(projectFile.content,/Prévenir avant livraison/);
+ assert.doesNotMatch(JSON.stringify([...h.documents]),/Prévenir avant livraison/);
+});
+
+test('Studio One sends one order with its own PDF and optional client comment',async()=>{
+ const h=harness(),request={...generalRequest('local-order-with-document'),variant:'studio-one',orderComment:'Prévoir une livraison le matin.'};
+ const result=await h.call(request);
+ assert.equal(result.status,200);
+ assert.equal(result.documentAttached,true);
+ const [message]=h.messages,[pdfFile]=message.attachments;
+ assert.match(message.text,/^Bonjour,\n\nMerci de prendre en compte cette commande\.\n\nCommande RANDAL — Studio One/);
+ assert.match(message.text,/Commentaire client\nPrévoir une livraison le matin\./);
+ assert.match(pdfFile.filename,/-Randal-Studio-One\.pdf$/);
+ const pdf=await PDFDocument.load(pdfFile.content),instructions=pdfPageInstructions(pdf,pdf.getPage(0));
+ assert.ok(pdfHasText(instructions,'LE ROY FACTORY / RANDAL / STUDIO ONE'));
+ assert.ok(pdfHasText(instructions,'Prévoir une livraison le matin.'));
+ assert.equal((await h.call({...request,orderComment:'Texte modifié'})).alreadyDelivered,'order');
+ assert.equal((await h.call({...request,action:'local-administrator'})).alreadyDelivered,'order');
+ assert.equal(h.messages.length,1);
+});
+
+test('Legacy order paths include the greeting and a comment only when provided',async()=>{
+ const h=harness(),stored=await h.call({action:'save',record:record()});
+ const synced=await h.call({action:'order',id:stored.record.id,revision:stored.record.revision,orderComment:'Confirmer le délai.'});
+ assert.equal(synced.delivered,true);
+ assert.match(h.messages[0].text,/^Bonjour,\n\nMerci de prendre en compte cette commande\./);
+ assert.match(h.messages[0].text,/Commentaire client\nConfirmer le délai\./);
+ const house={...record(),id:'project-house-notes-12345',kind:'house',data:{schema:2,layout:{},rooms:[],exterior:{}}};
+ const result=await h.call({action:'local-order',record:house,orderComment:'Accès chantier à préciser.'});
+ assert.equal(result.delivered,true);
+ assert.equal(result.documentAttached,false);
+ assert.match(h.messages[1].text,/Commentaire client\nAccès chantier à préciser\./);
+ assert.equal(h.messages[1].attachments.length,1);
 });
 
 test('General local orders are idempotent and suppress copies to the same administrator',async()=>{
@@ -120,6 +169,7 @@ test('General administrator copies get the descriptive PDF and deduplicate the s
  const h=harness(),request=generalRequest('local-administrator');
  assert.equal((await h.call(request)).documentAttached,true);
  assert.match(h.messages[0].subject,/PROJET/);
+ assert.doesNotMatch(h.messages[0].text,/^Bonjour,/);
  assert.equal((await h.call(request)).alreadyDelivered,'project');
  assert.equal(h.messages.length,1);
  const edited={...request,record:{...request.record,title:'Nouvelle version'}};
@@ -132,7 +182,8 @@ test('General administrator copies get the descriptive PDF and deduplicate the s
 test('General order allows repairing an invalid visual or rejected delivery but locks an ambiguous SMTP attempt',async()=>{
  const h=harness(),request=generalRequest('local-order-with-document');
  assert.equal((await h.call({...request,orderSummary:undefined})).status,422);
- assert.equal((await h.call({...request,variant:'studio-one'})).status,400);
+ assert.equal((await h.call({...request,variant:'inconnu'})).status,400);
+ assert.equal((await h.call({...request,orderComment:{malformed:'invalid'}})).status,422);
  assert.equal((await h.call({...request,orderSummary:{...summary(),snapshot:'data:image/jpeg;base64,ZmFrZQ=='}})).status,422);
  assert.equal(h.documents.size,0);
  h.setFail(true);

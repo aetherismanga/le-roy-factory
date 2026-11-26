@@ -8,7 +8,9 @@ export default async function handler(req,res){
  try{if(!token)token=decodeURIComponent(cookies.studio_one_admin||cookies.studio_one_pro||'').trim();}catch{return res.status(401).json({success:false,error:'Session LRF non reconnue.'});}
  if(!token)return res.status(401).json({success:false,error:'Connectez votre compte client LRF pour synchroniser et envoyer ce projet.'});
  const authorization='Bearer '+token;
- try{const b=typeof req.body==='string'?JSON.parse(req.body):req.body||{};if(JSON.stringify(b).length>700000)return res.status(413).json({error:'Projet trop volumineux.'});
+ try{const b=typeof req.body==='string'?JSON.parse(req.body):req.body||{};
+ const isOrderDocument=b.action==='local-order-with-document';
+ if(Buffer.byteLength(JSON.stringify(b))>(isOrderDocument?1150000:700000)||isOrderDocument&&Buffer.byteLength(JSON.stringify(b.record??null))>700000)return res.status(413).json({error:'Projet trop volumineux.'});
  const response=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/randalProjects',{method:'POST',headers:{'Content-Type':'application/json',Authorization:authorization},body:JSON.stringify({...b,variant:'studio-one'}),signal:AbortSignal.timeout(60000)});
  const result=await response.json();res.status(response.status).json(result);
  }catch{return res.status(503).json({error:'Service projets LRF indisponible. Votre copie locale est conservée.'});}

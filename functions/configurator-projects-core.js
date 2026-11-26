@@ -1,8 +1,17 @@
 'use strict';
 const crypto = require('node:crypto');
-const VERSION = '20261126-randal-order-document';
+const VERSION = '20261126-randal-order-comment';
+const RANDAL_VARIANTS = Object.freeze({
+  'studio-one': {title: 'Studio One', filename: 'Studio-One'},
+  'randal-general': {title: 'Catalogue Général', filename: 'Catalogue-General'},
+});
 const text = (value, max = 160) => String(value || '').trim().slice(0, max);
 function failure(message, status = 400) { return Object.assign(new Error(message), {status}); }
+function checkedOrderComment(value) {
+  if (value === undefined || value === null) return '';
+  if (typeof value !== 'string') throw failure('Le commentaire de commande est invalide.', 422);
+  return value.replace(/\r\n?/g, '\n').replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '').trim().slice(0, 1000).trimEnd();
+}
 function checkedData(raw, kind) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw failure('Composition manquante.');
   const encoded = JSON.stringify(raw);
@@ -29,4 +38,4 @@ function assertRevision(old, revision) {
 }
 function keyFor(owner, variant, id) { return crypto.createHash('sha256').update(owner + ':' + variant + ':' + id).digest('hex'); }
 function publicRecord(record) { const {owner, sendOperation, sendStartedAt, ...safe} = record; return safe; }
-module.exports = {VERSION, text, failure, checkedInput, assertEditable, assertRevision, keyFor, publicRecord};
+module.exports = {VERSION, RANDAL_VARIANTS, text, failure, checkedOrderComment, checkedInput, assertEditable, assertRevision, keyFor, publicRecord};

@@ -1,7 +1,7 @@
 'use strict';
 
 const {PDFDocument, StandardFonts, rgb} = require('pdf-lib');
-const {failure, text} = require('./configurator-projects-core');
+const {RANDAL_VARIANTS, failure, text} = require('./configurator-projects-core');
 
 const MAX_SNAPSHOT_LENGTH = 400000;
 const MAX_ROWS = 128;
@@ -36,7 +36,7 @@ function checkedSummary(summary) {
 }
 
 function fitText(value, font, size, maxWidth) {
-  const words = oneLine(value, 500).split(' ');
+  const words = oneLine(value, 1000).split(' ');
   const lines = [];
   let current = '';
   function push() { if (current) lines.push(current); current = ''; }
@@ -59,8 +59,9 @@ function fitText(value, font, size, maxWidth) {
   return lines;
 }
 
-async function orderDocument(record, account, input, order) {
+async function orderDocument(record, account, input, order, comment = '') {
   const {rows, image} = checkedSummary(input);
+  const variant = RANDAL_VARIANTS[record.variant];
   const pdf = await PDFDocument.create();
   let snapshot;
   try { snapshot = await pdf.embedJpg(image); } catch {
@@ -92,7 +93,7 @@ async function orderDocument(record, account, input, order) {
   }
 
   newPage();
-  write('LE ROY FACTORY  /  RANDAL  /  CATALOGUE GÉNÉRAL', 10, {font: bold, color: muted});
+  write('LE ROY FACTORY  /  RANDAL  /  ' + variant.title.toUpperCase(), 10, {font: bold, color: muted});
   y -= 12;
   write(`${order ? 'Commande' : 'Projet'} ${record.number}`, 24, {font: bold});
   write(record.title, 15);
@@ -125,13 +126,27 @@ async function orderDocument(record, account, input, order) {
     y -= 13;
   }
 
+  if (comment) {
+    const commentHeading = () => write('Commentaire client', 13, {font: bold});
+    y -= 4;
+    if (y < 85) newPage();
+    commentHeading();
+    for (const row of comment.split(/\n+/).flatMap(paragraph => fitText(paragraph, regular, 10, width))) {
+      if (y < 60) {
+        newPage();
+        commentHeading();
+      }
+      write(row, 10);
+    }
+  }
+
   const pages = pdf.getPages();
   pages.forEach((p, index) => {
     p.drawLine({start: {x: margin, y: 40}, end: {x: right, y: 40}, thickness: .55, color: line});
     p.drawText('Rendu 3D de la composition · Coloris indicatifs', {x: margin, y: 25, size: 8, font: regular, color: muted});
     p.drawText(`${index + 1} / ${pages.length}`, {x: right - 32, y: 25, size: 8, font: regular, color: muted});
   });
-  return {rows, attachment: {filename: `${record.number}-Randal-Catalogue-General.pdf`, content: Buffer.from(await pdf.save()), contentType: 'application/pdf'}};
+  return {rows, attachment: {filename: `${record.number}-Randal-${variant.filename}.pdf`, content: Buffer.from(await pdf.save()), contentType: 'application/pdf'}};
 }
 
 module.exports = {orderDocument};

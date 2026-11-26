@@ -274,11 +274,17 @@ jobs:
           node - <<'JS'
           const {VERSION}=require('./functions/configurator-projects-core');
           (async()=>{
-            const response=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/randalProjects',{
-              method:'POST',headers:{'Content-Type':'application/json',Origin:'https://randal-catalogue-general-3d.vercel.app'},body:JSON.stringify({action:'local-order-with-document',variant:'randal-general'})
-            });
-            const body=await response.json();
-            if(response.status!==401||body.success!==false||response.headers.get('x-lrf-randal-projects-version')!==VERSION)throw Error('RANDAL order release or authentication check failed.');
+            const variants={
+              'randal-general':'https://randal-catalogue-general-3d.vercel.app',
+              'studio-one':'https://studio-one-beta-test-v2.vercel.app'
+            };
+            for(const [variant,Origin] of Object.entries(variants)){
+              const response=await fetch('https://us-central1-le-roy-factory.cloudfunctions.net/randalProjects',{
+                method:'POST',headers:{'Content-Type':'application/json',Origin},body:JSON.stringify({action:'local-order-with-document',variant})
+              });
+              const body=await response.json();
+              if(response.status!==401||body.success!==false||response.headers.get('x-lrf-randal-projects-version')!==VERSION)throw Error('RANDAL order release or authentication check failed for '+variant);
+            }
             console.log('RANDAL order API release verified. No order or email created.');
           })().catch(error=>{console.error(error.message);process.exit(1);});
           JS

@@ -21,6 +21,7 @@ export function createWorkspace({getProject,onOpen=()=>{},onUpdate=null,onLock=(
  const style=document.createElement('style');style.textContent=`.lrf-project-dialog{width:720px;max-width:calc(100% - 24px);max-height:calc(100dvh - 24px);overflow:auto;padding:clamp(20px,4vw,36px);border:1px solid #d9d3c5;border-radius:18px;background:#fffef9;color:#29382f;box-shadow:0 30px 100px #1d2c2644}.lrf-project-dialog::backdrop{background:#16261e88;backdrop-filter:blur(6px)}.lrf-project-dialog h2{font:400 30px/1.1 Georgia,serif;margin:10px 0 20px}.lrf-project-dialog h3{font:600 12px Arial,sans-serif;text-transform:uppercase;letter-spacing:1.5px;margin:26px 0 12px}.lrf-project-dialog p{font:13px/1.6 Arial,sans-serif}.lrf-project-dialog label{display:grid;gap:7px;font:500 12px Arial,sans-serif;margin:15px 0}.lrf-project-dialog input{box-sizing:border-box;width:100%;min-height:45px;padding:11px;border:1px solid #cbcfc2;border-radius:8px;background:white;color:#28342d;font:14px Arial,sans-serif}.lrf-project-dialog button,.lrf-project-dialog .file-button{display:inline-flex;justify-content:center;align-items:center;min-height:42px;box-sizing:border-box;padding:10px 13px;margin:0;border:1px solid #cfd1c5;border-radius:8px;background:#fffef9;color:#29382f;font:600 12px Arial,sans-serif;cursor:pointer}.lrf-project-dialog .primary{background:#28493f;color:white;border-color:#28493f}.lrf-project-dialog .danger{background:#963f30;color:white;border-color:#963f30}.lrf-dialog-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:20px}.lrf-project-close{float:right;background:transparent!important;border:0!important;font-size:24px!important}.lrf-project-row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:18px;margin:10px 0;border:1px solid #d9d8c9;border-left:4px solid #b79561;border-radius:12px;background:#f8f5ed}.lrf-project-row.validated{background:#edf3ed;border-color:#ccd9cd;border-left-color:#3c765b}.lrf-project-row small{display:block;margin-top:6px;color:#697166;font:11px/1.5 Arial,sans-serif}.lrf-project-row strong{font:600 14px Arial,sans-serif;overflow-wrap:anywhere}.lrf-project-actions{display:flex;gap:6px;flex-wrap:wrap;align-content:center;max-width:260px}.lrf-project-row .remove{color:#963f30}.lrf-dialog-message{color:#915334;min-height:20px}.lrf-project-badge{font:11px/1.5 Arial,sans-serif;padding:8px 12px;border-radius:8px;background:#f0ecdf;color:#59604f;display:block;margin:10px 0}.lrf-project-badge.validated{background:#e4efe5;color:#28543a}.lrf-admin-send{width:100%;min-height:45px;border:1px solid #bbb69f;border-radius:9px;background:#f7f3e8;color:#2b4437;padding:12px;font:600 12px Arial,sans-serif;margin:16px 0 8px;cursor:pointer}.lrf-project-fields{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}@media(max-width:620px){.lrf-project-row{grid-template-columns:1fr}.lrf-project-actions{max-width:none}.lrf-project-fields{grid-template-columns:1fr}.lrf-project-dialog h2{font-size:26px}}`;
  style.textContent+=`.lrf-project-dialog{width:960px}.lrf-project-row{grid-template-columns:128px minmax(0,1fr) auto;align-items:center;padding:16px}.lrf-project-visual{align-self:stretch;min-height:110px;display:grid;place-items:center;overflow:hidden;border-radius:8px;background:#e9e5da}.lrf-project-visual img{width:100%;height:100%;min-height:110px;max-height:180px;object-fit:contain}.lrf-project-information>strong{display:block;margin:8px 0 3px}.lrf-project-status{display:inline-block;padding:5px 8px;border-radius:6px;background:#ece0c7;color:#785824;font:600 10px Arial,sans-serif}.lrf-project-status.is-validated{background:#cee3d2;color:#25553d}.lrf-project-amount{display:block;margin-top:10px;font:600 18px Arial,sans-serif}.lrf-project-actions{max-width:248px}@media(max-width:620px){.lrf-project-row{grid-template-columns:88px minmax(0,1fr);padding:12px}.lrf-project-actions{grid-column:1/-1;max-width:none}.lrf-project-amount{font-size:17px}.lrf-project-visual img{max-height:150px}.lrf-project-dialog{padding:18px}}`;
  style.textContent+='@media print{.lrf-admin-send,.lrf-project-dialog{display:none!important}}';document.head.append(style);
+ style.textContent+='.lrf-project-dialog textarea{box-sizing:border-box;width:100%;min-height:85px;padding:11px;border:1px solid #cbcfc2;border-radius:8px;background:white;color:#28342d;font:14px/1.5 Arial,sans-serif;resize:vertical}';
  const dialog=document.createElement('dialog');dialog.className='lrf-project-dialog';dialog.id='lrf-project-workspace';dialog.setAttribute('aria-label','Gestion des projets');document.body.append(dialog);
  let cancelModal=null,modalVersion=0,transmittingOrder=false;
  function closeModal(){if(transmittingOrder)return;modalVersion++;dialog.close();cancelModal?.();cancelModal=null;}
@@ -61,15 +62,18 @@ export function createWorkspace({getProject,onOpen=()=>{},onUpdate=null,onLock=(
   if(r.status!=='draft'){status('Ce projet est déjà validé ou en cours de transmission.');return;}
   const rows=getOrderRows?.(r.data)||[];
   const attachment=rows.length?'<p>La confirmation comprend un PDF avec les articles, les références et le visuel 3D du mobilier.</p>':'';
-  modal('Envoyer et valider la commande ?',`<p><strong>${esc(r.title)} · ${esc(r.number)}</strong></p>${attachment}<p>Après transmission, le projet sera en lecture seule. Vous pourrez le dupliquer pour une nouvelle composition.</p><div class="lrf-dialog-actions"><button data-cancel>Continuer à modifier</button><button class="primary" data-order>Envoyer et valider</button></div>`);
+  modal('Envoyer et valider la commande ?',`<p><strong>${esc(r.title)} · ${esc(r.number)}</strong></p>${attachment}<label>Commentaire de commande (facultatif)<textarea data-order-comment maxlength="1000" rows="3"></textarea></label><p>Après transmission, le projet sera en lecture seule. Vous pourrez le dupliquer pour une nouvelle composition.</p><div class="lrf-dialog-actions"><button data-cancel>Continuer à modifier</button><button class="primary" data-order>Envoyer et valider</button></div>`);
+  const comment=dialog.querySelector('[data-order-comment]');
   const button=dialog.querySelector('[data-order]');
   const dismiss=[dialog.querySelector('[data-cancel]'),dialog.querySelector('.lrf-project-close')];
   dismiss[0].onclick=closeModal;
   button.onclick=async ()=>{
    transmittingOrder=true;
    button.disabled=true;
+   comment.disabled=true;
    for(const control of dismiss)control.disabled=true;
    try{
+    const orderComment=comment.value.trim();
     let orderSummary;
     if(rows.length){
      message('Préparation du PDF avec le visuel 3D…');
@@ -77,7 +81,7 @@ export function createWorkspace({getProject,onOpen=()=>{},onUpdate=null,onLock=(
      orderSummary={rows,snapshot};
     }
     message('Transmission de la commande…');
-    const result=await projectRequest(orderSummary?'local-order-with-document':'local-order',{record:r,orderSummary});
+    const result=await projectRequest(orderSummary?'local-order-with-document':'local-order',{record:r,orderSummary,orderComment});
     if(result.delivered!==true)throw Error('Le service LRF n’a pas confirmé l’envoi.');
     r={...r,status:'validated',remote:false,dirty:false,validatedAt:new Date().toISOString(),revision:(r.revision||0)+1};
     putProject(r);
@@ -90,6 +94,7 @@ export function createWorkspace({getProject,onOpen=()=>{},onUpdate=null,onLock=(
    }catch(error){
     message(error.message||'Transmission non confirmée. Votre projet reste enregistré.');
     button.disabled=false;
+    comment.disabled=false;
    }finally{
     transmittingOrder=false;
     for(const control of dismiss)control.disabled=false;
