@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { eliosSearchCode, matchesEliosClientCode, reconcileEliosCrmSales, salesDate, salesEuro } from '../assets/js/elios-crm-reconciliation.mjs';
-import { eliosClientDetails, eliosClientMetric, eliosUnmatchedSearch } from '../assets/js/elios-crm-revenue-ui.js';
+import { eliosClientDetails, eliosClientMetric, eliosLinkedSearch, eliosUnmatchedSearch } from '../assets/js/elios-crm-revenue-ui.js';
 
 const partner = 'elios-ceramica';
 const row = (elios,name,ca2026,ca2025=0) => ({elios,name,ca2026,ca2025});
@@ -92,4 +92,19 @@ test('unmatched Elios accounts surface by source name or full supplier code with
   assert.equal(eliosUnmatchedSearch(report,'Marchés'),'');
   assert.equal(eliosUnmatchedSearch(report,''),'');
   assert.equal(eliosUnmatchedSearch(null,'Dunes'),'');
+});
+
+test('a linked source designation finds its CRM fiche while numeric supplier searches stay exact', () => {
+  const clients = [client('active','Dossier Atelier',{codeElios:'80'}),client('other','Bel Horizon',{codeElios:'810'})];
+  const sales = [row('000080','Maison & Céramique',123.45),row('0000810','Pavés du secteur 80',18.25),row('000082','Maison & Grès',23.15)];
+  const report = reconcileEliosCrmSales(sales,clients);
+  assert.deepEqual([...eliosLinkedSearch(report,'maison ceramique')],['active']);
+  assert.deepEqual([...eliosLinkedSearch(report,'Pavés')],['other']);
+  assert.deepEqual([...eliosLinkedSearch(report,'000080')],['active']);
+  assert.deepEqual([...eliosLinkedSearch(report,'80')],['active']);
+  assert.equal(eliosLinkedSearch(report,'8').size,0);
+  assert.equal(eliosLinkedSearch(report,'Maison & Grès').size,0);
+  assert.equal(eliosLinkedSearch(report,'  ').size,0);
+  assert.equal(eliosLinkedSearch(report,' & ').size,0);
+  assert.equal(eliosLinkedSearch(null,'Maison').size,0);
 });

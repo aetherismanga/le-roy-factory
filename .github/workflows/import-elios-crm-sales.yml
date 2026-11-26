@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       drive_file_id:
-        description: ID du relevé JSON privé dans Drive pour l’import
+        description: ID du relevé ou des rapprochements vérifiés dans Drive
         required: false
         type: string
       audit_file_id:
@@ -12,11 +12,11 @@ on:
         required: false
         type: string
       snapshot_sha256:
-        description: Empreinte SHA-256 du relevé vérifié
+        description: Empreinte SHA-256 du fichier privé ou du relevé ciblé par l’audit
         required: true
         type: string
       confirm_import:
-        description: Saisir IMPORTER-ELIOS pour enregistrer ou AUDITER-ELIOS pour contrôler les rapprochements
+        description: Saisir IMPORTER-ELIOS, AUDITER-ELIOS ou RAPPROCHER-ELIOS
         required: true
         type: string
 
@@ -31,7 +31,7 @@ jobs:
   import:
     if: >-
       github.ref_name == 'main' &&
-      ((inputs.confirm_import == 'IMPORTER-ELIOS' && inputs.drive_file_id != '') ||
+      (((inputs.confirm_import == 'IMPORTER-ELIOS' || inputs.confirm_import == 'RAPPROCHER-ELIOS') && inputs.drive_file_id != '') ||
        (inputs.confirm_import == 'AUDITER-ELIOS' && inputs.audit_file_id != '' && inputs.audit_file_id != inputs.drive_file_id))
     runs-on: ubuntu-24.04
     timeout-minutes: 12
@@ -47,7 +47,7 @@ jobs:
       - uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
-      - name: Enregistrer le relevé privé Elios ou auditer les rapprochements
+      - name: Traiter le relevé privé et les rapprochements Elios
         env:
           ELIOS_DRIVE_FILE_ID: ${{ inputs.drive_file_id }}
           ELIOS_AUDIT_FILE_ID: ${{ inputs.audit_file_id }}

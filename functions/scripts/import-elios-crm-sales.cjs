@@ -76,7 +76,7 @@ function validateSnapshot(data) {
   };
 }
 
-async function downloadSnapshot(fileId, digest) {
+async function downloadVerifiedJson(fileId, digest) {
   if (!isFileId(fileId) || !isSha256(digest)) {
     throw Error('La référence du fichier et son empreinte sont requises.');
   }
@@ -100,9 +100,7 @@ async function downloadSnapshot(fileId, digest) {
   if (bytes.length > maxBytes || createHash('sha256').update(bytes).digest('hex') !== digest) {
     throw Error('Le fichier téléchargé diffère du relevé Elios validé.');
   }
-  let parsed;
-  try { parsed = JSON.parse(bytes.toString('utf8')); } catch { throw Error('Le relevé Elios n’est pas un JSON valide.'); }
-  return validateSnapshot(parsed);
+  try { return JSON.parse(bytes.toString('utf8')); } catch { throw Error('Le fichier Elios n’est pas un JSON valide.'); }
 }
 
 async function writeSnapshot(db, snapshot, digest) {
@@ -217,8 +215,9 @@ async function auditSnapshot(db, fileId, digest) {
 
 async function main() {
   const digest = process.env.ELIOS_SNAPSHOT_SHA256;
-  const audit = process.env.ELIOS_CONFIRM_IMPORT === 'AUDITER-ELIOS';
-  const snapshot = audit ? null : await downloadSnapshot(process.env.ELIOS_DRIVE_FILE_ID, digest);
+  const action = process.env.ELIOS_CONFIRM_IMPORT;
+  const audit = action === 'AUDITER-ELIOS';
+  const payload = audit ? null : await downloadVerifiedJson(process.env.ELIOS_DRIVE_FILE_ID, digest);
   const admin = require('firebase-admin');
   const app = admin.initializeApp({projectId});
   try {
@@ -227,6 +226,15 @@ async function main() {
       await auditSnapshot(db, process.env.ELIOS_AUDIT_FILE_ID, digest);
       return;
     }
+    if (action === 'RAPPROCHER-ELIOS') {
+      const {applyVerifiedEliosLinks} = require('./apply-elios-crm-mappings.cjs');
+      const result = await applyVerifiedEliosLinks(db, payload);
+      const record = await db.doc(salesDocument).get();
+      const coverage = await verifyClientCoverage(db, validateSnapshot(record.data()).rows);
+      console.log('Rapprochements Elios vérifiés dans le CRM : ' + JSON.stringify({...result, ...coverage}));
+      return;
+    }
+    const snapshot = validateSnapshot(payload);
     const coverage = await verifyClientCoverage(db, snapshot.rows);
     const status = await writeSnapshot(db, snapshot, digest);
     console.log(`Relevé Elios ${status} dans le CRM et intégralement relu (${snapshot.rows.length} comptes, arrêté au ${snapshot.dateTo}).`);
@@ -237,9 +245,10 @@ async function main() {
 }
 
 if (require.main === module) main().catch(error => {
-  console.error(process.env.ELIOS_CONFIRM_IMPORT === 'AUDITER-ELIOS'
-    ? 'Échec de l’audit privé Elios.'
-    : error.message || 'Échec de l’import Elios.');
+  const action = process.env.ELIOS_CONFIRM_IMPORT;
+  console.error(action === 'AUDITER-ELIOS' ? 'Échec de l’audit privé Elios.' :
+    action === 'RAPPROCHER-ELIOS' ? 'Échec de la confirmation des rapprochements Elios.' :
+      error.message || 'Échec de l’import Elios.');
   process.exitCode = 1;
 });
 

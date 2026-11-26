@@ -1,8 +1,21 @@
 import { searchKey } from './client-form-core.mjs';
-import { eliosCode, eliosSearchCode, salesDate, salesPeriod, salesEuro } from './elios-crm-reconciliation.mjs';
+import { eliosCode, eliosSearchCode, matchesEliosClientCode, salesDate, salesPeriod, salesEuro } from './elios-crm-reconciliation.mjs';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char =>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+
+export function eliosLinkedSearch(report, query) {
+  const matches = new Set();
+  const name = searchKey(query);
+  if (!name || !report) return matches;
+  const code = eliosSearchCode(query);
+  for (const [clientId, {accounts}] of report.byClientId) {
+    if (code ? matchesEliosClientCode(report,clientId,code) : accounts.some(account => searchKey(account.name).includes(name))) {
+      matches.add(clientId);
+    }
+  }
+  return matches;
+}
 
 export function eliosUnmatchedSearch(report, query) {
   const name = searchKey(query);

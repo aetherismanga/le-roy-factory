@@ -332,8 +332,7 @@
     import { clientFollowup, matchesFollowup, portfolioType } from "./assets/js/client-activity-core.mjs?v=20261120-suivi1";
     import { cloneExtra } from "./assets/js/crm-extra-save-core.mjs";
     import { loadEliosCrmRevenue } from "./assets/js/elios-crm-revenue.js?v=20261126-elios-sales";
-    import { eliosClientMetric, eliosClientDetails, eliosUnmatchedSearch } from "./assets/js/elios-crm-revenue-ui.js?v=20261126-elios-search";
-    import { eliosSearchCode, matchesEliosClientCode } from "./assets/js/elios-crm-reconciliation.mjs";
+    import { eliosClientMetric, eliosClientDetails, eliosLinkedSearch, eliosUnmatchedSearch } from "./assets/js/elios-crm-revenue-ui.js?v=20261126-elios-search2";
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { collection, doc, setDoc, getDocs, runTransaction, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -816,7 +815,7 @@
         if (!tableBody) return;
 
         const search = searchInput.value.toLowerCase().trim();
-        const supplierCode = eliosSearchCode(search);
+        const eliosMatches = eliosLinkedSearch(eliosSales,search);
         const type = filterType.value;
         const dep = filterDep.value;
         const activity = filterActivity.value;
@@ -838,7 +837,7 @@
           if (type && cType !== type) continue;
           if (dep && !cp.startsWith(dep)) continue;
           if (activity && (c.categorieActivite || c.sousCategorie) !== activity) continue;
-          if (!matchesClientSearch({...c, codePostal: cp, ville}, search) && !matchesEliosClientCode(eliosSales,c.id,supplierCode)) continue;
+          if (!eliosMatches.has(c.id) && !matchesClientSearch({...c, codePostal: cp, ville}, search)) continue;
 
           const followup = clientFollowup(c, now);
           if (matchesFollowup(followup.key, followupFilter)) filtered.push({ c, cType, cp, ville, followup });
@@ -900,10 +899,13 @@
       let jumpToList = location.hash === "#liste-clients";
       function showEliosSales() {
         renderEliosSearch();
-        if (eliosSearchCode(searchInput.value)) renderTable();
-        for (const row of tableBody.querySelectorAll("tr[data-client-id]")) {
-          const slot = row.querySelector("[data-elios-client-list]");
-          if (slot) slot.innerHTML = eliosClientMetric(eliosSales,row.dataset.clientId);
+        if (searchInput.value.trim()) {
+          renderTable();
+        } else {
+          for (const row of tableBody.querySelectorAll("tr[data-client-id]")) {
+            const slot = row.querySelector("[data-elios-client-list]");
+            if (slot) slot.innerHTML = eliosClientMetric(eliosSales,row.dataset.clientId);
+          }
         }
         renderClientEliosSales();
       }
