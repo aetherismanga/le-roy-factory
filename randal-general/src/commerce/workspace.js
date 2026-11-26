@@ -10,7 +10,7 @@ export function putProject(record,storage=localStorage){const all=readProjects(s
 function checked(data,kind){if(kind==='house'){if(data?.schema!==2||!data.rooms||!data.layout||!data.exterior)throw Error('Fichier de maison incompatible.');return clone(data);}return checkedProject(data);}
 export function portableProject(record){return {format:'lrf-project',version:1,variant:VARIANT,record:{...clone(record),status:'draft',revision:0,remote:false,dirty:true}};}
 const VARIANT='randal-general';
-export function createWorkspace({getProject,onOpen=()=>{},onUpdate=null,onLock=()=>{},status=()=>{},kind='bathroom',getThumbnail=()=>null,onDeletedActive=()=>{},readonly=()=>false,onPublicCompositions=null}){
+export function createWorkspace({getProject,onOpen=()=>{},onUpdate=null,onLock=()=>{},status=()=>{},kind='bathroom',getThumbnail=()=>null,onDeletedActive=()=>{},readonly=()=>false,onPublicCompositions=null,getOrderRows=null,getOrderSnapshot=null}){
  let account=globalThis.LRF_VERIFIED_IDENTITY||null,lastFingerprint='',starting=false,disposed=false,suspended=false;
  const owner=()=>account?.client?.codeClient||account?.client?.email||'';
  const all=()=>readProjects().filter(r=>!r.ownerKey||r.ownerKey===owner());
@@ -22,8 +22,8 @@ export function createWorkspace({getProject,onOpen=()=>{},onUpdate=null,onLock=(
  style.textContent+=`.lrf-project-dialog{width:960px}.lrf-project-row{grid-template-columns:128px minmax(0,1fr) auto;align-items:center;padding:16px}.lrf-project-visual{align-self:stretch;min-height:110px;display:grid;place-items:center;overflow:hidden;border-radius:8px;background:#e9e5da}.lrf-project-visual img{width:100%;height:100%;min-height:110px;max-height:180px;object-fit:contain}.lrf-project-information>strong{display:block;margin:8px 0 3px}.lrf-project-status{display:inline-block;padding:5px 8px;border-radius:6px;background:#ece0c7;color:#785824;font:600 10px Arial,sans-serif}.lrf-project-status.is-validated{background:#cee3d2;color:#25553d}.lrf-project-amount{display:block;margin-top:10px;font:600 18px Arial,sans-serif}.lrf-project-actions{max-width:248px}@media(max-width:620px){.lrf-project-row{grid-template-columns:88px minmax(0,1fr);padding:12px}.lrf-project-actions{grid-column:1/-1;max-width:none}.lrf-project-amount{font-size:17px}.lrf-project-visual img{max-height:150px}.lrf-project-dialog{padding:18px}}`;
  style.textContent+='@media print{.lrf-admin-send,.lrf-project-dialog{display:none!important}}';document.head.append(style);
  const dialog=document.createElement('dialog');dialog.className='lrf-project-dialog';dialog.id='lrf-project-workspace';dialog.setAttribute('aria-label','Gestion des projets');document.body.append(dialog);
- let cancelModal=null,modalVersion=0;
- function closeModal(){modalVersion++;dialog.close();cancelModal?.();cancelModal=null;}
+ let cancelModal=null,modalVersion=0,transmittingOrder=false;
+ function closeModal(){if(transmittingOrder)return;modalVersion++;dialog.close();cancelModal?.();cancelModal=null;}
  dialog.addEventListener('cancel',e=>{e.preventDefault();closeModal();});
  function modal(title,content){if(dialog.open)closeModal();modalVersion++;dialog.innerHTML='<button class="lrf-project-close" aria-label="Fermer">×</button><h2>'+esc(title)+'</h2>'+content+'<p class="lrf-dialog-message" role="status" aria-live="polite"></p>';dialog.querySelector('.lrf-project-close').onclick=closeModal;dialog.showModal();}
  function message(s){dialog.querySelector('.lrf-dialog-message').textContent=s;}
@@ -51,8 +51,51 @@ export function createWorkspace({getProject,onOpen=()=>{},onUpdate=null,onLock=(
  dialog.querySelector('[data-import]').onchange=e=>importFile(e.target.files?.[0]);}
  async function importFile(file){if(!file)return;try{if(file.size>700000)throw Error('Fichier trop volumineux.');const raw=JSON.parse(await file.text());if(raw.format==='lrf-project'&&raw.variant!==VARIANT)throw Error('Ce projet appartient à l’autre configurateur RANDAL. Ouvrez-le dans son configurateur d’origine.');const source=raw.format==='lrf-project'?raw.record:{data:raw,title:raw.title||raw.name,kind:raw.schema===2?'house':'bathroom'};const k=source.kind==='house'?'house':'bathroom';const data=checked(source.data,k),named=await editDetails({title:source.title||'Projet importé',customer:source.customer||{},data},{importing:true});if(!named)return;checkpoint();const r={...named,id:uid(),number:'LOCAL-'+crypto.randomUUID().slice(0,8).toUpperCase(),kind:k,status:'draft',revision:0,dirty:false,remote:false,ownerKey:owner(),date:new Date().toISOString()};if(k==='house')r.data.name=r.title;else r.data.title=r.title;putProject(r);await open(r);status('Projet importé sous son nouveau nom.');}catch(e){status(e.message);if(dialog.open)message(e.message);}}
  function sendFailure(text){modal('Le projet n’a pas été envoyé','<p>Votre composition reste sauvegardée. Vous pouvez reprendre l’envoi après avoir rétabli votre connexion LRF.</p>');message(text);}
- async function email(record=null,administrator=false){let r=record||await save({prompt:!active()?.customer?.name});if(!r)return;if(!account?.client){sendFailure('Connectez votre compte LRF pour envoyer le projet. Vous pouvez déjà exporter son fichier.');return;}if(administrator){modal('Envoyer le projet à l’administrateur',`<p><strong translate="no">${esc(account.client.societe)} · ${esc(account.client.codeClient||'Administrateur')}</strong></p><p>${esc(r.title)} sera envoyé à jerome@leroyfactory.fr avec son numéro et son fichier de configuration.</p><div class="lrf-dialog-actions"><button data-cancel>Annuler</button><button class="primary" data-send>Envoyer le projet</button></div>`);}else modal('Transférer ce projet par e-mail','<p>Le destinataire recevra le fichier complet pour le nommer et l’importer sur un autre poste.</p><form><label>Adresse du destinataire<input type="email" required name="recipient" value="'+esc(r.customer?.email||account.client.email||'')+'"></label><div class="lrf-dialog-actions"><button data-cancel type="button">Annuler</button><button class="primary" type="submit">Envoyer le projet</button></div></form>');dialog.querySelector('[data-cancel]').onclick=closeModal;const send=async e=>{e.preventDefault();const button=dialog.querySelector('.primary');button.disabled=true;button.textContent='Envoi en cours…';message('Transmission sécurisée du projet…');try{const receipt=await projectRequest(administrator?'local-administrator':'local-email',{record:r,recipient:dialog.querySelector('[name=recipient]')?.value});if(receipt.delivered!==true)throw Error('L’envoi n’a pas été confirmé par le service LRF.');message('Projet envoyé. Le destinataire peut l’importer sur un autre poste.');button.hidden=true;}catch(err){message(err.status===429?err.message:'Envoi non confirmé. Votre projet reste enregistré sur cet appareil.');button.disabled=false;button.textContent='Réessayer l’envoi';}};if(administrator)dialog.querySelector('[data-send]').onclick=send;else dialog.querySelector('form').onsubmit=send;}
- async function order(){let r=await save({prompt:!active()?.customer?.name});if(!r)return;if(!account?.client){status('Connectez votre compte LRF pour transmettre la commande.');return;}if(r.status!=='draft'){status('Ce projet est déjà validé ou en cours de transmission.');return;}modal('Envoyer et valider la commande ?',`<p><strong>${esc(r.title)} · ${esc(r.number)}</strong></p><p>Après transmission, ce projet sera validé et protégé : vous ne pourrez plus le modifier ni le supprimer. Vous pourrez le dupliquer pour une nouvelle composition.</p><div class="lrf-dialog-actions"><button data-cancel>Continuer à modifier</button><button class="primary" data-order>Envoyer et valider</button></div>`);dialog.querySelector('[data-cancel]').onclick=closeModal;dialog.querySelector('[data-order]').onclick=async e=>{e.target.disabled=true;try{const result=await projectRequest('local-order',{record:r});if(result.delivered!==true)throw Error('Transmission non confirmée.');r={...r,status:'validated',remote:false,dirty:false,validatedAt:new Date().toISOString(),revision:(r.revision||0)+1};putProject(r);lock();message('Commande transmise. Projet validé et protégé sur cet appareil.');e.target.hidden=true;}catch(err){message(err.status===429?err.message:'Transmission non confirmée. Le projet reste enregistré sur cet appareil. Avant de réessayer, vérifiez que la commande n’a pas déjà été reçue.');e.target.disabled=false;}};}
+ async function email(record=null,administrator=false){let r=record||await save({prompt:!active()?.customer?.name});if(!r)return;if(!account?.client){sendFailure('Connectez votre compte LRF pour envoyer le projet. Vous pouvez déjà exporter son fichier.');return;}if(administrator&&r.status==='validated'){status('La commande a déjà été envoyée à l’administrateur.');return;}if(administrator){modal('Transmettre un brouillon à l’administrateur',`<p><strong translate="no">${esc(account.client.societe)} · ${esc(account.client.codeClient||'Administrateur')}</strong></p><p>${esc(r.title)} sera envoyé à jerome@leroyfactory.fr avec son numéro et son fichier de configuration.</p><div class="lrf-dialog-actions"><button data-cancel>Annuler</button><button class="primary" data-send>Envoyer le projet</button></div>`);}else modal('Transférer ce projet par e-mail','<p>Le destinataire recevra le fichier complet pour le nommer et l’importer sur un autre poste.</p><form><label>Adresse du destinataire<input type="email" required name="recipient" value="'+esc(r.customer?.email||account.client.email||'')+'"></label><div class="lrf-dialog-actions"><button data-cancel type="button">Annuler</button><button class="primary" type="submit">Envoyer le projet</button></div></form>');dialog.querySelector('[data-cancel]').onclick=closeModal;const send=async e=>{e.preventDefault();const button=dialog.querySelector('.primary');button.disabled=true;button.textContent='Envoi en cours…';message('Transmission sécurisée du projet…');try{const receipt=await projectRequest(administrator?'local-administrator':'local-email',{record:r,recipient:dialog.querySelector('[name=recipient]')?.value});if(receipt.delivered!==true)throw Error('L’envoi n’a pas été confirmé par le service LRF.');message(receipt.alreadyDelivered==='order'?'La commande a déjà été transmise à ce destinataire.':receipt.alreadyDelivered==='project'?'Cette version du projet a déjà été transmise.':'Projet envoyé. Le destinataire peut l’importer sur un autre poste.');button.hidden=true;}catch(err){message(err.status===429?err.message:'Envoi non confirmé. Votre projet reste enregistré sur cet appareil.');button.disabled=false;button.textContent='Réessayer l’envoi';}};if(administrator)dialog.querySelector('[data-send]').onclick=send;else dialog.querySelector('form').onsubmit=send;}
+ async function order(){
+  if(transmittingOrder)return;
+  let r;
+  try{r=await save({prompt:!active()?.customer?.name});}catch(error){status(error.message);return;}
+  if(!r)return;
+  if(!account?.client){status('Connectez votre compte LRF pour transmettre la commande.');return;}
+  if(r.status!=='draft'){status('Ce projet est déjà validé ou en cours de transmission.');return;}
+  const rows=getOrderRows?.(r.data)||[];
+  const attachment=rows.length?'<p>La confirmation comprend un PDF avec les articles, les références et le visuel 3D du mobilier.</p>':'';
+  modal('Envoyer et valider la commande ?',`<p><strong>${esc(r.title)} · ${esc(r.number)}</strong></p>${attachment}<p>Après transmission, le projet sera en lecture seule. Vous pourrez le dupliquer pour une nouvelle composition.</p><div class="lrf-dialog-actions"><button data-cancel>Continuer à modifier</button><button class="primary" data-order>Envoyer et valider</button></div>`);
+  const button=dialog.querySelector('[data-order]');
+  const dismiss=[dialog.querySelector('[data-cancel]'),dialog.querySelector('.lrf-project-close')];
+  dismiss[0].onclick=closeModal;
+  button.onclick=async ()=>{
+   transmittingOrder=true;
+   button.disabled=true;
+   for(const control of dismiss)control.disabled=true;
+   try{
+    let orderSummary;
+    if(rows.length){
+     message('Préparation du PDF avec le visuel 3D…');
+     const snapshot=await getOrderSnapshot(r.data);
+     orderSummary={rows,snapshot};
+    }
+    message('Transmission de la commande…');
+    const result=await projectRequest(orderSummary?'local-order-with-document':'local-order',{record:r,orderSummary});
+    if(result.delivered!==true)throw Error('Le service LRF n’a pas confirmé l’envoi.');
+    r={...r,status:'validated',remote:false,dirty:false,validatedAt:new Date().toISOString(),revision:(r.revision||0)+1};
+    putProject(r);
+    lock();
+    dismiss[0].textContent='Fermer';
+    button.hidden=true;
+    if(orderSummary&&!result.documentAttached)message('Commande transmise. Le service LRF n’a pas confirmé la pièce jointe PDF.');
+    else if(result.alreadyDelivered==='order')message('Cette commande a déjà été transmise. Projet validé sur cet appareil.');
+    else message(orderSummary?'Commande transmise avec le PDF. Projet validé sur cet appareil.':'Commande transmise. Projet validé sur cet appareil.');
+   }catch(error){
+    message(error.message||'Transmission non confirmée. Votre projet reste enregistré.');
+    button.disabled=false;
+   }finally{
+    transmittingOrder=false;
+    for(const control of dismiss)control.disabled=false;
+   }
+  };
+ }
  const onIdentity=e=>{account=e.detail;const key=owner(),r=active();if(key&&r?.status==='draft'&&!r.ownerKey)putProject({...r,ownerKey:key});lock();};addEventListener('lrf-identity',onIdentity);
  const flush=()=>{try{checkpoint();}catch(e){status('Enregistrement automatique indisponible : '+e.message);}};
  addEventListener('lrf-project-checkpoint',flush);addEventListener('pagehide',flush);addEventListener('beforeunload',flush);document.addEventListener('visibilitychange',()=>{if(document.hidden)flush();});

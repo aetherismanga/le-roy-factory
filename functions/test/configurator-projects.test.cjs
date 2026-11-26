@@ -1,8 +1,10 @@
 'use strict';
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const {PDFDocument,PDFName,decodePDFRawStream}=require('pdf-lib');
 const core=require('../configurator-projects-core');
+const document=require('../configurator-projects-document.cjs');
 function harness(){
- const documents=new Map(),messages=[];let failSend=false;
+ const documents=new Map(),messages=[];let failSend=false,pending=Promise.resolve();
  const snapshot=k=>({exists:documents.has(k),data:()=>documents.get(k)&&structuredClone(documents.get(k))});
  const ref=k=>({key:k,get:async()=>snapshot(k),set:async v=>documents.set(k,structuredClone(v)),delete:async()=>documents.delete(k),update:async v=>{const next={...documents.get(k)};for(const [key,value]of Object.entries(v))if(value==='DELETE_FIELD')delete next[key];else next[key]=value;documents.set(k,next);}});
  const db={
@@ -10,11 +12,14 @@ function harness(){
    doc:id=>ref(name+'/'+id),
    where:(field,op,value)=>({limit:()=>({get:async()=>({docs:[...documents].filter(([k,v])=>k.startsWith(name+'/')&&v[field]===value).map(([,v])=>({data:()=>structuredClone(v)}))})})})
   }),
-  runTransaction:async callback=>callback({get:r=>r.get(),set:(r,v)=>documents.set(r.key,structuredClone(v)),delete:r=>documents.delete(r.key)})
+  runTransaction:callback=>{
+   const run=pending.then(()=>callback({get:r=>r.get(),set:(r,v)=>documents.set(r.key,structuredClone(v)),delete:r=>documents.delete(r.key)}));
+   pending=run.catch(()=>{});return run;
+  }
  };
  const firestore=()=>db;firestore.FieldValue={delete:()=> 'DELETE_FIELD'};firestore.Timestamp={fromMillis:ms=>ms};
  const app={exports:{}};
- const reqModule=name=>name==='firebase-functions/v2/https'?{onRequest:(options,handler)=>handler}:name==='firebase-admin'?{firestore}:name==='nodemailer'?{createTransport:()=>({sendMail:async message=>{if(failSend)throw Object.assign(Error('SMTP refused'),{code:'EAUTH'});messages.push(message);return {accepted:['receiver'],messageId:'test-message-'+messages.length};}})}:name==='./pro-session'?{clientFromSessionToken:async token=>token==='valid-a'||token==='valid-b'?{client:{id:token,societe:'Magasin '+token,codeClient:token==='valid-a'?'LRF-00003':'LRF-00004',partenaires:['Randal'],email:'client@example.com'}}:null}:name==='./auth'?{getAgentFromRequest:async()=>null}:name==='./configurator-projects-core'?core:require(name);
+ const reqModule=name=>name==='firebase-functions/v2/https'?{onRequest:(options,handler)=>handler}:name==='firebase-admin'?{firestore}:name==='nodemailer'?{createTransport:()=>({sendMail:async message=>{if(failSend)throw Object.assign(Error('SMTP refused'),{code:failSend===true?'EAUTH':failSend});messages.push(message);return {accepted:['receiver'],messageId:'test-message-'+messages.length};}})}:name==='./pro-session'?{clientFromSessionToken:async token=>token==='valid-a'||token==='valid-b'?{client:{id:token,societe:'Magasin '+token,codeClient:token==='valid-a'?'LRF-00003':'LRF-00004',partenaires:['Randal'],email:'client@example.com'}}:null}:name==='./auth'?{getAgentFromRequest:async()=>null}:name==='./configurator-projects-core'?core:name==='./configurator-projects-document.cjs'?document:require(name);
  vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../configurator-projects.js'),'utf8'),{require:reqModule,exports:app.exports,process:{env:{SMTP_PASSWORD_JEROME:'TEST_ONLY'}},console,Buffer,Date,Set},{filename:'configurator-projects.js'});
  const call=async(body,token='valid-a')=>{let status=200,response;const res={set(){return this;},status(n){status=n;return this;},json(data){response=data;return this;},send(data){response=data;return this;}};await app.exports.randalProjects({method:'POST',headers:{authorization:'Bearer '+token},body:{variant:'studio-one',...body}},res);return {status,...JSON.parse(JSON.stringify(response))};};
  return {call,documents,messages,setFail:v=>failSend=v};
@@ -49,4 +54,97 @@ test('local-only projects are sent and ordered without project storage in Firest
  assert.equal([...h.documents.keys()].some(k=>k.startsWith('configurator_projects/')),false);
  assert.equal((await h.call({action:'local-email',record:local,recipient:'bad\nBcc:evil@example.com'})).status,400);
  assert.equal((await h.call({action:'local-order',record:{...local,customer:{}}})).status,400);
+});
+
+const snapshot='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/wAALCACQAPABAREA/8QAGgABAAMBAQEAAAAAAAAAAAAAAAMEBQYBAv/EACgQAQABAwEHBAMBAAAAAAAAAAABAgMEUxQVNJKisdEFEXKBEiExUf/aAAgBAQAAPwDpwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFe7m49q5NFy57VR/Y/GXzvHE1emfBvHE1emfBvHE1emfBvHE1emfBvHE1emfBvHE1emfBvHE1emfBvHE1emfD2jPxq64ppu+9VU+0R+MrIAAAAAAwfU+Pu/XaFQAATYvFWfnT3dGAAAAAAMH1Pj7v12hUAAE2LxVn5093RgAAAAADB9T4+79doVAABNi8VZ+dPd0YAAAAAAwfU+Pu/XaFQAATYvFWfnT3dGAAAAAAMT1CxerzblVFquqmfb9xTMx/IV9mv6Fzkk2a/oXOSTZr+hc5JNmv6Fzkk2a/oXOSTZr+hc5JNmv6Fzkk2a/oXOSUmNj36cm1M2bkRFcTMzTP8ArfAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf/9k=';
+const summary=()=>({snapshot,rows:[
+ {quantity:1,name:'Meuble sous-vasque Aruba rainuré',reference:'ARUBA-REF-TEST',details:'100 × 52 × 46 cm · Chêne'},
+ {quantity:1,name:'Colonne Aruba',reference:'COL-REF-TEST',details:'35 × 160 × 33 cm · Chêne'},
+]});
+const generalRequest=(action,recordInput=record(),orderSummary=summary())=>({
+ variant:'randal-general',action,record:{number:'LOCAL-20261126-TEST1234',...recordInput},orderSummary,
+});
+
+test('General order email includes readable references, a real PDF with the rendered image, and an importable project',async()=>{
+ const h=harness(),request=generalRequest('local-order-with-document'),response=await h.call(request);
+ assert.equal(response.status,200);
+ assert.equal(response.documentAttached,true);
+ assert.equal(h.messages.length,1);
+ const [mail]=h.messages,[pdfFile,projectFile]=mail.attachments;
+ assert.match(mail.subject,/COMMANDE/);
+ assert.match(mail.text,/1 × Meuble sous-vasque Aruba rainuré — Réf. ARUBA-REF-TEST/);
+ assert.match(mail.text,/1 × Colonne Aruba — Réf. COL-REF-TEST/);
+ assert.equal(pdfFile.contentType,'application/pdf');
+ assert.match(pdfFile.filename,/LOCAL-20261126-TEST1234.*\.pdf$/);
+ const pdf=await PDFDocument.load(pdfFile.content);
+ assert.equal(pdf.getPageCount(),1);
+ const [page]=pdf.getPages();
+ const instructions=page.node.Contents().asArray().map(ref=>Buffer.from(decodePDFRawStream(pdf.context.lookup(ref)).decode()).toString('ascii')).join('\n');
+ const {XObject}=page.node.normalizedEntries();
+ const [imageRef]=XObject.values(),image=pdf.context.lookup(imageRef);
+ assert.equal(image.dict.get(PDFName.of('Subtype')).toString(),'/Image');
+ assert.equal(image.dict.get(PDFName.of('Width')).asNumber(),240);
+ for(const {reference} of request.orderSummary.rows) {
+  assert.ok(instructions.includes(Buffer.from('Réf. '+reference,'latin1').toString('hex').toUpperCase()));
+ }
+ assert.equal(JSON.parse(projectFile.content).record.id,request.record.id);
+ assert.equal(JSON.parse(projectFile.content).record.owner,undefined);
+});
+
+test('General local orders are idempotent and suppress copies to the same administrator',async()=>{
+ const h=harness(),request=generalRequest('local-order-with-document');
+ const results=await Promise.all([h.call(request),h.call(request)]);
+ assert.ok(results.some(result=>result.delivered));
+ assert.equal(h.messages.length,1);
+ const retry=await h.call(request);
+ assert.equal(retry.alreadyDelivered,'order');
+ assert.equal(retry.documentAttached,true);
+ for(const copy of [
+  {...request,action:'local-administrator'},
+  {...request,action:'local-email',recipient:'JEROME@leroyfactory.fr'},
+ ]) {
+  assert.equal((await h.call(copy)).alreadyDelivered,'order');
+ }
+ assert.equal(h.messages.length,1);
+ assert.equal((await h.call({...request,action:'local-email',recipient:'other@example.com'})).delivered,true);
+ assert.equal(h.messages[1].to,'other@example.com');
+ const another=generalRequest('local-order-with-document',{...record(),id:'project-new-project-123456',number:'LOCAL-20261126-TEST2345'});
+ assert.equal((await h.call(another)).delivered,true);
+ assert.equal((await h.call(request,'valid-b')).delivered,true);
+ assert.equal(h.messages.length,4);
+ assert.equal((await h.call({variant:'randal-general',action:'list'})).projects.length,0);
+ assert.ok([...h.documents].every(([key,value])=>!key.startsWith('configurator_projects/')&&!value.data&&!value.customer));
+});
+
+test('General administrator copies get the descriptive PDF and deduplicate the same draft',async()=>{
+ const h=harness(),request=generalRequest('local-administrator');
+ assert.equal((await h.call(request)).documentAttached,true);
+ assert.match(h.messages[0].subject,/PROJET/);
+ assert.equal((await h.call(request)).alreadyDelivered,'project');
+ assert.equal(h.messages.length,1);
+ const edited={...request,record:{...request.record,title:'Nouvelle version'}};
+ assert.equal((await h.call(edited)).documentAttached,true);
+ assert.equal(h.messages.length,2);
+ assert.equal((await h.call({...edited,action:'local-order-with-document'})).delivered,true);
+ assert.equal(h.messages.length,3);
+});
+
+test('General order allows repairing an invalid visual or rejected delivery but locks an ambiguous SMTP attempt',async()=>{
+ const h=harness(),request=generalRequest('local-order-with-document');
+ assert.equal((await h.call({...request,orderSummary:undefined})).status,422);
+ assert.equal((await h.call({...request,variant:'studio-one'})).status,400);
+ assert.equal((await h.call({...request,orderSummary:{...summary(),snapshot:'data:image/jpeg;base64,ZmFrZQ=='}})).status,422);
+ assert.equal(h.documents.size,0);
+ h.setFail(true);
+ assert.equal((await h.call(request)).status,503);
+ h.setFail(false);
+ assert.equal((await h.call(request)).delivered,true);
+ assert.equal(h.messages.length,1);
+ const next=generalRequest('local-order-with-document',{...record(),id:'project-uncertain-123456'});
+ h.setFail('ETIMEDOUT');
+ assert.equal((await h.call(next)).status,503);
+ h.setFail(false);
+ assert.equal((await h.call(next)).status,409);
+ assert.equal((await h.call({...next,action:'local-administrator'})).status,409);
+ assert.equal(h.messages.length,1);
 });

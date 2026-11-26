@@ -1,5 +1,6 @@
 'use strict';
 const crypto = require('node:crypto');
+const VERSION = '20261126-randal-order-document';
 const text = (value, max = 160) => String(value || '').trim().slice(0, max);
 function failure(message, status = 400) { return Object.assign(new Error(message), {status}); }
 function checkedData(raw, kind) {
@@ -28,4 +29,4 @@ function assertRevision(old, revision) {
 }
 function keyFor(owner, variant, id) { return crypto.createHash('sha256').update(owner + ':' + variant + ':' + id).digest('hex'); }
 function publicRecord(record) { const {owner, sendOperation, sendStartedAt, ...safe} = record; return safe; }
-module.exports = {text, failure, checkedInput, assertEditable, assertRevision, keyFor, publicRecord};
+module.exports = {VERSION, text, failure, checkedInput, assertEditable, assertRevision, keyFor, publicRecord};

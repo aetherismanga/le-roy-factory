@@ -19,6 +19,7 @@ import '../viewport.js';
 import {validWidth,configurationWidths,cabinetWidthLabel,pairedCabinet} from '../configuration.js';
 import {CATALOG as C} from './catalog.js';
 import {money,quoteProject,finish} from './pricing.js';
+import {furnitureOrderRows} from './order-summary.js';
 import {initialDraft,normalizeDraft,updateDraft,draftProject,DRAFT_KEY,TRANSFER_KEY} from './guided.js';
 import {createIdentity,privateMarkup,existingAdministrator} from './identity.js';
 import {chipStyle,APPEARANCE} from './appearance.js';
@@ -57,7 +58,7 @@ function onBasinSelect(itemId){
  if(view==='wizard'||view==='quote'){switchView('wizard',2);$('#basinLayout')?.focus({preventScroll:true});}
 }
 async function updatePreview(p){lastPreviewProject=p;const ticket=++previewTurn,host=$('#preview-canvas'),status=$('#preview-status');host.dataset.configuration=JSON.stringify(p.items.map(i=>({type:i.type,settings:i.settings})));$('#preview-label').textContent=p.items.filter(i=>['cabinet','column','mirror'].includes(i.type)).length+' élément(s) · aperçu du mobilier';
- if(previewFailed)return;try{if(!previewPromise){status.hidden=false;status.querySelector('span').textContent='Préparation de votre composition 3D…';previewPromise=import('./live-preview.js').then(m=>{preview=m.createPreview(host,{onBasinSelect});return preview;});}const engine=await previewPromise;if(ticket!==previewTurn)return;engine.setActive(true);await engine.update(p);if(ticket===previewTurn){status.hidden=true;$('#preview-retry').hidden=true;}}
+ if(previewFailed)return;try{if(!previewPromise){status.hidden=false;status.querySelector('span').textContent='Préparation de votre composition 3D…';previewPromise=import('./live-preview.js').then(m=>{preview=m.createPreview(host,{onBasinSelect});return preview;});}const engine=await previewPromise;if(ticket!==previewTurn)return;engine.setActive(true);const ready=await engine.update(p);if(ticket===previewTurn&&ready){status.hidden=true;$('#preview-retry').hidden=true;return true;}}
  catch(e){previewFailed=true;if(!preview){previewPromise=null;host.querySelector('canvas')?.remove();}status.hidden=false;status.dataset.reason=e.message;status.querySelector('span').textContent='La composition 3D ne peut pas s’afficher. Vérifiez WebGL et votre connexion. Vos choix sont conservés.';$('#preview-retry').hidden=false;}
 }
 function attachPreview(){const on=view==='quote'||view==='wizard'&&step>0,shell=$('#preview-shell');shell.hidden=!on;$('#live-estimate').hidden=!(view==='wizard'&&step>0);if(!on){preview?.setActive(false);return;}const parent=view==='quote'?$('#quote-layout'):$('#wizard-body');if(shell.parentElement!==parent)parent.prepend(shell);const p=currentComposition();if(p){updatePreview(p);if(view==='wizard')renderLiveQuote();commercialChanged();}}
@@ -198,14 +199,23 @@ $('#change-collection').onclick=()=>projectNavigation.request(()=>switchView('co
 const requested=new URLSearchParams(location.search).get('collection');if(requested){const clean=v=>v.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();const col=C.collections.find(c=>clean(c.name)===clean(requested)||c.id===requested);if(col&&view!=='quote'&&view!=='collections'&&new URLSearchParams(location.search).get('view')!=='configure')chooseCollection(col.id);}
 
 const projectWorkspace=createWorkspace({onPublicCompositions:()=>homePublicGallery.show(),getProject:currentComposition,getThumbnail:()=>$('#preview-status').hidden?preview?.snapshot({thumbnail:true}):null,onDeletedActive:()=>{project=null;draft=initialDraft();projectTitle=t('Ma salle de bains');siteReference='';switchView('home');},onUpdate:data=>{project=data;projectTitle=data.title;siteReference=data.siteReference||'';storeQuote(localStorage,data,quoteMode);renderQuote();},
+ getOrderRows:furnitureOrderRows,
+ async getOrderSnapshot(data){
+  const error='Le visuel 3D du PDF ne peut pas être préparé. Vérifiez que l’aperçu du mobilier s’affiche, puis réessayez.';
+  if(!await updatePreview(data))throw Error(error);
+  let snapshot;
+  try{snapshot=await preview.snapshot({width:1200,format:'image/jpeg',frameFurniture:true});}catch{throw Error(error);}
+  if(!snapshot?.startsWith('data:image/jpeg;base64,')||snapshot.length>400000)throw Error(error);
+  return snapshot;
+ },
  onOpen:(data,id,record)=>{if(record?.kind==='house'){if(isRandalPresentation(identity.state)){error('Les plans maison ne sont pas disponibles dans cet espace.','#quote-status');return;}location.href=demoRoute('maison.html?project='+encodeURIComponent(id));return;}openSaved(data,id);},
- onLock:(locked)=>{for(const selector of ['#quote-title','#quote-site','#edit-choices','#save-composition','#prepare-order']){const el=$(selector);if(el)el.disabled=locked;}},status:text=>error(text,'#quote-status')});
+ onLock:(locked)=>{for(const selector of ['#quote-title','#quote-site','#edit-choices','#save-composition','#prepare-order']){const el=$(selector);if(el)el.disabled=locked;}const send=$('#send-project-administrator');if(send)send.hidden=locked;},status:text=>error(text,'#quote-status')});
 projectWorkspace.setAccount(identity.state);
 $('#saved-projects').onclick=()=>projectWorkspace.showProjects();
 $('#save-composition').onclick=async()=>{try{persistQuote();await projectWorkspace.save();}catch(e){error(e.message,'#quote-status');}};
 $('#project-import').onchange=e=>{projectWorkspace.importFile(e.target.files?.[0]);e.target.value='';};
 $('#prepare-order').onclick=()=>projectWorkspace.order();
-const adminSend=document.createElement('button');adminSend.type='button';adminSend.className='lrf-admin-send';adminSend.id='send-project-administrator';adminSend.textContent='Envoyer le projet à l’administrateur';adminSend.onclick=()=>projectWorkspace.sendAdministrator();$('#quote-panel').append(adminSend);
+const adminSend=document.createElement('button');adminSend.type='button';adminSend.className='lrf-admin-send';adminSend.id='send-project-administrator';adminSend.textContent='Transmettre un brouillon à l’administrateur';adminSend.onclick=()=>projectWorkspace.sendAdministrator();$('#quote-panel').append(adminSend);projectWorkspace.refreshLock();
 // A draft starts being checkpointed after the model step; choosing a model never opens a save dialog.
 const checkpointHome=()=>{if(currentComposition())projectWorkspace.checkpoint();};
 $('#next').addEventListener('click',checkpointHome);document.addEventListener('click',e=>{if(e.target.closest('[data-choice],[data-swatch],[data-width],[data-model],[data-collection]'))queueMicrotask(checkpointHome);});
