@@ -192,6 +192,15 @@ vm.runInContext('viewTween=null;setView("front",true)',context);const cameraBefo
 assert(vm.runInContext("addItem('column')",context));assert.equal(vm.runInContext('JSON.stringify({p:camera.position.toArray(),t:controls.target.toArray(),v:state.view})',context),cameraBefore);assert.equal(vm.runInContext('viewTween',context),null);
 const reversibleId=vm.runInContext('composition.selectedId',context);vm.runInContext('openInspector("column");toggleColumn();viewTween=null;for(let i=1;i<=100;i++)animate(10000+i*16)',context);
 const action=id=>queryAll('[data-object-action="'+id+'"]').find(c=>ids.get('object-editor-body').contains(c));
+const handleControl=key=>queryAll('[data-column-handle="'+key+'"]').find(c=>ids.get('object-editor-body').contains(c));
+assert.equal(handleControl('color').value,'standard');
+handleControl('color').value='black';handleControl('color').onchange();
+assert.equal(vm.runInContext('composition.selected.asset.getHandleColor()',context),'black');
+assert.equal(vm.runInContext('collectProject().items.find(item=>item.type==="column").settings.handleColor',context),'black');
+handleControl('side').value='left';handleControl('side').onchange();
+assert.equal(vm.runInContext('composition.selected.settings.hingeSide',context),'right');
+handleControl('side').value='right';handleControl('side').onchange();
+assert.equal(vm.runInContext('composition.selected.settings.hingeSide',context),'left');
 assert(vm.runInContext('composition.selected.asset.door.rotation.y<0',context));action('column-hinge').onclick();assert.equal(vm.runInContext('composition.selected.asset.getHingeSide()',context),'right');assert(vm.runInContext('composition.selected.asset.door.rotation.y>0',context));assert.equal(vm.runInContext('composition.selected.settings.doorOpen',context),true);
 vm.runInContext('viewTween=null;for(let i=1;i<=100;i++)animate(12000+i*16)',context);assert(vm.runInContext('composition.selected.asset.door.rotation.y>1.6',context));
 ids.get('column-hinge').onclick();assert.equal(vm.runInContext('composition.selected.asset.getHingeSide()',context),'left');

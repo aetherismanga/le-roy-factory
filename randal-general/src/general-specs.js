@@ -26,6 +26,17 @@ export function finishForHandle(form,finish,handle){
  if(form.collection==='less')return form.finishes.find(f=>f.endsWith('tirador-'+({white:'blanco',nickel:'niquel',black:'negro'}[handle])))||null;
  return finish;
 }
+const ARUBA_COLUMN_HANDLES=Object.freeze([
+ {id:'standard',name:'Finition standard',hex:'#afb2b3',metalness:.85,roughness:.3},
+ HANDLE_FINISHES.black
+]);
+export function columnHandleChoices(form){
+ return ['aruba','aruba-rainure'].includes(form?.collection)?ARUBA_COLUMN_HANDLES:[];
+}
+export function columnHandleColor(form,value){
+ const choices=columnHandleChoices(form);
+ return (choices.find(choice=>choice.id===value)||choices[0])?.id??null;
+}
 export function joineryLayout(form,W,H,B){
  const panel=panelThickness(form),double=W>=1.19&&!['luce','amat','sima','less'].includes(form.collection),doorWidth=form.collection==='amat'?W/3:form.door?W:0;
  const bays=double?[{x:-W/4,width:W/2},{x:W/4,width:W/2}]:[{x:form.collection==='amat'?(form.doorSide==='left'?doorWidth/2:-doorWidth/2):0,width:W-doorWidth}];

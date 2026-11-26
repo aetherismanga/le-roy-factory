@@ -3,7 +3,7 @@ import {AQUAHOME} from '../../../shared/lrf-3d/aquahome-catalog.js';
 import {matchingDrain} from '../../../shared/lrf-3d/plumbing-catalog.js';
 import {integratedTop,solidPlan,solidDescription,defaultBasinColor,SOLID_SURFACE_LEAD_TIME} from '../../../shared/lrf-3d/solid-surface-catalog.js';
 import {basinEntry,BASIN_LAYOUT_NAMES} from '../basins.js';
-import {panelThickness,handleFinish,HANDLE_FINISHES} from '../general-specs.js';
+import {panelThickness,handleFinish,HANDLE_FINISHES,columnHandleColor} from '../general-specs.js';
 import {topAvailable,unitWidth,pairedCabinet} from '../configuration.js';
 import {CATALOG as C} from './catalog.js';
 export const money=cents=>Number.isInteger(cents)?new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(cents/100):'Prix sur demande';
@@ -30,7 +30,10 @@ export function lineItems(item){
    if(s.top!=='plain'){const color=C.vesselColors.find(c=>c.code===(s.basinColor||'gloss')),name=s.top==='neris'?'Neris':'Torne';row('Vasque '+name,color?.[name],color?C.vesselTTC:null,(color?.name||'')+' · '+(BASIN_LAYOUT_NAMES[s.basinLayout]||BASIN_LAYOUT_NAMES.center)+drainSummary(s));}
   }else if(!['none','compact'].includes(s.top))row('Plan / vasque',null,null,'Configuration à vérifier');
  }else if(item.type==='column'){
-  const m=C.columns.find(m=>m.id===s.columnModel),f=finish(s.finish),ref=m?.refs[s.finish];row(m?.name||'Colonne RANDAL',ref,ref?m.ttc:null,m?`${m.width} × ${m.height} × ${m.depth} cm · ${f?.name||''}`:'Modèle à choisir');
+  const m=C.columns.find(m=>m.id===s.columnModel),f=finish(s.finish),ref=m?.refs[s.finish];
+  const black=columnHandleColor(m,s.handleColor)==='black';
+  const handle=black?' · Poignée noire à '+(s.hingeSide==='right'?'gauche':'droite'):'';
+  row(m?.name||'Colonne RANDAL',ref,ref?m.ttc:null,m?`${m.width} × ${m.height} × ${m.depth} cm · ${f?.name||''}${handle}`:'Modèle à choisir',black?'Montage de la poignée à confirmer par RANDAL.':'');
  }else if(item.type==='mirror'){
   const m=C.mirrors.find(m=>m.id===s.mirrorModel),size=m?.sizes.find(v=>v.width===s.width&&v.height===s.height),metal=s.mirrorFinish||'Noir',valid=size&&(!m.metal||Object.hasOwn(size.refs,metal));
   row('Miroir '+(m?.name||''),valid?(size.refs?.[metal]||size.ref):null,valid?size.ttc:null,`${s.width} × ${s.height} cm${m?.metal?' · '+metal:''}`);

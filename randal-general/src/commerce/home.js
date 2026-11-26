@@ -13,14 +13,14 @@ import {publicCompositionURL,navigatePublicComposition} from '../../../shared/lr
 import {fullTopDrawerAvailable,drawerDescription} from '../../../shared/lrf-3d/drawer-options.js';
 import {createWorkspace} from './workspace.js';
 import {createProjectDeletion} from './project-deletion.js';
-import {panelThickness,handleChoices,handleFinish,finishForHandle} from '../general-specs.js';
+import {panelThickness,handleChoices,handleFinish,finishForHandle,columnHandleChoices} from '../general-specs.js';
 import {createProjectNavigation} from './navigation.js';
 import '../viewport.js';
 import {validWidth,configurationWidths,cabinetWidthLabel,pairedCabinet} from '../configuration.js';
 import {CATALOG as C} from './catalog.js';
 import {money,quoteProject,finish} from './pricing.js';
 import {furnitureOrderRows} from './order-summary.js';
-import {initialDraft,normalizeDraft,updateDraft,draftProject,DRAFT_KEY,TRANSFER_KEY} from './guided.js';
+import {initialDraft,normalizeDraft,updateDraft,draftProject,columnsForGuidedCollection,DRAFT_KEY,TRANSFER_KEY} from './guided.js';
 import {createIdentity,privateMarkup,existingAdministrator} from './identity.js';
 import {chipStyle,APPEARANCE} from './appearance.js';
 import {basinChoices,renderBasinPlacement} from '../basin-selector.js';
@@ -70,7 +70,14 @@ function image(url,alt){return `<img src="${esc(url)}" alt="${esc(alt)}" loading
 function officialPhoto(model){return `<img class="product-photo general-model-photo" data-thumbnail-model="${esc(model.id)}" src="${esc(model.image)}" alt="Dessin fabricant RANDAL — ${esc(model.name)}" loading="lazy">`;}
 function productCard(id,title,detail,url,selected,extra=''){return `<button type="button" class="product-card" data-choice="${esc(id)}" aria-pressed="${selected}">${url?image(url,title):extra||'<div class="empty-product">Sans</div>'}<strong>${esc(title)}</strong><small>${esc(detail)}</small></button>`;}
 function field(id,label,value,values){return `<label>${esc(label)}<select id="${id}">${values.map(([v,name])=>`<option value="${esc(v)}" ${String(v)===String(value)?'selected':''}>${esc(name)}</option>`).join('')}</select></label>`;}
-function swatches(key,values,value){return `<div class="swatches" role="group" aria-label="${key==='basinColor'?'Couleur de la vasque':'Finition'}">${values.map(f=>`<button type="button" data-swatch="${key}" data-value="${esc(f.id||f.code)}" aria-pressed="${(f.id||f.code)===value}"><span class="chip" style="${key==='finish'||key==='columnFinish'?chipStyle(f.id):'background:'+esc(basinColors(draft.top).find(c=>c.id===(f.id||f.code))?.hex||f.hex)}"></span>${esc(f.name)}</button>`).join('')}</div>`;}
+function swatches(key,values,value,label='Finition'){
+ const material=key==='finish'||key==='columnFinish';
+ const color=key==='basinColor'?basinColors(draft.top):[];
+ return `<div class="swatches" role="group" aria-label="${esc(label)}">${values.map(f=>{
+  const id=f.id||f.code,style=material?chipStyle(f.id):'background:'+esc(color.find(c=>c.id===id)?.hex||f.hex);
+  return `<button type="button" data-swatch="${key}" data-value="${esc(id)}" aria-pressed="${id===value}"><span class="chip" style="${style}"></span>${esc(f.name)}</button>`;
+ }).join('')}</div>`;
+}
 function updateURL(next,nextStep,replace=false){const url=new URL(location.href);url.hash='';url.searchParams.delete('step');if(next==='home')url.searchParams.delete('view');else url.searchParams.set('view',next==='wizard'?'configure':next==='collections'?'collections':'quote');if(next==='wizard')url.searchParams.set('step',String(nextStep));history[replace?'replaceState':'pushState']({view:next,step:nextStep},'',url);}
 function switchView(next,nextStep=step,{history=true,replace=false}={}){
  view=next;step=Math.min(4,Math.max(0,Number.isInteger(nextStep)?nextStep:0));
@@ -107,11 +114,24 @@ function renderWizard(){
    return productCard(o.id,name,detail+(Number.isInteger(o.price)?' · '+money(o.price):''),photo,o.id===draft.top);
   }).join('')+'</div><div id="guided-basin-placement"></div>';
   const colors=basinColors(draft.top,draft.width,draft.format,draft.basinLayout);
-  if(colors.length)html+='<label>Couleur de la vasque</label>'+swatches('basinColor',colors,draft.basinColor);
+  if(colors.length)html+='<label>Couleur de la vasque</label>'+swatches('basinColor',colors,draft.basinColor,'Couleur de la vasque');
   if(['plain','neris','torne'].includes(draft.top)&&!model.counter)html+=field('topFinish','Finition du plan',draft.topFinish,C.topFinishes.map(f=>[f.id,f.name]));
   if(fullTopDrawerAvailable(draft.top)&&model.drawers)html+='<label class="top-drawer-choice"><input id="guided-top-drawer" type="checkbox" '+(draft.topDrawer==='full'?'checked':'')+'> Tiroir supérieur plein (sans découpe siphon)</label>';
  }
- else if(step===3){const columns=C.columns.filter(c=>c.collection===draft.collection);html='<div class="column-grid">'+productCard('none','Sans colonne','Continuer sans rangement supplémentaire',null,!draft.column)+columns.map(c=>productCard(c.id,c.name,c.width+' × '+c.height+' × '+c.depth+' cm',c.image,draft.column&&draft.columnModel===c.id)).join('')+'</div>';if(!columns.length)html+='<p class="selection-note">Le catalogue ne propose pas de colonne assortie à cette collection.</p>';if(draft.column){const col=columns.find(c=>c.id===draft.columnModel);html+='<label>Finition de la colonne</label>'+swatches('columnFinish',C.finishes.filter(f=>col.finishes.includes(f.id)),draft.columnFinish);}}
+ else if(step===3){
+  const columns=columnsForGuidedCollection(draft.collection);
+  html='<div class="column-grid">'+productCard('none','Sans colonne','Continuer sans rangement supplémentaire',null,!draft.column)+columns.map(c=>productCard(c.id,draft.collection==='aruba-rainure'?'Colonne Aruba lisse':c.name,c.width+' × '+c.height+' × '+c.depth+' cm',c.image,draft.column&&draft.columnModel===c.id)).join('')+'</div>';
+  if(!columns.length)html+='<p class="selection-note">Le catalogue ne propose pas de colonne assortie à cette collection.</p>';
+  if(draft.column){
+   const col=columns.find(c=>c.id===draft.columnModel),handles=columnHandleChoices(col);
+   html+='<label>Finition de la colonne</label>'+swatches('columnFinish',C.finishes.filter(f=>col.finishes.includes(f.id)),draft.columnFinish);
+   if(handles.length){
+    const label='Finition de la poignée latérale';
+    html+='<label>'+label+'</label>'+swatches('columnHandleColor',handles,draft.columnHandleColor,label);
+    html+=field('columnHingeSide','Côté de la poignée (vue de face)',draft.columnHingeSide,[['right','À gauche'],['left','À droite']]);
+   }
+  }
+ }
  else{html='<div class="product-grid mirror-grid">'+productCard('none','Sans miroir','Continuer sans miroir',null,draft.mirror===null)+C.mirrors.map(m=>productCard(m.id,m.name,m.sizes.length+' format'+(m.sizes.length>1?'s':''),m.image,m.id===draft.mirror)).join('')+'</div>';if(draft.mirror){const m=C.mirrors.find(m=>m.id===draft.mirror);html+='<div class="fields">'+field('mirrorSize','Dimensions du miroir',draft.mirrorSize,m.sizes.map((s,i)=>[i,s.label]))+(m.metal?field('mirrorFinish','Finition du cadre',draft.mirrorFinish,['Noir','Doré','Bronze','Argent'].map(s=>[s,s])):'')+'</div><p class="selection-note">Prix catalogue RANDAL.</p>';}}
  content.innerHTML=html;error('');
  if(step===2)renderBasinPlacement($('#guided-basin-placement'),draft,{id:'basinLayout',onModel:top=>patchDraft({top,basinColor:defaultBasinColor(top)}),onLayout:basinLayout=>patchDraft({basinLayout})});
@@ -121,7 +141,7 @@ function renderWizard(){
  content.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{const id=b.dataset.choice;patchDraft(step===2?{top:id,basinColor:defaultBasinColor(id)}:step===3?{column:id!=='none',columnModel:id==='none'?draft.columnModel:id}:{mirror:id==='none'?null:id,mirrorSize:0});});
  const topDrawer=$('#guided-top-drawer');if(topDrawer)topDrawer.onchange=()=>patchDraft({topDrawer:topDrawer.checked?'full':'siphon'});
  content.querySelectorAll('[data-swatch]').forEach(b=>b.onclick=()=>patchDraft({[b.dataset.swatch]:b.dataset.value}));
- for(const key of ['width','topFinish','columnFinish','mirrorSize','mirrorFinish']){const field=$('#'+key);if(field)field.onchange=()=>{if(!field.checkValidity()){field.reportValidity();return;}patchDraft({[key]:key==='width'||key==='mirrorSize'?Number(field.value):field.value});};}
+ for(const key of ['width','topFinish','columnFinish','columnHingeSide','mirrorSize','mirrorFinish']){const field=$('#'+key);if(field)field.onchange=()=>{if(!field.checkValidity()){field.reportValidity();return;}patchDraft({[key]:key==='width'||key==='mirrorSize'?Number(field.value):field.value});};}
  content.querySelectorAll('img').forEach(img=>img.onerror=()=>{img.alt='Photo indisponible — vérifiez la connexion';});for(const svg of content.querySelectorAll('svg.product-photo')){const picture=new Image();picture.src=svg.querySelector('image').getAttribute('href');picture.decode().then(()=>svg.parentElement.dataset.photoReady='true').catch(()=>svg.parentElement.dataset.photoReady='error');}attachPreview();if(step===0)renderModelCards();
 }
 function validateCurrentStep(){const width=$('#width');if(width&&!width.checkValidity()){width.reportValidity();return false;}return true;}

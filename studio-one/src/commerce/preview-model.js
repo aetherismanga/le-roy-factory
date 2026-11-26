@@ -6,6 +6,7 @@ import {makeCatalogueMirror,mirrorGeometry,mirrorSpec} from '../mirrors.js';
 import {basinColors} from '../basins.js';
 import {cabinetFormat} from '../configuration.js';
 import {canonicalPoints,partitionGeometry} from '../room.js';
+import {columnHandleColor} from '../column-handle.js';
 export {FINISHES,mirrorGeometry,mirrorSpec};
 // The quote previews furniture only. Keep the complete workshop project intact.
 export const previewItems=project=>project.items.filter(i=>['cabinet','column','mirror'].includes(i.type));
@@ -15,7 +16,7 @@ export function previewStructure(project){return JSON.stringify({room:{points:pr
 export function applyPreviewSettings(preview,project){
  const byId=new Map(project.items.map(i=>[i.id,i]));
  for(const item of preview.items){const raw=byId.get(item.id);if(!raw)continue;const s=item.settings={...raw.settings};
-  if(item.type==='column')item.asset.setHingeSide?.(s.hingeSide||'left');
+  if(item.type==='column'){item.asset.setHingeSide?.(s.hingeSide||'left');item.asset.setHandleColor?.(columnHandleColor(s));}
   if(item.type==='cabinet'){item.asset.setTop(s.top);item.asset.setTopDrawer(s.topDrawer);const c=basinColors(s.top,s.width,s.format,s.basinLayout).find(c=>c.id===s.basinColor);if(c){item.asset.ceramic.color.set(c.hex);item.asset.ceramic.roughness=c.roughness;item.asset.ceramic.clearcoat=c.clearcoat;}}
   if(item.type==='cabinet'||item.type==='column'){const f=FINISHES.find(f=>f.id===s.finish);if(f)for(const m of [item.asset.wood,item.asset.frontWood]){m.color.set(f.hex);m.roughness=f.roughness;m.map=null;m.bumpMap=null;m.needsUpdate=true;}}
  }
@@ -25,7 +26,7 @@ export function buildPreview(project){const group=new T.Group(),items=[],points=
  for(const raw of previewItems(project)){const s=raw.settings,base=raw.type==='cabinet'?cabinetFormat(s.format).base:raw.type==='column'?.28:raw.type==='mirror'?1.4:0;let asset;
   if(raw.type==='cabinet'){asset=makeModel({width:s.width/100,format:s.format,facadeMode:s.facadeMode,basinLayout:s.basinLayout,basinTop:s.top,topDrawer:s.topDrawer,includeMirror:false});asset.setTop(s.top);const c=basinColors(s.top,s.width,s.format,s.basinLayout).find(c=>c.id===s.basinColor);if(c){asset.ceramic.color.set(c.hex);asset.ceramic.roughness=c.roughness;asset.ceramic.clearcoat=c.clearcoat;}}
   else if(raw.type==='column')asset=makeColumn();else if(raw.type==='mirror')asset=makeCatalogueMirror(s);else continue;
-  if(raw.type==='column')asset.setHingeSide?.(s.hingeSide||'left');
+  if(raw.type==='column'){asset.setHingeSide?.(s.hingeSide||'left');asset.setHandleColor?.(columnHandleColor(s));}
   // Workshop mirrors carry shared settings, including the last cabinet finish.
   // Their metal frame has no wood materials and must retain mirrorFinish.
   const f=FINISHES.find(f=>f.id===s.finish);if(f&&(raw.type==='cabinet'||raw.type==='column'))for(const m of [asset.wood,asset.frontWood]){m.color.set(f.hex);m.roughness=f.roughness;}

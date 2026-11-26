@@ -4,6 +4,7 @@ import {matchingDrain} from '../../../shared/lrf-3d/plumbing-catalog.js';
 import {cabinetUnitWidth,topAvailable,PAIRED_WIDTH} from '../configuration.js';
 import {solidPlan,solidDescription,SOLID_SURFACE_LEAD_TIME,integratedTop,defaultBasinColor} from '../solid-surface-catalog.js';
 import {basinEntry,BASIN_LAYOUT_NAMES} from '../basins.js';
+import {columnHandleRequest} from '../column-handle.js';
 import {CATALOG as C} from './catalog.js';
 export const money=cents=>Number.isInteger(cents)?new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(cents/100):'Prix sur demande';
 export const finish=id=>C.finishes.find(f=>f.id===id);
@@ -29,7 +30,9 @@ export function lineItems(item){
    row('Vasque '+name,color?.[name],color&&s.width>=(top==='neris'?50:40)?C.vesselTTC:null,(color?.name||'Couleur à vérifier')+' · '+(BASIN_LAYOUT_NAMES[s.basinLayout]||BASIN_LAYOUT_NAMES.center)+drainSummary(s));
   }
  }else if(item.type==='column'){
-  row(C.column.name,f?C.column.ref+' '+f.refCode:null,f?C.column.ttc:null,`38 × 132 × 27 cm · ${f?.name||'Finition à vérifier'}`);
+  const opening=s.hingeSide==='right'?'Charnières à droite':'Charnières à gauche';
+  const details=[`38 × 132 × 27 cm · ${f?.name||'Finition à vérifier'}`,opening,columnHandleRequest(s)];
+  row(C.column.name,f?C.column.ref+' '+f.refCode:null,f?C.column.ttc:null,details.filter(Boolean).join(' · '));
  }else if(item.type==='mirror'){
   const m=C.mirrors.find(m=>m.id===s.mirrorModel),size=m?.sizes.find(v=>v.width===s.width&&v.height===s.height),metal=s.mirrorFinish||'Noir';
   const valid=size&&(!m.metal||Object.hasOwn(size.refs,metal));

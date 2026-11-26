@@ -23,5 +23,22 @@ export function makeColumn(){
  const a=front.geometry.attributes.position,uv=front.geometry.attributes.uv;for(let i=0;i<a.count;i++)uv.setXY(i,(a.getX(i)-w/2)/.8+.5,(a.getY(i)+.282)/.7);uv.needsUpdate=true;
  let hingeSide='left';const sideX=sideParts.map(o=>o.position.x);
  function setHingeSide(side){if(side!=='left'&&side!=='right')return false;const angle=-door.rotation.y/(hingeSide==='left'?1:-1);hingeSide=side;const sign=side==='left'?1:-1;door.position.x=-.188*sign;door.scale.x=sign;door.rotation.y=-angle*sign;sideParts.forEach((o,i)=>o.position.x=sideX[i]*sign);root.updateMatrixWorld(true);return true;}
- return {root,wood,frontWood,door,shelves,panels,spec:COLUMN_SPEC,setHingeSide,getHingeSide:()=>hingeSide,getHingeSign:()=>hingeSide==='left'?1:-1};
+ let pull=null;
+ function setHandleColor(color){
+  if(color!=='standard'&&color!=='black')return false;
+  if(color==='black'&&!pull){
+   const material=new T.MeshStandardMaterial({color:'#242729',metalness:.72,roughness:.3});
+   pull=new T.Group();pull.name='Poignee_laterale_colonne_noire';door.add(pull);
+   const x=w-.032;
+   for(const y of [.65,.79])box(.011,.012,.016,material,'Fixation_poignee',pull,x,y,.016);
+   box(.012,.172,.010,material,'Poignee_verticale',pull,x,.72,.026);
+  }else if(color==='standard'&&pull){
+   pull.removeFromParent();
+   for(const part of pull.children)part.geometry.dispose();
+   pull.children[0].material.dispose();
+   pull=null;
+  }
+  return true;
+ }
+ return {root,wood,frontWood,door,shelves,panels,spec:COLUMN_SPEC,setHingeSide,setHandleColor,getHandleColor:()=>pull?'black':'standard',getHingeSide:()=>hingeSide,getHingeSign:()=>hingeSide==='left'?1:-1};
 }
