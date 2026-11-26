@@ -23,5 +23,9 @@ export function makeColumn(settings={}){
   for(let i=0;i<product.glassShelves;i++){const mesh=new T.Mesh(new T.BoxGeometry(.342,.006/scale.y,.224),glass);mesh.name='Etagere_verre_colonne_Anima_'+(i+1);mesh.position.set(0,.28+(i+1)*1.32/(product.glassShelves+1),-.108);root.add(mesh);shelves.push(mesh);for(const x of[-.166,.166])for(const z of[-.18,-.04]){const support=new T.Mesh(new T.BoxGeometry(.007,.008/scale.y,.009),supportMaterial);support.name='Taquet_etablette';support.position.set(x,mesh.position.y-.007/scale.y,z);root.add(support);}}
   if(half)root.traverse(mesh=>{if(!mesh.isMesh||mesh.material!==asset.wood)return;const p=mesh.geometry.attributes.position,n=mesh.geometry.attributes.normal,uv=mesh.geometry.attributes.uv;for(let i=0;i<p.count;i++){const x=(p.getX(i)+mesh.position.x)*scale.x,y=(p.getY(i)+mesh.position.y)*scale.y,z=(p.getZ(i)+mesh.position.z)*scale.z;uv.setXY(i,Math.abs(n.getX(i))>.6?z/.7+.4:x/.8+.5,y/.7);}uv.needsUpdate=true;});
   asset.shelves=shelves;asset.frontMeshes=fronts;asset.spec={...COLUMN_SPEC,width:product.width/100,height:product.height/100,depth:product.depth/100,bottom,reference:product.ref,sourceProductId:product.id,facade:product.facade};root.name='NEOBATH_ANIMA_'+(half?'DEMI_COLONNE_':'COLONNE_')+asset.spec.facade;
-  asset.setHingeSide(settings.hingeSide||'left');return asset;
+  asset.setHingeSide(settings.hingeSide||'left');
+  // Anima columns use their own integrated grip.
+  delete asset.setHandleColor;
+  delete asset.getHandleColor;
+  return asset;
 }
