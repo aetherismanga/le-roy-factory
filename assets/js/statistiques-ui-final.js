@@ -92,6 +92,11 @@ function enforceResponsive(){
 
 function init(){
   addStyles();
+  if(document.querySelector('#stats-simple-period[data-stats-period-source="available"]')){
+    enforceResponsive();
+    window.addEventListener('resize',enforceResponsive);
+    return;
+  }
   desiredYear=Number(yearEl()?.value)||currentYear();
   setYears();hideLegacy();const simple=ensureSimplePeriod();enforceResponsive();
 

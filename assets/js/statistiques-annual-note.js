@@ -1,4 +1,4 @@
-import './statistiques-ui-final.js?v=20260818-1315';
+import {STATS_PERIODS} from './statistiques-periods.js?v=20261126-elios';
 import './statistiques-lrf-multi.js';
 
 const PARTNERS=[
@@ -24,10 +24,15 @@ const STATUS={
   }
 };
 function noteFor(partner,year){
-  const x=STATUS[year]?.[partner];
+  const period=STATS_PERIODS[partner]?.periods?.[year+'-12'];
+  const x=period
+    ? period.incomplete
+      ? {kind:'partial',through:period.availableThroughLabel||period.label,missing:period.missingLabel}
+      : {kind:'full'}
+    : STATUS[year]?.[partner];
   if(!x)return {kind:'none',text:`${names[partner]||partner} : aucune donnée ${year}`};
   if(x.kind==='full')return {kind:'full',text:`${names[partner]||partner} : année complète`};
-  return {kind:'partial',text:`${names[partner]||partner} : ${x.through} — manque ${x.missing}`};
+  return {kind:'partial',text:`${names[partner]||partner} : ${x.through}${x.missing?' — manque '+x.missing:''}`};
 }
 function refresh(){
   const mode=document.getElementById('stats-period-type')?.value||'';
@@ -35,12 +40,12 @@ function refresh(){
   const year=Number(document.getElementById('stats-year')?.value||0);
   const notice=document.getElementById('stats-detail-notice');
   const annualOption=document.querySelector('#stats-period-type option[value="annual"]');
-  if(annualOption)annualOption.textContent='Année — cumul disponible';
+  if(annualOption&&annualOption.textContent!=='Année — cumul disponible')annualOption.textContent='Année — cumul disponible';
   if(mode!=='annual'||!year)return;
 
   document.querySelectorAll('#stats-kpis .kpi-card').forEach(card=>{
     if(card.querySelector('span')?.textContent?.trim()==='Partenaires inclus'){
-      const small=card.querySelector('small');if(small)small.textContent='Complets + incomplets disponibles';
+      const small=card.querySelector('small');if(small&&small.textContent!=='Complets + incomplets disponibles')small.textContent='Complets + incomplets disponibles';
     }
   });
 
@@ -51,7 +56,11 @@ function refresh(){
   if(full.length)blocks.push(`Complet : ${full.map(x=>x.text.replace(/ : année complète$/,'')).join(', ')}`);
   if(partial.length)blocks.push(`Incomplet mais inclus dans le total : ${partial.map(x=>x.text).join(' • ')}`);
   if(none.length)blocks.push(`Sans données : ${none.map(x=>x.text.replace(` : aucune donnée ${year}`,'' )).join(', ')}`);
-  if(blocks.length){notice.style.display='block';notice.textContent=blocks.join(' | ')}
+  if(blocks.length){
+    const content=blocks.join(' | ');
+    if(notice.style.display!=='block')notice.style.display='block';
+    if(notice.textContent!==content)notice.textContent=content;
+  }
 }
 let scheduled=false;
 function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;refresh()})}

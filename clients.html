@@ -67,6 +67,7 @@
   </style>
   <link rel="stylesheet" href="assets/css/crm-sidebar-sage.css?v=20260918-sage-global1">
   <link rel="stylesheet" href="assets/css/crm-apple-forms.css?v=20261113-save1">
+  <link rel="stylesheet" href="assets/css/crm-elios-turnover.css?v=20261126-elios-search">
   <script defer src="assets/js/crm-form-viewport.js?v=20261113-save1"></script>
 </head>
 <body class="crm-body">
@@ -145,7 +146,7 @@
       <div class="search-wrapper">
         <div class="search-box">
           <span>🔍</span>
-          <input type="text" id="search-input" placeholder="Rechercher par nom, ville, interlocuteur, téléphone...">
+          <input type="text" id="search-input" placeholder="Nom, ville, interlocuteur, téléphone ou code Elios…">
         </div>
       </div>
 
@@ -185,6 +186,7 @@
       </div>
     </div>
 
+    <section id="elios-source-search" aria-labelledby="elios-source-search-title" aria-live="polite" hidden></section>
     <h2 id="liste-clients" class="client-list-title">Liste des dossiers</h2>
     <div class="crm-table-container">
       <table class="crm-table" aria-labelledby="liste-clients">
@@ -215,6 +217,7 @@
         <h2 id="modal-title">Fiche Client / Prospect</h2>
         <span id="modal-status-badge" class="badge badge-client">Client</span>
       </div>
+      <section id="elios-client-turnover" aria-live="polite" hidden></section>
 
       <form id="client-form">
         <div class="modal-grid-edit">
@@ -328,6 +331,9 @@
     import { active as isActiveClient } from "./assets/js/crm-client-integrity-core.mjs?v=20261105-audit1";
     import { clientFollowup, matchesFollowup, portfolioType } from "./assets/js/client-activity-core.mjs?v=20261120-suivi1";
     import { cloneExtra } from "./assets/js/crm-extra-save-core.mjs";
+    import { loadEliosCrmRevenue } from "./assets/js/elios-crm-revenue.js?v=20261126-elios-sales";
+    import { eliosClientMetric, eliosClientDetails, eliosUnmatchedSearch } from "./assets/js/elios-crm-revenue-ui.js?v=20261126-elios-search";
+    import { eliosSearchCode, matchesEliosClientCode } from "./assets/js/elios-crm-reconciliation.mjs";
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { collection, doc, setDoc, getDocs, runTransaction, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -395,6 +401,9 @@
 
       // 4. Variables locales
       let clientsData = [];
+      let eliosSales = null;
+      let eliosSalesRequest = 0;
+      let eliosSalesReady = false;
       let currentEditingId = null;
       let currentDocList = [];
       let currentCRList = [];
@@ -527,6 +536,13 @@
         };
         resetEditorScroll();
         requestAnimationFrame(resetEditorScroll);
+      }
+
+      function renderClientEliosSales() {
+        const slot = document.getElementById("elios-client-turnover");
+        const id = modal.dataset.clientId;
+        slot.hidden = !id || modal.style.display === "none";
+        slot.innerHTML = slot.hidden ? "" : eliosSalesReady ? eliosClientDetails(eliosSales,id) : "<p>Chargement de l’arrêté Elios…</p>";
       }
 
       function closeModal() {
@@ -767,6 +783,7 @@
       // 5. Synchronisation Firestore & Rendu du Tableau
       const tableBody = document.getElementById("clients-table-body");
       const searchInput = document.getElementById("search-input");
+      const eliosSearchResults = document.getElementById("elios-source-search");
       const filterType = document.getElementById("filter-type");
       const filterDep = document.getElementById("filter-departement");
 
@@ -789,10 +806,17 @@
         history.replaceState(history.state, "", url);
       }
 
+      function renderEliosSearch() {
+        const matches = eliosUnmatchedSearch(eliosSales, searchInput.value);
+        eliosSearchResults.innerHTML = matches;
+        eliosSearchResults.hidden = !matches;
+      }
+
       function renderTable() {
         if (!tableBody) return;
 
         const search = searchInput.value.toLowerCase().trim();
+        const supplierCode = eliosSearchCode(search);
         const type = filterType.value;
         const dep = filterDep.value;
         const activity = filterActivity.value;
@@ -814,7 +838,7 @@
           if (type && cType !== type) continue;
           if (dep && !cp.startsWith(dep)) continue;
           if (activity && (c.categorieActivite || c.sousCategorie) !== activity) continue;
-          if (!matchesClientSearch({...c, codePostal: cp, ville}, search)) continue;
+          if (!matchesClientSearch({...c, codePostal: cp, ville}, search) && !matchesEliosClientCode(eliosSales,c.id,supplierCode)) continue;
 
           const followup = clientFollowup(c, now);
           if (matchesFollowup(followup.key, followupFilter)) filtered.push({ c, cType, cp, ville, followup });
@@ -851,7 +875,7 @@
           tr.style.cursor = "pointer";
           tr.innerHTML = `
             <td><span class="badge ${badgeClass}">${esc(cType)}</span></td>
-            <td><strong>${esc(c.societe || '')}</strong></td>
+            <td><strong>${esc(c.societe || '')}</strong><span data-elios-client-list>${eliosClientMetric(eliosSales,c.id)}</span></td>
             <td>${esc(cp ? cp + ' ' : '')}${esc(ville)}</td>
             <td>${esc(c.contact || '-')}</td>
             <td>${esc(c.telephone || '-')}</td>
@@ -874,12 +898,41 @@
       const editParam = canonicalId(new URLSearchParams(location.search).get("edit"));
       let directOpened = false;
       let jumpToList = location.hash === "#liste-clients";
+      function showEliosSales() {
+        renderEliosSearch();
+        if (eliosSearchCode(searchInput.value)) renderTable();
+        for (const row of tableBody.querySelectorAll("tr[data-client-id]")) {
+          const slot = row.querySelector("[data-elios-client-list]");
+          if (slot) slot.innerHTML = eliosClientMetric(eliosSales,row.dataset.clientId);
+        }
+        renderClientEliosSales();
+      }
+      window.addEventListener("lrf-client-opened", renderClientEliosSales);
+      window.addEventListener("lrf-client-closed", renderClientEliosSales);
+      async function refreshEliosSales() {
+        const request = ++eliosSalesRequest;
+        const uid = auth.currentUser?.uid;
+        const report = await loadEliosCrmRevenue({clients:clientsData}).catch(() => null);
+        if (request !== eliosSalesRequest || auth.currentUser?.uid !== uid) return;
+        eliosSales = report;
+        eliosSalesReady = true;
+        showEliosSales();
+      }
+      const salesAgent = auth.currentUser?.uid;
+      onAuthStateChanged(auth,user => {
+        if (user?.uid === salesAgent) return;
+        eliosSalesRequest++;
+        eliosSales = null;
+        eliosSalesReady = true;
+        showEliosSales();
+      });
       onSnapshot(collection(db, "clients"), (snapshot) => {
         clientsData = [];
         snapshot.forEach(docSnap => {
           clientsData.push({ ...docSnap.data(), id: docSnap.id });
         });
         renderTable();
+        refreshEliosSales();
         if (jumpToList) {
           jumpToList = false;
           listTitle.scrollIntoView({ block: "start" });
@@ -890,7 +943,10 @@
         tableBody.textContent='Impossible de charger les clients. Vérifiez votre connexion puis actualisez la page.';
       });
 
-      searchInput.addEventListener("input", renderTable);
+      searchInput.addEventListener("input", () => {
+        renderTable();
+        renderEliosSearch();
+      });
       filterActivity.addEventListener("change", renderTable);
       filterDep.addEventListener("change", renderTable);
       for (const [select] of linkedFilters) {

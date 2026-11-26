@@ -1,12 +1,12 @@
 import { db } from './firebase.js';
 import { collection, onSnapshot, doc, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-import { ELIOS_STATS_CLIENTS } from './statistiques-elios-data.js';
-import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-data.js';
+import { VIEW_STATS_CLIENTS_2026_08 } from './statistiques-view-data.js';
+import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-juillet-2026-archive.js';
 import { MI_JUIN_2025_STATS } from './statistiques-mi-juin-2025-data.js';
 import { FIN_2025_STATS } from './statistiques-fin-2025-data.js';
 import { RANDAL_FIN_2025_STATS } from './statistiques-randal-fin-2025-data.js';
 import { RANDAL_STATS_2026_10_25 } from './statistiques-randal-octobre-2026-data.js';
-import { STATS_PERIODS } from './statistiques-periods.js?v=20261106-randal-oct25';
+import { STATS_PERIODS, eliosStatsRows } from './statistiques-periods.js?v=20261126-elios';
 
 const PARTNERS=[
   ['elios-ceramica','ELIOS CERAMICA'],['view-ceramica','VIEW CERAMICA'],['la-fenice','LA FENICE'],
@@ -26,7 +26,7 @@ let selectedYear=null;
 let periodMode='annual';
 let activeCodesEditor=null;
 
-const euro=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(Number(n||0));
+const euro=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:currentPartner==='elios-ceramica'?2:0}).format(Number(n||0));
 const num=n=>new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}).format(Number(n||0));
 const pct=v=>v==null?'Nouveau':`${v>=0?'+':''}${(v*100).toFixed(1).replace('.',',')} %`;
 const norm=v=>String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\b(sarl|sasu|sas|sa|eurl|societe|etablissement|ets|sci)\b/g,'').replace(/[^a-z0-9]/g,'');
@@ -114,8 +114,9 @@ function detailRowsFor(partner,key){
     if(partner==='randal-pro')return RANDAL_FIN_2025_STATS.map(r=>({...r,partner}));
     return (FIN_2025_STATS[partner]||[]).map(r=>({...r,partner}));
   }
-  if(partner==='elios-ceramica'&&key==='2026-07')return ELIOS_STATS_CLIENTS.map(r=>({...r,factory:r.elios,partner}));
+  if(partner==='elios-ceramica')return eliosStatsRows(key).map(r=>({...r,factory:r.elios,partner}));
   if(partner==='view-ceramica'&&key==='2026-07')return VIEW_STATS_CLIENTS_2026_07.map(r=>({...r,partner}));
+  if(partner==='view-ceramica'&&key==='2026-08')return VIEW_STATS_CLIENTS_2026_08.map(r=>({...r,partner}));
   return [];
 }
 function rowValuesForYear(r,y){
@@ -298,7 +299,7 @@ function ensureAdvancedPeriodControls(){
 function annualKeyForYear(year){
   return Object.entries(periods()).filter(([,p])=>Number(p.y)===Number(year)&&Number(p.m)===12).sort((a,b)=>a[0].localeCompare(b[0])).at(-1)?.[0]||'';
 }
-function monthKeysForYear(year){return Object.entries(periods()).filter(([,p])=>Number(p.y)===Number(year)).sort((a,b)=>Number(a[1].m)-Number(b[1].m)).map(([k])=>k)}
+function monthKeysForYear(year){return Object.entries(periods()).filter(([,p])=>Number(p.y)===Number(year)&&!(p.incomplete&&p.sourceKey&&Number(p.m)===12)).sort((a,b)=>Number(a[1].m)-Number(b[1].m)).map(([k])=>k)}
 function renderPeriodSelectors(){
   const bar=document.getElementById('stats-period-filters');const info=partnerInfo();
   bar.style.display=info?'grid':'none';if(!info)return;
@@ -351,7 +352,7 @@ function renderKpis(){
   if(!p){box.innerHTML='';return}
   const evolution=p.prev?((p.ca-p.prev)/p.prev):null;
   const label=periodMode==='annual'?`CA ${p.y}`:periodMode==='range'?'CA période':`CA cumulé ${p.y}`;
-  const cards=[[label,euro(p.ca),pct(evolution),evolution],[`CA ${p.y-1}`,euro(p.prev),'Référence',null]];
+  const cards=[[label,euro(p.ca),pct(evolution),evolution],[`CA ${p.y-1}`,euro(p.prev),p.previousDateTo?'Au '+frDate(p.previousDateTo):'Référence',null]];
   if(p.budget!=null){const gap=p.budget?((p.ca-p.budget)/p.budget):null;cards.push(['Budget',euro(p.budget),pct(gap),gap])}
   if(p.m2!=null){const mv=p.m2Prev?((p.m2-p.m2Prev)/p.m2Prev):null;cards.push(['Volume',`${num(p.m2)} m²`,pct(mv),mv])}
   if(p.pm!=null)cards.push(['Prix moyen',`${Number(p.pm).toFixed(2).replace('.',',')} €/m²`,`${Number(p.pmPrev||0).toFixed(2).replace('.',',')} € en ${p.y-1}`,null]);
@@ -447,6 +448,7 @@ function init(){
   selectedYear=latestYear();
   if(!annualKeyForYear(selectedYear))periodMode='month';
   renderPartners();renderPeriodSelectors();render();
+  window.addEventListener('lrf-elios-stats-updated',()=>{renderPartners();renderPeriodSelectors();render()});
 
   document.getElementById('stats-year').addEventListener('change',e=>{
     selectedYear=Number(e.target.value);currentPeriodKey='';

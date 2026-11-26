@@ -1,13 +1,13 @@
 import './statistiques-lrf-manuel.js?v=20260818-1300';
 import { db } from './firebase.js';
 import { collection, onSnapshot, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-import { ELIOS_STATS_CLIENTS } from './statistiques-elios-data.js';
-import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-data.js';
+import { VIEW_STATS_CLIENTS_2026_08 } from './statistiques-view-data.js';
+import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-juillet-2026-archive.js';
 import { MI_JUIN_2025_STATS } from './statistiques-mi-juin-2025-data.js';
 import { FIN_2025_STATS } from './statistiques-fin-2025-data.js';
 import { RANDAL_FIN_2025_STATS } from './statistiques-randal-fin-2025-data.js';
 import { RANDAL_STATS_2026_10_25 } from './statistiques-randal-octobre-2026-data.js';
-import { STATS_PERIODS } from './statistiques-periods.js?v=20261106-randal-oct25';
+import { STATS_PERIODS, eliosStatsRows } from './statistiques-periods.js?v=20261126-elios';
 
 const JEROME_DEPTS=new Set(['11','30','34','66']);
 const SETTINGS_KEY='lrf-commission-rates-v1';
@@ -63,8 +63,9 @@ function detailRows(partner,key){
     if(partner==='randal-pro')return RANDAL_FIN_2025_STATS;
     return FIN_2025_STATS[partner]||[];
   }
-  if(partner==='elios-ceramica'&&key==='2026-07')return ELIOS_STATS_CLIENTS.map(r=>({...r,factory:r.elios}));
+  if(partner==='elios-ceramica')return eliosStatsRows(key).map(r=>({...r,factory:r.elios}));
   if(partner==='view-ceramica'&&key==='2026-07')return VIEW_STATS_CLIENTS_2026_07;
+  if(partner==='view-ceramica'&&(key==='2026-08'||key==='2026-12'))return VIEW_STATS_CLIENTS_2026_08;
   return [];
 }
 function rowCurrentValue(r,p){const y=Number(p?.y||2026);return Number(r[`ca${y}`]??r.ca2026??0)}
@@ -107,6 +108,7 @@ function render(){
   else warning.textContent='Répartition Jérôme / Coryne complète pour cette période.';
 }
 function observeUI(){
+  window.addEventListener('lrf-elios-stats-updated',render);
   document.addEventListener('click',e=>{if(e.target.closest('.partner-tab'))setTimeout(render,50)});
   document.addEventListener('change',e=>{if(e.target.matches('#stats-month,#stats-year,#stats-period-type,#stats-date-from,#stats-date-to'))setTimeout(render,20)});
 }

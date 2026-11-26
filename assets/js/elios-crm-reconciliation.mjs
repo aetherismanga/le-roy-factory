@@ -12,6 +12,15 @@ export function eliosCode(value) {
   return /^\d+$/.test(code) ? code.replace(/^0+(?=\d)/, '') : code;
 }
 
+export function eliosSearchCode(value) {
+  const query = clean(value);
+  return /^\d{1,16}$/.test(query) ? eliosCode(query) : '';
+}
+
+export function matchesEliosClientCode(report, clientId, code) {
+  return !!code && !!report?.byClientId.get(clientId)?.accounts.some(account => eliosCode(account.code) === code);
+}
+
 function companyKey(value) {
   const words = clean(value).normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
     .toLowerCase().replace(/&/g, ' et ').split(/[^a-z0-9]+/)

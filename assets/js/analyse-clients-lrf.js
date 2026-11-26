@@ -1,4 +1,5 @@
-import './analyse-clients-ca.js?v=20261103-reports2';
+import { clientTurnoverMarkup, clientTurnoverDetails } from './analyse-clients-ca.js?v=20261126-elios-sales';
+import { loadEliosCrmRevenue } from './elios-crm-revenue.js';
 import { auth, getAgentProfile } from './firebase.js';
 import { interestFor, nextActionFor, summaryFor, followScore, selectClients } from './analyse-client-report-model.mjs';
 import { loadClientHistory } from './analyse-client-history.js';
@@ -16,6 +17,8 @@ let pendingPreserveFilters = true;
 let detailClientId = '';
 let detailTrigger = null;
 let historyRequest = 0;
+let eliosReport = null;
+let eliosRequest = null;
 
 function profile(user = auth.currentUser) {
   const saved = getAgentProfile(user);
@@ -81,6 +84,7 @@ async function load({preserveFilters=true}={}){
     const json=await fetchAnalytics(); if(!json)return;
     if(reloadPending)return;
     data=json; $('#lrf-analysis-error')?.remove(); data.clients=(data.clients||[]).filter(c=>c.codeClient!=='LRF-00001'); fillFilters(preserveFilters); renderAll();
+    refreshEliosReport();
   }catch(err){
     console.error(err);
     const message=err?.name==='AbortError'?'Le serveur met trop de temps à répondre.':(err.message||'Impossible de charger les données.');
@@ -144,6 +148,33 @@ function renderOverview(){
   renderBreakdown('#lrf-partner-bars',data.partners||[],'Aucune consultation fabricant sur cette période.');
   renderTopProducts(); renderOrders();
 }
+function updateTurnoverDetail() {
+  const client = data?.clients.find(row => row.id === detailClientId);
+  const anchor = $('#lrf-detail-ca-anchor');
+  if (anchor) anchor.innerHTML = client ? clientTurnoverDetails(client,eliosReport) : '';
+}
+function updateTurnoverCards() {
+  if (!data) return;
+  const byId = new Map(data.clients.map(client => [client.id,client]));
+  for (const card of $$('#lrf-client-cards [data-client-id]')) {
+    const client = byId.get(card.dataset.clientId);
+    const slot = card.querySelector('[data-client-revenue]');
+    if (client && slot) slot.innerHTML = clientTurnoverMarkup(client,eliosReport);
+  }
+  updateTurnoverDetail();
+}
+function refreshEliosReport() {
+  const uid = auth.currentUser?.uid;
+  if (!uid || eliosRequest?.uid === uid) return;
+  const request = {uid};
+  eliosRequest = request;
+  loadEliosCrmRevenue().then(report => {
+    if (eliosRequest !== request || auth.currentUser?.uid !== uid) return;
+    eliosReport = report;
+    updateTurnoverCards();
+    if (!report) eliosRequest = null;
+  }).catch(() => { if (eliosRequest === request) eliosRequest = null; });
+}
 function renderBreakdown(sel,rows,empty){
   const host=$(sel);if(!host)return;const max=Math.max(1,...rows.map(x=>x.count||0));
   host.innerHTML=rows.length?rows.slice(0,8).map(r=>`<div class="lrf-page-row"><div class="lrf-page-name" title="${esc(r.name)}">${esc(partnerLabel(r.name))}</div><div class="lrf-page-track"><div class="lrf-page-fill" style="width:${Math.max(3,Math.round((r.count/max)*100))}%"></div></div><div class="lrf-page-count">${Number(r.count||0).toLocaleString('fr-FR')}</div></div>`).join(''):`<div class="lrf-empty">${esc(empty)}</div>`;
@@ -151,7 +182,7 @@ function renderBreakdown(sel,rows,empty){
 function clientCard(c){
   const interest=interestFor(c);
   const presence=c.isOnline?'En ligne sur le site':c.lastSeenAt?`Site : ${fmtDate(c.lastSeenAt,true)}`:'Pas d’activité web sur la période';
-  return `<article class="lrf-client-card" data-client-id="${esc(c.id)}" data-client-company="${esc(c.societe)}"><div class="lrf-client-card-head"><div><h3>${esc(c.societe)}</h3><p class="lrf-report-muted">${esc(c.codeClient)} · ${esc(c.ville||'Ville non renseignée')}${c.departement?` (${esc(c.departement)})`:''}</p></div><span class="lrf-site-status ${c.isOnline?'is-online':''}">${esc(presence)}</span></div><p class="lrf-client-facts">${esc(summaryFor(c))}</p><p class="lrf-client-interest"><span>Consultation principale</span>${esc(interest || 'Intérêt produit non identifié')}</p><div data-client-revenue></div><button class="lrf-report-open" type="button" data-detail-client="${esc(c.id)}" aria-label="Compte rendu de ${esc(c.societe)}">Compte rendu <span aria-hidden="true">→</span></button></article>`;
+  return `<article class="lrf-client-card" data-client-id="${esc(c.id)}" data-client-company="${esc(c.societe)}"><div class="lrf-client-card-head"><div><h3>${esc(c.societe)}</h3><p class="lrf-report-muted">${esc(c.codeClient)} · ${esc(c.ville||'Ville non renseignée')}${c.departement?` (${esc(c.departement)})`:''}</p></div><span class="lrf-site-status ${c.isOnline?'is-online':''}">${esc(presence)}</span></div><p class="lrf-client-facts">${esc(summaryFor(c))}</p><p class="lrf-client-interest"><span>Consultation principale</span>${esc(interest || 'Intérêt produit non identifié')}</p><div data-client-revenue>${clientTurnoverMarkup(c,eliosReport)}</div><button class="lrf-report-open" type="button" data-detail-client="${esc(c.id)}" aria-label="Compte rendu de ${esc(c.societe)}">Compte rendu <span aria-hidden="true">→</span></button></article>`;
 }
 function renderClients(){
   const host=$('#lrf-client-cards'); if(!host)return;
@@ -216,6 +247,7 @@ function openClientDetail(id){
   const events=(data.timeline||[]).filter(e=>e.clientId===id).slice().sort((a,b)=>b.at-a.at).slice(0,50);
   $('#lrf-detail-timeline').innerHTML=events.length?events.map(e=>`<div class="lrf-detail-event"><span aria-hidden="true">${actionIcon(e.action)}</span><div><strong>${esc(e.actionLabel)}</strong><small>${esc(eventDetail(e))}</small><time>${fmtDate(e.at,true)}</time></div></div>`).join(''):'<div class="lrf-empty">Aucun événement détaillé disponible pour cette période.</div>';
   $('#lrf-detail-fiche').href=`clients.html?focus=${encodeURIComponent(c.id)}`;
+  updateTurnoverDetail();
   const drawer=$('#lrf-client-drawer');drawer.inert=false;drawer.setAttribute('aria-hidden','false');drawer.classList.add('open');
   $('#lrf-detail-backdrop').classList.add('open');document.body.classList.add('lrf-drawer-open');
   $('#lrf-detail-close').focus();
@@ -223,6 +255,7 @@ function openClientDetail(id){
 }
 function closeDetail(){
   detailClientId='';historyRequest++;
+  updateTurnoverDetail();
   const drawer=$('#lrf-client-drawer');drawer?.classList.remove('open');drawer?.setAttribute('aria-hidden','true');if(drawer)drawer.inert=true;
   $('#lrf-detail-backdrop')?.classList.remove('open');document.body.classList.remove('lrf-drawer-open');
   if(detailTrigger?.isConnected)detailTrigger.focus();detailTrigger=null;
@@ -258,4 +291,10 @@ function bind(){
   openPanel('clients');updateCustomDates();
 }
 
+onAuthStateChanged(auth,user => {
+  if (!eliosRequest || user?.uid === eliosRequest.uid) return;
+  eliosRequest = null;
+  eliosReport = null;
+  updateTurnoverCards();
+});
 bind();load({preserveFilters:false});

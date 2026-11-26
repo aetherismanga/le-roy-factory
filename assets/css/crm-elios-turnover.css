@@ -1,0 +1,39 @@
+.client-elios-list-sales {
+  display:block;
+  margin-top:.28rem;
+  color:#235e46;
+  font-size:.74rem;
+}
+#elios-client-turnover, .lrf-ca-company {
+  margin:.65rem 0;
+  padding:.8rem;
+  border:1px solid #d7e6d9;
+  border-radius:.6rem;
+  background:#f6fbf7;
+  color:#314739;
+}
+.client-elios-sales-title, .lrf-ca-company h3 { margin:0 0 .45rem; }
+#elios-client-turnover p, .lrf-ca-company p { margin:.35rem 0; font-size:.83rem; }
+.client-elios-sales-kpis { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.45rem; margin:.4rem 0 .65rem; }
+.client-elios-sales-kpis div { padding:.58rem; border-radius:.4rem; background:#fff; }
+.client-elios-sales-kpis dt { font-size:.76rem; line-height:1.4; }
+.client-elios-sales-kpis dd { margin:.24rem 0 0; font-size:1.02rem; font-weight:700; }
+.client-elios-sales-accounts { display:grid; gap:.35rem; padding:0; margin:.4rem 0 0; list-style:none; }
+.client-elios-sales-accounts li { display:flex; justify-content:space-between; gap:.65rem; font-size:.77rem; }
+#elios-client-turnover summary, .lrf-ca-company summary { cursor:pointer; font-size:.8rem; }
+#elios-source-search { margin:0 0 1rem; padding:.9rem 1rem; border:1px solid #d7e6d9; border-radius:.6rem; background:#f6fbf7; color:#314739; }
+#elios-source-search h2 { margin:0; font-size:1rem; }
+#elios-source-search p { margin:.3rem 0 0; font-size:.8rem; }
+.client-elios-source-results { margin:.6rem 0 0; padding:0; list-style:none; }
+.client-elios-source-results li { display:flex; justify-content:space-between; align-items:flex-start; gap:.65rem; padding:.55rem 0; border-top:1px solid #d7e6d9; font-size:.84rem; }
+.client-elios-source-results li div:first-child { overflow-wrap:anywhere; }
+.client-elios-source-results span { display:block; margin-top:.22rem; font-size:.77rem; }
+.client-elios-source-amount { flex:none; text-align:right; }
+[data-client-revenue] { display:grid; gap:.24rem; }
+.lrf-ca-metric { display:flex; justify-content:space-between; align-items:baseline; gap:.55rem; border-top:1px solid #e4e9de; padding:.42rem 0; font-size:.82rem; }
+.lrf-ca-metric small { display:block; margin-top:.12rem; color:#695f54; font-size:.7rem; }
+.lrf-ca-metric strong { color:#215e44; white-space:nowrap; }
+.lrf-ca-metric .lrf-ca-negative { color:#9d3d21; }
+@media (max-width:390px) {
+  .client-elios-sales-kpis { grid-template-columns:1fr; }
+}

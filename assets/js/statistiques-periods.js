@@ -1,5 +1,6 @@
-import './statistiques-annual-note.js?v=20261106-randal-oct25';
 import { RANDAL_STATS_2026_10_25 } from './statistiques-randal-octobre-2026-data.js';
+import { ELIOS_STATS_CLIENTS as ELIOS_STATS_CLIENTS_2026_08 } from './statistiques-elios-data.js';
+import { ELIOS_STATS_CLIENTS as ELIOS_STATS_CLIENTS_2026_07 } from './statistiques-elios-juillet-2026-archive.js';
 export const STATS_PERIODS={"view-ceramica":{"name":"VIEW CERAMICA","numberLabel":"N° View","periods":{"2025-06":{"y":2025,"m":6,"label":"Janvier à mi-juin 2025","ca":162509.16,"prev":0},"2025-11":{"y":2025,"m":11,"label":"Jusqu’à fin novembre 2025","ca":257051.04,"prev":193331.09},"2025-12":{"y":2025,"m":12,"label":"Année complète 2025","ca":274600.57,"prev":217439.09,"incomplete":false},"2026-02":{"y":2026,"m":2,"label":"Jusqu’à fin février 2026","ca":45825.42,"prev":51462.98},"2026-03":{"y":2026,"m":3,"label":"Jusqu’à fin mars 2026","ca":77624.31,"prev":84464.1},"2026-04":{"y":2026,"m":4,"label":"Jusqu’à fin avril 2026","ca":111674.8,"prev":103791.14},"2026-05":{"y":2026,"m":5,"label":"Jusqu’à fin mai 2026","ca":141207.56,"prev":135958.69},"2026-06":{"y":2026,"m":6,"label":"Jusqu’à fin juin 2026","ca":200236.22,"prev":162509.18},"2026-07":{"y":2026,"m":7,"label":"Jusqu’à fin juillet 2026","ca":227134.78,"prev":201166.14},"2026-08":{"y":2026,"m":8,"label":"Jusqu’à fin août 2026","ca":237128.65,"prev":204298.68},"2026-12":{"y":2026,"m":12,"label":"Année 2026 — cumul disponible jusqu’à fin août","ca":237128.65,"prev":204298.68,"incomplete":true,"sourceKey":"2026-08","availableThroughLabel":"jusqu’à fin août 2026","missingLabel":"septembre à décembre 2026"}}},"elios-ceramica":{"name":"ELIOS CERAMICA","numberLabel":"N° Elios","periods":{"2025-06":{"y":2025,"m":6,"label":"Janvier à mi-juin 2025","ca":306311.52,"prev":310658.95},"2025-12":{"y":2025,"m":12,"label":"Année 2025 — cumul disponible jusqu’à mi-juin","ca":306311.52,"prev":310658.95,"incomplete":true,"sourceKey":"2025-06","availableThroughLabel":"jusqu’à mi-juin 2025","missingLabel":"mi-juin à décembre 2025"},"2026-06":{"y":2026,"m":6,"label":"Au 1er juin 2026","ca":224069.72,"prev":259312.52,"budget":249297.69,"m2":13747.9,"m2Prev":15784.65,"pm":16.3,"pmPrev":16.43},"2026-07":{"y":2026,"m":7,"label":"Jusqu’à fin juillet 2026","ca":309732.34,"prev":337262.84,"budget":348302.3,"m2":19358.92,"m2Prev":20637.07,"pm":16,"pmPrev":16.34},"2026-08":{"y":2026,"m":8,"label":"Jusqu’à fin août 2026","ca":317640.95,"prev":352535.39,"budget":364377.79,"m2":19839.33,"m2Prev":21806.43,"pm":16.0107,"pmPrev":16.1666},"2026-12":{"y":2026,"m":12,"label":"Année 2026 — cumul disponible jusqu’à fin août","ca":317640.95,"prev":352535.39,"incomplete":true,"sourceKey":"2026-08","availableThroughLabel":"jusqu’à fin août 2026","missingLabel":"septembre à décembre 2026"}}},"reviglass":{"name":"REVIGLASS","numberLabel":"N° Reviglass","periods":{"2025-06":{"y":2025,"m":6,"label":"Janvier à mi-juin 2025","ca":375562.03,"prev":394154.64},"2025-12":{"y":2025,"m":12,"label":"Année 2025 — cumul disponible jusqu’à mi-juin","ca":375562.03,"prev":394154.64,"incomplete":true,"sourceKey":"2025-06","availableThroughLabel":"jusqu’à mi-juin 2025","missingLabel":"mi-juin à décembre 2025"}}},"randal-pro":{"name":"RANDAL PRO","numberLabel":"N° Randal","periods":{"2025-06":{"y":2025,"m":6,"label":"Janvier à mi-juin 2025","ca":143617.66,"prev":131288.47},"2025-12":{"y":2025,"m":12,"label":"Année complète 2025","ca":236932.96,"prev":244674.79,"incomplete":false}}},"floor-italia":{"name":"FLOOR ITALIA","numberLabel":"N° Floor Italia","periods":{"2025-06":{"y":2025,"m":6,"label":"Janvier à mi-juin 2025","ca":22981.85,"prev":0},"2025-12":{"y":2025,"m":12,"label":"Année 2025 — cumul disponible jusqu’à mi-juin","ca":22981.85,"prev":0,"incomplete":true,"sourceKey":"2025-06","availableThroughLabel":"jusqu’à mi-juin 2025","missingLabel":"mi-juin à décembre 2025"}}},"petracers":{"name":"PETRACER'S","numberLabel":"N° Petracer","periods":{"2025-06":{"y":2025,"m":6,"label":"Janvier à mi-juin 2025","ca":1753.89,"prev":0},"2025-12":{"y":2025,"m":12,"label":"Année 2025 — cumul disponible jusqu’à mi-juin","ca":1753.89,"prev":0,"incomplete":true,"sourceKey":"2025-06","availableThroughLabel":"jusqu’à mi-juin 2025","missingLabel":"mi-juin à décembre 2025"}}},"pecchioli-firenze":{"name":"PECCHIOLI FIRENZE","numberLabel":"N° Pecchioli","periods":{"2025-06":{"y":2025,"m":6,"label":"Janvier à mi-juin 2025","ca":20416.03,"prev":0},"2025-12":{"y":2025,"m":12,"label":"Année 2025 — cumul disponible jusqu’à mi-juin","ca":20416.03,"prev":0,"incomplete":true,"sourceKey":"2025-06","availableThroughLabel":"jusqu’à mi-juin 2025","missingLabel":"mi-juin à décembre 2025"}}},"cermed":{"name":"CERMED","numberLabel":"N° Cermed","periods":{"2025-06":{"y":2025,"m":6,"label":"Janvier à mi-juin 2025","ca":0,"prev":0},"2025-12":{"y":2025,"m":12,"label":"Année 2025 — cumul disponible jusqu’à mi-juin","ca":0,"prev":0,"incomplete":true,"sourceKey":"2025-06","availableThroughLabel":"jusqu’à mi-juin 2025","missingLabel":"mi-juin à décembre 2025"}}},"propamsa":{"name":"PROPAMSA","numberLabel":"N° Propamsa","periods":{"2025-06":{"y":2025,"m":6,"label":"Janvier à mi-juin 2025","ca":106989.56,"prev":0},"2025-12":{"y":2025,"m":12,"label":"Année 2025 — cumul disponible jusqu’à mi-juin","ca":106989.56,"prev":0,"incomplete":true,"sourceKey":"2025-06","availableThroughLabel":"jusqu’à mi-juin 2025","missingLabel":"mi-juin à décembre 2025"}}},"biopietra":{"name":"BIOPIETRA","numberLabel":"N° Biopietra","periods":{"2025-06":{"y":2025,"m":6,"label":"Janvier à mi-juin 2025","ca":63686.76,"prev":0},"2025-12":{"y":2025,"m":12,"label":"Année 2025 — cumul disponible jusqu’à mi-juin","ca":63686.76,"prev":0,"incomplete":true,"sourceKey":"2025-06","availableThroughLabel":"jusqu’à mi-juin 2025","missingLabel":"mi-juin à décembre 2025"}}}};
 
 // Les situations sont des cumuls : l’année en cours réutilise le dernier relevé, sans l’additionner.
@@ -16,3 +17,40 @@ STATS_PERIODS['randal-pro'].periods['2026-12'] = {
   sourceKey:'2026-10', availableThroughLabel:'jusqu’au 25 octobre 2026',
   missingLabel:'du 26 octobre au 31 décembre 2026'
 };
+
+let latestElios = null;
+const frDay = new Intl.DateTimeFormat('fr-FR', {dateStyle:'long',timeZone:'UTC'});
+const eliosKey = sales => sales.dateTo.slice(0,7);
+
+export function installEliosStatsPeriod(sales) {
+  if (!sales || latestElios === sales || (latestElios && latestElios.dateTo > sales.dateTo)) return false;
+  const key = eliosKey(sales);
+  const annualKey = sales.dateTo.slice(0,4) + '-12';
+  const year = Number(sales.dateTo.slice(0,4)), month = Number(sales.dateTo.slice(5,7));
+  const through = frDay.format(new Date(sales.dateTo));
+  const incomplete = sales.dateTo !== year + '-12-31';
+  const period = {
+    y:year, m:month, label:'Cumul au ' + through, ...sales.totals,
+    dateFrom:sales.dateFrom, dateTo:sales.dateTo, previousDateTo:sales.previousDateTo, incomplete,
+  };
+  const periods = STATS_PERIODS['elios-ceramica'].periods;
+  if (latestElios && eliosKey(latestElios) !== key) delete periods[eliosKey(latestElios)];
+  delete periods[annualKey];
+  periods[key] = period;
+  const nextDay = new Date(Date.parse(sales.dateTo) + 86400000);
+  periods[annualKey] = {
+    ...period, m:12, label:incomplete ? 'Année ' + year + ' — cumul disponible au ' + through : 'Année complète ' + year,
+    ...(key !== annualKey ? {sourceKey:key} : {}),
+    availableThroughLabel:'jusqu’au ' + through,
+    missingLabel:incomplete ? 'du ' + frDay.format(nextDay) + ' au 31 décembre ' + year : '',
+  };
+  latestElios = sales;
+  return true;
+}
+
+export function eliosStatsRows(key) {
+  if (latestElios && (key === eliosKey(latestElios) || key === latestElios.dateTo.slice(0,4) + '-12')) return latestElios.rows;
+  if (key === '2026-07') return ELIOS_STATS_CLIENTS_2026_07;
+  if (key === '2026-08' || key === '2026-12') return ELIOS_STATS_CLIENTS_2026_08;
+  return [];
+}

@@ -1,13 +1,12 @@
 import './statistiques-lrf-multi.js?v=20260818-1300';
 import { db } from './firebase.js';
 import { collection, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-import { ELIOS_STATS_CLIENTS } from './statistiques-elios-data.js';
-import { VIEW_STATS_CLIENTS_2026_07 } from './statistiques-view-data.js';
+import { VIEW_STATS_CLIENTS_2026_08 } from './statistiques-view-data.js';
 import { MI_JUIN_2025_STATS } from './statistiques-mi-juin-2025-data.js';
 import { FIN_2025_STATS } from './statistiques-fin-2025-data.js';
 import { RANDAL_FIN_2025_STATS } from './statistiques-randal-fin-2025-data.js';
 import { RANDAL_STATS_2026_10_25 } from './statistiques-randal-octobre-2026-data.js';
-import { STATS_PERIODS } from './statistiques-periods.js?v=20261106-randal-oct25';
+import { STATS_PERIODS, eliosStatsRows } from './statistiques-periods.js?v=20261126-elios';
 
 const PARTNERS=[
   ['elios-ceramica','ELIOS CERAMICA'],['view-ceramica','VIEW CERAMICA'],['la-fenice','LA FENICE'],['reviglass','REVIGLASS'],['biopietra','BIOPIETRA'],['petracers',"PETRACER'S"],['pecchioli-firenze','PECCHIOLI FIRENZE'],['bulbo','BULBO'],['randal-pro','RANDAL PRO'],['floor-italia','FLOOR ITALIA'],['propamsa','PROPAMSA'],['cermed','CERMED'],['neobath','NEOBATH'],['koibath','KOIBATH'],['aquahome','AQUAHOME'],['opal','OPAL'],['bilt','BILT']
@@ -19,7 +18,7 @@ let busyUi=false;
 
 const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const norm=v=>String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\b(sarl|sasu|sas|sa|eurl|societe|etablissement|ets|sci)\b/g,'').replace(/[^a-z0-9]/g,'');
-const euro=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(Number(n||0));
+const euro=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:activePartner()==='elios-ceramica'?2:0}).format(Number(n||0));
 const pct=v=>v==null?'Nouveau':`${v>=0?'+':''}${(v*100).toFixed(1).replace('.',',')} %`;
 
 function activePartner(){return document.querySelector('.partner-tab.active')?.dataset.partner||'elios-ceramica'}
@@ -74,7 +73,7 @@ function annualRowsForPartner(partner,year){
     if((FIN_2025_STATS[partner]||[]).length)return FIN_2025_STATS[partner].map(r=>({...r,partner}));
     if((MI_JUIN_2025_STATS[partner]||[]).length)return MI_JUIN_2025_STATS[partner].map(r=>({...r,partner}));
   }
-  if(year===2026){if(partner==='elios-ceramica')return ELIOS_STATS_CLIENTS.map(r=>({...r,factory:r.elios,partner}));if(partner==='view-ceramica')return VIEW_STATS_CLIENTS_2026_07.map(r=>({...r,partner}))}
+  if(year===2026){if(partner==='elios-ceramica')return eliosStatsRows('2026-12').map(r=>({...r,factory:r.elios,partner}));if(partner==='view-ceramica')return VIEW_STATS_CLIENTS_2026_08.map(r=>({...r,partner}))}
   return [];
 }
 function annualSource(partner,year){
@@ -120,7 +119,7 @@ function milestoneOptions(partner,year){const ids=partner==='all'?PARTNERS.map(x
 function ensureSimplePeriod(){
   const bar=document.getElementById('stats-period-filters'),yearBlock=document.getElementById('stats-year')?.closest('.filter-block');if(!bar||!yearBlock)return;
   const type=document.getElementById('stats-period-type');if(type)type.closest('.filter-block').classList.add('stats-hidden-legacy');const month=document.getElementById('stats-month');if(month)month.closest('.filter-block').classList.add('stats-hidden-legacy');if(document.getElementById('stats-simple-period'))return;
-  const block=document.createElement('div');block.className='filter-block stats-simple-period-block';block.innerHTML='<label for="stats-simple-period">Période</label><select id="stats-simple-period"></select>';yearBlock.insertAdjacentElement('afterend',block);document.getElementById('stats-simple-period').addEventListener('change',applySimplePeriod);
+  const block=document.createElement('div');block.className='filter-block stats-simple-period-block';block.innerHTML='<label for="stats-simple-period">Période</label><select id="stats-simple-period" data-stats-period-source="available"></select>';yearBlock.insertAdjacentElement('afterend',block);document.getElementById('stats-simple-period').addEventListener('change',applySimplePeriod);
 }
 function rebuildSimplePeriod(){
   ensureSimplePeriod();const sel=document.getElementById('stats-simple-period');if(!sel)return;const year=selectedYear(),partner=activePartner(),milestones=milestoneOptions(partner,year),type=hiddenMode(),hiddenMonth=document.getElementById('stats-month')?.value||'';
@@ -146,6 +145,7 @@ function injectStyles(){
 function fixHeadings(){const th=document.querySelector('.stats-table th:nth-child(2)');if(th)th.textContent='N° usine';const intro=document.querySelector('.stats-intro p');if(intro)intro.textContent='Choisis un partenaire, une année et une période. Les données partielles restent incluses et sont signalées.'}
 function refreshAfterMain(){setTimeout(()=>{ensureSimplePeriod();normalizeOldAnnualMode();rebuildSimplePeriod();fixHeadings();if(hiddenMode()==='annual')renderAnnualListing()},90)}
 function init(){
+  window.addEventListener('lrf-elios-stats-updated',refreshAfterMain);
   injectStyles();ensureSimplePeriod();fixHeadings();document.addEventListener('click',e=>{if(e.target.closest('.partner-tab'))refreshAfterMain()});document.getElementById('stats-year')?.addEventListener('change',refreshAfterMain);document.getElementById('stats-period-type')?.addEventListener('change',refreshAfterMain);document.getElementById('stats-month')?.addEventListener('change',refreshAfterMain);document.getElementById('stats-range-apply')?.addEventListener('click',refreshAfterMain);document.getElementById('stats-search')?.addEventListener('input',()=>{if(hiddenMode()==='annual')setTimeout(renderAnnualListing,0)});['stats-filter','stats-owner','stats-dept'].forEach(id=>document.getElementById(id)?.addEventListener('change',()=>{if(hiddenMode()==='annual')setTimeout(renderAnnualListing,0)}));
   onSnapshot(collection(db,'clients'),snap=>{clients=[];snap.forEach(d=>clients.push({id:d.id,...d.data()}));refreshAfterMain()});refreshAfterMain();
 }
