@@ -4,15 +4,19 @@ on:
   workflow_dispatch:
     inputs:
       drive_file_id:
-        description: ID du relevé JSON privé dans Drive
-        required: true
+        description: ID du relevé JSON privé dans Drive pour l’import
+        required: false
+        type: string
+      audit_file_id:
+        description: ID de la destination JSON privée dans Drive pour l’audit
+        required: false
         type: string
       snapshot_sha256:
         description: Empreinte SHA-256 du relevé vérifié
         required: true
         type: string
       confirm_import:
-        description: Saisir IMPORTER-ELIOS pour enregistrer ce relevé dans le CRM
+        description: Saisir IMPORTER-ELIOS pour enregistrer ou AUDITER-ELIOS pour contrôler les rapprochements
         required: true
         type: string
 
@@ -25,7 +29,10 @@ concurrency:
 
 jobs:
   import:
-    if: github.ref_name == 'main' && inputs.confirm_import == 'IMPORTER-ELIOS'
+    if: >-
+      github.ref_name == 'main' &&
+      ((inputs.confirm_import == 'IMPORTER-ELIOS' && inputs.drive_file_id != '') ||
+       (inputs.confirm_import == 'AUDITER-ELIOS' && inputs.audit_file_id != '' && inputs.audit_file_id != inputs.drive_file_id))
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     environment: firebase-production
@@ -40,8 +47,10 @@ jobs:
       - uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LE_ROY_FACTORY }}'
-      - name: Enregistrer et relire le relevé privé Elios
+      - name: Enregistrer le relevé privé Elios ou auditer les rapprochements
         env:
           ELIOS_DRIVE_FILE_ID: ${{ inputs.drive_file_id }}
+          ELIOS_AUDIT_FILE_ID: ${{ inputs.audit_file_id }}
           ELIOS_SNAPSHOT_SHA256: ${{ inputs.snapshot_sha256 }}
+          ELIOS_CONFIRM_IMPORT: ${{ inputs.confirm_import }}
         run: node functions/scripts/import-elios-crm-sales.cjs

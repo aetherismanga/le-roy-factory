@@ -4,8 +4,17 @@ const {createHash} = require('node:crypto');
 
 const projectId = 'le-roy-factory';
 const salesDocument = 'parametres/statistiques-elios';
+const eliosPartner = 'elios-ceramica';
 const maxBytes = 500_000;
 const isSha256 = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
+const isFileId = value => typeof value === 'string' && /^[A-Za-z0-9_-]{20,100}$/.test(value);
+const auditNames = ['societe', 'nomSociete', 'raisonSociale', 'raison_sociale', 'enseigne', 'nomCommercial', 'nom_commercial', 'entreprise'];
+const auditClientFields = [
+  ...auditNames, 'nom', 'ville', 'city', 'codePostal', 'code_postal', 'cp', 'postalCode',
+  'archived', 'archive', 'duplicateOf', 'codeClient', 'codesLRF',
+  'codeElios', 'numeroClientElios', 'eliosCode', 'codesPartenaires', 'numerosPartenaires',
+  'codesPartenairesMulti', 'partenaires',
+];
 
 function validDate(value) {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -68,7 +77,7 @@ function validateSnapshot(data) {
 }
 
 async function downloadSnapshot(fileId, digest) {
-  if (typeof fileId !== 'string' || !/^[A-Za-z0-9_-]{20,100}$/.test(fileId) || !isSha256(digest)) {
+  if (!isFileId(fileId) || !isSha256(digest)) {
     throw Error('La référence du fichier et son empreinte sont requises.');
   }
   const {GoogleAuth} = require('google-auth-library');
@@ -112,30 +121,112 @@ async function writeSnapshot(db, snapshot, digest) {
   return status;
 }
 
-async function verifyClientCoverage(db, rows) {
+async function verifyClientCoverage(db, rows, audit = false) {
   const {reconcileEliosCrmSales} = await import('../../assets/js/elios-crm-reconciliation.mjs');
+  const clientQuery = db.collection('clients');
+  const mappingQuery = db.collection('statistiques_lrf_mappings').where('partner', '==', eliosPartner);
   const [clientDocuments, mappingDocuments] = await Promise.all([
-    db.collection('clients').get(),
-    db.collection('statistiques_lrf_mappings').where('partner', '==', 'elios-ceramica').get(),
+    (audit ? clientQuery.select(...auditClientFields) : clientQuery).get(),
+    (audit ? mappingQuery.select('partner', 'factory', 'clientId', 'codeLRF') : mappingQuery).get(),
   ]);
   const clients = clientDocuments.docs.map(doc => ({...doc.data(), id: doc.id}));
   const mappings = mappingDocuments.docs.map(doc => doc.data());
   const {byClientId, unmatched} = reconcileEliosCrmSales(rows, clients, mappings);
-  return {
+  const coverage = {
     shops: byClientId.size,
     linkedAccounts: rows.length - unmatched.length,
     unmatchedAccounts: unmatched.length,
     unmatchedWithSales: unmatched.filter(({row}) => row.ca2026 !== 0).length,
   };
+  return audit ? {coverage, unmatched, clients} : coverage;
+}
+
+function auditText(value, limit) {
+  if (typeof value === 'string' || Number.isSafeInteger(value)) return String(value).trim().slice(0, limit);
+  return '';
+}
+
+function auditValues(values, limit) {
+  return [...new Set(values.flat(Infinity).map(value => auditText(value, limit)).filter(Boolean))];
+}
+
+function clientAuditEvidence(client) {
+  const names = auditValues(auditNames.map(key => client[key]), 320);
+  const designations = names.length ? names : auditValues([client.nom], 320);
+  if (!designations.length) return null;
+  const codes = auditValues([
+    client.codeElios, client.numeroClientElios, client.eliosCode,
+    client.codesPartenaires?.[eliosPartner], client.numerosPartenaires?.[eliosPartner],
+    client.codesPartenairesMulti?.[eliosPartner],
+  ], 40);
+  const declarations = auditValues([client.partenaires], 60);
+  return {
+    id: client.id,
+    names: designations,
+    city: auditText(client.ville || client.city, 100),
+    postcode: auditText(client.codePostal || client.code_postal || client.cp || client.postalCode, 12),
+    lrf: auditValues([client.codeClient, client.codesLRF], 30),
+    elios: codes,
+    hasEliosPartner: declarations.some(name => /^elios(?:ceramica)?$/i.test(name.replace(/[^a-z0-9]/gi, ''))),
+    archived: client.archived === true || client.archive === true,
+    duplicateOf: auditText(client.duplicateOf, 250),
+  };
+}
+
+async function writePrivateAudit(fileId, report) {
+  const {GoogleAuth} = require('google-auth-library');
+  const auth = new GoogleAuth({scopes: ['https://www.googleapis.com/auth/drive']});
+  const client = await auth.getClient();
+  const {client_email: serviceEmail} = await auth.getCredentials();
+  const url = `https://www.googleapis.com/drive/v3/files/${fileId}`;
+  const [{data: metadata}, {data: sharing}] = await Promise.all([
+    client.request({url, params: {fields: 'mimeType,trashed,driveId,capabilities(canEdit)'}, timeout: 20000}),
+    client.request({url: url + '/permissions', params: {fields: 'nextPageToken,permissions(type,role,emailAddress)'}, timeout: 20000}),
+  ]);
+  if (metadata.mimeType !== 'application/json' || metadata.trashed || metadata.driveId || metadata.capabilities?.canEdit !== true
+    || !serviceEmail || sharing.nextPageToken || !Array.isArray(sharing.permissions)
+    || !sharing.permissions.some(permission => permission.type === 'user' && permission.role === 'owner')
+    || !sharing.permissions.some(permission => permission.type === 'user' && permission.role === 'writer' && permission.emailAddress === serviceEmail)
+    || sharing.permissions.some(permission => permission.type !== 'user')) {
+    throw Error('Destination d’audit privée non confirmée.');
+  }
+  const payload = JSON.stringify(report, null, 2) + '\n';
+  const md5 = createHash('md5').update(payload).digest('hex');
+  const {data: saved} = await client.request({
+    url: `https://www.googleapis.com/upload/drive/v3/files/${fileId}`,
+    method: 'PATCH', params: {uploadType: 'media', fields: 'id,md5Checksum'}, timeout: 30000,
+    headers: {'Content-Type': 'application/json'}, data: payload,
+  });
+  if (saved.id !== fileId || saved.md5Checksum !== md5) throw Error('Copie privée d’audit non confirmée.');
+}
+
+async function auditSnapshot(db, fileId, digest) {
+  if (!isFileId(fileId) || !isSha256(digest)) throw Error('Référence ou empreinte d’audit invalide.');
+  const stored = await db.doc(salesDocument).get();
+  if (!stored.exists || stored.get('snapshotSha256') !== digest) throw Error('Relevé CRM et empreinte d’audit différents.');
+  const snapshot = validateSnapshot(stored.data());
+  const {coverage, unmatched, clients} = await verifyClientCoverage(db, snapshot.rows, true);
+  const evidence = clients.map(clientAuditEvidence).filter(Boolean);
+  await writePrivateAudit(fileId, {
+    schema: 1, dateTo: snapshot.dateTo, snapshotSha256: digest,
+    coverage, clients: evidence,
+    unmatched: unmatched.map(({row, reason}) => ({elios: row.elios, name: row.name, reason})),
+  });
+  console.log(JSON.stringify({...coverage, clientEvidenceCount: evidence.length}));
 }
 
 async function main() {
   const digest = process.env.ELIOS_SNAPSHOT_SHA256;
-  const snapshot = await downloadSnapshot(process.env.ELIOS_DRIVE_FILE_ID, digest);
+  const audit = process.env.ELIOS_CONFIRM_IMPORT === 'AUDITER-ELIOS';
+  const snapshot = audit ? null : await downloadSnapshot(process.env.ELIOS_DRIVE_FILE_ID, digest);
   const admin = require('firebase-admin');
   const app = admin.initializeApp({projectId});
   try {
     const db = admin.firestore();
+    if (audit) {
+      await auditSnapshot(db, process.env.ELIOS_AUDIT_FILE_ID, digest);
+      return;
+    }
     const coverage = await verifyClientCoverage(db, snapshot.rows);
     const status = await writeSnapshot(db, snapshot, digest);
     console.log(`Relevé Elios ${status} dans le CRM et intégralement relu (${snapshot.rows.length} comptes, arrêté au ${snapshot.dateTo}).`);
@@ -146,8 +237,10 @@ async function main() {
 }
 
 if (require.main === module) main().catch(error => {
-  console.error(error.message || 'Échec de l’import Elios.');
+  console.error(process.env.ELIOS_CONFIRM_IMPORT === 'AUDITER-ELIOS'
+    ? 'Échec de l’audit privé Elios.'
+    : error.message || 'Échec de l’import Elios.');
   process.exitCode = 1;
 });
 
-module.exports = {validateSnapshot, writeSnapshot};
+module.exports = {validateSnapshot, writeSnapshot, clientAuditEvidence};
